@@ -1,0 +1,1 @@
+{'title': 'aPDR_SFT', 'date': '2022-04-28', 'time': '17:07:14', 'server': 'DESKTOP-1VU3UKG', 'os': 'Android', 'device': 'CB512E8ND9', 'version': '8.1.0', 'pass': 484, 'fail': 184, 'na': 148, 'skip': 1359, 'duration': '5:03:38'}

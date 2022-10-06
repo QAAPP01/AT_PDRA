@@ -1,0 +1,1 @@
+{'title': 'aPDR_VideoTemplateScan', 'date': '2022-04-22', 'time': '18:23:40', 'server': 'DESKTOP-1VU3UKG', 'os': 'Android', 'device': 'ENU7N15B09000259', 'version': '8.1.0', 'pass': 6, 'fail': 2, 'na': 0, 'skip': 27, 'duration': '19:18:18'}
