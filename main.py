@@ -22,7 +22,8 @@ from send_mail.send_report import send_report
 
 #device_udid = ['ENU7N15B06006012'] # Samsung S6, S7:9886274c4131324644, Oppo:a886a7e6 P6: ENU7N15B09000259, 6P black: ENU7N15B06006012
 # device_udid = ['ENU7N15B09000259'] # Samsung S6, S7:9886274c4131324644, Oppo:a886a7e6 P6: ENU7N15B09000259, 6P black: ENU7N15B06006012
-device_udid = ['CB512E8ND9']  # Sony XZP
+deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]
+device_udid = [deviceName]  # Sony XZP
 system_port_default = 8200 #for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
@@ -44,11 +45,11 @@ previous_tr_number = 'TR220629-011'              # Please update build version i
 
 # mail report
 title_project = 'aPDR'
-receiver_list = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "Nicklous_Chen@cyberlink.com"]
-# receiver_list = ["angol_huang@cyberlink.com"]
+# receiver_list = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "Nicklous_Chen@cyberlink.com"]
+receiver_list = ["hausen_lin@cyberlink.com"]
 
-script_version = 'Testing'
-# script_version = 'Debug'
+# script_version = 'Testing'
+script_version = 'Debug'
 # -----------------------------------------------------------
 
 platform_type = platform.system()

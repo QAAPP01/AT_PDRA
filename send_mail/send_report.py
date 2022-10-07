@@ -93,7 +93,7 @@ def send_report(title_project, udid_list, test_case_path, receiver_list, sr_numb
     na_count = 0
     result = '[PASS]'
 
-    opts = {'account': 'cyberlinkqamc@gmail.com', 'password': 'sngpwhxirguwlvhn',
+    opts = {'account': 'cltest.qaapp1@gmail.com', 'password': 'izjysnzxhygofgns',
     # opts = {'account': 'cyberlinkqamc@gmail.com', 'password': 'qamc-1234',
     # opts = {'account': 'cltqaappatreport@gmail.com', 'password': 'cyberlinkqa',
             'to': '', 'subject': '',
