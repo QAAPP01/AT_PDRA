@@ -29,6 +29,8 @@ class Test_SFT_Scenario_05_01:
         desired_caps = {}
         desired_caps.update(app_config.cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
+        if desired_caps['udid'] == 'auto':
+            del desired_caps['udid']
         logger(f"\n[Info] caps={desired_caps}")
         self.report = report
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
@@ -51,6 +53,8 @@ class Test_SFT_Scenario_05_01:
                 logger(e)
                 retry -= 1
 
+        self.page_main = PageFactory().get_page_object("main_page", self.driver)
+        self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.report.set_driver(self.driver)
         self.driver.start_app(pdr_package)
         self.driver.implicit_wait(1)
@@ -63,10 +67,8 @@ class Test_SFT_Scenario_05_01:
 
     # @pytest.mark.skip
     @report.exception_screenshot
-    def test_sce_05_01_01(self):
+    def test_sce_05_01(self):
 
-        page_main = PageFactory().get_page_object("main_page", self.driver)
-        page_edit = PageFactory().get_page_object("edit", self.driver)
         page_media = PageFactory().get_page_object("import_media", self.driver)
         page_effect = PageFactory().get_page_object("effect", self.driver)
         page_produce = PageFactory().get_page_object("produce", self.driver)
@@ -74,15 +76,31 @@ class Test_SFT_Scenario_05_01:
         # sce_05_01_01
         logger("\n[Start] sce_05_01_01")
         self.report.start_uuid('d0bafbda-e361-4cbf-af80-9da541351a27')
-        page_main.enter_launcher()
-        page_main.enter_timeline('sce_05_01_01')
-        result = page_edit.intro_video.enter_intro()
+        self.page_main.enter_launcher()
+        self.page_main.enter_timeline('sce_05_01')
+        result = self.page_edit.intro_video.enter_intro()
         self.report.new_result('d0bafbda-e361-4cbf-af80-9da541351a27', result)
 
         # sce_05_01_02
+        logger("\n[Start] sce_05_01_02")
         self.report.start_uuid('a110aba2-999a-4d58-85bb-cdb217d5d2e7')
-        result = page_edit.intro_video.check_intro_title()
+        result = self.page_edit.intro_video.check_intro_caption()
         self.report.new_result('a110aba2-999a-4d58-85bb-cdb217d5d2e7', result)
+
+        # # sce_05_01_04
+        # logger("\n[Start] sce_05_01_04")
+        # self.report.start_uuid('8a5cbcca-3072-45fe-ad31-5640d95b18a3')
+        # result = self.page_edit.intro_video.check_intro_caption()
+        # self.report.new_result('8a5cbcca-3072-45fe-ad31-5640d95b18a3', result)
+
+        # sce_05_01_03
+        logger("\n[Start] sce_05_01_03")
+        self.report.start_uuid('ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9')
+        result = self.page_edit.intro_video.intro_back()
+        self.report.new_result('ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9', result)
+
+
+
     #
     # @pytest.mark.skip
     # @report.exception_screenshot

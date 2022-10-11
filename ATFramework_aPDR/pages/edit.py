@@ -1342,6 +1342,10 @@ class Intro_Video(BasePage):
         caption = self.h_get_element(L.edit.intro_video.library_caption).text
         return True if caption == 'Video Intros' else False
 
+    def intro_back(self):
+        self.click(L.edit.intro_video.top_toolbar_back)
+        return self.h_is_exist(L.edit.menu.home)
+
     def enter_intro_video_library(self, timeout=10):
         logger(f'start enter_intro_video_library')
         try:
