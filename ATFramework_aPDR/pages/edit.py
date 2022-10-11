@@ -4,8 +4,8 @@ import shutil
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 from os.path import dirname
-from pages.base_page import BasePage
-from ATFramework.utils.extra import element_exist_click
+from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
 from ATFramework.utils.log import logger
 from ATFramework.utils.compare_Mac import CompareImage
 
@@ -1325,6 +1325,19 @@ class Intro_Video(BasePage):
         super().__init__(driver)
         self.driver = driver
         
+    def enter_intro(self, timeout=15):
+        try:
+            self.h_click(L.edit.intro_video.intro_video_entry)
+            if self.h_is_exist(L.edit.intro_video.top_toolbar_back):
+                logger("\n[Done] Enter Intro")
+                return True
+            else:
+                logger("\n[Fail] Enter Intro Fail")
+                return False
+        except Exception as err:
+            logger(f"\n[Error] enter_intro\n{err}")
+            return False
+
     def enter_intro_video_library(self, timeout=10):
         logger(f'start enter_intro_video_library')
         try:

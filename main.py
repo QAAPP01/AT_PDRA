@@ -21,13 +21,16 @@ sr_number = 'DRA220601-01'  # Please update build version info manually if didn'
 tr_number = 'TR220711-018'
 previous_tr_number = 'TR220629-011'  # Please update build version info manually
 
+
 # [Report Mail Setting]
+send = False
 title_project = 'aPDR'
 # receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
 #             "hausen_lin@cyberlink.com"]
 receiver = ['hausen_lin@cyberlink.com']
 # script_version = 'Testing'
 script_version = 'Debug'
+
 
 # [Device Setting]
 deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device
@@ -89,6 +92,7 @@ if __name__ == '__main__':
     print('test complete.')
 
     # mail result
-    send_report(title_project, deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number,
-                package_version, package_build_number, script_version)
-    print('send report complete.')
+    if send:
+        send_report(title_project, deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number,
+                    package_version, package_build_number, script_version)
+        print('send report complete.')

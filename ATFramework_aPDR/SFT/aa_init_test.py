@@ -1,6 +1,6 @@
-from configs import driver_config
 import subprocess
 import pytest
+
 
 class TestInit():
 
@@ -12,17 +12,15 @@ class TestInit():
         cls.report = REPORT_INSTANCE
 
     def test_report_init(self):
-        from configs import driver_config
         from .conftest import DRIVER_DESIRED_CAPS
         print('Start to init. report')
         self.report.add_ovinfo("title", "aPDR_SFT")
         self.report.add_ovinfo("os", "Android")
         self.report.add_ovinfo("device", DRIVER_DESIRED_CAPS['udid'])
-        #self.report.add_ovinfo("version", driver_config.android_device_general['platformVersion'])
         self.report.add_ovinfo("version", '9')
         self.report.add_ovinfo("duration", 'auto-fill')
 
-    #@pytest.mark.skip
+    @pytest.mark.skip
     def test_build_init(self):
         from .conftest import DRIVER_DESIRED_CAPS
         print('[test_build_init] Start to remove aPDR related project/Movies files')

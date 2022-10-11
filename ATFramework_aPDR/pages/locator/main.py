@@ -2,6 +2,7 @@ from .locator_type import *
 
 class Permission():
     gdpr_accept = id("gdpr_accept_button")
+    loading_bar = id("splashWaitingProgress")
     file_ok = id("btn_remind_ok")
     photo_allow = installer_id("permission_allow_button")
 
@@ -151,6 +152,7 @@ class Gamification():
     claim_dialog = Claim_Dialog()
     btn_check_rewards = id('btn_check_rewards')
     btn_produce_page_claim = id('check_btn')
+    check_in_later = id("later")
 
 class Premium():
     btn_premium = id('btn_premium')
@@ -160,6 +162,7 @@ class Premium():
     icon_library_lock = id('library_unit_lock')
     message = id('message')
     btn_remind_ok = id('btn_remind_ok')
+    pdr_premium = id("header_pdr_premium")
 
 #=======================================
 class Interface():

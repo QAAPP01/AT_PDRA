@@ -2,6 +2,21 @@ from SFT.conftest import PACKAGE_NAME
 import os
 root_path = os.path.dirname(os.path.dirname(__file__))
 
+cap = {
+    "deviceName": "Android",
+    "platformName": "Android",
+    "automationName": "UiAutomator2",
+    "settings[waitForIdleTimeout]": 10,
+    "newCommandTimeout": 10000,
+    "appPackage": "com.cyberlink.powerdirector.DRA140225_01",
+    "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
+    "language": "en",
+    "locale": "US",
+    'autoGrantPermissions': True,
+    "noReset": True,
+    "autoLaunch": False,
+    'noSign': True
+}
 
 prod_cap = {
     "platformName": "Android",

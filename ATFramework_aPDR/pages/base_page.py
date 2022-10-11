@@ -2,6 +2,9 @@
 import time, os
 import cv2
 from os.path import dirname
+
+from selenium.common import TimeoutException
+
 from .ad import Ad
 from ATFramework.pages.base_page import *
 from .locator import locator as L
@@ -479,3 +482,28 @@ class BasePage(BasePage):
         except Exception:
             logger("Exception occurs")
             raise Exception
+
+    def h_get_element(self, locator, timeout=5):
+        try:
+            element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            return element
+        except TimeoutException:
+            print(f"[No found] {locator}")
+            return False
+
+    def h_click(self, locator, timeout=5):
+        element = self.h_get_element(locator, timeout)
+        if element is False:
+            return False
+        element.click()
+        return True
+
+    def h_is_exist(self, locator, timeout=5):
+        start = time.time()
+        try:
+            WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            logger(f"[Found ({round(time.time()-start, 2)})] {locator}")
+            return True
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
