@@ -78,11 +78,11 @@ class Test_SFT_Scenario_05_01:
         page_main.enter_timeline('sce_05_01_01')
         result = page_edit.intro_video.enter_intro()
         self.report.new_result('d0bafbda-e361-4cbf-af80-9da541351a27', result)
-    #
-    #     self.report.start_uuid('a110aba2-999a-4d58-85bb-cdb217d5d2e7')
-    #     caption_text = page_edit.el(L.edit.intro_video.library_caption).text
-    #     result = True if caption_text == 'Video Intros' else False
-    #     self.report.new_result('a110aba2-999a-4d58-85bb-cdb217d5d2e7', result)
+
+        # sce_05_01_02
+        self.report.start_uuid('a110aba2-999a-4d58-85bb-cdb217d5d2e7')
+        result = page_edit.intro_video.check_intro_title()
+        self.report.new_result('a110aba2-999a-4d58-85bb-cdb217d5d2e7', result)
     #
     # @pytest.mark.skip
     # @report.exception_screenshot

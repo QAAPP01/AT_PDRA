@@ -31,7 +31,7 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.permission.photo_allow, 2)
 
     def enter_launcher(self):
-        logger("\n[Start] enter_launcher")
+        # logger("\n[Start] enter_launcher")
         try:
             # 1st Launch
             if self.h_click(L.permission.gdpr_accept, timeout=1):
