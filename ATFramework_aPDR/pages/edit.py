@@ -1342,12 +1342,95 @@ class Intro_Video(BasePage):
         caption = self.h_get_element(L.edit.intro_video.library_caption).text
         return True if caption == 'Video Intros' else False
 
+    def check_intro_search(self):
+        self.h_click(L.edit.intro_video.search_button)
+        text = self.h_get_element(L.edit.intro_video.search_text).text
+        self.click(L.edit.intro_video.top_toolbar_back)
+        return True if text == 'Search' else False
+
+    def intro_tutorial(self):
+        self.h_click(L.edit.intro_video.top_toolbar_tutorial)
+        text = self.h_get_element(L.edit.intro_video.youtube_title).text
+        self.driver.driver.back()
+        return True if text == 'Best Intro Video Maker for Beginners (iOS & Android)' else False
+
+    def intro_profile(self):
+        self.h_click(L.edit.intro_video.top_toolbar_account)
+        self.log_in()
+        if self.h_is_exist(L.edit.intro_video.profile_page):
+            self.driver.driver.back()
+            return True
+        else:
+            logger("\n[Fail] Cannot find profile page")
+            return False
+
+    def log_in(self):
+        try:
+            if self.h_is_exist(L.main.cse.login_page, 2):
+                account = 'cyberhausen@gmail.com'
+                pw = '000000'
+                self.set_text(L.main.cse.email_field, account)
+                self.set_text(L.main.cse.password_field, pw)
+                self.h_click(L.main.cse.btn_login)
+                if self.h_is_exist(L.main.cse.incorrect, 1):
+                    logger("\n[Fail] Account or password incorrect")
+                    self.h_click(L.main.cse.login_back)
+                    return False
+                return True
+            else:
+                logger("\n[No found] Cannot find login page")
+                return False
+        except Exception as err:
+            logger(f"\n[Error] {err}")
+
+    def my_favorite(self):
+        if self.h_get_element(L.edit.intro_video.intro_category).text != 'My Favorites':
+            logger("[Fail] My Favorites is not the first category")
+            return False
+        else:
+            return True
+
+    def tap_category(self):
+        if self.h_click(L.edit.intro_video.intro_category):
+            return self.h_get_element(L.edit.intro_video.intro_category).is_selected()
+        else:
+            logger("[Fail] tap_category fail")
+            return False
+
+    def check_scroll_category(self):
+        self.page_edit.intro_video.enter_intro()
+        while not self.h_is_exist(L.edit.intro_video.intro_category):
+            continue
+        category = self.els(L.edit.intro_video.intro_category)
+        text = category[len(category) - 1].text
+        self.swipe_element(category[len(category) - 1], category[0])
+        if self.h_get_element(L.edit.intro_video.intro_category).text == text:
+            return True
+        else:
+            logger(f"[Fail] check_scroll_category fail")
+            return False
+
+    def check_category(self):
+        get_category = []
+        while 1:
+            while not self.h_is_exist(L.edit.intro_video.intro_category):
+                continue
+            category = self.els(L.edit.intro_video.intro_category)
+            if category[len(category)-1].text in get_category:
+                break
+            else:
+                for i in range(len(category)):
+                    if category[i].text not in get_category:
+                        get_category.append(category[i].text)
+            self.swipe_element(category[len(category)-1], category[0])
+        return get_category
+
     def intro_back(self):
         self.click(L.edit.intro_video.top_toolbar_back)
         return self.h_is_exist(L.edit.menu.home)
 
     def enter_intro_video_library(self, timeout=10):
-        logger(f'start enter_intro_video_library')
+        logger(f"start enter_intro_video_library")
         try:
             self.el(L.edit.intro_video.intro_video_entry).click()
             time.sleep(3)

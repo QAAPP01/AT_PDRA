@@ -23,7 +23,7 @@ previous_tr_number = 'TR220629-011'  # Please update build version info manually
 
 
 # [Report Mail Setting]
-send = False
+send = True
 title_project = 'aPDR'
 # receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
 #             "hausen_lin@cyberlink.com"]

@@ -34,15 +34,15 @@ class MainPage(BasePage):
         # logger("\n[Start] enter_launcher")
         try:
             # 1st Launch
-            if self.h_click(L.permission.gdpr_accept, timeout=1):
+            if self.h_click(L.permission.gdpr_accept, timeout=0.5):
                 # logger("\n[Info] 1st Launch")
                 if self.h_is_exist(L.permission.loading_bar):
                     # Loading
-                    while self.h_is_exist(L.permission.loading_bar, timeout=1):
+                    while self.h_is_exist(L.permission.loading_bar, timeout=0.5):
                         continue
 
                     # IAP
-                    self.h_click(L.premium.iap_back, timeout=1)
+                    self.h_click(L.premium.iap_back)
 
                     # Done
                     logger("\n[Done] Enter Launcher")
@@ -56,15 +56,15 @@ class MainPage(BasePage):
                 if self.h_is_exist(L.permission.loading_bar, timeout=0.5):
                     # logger("\n[Info] Loading")
                     # Loading
-                    while self.h_is_exist(L.permission.loading_bar, timeout=1):
+                    while self.h_is_exist(L.permission.loading_bar, timeout=0.5):
                         continue
 
                 # 2nd Launch
-                if self.h_click(L.tutorials.close_open_tutorial, timeout=1):
+                if self.h_click(L.tutorials.close_open_tutorial, timeout=0.5):
                     # logger("\n[Info] 2nd Launch")
 
                     # IAP
-                    self.h_click(L.premium.iap_back, timeout=1)
+                    self.h_click(L.premium.iap_back)
 
                     # Done
                     logger("\n[Done] Enter Launcher")
@@ -75,14 +75,14 @@ class MainPage(BasePage):
                     # logger("\n[Info] 3rd Launch")
 
                     # IAP
-                    if self.h_click(L.premium.iap_back, timeout=1):
+                    if self.h_click(L.premium.iap_back, timeout=0.5):
                         pass
                     # else:
                         # logger("\n[Skip] IAP")
 
                     # Churn Recovery
-                    if self.h_is_exist(L.premium.pdr_premium, timeout=1):
-                        self.driver.back()
+                    if self.h_is_exist(L.premium.pdr_premium, timeout=0.5):
+                        self.driver.driver.back()
                         # Done
                         logger("\n[Done] Enter Launcher")
                         return True
@@ -90,7 +90,7 @@ class MainPage(BasePage):
                         # logger("\n[Skip] Churn Recovery")
 
                     # Check in
-                    if self.h_click(L.gamification.check_in_later, timeout=1):
+                    if self.h_click(L.gamification.check_in_later, timeout=0.5):
                         # Done
                         logger("\n[Done] Enter Launcher")
                         return True

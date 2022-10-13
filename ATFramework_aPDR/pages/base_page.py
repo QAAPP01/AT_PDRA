@@ -4,12 +4,16 @@ import cv2
 from os.path import dirname
 
 from selenium.common import TimeoutException
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 from .ad import Ad
 from ATFramework.pages.base_page import *
 from .locator import locator as L
 from .locator.locator_type import *
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.log import logger
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from SFT.conftest import PACKAGE_NAME
@@ -484,11 +488,13 @@ class BasePage(BasePage):
             raise Exception
 
     def h_get_element(self, locator, timeout=5):
+        start = time.time()
         try:
             element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
             return element
         except TimeoutException:
-            print(f"[No found] {locator}")
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
 
     def h_click(self, locator, timeout=5):
@@ -502,8 +508,47 @@ class BasePage(BasePage):
         start = time.time()
         try:
             WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
-            logger(f"[Found ({round(time.time()-start, 2)})] {locator}")
+            # logger(f"[Found ({round(time.time()-start, 2)})] {locator}")
             return True
         except TimeoutException:
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
+
+    # ==================================================================================================================
+    # Function: swipe_element
+    # Description: Swipe from element_B to element_A
+    # Parameters: element (returned from get_element, not locator), speed (1 is fastest)
+    # Return: True/False
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def swipe_element(self, element_b, element_a, speed=10):
+        try:
+            if speed < 1:
+                speed = 1
+            element_b_rect = element_b.rect
+            start_x = element_b_rect['x']
+            start_y = element_b_rect['y']
+            element_a_rect = element_a.rect
+            end_x = element_a_rect['x']
+            end_y = element_a_rect['y']
+
+            x_offset = (start_x - end_x) / speed
+            y_offset = (start_y - end_y) / speed
+
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+
+            for i in range(speed):
+                start_x = int(start_x - x_offset)
+                start_y = int(start_y - y_offset)
+                actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+

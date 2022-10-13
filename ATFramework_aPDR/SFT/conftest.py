@@ -2,8 +2,8 @@ import pytest
 import sys
 from os.path import dirname as dir
 sys.path.insert(0,(dir(dir(dir(__file__)))))
-from ATFramework.utils import MyReport
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils import MyReport
+from ATFramework_aPDR.ATFramework.utils.log import logger
 import main
 
 DRIVER_DESIRED_CAPS = ''
