@@ -1,33 +1,40 @@
-import sys,time
+import sys, time
 import os
 import shutil
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 from os.path import dirname
+
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
+
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
-from ATFramework.utils.log import logger
-from ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 
 from .locator import locator as L
 from .locator.locator_type import *
 from .locator.locator import edit as E
 
-from SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
+
 
 class Sub_item():
-    def __init__(self,driver,item):
+    def __init__(self, driver, item):
         dict_max = {
-            "Brightness" : 200,
-            "Contrast" : 200,
-            "Saturation" : 200,
-            "Hue" : 200,
-            "Skin Brightness" : 60,
-            "Opacity" : 100,
+            "Brightness": 200,
+            "Contrast": 200,
+            "Saturation": 200,
+            "Hue": 200,
+            "Skin Brightness": 60,
+            "Opacity": 100,
         }
         self.driver = driver
         self.item = item
-        self.max = dict_max.get(item,100)
+        self.max = dict_max.get(item, 100)
         self.el = lambda id: driver.find_element(id[0], id[1])
         self.els = lambda id: driver.find_elements(id[0], id[1])
 
@@ -47,13 +54,13 @@ class Sub_item():
                 for frame in frames:
                     logger("find string: %s" % str(find_string(self.item)))
                     try:
-                        if  frame.find_element(*L.edit.color_sub.adjust_sub.progress):
+                        if frame.find_element(*L.edit.color_sub.adjust_sub.progress):
                             logger("string found!")
                             self.elem_number = frame.find_element(*L.edit.color_sub.adjust_sub.number)
                             self.elem_progress = frame.find_element(*L.edit.color_sub.adjust_sub.progress)
                             is_found = True
                             logger("exit for now")
-                            break   # break for loop if found the number & progress
+                            break  # break for loop if found the number & progress
                         else:
                             logger('Name: [%s] is not found' % self.item)
                     except:
@@ -61,65 +68,74 @@ class Sub_item():
                 for frame in frames_chroma:
                     logger("find string: %s" % str(find_string(self.item)))
                     try:
-                        if  frame.find_element(*L.edit.color_sub.chromakey_sub.progress):
+                        if frame.find_element(*L.edit.color_sub.chromakey_sub.progress):
                             logger("string found!")
                             self.elem_number = frame.find_element(*L.edit.color_sub.chromakey_sub.number)
                             self.elem_progress = frame.find_element(*L.edit.color_sub.chromakey_sub.progress)
                             is_found = True
                             logger("exit for now")
-                            break   # break for loop if found the number & progress
+                            break  # break for loop if found the number & progress
                         else:
                             logger('Name: [%s] is not found' % self.item)
                     except:
-                        logger("number/progress  is not found")                                
+                        logger("number/progress  is not found")
                 if is_found:
                     logger("exit while now")
-                    break # break while if no exception
+                    break  # break while if no exception
                 else:
                     logger("string/number/progress is not found.")
                     raise
             except:
-                logger('"%s" is not found! Swipe up and try again! %d'% (str(L.edit.color_sub.adjust_sub.frames),retry))
-                w,h = self.driver.get_window_size().values()
-                self.driver.swipe( w*0.5, h*0.8, w*0.5, h*0.5)
+                logger(
+                    '"%s" is not found! Swipe up and try again! %d' % (str(L.edit.color_sub.adjust_sub.frames), retry))
+                w, h = self.driver.get_window_size().values()
+                self.driver.swipe(w * 0.5, h * 0.8, w * 0.5, h * 0.5)
                 retry -= 1
-        
+
         self.driver.implicitly_wait(implicitly_previous)
         return
+
     def set_slider(self, slider, percentage):
         start_x = slider.location["x"]
         start_y = slider.location["y"]
         end_y = start_y + (percentage * slider.size["height"])  # slider is vertical in new UI
         actions = TouchAction(self.driver)
-        actions.press(x=start_x,y= start_y) \
-        .wait(ms=100) \
-        .move_to(x=start_x, y=end_y) \
-        .release().perform()
-    def set_number(self,number):
+        actions.press(x=start_x, y=start_y) \
+            .wait(ms=100) \
+            .move_to(x=start_x, y=end_y) \
+            .release().perform()
+
+    def set_number(self, number):
         logger("set_number : %s" % number)
         self.update()
         self.elem_number.click()
         self.elem_number.send_keys(str(number))
         time.sleep(1)
         self.driver.back()
-    def set_progress(self,percentage):
+
+    def set_progress(self, percentage):
         logger("set_progress : %s" % percentage)
         self.update()
-        self.elem_progress.set_text(percentage*self.max)
+        self.elem_progress.set_text(percentage * self.max)
+
     def get_number(self):
         self.update()
         return self.elem_number.text
+
     def get_progress(self):
         self.update()
         return self.elem_progress.text
-    def is_number(self,number):
+
+    def is_number(self, number):
         self.update()
-        logger("%s / %s / %s"  % (number,self.elem_number.text,float(self.elem_number.text) == number))
+        logger("%s / %s / %s" % (number, self.elem_number.text, float(self.elem_number.text) == number))
         return float(self.elem_number.text) == number
-    def is_progress(self,percentage):
+
+    def is_progress(self, percentage):
         self.update()
-        logger("%s / %s / %s"  % ((percentage*self.max),self.elem_progress.text,float(self.elem_progress.text) == (percentage*self.max)))
-        return float(self.elem_progress.text) == (percentage*self.max)
+        logger("%s / %s / %s" % (
+        (percentage * self.max), self.elem_progress.text, float(self.elem_progress.text) == (percentage * self.max)))
+        return float(self.elem_progress.text) == (percentage * self.max)
 
 
 class Audio_Denoise_Sub_item(Sub_item):
@@ -127,22 +143,23 @@ class Audio_Denoise_Sub_item(Sub_item):
         super(Audio_Denoise_Sub_item, self).__init__(driver, item)
         self.max = item_max
 
+
 class Audio_Denoise():
-    def __init__(self,driver):
+    def __init__(self, driver):
         self.el = lambda id: driver.find_element(id[0], id[1])
         self.els = lambda id: driver.find_elements(id[0], id[1])
         self.driver = driver
-        self.strength = Audio_Denoise_Sub_item(driver,"Strength", 100)
+        self.strength = Audio_Denoise_Sub_item(driver, "Strength", 100)
 
     def get_strength_value(self):
         try:
             element = self.el(L.edit.audio_denoise.denoise_value)
             logger(f'value = {element.text}')
-            return element.text 
+            return element.text
         except Exception:
             logger("exception occurs")
             raise Exception
-    
+
     def set_slider(self, percentage):
         try:
             slider = self.el(L.edit.audio_denoise.slider)
@@ -150,28 +167,32 @@ class Audio_Denoise():
             start_y = slider.location["y"]
             end_y = start_y + (percentage * slider.size["height"])  # slider is vertical in new UI
             actions = TouchAction(self.driver)
-            actions.press(x=start_x,y= start_y) \
-            .wait(ms=100) \
-            .move_to(x=start_x, y=end_y) \
-            .release().perform()
+            actions.press(x=start_x, y=start_y) \
+                .wait(ms=100) \
+                .move_to(x=start_x, y=end_y) \
+                .release().perform()
         except Exception:
             logger("exception occurs")
             raise Exception
-        
+
+
 class Different_fx_Sub_item(Sub_item):
     def __init__(self, driver, item, item_max):
         super(Different_fx_Sub_item, self).__init__(driver, item)
         self.max = item_max
 
+
 class Sharpness_Sub_item(Sub_item):
     def __init__(self, driver, item, item_max):
         super(Sharpness_Sub_item, self).__init__(driver, item)
         self.max = item_max
-        
+
+
 class Opacity_Sub_item(Sub_item):
     def __init__(self, driver, item, item_max):
         super(Opacity_Sub_item, self).__init__(driver, item)
         self.max = item_max
+
 
 class ChromaKey_Sub_item(Sub_item):
     def __init__(self, driver, item, item_max):
@@ -182,20 +203,24 @@ class ChromaKey_Sub_item(Sub_item):
         self.update()
         return True if self.elem_number.get_attribute('enabled') == 'true' else False
 
+
 class Color():
-    def __init__(self,driver):
+    def __init__(self, driver):
         class Adjust():
-            def __init__(self,driver):
-                self.brightness = Sub_item(driver,"Brightness")
-                self.contrast = Sub_item(driver,"Contrast")
-                self.saturation = Sub_item(driver,"Saturation")
-                self.hue = Sub_item(driver,"Hue")
+            def __init__(self, driver):
+                self.brightness = Sub_item(driver, "Brightness")
+                self.contrast = Sub_item(driver, "Contrast")
+                self.saturation = Sub_item(driver, "Saturation")
+                self.hue = Sub_item(driver, "Hue")
+
         class White_balance():
-            def __init__(self,driver):
-                self.color_temperature = Sub_item(driver,"Color Temperature")
-                self.tint = Sub_item(driver,"Tint")
+            def __init__(self, driver):
+                self.color_temperature = Sub_item(driver, "Color Temperature")
+                self.tint = Sub_item(driver, "Tint")
+
         self.adjust = Adjust(driver)
         self.white_balance = White_balance(driver)
+
 
 class Color_Selector():
     def __init__(self, driver):
@@ -247,7 +272,7 @@ class Color_Selector():
             logger("exception occurs")
             raise Exception
         return True
-    
+
     def set_hue_slider(self, value):
         logger("start >> set_hue_slider <<")
         try:
@@ -256,8 +281,8 @@ class Color_Selector():
         except Exception:
             logger("exception occurs")
             raise Exception
-        return True      
-    
+        return True
+
     def set_saturation_slider(self, value):
         logger("start >> set_saturation_slider <<")
         try:
@@ -266,36 +291,41 @@ class Color_Selector():
         except Exception:
             logger("exception occurs")
             raise Exception
-        return True    
-        
+        return True
+
 
 class Skin_smoothener():
-    def __init__(self,driver):
-        self.skin_brightness = Sub_item(driver,"Skin Brightness")
-        self.skin_smoothness = Sub_item(driver,"Skin Smoothness")
+    def __init__(self, driver):
+        self.skin_brightness = Sub_item(driver, "Skin Brightness")
+        self.skin_smoothness = Sub_item(driver, "Skin Smoothness")
+
 
 class Different_fx():
-    def __init__(self,driver):
-        self.beating_frequency = Different_fx_Sub_item(driver,"Frequency", 35)
-        self.beating_strength = Different_fx_Sub_item(driver,"Strength", 40)
-        self.bloom_sample_weight = Different_fx_Sub_item(driver,"Sample Weight", 200)
-        self.bloom_light_number = Different_fx_Sub_item(driver,"Light Number", 2)
+    def __init__(self, driver):
+        self.beating_frequency = Different_fx_Sub_item(driver, "Frequency", 35)
+        self.beating_strength = Different_fx_Sub_item(driver, "Strength", 40)
+        self.bloom_sample_weight = Different_fx_Sub_item(driver, "Sample Weight", 200)
+        self.bloom_light_number = Different_fx_Sub_item(driver, "Light Number", 2)
         self.bloom_angle = Different_fx_Sub_item(driver, "Angle", 200)
         self.black_and_white_degree = Different_fx_Sub_item(driver, "Degree", 200)
 
+
 class Sharpness_effect():
-    def __init__(self,driver):
-        self.sharpness = Sharpness_Sub_item(driver,"Sharpness", 200)
+    def __init__(self, driver):
+        self.sharpness = Sharpness_Sub_item(driver, "Sharpness", 200)
+
 
 class Chroma_Key():
-    def __init__(self,driver):
-        self.color_range = ChromaKey_Sub_item(driver,"Color Range", 200)
-        self.denoise = ChromaKey_Sub_item(driver,"Denoise", 200)
+    def __init__(self, driver):
+        self.color_range = ChromaKey_Sub_item(driver, "Color Range", 200)
+        self.denoise = ChromaKey_Sub_item(driver, "Denoise", 200)
+
 
 class Opacity_effect():
-    def __init__(self,driver):
-        self.opacity = Opacity_Sub_item(driver,"Opacity", 100)
-        
+    def __init__(self, driver):
+        self.opacity = Opacity_Sub_item(driver, "Opacity", 100)
+
+
 class Speed():
     def __init__(self, driver):
         self.el = lambda id: driver.find_element(id[0], id[1])
@@ -421,14 +451,14 @@ class Title_Designer(BasePage):
             raise Exception
         return True
 
-    def set_font_by_index(self, index=1, entry = 'designer'):
+    def set_font_by_index(self, index=1, entry='designer'):
         logger("start >> set_font_by_index <<")
         logger(f'index={index}')
         try:
             if entry == 'designer':
                 self.el(L.edit.title_designer.btn_font).click()
                 time.sleep(5)
-            
+
             elements = self.els(L.edit.title_designer.font_item)
 
             if len(elements) == 0:
@@ -447,7 +477,7 @@ class Title_Designer(BasePage):
         try:
             self.el(L.edit.title_designer.btn_font).click()
             time.sleep(5)
-            #swipe list to bottom first
+            # swipe list to bottom first
             if swipe_to_bottom == 'Yes':
                 logger("swipe list to bottom")
                 for times in range(70):
@@ -524,7 +554,7 @@ class Title_Designer(BasePage):
             logger("exception occurs")
             raise Exception
         return True
-        
+
     def download_font(self, timeout=120):
         logger("start >> download_font <<")
         # self.el(L.edit.title_designer.btn_font).click()
@@ -535,9 +565,9 @@ class Title_Designer(BasePage):
             self.driver.swipe_element(L.edit.title_designer.font_list_body, 'up', 300)
         element = self.el(L.edit.title_designer.font_download_btn)
         element.click()
-        
+
         is_complete = 0
-        for retry in range(timeout-2):
+        for retry in range(timeout - 2):
             if not self.is_exist(L.edit.title_designer.font_download_btn, 1):
                 is_complete = 1
                 break
@@ -570,7 +600,7 @@ class Title_Designer(BasePage):
         element.click()
 
         is_complete = 0
-        for retry in range(timeout-2):
+        for retry in range(timeout - 2):
             if not self.is_exist(L.edit.title_designer.font_download_btn, 1):
                 is_complete = 1
                 break
@@ -749,13 +779,13 @@ class Pan_Zoom():
         start_position = self.el(L.edit.pan_zoom_effect.custom_motion_start)
         end_position = self.el(L.edit.pan_zoom_effect.custom_motion_end)
         try:
-            #set start position
-            x_axis_center = int(start_position.rect['x'] + start_position.rect['width']/2)
-            y_axis_center = int(start_position.rect['y'] + start_position.rect['height']/2)
+            # set start position
+            x_axis_center = int(start_position.rect['x'] + start_position.rect['width'] / 2)
+            y_axis_center = int(start_position.rect['y'] + start_position.rect['height'] / 2)
             TouchAction(self.driver).press(None, x_axis_center, y_axis_center).wait(1000).move_to(None,
                                                                                                   x_axis_center + 200,
                                                                                                   y_axis_center).release().perform()
-            #set end position
+            # set end position
             x_axis_center = int(end_position.rect['x'] + end_position.rect['width'] / 2)
             y_axis_center = int(end_position.rect['y'] + end_position.rect['height'] / 2)
             TouchAction(self.driver).press(None, x_axis_center, y_axis_center).wait(1000).move_to(None,
@@ -765,6 +795,7 @@ class Pan_Zoom():
             logger("exception occurs")
             raise Exception
         return True
+
 
 class Transition():
     def __init__(self, driver):
@@ -781,15 +812,16 @@ class Transition():
             if txt_duration != f'{expect_duration} s':
                 logger(f'enter set duration - current:{txt_duration}')
                 el_slider = self.el(L.timeline_settings.default_transition_duration.slider)
-                el_slider.set_text(str(float(expect_duration)*10-1))
-                txt_duration = self.el(L.timeline_settings.default_transition_duration.txt_duration).get_attribute('text')
+                el_slider.set_text(str(float(expect_duration) * 10 - 1))
+                txt_duration = self.el(L.timeline_settings.default_transition_duration.txt_duration).get_attribute(
+                    'text')
                 if txt_duration != f'{expect_duration} s':
                     logger(f"Fail to set duration as {expect_duration} s, current duration is {txt_duration}")
                     raise Exception
             if (apply_to_all == 1 and self.el(L.edit.transition.apply_to_all).get_attribute(
                     'checked') == 'false') or (
                     apply_to_all == 0 and self.el(L.edit.transition.apply_to_all).get_attribute(
-                    'checked') == 'true'):
+                'checked') == 'true'):
                 logger("enable apply to all")
                 self.el(L.edit.transition.apply_to_all).click()
             # self.el(L.timeline_settings.default_transition_duration.ok).click()
@@ -797,6 +829,7 @@ class Transition():
             logger("Exception occurs")
             raise Exception
         return True
+
 
 class Fade():
     def __init__(self, driver):
@@ -840,10 +873,19 @@ class Fade():
             raise Exception
         return True
 
+
 class Settings(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
+
+    def enable_fileName(self):
+        self.h_click(L.edit.menu.settings)
+        self.h_click(L.edit.sub_menu.settings)
+        self.h_click(L.timeline_settings.settings.advanced_setting)
+        if self.h_get_element(L.timeline_settings.settings.display_file_name_switch).get_attribute(
+                'checked') == 'false':
+            self.h_click(L.timeline_settings.settings.display_file_name_switch)
 
     def swipe_to_option(self, option):
         logger("start >> swipe_to_option <<")
@@ -895,13 +937,14 @@ class Settings(BasePage):
             logger("Exception occurs")
             raise Exception
         return model
-        
+
+
 class Keyframe(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-    
-    def get_transform_keyframe_value(self): # return x, y, scale, rotation
+
+    def get_transform_keyframe_value(self):  # return x, y, scale, rotation
         logger("start >> check_transform_keyframe_value <<")
         try:
             x = self.el(L.edit.keyframe.transform_keyframe.text_x).text
@@ -914,32 +957,32 @@ class Keyframe(BasePage):
             logger("Exception occurs")
             raise Exception
         return x, y, scale, rotation
-        
+
     def add_remove_keyframe(self):
         logger("start >> add_remove_keyframe <<")
         pic_old = self.driver.save_pic(self.el(L.edit.timeline.trim_indicator))
         self.click(L.edit.keyframe.btn_keyframe)
-        time.sleep(3)    # to wait device to apply effect
-        pic_new = self.driver.save_pic(self.el(L.edit.timeline.trim_indicator))       
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        time.sleep(3)  # to wait device to apply effect
+        pic_new = self.driver.save_pic(self.el(L.edit.timeline.trim_indicator))
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
-    
+
     def get_keyframe_pic(self):
         logger("start >> get_keyframe_pic <<")
         return self.driver.save_pic(self.el(L.edit.timeline.trim_indicator))
-        
+
     def get_add_keyframe_btn_status(self):  # return False if button is grayed out
         logger("start >> get_add_keyframe_btn_status <<")
-        if  self.el(L.edit.keyframe.btn_keyframe_img).get_attribute('enabled') == 'true':
+        if self.el(L.edit.keyframe.btn_keyframe_img).get_attribute('enabled') == 'true':
             return True
         else:
             return False
-    
-    def longpress_keyframe(self, target = 'remove'):
+
+    def longpress_keyframe(self, target='remove'):
         logger(f'start >> longpress_keyframe <<, target = {target}')
         el_keyframe = self.el(L.edit.keyframe.btn_keyframe)
-        x_center = int(el_keyframe.rect['x'] + el_keyframe.rect['width']/2)
+        x_center = int(el_keyframe.rect['x'] + el_keyframe.rect['width'] / 2)
         y_center = int(el_keyframe.rect['y'] + el_keyframe.rect['height'] / 2)
         TouchAction(self.driver.driver).press(None, x_center, y_center).wait(2500).release().perform()
         time.sleep(1)
@@ -950,6 +993,7 @@ class Keyframe(BasePage):
         elif target == 'next':
             locator = L.edit.keyframe.duplicate_next
         self.click(locator)
+
 
 class Fit_and_Fill(BasePage):
     def __init__(self, driver):
@@ -963,7 +1007,7 @@ class Fit_and_Fill(BasePage):
             self.click(L.edit.fit_and_fill.btn_fit)
             time.sleep(5)
             canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-            compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+            compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
             is_changed = True if not compare_result or compare_result == 100 else False
         except Exception:
             logger('apply_fit fail')
@@ -977,13 +1021,13 @@ class Fit_and_Fill(BasePage):
             self.click(L.edit.fit_and_fill.btn_fill)
             time.sleep(5)
             canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-            compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+            compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
             is_changed = True if not compare_result or compare_result == 100 else False
         except Exception:
             logger('apply_fill fail')
             raise Exception
         return is_changed
-    
+
     def zoom_preview(self):
         logger(f"start zoom_preview")
         try:
@@ -991,13 +1035,13 @@ class Fit_and_Fill(BasePage):
             self.driver.zoom(L.edit.preview.movie_view)
             time.sleep(5)
             canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-            compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+            compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
             is_changed = True if not compare_result or compare_result == 100 else False
         except Exception:
             logger('zoom_preview fail')
             raise Exception
         return is_changed
-    
+
     def enter_background(self):
         logger(f"start enter_background")
         try:
@@ -1005,7 +1049,7 @@ class Fit_and_Fill(BasePage):
             time.sleep(5)
             if self.is_exist(L.edit.fit_and_fill.btn_none, 2):
                 return True
-            else: 
+            else:
                 return False
         except Exception:
             logger('enter_background fail')
@@ -1019,24 +1063,24 @@ class Fit_and_Fill(BasePage):
             start_y = slider.location["y"]
             end_y = start_y + (percentage * slider.size["height"])  # slider is vertical in new UI
             actions = TouchAction(self.driver.driver)
-            actions.press(x=start_x,y= start_y) \
-            .wait(ms=100) \
-            .move_to(x=start_x, y=end_y) \
-            .release().perform()
+            actions.press(x=start_x, y=start_y) \
+                .wait(ms=100) \
+                .move_to(x=start_x, y=end_y) \
+                .release().perform()
             time.sleep(5)
             canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-            compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+            compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
             is_changed = True if not compare_result or compare_result == 100 else False
         except Exception:
             logger("exception occurs")
             raise Exception
         return is_changed
-        
+
     def get_value(self):
         try:
             element = self.el(L.edit.fit_and_fill.blur_text)
             logger(f'value = {element.text}')
-            return element.text 
+            return element.text
         except Exception:
             logger("exception occurs")
             raise Exception
@@ -1046,50 +1090,48 @@ class Fit_and_Fill(BasePage):
         canvas_old = self.driver.save_pic(self.el(L.edit.preview.movie_view))
         for retry in range(int(swipe_times)):
             self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'left', 400)
-            time.sleep(1)   
+            time.sleep(1)
         frame = self.el(L.edit.edit_sub.bottom_edit_menu)
         element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"card_color")])[{order}]')
         element.click()
         time.sleep(5)
         canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-        compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+        compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
-    
     def select_color_by_colorpicker(self):
         logger("start select_color_by_colorpicker")
         canvas_old = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-        #elm = self.el(L.edit.edit_sub.bottom_edit_menu)
-        #locator = L.edit.fit_and_fill.color_picker
+        # elm = self.el(L.edit.edit_sub.bottom_edit_menu)
+        # locator = L.edit.fit_and_fill.color_picker
         for retry in range(10):
-            if  self.is_exist(L.edit.fit_and_fill.color_picker):
+            if self.is_exist(L.edit.fit_and_fill.color_picker):
                 self.el(L.edit.fit_and_fill.color_picker).click()
                 break
-            else:            
+            else:
                 self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'right', 400)
-                time.sleep(1)   
+                time.sleep(1)
         time.sleep(5)
         self.el(L.edit.preview.movie_view).click()
         time.sleep(5)
         canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-        compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+        compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
-    
 
     def select_pattern_by_order(self, order, swipe_times=0):
         logger("start select_pattern_by_order")
         canvas_old = self.driver.save_pic(self.el(L.edit.preview.movie_view))
         for retry in range(int(swipe_times)):
             self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'left', 400)
-            time.sleep(1)   
+            time.sleep(1)
         frame = self.el(L.edit.edit_sub.bottom_edit_menu)
         element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"pattern_layout")])[{order}]')
         element.click()
         time.sleep(10)
         canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-        compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+        compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -1111,8 +1153,7 @@ class Replace(BasePage):
             return result_trim_page, result_trim_text, result_duration
         except Exception:
             raise Exception
-            
-            
+
     def move_trim_area(self):
         logger('start move_trim_area')
         try:
@@ -1121,12 +1162,12 @@ class Replace(BasePage):
             self.swipe_element(L.edit.replace.trim_view, 'right', 400)
             time.sleep(5)
             canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-            compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+            compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
             is_changed = True if not compare_result or compare_result == 100 else False
             return is_changed
         except Exception:
             raise Exception
-            
+
     def seek_by_indicator(self):
         logger('start seek_by_indicator')
         try:
@@ -1134,7 +1175,7 @@ class Replace(BasePage):
             self.swipe_element(L.edit.replace.seek_bar, 'right', 400)
             time.sleep(5)
             canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
-            compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+            compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
             is_changed = True if not compare_result or compare_result == 100 else False
             return is_changed
         except Exception:
@@ -1148,7 +1189,7 @@ class Replace(BasePage):
             self.swipe_element(L.edit.replace.trim_view, 'right', 400)
             time.sleep(5)
             canvas_new = self.driver.save_pic(self.el(L.edit.replace.trim_view))
-            compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+            compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
             is_changed = True if not compare_result or compare_result == 100 else False
             return is_changed
         except Exception:
@@ -1161,7 +1202,7 @@ class Replace(BasePage):
             self.swipe_element(L.edit.replace.seek_bar, 'right', 400)
             time.sleep(5)
             canvas_new = self.driver.save_pic(self.el(L.edit.replace.trim_view))
-            compare_result = CompareImage(canvas_old,canvas_new,7).compare_image()
+            compare_result = CompareImage(canvas_old, canvas_new, 7).compare_image()
             is_changed = True if not compare_result or compare_result == 100 else False
             return is_changed
         except Exception:
@@ -1181,22 +1222,23 @@ class Replace(BasePage):
             logger("exception occurs")
             raise Exception
 
+
 class Duration(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-        
+
     def set_duration_slider(self, percentage):
         try:
             slider = self.el(L.edit.duration.slider)
             start_x = slider.location["x"]
             start_y = slider.location["y"]
-            end_x = start_x + (percentage * slider.size["width"]) 
+            end_x = start_x + (percentage * slider.size["width"])
             actions = TouchAction(self.driver.driver)
-            actions.press(x=start_x,y= start_y) \
-            .wait(ms=100) \
-            .move_to(x=end_x, y=start_y) \
-            .release().perform()
+            actions.press(x=start_x, y=start_y) \
+                .wait(ms=100) \
+                .move_to(x=end_x, y=start_y) \
+                .release().perform()
             time.sleep(5)
         except Exception:
             logger("exception occurs")
@@ -1206,7 +1248,7 @@ class Duration(BasePage):
         try:
             element = self.el(L.edit.duration.text_duration)
             logger(f'get_duration_text = {element.text}')
-            return element.text 
+            return element.text
         except Exception:
             logger("exception occurs")
             raise Exception
@@ -1299,20 +1341,22 @@ class Border_and_Shadow(BasePage):
         try:
             self.el(L.edit.border_and_shadow.btn_reset).click()
             time.sleep(5)
-            result_color = True if self.el(L.edit.border_and_shadow.slider_area).get_attribute('enabled') == 'false' else False
+            result_color = True if self.el(L.edit.border_and_shadow.slider_area).get_attribute(
+                'enabled') == 'false' else False
             result_size = True if self.get_value('border_size') == '3.0' else False
             result_opacity = True if self.get_value('border_opacity') == '100' else False
         except Exception:
             logger("exception occurs")
             raise Exception
         return result_color, result_size, result_opacity
-   
+
     def tap_shadow_reset(self):
         logger(f'start tap_shadow_reset')
         try:
             self.el(L.edit.border_and_shadow.btn_reset).click()
             time.sleep(5)
-            result_color = True if self.el(L.edit.border_and_shadow.slider_area).get_attribute('enabled') == 'false' else False
+            result_color = True if self.el(L.edit.border_and_shadow.slider_area).get_attribute(
+                'enabled') == 'false' else False
             result_blur = True if self.get_value('shadow_blur') == '5.0' else False
             result_opacity = True if self.get_value('shadow_opacity') == '100' else False
         except Exception:
@@ -1320,11 +1364,12 @@ class Border_and_Shadow(BasePage):
             raise Exception
         return result_color, result_blur, result_opacity
 
+
 class Intro_Video(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-        
+
     def enter_intro(self, timeout=15):
         try:
             self.h_click(L.edit.intro_video.intro_video_entry)
@@ -1361,7 +1406,7 @@ class Intro_Video(BasePage):
             self.driver.driver.back()
             return True
         else:
-            logger("\n[Fail] Cannot find profile page")
+            logger("[Not exist] Cannot find profile page")
             return False
 
     def log_in(self):
@@ -1413,16 +1458,14 @@ class Intro_Video(BasePage):
     def check_category(self):
         get_category = []
         while 1:
-            while not self.h_is_exist(L.edit.intro_video.intro_category):
-                continue
-            category = self.els(L.edit.intro_video.intro_category)
-            if category[len(category)-1].text in get_category:
+            category = self.h_get_elements(L.edit.intro_video.intro_category, timeout=9)
+            if category[len(category) - 1].text in get_category:
                 break
             else:
                 for i in range(len(category)):
                     if category[i].text not in get_category:
                         get_category.append(category[i].text)
-            self.swipe_element(category[len(category)-1], category[0])
+            self.h_swipe_element(category[len(category) - 1], category[0])
         return get_category
 
     def intro_back(self):
@@ -1447,8 +1490,40 @@ class Intro_Video(BasePage):
                 return False
         except Exception:
             logger("exception occurs")
-            raise Exception        
-    
+            raise Exception
+
+    def edit_1st_template(self):
+        index = 1
+        while not self.h_click(L.edit.intro_video.template_thumbnail, timeout=1):
+            categories = self.h_get_elements(L.edit.intro_video.intro_category)
+            if index + 1 > len(categories) - 1:
+                last = categories[index].text
+                self.h_swipe_element(categories[index], categories[0], speed=3)
+                categories = self.h_get_elements(L.edit.intro_video.intro_category)
+                if categories[len(categories) - 1].text == last:
+                    logger("\n[Info] No more category")
+                    break
+                else:
+                    for j in range(len(categories)):
+                        if categories[j].text == last:
+                            index = j
+            next_category = categories[index + 1].text
+            categories[index + 1].click()
+            categories = self.h_get_elements(L.edit.intro_video.intro_category)
+            for i in range(len(categories)):
+                if categories[i].text == next_category:
+                    index = i
+                    break
+
+    def customize(self):
+        self.h_click(L.edit.intro_video.edit_in_intro, timeout=15)
+        if self.h_is_exist(L.edit.intro_video.home):
+            logger("\n[Done] Enter intro designer")
+            return True
+        else:
+            logger("\n[Fail] Enter intro designer Fail")
+            return False
+
     def enter_intro_video_designer(self, timeout=10):
         logger(f'start enter_intro_video_designer')
         try:
@@ -1469,8 +1544,8 @@ class Intro_Video(BasePage):
                 return False
         except Exception:
             logger("exception occurs")
-            raise Exception     
-    
+            raise Exception
+
     def apply_to_project(self, timeout=10):
         logger(f'start apply_to_project')
         try:
@@ -1492,8 +1567,8 @@ class Intro_Video(BasePage):
                 return False
         except Exception:
             logger("exception occurs")
-            raise Exception  
-    
+            raise Exception
+
     def switch_tabs(self, tab='discover', timeout=10):
         logger(f'start switch_tabs')
         try:
@@ -1516,7 +1591,7 @@ class Intro_Video(BasePage):
         except Exception:
             logger("exception occurs")
             raise Exception
-            
+
     def compare_thumbnail_to_get_order(self, target_image):
         logger('start compare_thumbnail_to_get_order')
         try:
@@ -1525,7 +1600,7 @@ class Intro_Video(BasePage):
             i = 0
             for retry in range(len(thumbnails)):
                 compare_base = self.driver.save_pic(thumbnails[i])
-                i = i+1
+                i = i + 1
                 if CompareImage(target_image, compare_base, 4).compare_image():
                     logger(f'Found image at index {i}')
                     return i
@@ -1533,8 +1608,8 @@ class Intro_Video(BasePage):
             return False
         except Exception:
             logger(f"Fail to compare_thumbnail_to_get_order")
-            raise Exception 
-    
+            raise Exception
+
     def save_thumbnail_image_by_index(self, index):
         logger('start save_thumbnail_image_by_index')
         try:
@@ -1544,11 +1619,11 @@ class Intro_Video(BasePage):
                 logger(f"items are less than index.")
                 return False
             else:
-                return self.driver.save_pic(thumbnails[index-1])    # start from 0, so -1
+                return self.driver.save_pic(thumbnails[index - 1])  # start from 0, so -1
         except Exception:
             logger(f"Fail to save_thumbnail_image_by_index")
             return False
-    
+
     def get_template_list_pic(self):
         logger('start get_template_list_pic')
         try:
@@ -1556,8 +1631,8 @@ class Intro_Video(BasePage):
             return self.driver.save_pic(pic)
         except Exception:
             logger(f"Fail to get_template_list_pic")
-            raise Exception 
-    
+            raise Exception
+
     def select_template_by_index(self, index, timeout=10):
         logger("start >> select_template_by_index<<")
         logger(f"input - {index}")
@@ -1569,7 +1644,8 @@ class Intro_Video(BasePage):
                 return False
             if self.is_exist(L.edit.intro_video.list_template, timeout):
                 frame = self.el(L.edit.intro_video.list_template)
-                element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"video_template_thumbnail")])[{index}]')
+                element = frame.find_element_by_xpath(
+                    f'(//*[contains(@resource-id,"video_template_thumbnail")])[{index}]')
                 element.click()
             else:
                 logger(f"Fail to locate library")
@@ -1578,23 +1654,23 @@ class Intro_Video(BasePage):
         except Exception:
             logger(f"Fail to select - {index}")
             return False
-        
+
     def select_category(self, name):
         logger(f"start select_category - {name}")
         elm = self.el(L.edit.intro_video.list_category)
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(10):
-            if  self.is_exist(locator, 1):
+            if self.is_exist(locator, 1):
                 elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
-                logger(f"Found {name}, click it.") 
+                logger(f"Found {name}, click it.")
                 return True
             else:
-                #elm.driver.swipe_left()
+                # elm.driver.swipe_left()
                 self.swipe_element(L.edit.intro_video.list_category, 'left', 300)
                 time.sleep(1)
         logger(f"Didn't find {name}")
-        return False        
-    
+        return False
+
     def scroll_template_list(self, page=1):
         logger(f"start scroll_template_list")
         elm = self.el(L.edit.intro_video.list_template)
@@ -1657,6 +1733,7 @@ class Intro_Video(BasePage):
             logger(f"Fail to tap_back_button")
             raise Exception
 
+
 class EditPage(BasePage):
     def __init__(self, *args, **kwargs):
         BasePage.__init__(self, *args, **kwargs)
@@ -1682,6 +1759,41 @@ class EditPage(BasePage):
         self.duration = Duration(self.driver)
         self.border_and_shadow = Border_and_Shadow(self.driver)
         self.intro_video = Intro_Video(self.driver)
+
+    def click_tool(self, name, retry=10):
+        for i in range(4):
+            if self.h_click(L.edit.tool_menu.back, timeout=1):
+                continue
+            else:
+                break
+        for i in range(retry):
+            if not self.h_is_exist(find_string(name), timeout=1):
+                tool = self.h_get_elements(L.edit.timeline.tool)
+                last = tool[len(tool) - 1].text
+                self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=5)
+                tool = self.h_get_elements(L.edit.timeline.tool)
+                if tool[len(tool) - 1].text == last:
+                    logger(f'[Not exist] Tool "{name}" is not exist')
+                    return False
+            else:
+                break
+        self.h_click(find_string(name))
+        return True
+
+    def click_sub_tool(self, name, retry=10, timeout=1):
+        for i in range(retry):
+            if not self.h_is_exist(find_string(name), timeout=timeout):
+                tool = self.h_get_elements(L.edit.timeline.sub_tool)
+                last = tool[len(tool) - 1].text
+                self.h_swipe_element(tool[len(tool) - 1], tool[0])
+                tool = self.h_get_elements(L.edit.timeline.sub_tool)
+                if tool[len(tool) - 1].text == last:
+                    logger(f'[Not exist] Tool "{name}" is not exist')
+                    return False
+            else:
+                break
+        self.h_click(find_string(name))
+        return True
 
     def timeline_swipe(self, direction, distance):
         logger(f"start timeline_swipe to {direction} with {distance}")
@@ -1728,7 +1840,7 @@ class EditPage(BasePage):
                 # els_track[track-1].get_element(aid(f'[AID]TimeLine{type}_{name}')).click()
                 self.el(locator).click()
             else:
-                list_element = els_track[track-1].find_elements_by_id(PACKAGE_NAME+':id/item_view_title')
+                list_element = els_track[track - 1].find_elements_by_id(PACKAGE_NAME + ':id/item_view_title')
                 logger(f'list_element count={len(list_element)}')
                 is_found = 0
                 for element in list_element:
@@ -1762,36 +1874,38 @@ class EditPage(BasePage):
         try:
             els_track = self.els(L.edit.timeline.track_content)
             logger(f"track count={len(els_track)}")
-            els_item = els_track[track-1].find_elements_by_id(PACKAGE_NAME+':id/item_view_thumbnail_host')
+            els_item = els_track[track - 1].find_elements_by_id(PACKAGE_NAME + ':id/item_view_thumbnail_host')
             logger(f"elements on track{track}={len(els_item)}")
-            els_item[index-1].click()
+            els_item[index - 1].click()
         except Exception:
             logger('get elements fail')
             raise Exception
         return True
 
-    def timeline_get_item_by_index_on_track(self, track=1, index=1, id_type='thumbnail_host'): #main track=1, id_type='thumbnail_host'/ 'title'
+    def timeline_get_item_by_index_on_track(self, track=1, index=1,
+                                            id_type='thumbnail_host'):  # main track=1, id_type='thumbnail_host'/ 'title'
         logger("start >> timeline_get_item_by_index_on_track <<")
         logger(f"input - track={track}, index={index}, id_type={id_type}")
         # noinspection PyBroadException
         try:
             els_track = self.els(L.edit.timeline.track_content)
             logger(f"track count={len(els_track)}")
-            els_item = els_track[track-1].find_elements_by_id(PACKAGE_NAME+f':id/item_view_{id_type}')
+            els_item = els_track[track - 1].find_elements_by_id(PACKAGE_NAME + f':id/item_view_{id_type}')
             logger(f"elements on track{track}={len(els_item)}")
         except Exception:
             logger('get elements fail')
             raise Exception
-        return els_item[index-1]
+        return els_item[index - 1]
 
-    def timeline_drag_item(self, el_target, shift_x=0): # shift_x > 0, drag to right; < 0, drag to left
+    def timeline_drag_item(self, el_target, shift_x=0):  # shift_x > 0, drag to right; < 0, drag to left
         logger("start >> timeline_drag_item <<")
         logger(f"input - el_target={el_target}, shift_x={shift_x}")
         try:
-            x_center = int(el_target.rect['x']+el_target.rect['width']/2)
-            y_center = int(el_target.rect['y'] +el_target.rect['height']/2)
-            TouchAction(self.driver.driver).long_press(None, x_center, y_center).wait(3).move_to(None, x_center+shift_x,
-                                                                                     y_center).release().perform()
+            x_center = int(el_target.rect['x'] + el_target.rect['width'] / 2)
+            y_center = int(el_target.rect['y'] + el_target.rect['height'] / 2)
+            TouchAction(self.driver.driver).long_press(None, x_center, y_center).wait(3).move_to(None,
+                                                                                                 x_center + shift_x,
+                                                                                                 y_center).release().perform()
         except Exception:
             logger('Exception occurs')
             raise Exception
@@ -1803,7 +1917,7 @@ class EditPage(BasePage):
         try:
             els_transition = self.els(L.edit.transition.timeline_transition)
             logger(f'els_transition effect count={len(els_transition)}')
-            els_transition[index-1].click()
+            els_transition[index - 1].click()
         except Exception:
             logger('Exception occurs')
             raise Exception
@@ -1818,7 +1932,7 @@ class EditPage(BasePage):
         except Exception:
             logger('Exception occurs')
             raise Exception
-        return els_transition[index-1]
+        return els_transition[index - 1]
 
     def timeline_check_item_on_track(self, name, track=1, type=''):
         logger("start >> timeline_select_media <<")
@@ -1830,9 +1944,9 @@ class EditPage(BasePage):
             if type == 'Video' or type == 'Photo':
                 logger(f"media_aid=[AID]TimeLine{type}_{name}")
                 # self.get_element(aid(f'[AID]TimeLine{type}_{file_name}')).click()
-                els_track[track-1].get_element(aid(f'[AID]TimeLine{type}_{name}'))
+                els_track[track - 1].get_element(aid(f'[AID]TimeLine{type}_{name}'))
             else:
-                list_element = els_track[track-1].find_elements_by_id(PACKAGE_NAME + ':id/item_view_title')
+                list_element = els_track[track - 1].find_elements_by_id(PACKAGE_NAME + ':id/item_view_title')
                 logger(f'list_element count={len(list_element)}')
                 is_found = 0
                 for element in list_element:
@@ -1847,7 +1961,7 @@ class EditPage(BasePage):
             return False
         return True
 
-    def timeline_get_split_media(self, file_name, type='Video', index=0): # type=Video/ Photo/ Music
+    def timeline_get_split_media(self, file_name, type='Video', index=0):  # type=Video/ Photo/ Music
         logger("start >> timeline_get_split_media <<")
         logger(f"input - {file_name}")
         # noinspection PyBroadException
@@ -1872,7 +1986,8 @@ class EditPage(BasePage):
             raise Exception
         return element_list[index]
 
-    def force_uncheck_help_enable_tip_to_Leave(self, tap_x_shift=0, tap_y_shift=0, locator_verify=E.menu.timeline_setting, click=1):
+    def force_uncheck_help_enable_tip_to_Leave(self, tap_x_shift=0, tap_y_shift=0,
+                                               locator_verify=E.menu.timeline_setting, click=1):
         logger("start >> force_uncheck_help_enable_tip_to_Leave <<")
         try:
             if self.el(E.tips.chx_enable).get_attribute('checked') == 'true':
@@ -1894,7 +2009,7 @@ class EditPage(BasePage):
                     break
                 except:
                     logger("help_enable_tip exists")
-                    #break
+                    # break
         except:
             logger("help_enable_tip is not found - skip it<<")
         return True
@@ -1924,86 +2039,87 @@ class EditPage(BasePage):
             raise Exception
         return True
 
-    def split_clip(self,locator):
+    def split_clip(self, locator):
         logger("start split_clip")
-        thumbnail_old = self.driver.save_pic(self.el(locator),offset={"x":25,"y":30,"width":-25-40,"height":-30}) # for thumbnail compare
+        thumbnail_old = self.driver.save_pic(self.el(locator), offset={"x": 25, "y": 30, "width": -25 - 40,
+                                                                       "height": -30})  # for thumbnail compare
         # self.click(L.edit.menu.split)
         self.select_from_bottom_edit_menu('Split')
         playhead_rect = self.el(L.edit.timeline.playhead).rect
-        playhead_middle = playhead_rect['x']+int(playhead_rect['width']/2)
+        playhead_middle = playhead_rect['x'] + int(playhead_rect['width'] / 2)
         tx_ins = self.els(L.edit.timeline.tx_in)
         logger("playhead rect=" + str(playhead_rect))
         logger("tx_in rect=" + str(tx_ins[0].rect))
-        
-        thumbnail_new = self.driver.save_pic(last=True)
-        is_change_thumbnail = not CompareImage(thumbnail_old,thumbnail_new,5).compare_image()
-        for tx_in in tx_ins:
-            if tx_in.rect['x'] - playhead_middle < 10: # magic number: normal gap between 2 clips
-                return True , is_change_thumbnail
-        return False , False
 
-    def split_music(self,locator):
+        thumbnail_new = self.driver.save_pic(last=True)
+        is_change_thumbnail = not CompareImage(thumbnail_old, thumbnail_new, 5).compare_image()
+        for tx_in in tx_ins:
+            if tx_in.rect['x'] - playhead_middle < 10:  # magic number: normal gap between 2 clips
+                return True, is_change_thumbnail
+        return False, False
+
+    def split_music(self, locator):
         logger("start split_music")
         # self.click(L.edit.menu.split)
         self.select_from_bottom_edit_menu('Split')
         playhead_rect = self.el(L.edit.timeline.playhead).rect
-        playhead_middle = playhead_rect['x']+int(playhead_rect['width']/2)
+        playhead_middle = playhead_rect['x'] + int(playhead_rect['width'] / 2)
         clips = self.els(L.edit.timeline.clip_audio)
         split_correct_position = False
         for clip in clips:
-            logger('Playhead / clip.x = %s / %s' % (playhead_middle , clip.rect['x']))
+            logger('Playhead / clip.x = %s / %s' % (playhead_middle, clip.rect['x']))
             if clip.rect['x'] < playhead_middle: continue
-            if clip.rect['x'] - playhead_middle < 10: # magic number: normal gap between 2 clips
+            if clip.rect['x'] - playhead_middle < 10:  # magic number: normal gap between 2 clips
                 split_correct_position = True
                 break
         has_thumbnail = bool(clips[1].find_elements_by_class_name("android.widget.ImageView"))
-        return split_correct_position , has_thumbnail
-        
-    def _click_effect(self,locator):
+        return split_correct_position, has_thumbnail
+
+    def _click_effect(self, locator):
         pic_old = self.driver.save_pic(self.el(L.edit.preview.movie_view))
         self.click(locator)
-        time.sleep(3)    # to wait device to apply effect
+        time.sleep(3)  # to wait device to apply effect
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
-        
+
     def click_rotate(self):
         logger("start click_rotate")
         return self.select_from_bottom_edit_menu('Rotate')
-        
+
     def click_flip(self):
         logger("start click_flip")
         return self.select_from_bottom_edit_menu('Flip')
-        
+
     def click_crop(self):
         logger("start click_crop")
         self.select_from_bottom_edit_menu('Crop')
-        if  self.is_exist(L.edit.edit_sub.crop_hint):
+        if self.is_exist(L.edit.edit_sub.crop_hint):
             logger("hint pop, click to close it.")
             self.click(L.edit.edit_sub.crop_hint)
-        self.exist_click(L.edit.show_timeline_pannel,3)     # v6.5 will close timeline pannel on Nexus 6P
+        self.exist_click(L.edit.show_timeline_pannel, 3)  # v6.5 will close timeline pannel on Nexus 6P
         time.sleep(1)
         pic_old = self.driver.save_pic(self.el(L.edit.preview.pan_and_zoom_preview))
         time.sleep(1)
         self.driver.zoom(L.edit.preview.pan_and_zoom_preview)
         self.driver.zoom(L.edit.preview.pan_and_zoom_preview)
-        time.sleep(5)    # to wait device to apply effect
+        time.sleep(5)  # to wait device to apply effect
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         self.click(L.edit.menu.back)
         return is_changed
-        
+
     def click_reverse(self):
         logger("start click_reverse")
         self.select_from_bottom_edit_menu('Reverse')
         time.sleep(2)
         self.click(L.edit.reverse.dialog_ok)
-        has_ad = self.is_in_page([L.edit.reverse.ad,L.edit.reverse.ad_promotion],30)
+        has_ad = self.is_in_page([L.edit.reverse.ad, L.edit.reverse.ad_promotion], 30)
         if has_ad:
             logger("[reverse]AD found")
-            self.is_not_in_page([L.edit.reverse.ad,L.edit.reverse.ad_promotion],3*60) #3min
+            self.is_not_in_page([L.edit.reverse.ad, L.edit.reverse.ad_promotion], 3 * 60)  # 3min
             logger("[reverse]AD vanished")
         else:
             logger("[reverse]AD NOT found")
@@ -2013,8 +2129,8 @@ class EditPage(BasePage):
         time.sleep(2)
         self.click(L.edit.reverse.dialog_ok)
         remove_success = self.is_exist(L.edit.edit_sub.bottom_edit_menu)
-        return has_ad, remove_success        
-    
+        return has_ad, remove_success
+
     def click_reverse_noremove(self):
         logger("start click_reverse_noremove")
         self.select_from_bottom_edit_menu('Reverse')
@@ -2029,7 +2145,7 @@ class EditPage(BasePage):
                 is_complete = 1
                 break
         return is_complete
-        
+
     def click_sharpness(self):
         logger("click_sharpness")
         # self.click(L.edit.edit_sub.sharpness)
@@ -2037,10 +2153,10 @@ class EditPage(BasePage):
         self.select_adjustment_from_bottom_edit_menu('Sharpness')
         sharpness_default_value = self.sharpness_effect.sharpness.get_number()
         result_default_value = sharpness_default_value == '0'
-        logger ("sharpness_level=" + sharpness_default_value)
+        logger("sharpness_level=" + sharpness_default_value)
         return result_default_value
-        
-    def set_sharpness(self,value):
+
+    def set_sharpness(self, value):
         logger("set_sharpness")
         # sharpness_level  = self.el(L.edit.sharpness.sharpness_level)
         pic_old = self.driver.save_pic(self.el(L.edit.preview.movie_view))
@@ -2048,7 +2164,7 @@ class EditPage(BasePage):
         self.sharpness_effect.sharpness.set_progress(value)
         time.sleep(1)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2063,19 +2179,19 @@ class EditPage(BasePage):
             logger("iap page pop")
             self.click(L.edit.stabilizer.iap_back)
             has_iap = True
-        else:    
-            has_ad = self.is_in_page([L.edit.reverse.ad,L.edit.reverse.ad_promotion],30)
+        else:
+            has_ad = self.is_in_page([L.edit.reverse.ad, L.edit.reverse.ad_promotion], 30)
             if has_ad:
                 logger("[stabilizer]AD found")
-                self.is_not_in_page([L.edit.reverse.ad,L.edit.reverse.ad_promotion],3*60) #3min
+                self.is_not_in_page([L.edit.reverse.ad, L.edit.reverse.ad_promotion], 3 * 60)  # 3min
                 logger("[stabilizer]AD vanished")
             else:
                 logger("[stabilizer]AD *NOT* found")
             motion_level_vaule = self.el(L.edit.stabilizer.motion_level).text
             result_default_value = motion_level_vaule == "50.0"
-            logger ("motion_level=" + motion_level_vaule)
-        return result_default_value , has_ad , has_iap
-        
+            logger("motion_level=" + motion_level_vaule)
+        return result_default_value, has_ad, has_iap
+
     def click_stabilizer_wait(self):
         logger("start click_stabilizer_wait")
         self.select_from_bottom_edit_menu('Stabilizer')
@@ -2089,7 +2205,7 @@ class EditPage(BasePage):
                 is_complete = 1
                 break
         return is_complete
-    
+
     def click_preview(self):
         logger("start click_preview")
         self.wait_tile_enabled(L.edit.menu.play)
@@ -2106,14 +2222,14 @@ class EditPage(BasePage):
         else:
             logger('unable to snapshot, return false directly')
             return False
-        
+
         time.sleep(3)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
-    def set_stabilizer(self,value):
+    def set_stabilizer(self, value):
         logger("start set_stabilizer")
         motion_level = self.el(L.edit.stabilizer.motion_level)
         time.sleep(1)
@@ -2121,10 +2237,10 @@ class EditPage(BasePage):
         motion_level.set_text(value)
         time.sleep(1)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
-        
+
     def select_preset(self):
         logger("setart set preset")
         time.sleep(1)
@@ -2156,7 +2272,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending1)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2167,7 +2283,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending2)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2178,7 +2294,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending3)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2189,7 +2305,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending4)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2200,7 +2316,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending5)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2211,7 +2327,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending6)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2222,7 +2338,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending7)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2233,7 +2349,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending8)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2244,7 +2360,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending9)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2255,7 +2371,7 @@ class EditPage(BasePage):
         self.click(L.edit.Blending_Sub.Blending10)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2266,7 +2382,7 @@ class EditPage(BasePage):
         self.click(L.edit.Mask_Sub.mask_none)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2277,7 +2393,7 @@ class EditPage(BasePage):
         self.click(L.edit.Mask_Sub.mask_linear)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2288,7 +2404,7 @@ class EditPage(BasePage):
         self.click(L.edit.Mask_Sub.mask_parallel)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2299,7 +2415,7 @@ class EditPage(BasePage):
         self.click(L.edit.Mask_Sub.mask_eclipse)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
@@ -2310,15 +2426,14 @@ class EditPage(BasePage):
         self.click(L.edit.Mask_Sub.mask_rectangle)
         time.sleep(2)
         pic_new = self.driver.save_pic(last=True)
-        compare_result = CompareImage(pic_old,pic_new,7).compare_image()
+        compare_result = CompareImage(pic_old, pic_new, 7).compare_image()
         is_changed = True if not compare_result or compare_result == 100 else False
         return is_changed
 
-
-    def adjust_clip_length(self,locator,swipe_from,direction,pixel):
+    def adjust_clip_length(self, locator, swipe_from, direction, pixel):
         logger("Adjust clip length")
         elem = self.el(locator)
-        if not self.is_exist(L.edit.timeline.trim_indicator,3):
+        if not self.is_exist(L.edit.timeline.trim_indicator, 3):
             elem.click()
         trim_indicator = self.el(L.edit.timeline.trim_indicator)
         buttons = trim_indicator.find_elements_by_xpath("//android.view.View")
@@ -2329,39 +2444,40 @@ class EditPage(BasePage):
                 button_start, button_end = buttons
 
         elif len(buttons) == 1:
-            logger("indicator.x= %s / button[0].x = %s" % (trim_indicator.rect['x'],buttons[0].rect['x']))
+            logger("indicator.x= %s / button[0].x = %s" % (trim_indicator.rect['x'], buttons[0].rect['x']))
             is_start_button = True if trim_indicator.rect['x'] == buttons[0].rect['x'] else False
             if is_start_button:
                 button_start, button_end = buttons[0], None
             else:
-                button_start, button_end = None,buttons[0]
+                button_start, button_end = None, buttons[0]
         else:
             raise Exception("Error when find start/end buttons")
-        #logger("before - start_btn=%s , end_btn=%s" % (button_start.rect['x'],button_end.rect['x'] ) )
+        # logger("before - start_btn=%s , end_btn=%s" % (button_start.rect['x'],button_end.rect['x'] ) )
         length_org = elem.rect['width']
         logger("before - Length = %s" % length_org)
         from_where = button_end if swipe_from.lower() == "end" else button_start
-        self.swipe_element_el_version(from_where,direction, pixel) #swipe
+        self.swipe_element_el_version(from_where, direction, pixel)  # swipe
         time.sleep(1)
-        logger("length diff = %s" % (elem.rect['width'] - length_org) )
-        return elem.rect['width'] - length_org # length diff 
+        logger("length diff = %s" % (elem.rect['width'] - length_org))
+        return elem.rect['width'] - length_org  # length diff
 
-    def trim_video(self,locator):
+    def trim_video(self, locator):
         logger("start trim_video")
         elem = self.el(locator)
-        result = self.adjust_clip_length(locator,"start","right",30)
+        result = self.adjust_clip_length(locator, "start", "right", 30)
         if result >= 0:  # video should be reduced
             logger(f"Error: swipe right 30 pixel, but only [{result}] pixel changed")
-            return False ,None 
-        result = self.adjust_clip_length(locator,"end","left",30)
-        if result >= 0: # video should be reduced
+            return False, None
+        result = self.adjust_clip_length(locator, "end", "left", 30)
+        if result >= 0:  # video should be reduced
             logger(f"Error: swipe Left 30 pixel, but only [{result}] pixel changed")
-            return False , None
-        has_thumbnail = elem.find_elements_by_xpath("//android.widget.LinearLayout[contains(@resource-id,'item_view_thumbnail_host')]")
+            return False, None
+        has_thumbnail = elem.find_elements_by_xpath(
+            "//android.widget.LinearLayout[contains(@resource-id,'item_view_thumbnail_host')]")
         logger("thumbnail = %s" % has_thumbnail)
-        return True , True if has_thumbnail else False
+        return True, True if has_thumbnail else False
 
-    def swipe_element_el_version(self, element, direction,offset=0.55):
+    def swipe_element_el_version(self, element, direction, offset=0.55):
         window_rect = self.driver.driver.get_window_size()
         element_rect = element.rect
         start_x = element_rect['x'] + element_rect['width'] / 2
@@ -2369,47 +2485,47 @@ class EditPage(BasePage):
         end_x = start_x
         end_y = start_y
         if direction == "left":
-            end_x = start_x - ( window_rect['width'] * offset if offset < 1 else offset)
+            end_x = start_x - (window_rect['width'] * offset if offset < 1 else offset)
         elif direction == "right":
-            end_x = start_x + ( window_rect['width'] * offset if offset < 1 else offset)
+            end_x = start_x + (window_rect['width'] * offset if offset < 1 else offset)
         elif direction == "up":
-            end_y = start_y - ( window_rect['height'] * offset if offset < 1 else offset)
+            end_y = start_y - (window_rect['height'] * offset if offset < 1 else offset)
         elif direction == "down":
-            end_y = start_y - ( window_rect['height'] * offset if offset < 1 else offset)
+            end_y = start_y - (window_rect['height'] * offset if offset < 1 else offset)
         else:
             print("Invalid direction")
             return False
-        end_x = end_x if 0 <= end_x <=  window_rect['width'] else window_rect['width'] 
-        end_y = end_y if 0 <= end_y <=  window_rect['height'] else window_rect['height']
+        end_x = end_x if 0 <= end_x <= window_rect['width'] else window_rect['width']
+        end_y = end_y if 0 <= end_y <= window_rect['height'] else window_rect['height']
         # print ("swip=",start_x, start_y, end_x, end_y)
         self.driver.driver.swipe(start_x, start_y, end_x, end_y)
         return True
-        
-    def check_timeline_gap(self,type = "Video"):
+
+    def check_timeline_gap(self, type="Video"):
         logger("check [%s] gap" % type)
         media_type = {
-        "video" : L.edit.timeline.clip,
-        "photo" : L.edit.timeline.clip_photo,
-        "audio" : L.edit.timeline.clip_audio
+            "video": L.edit.timeline.clip,
+            "photo": L.edit.timeline.clip_photo,
+            "audio": L.edit.timeline.clip_audio
         }
         clip_all = self.els(media_type[type.lower()])
         found_error = False
-        x_end_of_last_clip = clip_all[0].rect['x'] # for first clip only
+        x_end_of_last_clip = clip_all[0].rect['x']  # for first clip only
         for clip in clip_all:
             logger("x_end_of_last_clip=" + str(x_end_of_last_clip))
             gap = clip.rect['x'] - x_end_of_last_clip
             logger("gap = %s" % str(gap))
-            if gap < 14:   # magic number: normal gap between 2 clips
+            if gap < 14:  # magic number: normal gap between 2 clips
                 x_end_of_last_clip = clip.rect['x'] + clip.rect['width']
-            elif type.lower() == "audio": # audio & gap > 14 : pass directly
+            elif type.lower() == "audio":  # audio & gap > 14 : pass directly
                 logger("[check_timeline_gap] Audio - gap: %s (>14)" % str(gap))
                 break
-            else:                   # non-audio & gap > 14  : fail directly
+            else:  # non-audio & gap > 14  : fail directly
                 logger("[check_timeline_gap] Error Found.")
                 found_error = True
                 break
         return not found_error
-    
+
     def check_if_trim_indicator_of_selected_clip(self):
         logger("start check_if_trim_indicator_of_selected_clip")
         try:
@@ -2422,14 +2538,14 @@ class EditPage(BasePage):
             return False
         return True
 
-    def check_preview_aspect_ratio(self, aspect_ratio): #aspect_ratio: 16_9/ 9_16/ 1_1
+    def check_preview_aspect_ratio(self, aspect_ratio):  # aspect_ratio: 16_9/ 9_16/ 1_1
         logger("start check_preview_aspect_ratio")
         logger(f"aspect_ratio = {aspect_ratio}")
         is_pass = 0
         try:
             elem = self.el(L.edit.preview.movie_view)
             logger(f"rect = {elem.rect}")
-            ratio = elem.rect['width']/elem.rect['height']
+            ratio = elem.rect['width'] / elem.rect['height']
             logger(f"ratio = {ratio}")
             if aspect_ratio == '16_9':
                 if ratio > 1:
@@ -2450,16 +2566,16 @@ class EditPage(BasePage):
             raise False
         return True
 
-    def click_on_preview_area(self, x=0, y=0): #x, y: -1 ~ 1 (x=0, y=0 > center)
+    def click_on_preview_area(self, x=0, y=0):  # x, y: -1 ~ 1 (x=0, y=0 > center)
         logger("start check_preview_aspect_ratio")
         logger(f"x={x}, y={y}")
         try:
             elem = self.el(L.edit.preview.movie_view)
             logger(f"rect = {elem.rect}")
-            x_center = elem.rect['x']+int(elem.rect['width']/2)
+            x_center = elem.rect['x'] + int(elem.rect['width'] / 2)
             y_center = elem.rect['y'] + int(elem.rect['height'] / 2)
-            x_axis = x_center + int(elem.rect['width']/2*x)
-            y_axis = y_center + int(elem.rect['height']/2*y)
+            x_axis = x_center + int(elem.rect['width'] / 2 * x)
+            y_axis = y_center + int(elem.rect['height'] / 2 * y)
             TouchAction(self.driver.driver).press(None, x_axis, y_axis, 1).release().perform()
         except Exception:
             logger('exception occurs')
@@ -2468,14 +2584,14 @@ class EditPage(BasePage):
 
     def is_auto_save(self):
         from datetime import date
-        
+
         logger("Start is_auto_save")
         logger("wait 2min")
         time.sleep(5)
         logger("killing app")
         retry = 3
         while retry > 0:
-            logger("try: %s" %retry)
+            logger("try: %s" % retry)
             try:
                 result = self.driver.driver.terminate_app(PACKAGE_NAME)
                 logger("Kill app success (app exist?): %s" % result)
@@ -2487,11 +2603,11 @@ class EditPage(BasePage):
         logger("restart app")
         self.driver.driver.activate_app(PACKAGE_NAME)
         try:
-            if  self.is_exist(L.edit.preview.movie_view):
+            if self.is_exist(L.edit.preview.movie_view):
                 logger("Project is auto re-opened.")
                 return True
             else:
-                project_name = self.exist(L.main.project.txt_project_title,20).text
+                project_name = self.exist(L.main.project.txt_project_title, 20).text
         except:
             logger("Project name is not found")
             return False
@@ -2510,9 +2626,9 @@ class EditPage(BasePage):
                     continue
                 preview_rect = self.el(L.edit.preview.movie_view).rect
                 logger(f"preview_rect = {preview_rect}")
-                #x_axis = preview_rect['x'] + 30
-                #y_axis = preview_rect['y'] + 30                
-                x_axis = preview_rect['x'] + preview_rect['width']/2
+                # x_axis = preview_rect['x'] + 30
+                # y_axis = preview_rect['y'] + 30
+                x_axis = preview_rect['x'] + preview_rect['width'] / 2
                 y_axis = preview_rect['y'] + 10
                 TouchAction(self.driver.driver).tap(None, x_axis, y_axis, 3).perform()
                 if not self.is_exist(L.edit.menu.import_media):
@@ -2525,9 +2641,9 @@ class EditPage(BasePage):
         except Exception:
             logger('exception occurs')
             raise Exception
-        return True    
-        
-    def search_text(self,text):
+        return True
+
+    def search_text(self, text):
         logger("start text")
         found = False
         retry = 3
@@ -2546,7 +2662,8 @@ class EditPage(BasePage):
             caption_list_count = len(caption_list)
             caption_list_count_prev = -1
             while caption_list_count != caption_list_count_prev:
-                logger(f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
+                logger(
+                    f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
                 if caption_list_count_prev != -1:
                     self.driver.swipe_left()
                     time.sleep(1)
@@ -2564,7 +2681,7 @@ class EditPage(BasePage):
             raise Exception
         logger(f'content amount={caption_list_count}')
         return caption_list_count
-    
+
     def calculate_transition_amount(self):
         logger("start calculate_transition_amount")
         try:
@@ -2572,7 +2689,8 @@ class EditPage(BasePage):
             caption_list_count = len(caption_list)
             caption_list_count_prev = -1
             while caption_list_count != caption_list_count_prev:
-                logger(f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
+                logger(
+                    f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
                 if caption_list_count_prev != -1:
                     self.swipe_element(L.import_media.transition_list.transition_list, 'left', 300)
                     time.sleep(1)
@@ -2600,17 +2718,18 @@ class EditPage(BasePage):
             caption_list_count = len(caption_list)
             caption_list_count_prev = -1
             while caption_list_count != caption_list_count_prev:
-                logger(f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
+                logger(
+                    f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
                 if caption_list_count_prev != -1:
-                    #self.driver.swipe_up()
+                    # self.driver.swipe_up()
                     self.swipe_element(L.import_media.library_listview.frame, 'up', 400)
                     self.swipe_element(L.import_media.library_listview.frame, 'up', 250)
                     time.sleep(1)
                 caption_list_count_prev = caption_list_count
                 els_item_list = self.els(L.import_media.library_listview.caption_song)
-                #logger(f'current clips count={len(els_item_list)}')
+                # logger(f'current clips count={len(els_item_list)}')
                 if len(els_item_list) > 0:
-                    #logger('enter update caption set')
+                    # logger('enter update caption set')
                     for el_item in els_item_list:
                         caption_list.add(el_item.text)
                 caption_list_count = len(caption_list)
@@ -2643,7 +2762,9 @@ class EditPage(BasePage):
             raise Exception
         return True
     '''
-    def audio_mixing_set_volume(self, track_number, value): # track_name: main, pip_1, pip_2, music_1, music_2, #value = '0' - '100'
+
+    def audio_mixing_set_volume(self, track_number,
+                                value):  # track_name: main, pip_1, pip_2, music_1, music_2, #value = '0' - '100'
         logger(f"start audio_mixing_set_volume on Track{track_number}")
         try:
             elsm = self.els(L.edit.audio_configuration.audio_mixing.slider_volume)
@@ -2653,6 +2774,7 @@ class EditPage(BasePage):
             logger('exception occurs')
             raise Exception
         return True
+
     '''
     def audio_mixing_check_volume(self, track_name, value): # track_name: main, pip_1, pip_2, music_1, music_2, #value = '0' - '100'
         logger(f"start audio_mixing_check_volume on {track_name}")
@@ -2675,20 +2797,22 @@ class EditPage(BasePage):
             raise False
         return True
     '''
-    def audio_mixing_check_volume(self, track_number, value): # track_name: main, pip_1, pip_2, music_1, music_2, #value = '0' - '100'
+
+    def audio_mixing_check_volume(self, track_number,
+                                  value):  # track_name: main, pip_1, pip_2, music_1, music_2, #value = '0' - '100'
         logger(f"start audio_mixing_check_volume on Track{track_number}")
         try:
             elsm = self.els(L.edit.audio_configuration.audio_mixing.volume_text)
 
             logger(f'result ={elsm[track_number].text}, expect is {str(value)}')
-            if elsm[track_number].text != str(value):    
+            if elsm[track_number].text != str(value):
                 return False
         except Exception:
             logger('exception occurs')
             raise False
         return True
 
-    def audio_configration_set_clip_volume(self, value): #value = '0' - '200'
+    def audio_configration_set_clip_volume(self, value):  # value = '0' - '200'
         logger("start audio_configration_set_clip_volume")
         try:
             elm = self.el(L.edit.audio_configuration.volume_seekbar)
@@ -2699,7 +2823,7 @@ class EditPage(BasePage):
             raise Exception
         return True
 
-    def audio_configration_check_clip_volume(self, value): #value = '0' - '200'
+    def audio_configration_check_clip_volume(self, value):  # value = '0' - '200'
         logger("start audio_configration_check_clip_volume")
         try:
             elm = self.el(L.edit.audio_configuration.volume_seekbar)
@@ -2710,7 +2834,7 @@ class EditPage(BasePage):
             raise False
         return True
 
-    def select_main_video(self,index):
+    def select_main_video(self, index):
         logger("start select main video")
         self.els(L.edit.timeline.clip)[index].click()
 
@@ -2729,61 +2853,61 @@ class EditPage(BasePage):
         for retry in range(10):
             if self.is_exist(locator, 1):
                 elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
-                logger(f"Found {name} function, click it.") 
+                logger(f"Found {name} function, click it.")
                 return True
             else:
-                #elm.driver.swipe_left()
+                # elm.driver.swipe_left()
                 self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'left', 400)
                 time.sleep(1)
-        logger(f"Didn't find {name} element")        
-        return False    
-    
+        logger(f"Didn't find {name} element")
+        return False
+
     def select_from_bottom_edit_menu_by_order(self, index):
         logger("start select_from_bottom_edit_menu_by_order")
         elm = self.el(L.edit.edit_sub.bottom_edit_menu)
         locator = ("xpath", f'//*[contains(@resource-id,"tool_entry_layout")][{index}]')
         for retry in range(10):
-            if  self.is_exist(locator):
+            if self.is_exist(locator):
                 elm.find_element_by_xpath(f'//*[contains(@resource-id,"tool_entry_layout")][{index}]').click()
                 return True
             else:
-                #elm.driver.swipe_left()
+                # elm.driver.swipe_left()
                 self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'left', 400)
-                time.sleep(1)     
+                time.sleep(1)
         return False
-    
+
     def select_transition_from_bottom_menu(self, name):
         logger(f"start select_transition_from_bottom_menu - {name}")
         elm = self.el(L.import_media.transition_list.transition_list)
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(10):
-            if  self.is_exist(locator):
+            if self.is_exist(locator):
                 elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
-                logger(f"Found {name}, click it.") 
+                logger(f"Found {name}, click it.")
                 return True
             else:
-                #elm.driver.swipe_left()
+                # elm.driver.swipe_left()
                 self.swipe_element(L.import_media.transition_list.transition_list, 'left', 300)
                 time.sleep(1)
-        logger(f"Didn't find {name}")        
-        return False    
-    
+        logger(f"Didn't find {name}")
+        return False
+
     def select_transition_category(self, name):
         logger(f"start select_transition_category - {name}")
         elm = self.el(L.import_media.transition_list.category_list)
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(10):
-            if  self.is_exist(locator):
+            if self.is_exist(locator):
                 elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
-                logger(f"Found {name}, click it.") 
+                logger(f"Found {name}, click it.")
                 return True
             else:
-                #elm.driver.swipe_left()
+                # elm.driver.swipe_left()
                 self.swipe_element(L.import_media.transition_list.category_list, 'left', 300)
                 time.sleep(1)
-        logger(f"Didn't find {name}")        
+        logger(f"Didn't find {name}")
         return False
-    
+
     def check_transition_exists_in_list(self, name):
         logger(f"start check_transition_exists_in_list - {name}")
         try:
@@ -2798,7 +2922,7 @@ class EditPage(BasePage):
         logger(f"start swipe_bottom_edit_menu to {direction}")
         self.swipe_element(L.edit.edit_sub.bottom_edit_menu, direction, 300)
         time.sleep(1)
-        
+
     def is_exist_in_bottom_edit_menu(self, name):
         logger("start is_exist_in_bottom_edit_menu")
         elm = self.el(L.edit.edit_sub.bottom_edit_menu)
@@ -2810,58 +2934,60 @@ class EditPage(BasePage):
             else:
                 self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'left', 300)
                 time.sleep(1)
-        logger(f"Didn't find {name} element")        
-        return False    
-    
+        logger(f"Didn't find {name} element")
+        return False
+
     def select_adjustment_from_bottom_edit_menu(self, name):
         logger("start select_adjustment_from_bottom_edit_menu")
         elm = self.el(L.edit.edit_sub.adjustment_menu)
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(5):
-            if  self.is_exist(locator):
+            if self.is_exist(locator):
                 elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
                 return True
             else:
-                #elm.driver.swipe_left()
+                # elm.driver.swipe_left()
                 self.swipe_element(L.edit.edit_sub.adjustment_menu, 'left', 300)
                 time.sleep(1)
-        logger(f"Didn't find {name} element")        
-        return False    
-        
+        logger(f"Didn't find {name} element")
+        return False
+
     def select_effect_from_bottom_edit_menu(self, name):
         logger("start select_effect_from_bottom_edit_menu")
         elm = self.el(L.edit.edit_sub.effect_menu)
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(5):
-            if  self.is_exist(locator):
+            if self.is_exist(locator):
                 elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
                 return True
             else:
-                #elm.driver.swipe_left()
+                # elm.driver.swipe_left()
                 self.swipe_element(L.edit.edit_sub.effect_menu, 'left', 300)
                 time.sleep(1)
-        logger(f"Didn't find {name} element")        
-        return False     
-        
-    def opacity_set_slider(self, percentage): # percentage: 0~1  ex: 0.5
-        logger("start opacity_set_slider")
-        elem = self.el(L.edit.color_sub.adjust_sub.frames)
-        slider = elem.find_element_by_xpath("//android.widget.SeekBar[contains(@resource-id,'adjustable_parameter_seek_bar')]")
-        start_x = slider.location["x"] + (slider.size["width"]/2)
-        start_y = slider.location["y"] + slider.size["height"]
-        end_y = start_y - (percentage * slider.size["height"])
-        logger(f"touch x={start_x}, y={end_y}")
-        actions = TouchAction(self.driver.driver)
-        actions.press(x=start_x,y= end_y).release().perform()   
-        return True        
-    
+        logger(f"Didn't find {name} element")
+        return False
+
+    def opacity_set_slider(self, percentage, offset=0.055):  # percentage: 0~1  ex: 0.5
+        slider = self.h_get_element(L.edit.color_sub.adjust_sub.progress)
+        width = slider.size["width"]
+        offset_width = width - 2 * width * offset
+        start_x = slider.location["x"] + width * offset
+        y = slider.location["y"] + slider.size["height"] / 2
+        end_x = start_x + percentage * offset_width
+        # logger(f"touch x={end_x}, y={y}")
+        actions = ActionChains(self.driver.driver)
+        actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+        actions.w3c_actions.pointer_action.move_to_location(end_x, y).pointer_down().release()
+        actions.perform()
+        return True
+
     def get_opacity_value(self):
         logger("start get_opacity_value")
         elem = self.el(L.edit.color_sub.adjust_sub.frames)
         value = elem.find_element_by_xpath("//android.widget.TextView[contains(@resource-id,'adjustTextNow')]").text
         logger(f"value={value}")
         return value
-        
+
     def title_animation_get_duration(self):
         logger('start title_animation_get_duration')
         elm = self.el(L.edit.color_sub.adjust_sub.number)
@@ -2884,13 +3010,13 @@ class EditPage(BasePage):
             logger('exception occurs')
             raise Exception
         logger(f'content amount={caption_list_count}')
-        return caption_list_count    
-        
+        return caption_list_count
+
     def mgt_set_font_by_name(self, name, swipe_to_bottom='Yes'):
         logger("start >> mgt_set_font_by_name <<")
         logger(f'name={name}')
         try:
-            #swipe list to bottom first
+            # swipe list to bottom first
             if swipe_to_bottom == 'Yes':
                 logger("swipe list to bottom")
                 for times in range(70):
@@ -2917,7 +3043,7 @@ class EditPage(BasePage):
         except Exception:
             raise Exception
         return True
-        
+
     def mgt_select_title_from_menu(self, index):
         logger(f"start >> mgt_select_title_from_menu <<, index = {index}")
         try:
@@ -2928,7 +3054,7 @@ class EditPage(BasePage):
             logger(f"visible text in list={len(elements)}")
             elements[index].click()
             for retry in range(5):
-                if  self.is_exist(L.edit.edit_sub.bottom_edit_menu):
+                if self.is_exist(L.edit.edit_sub.bottom_edit_menu):
                     return True
                 else:
                     logger("click fail, try again")
@@ -2938,11 +3064,11 @@ class EditPage(BasePage):
             logger("find element fail")
             raise Exception
         return True
-        
+
     def import_video_select_got_it(self):
         logger("start >> import_video_select_got_it <<")
         try:
-            #swipe list on dialog
+            # swipe list on dialog
             if self.is_exist(L.edit.tutorial_bubble.dialog):
                 logger("Tips dialog exist, swipe left.")
                 self.driver.swipe_left()
@@ -2953,7 +3079,7 @@ class EditPage(BasePage):
         except Exception:
             raise Exception
         return True
-    
+
     def check_premium_features_used(self):
         logger("start >> check_premium_features_used <<")
         try:
@@ -2966,7 +3092,7 @@ class EditPage(BasePage):
         except Exception:
             raise Exception
         return True
-    
+
     def trying_premium_content(self, action='try'):
         logger("start >> trying_premium_content <<")
         try:
@@ -2987,7 +3113,7 @@ class EditPage(BasePage):
         except Exception:
             raise Exception
         return True
-    
+
     def check_bottom_edit_menu_select_status(self, name):
         logger("start check_bottom_edit_menu_select_status")
         try:
@@ -2996,20 +3122,21 @@ class EditPage(BasePage):
             else:
                 logger('Edit menu not exist, try click edit button')
                 self.el(L.edit.menu.edit).click()
-        
+
             elm = self.el(L.edit.edit_sub.bottom_edit_menu)
             locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
             for retry in range(10):
-                if  self.is_exist(locator):
-                    result = elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').get_attribute('selected')
-                    logger(f"Found {name} function = {result}") 
+                if self.is_exist(locator):
+                    result = elm.find_element_by_xpath(
+                        f'//android.widget.TextView[contains(@text,"{name}")]').get_attribute('selected')
+                    logger(f"Found {name} function = {result}")
                     return result
                 else:
-                    #elm.driver.swipe_left()
+                    # elm.driver.swipe_left()
                     self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'left', 400)
                     time.sleep(1)
-            
-            logger(f"Didn't find {name} element")   
+
+            logger(f"Didn't find {name} element")
             raise Exception
         except Exception:
             raise Exception
@@ -3032,13 +3159,14 @@ class EditPage(BasePage):
         except Exception:
             logger("exception occurs")
             raise Exception
-            
+
     def check_bottom_edit_menu_item_apply_status(self, name):
         logger(f'start check_edit_menu_item_is_applied = {name}')
         try:
             elm = self.el(L.edit.edit_sub.bottom_edit_menu)
             item = elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]/..')
-            apply_icon = item.find_elements_by_xpath("//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
+            apply_icon = item.find_elements_by_xpath(
+                "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
             # logger(f'apply_icon = {apply_icon}')
             if apply_icon != []:
                 logger('Found applied icon!')
@@ -3067,7 +3195,7 @@ class EditPage(BasePage):
         except Exception:
             logger("exception occurs")
             raise Exception
-        
+
     def enter_library_from_facilitate_usage(self):
         logger('start enter_library_from_facilitate_usage')
         try:
@@ -3104,16 +3232,15 @@ class EditPage(BasePage):
             start_x = element.rect['x'] + element.rect['width'] / 2
             start_y = element.rect['y'] + element.rect['height'] / 2
             if direction == 'up':
-                end_y = start_y - int(element.rect['height']*1.5)
+                end_y = start_y - int(element.rect['height'] * 1.5)
             else:
-                end_y = start_y + int(element.rect['height']*1.5)
+                end_y = start_y + int(element.rect['height'] * 1.5)
             actions = TouchAction(self.driver.driver)
             actions.press(x=start_x, y=start_y).wait(ms=5000).move_to(x=start_x, y=end_y).release().perform()
             logger(f'drag from ({start_x}, {start_y}) to ({start_x}, {end_y})')
         except Exception:
             logger("exception occurs")
             raise Exception
-
 
     def close_full_screen_preview_tip(self):
         logger('start close_full_screen_preview_tip ')

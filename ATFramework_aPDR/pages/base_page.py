@@ -10,16 +10,16 @@ from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 from .ad import Ad
-from ATFramework.pages.base_page import *
+from ATFramework_aPDR.ATFramework.pages.base_page import *
 from .locator import locator as L
 from .locator.locator_type import *
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from SFT.conftest import PACKAGE_NAME
-from ATFramework.utils.compare_Mac import CompareImage
-from ATFramework.utils.compare import *
-from SFT.conftest import TEST_MATERIAL_FOLDER_01
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.ATFramework.utils.compare import *
+from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER_01
 
 class BasePage(BasePage):
     def __init__(self,*args,**kwargs):
@@ -44,9 +44,9 @@ class BasePage(BasePage):
                 retry -= 1
                 logger(f'[WARNING] Can not click the element. Retry: {retry}')
     def get_preview_pic(self):
-        elem = self.el(L.edit.preview.movie_view)
-        logger("elem = %s" % str(elem.rect) )
+        elem = self.h_get_element(L.edit.preview.movie_view)
         result = self.driver.save_pic(elem)
+        logger(result)
         return result
     def get_library_pic(self):
         elem = self.el(L.import_media.library_gridview.library_rooms)
@@ -497,6 +497,24 @@ class BasePage(BasePage):
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
 
+    # ==================================================================================================================
+    # Function: h_get_elements
+    # Description: Get elements with non-unique locator
+    # Parameters: locator
+    # Return: Located elements of type WebElement
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_get_elements(self, locator, timeout=5):
+        try:
+            WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            elements = self.driver.driver.find_elements(locator[0], locator[1])
+            return elements
+        except TimeoutException:
+            print(f"[No found] {locator}")
+            return False
+
+
     def h_click(self, locator, timeout=5):
         element = self.h_get_element(locator, timeout)
         if element is False:
@@ -504,7 +522,7 @@ class BasePage(BasePage):
         element.click()
         return True
 
-    def h_is_exist(self, locator, timeout=5):
+    def h_is_exist(self, locator, timeout=2):
         start = time.time()
         try:
             WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
@@ -515,14 +533,14 @@ class BasePage(BasePage):
             return False
 
     # ==================================================================================================================
-    # Function: swipe_element
+    # Function: h_swipe_element
     # Description: Swipe from element_B to element_A
-    # Parameters: element (returned from get_element, not locator), speed (1 is fastest)
+    # Parameters: WebElement (e.g., returned from get_element, not locator), speed (1 is fastest)
     # Return: True/False
     # Note: N/A
     # Author: Hausen
     # ==================================================================================================================
-    def swipe_element(self, element_b, element_a, speed=10):
+    def h_swipe_element(self, element_b, element_a, speed=10):
         try:
             if speed < 1:
                 speed = 1

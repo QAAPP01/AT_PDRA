@@ -1,16 +1,17 @@
 import sys,time
-from pages.base_page import BasePage
-from ATFramework.utils.extra import element_exist_click
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
+from ATFramework_aPDR.ATFramework.utils.log import logger
 import random
 from appium.webdriver.common.touch_action import TouchAction
-from ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 from pathlib import Path
 
 from .locator.locator import import_media as L
 from .locator.locator import edit as E
 
-from SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
+from .locator.locator_type import find_string
 
 google_drive_account = 'clt.qaat@gmail.com'
 
@@ -22,6 +23,30 @@ class MediaPage(BasePage):
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
         self.udid = self.driver.driver.desired_capabilities['deviceUDID']
         
+    def select_local_video(self, folder, file_name):
+        self.h_click(L.video_library.select_folder)
+        for i in range(3):
+            if self.h_click(find_string(folder)):
+                self.select_media_by_text(file_name)
+                break
+            else:
+                logger(f"[Not exist] {folder}")
+                folders = self.h_get_elements(L.video_library.folders)
+                self.h_swipe_element(folders[len(folders)-1], folders[0], speed=3)
+
+    def select_local_photo(self, folder, file_name):
+        self.switch_to_photo_library()
+        self.h_click(L.photo_library.select_folder)
+        for i in range(3):
+            if self.h_click(find_string(folder)):
+                return True if self.select_media_by_text(file_name) else False
+            else:
+                logger(f"[Not exist] {folder}")
+                folders = self.h_get_elements(L.photo_library.folders)
+                self.h_swipe_element(folders[len(folders)-1], folders[0], speed=3)
+                return False
+
+
     def import_last_folder(self):
         logger ("start >> import_last_folder <<")
         # self.click_element(self._project_empty)
@@ -36,24 +61,23 @@ class MediaPage(BasePage):
         time.sleep(1)
         return result
 
-    def select_media_by_text(self,name, timeout=10):
-        logger("start >> select_media_by_text<<")
-        logger(f"input - {name}")
+    def select_media_by_text(self, name):
         try:
-            self.is_exist(L.library_gridview.frame, timeout)
-            frame = self.el(L.library_gridview.frame)
-            locator = ("xpath", f'//*[contains(@text,"{name}")]')
+            frame = self.h_get_element(L.library_gridview.frame)
+            locator = find_string(name)
             for retry in range(20):
-                if not self.is_exist(locator):
-                    self.driver.swipe_element(L.library_gridview.frame, 'left', 300)
+                if not self.h_is_exist(locator):
+                    self.driver.swipe_element(L.library_gridview.frame, 'up', 300)
                 else:
-                    self.driver.swipe_element(L.library_gridview.frame, 'left', 100)
+                    self.driver.swipe_element(L.library_gridview.frame, 'up', 100)
                     break
             element = frame.find_element_by_xpath(f'//*[contains(@text,"{name}")]')
             if element.text != name:
                 logger(f"locate incorrect element - {name}")
                 raise Exception
             element.click()
+            self.h_click(L.library_gridview.add)
+            self.h_click(L.library_gridview.apply, timeout=0.5)
         except Exception:
             logger(f"Fail to locate element - {name}")
             raise Exception
@@ -236,9 +260,8 @@ class MediaPage(BasePage):
         self.tap_element(L.menu.pip_video_library)
 
     def switch_to_photo_library(self):
-        logger("start >> switch_to_photo_library <<")
-        time.sleep(10)
-        self.tap_element(L.menu.photo_library)
+        logger("[Info] Switch_to_photo_library")
+        self.h_click(L.menu.photo_library)
     
     def switch_to_title_library(self):
         logger("start >> switch_to_title_library <<")

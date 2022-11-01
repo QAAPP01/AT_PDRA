@@ -1,8 +1,8 @@
 import sys,time
-from pages.base_page import BasePage
-from ATFramework.utils.extra import element_exist_click
-from ATFramework.utils.log import logger
-from ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
+from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 from appium.webdriver.common.touch_action import TouchAction
 
 from .locator import locator as L

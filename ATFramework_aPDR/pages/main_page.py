@@ -13,7 +13,7 @@ from .locator.locator import main as L
 from .locator.locator import edit as E
 from .locator.locator import import_media as I
 from .locator.locator_type import *
-from SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 
 pdr_package = PACKAGE_NAME
 
@@ -34,11 +34,11 @@ class MainPage(BasePage):
         # logger("\n[Start] enter_launcher")
         try:
             # 1st Launch
-            if self.h_click(L.permission.gdpr_accept, timeout=0.5):
+            if self.h_click(L.permission.gdpr_accept, timeout=0.2):
                 # logger("\n[Info] 1st Launch")
                 if self.h_is_exist(L.permission.loading_bar):
                     # Loading
-                    while self.h_is_exist(L.permission.loading_bar, timeout=0.5):
+                    while self.h_is_exist(L.permission.loading_bar, timeout=0.2):
                         continue
 
                     # IAP
@@ -53,14 +53,14 @@ class MainPage(BasePage):
                     return False
 
             else:
-                if self.h_is_exist(L.permission.loading_bar, timeout=0.5):
+                if self.h_is_exist(L.permission.loading_bar, timeout=0.2):
                     # logger("\n[Info] Loading")
                     # Loading
-                    while self.h_is_exist(L.permission.loading_bar, timeout=0.5):
+                    while self.h_is_exist(L.permission.loading_bar, timeout=0.2):
                         continue
 
                 # 2nd Launch
-                if self.h_click(L.tutorials.close_open_tutorial, timeout=0.5):
+                if self.h_click(L.tutorials.close_open_tutorial, timeout=0.2):
                     # logger("\n[Info] 2nd Launch")
 
                     # IAP
@@ -75,13 +75,13 @@ class MainPage(BasePage):
                     # logger("\n[Info] 3rd Launch")
 
                     # IAP
-                    if self.h_click(L.premium.iap_back, timeout=0.5):
+                    if self.h_click(L.premium.iap_back, timeout=0.2):
                         pass
                     # else:
                         # logger("\n[Skip] IAP")
 
                     # Churn Recovery
-                    if self.h_is_exist(L.premium.pdr_premium, timeout=0.5):
+                    if self.h_is_exist(L.premium.pdr_premium, timeout=0.2):
                         self.driver.driver.back()
                         # Done
                         logger("\n[Done] Enter Launcher")
@@ -90,7 +90,7 @@ class MainPage(BasePage):
                         # logger("\n[Skip] Churn Recovery")
 
                     # Check in
-                    if self.h_click(L.gamification.check_in_later, timeout=0.5):
+                    if self.h_click(L.gamification.check_in_later, timeout=0.2):
                         # Done
                         logger("\n[Done] Enter Launcher")
                         return True
@@ -106,14 +106,15 @@ class MainPage(BasePage):
             logger(f"[Exception Error] {err}")
             return False
 
-    def enter_timeline(self, project_name=None, ratio='16_9'):
+    def enter_timeline(self, project_name=None, ratio='16_9', skip_media=True):
         try:
             # logger("\n[Start] enter_timeline")
             self.h_click(L.project.new, 2)
             if project_name:
                 self.project_set_name(project_name)
             self.project_set_ratio(ratio)
-            self.h_click(I.menu.back)
+            if skip_media:
+                self.h_click(I.menu.back)
             logger('\n[Done] Enter Timeline Done')
             return True
         except Exception as err:

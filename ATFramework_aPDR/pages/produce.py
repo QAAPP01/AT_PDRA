@@ -1,7 +1,7 @@
 import sys, time
-from pages.base_page import BasePage
-from ATFramework.utils.extra import element_exist_click
-from ATFramework.utils.log import logger 
+from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
+from ATFramework_aPDR.ATFramework.utils.log import logger
 import subprocess
 from pathlib import Path
 

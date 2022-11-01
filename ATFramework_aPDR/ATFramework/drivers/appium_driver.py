@@ -865,7 +865,6 @@ class AppiumU2Driver(Borg, BaseDriver):
                 rect[key] += offset[key]
         if last:
             rect = last_rect
-        logger(f"Save rect={rect}")
         last_rect = rect
         im = cv2.imread(path_full)
         im_crop = im[rect['y'] : rect['y']+rect['height'],rect['x']:rect['x']+rect['width']]

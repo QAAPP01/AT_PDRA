@@ -13,6 +13,7 @@ class Menu():
     import_media = aid("[AID]TimeLine_VideoPhotoAudio")
     effect = aid("[AID]TimeLine_Layer")
     fx = aid("[AID]TimeLine_Fx")
+    settings = id('btn_setting')
     produce = aid("[AID]TimeLine_Save")
     timeline_setting = aid("[AID]TimeLine_Setting")
     undo = aid("[AID]TimeLine_Undo")
@@ -23,6 +24,9 @@ class Menu():
     delete = id("btn_delete")
     home = id('btn_home')
     btn_apply_all = id('btn_apply_all')
+
+class ToolMenu:
+    back = id('btn_session_back_icon')
 
 
 class SubMenu_Timeline_Setting():
@@ -222,6 +226,8 @@ class Preview():
 
 
 class Timeline():
+    tool = id('label')
+    sub_tool = id('tool_entry_label')
     timeline_area = id('container_of_tracks')
     effect_1st = ("xpath" , "(//android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout)[2]")
     clip =("xpath",'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]')
@@ -356,6 +362,7 @@ class Adjust_sub():
     number = id("adjustTextNow")
     #progress = id("ea_widget_parameter_seek_bar")
     progress = id("adjustable_parameter_seek_bar")
+    reset = id('btn_reset')
     
 class ChromaKey_sub():
     frames = xpath('//android.widget.LinearLayout[contains(@resource-id,"ea_widget_container")]/android.widget.LinearLayout')
@@ -558,7 +565,7 @@ class Intro_Video():
     youtube_title = ('id', 'com.google.android.youtube:id/collapsed_title')
     top_toolbar_account = id('top_toolbar_account')
     profile_page = find_string('Posts')
-    intro_category = id('library_category_tab_text')    # not unique
+    intro_category = id('library_category_tab_text')        # not unique
     intro_first_highlight = xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView[1]/android.widget.RelativeLayout[1]/android.widget.ImageView')
     tab_cyberlink = id('cyberlink_switch')
     tab_discover = id('discover_switch')
@@ -569,10 +576,9 @@ class Intro_Video():
     list_category = id('category_recycler_view')
     list_template = id('template_recycler_view')
     top_toolbar_search = id('top_toolbar_search')
-    template_thumbnail = id('video_template_thumbnail')
+    template_thumbnail = id('video_template_thumbnail')     # not unique
     video_template_favorite_icon = id('video_template_favorite_icon')
     duration_text = id('duration_text')
-    # edit_in_designer = ('xpath', '(//*[contains(@content-desc,"Edit in Intro Video Designer")])')
     list_libraryEntry = id('libraryEntryList')
     btn_save_menu = id('btn_save_menu')
     
@@ -588,10 +594,12 @@ class Intro_Video():
     btn_back = xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[1]/android.widget.Image')
     btn_fav = ('id', "\u5716\u5C64_1")
     preview = xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[4]/android.view.View/android.view.View')
-    edit_in_designer = find_string('Edit in Video Intro Designer')
+    loading = ('xpath', '//*[contains(@class,"android.widget.ProgressBar")]')
+    edit_in_intro = find_string('Customize')
     add_to_timeline = find_string('Add to Timeline')
 
     # Designer
+    home = id('btn_home')
     libraryEntryList = id('libraryEntryList')
 
     # Trim page
@@ -601,6 +609,7 @@ class Intro_Video():
 
 class Interface():
     menu = Menu()
+    tool_menu = ToolMenu()
     sub_menu = SubMenu_Timeline_Setting()
     preview = Preview()
     timeline = Timeline()
@@ -608,6 +617,7 @@ class Interface():
     edit_sub = Edit_sub()
     effect_sub = Effect_Sub()
     color_sub = Color_sub()
+    adjust_sub = Adjust_sub()
     reverse = Reverse()
     stabilizing_video_window = Produce_Video_Window()
     reverse_video_window = Produce_Video_Window()

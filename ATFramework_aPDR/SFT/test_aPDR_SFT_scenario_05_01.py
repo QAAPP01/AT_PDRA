@@ -57,7 +57,7 @@ class Test_SFT_Scenario_05_01:
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.report.set_driver(self.driver)
         self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(1)
+        self.driver.implicit_wait(0.2)
 
         yield self.driver  # keep driver for the function which uses 'initial'
 
@@ -131,7 +131,7 @@ class Test_SFT_Scenario_05_01:
             if name not in category:
                 result['05_01_09'] = False
                 break
-        result['05_01_08'] = 'CyberLink' in category
+        result['05_01_08'] = 'CyberLink' not in category
         self.report.new_result('9b2f2a26-aac6-4f88-bb91-25957758fa2b', result['05_01_08'])
         self.report.new_result('6f81c401-70fb-4e16-9f23-99de8e9deef0', result['05_01_09'])
 
@@ -150,15 +150,9 @@ class Test_SFT_Scenario_05_01:
             result['05_01_10'] = self.page_edit.intro_video.check_scroll_category()
         self.report.new_result('22104cdc-9087-464f-8797-5dabae9e750c', result['05_01_10'])
 
+        pprint(result)
 
 
-
-
-        # # sce_05_01_11
-        # logger("\n[Start] sce_05_01_11")
-        # self.report.start_uuid('ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9')
-        # result['05_01_11'] = self.page_edit.intro_video.intro_back()
-        # self.report.new_result('ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9', result['05_01_11'])
 
 
 
