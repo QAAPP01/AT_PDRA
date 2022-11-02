@@ -1,6 +1,8 @@
 import sys, time
 import os
 import shutil
+
+import cv2
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 from os.path import dirname
@@ -1517,7 +1519,7 @@ class Intro_Video(BasePage):
 
     def customize(self):
         self.h_click(L.edit.intro_video.edit_in_intro, timeout=15)
-        while self.h_is_exist(L.edit.intro_video.loading_designer, 2):
+        while self.h_is_exist(L.edit.intro_video.loading_designer, 1):
             continue
         if self.h_is_exist(L.edit.intro_video.home):
             logger("[Done] Enter intro designer")
@@ -1745,6 +1747,49 @@ class Intro_Video(BasePage):
         except Exception:
             logger(f"Fail to tap_back_button")
             raise Exception
+
+    def click_tool(self, name, retry=10):
+        for i in range(4):
+            if self.h_click(L.edit.tool_menu.back, timeout=1):
+                continue
+            else:
+                break
+        for i in range(retry):
+            if not self.h_is_exist(find_string(name), timeout=1):
+                tool = self.h_get_elements(L.edit.timeline.tool)
+                last = tool[len(tool) - 1].text
+                self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=5)
+                tool = self.h_get_elements(L.edit.timeline.tool)
+                if tool[len(tool) - 1].text == last:
+                    logger(f'[Not exist] Tool "{name}" is not exist')
+                    return False
+            else:
+                break
+        self.h_click(find_string(name))
+        return True
+
+    def click_sub_tool(self, name, retry=10, timeout=1):
+        for i in range(retry):
+            if not self.h_is_exist(find_string(name), timeout=timeout):
+                tool = self.h_get_elements(L.edit.timeline.sub_tool)
+                last = tool[len(tool) - 1].text
+                self.h_swipe_element(tool[len(tool) - 1], tool[0])
+                tool = self.h_get_elements(L.edit.timeline.sub_tool)
+                if tool[len(tool) - 1].text == last:
+                    logger(f'[Not exist] Tool "{name}" is not exist')
+                    return False
+            else:
+                break
+        self.h_click(find_string(name))
+        return True
+
+    def rotate_background(self):
+        self.click_tool('Media')
+        pic_base = EditPage.get_preview_pic(self)
+        self.click_sub_tool('Rotate')
+        pic_after = EditPage.get_preview_pic(self)
+        return CompareImage(pic_base, pic_after, 7).compare_image()
+
 
 
 class EditPage(BasePage):
