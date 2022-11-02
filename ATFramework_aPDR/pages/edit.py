@@ -1374,7 +1374,7 @@ class Intro_Video(BasePage):
         try:
             self.h_click(L.edit.intro_video.intro_video_entry)
             if self.h_is_exist(L.edit.intro_video.top_toolbar_back):
-                logger("\n[Done] Enter Intro")
+                logger("[Done] Enter Intro")
                 return True
             else:
                 logger("\n[Fail] Enter Intro Fail")
@@ -1517,11 +1517,24 @@ class Intro_Video(BasePage):
 
     def customize(self):
         self.h_click(L.edit.intro_video.edit_in_intro, timeout=15)
+        while self.h_is_exist(L.edit.intro_video.loading_designer, 2):
+            continue
         if self.h_is_exist(L.edit.intro_video.home):
-            logger("\n[Done] Enter intro designer")
+            logger("[Done] Enter intro designer")
             return True
         else:
-            logger("\n[Fail] Enter intro designer Fail")
+            logger("[Fail] Enter intro designer Fail")
+            return False
+
+    def add_to_video(self):
+        self.h_click(L.edit.intro_video.add_to_timeline, timeout=15)
+        while self.h_is_exist(L.edit.intro_video.loading_designer, 2):
+            continue
+        if self.h_is_exist(L.edit.intro_video.intro_master_clip):
+            logger("[Done] Add to Your Video")
+            return True
+        else:
+            logger("[Fail] Add to Your Video Fail")
             return False
 
     def enter_intro_video_designer(self, timeout=10):

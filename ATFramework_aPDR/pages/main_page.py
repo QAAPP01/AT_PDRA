@@ -45,7 +45,7 @@ class MainPage(BasePage):
                     self.h_click(L.premium.iap_back)
 
                     # Done
-                    logger("\n[Done] Enter Launcher")
+                    logger("[Done] Enter Launcher")
                     return True
 
                 else:
@@ -67,7 +67,7 @@ class MainPage(BasePage):
                     self.h_click(L.premium.iap_back)
 
                     # Done
-                    logger("\n[Done] Enter Launcher")
+                    logger("[Done] Enter Launcher")
                     return True
 
                 # 3rd Launch
@@ -84,7 +84,7 @@ class MainPage(BasePage):
                     if self.h_is_exist(L.premium.pdr_premium, timeout=0.2):
                         self.driver.driver.back()
                         # Done
-                        logger("\n[Done] Enter Launcher")
+                        logger("[Done] Enter Launcher")
                         return True
                     # else:
                         # logger("\n[Skip] Churn Recovery")
@@ -92,13 +92,13 @@ class MainPage(BasePage):
                     # Check in
                     if self.h_click(L.gamification.check_in_later, timeout=0.2):
                         # Done
-                        logger("\n[Done] Enter Launcher")
+                        logger("[Done] Enter Launcher")
                         return True
                     # else:
                         # logger("\n[Skip] Check in")
 
                     # Done
-                    logger("\n[Done] Enter Launcher")
+                    logger("[Done] Enter Launcher")
                     return True
 
         except Exception as err:
@@ -115,7 +115,7 @@ class MainPage(BasePage):
             self.project_set_ratio(ratio)
             if skip_media:
                 self.h_click(I.menu.back)
-            logger('\n[Done] Enter Timeline Done')
+            logger('[Done] Enter Timeline Done')
             return True
         except Exception as err:
             logger("\n[Fail] Enter Launcher Fail")

@@ -20,13 +20,13 @@ class TestInit():
         self.report.add_ovinfo("version", '9')
         self.report.add_ovinfo("duration", 'auto-fill')
 
-    @pytest.mark.skip
-    def test_build_init(self):
-        from .conftest import DRIVER_DESIRED_CAPS
-        print('[test_build_init] Start to remove aPDR related project/Movies files')
-        list_folder = ['storage/emulated/0/Movies/cyberlink/PowerDirector', 'storage/emulated/0/PowerDirector']
-        for folder in list_folder:
-            command = f'adb -s {DRIVER_DESIRED_CAPS["udid"]} shell rm -r {folder}'
-            print(command)
-            subprocess.call(command)
-        print('[test_build_init] Done')
+    # @pytest.mark.skip
+    # def test_build_init(self):
+    #     from .conftest import DRIVER_DESIRED_CAPS
+    #     print('[test_build_init] Start to remove aPDR related project/Movies files')
+    #     list_folder = ['storage/emulated/0/Movies/cyberlink/PowerDirector', 'storage/emulated/0/PowerDirector']
+    #     for folder in list_folder:
+    #         command = f'adb -s {DRIVER_DESIRED_CAPS["udid"]} shell rm -r {folder}'
+    #         print(command)
+    #         subprocess.call(command)
+    #     print('[test_build_init] Done')

@@ -596,7 +596,7 @@ class Intro_Video():
     preview = xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[4]/android.view.View/android.view.View')
     loading = ('xpath', '//*[contains(@class,"android.widget.ProgressBar")]')
     edit_in_intro = find_string('Customize')
-    add_to_timeline = find_string('Add to Timeline')
+    add_to_timeline = find_string('Add to Your Video')
 
     # Designer
     home = id('btn_home')
@@ -604,6 +604,9 @@ class Intro_Video():
 
     # Trim page
     trim_play = id('playPauseBtn')
+
+    # Added to timeline
+    intro_master_clip = aid('[AID]TimeLineVideo_16_9_S1_T1_1.mp4')
 
 
 

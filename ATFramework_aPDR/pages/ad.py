@@ -3,11 +3,11 @@ import time
 
 from .locator import locator as L
 # from .locator.locator_type import *
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.log import logger
 from appium.webdriver.common.touch_action import TouchAction
 # from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.support import expected_conditions as EC
-from SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 import inspect
 pdr_package = PACKAGE_NAME
 
