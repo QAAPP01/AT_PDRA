@@ -17,7 +17,7 @@ from .log import logger, qa_log
 
 class CompareImage(object):
 
-    def __init__(self, image_1_path, image_2_path, rate):
+    def __init__(self, image_1_path, image_2_path, rate=7):
         self.minimum_image_diff = 1
         self.image_1_path = image_1_path
         self.image_2_path = image_2_path
@@ -172,3 +172,27 @@ class CompareImage(object):
             return commutative_image_diff
         except Exception as e:
             logger(f'Exception. ({e})')
+
+    # ==================================================================================================================
+    # Function: h_total_compare
+    # Description: Compare images with the same size and orientation
+    # Parameters: image_1_path, image_2_path
+    # Return: similarity or False
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_total_compare(self):
+        image_1 = cv2.imread(self.image_1_path)
+        image_2 = cv2.imread(self.image_2_path)
+        logger(f'Image1 resolution: {image_1.shape}  (file:{self.image_1_path})')
+        logger(f'Image2 resolution: {image_2.shape}  (file:{self.image_2_path})')
+        if image_1.shape[0] != image_2.shape[0] or image_1.shape[1] != image_2.shape[1]:
+            logger('\n[Fail] Images size are different')
+            return 0
+        else:
+            height = image_1.shape[0]
+            width = image_1.shape[1]
+            errorL2 = cv2.norm(image_1, image_2, cv2.NORM_L2)
+            similarity = 1 - errorL2 / (height * width)
+            logger(f'Similarity = {similarity}')
+            return similarity

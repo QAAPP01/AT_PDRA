@@ -1,5 +1,15 @@
 from .aa_init_test import TestInit
 
+from .test_aPDR_SFT_scenario_02_01 import Test_SFT_Scenario_02_01
+# from .test_aPDR_SFT_scenario_02_03 import Test_SFT_Scenario_02_03
+# # from .test_aPDR_SFT_scenario_05_01 import Test_SFT_Scenario_05_01
+# from .test_aPDR_SFT_scenario_05_03 import Test_SFT_Scenario_05_03
+# from .test_aPDR_SFT_scenario_05_08 import Test_SFT_Scenario_05_08
+# from .test_aPDR_SFT_scenario_05_11 import Test_SFT_Scenario_05_11
+# from .test_aPDR_SFT_scenario_05_15 import Test_SFT_Scenario_05_15
+# from .test_aPDR_SFT_scenario_05_16 import Test_SFT_Scenario_05_16
+
+
 # from .test_aPDR_SFT_Scenario_00_01 import Test_SFT_Scenario_00_01a
 # from .test_aPDR_SFT_Scenario_00_01 import Test_SFT_Scenario_00_01b
 # from .test_aPDR_SFT_scenario_06_07 import Test_SFT_Scenario_06_07   # Gamification
@@ -25,9 +35,7 @@ from .aa_init_test import TestInit
 # from .test_aPDR_SFT_scenario_02_19 import Test_SFT_Scenario_02_19
 # #
 
-from .test_aPDR_SFT_scenario_02_03 import Test_SFT_Scenario_02_03
-# from .test_aPDR_SFT_scenario_05_01 import Test_SFT_Scenario_05_01
-# from .test_aPDR_SFT_scenario_05_03 import Test_SFT_Scenario_05_03
+
 
 
 # #

@@ -5,7 +5,7 @@ class Library_gridview():
     library_rooms = id('library_rooms')
     frame = id("pickerDeviceLibrary")
     library_recycler_gridview = id('library_recycler_gridview')
-    first = ("xpath", '//*[contains(@resource-id,"library_unit_thumbnail")][1]')
+    first = ("xpath", '//*[contains(@resource-id,"select_view")][1]')
     last = ("xpath", '(//*[contains(@resource-id,"library_unit_thumbnail")])[last()]')
     first_caption = ("xpath", '//*[contains(@resource-id,"library_unit_caption")][1]')
     last_caption = ("xpath", '(//*[contains(@resource-id,"library_unit_caption")])[last()]')

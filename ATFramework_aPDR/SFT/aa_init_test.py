@@ -1,6 +1,11 @@
 import subprocess
 import pytest
 
+from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
+from ATFramework_aPDR.configs import app_config, driver_config
+from ATFramework_aPDR.pages.page_factory import PageFactory
+from main import package_version, package_build_number
+
 
 class TestInit():
 
@@ -17,8 +22,15 @@ class TestInit():
         self.report.add_ovinfo("title", "aPDR_SFT")
         self.report.add_ovinfo("os", "Android")
         self.report.add_ovinfo("device", DRIVER_DESIRED_CAPS['udid'])
-        self.report.add_ovinfo("version", '9')
+        self.report.add_ovinfo("version", f'{package_version}.{package_build_number}_P')
         self.report.add_ovinfo("duration", 'auto-fill')
+
+    def test_app_init(self):
+        desired_caps = app_config.init_cap
+        driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local', desired_caps)
+        page_main = PageFactory().get_page_object("main_page", driver)
+        page_main.enter_launcher()
+        page_main.enable_file_name()
 
     # @pytest.mark.skip
     # def test_build_init(self):

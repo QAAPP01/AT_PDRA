@@ -9,7 +9,7 @@ import subprocess
 from pathlib import Path
 from appium.webdriver.common.touch_action import TouchAction
 
-from .locator.locator import main as L
+from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator import edit as E
 from .locator.locator import import_media as I
 from .locator.locator_type import *
@@ -26,23 +26,23 @@ class MainPage(BasePage):
     def initial(self):
         logger("Waiting for permission_file_ok")
         print("driver = ", self.driver)
-        element_exist_click(self.driver, L.permission.file_ok, 2)
+        element_exist_click(self.driver, L.main.permission.file_ok, 2)
         logger("Waiting for permission_photo_allow")
-        element_exist_click(self.driver, L.permission.photo_allow, 2)
+        element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def enter_launcher(self):
         # logger("\n[Start] enter_launcher")
         try:
             # 1st Launch
-            if self.h_click(L.permission.gdpr_accept, timeout=0.2):
+            if self.h_click(L.main.permission.gdpr_accept, timeout=0.2):
                 # logger("\n[Info] 1st Launch")
-                if self.h_is_exist(L.permission.loading_bar):
+                if self.h_is_exist(L.main.permission.loading_bar):
                     # Loading
-                    while self.h_is_exist(L.permission.loading_bar, timeout=0.2):
+                    while self.h_is_exist(L.main.permission.loading_bar, timeout=0.2):
                         continue
 
                     # IAP
-                    self.h_click(L.premium.iap_back)
+                    self.h_click(L.main.premium.iap_back)
 
                     # Done
                     logger("[Done] Enter Launcher")
@@ -53,18 +53,18 @@ class MainPage(BasePage):
                     return False
 
             else:
-                if self.h_is_exist(L.permission.loading_bar, timeout=0.2):
+                if self.h_is_exist(L.main.permission.loading_bar, timeout=0.2):
                     # logger("\n[Info] Loading")
                     # Loading
-                    while self.h_is_exist(L.permission.loading_bar, timeout=0.2):
+                    while self.h_is_exist(L.main.permission.loading_bar, timeout=0.2):
                         continue
 
                 # 2nd Launch
-                if self.h_click(L.tutorials.close_open_tutorial, timeout=0.2):
+                if self.h_click(L.main.tutorials.close_open_tutorial, timeout=0.2):
                     # logger("\n[Info] 2nd Launch")
 
                     # IAP
-                    self.h_click(L.premium.iap_back)
+                    self.h_click(L.main.premium.iap_back)
 
                     # Done
                     logger("[Done] Enter Launcher")
@@ -75,27 +75,27 @@ class MainPage(BasePage):
                     # logger("\n[Info] 3rd Launch")
 
                     # IAP
-                    if self.h_click(L.premium.iap_back, timeout=0.2):
+                    if self.h_click(L.main.premium.iap_back, timeout=0.2):
                         pass
                     # else:
-                        # logger("\n[Skip] IAP")
+                    # logger("\n[Skip] IAP")
 
                     # Churn Recovery
-                    if self.h_is_exist(L.premium.pdr_premium, timeout=0.2):
+                    if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
                         self.driver.driver.back()
                         # Done
                         logger("[Done] Enter Launcher")
                         return True
                     # else:
-                        # logger("\n[Skip] Churn Recovery")
+                    # logger("\n[Skip] Churn Recovery")
 
                     # Check in
-                    if self.h_click(L.gamification.check_in_later, timeout=0.2):
+                    if self.h_click(L.main.gamification.check_in_later, timeout=0.2):
                         # Done
                         logger("[Done] Enter Launcher")
                         return True
                     # else:
-                        # logger("\n[Skip] Check in")
+                    # logger("\n[Skip] Check in")
 
                     # Done
                     logger("[Done] Enter Launcher")
@@ -109,14 +109,25 @@ class MainPage(BasePage):
     def enter_timeline(self, project_name=None, ratio='16_9', skip_media=True):
         try:
             # logger("\n[Start] enter_timeline")
-            self.h_click(L.project.new, 2)
+            self.h_click(L.main.project.new_project, 2)
             if project_name:
                 self.project_set_name(project_name)
             self.project_set_ratio(ratio)
             if skip_media:
                 self.h_click(I.menu.back)
-            logger('[Done] Enter Timeline Done')
-            return True
+                if self.h_is_exist(E.preview.movie_view):
+                    logger('[Done] Enter Timeline Done')
+                    return True
+                else:
+                    logger('\n[Fail] Enter Timeline Fail')
+                    return False
+            else:
+                if self.h_is_exist(L.import_media.menu.back):
+                    logger('[Done] Enter Timeline Done')
+                    return True
+                else:
+                    logger('\n[Fail] Enter Timeline Fail')
+                    return False
         except Exception as err:
             logger("\n[Fail] Enter Launcher Fail")
             logger(f"[Exception Error] {err}")
@@ -176,15 +187,19 @@ class MainPage(BasePage):
 
     def project_set_name(self, name):
         # logger("start >> project_set_name <<")
-        self.set_text(L.project.name, name, True)
+        self.h_get_element(L.main.project.name).send_keys(name)
 
     def project_set_ratio(self, ratio='16_9'):
         if ratio == '9_16':
-            self.tap_element(L.setting.ratio_9_16)
+            self.h_click(L.main.project.ratio_9_16)
         elif ratio == '1_1':
-            self.tap_element(L.setting.ratio_1_1)
+            self.h_click(L.main.project.ratio_1_1)
+        elif ratio == '21_9':
+            self.h_click(L.main.project.ratio_21_9)
+        elif ratio == '4_5':
+            self.h_click(L.main.project.ratio_4_5)
         else:
-            self.tap_element(L.setting.ratio_16_9)
+            self.h_click(L.main.project.ratio_16_9)
 
     def project_set_16_9(self):
         logger("start >> project_set_16_9 <<")
@@ -318,6 +333,16 @@ class MainPage(BasePage):
                 # import_media.select_media_by_text("mp4.mp4")
                 import_media.select_media_by_order(1)
             import_media.click(L_media.library_gridview.add)
+
+    # Menu
+    def enable_file_name(self):
+        self.h_click(L.main.menu.menu)
+        self.h_click(L.main.menu.preference)
+        while not self.h_is_exist(L.main.menu.display_file_name_switch, 1):
+            elements = self.h_get_elements(('xpath', '//android.widget.LinearLayout'))
+            self.h_swipe_element(elements[len(elements)-1], elements[0])
+        if self.h_get_element(L.main.menu.display_file_name_switch).get_attribute('checked') == 'false':
+            self.h_click(L.main.menu.display_file_name_switch)
 
     def new_launcher_enter_tutorials(self):
         logger("start >>new_launcher_enter_tutorials<<")

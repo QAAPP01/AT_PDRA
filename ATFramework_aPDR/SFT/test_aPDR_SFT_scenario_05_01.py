@@ -105,7 +105,7 @@ class Test_SFT_Scenario_05_01:
         # sce_05_01_07
         logger("\n[Start] sce_05_01_07")
         self.report.start_uuid('57ee9b4b-7809-42e0-9dab-f0f2c9f913f1')
-        result['05_01_07'] = self.page_edit.intro_video.my_favorite()
+        result['05_01_07'] = self.page_edit.intro_video.check_my_favorite()
         self.report.new_result('57ee9b4b-7809-42e0-9dab-f0f2c9f913f1', result['05_01_07'])
 
         # sce_05_01_11

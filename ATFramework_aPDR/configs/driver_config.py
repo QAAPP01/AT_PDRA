@@ -11,5 +11,5 @@ android_emulator = {
 android_device = {
     'platformName': 'android',
     'automationName': 'UiAutomator2',
-    'deviceName': 'SamsungS6'
+    'deviceName': 'Android'
 }

@@ -1,5 +1,7 @@
 # dummy module
 import time, os
+import uuid
+
 import cv2
 from os.path import dirname
 
@@ -43,11 +45,20 @@ class BasePage(BasePage):
             except:
                 retry -= 1
                 logger(f'[WARNING] Can not click the element. Retry: {retry}')
+
+    def get_picture(self, locator):
+        path = os.getenv('temp', os.path.dirname(__file__))
+        file_save = "%s/%s.png" % (path, uuid.uuid4())
+        self.h_get_element(locator).screenshot(file_save)
+        path_save = os.path.abspath(file_save)
+        logger(path_save)
+        return path_save
+
     def get_preview_pic(self):
-        elem = self.h_get_element(L.edit.preview.movie_view)
-        result = self.driver.save_pic(elem)
-        logger(result)
-        return result
+        element = self.h_get_element(L.edit.preview.preview)
+        while not element.get_attribute('displayed') == 'true':
+            element = self.h_get_element(L.edit.preview.preview)
+        return self.get_picture(L.edit.preview.preview)
     def get_library_pic(self):
         elem = self.el(L.import_media.library_gridview.library_rooms)
         logger("elem = %s" % str(elem.rect) )
@@ -515,7 +526,7 @@ class BasePage(BasePage):
             return False
 
 
-    def h_click(self, locator, timeout=5):
+    def h_click(self, locator, timeout=2):
         element = self.h_get_element(locator, timeout)
         if element is False:
             return False
@@ -533,14 +544,34 @@ class BasePage(BasePage):
             return False
 
     # ==================================================================================================================
+    # Function: h_tap
+    # Description: Tap location
+    # Parameters: x axis, y axis
+    # Return: N/A
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_tap(self, x, y):
+        actions = ActionChains(self.driver.driver)
+        actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+        actions.w3c_actions.pointer_action.move_to_location(x, y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
+
+    # ==================================================================================================================
     # Function: h_swipe_element
     # Description: Swipe from element_B to element_A
-    # Parameters: WebElement (e.g., returned from get_element, not locator), speed (1 is fastest)
+    # Parameters: locator or WebElement (returned from find_element), speed (1 is fastest)
     # Return: True/False
     # Note: N/A
     # Author: Hausen
     # ==================================================================================================================
     def h_swipe_element(self, element_b, element_a, speed=10):
+        if type(element_b) == tuple:  # convert from tuple to WebElement
+            element_b = self.h_get_element(element_b)
+        if type(element_a) == tuple:  # convert from tuple to WebElement
+            element_a = self.h_get_element(element_a)
         try:
             if speed < 1:
                 speed = 1
@@ -570,3 +601,27 @@ class BasePage(BasePage):
             logger(f"[Error] {err}")
             return False
 
+    # ==================================================================================================================
+    # Function: h_drag_element
+    # Description: Drag element
+    # Parameters: locator
+    # Return: Boolean
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_drag_element(self, locator, end_x, end_y):
+        try:
+            element_rect = self.h_get_element(locator).rect
+            start_x = element_rect['x'] + element_rect['width'] / 2
+            start_y = element_rect['y'] + element_rect['height'] / 2
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False

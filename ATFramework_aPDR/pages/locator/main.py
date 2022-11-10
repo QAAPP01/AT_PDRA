@@ -13,7 +13,7 @@ class Project():
     created = Created_project()
     empty = aid("[AID]Project_Create")
     select = id('project_item_border')
-    new = id('btn_create_new_project')
+    new_project = id('layout_new_project')
     new_existed_created = id("btn_create_new_project")
     name = aid("[AID]Modify_ProjectName")
     btn_produced_videos = id("btn_produced_video")
@@ -34,6 +34,12 @@ class Project():
     dont_ask_mode = id('dialog_checkbox')
     btn_ok = id('btn_remind_ok')
 
+    ratio_16_9 = id('iv_project_16_9')
+    ratio_9_16 = id('iv_project_9_16')
+    ratio_1_1 = id('iv_project_1_1')
+    ratio_21_9 = id('iv_project_21_9')
+    ratio_4_5 = id('iv_project_4_5')
+
 class Project_Info():
     aspect_ratio = id("aspect_ratio_img")
     project_title = id("project_title")
@@ -43,6 +49,12 @@ class Project_Info():
     btn_save_as = id("btn_save_as_project")
     btn_delete_project = id("btn_delete_project")
     btn_back = aid('[AID]SelectProject_Back')
+
+
+class Menu:
+    menu = xpath('//*[contains(@resource-id,"iv_menu")][1]')
+    preference = id('btn_preference')
+    display_file_name_switch = id('displayNameInMedia_switch')
 
 class Tutorials():
     youtube_view = id('youtube_view')
@@ -69,18 +81,16 @@ class Tutorials():
     shopping_cart = id("btn_shopping_cart")
     open_tutorial = id('fragment_open_tutorial')
     close_open_tutorial = id('cancel_button')
+
     
-    
-class Setting():
-    ratio_16_9 = id("project_16_9")
-    ratio_9_16 = id("project_9_16")
-    ratio_1_1 = id("project_1_1")
+class Setting:
+
     default_image_duration = id("settings_default_image_duration")
     settings_default_video_quality = id('settings_default_video_quality')
     layout_premium = id('layout_premium')
 
 
-class Subscribe():
+class Subscribe:
     # v6.4-
     # one_month = id('subscribe_left_btn_layout')
     # three_month = id('subscribe_right_btn_layout')
@@ -91,10 +101,10 @@ class Subscribe():
     # one_year = id('free_trial')
     
     # new
-    one_month = id('iap_txtBtn_left')
+    iap_monthly = id('iap_plan_monthly')
     three_month = id('iap_txtBtn_right')
     one_year = id('iap_txtBtn_middle')
-    continue_btn = id('continueBtn_land')
+    continue_btn = id('continueBtn')
     password = xpath('//android.widget.EditText')
     verify = xpath('//android.widget.Button[@text="Verify"]')
     back_btn = aid('[AID]IAP_Back')
@@ -171,6 +181,7 @@ class Interface():
     permission = Permission()
     project = Project()
     project_info = Project_Info()
+    menu = Menu()
     setting = Setting()
     tutorials = Tutorials()
     subscribe = Subscribe()

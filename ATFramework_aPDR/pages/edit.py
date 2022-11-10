@@ -17,7 +17,7 @@ from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 
-from .locator import locator as L
+from .locator.locator import main as L
 from .locator.locator_type import *
 from .locator.locator import edit as E
 
@@ -1414,8 +1414,8 @@ class Intro_Video(BasePage):
     def log_in(self):
         try:
             if self.h_is_exist(L.main.cse.login_page, 2):
-                account = 'cyberhausen@gmail.com'
-                pw = '000000'
+                account = 'nick.qadf+beta.vl111@gmail.com'
+                pw = '123456'
                 self.set_text(L.main.cse.email_field, account)
                 self.set_text(L.main.cse.password_field, pw)
                 self.h_click(L.main.cse.btn_login)
@@ -1430,7 +1430,7 @@ class Intro_Video(BasePage):
         except Exception as err:
             logger(f"\n[Error] {err}")
 
-    def my_favorite(self):
+    def check_my_favorite(self):
         if self.h_get_element(L.edit.intro_video.intro_category).text != 'My Favorites':
             logger("[Fail] My Favorites is not the first category")
             return False
@@ -1495,6 +1495,8 @@ class Intro_Video(BasePage):
             raise Exception
 
     def edit_1st_template(self):
+        while self.h_is_exist(L.edit.intro_video.loading_icon, 1):
+            continue
         index = 1
         while not self.h_click(L.edit.intro_video.template_thumbnail, timeout=1):
             categories = self.h_get_elements(L.edit.intro_video.intro_category)
@@ -1517,8 +1519,25 @@ class Intro_Video(BasePage):
                     index = i
                     break
 
+    def edit_favorite_template(self, template_index=1):
+        while self.h_is_exist(L.edit.intro_video.loading_icon, 1):
+            continue
+        if self.h_click(find_string('My Favorites')):
+            self.log_in()
+            templates = self.h_get_elements(L.edit.intro_video.template_thumbnail)
+            if not templates:
+                return False
+            else:
+                if template_index > len(templates):
+                    logger(f'\n[Fail] Cannot find the template index {template_index}')
+                else:
+                    templates[template_index-1].click()
+                    return True
+
     def customize(self):
-        self.h_click(L.edit.intro_video.edit_in_intro, timeout=15)
+        while self.h_is_exist(class_name('android.widget.ProgressBar')):
+            continue
+        self.h_click(L.edit.intro_video.edit_in_intro)
         while self.h_is_exist(L.edit.intro_video.loading_designer, 1):
             continue
         if self.h_is_exist(L.edit.intro_video.home):
@@ -1529,7 +1548,9 @@ class Intro_Video(BasePage):
             return False
 
     def add_to_video(self):
-        self.h_click(L.edit.intro_video.add_to_timeline, timeout=15)
+        while self.h_is_exist(class_name('android.widget.ProgressBar')):
+            continue
+        self.h_click(L.edit.intro_video.add_to_timeline)
         while self.h_is_exist(L.edit.intro_video.loading_designer, 2):
             continue
         if self.h_is_exist(L.edit.intro_video.intro_master_clip):
@@ -1537,6 +1558,32 @@ class Intro_Video(BasePage):
             return True
         else:
             logger("[Fail] Add to Your Video Fail")
+            return False
+
+    def add_to_video_in_intro(self):
+        self.h_click(L.edit.intro_video.btn_save_menu)
+        if self.h_click(find_string('Add to Your Video')):
+            if self.h_is_exist(L.edit.intro_video.intro_master_clip):
+                logger("[Done] Add to Your Video")
+                return True
+            else:
+                logger("\n[Fail] Add to Your Video Fail")
+                return False
+        else:
+            logger('\n[Fail] Cannot find "Add to Your Video"')
+            return False
+
+    def share_template(self):
+        self.h_click(L.edit.intro_video.btn_save_menu)
+        if self.h_click(find_string('Share Template')):
+            if self.h_is_exist(L.edit.intro_video.share_page_share):
+                logger("[Done] Share Template")
+                return True
+            else:
+                logger("\n[Fail] Share Template Fail")
+                return False
+        else:
+            logger('\n[Fail] Cannot find "Share Template"')
             return False
 
     def enter_intro_video_designer(self, timeout=10):
@@ -1783,6 +1830,7 @@ class Intro_Video(BasePage):
         self.h_click(find_string(name))
         return True
 
+    # Media
     def rotate_background(self):
         self.click_tool('Media')
         pic_base = EditPage.get_preview_pic(self)
@@ -1790,7 +1838,25 @@ class Intro_Video(BasePage):
         pic_after = EditPage.get_preview_pic(self)
         return CompareImage(pic_base, pic_after, 7).compare_image()
 
+    def flip_background(self):
+        self.click_tool('Media')
+        pic_base = EditPage.get_preview_pic(self)
+        self.click_sub_tool('Flip')
+        pic_after = EditPage.get_preview_pic(self)
+        return CompareImage(pic_base, pic_after, 7).compare_image()
 
+    # PIP
+    def add_photo(self):
+        self.click_tool('Add')
+        self.click_sub_tool('Photo')
+        self.h_click(id('select_view'))
+        self.h_click(L.import_media.library_gridview.add)
+
+    def flip_pip(self):
+        pic_base = EditPage.get_picture(self, L.edit.pip_designer.pip_object)
+        self.click_sub_tool('Flip')
+        pic_after = EditPage.get_picture(self, L.edit.pip_designer.pip_object)
+        return CompareImage(pic_base, pic_after, 7).compare_image()
 
 class EditPage(BasePage):
     def __init__(self, *args, **kwargs):
@@ -1820,16 +1886,16 @@ class EditPage(BasePage):
 
     def click_tool(self, name, retry=10):
         for i in range(4):
-            if self.h_click(L.edit.tool_menu.back, timeout=1):
+            if self.h_click(E.tool_menu.back, timeout=1):
                 continue
             else:
                 break
         for i in range(retry):
             if not self.h_is_exist(find_string(name), timeout=1):
-                tool = self.h_get_elements(L.edit.timeline.tool)
+                tool = self.h_get_elements(E.timeline.tool)
                 last = tool[len(tool) - 1].text
                 self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=5)
-                tool = self.h_get_elements(L.edit.timeline.tool)
+                tool = self.h_get_elements(E.timeline.tool)
                 if tool[len(tool) - 1].text == last:
                     logger(f'[Not exist] Tool "{name}" is not exist')
                     return False
@@ -1838,13 +1904,13 @@ class EditPage(BasePage):
         self.h_click(find_string(name))
         return True
 
-    def click_sub_tool(self, name, retry=10, timeout=1):
-        for i in range(retry):
+    def click_sub_tool(self, name, timeout=1):
+        while 1:
             if not self.h_is_exist(find_string(name), timeout=timeout):
-                tool = self.h_get_elements(L.edit.timeline.sub_tool)
+                tool = self.h_get_elements(E.timeline.sub_tool)
                 last = tool[len(tool) - 1].text
-                self.h_swipe_element(tool[len(tool) - 1], tool[0])
-                tool = self.h_get_elements(L.edit.timeline.sub_tool)
+                self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=4)
+                tool = self.h_get_elements(E.timeline.sub_tool)
                 if tool[len(tool) - 1].text == last:
                     logger(f'[Not exist] Tool "{name}" is not exist')
                     return False

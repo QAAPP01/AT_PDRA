@@ -136,6 +136,26 @@ class Pan_Zoom_Effect():
     reset = aid('[AID]Session_Reset')
 
 
+class Crop:
+    btn_original = id('btn_crop_original')
+    btn_free = id('btn_crop_free')
+    btn_9_16 = id('btn_crop_9_16')
+    btn_1_1 = id('btn_crop_1_1')
+    btn_4_5 = id('btn_crop_4_5')
+    btn_16_9 = id('btn_crop_16_9')
+    btn_4_3 = id('btn_crop_4_3')
+    btn_3_4 = id('btn_crop_3_4')
+    right_top = aid('[AID]Resizable_RightTop')
+    boundary = id('resizable_boundary')
+    apply = id('apply_btn')
+    cancel = id('cancel_btn')
+    reset = id('resetBtn')
+    play_pause = id('playPauseBtn')
+    time_code = id('time_code_text')
+    slider = id('movie_seekbar')
+
+
+
 class Reverse():
     dialog_ok = aid("[AID]Dialog_OK")
     dialog_cancel = aid("[AID]Dialog_Cancel")
@@ -198,6 +218,7 @@ class Color_Selector():
 
 class Preview():
     movie_view = id("movie_view")
+    preview = xpath('//*[contains(@resource-id,"movie_view")]/android.view.View')
     set_font = aid("[AID]TitleDesign_RightTop")
     # rotate = aid("[AID]Resizable_RightBottom")
     rotate = id('rotate_point')
@@ -258,7 +279,7 @@ class Timeline():
     outro_video_entry = id('outro_video_entry')
 
 
-class Title_Designer():
+class Pip_Designer():
     tab_list = id('top_area_recycler')
     # btn_edit_face = id('text_button')
     btn_edit_face = find_string('Color')
@@ -302,7 +323,7 @@ class Title_Designer():
     color_palette_item = id('colors_container')
 
     # title_object = id('rz_content')
-    title_object = id('resizable_boundary')
+    pip_object = id('resizable_boundary')
     title_text_edit_area = aid('[AID]TextEdit_Text')
     title_text_edit_confirm = aid('[AID]TextEdit_Confirm')  
     switch_border = id('border_enable_switch')
@@ -403,7 +424,7 @@ class Try_Before_Buy():
     btn_subtounlock = id('unlock_content_view')
     icon_try = id('library_unit_lock')
     btn_delete_premium = id('delete_premium_btn')
-    btn_notnow = id('btnCancel')
+    try_it = aid('[AID]Upgrade_No')
     btn_ads_sub = id('btnPurchase')
 
 class Audio_Mixing():
@@ -586,6 +607,10 @@ class Intro_Video():
     btn_share = id('share_btn')
     btn_apply_to_timeline = id('apply_to_project_btn')
     btn_cancel = id('cancel_btn')
+
+    # Share Page
+    share_page_share = id('shareable_share')
+
     # Close confirm
     btn_leave = id('exit_btn')
     btn_no = id('no_btn')
@@ -625,11 +650,12 @@ class Interface():
     stabilizing_video_window = Produce_Video_Window()
     reverse_video_window = Produce_Video_Window()
     pan_zoom_effect = Pan_Zoom_Effect()
+    crop = Crop()
     stabilizer_correction = Stabilizer_Correction()
     stabilizer = Stabilizer()
     sharpness = Sharpness()
     speed = Speed()
-    title_designer = Title_Designer()
+    pip_designer = Pip_Designer()
     transition = Transition()
     opacity = Opacity()
     fade = Fade()

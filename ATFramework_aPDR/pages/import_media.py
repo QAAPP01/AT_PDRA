@@ -30,7 +30,6 @@ class MediaPage(BasePage):
                 self.select_media_by_text(file_name)
                 break
             else:
-                logger(f"[Not exist] {folder}")
                 folders = self.h_get_elements(L.video_library.folders)
                 self.h_swipe_element(folders[len(folders)-1], folders[0], speed=3)
 
@@ -54,19 +53,18 @@ class MediaPage(BasePage):
         return self.wait_until_element_exist(L.library_gridview.first,10)
 
     def import_first_file(self):
-        logger ("start >> import_first_file <<")
-        self.click_element(L.library_gridview.first)
-        self.click_element(L.library_gridview.add)
-        result = self.wait_until_element_exist(L.timeline.clip,3)
-        time.sleep(1)
+        # logger ("start >> import_first_file <<")
+        self.h_click(L.library_gridview.first)
+        self.h_click(L.library_gridview.add)
+        self.h_click(L.library_gridview.apply, 1)
+        result = self.h_is_exist(L.timeline.clip, 5)
         return result
 
     def select_media_by_text(self, name):
         try:
             frame = self.h_get_element(L.library_gridview.frame)
-            locator = find_string(name)
             for retry in range(20):
-                if not self.h_is_exist(locator):
+                if not self.h_is_exist(find_string(name)):
                     self.driver.swipe_element(L.library_gridview.frame, 'up', 300)
                 else:
                     self.driver.swipe_element(L.library_gridview.frame, 'up', 100)

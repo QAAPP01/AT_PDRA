@@ -6,8 +6,8 @@ Add elif clauses as and when you implement new drivers.
 """
 
 from selenium import webdriver
-from ATFramework.drivers.appium_driver import AppiumU2Driver
-from ATFramework.drivers.xcuitest_driver import AppiumXCUITestDriver
+from ATFramework_aPDR.ATFramework.drivers.appium_driver import AppiumU2Driver
+from ATFramework_aPDR.ATFramework.drivers.xcuitest_driver import AppiumXCUITestDriver
 # from appium_driver import AppiumU2Driver
 # from drivers.appium_driver import AppiumXCUITestDriver
 # from drivers.atx_driver import ATXU2Driver

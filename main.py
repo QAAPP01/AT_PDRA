@@ -13,21 +13,23 @@ from send_mail.send_report import send_report
 # device_uudi - A list of the device uuid for testing, if no, program will arrange device(s) automatically
 # parallel_device_count - the device number for parallel testing (default: 1)
 
+package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 # [TR Setting]
-package_version = '10.3.0'  # Please update build version info manually if didn't use auto download
-package_build_number = '117684'  # Please update build version info manually if didn't use auto download
-sr_number = 'DRA220601-01'  # Please update build version info manually if didn't use auto download
-tr_number = 'TR220711-018'
+sr_number = 'DRA221104-01'  # Please update build version info manually if didn't use auto download
+tr_number = 'TR221108-002'
 previous_tr_number = 'TR220629-011'  # Please update build version info manually
+package_version = os.popen(f'adb shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
+package_build_number = os.popen(f'adb shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
+
 
 
 # [Report Mail Setting]
 send = True
 title_project = 'aPDR'
-# receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
-#             "hausen_lin@cyberlink.com"]
-receiver = ['hausen_lin@cyberlink.com']
+receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
+            "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
+# receiver = ['hausen_lin@cyberlink.com']
 # script_version = 'Testing'
 script_version = 'Debug'
 
@@ -41,7 +43,7 @@ project_name = 'ATFramework_aPDR'
 test_case_folder_name = 'SFT'
 test_case_main_file = 'main.py'
 report_list = []
-package_name = 'com.cyberlink.powerdirector.DRA140225_01'
+
 
 # ======================================================================================================================
 

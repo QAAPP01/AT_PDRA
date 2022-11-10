@@ -25,7 +25,7 @@ report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
 
 
-class Test_SFT_Scenario_05_08:
+class Test_SFT_Scenario_05_11:
     @pytest.fixture(autouse=True)
     def initial(self):
 
@@ -75,12 +75,12 @@ class Test_SFT_Scenario_05_08:
 
     # @pytest.mark.skip
     @report.exception_screenshot
-    def test_sce_05_08_24(self):
+    def test_sce_05_11_27(self):
         result = {}
 
-        # sce_05_08_24
-        item_id = '05_08_24'
-        uuid = '5841c726-6358-4715-826c-bbcde03e926b'
+        # sce_05_11_27
+        item_id = '05_11_27'
+        uuid = 'bfb8aabd-5575-47b4-9838-f0d6429974fa'
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
 
@@ -89,18 +89,10 @@ class Test_SFT_Scenario_05_08:
         self.page_edit.intro_video.enter_intro()
         self.page_edit.intro_video.edit_1st_template()
         self.page_edit.intro_video.customize()
-        result[item_id] = not self.page_edit.intro_video.rotate_background()
+        self.page_edit.intro_video.add_photo()
+        result[item_id] = not self.page_edit.intro_video.flip_pip()
 
         self.report.new_result(uuid, result[item_id])
 
-        # sce_05_08_25
-        item_id = '05_08_25'
-        uuid = 'f81a3deb-4a14-42c1-93a7-8a76e703210a'
-        logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
-
-        result[item_id] = not self.page_edit.intro_video.flip_background()
-
-        self.report.new_result(uuid, result[item_id])
-
+        # print result
         pprint(result)
