@@ -216,6 +216,8 @@ class Test_SFT_Scenario_01_01:
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
+        self.click(L.edit.timeline.clip())
+        self.click(L.edit.menu.delete)
         duration_result = self.page_preference.check_setting_image_duration(5.0, False)
         timeline_result = self.page_preference.check_timeline_image_duration(file_name='16_9.jpg')
         self.page_main.h_click(L.edit.timeline.item_view_border)
