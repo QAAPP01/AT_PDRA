@@ -3,12 +3,6 @@ from os.path import dirname as dir
 from os import path
 import subprocess
 from pprint import pprint
-
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.actions import interaction
-from selenium.webdriver.common.actions.action_builder import ActionBuilder
-from selenium.webdriver.common.actions.pointer_input import PointerInput
-
 from ATFramework_aPDR.pages.locator import locator as L
 
 from ATFramework_aPDR.pages.page_factory import PageFactory
@@ -22,7 +16,7 @@ from .conftest import REPORT_INSTANCE
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-from ATFramework_aPDR.pages.locator.locator_type import find_string, id
+from ATFramework_aPDR.pages.locator.locator_type import find_string
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 
 sys.path.insert(0, (dir(dir(__file__))))
@@ -31,20 +25,20 @@ report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
 
 
-class Test_SFT_Scenario_05_16:
+class Test_SFT_Scenario_05_15:
     @pytest.fixture(autouse=True)
     def initial(self):
 
         # ---- local mode ---
         from .conftest import DRIVER_DESIRED_CAPS
         global report
-        logger("\n[Start] Init driver session")
+        logger("[Start] Init driver session")
         desired_caps = {}
         desired_caps.update(app_config.cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         if desired_caps['udid'] == 'auto':
             del desired_caps['udid']
-        logger(f"\n[Info] caps={desired_caps}")
+        logger(f"[Info] caps={desired_caps}")
         self.report = report
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
@@ -70,41 +64,46 @@ class Test_SFT_Scenario_05_16:
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.report.set_driver(self.driver)
+        self.driver.driver.start_recording_screen()
         self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(0.2)
+        self.driver.implicit_wait(0.1)
 
         yield self.driver  # keep driver for the function which uses 'initial'
 
         # teardown
-        logger("\n[Done] Teardown")
+        logger("\n[Stop] Teardown")
         self.driver.stop_driver()
 
     # @pytest.mark.skip
     @report.exception_screenshot
-    def test_sce_05_16_16(self):
+    def test_sce_05_15_1(self):
         result = {}
 
-        # sce_05_16_16
-        item_id = '05_16_16'
-        uuid = 'd6cd4a33-715a-4eae-ad88-271e44b91482'
+        # sce_05_15_1
+        item_id = '05_15_1'
+        uuid = '2b94f7e6-0550-4942-bdfa-ea7de20d3179'
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
 
         self.page_main.enter_launcher()
-        self.page_main.enter_timeline(item_id)
+        self.page_main.enter_timeline()
         self.page_edit.intro_video.enter_intro()
         self.page_edit.intro_video.edit_1st_template()
         self.page_edit.intro_video.customize()
-        self.page_edit.intro_video.share_template()
-        terms = self.page_edit.get_element(id('terms_of_use'))
-        x = terms.location["x"] + terms.size["width"] * 0.9
-        y = terms.location["y"] + terms.size["height"] / 2
-        actions = ActionChains(self.driver.driver)
-        actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-        actions.w3c_actions.pointer_action.move_to_location(x, y)
-        actions.w3c_actions.pointer_action.pointer_down().release()
-        actions.perform()
-        result[item_id] = self.page_edit.h_is_exist(id('contentMessage'))
+        result[item_id] = self.page_edit.intro_video.add_to_video_in_intro()
+
+        self.report.new_result(uuid, result[item_id])
+
+        # sce_05_15_2
+        item_id = '05_15_2'
+        uuid = 'cb72109e-8791-43ca-a22e-36664f0e0e38'
+        logger(f"\n[Start] sce_{item_id}")
+        self.report.start_uuid(uuid)
+
+        self.page_edit.intro_video.enter_intro()
+        self.page_edit.intro_video.edit_1st_template()
+        self.page_edit.intro_video.customize()
+        result[item_id] = self.page_edit.intro_video.share_template()
 
         self.report.new_result(uuid, result[item_id])
 

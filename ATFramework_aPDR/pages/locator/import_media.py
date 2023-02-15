@@ -1,7 +1,13 @@
 from .locator_type import *
 
 
-class Library_gridview():
+class MediaLibrary:
+    back = id("top_toolbar_back")
+    video_library = id("video_switch")
+    photo_library = id("photo_switch")
+    search = id("searchText")
+    waiting_cursor = id("waiting_cursor")
+    downloading = id("loading_text")
     library_rooms = id('library_rooms')
     frame = id("pickerDeviceLibrary")
     library_recycler_gridview = id('library_recycler_gridview')
@@ -36,8 +42,62 @@ class Library_gridview():
     library_tabs_content = id('library_tabs_content')
 
 
+
+    @staticmethod
+    def media(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"select_view")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"select_view")])[{index}]')
+
+    @staticmethod
+    def file_name(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"title_text")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"title_text")])[{index}]')
+
+    @staticmethod
+    def btn_preview(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"btn_preview")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"btn_preview")])[{index}]')
+
+    @staticmethod
+    def duration(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"duration_text")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"duration_text")])[{index}]')
+
+    class Video:
+        video_capture = id('btn_camera')
+        start_recording = aid("Start recording")  # SS A53
+        stop_recording = aid("Stop recording")  # SS A53
+        camera_ok = aid("OK")  # SS A53
+        shutter_stock = id('pickerShutter')
+        getty = id('pickerGetty')
+        getty_pro = id('pickerGettyPro')
+        giphy = id('pickerGIPHY')
+        pixabay = id('pickerPixabay')
+        display_preview = id('videoDisplay')
+
+
+    class Photo:
+        photo_capture = id('btn_camera')
+        take_picture = aid("Take picture")  # SS A53
+        camera_ok = aid("OK")  # SS A53
+        shutter_stock = id('pickerShutter')
+        getty = id('pickerGetty')
+        getty_pro = id('pickerGettyPro')
+        pixabay = id('pickerPixabay')
+        display_preview = id('imageDisplay')
+
+
 class Library_listview():
     # frame = id("library_listview")
+    back = id("top_toolbar_back")
     frame = id("library_recycler_gridview")
     first = ("xpath", '//*[contains(@resource-id,"library_unit_thumbnail")][1]')
     last = ("xpath", '(//*[contains(@resource-id,"library_unit_thumbnail")])[last()]')
@@ -67,9 +127,9 @@ class Menu():
     # back = aid("[AID]TimeLine_Back")
     back = id("top_toolbar_back")
     # video_library = aid("[AID]Libary_Video")
-    video_library = id("library_menu_video")
     pip_video_library = id("library_menu_pip_video")
     # photo_library = aid("[AID]Library_Photo")
+    video_library = id("video_switch")
     photo_library = id("photo_switch")
     pip_photo_library = id("library_menu_pip_photo")
     # music_library = aid("[AID]Library_Audio")
@@ -87,15 +147,22 @@ class Menu():
     sound_clips_library = id('library_menu_sound_clips')
     title_library = id('library_menu_title')
 
+    @staticmethod
+    def file_name(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"title_text")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"title_text")])[{index}]')
 
-class Sort_Menu():
-    by_name = aid("[AID]Sort_Name")
-    by_date = aid("[AID]Sort_Date")
-    by_duration = aid("[AID]Sort_Duration")
-    by_resolution = aid("[AID]Sort_Resolution")
-    by_filesize = aid("[AID]Sort_FileSize")
-    ascending = aid("[AID]Sort_Asc")
-    descending = aid("[AID]Sort_Des")
+class SortMenu:
+    sort_button = id("sort_button")
+    by_name = id("by_name")
+    by_date = id("by_date")
+    by_duration = id("by_duration")
+    by_resolution = id("by_resolution")
+    by_file_size = id("by_file_size")
+    ascending = id("order_asc")
+    descending = id("order_des")
     best_match = aid('[AID]Sort_Best_Match')
     newest = aid('[AID]Sort_Newest')  # = Fresh content in SS
     random = aid('[AID]Sort_Random')  # = popular in SS
@@ -118,7 +185,7 @@ class Video_Category():
 class Video_Library():
     select_folder = id('album_arrow')
     folders = id('album_text')  # not unique
-    sort_menu = Sort_Menu()
+    sort_menu = SortMenu
     # back = aid("[AID]Library_Back")
     # back = aid("[AID]TimeLine_Back")
     back = id("library_menu_back")
@@ -138,7 +205,7 @@ class Video_Library():
 class Photo_Library():
     select_folder = id('album_arrow')
     folders = id('album_text')  # not unique
-    sort_menu = Sort_Menu()
+    sort_menu = SortMenu
     # back = aid("[AID]Library_Back")
     # back = aid("[AID]TimeLine_Back")
     back = id("library_menu_back")
@@ -148,12 +215,25 @@ class Photo_Library():
     photo_capture_text = ("xpath", '(//*[contains(@text,"Photo Capture")])')
 
 
-class Music_Library():
-    sort_menu = Sort_Menu()
+class Music_Library:
+    local = id("tab_music_local")
+    meta = id("tab_meta_sound")
+    sort = id("action_sort")
+    by_name = id("by_name")
+    by_duration = id("by_duration")
+    by_file_size = id("by_file_size")
+    by_ascending = id("order_asc")
+    by_descending = id("order_des")
+    file_name = id("library_unit_caption")          # not unique
+    file_duration = id("library_unit_duration")     # not unique
+    add = id("library_unit_add")                    # not unique
+    stop = id("stop_icon")
+    favorite = id("library_unit_favorite")
+    download = id("library_unit_download")
+    downloading = id("progress_bar_download")
     # back = aid("[AID]Library_Back")
     # back = aid("[AID]TimeLine_Back")
-    back = id("library_menu_back")
-    sort = id("btn_sort")
+    back = id("action_back")
     # close_and_play = aid("[AID]Library_CloseAndPlay")
     close_and_play = id("close_libraries_and_play")
     # iap_back = aid("[AID]Upgrade_No")
@@ -161,8 +241,17 @@ class Music_Library():
     shutterstock_tab = id('tab_music_shutterstock')
     pdr_tab = id('tab_bgm_sound_clip')
     filter_all = aid('[AID]Filter_All')
-    filter_genres = aid('[AID]Filter_Genres')
+    filter_genres = id("stock_music_tab_genres")
     filter_moods = aid('[AID]Filter_Moods')
+    category_name = id("library_unit_caption")
+    search = id("searchText")
+
+    @staticmethod
+    def clip(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"library_unit_caption")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"library_unit_caption")])[{index}]')
 
 
 class Music_Server_Library():
@@ -207,14 +296,15 @@ class GettyImages_Premium():
     btn_googlepay_buy = xpath('//android.widget.Button[@text="1-tap buy"]')
 
 
-class Interface():
-    library_gridview = Library_gridview()
+class Interface:
+    media_library = MediaLibrary()
     library_listview = Library_listview()
     video_category = Video_Category()
     video_library = Video_Library()
     photo_library = Photo_Library()
     music_library = Music_Library()
     menu = Menu()
+    sort_menu = SortMenu
     timeline = Time_line()
     music_server_library = Music_Server_Library()
     transition_list = Transition_List()

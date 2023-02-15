@@ -32,13 +32,13 @@ class Test_SFT_Scenario_05_08:
         # ---- local mode ---
         from .conftest import DRIVER_DESIRED_CAPS
         global report
-        logger("\n[Start] Init driver session")
+        logger("[Start] Init driver session")
         desired_caps = {}
         desired_caps.update(app_config.cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         if desired_caps['udid'] == 'auto':
             del desired_caps['udid']
-        logger(f"\n[Info] caps={desired_caps}")
+        logger(f"[Info] caps={desired_caps}")
         self.report = report
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
@@ -64,13 +64,14 @@ class Test_SFT_Scenario_05_08:
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.report.set_driver(self.driver)
+        self.driver.driver.start_recording_screen()
         self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(0.2)
+        self.driver.implicit_wait(0.1)
 
         yield self.driver  # keep driver for the function which uses 'initial'
 
         # teardown
-        logger("\n[Done] Teardown")
+        logger("\n[Stop] Teardown")
         self.driver.stop_driver()
 
     # @pytest.mark.skip
@@ -85,11 +86,15 @@ class Test_SFT_Scenario_05_08:
         self.report.start_uuid(uuid)
 
         self.page_main.enter_launcher()
-        self.page_main.enter_timeline(item_id)
+        self.page_main.enter_timeline()
         self.page_edit.intro_video.enter_intro()
-        self.page_edit.intro_video.edit_1st_template()
+        self.page_edit.intro_video.edit_favorite_template()
         self.page_edit.intro_video.customize()
-        result[item_id] = not self.page_edit.intro_video.rotate_background()
+        self.page_edit.click_tool('Media')
+        self.page_edit.click_sub_tool('Rotate')
+        pic_after = self.page_main.get_preview_pic()
+        pic_base = path.join(path.dirname(__file__), 'test_material', '05_08', '05_08_24.png')
+        result[item_id] = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
 
         self.report.new_result(uuid, result[item_id])
 
@@ -99,7 +104,11 @@ class Test_SFT_Scenario_05_08:
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
 
-        result[item_id] = not self.page_edit.intro_video.flip_background()
+        self.page_edit.click_tool('Media')
+        self.page_edit.click_sub_tool('Flip')
+        pic_after = self.page_main.get_preview_pic()
+        pic_base = path.join(path.dirname(__file__), 'test_material', '05_08', '05_08_25.png')
+        result[item_id] = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
 
         self.report.new_result(uuid, result[item_id])
 

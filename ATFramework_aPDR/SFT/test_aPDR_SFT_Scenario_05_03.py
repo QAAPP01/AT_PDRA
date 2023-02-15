@@ -25,20 +25,20 @@ report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
 
 
-class Test_SFT_Scenario_05_15:
+class Test_SFT_Scenario_05_03:
     @pytest.fixture(autouse=True)
     def initial(self):
 
         # ---- local mode ---
         from .conftest import DRIVER_DESIRED_CAPS
         global report
-        logger("\n[Start] Init driver session")
+        logger("[Start] Init driver session")
         desired_caps = {}
         desired_caps.update(app_config.cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         if desired_caps['udid'] == 'auto':
             del desired_caps['udid']
-        logger(f"\n[Info] caps={desired_caps}")
+        logger(f"[Info] caps={desired_caps}")
         self.report = report
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
@@ -64,47 +64,42 @@ class Test_SFT_Scenario_05_15:
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.report.set_driver(self.driver)
+        self.driver.driver.start_recording_screen()
         self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(0.2)
+        self.driver.implicit_wait(0.1)
 
         yield self.driver  # keep driver for the function which uses 'initial'
 
         # teardown
-        logger("\n[Done] Teardown")
+        logger("\n[Stop] Teardown")
         self.driver.stop_driver()
 
     # @pytest.mark.skip
     @report.exception_screenshot
-    def test_sce_05_15_1(self):
+    def test_sce_05_03_30(self):
         result = {}
 
-        # sce_05_15_1
-        item_id = '05_15_1'
-        uuid = '2b94f7e6-0550-4942-bdfa-ea7de20d3179'
+        # sce_05_03_30
+        item_id = '05_03_30'
+        uuid = '2dfd00f8-53a6-4380-9b9e-54355ff851ad'
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
-
         self.page_main.enter_launcher()
-        self.page_main.enter_timeline(item_id)
+        self.page_main.enter_timeline()
         self.page_edit.intro_video.enter_intro()
         self.page_edit.intro_video.edit_1st_template()
-        self.page_edit.intro_video.customize()
-        result[item_id] = self.page_edit.intro_video.add_to_video_in_intro()
-
+        result[item_id] = self.page_edit.intro_video.customize()
         self.report.new_result(uuid, result[item_id])
 
-        # sce_05_15_2
-        item_id = '05_15_2'
-        uuid = 'cb72109e-8791-43ca-a22e-36664f0e0e38'
+        # sce_05_03_31
+        item_id = '05_03_31'
+        uuid = '82d2f413-f2b9-4ba0-94cc-75e66bf03cd0'
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
-
-        self.page_edit.intro_video.enter_intro()
+        self.page_edit.h_click(L.edit.intro_video.home)
+        self.page_edit.h_click(L.edit.intro_video.btn_leave)
         self.page_edit.intro_video.edit_1st_template()
-        self.page_edit.intro_video.customize()
-        result[item_id] = self.page_edit.intro_video.share_template()
-
+        result[item_id] = self.page_edit.intro_video.add_to_video()
         self.report.new_result(uuid, result[item_id])
 
-        # print result
         pprint(result)

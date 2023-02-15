@@ -28,7 +28,7 @@ init_cap = {
     "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
     "language": "en",
     "locale": "US",
-    'autoGrantPermissions': True,
+    # 'autoGrantPermissions': True,
     "noReset": False,
     "autoLaunch": True,
     'noSign': True

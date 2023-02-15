@@ -1,6 +1,6 @@
-import sys, time
+import sys, time, os
 
-from selenium.common import TimeoutException
+from selenium.common.exceptions import TimeoutException
 
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
@@ -8,7 +8,6 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 import subprocess
 from pathlib import Path
 from appium.webdriver.common.touch_action import TouchAction
-
 from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator import edit as E
 from .locator.locator import import_media as I
@@ -31,18 +30,22 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def enter_launcher(self):
-        # logger("\n[Start] enter_launcher")
+        # logger("[Start] enter_launcher")
         try:
             # 1st Launch
-            if self.h_click(L.main.permission.gdpr_accept, timeout=0.2):
+            if self.h_click(L.main.permission.gdpr_accept, timeout=0.5):
                 # logger("\n[Info] 1st Launch")
                 if self.h_is_exist(L.main.permission.loading_bar):
                     # Loading
-                    while self.h_is_exist(L.main.permission.loading_bar, timeout=0.2):
+                    while self.h_is_exist(L.main.permission.loading_bar, timeout=0.5):
                         continue
 
                     # IAP
                     self.h_click(L.main.premium.iap_back)
+
+                    # # Churn Recovery
+                    # if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
+                    #     self.driver.driver.back()
 
                     # Done
                     logger("[Done] Enter Launcher")
@@ -53,10 +56,10 @@ class MainPage(BasePage):
                     return False
 
             else:
-                if self.h_is_exist(L.main.permission.loading_bar, timeout=0.2):
+                if self.h_is_exist(L.main.permission.loading_bar, timeout=0.5):
                     # logger("\n[Info] Loading")
                     # Loading
-                    while self.h_is_exist(L.main.permission.loading_bar, timeout=0.2):
+                    while self.h_is_exist(L.main.permission.loading_bar, timeout=0.5):
                         continue
 
                 # 2nd Launch
@@ -65,6 +68,10 @@ class MainPage(BasePage):
 
                     # IAP
                     self.h_click(L.main.premium.iap_back)
+
+                    # # Churn Recovery
+                    # if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
+                    #     self.driver.driver.back()
 
                     # Done
                     logger("[Done] Enter Launcher")
@@ -90,47 +97,85 @@ class MainPage(BasePage):
                     # logger("\n[Skip] Churn Recovery")
 
                     # Check in
-                    if self.h_click(L.main.gamification.check_in_later, timeout=0.2):
-                        # Done
-                        logger("[Done] Enter Launcher")
-                        return True
-                    # else:
-                    # logger("\n[Skip] Check in")
+                    self.h_click(L.main.gamification.check_in_later, timeout=0.2)
 
                     # Done
                     logger("[Done] Enter Launcher")
                     return True
 
         except Exception as err:
-            logger("\n[Fail] Enter Launcher Fail")
-            logger(f"[Exception Error] {err}")
+            logger(f"[Error] {err}")
             return False
 
-    def enter_timeline(self, project_name=None, ratio='16_9', skip_media=True):
+    def change_UI_mode(self, mode):
+        try:
+            mode = mode.lower()
+            if mode not in ["portrait", "landscape", "auto-rotate"]:
+                raise ValueError
+            self.h_click(L.main.menu.menu)
+            self.h_click(L.main.menu.preference)
+            current_mode = self.h_get_element(L.timeline_settings.preference.current_UI_mode_text).text.lower()
+            if current_mode != mode:
+                self.h_click(L.timeline_settings.preference.current_UI_mode_text)
+                self.h_click(L.timeline_settings.preference.UI_mode(mode))
+                self.h_click(L.timeline_settings.preference.back)
+                current_mode = self.h_get_element(L.timeline_settings.preference.current_UI_mode_text).text.lower()
+            self.h_click(L.timeline_settings.preference.back)
+            self.h_click(L.main.menu.back)
+            return current_mode
+
+        except ValueError:
+            logger('[Error] UI mode input is incorrect')
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+    def enter_timeline(self, project_name=None, skip_media=True):
         try:
             # logger("\n[Start] enter_timeline")
-            self.h_click(L.main.project.new_project, 2)
             if project_name:
-                self.project_set_name(project_name)
-            self.project_set_ratio(ratio)
+                project_flag = False
+                while not project_flag:
+                    projects = self.h_get_elements(L.main.project.project_name(0))
+                    for i in range(len(projects)):
+                        if projects[i].text == project_name:
+                            self.h_click(projects[i])
+                            project_flag = True
+                            break
+                    if project_flag:
+                        logger(f'[Info] Enter project: {project_name}')
+                        break
+                    else:
+                        last = projects[-1].text
+                        self.h_swipe_element(projects[-1], projects[0], 6)
+                        projects = self.h_get_elements(L.main.project.project_name(0))
+                        if projects[-1].text == last:
+                            logger(f'\n[Error] Cannot find the project: {project_name}')
+                            logger(f'[Info] New a project')
+                            self.h_click(L.main.project.new_project, 2)
+                            break
+            else:
+                self.h_click(L.main.project.new_project, 2)
             if skip_media:
-                self.h_click(I.menu.back)
-                if self.h_is_exist(E.preview.movie_view):
+                self.h_click(I.menu.back, 2)
+                if self.h_is_exist(L.edit.preview.movie_view, 1):
                     logger('[Done] Enter Timeline Done')
                     return True
                 else:
                     logger('\n[Fail] Enter Timeline Fail')
                     return False
             else:
-                if self.h_is_exist(L.import_media.menu.back):
+                if self.h_is_exist(L.edit.preview.movie_view):
                     logger('[Done] Enter Timeline Done')
                     return True
                 else:
-                    logger('\n[Fail] Enter Timeline Fail')
-                    return False
+                    if self.h_is_exist(L.import_media.media_library.media(0)):
+                        logger('[Done] Enter Timeline Done')
+                        return True
+                    else:
+                        logger('\n[Fail] Enter Timeline Fail')
+                        return False
         except Exception as err:
-            logger("\n[Fail] Enter Launcher Fail")
-            logger(f"[Exception Error] {err}")
+            logger(f"[Error] {err}")
             return False
 
     def project_click_empty(self):
@@ -187,7 +232,8 @@ class MainPage(BasePage):
 
     def project_set_name(self, name):
         # logger("start >> project_set_name <<")
-        self.h_get_element(L.main.project.name).send_keys(name)
+        # self.h_get_element(L.main.project.name).send_keys(name)
+        pass
 
     def project_set_ratio(self, ratio='16_9'):
         if ratio == '9_16':
@@ -241,15 +287,18 @@ class MainPage(BasePage):
 
     def project_check_default_project_name(self):
         import datetime
-        logger("start >> get_default_project_name <<")
+        # logger("start >> get_default_project_name <<")
         dt = datetime.datetime.today()
-        project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
-        logger("project name:{}".format(project_name))
-        project_name_default = self.get_text(L.project.name).decode("utf-8")
-        if project_name_default is None: return False
-        logger("project name_default:{}".format(project_name_default))
-        if project_name_default != project_name: return False
-        return True
+        project_name_default = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
+        project_name = self.get_text(L.main.project.name).decode("utf-8")
+        if project_name != project_name_default:
+            logger(f'[Info] Project Name: {project_name}')
+            logger(f'[Info] Default Project Name: {project_name_default}')
+            logger('\n[Fail] Project Name incorrect')
+            return False
+        else:
+            logger(f'[Pass] Project Name: {project_name}')
+            return True
 
     def project_create_new(self, ratio="16:9", type="video"):
         from pages.page_factory import PageFactory
@@ -340,7 +389,7 @@ class MainPage(BasePage):
         self.h_click(L.main.menu.preference)
         while not self.h_is_exist(L.main.menu.display_file_name_switch, 1):
             elements = self.h_get_elements(('xpath', '//android.widget.LinearLayout'))
-            self.h_swipe_element(elements[len(elements)-1], elements[0])
+            self.h_swipe_element(elements[len(elements) - 1], elements[0])
         if self.h_get_element(L.main.menu.display_file_name_switch).get_attribute('checked') == 'false':
             self.h_click(L.main.menu.display_file_name_switch)
 
@@ -476,26 +525,12 @@ class MainPage(BasePage):
             raise Exception
         return True
 
-    def reset_project_list(self, device_udid, package, project_name):  # project_name=16_9, 9_16, 1_1
+    def reset_project_list(self, device_udid, package, project_name, under_android_11=False):  # project_name=16_9, 9_16, 1_1
         logger("start >> reset_project_list <<")
         try:
             self.driver.stop_app(package)
             logger("stop app <<")
-            if device_udid == '8B5Y0TSU9':
-                # remove project folder
-                command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects"'
-                subprocess.call(command)
-                # mkdir project folder
-                command = f'adb -s {device_udid} shell mkdir "storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects"'
-                subprocess.call(command)
-                # push project file
-                list_file = ['.projlist', f'{project_name}.pdrproj']
-                for file in list_file:
-                    file_path = f"{Path(__file__).parent.parent.absolute()}\\SFT\\projects\\{project_name}\\{file}"
-                    command = f'adb -s {device_udid} push "{file_path}" "/storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects/"'
-                    print(command)
-                    subprocess.call(command)
-            else:
+            if under_android_11:
                 # remove project folder
                 command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/PowerDirector/projects"'
                 subprocess.call(command)
@@ -509,6 +544,61 @@ class MainPage(BasePage):
                     command = f'adb -s {device_udid} push "{file_path}" "/storage/emulated/0/PowerDirector/projects/"'
                     print(command)
                     subprocess.call(command)
+
+            else:
+                # remove project folder
+                command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects"'
+                subprocess.call(command)
+                # mkdir project folder
+                command = f'adb -s {device_udid} shell mkdir "storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects"'
+                subprocess.call(command)
+                # push project file
+                list_file = ['.projlist', f'{project_name}.pdrproj']
+                for file in list_file:
+                    file_path = f"{Path(__file__).parent.parent.absolute()}\\SFT\\projects\\{project_name}\\{file}"
+                    command = f'adb -s {device_udid} push "{file_path}" "/storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects/"'
+                    print(command)
+                    subprocess.call(command)
+        except Exception:
+            raise Exception
+        logger("re-start app <<")
+        self.driver.start_app(package)
+        return True
+
+    def add_project_list(self, device_udid, package, project_name):  # project_name=16_9, 9_16, 1_1
+        logger("start >> reset_project_list <<")
+        try:
+            self.driver.stop_app(package)
+            logger("stop app <<")
+
+            # pull .projlist
+            device_path = 'storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects/'
+            temp_folder = os.getenv('temp', os.path.dirname(__file__))
+            command = f'adb -s {device_udid} pull {device_path}.projlist {temp_folder}'
+            subprocess.call(command)
+
+            temp_projlist = os.path.join(temp_folder, ".projlist")
+            projlist_file = open(temp_projlist, mode='r')
+            projlist = projlist_file.read()[:-3]
+            projlist_file.close()
+
+            file_path = f'{Path(__file__).parent.parent.absolute()}\\SFT\\projects\\{project_name}'
+            old_projlist_file = open(os.path.join(file_path, ".projlist"), mode='r')
+            old_projlist = "," + old_projlist_file.read()[9:]
+            old_projlist_file.close()
+
+            new_projlist = projlist + old_projlist
+            projlist_file = open(temp_projlist, mode='w')
+            projlist_file.write(new_projlist)
+            projlist_file.close()
+
+            # push project file
+            command = f'adb -s {device_udid} push {temp_projlist} {device_path}'
+            subprocess.call(command)
+
+            command = f'adb -s {device_udid} push {os.path.join(file_path, project_name+".pdrproj")} {device_path}'
+            subprocess.call(command)
+
         except Exception:
             raise Exception
         logger("re-start app <<")
@@ -707,17 +797,17 @@ class MainPage(BasePage):
             return False
 
     def enter_settings_from_main(self):
-        logger('start enter_settings_from_main')
+        # logger('start enter_settings_from_main')
         try:
-            if self.is_exist(L.project.new_launcher_scroll):
+            if self.is_exist(L.main.project.new_launcher_scroll):
                 for swipe_time in range(5):
                     self.driver.swipe_up()
-                    if self.is_exist(L.project.btn_settings):
+                    if self.is_exist(L.main.project.btn_settings):
                         break
                     time.sleep(1)
-                self.el(L.project.btn_settings).click()
+                self.el(L.main.project.btn_settings).click()
                 time.sleep(5)
-                if self.is_exist(L.cse.account_entry):
+                if self.is_exist(L.main.cse.account_entry):
                     logger('Enter Settings page success!')
                     return True
                 else:

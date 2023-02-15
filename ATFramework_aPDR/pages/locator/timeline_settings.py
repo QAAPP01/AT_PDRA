@@ -1,10 +1,10 @@
 from .locator_type import *
 
-class Settings():
+class Preference:
     default_image_duration = id("settings_default_image_duration")
     default_image_duration_value = id('settings_default_image_duration_value')
     default_pan_zoom_effect = aid("[AID]PremiumContent_Switch")
-    back = aid("[AID]VideoList_Back")
+    back = id("iv_back")
     reset_all_tips = id("reseting_all_tips")
     default_transition_duration = id('settings_default_transition_duration')
     default_transition_duration_value = id('settings_default_transition_duration_value')
@@ -17,10 +17,17 @@ class Settings():
     remove_watermark = aid('[AID]remove_watermark')
     advanced_setting = id('advanced_setting')
     settings_edit_mode = id('settings_edit_mode')
-    settings_current_edit_mode_text = id('settings_current_edit_mode_text')
+    current_UI_mode_text = id('settings_current_edit_mode_text')
     radio_btn_portrait = id('radio_btn_portrait')
     radio_btn_landscape = id('radio_btn_landscape')
     radio_btn_auto = id('radio_btn_auto')
+
+    @staticmethod
+    def UI_mode(mode):
+        if mode == "auto-rotate":
+            return id('radio_btn_auto')
+        else:
+            return id(f'radio_btn_{mode}')
 
 class DefaultImageDuration():
     slider = aid("[AID]Transition_Seekbar")
@@ -48,7 +55,8 @@ class DefaultVideoQuality():
     radio_btn_sd = id('radio_btn_sd')
 
 class Interface():
-    settings = Settings()
+    settings = Preference()
+    preference = Preference()
     default_image_duration = DefaultImageDuration()
     default_transition_duration = DefaultTransitionDuration()
     default_title_duration = DefaultTitleDuration()

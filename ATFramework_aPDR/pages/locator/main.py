@@ -1,6 +1,6 @@
 from .locator_type import *
 
-class Permission():
+class Permission:
     gdpr_accept = id("gdpr_accept_button")
     loading_bar = id("splashWaitingProgress")
     file_ok = id("btn_remind_ok")
@@ -13,7 +13,7 @@ class Project():
     created = Created_project()
     empty = aid("[AID]Project_Create")
     select = id('project_item_border')
-    new_project = id('layout_new_project')
+    new_project = id('iv_add')
     new_existed_created = id("btn_create_new_project")
     name = aid("[AID]Modify_ProjectName")
     btn_produced_videos = id("btn_produced_video")
@@ -33,12 +33,20 @@ class Project():
     autorotate_mode = id('radio_btn_auto')
     dont_ask_mode = id('dialog_checkbox')
     btn_ok = id('btn_remind_ok')
+    dialog_ok = aid('[AID]ConfirmDialog_OK')
 
     ratio_16_9 = id('iv_project_16_9')
     ratio_9_16 = id('iv_project_9_16')
     ratio_1_1 = id('iv_project_1_1')
     ratio_21_9 = id('iv_project_21_9')
     ratio_4_5 = id('iv_project_4_5')
+
+    @staticmethod
+    def project_name(index=1):
+        if index == 0:
+            return xpath(f'//androidx.cardview.widget.CardView/android.view.ViewGroup/android.widget.TextView[contains(@resource-id,"tv_title")]')
+        else:
+            return xpath(f'(//androidx.cardview.widget.CardView/android.view.ViewGroup/android.widget.TextView[contains(@resource-id,"tv_title")])[{index}]')
 
 class Project_Info():
     aspect_ratio = id("aspect_ratio_img")
@@ -53,6 +61,7 @@ class Project_Info():
 
 class Menu:
     menu = xpath('//*[contains(@resource-id,"iv_menu")][1]')
+    back = id("iv_back")
     preference = id('btn_preference')
     display_file_name_switch = id('displayNameInMedia_switch')
 

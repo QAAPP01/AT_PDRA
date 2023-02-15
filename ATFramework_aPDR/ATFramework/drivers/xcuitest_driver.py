@@ -5,10 +5,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-import configs.app_config as AppConfig
-import configs.driver_config as DriverConfig
-from ATFramework.drivers.base_driver import BaseDriver
-from ATFramework.utils.log import logger, qa_log
+import ATFramework_aPDR.configs.app_config as AppConfig
+import ATFramework_aPDR.configs.driver_config as DriverConfig
+from ATFramework_aPDR.ATFramework.drivers.base_driver import BaseDriver
+from ATFramework_aPDR.ATFramework.utils.log import logger, qa_log
 import subprocess
 
 

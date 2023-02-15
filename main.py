@@ -1,6 +1,9 @@
 import platform
 import os
 import sys
+from glob import glob
+import subprocess
+from ATFramework_aPDR.ATFramework.utils.log import logger
 from multiprocessing import Process
 
 from send_mail.send_report import send_report
@@ -13,16 +16,82 @@ from send_mail.send_report import send_report
 # device_uudi - A list of the device uuid for testing, if no, program will arrange device(s) automatically
 # parallel_device_count - the device number for parallel testing (default: 1)
 
-package_name = 'com.cyberlink.powerdirector.DRA140225_01'
-
 # [TR Setting]
-sr_number = 'DRA221104-01'  # Please update build version info manually if didn't use auto download
-tr_number = 'TR221108-002'
-previous_tr_number = 'TR220629-011'  # Please update build version info manually
-package_version = os.popen(f'adb shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
-package_build_number = os.popen(f'adb shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
+tr_number = 'TR230214-005'
+previous_tr_number = 'TR230208-001'  # Please update build version info manually
+sr_number = 'DRA230208-01'  # Please update build version info manually if didn't use auto download
 
+# [Device Setting]
+# deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device
+deviceName = "R5CT32Q3WQN"
+device_udid = [deviceName]
+system_port_default = 8200  # for Android
+parallel_device_count = 1
+project_name = 'ATFramework_aPDR'
+test_case_folder_name = 'SFT'
+test_case_main_file = 'main.py'
+report_list = []
 
+# [Auto Download The Newest Build]
+auto_download = True
+package_name = 'com.cyberlink.powerdirector.DRA140225_01'
+if __name__ == '__main__':
+    if auto_download:
+        path = r'\\clt-qaserver\Testing\_RD_Build\PowerDirector_Android\PowerDirector*\PowerDirector*.apk'
+        latest = 0
+        for file in glob(path):
+            string = file.split("\\")[7].split("-")[2].split(".apk")[0].split(".")
+            apk_build = string[3]
+            if int(apk_build) > latest:
+                install = file
+                latest = int(apk_build)
+        if latest:
+            logger(f'[Info] Newest Build {latest}')
+            try:
+                your_build = int(
+                    os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[
+                        1].split(' ')[0])
+            except IndexError:
+                your_build = 0
+            if latest > your_build:
+                if your_build:
+                    if not subprocess.call(['adb', '-s', deviceName, 'shell', 'pm', 'uninstall', package_name], stdout=subprocess.DEVNULL,
+                                           stderr=subprocess.STDOUT):
+                        logger(f'[Info] Remove old build {your_build}')
+                    else:
+                        logger(f'[Info] Remove Fail')
+                if not subprocess.call(['adb', '-s', deviceName, 'install', install], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT):
+                    logger(f"[Info] Installed success!")
+                else:
+                    logger(f"[Info] Installed fail!")
+
+                # Copy file
+                build_path = f'storage/emulated/0/Build/PDR/'
+                no_dir = subprocess.call(['adb', '-s', deviceName, 'shell', 'ls', build_path], stdout=subprocess.DEVNULL,
+                                         stderr=subprocess.STDOUT)
+                if no_dir:
+                    subprocess.call(['adb', '-s', deviceName, 'shell', 'mkdir', build_path])
+
+                apk_name = install.split("\\")
+                apk_name = apk_name[len(apk_name) - 1]
+                no_apk = subprocess.call(['adb', '-s', deviceName, 'shell', 'ls', os.path.join(build_path, apk_name)],
+                                         stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+
+                if no_apk:
+                    print('Start copying file...')
+                    copy = subprocess.call(['adb', '-s', deviceName, 'push', install, build_path])
+                    if not copy:
+                        print(f'Copy apk to {build_path} completed！')
+                    else:
+                        print(f'Copy apk to {build_path} failed！')
+
+            else:
+                logger(f'[Info] Your build is newest {your_build}')
+        else:
+            logger('[Info] Cannot find apk from server')
+
+package_version = os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
+package_build_number = os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
 
 # [Report Mail Setting]
 send = True
@@ -32,18 +101,6 @@ receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@c
 # receiver = ['hausen_lin@cyberlink.com']
 # script_version = 'Testing'
 script_version = 'Debug'
-
-
-# [Device Setting]
-deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device
-device_udid = [deviceName]
-system_port_default = 8200  # for Android
-parallel_device_count = 1
-project_name = 'ATFramework_aPDR'
-test_case_folder_name = 'SFT'
-test_case_main_file = 'main.py'
-report_list = []
-
 
 # ======================================================================================================================
 

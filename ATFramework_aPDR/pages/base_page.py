@@ -10,6 +10,9 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
+from appium.webdriver.common.touch_action import TouchAction
+
+from PIL import Image
 
 from .ad import Ad
 from ATFramework_aPDR.ATFramework.pages.base_page import *
@@ -45,6 +48,30 @@ class BasePage(BasePage):
             except:
                 retry -= 1
                 logger(f'[WARNING] Can not click the element. Retry: {retry}')
+
+    def h_screenshot(self, locator=L.edit.preview.preview, crop=None):
+        try:
+            path = os.getenv('temp', os.path.dirname(__file__))
+            file_save = "%s/%s.png" % (path, uuid.uuid4())
+
+            element = self.h_get_element(locator)
+            element.screenshot(file_save)
+            rect = element.rect
+            rect.update({"x": 0, "y": 0})
+            with Image.open(file_save) as im:
+                if crop:
+                    for key in crop.keys():
+                        rect.update({key: crop[key]})
+
+                    im_crop = im.crop((rect['x'], rect['y'], rect['x'] + rect['width'], rect['y'] + rect['height']))
+                    im_crop.save(file_save)
+
+            path_save = os.path.abspath(file_save)
+            logger(path_save)
+            return path_save
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
 
     def get_picture(self, locator):
         path = os.getenv('temp', os.path.dirname(__file__))
@@ -442,14 +469,15 @@ class BasePage(BasePage):
             logger('get elements fail')
             return False
         return True
-    def timeline_check_media(self, file_name, type='Video', timeout=30): # type=Video/ Photo/ Music
+
+    def timeline_check_media(self, file_name, type='video', timeout=30): # type=Video/ Photo/ Music
         logger("start >> timeline_check_media <<")
         logger(f"input - {file_name}")
         # noinspection PyBroadException
         try:
-            if type == 'Video' or type == 'Photo':
+            if type == 'video' or type == 'photo':
                 logger(f"media_aid=[AID]TimeLine{type}_{file_name}")
-                self.get_element(aid(f'[AID]TimeLine{type}_{file_name}'))
+                return self.h_is_exist(aid(f'[AID]TimeLine{type}_{file_name}'))
             else:
                 for retry in range(timeout):
                     list_element = self.els(L.edit.timeline.clip_title)
@@ -498,12 +526,24 @@ class BasePage(BasePage):
             logger("Exception occurs")
             raise Exception
 
+    # ==================================================================================================================
+    # Function: h_get_element
+    # Description: Get element with locator
+    # Parameters: locator
+    # Return: Located element of type WebElement
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+
     def h_get_element(self, locator, timeout=5):
         start = time.time()
         try:
-            element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
-            # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
-            return element
+            if type(locator) == tuple:  # convert from tuple to WebElement
+                element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+                # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
+                return element
+            else:
+                return locator
         except TimeoutException:
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
@@ -522,18 +562,21 @@ class BasePage(BasePage):
             elements = self.driver.driver.find_elements(locator[0], locator[1])
             return elements
         except TimeoutException:
-            print(f"[No found] {locator}")
+            logger(f"[Info] Cannot find {locator}")
             return False
 
+    def h_click(self, locator, timeout=5):
+        try:
+            element = self.h_get_element(locator, timeout)
+            if not element:
+                return False
+            else:
+                element.click()
+                return True
+        except Exception as err:
+            logger(f'[Error] {err}')
 
-    def h_click(self, locator, timeout=2):
-        element = self.h_get_element(locator, timeout)
-        if element is False:
-            return False
-        element.click()
-        return True
-
-    def h_is_exist(self, locator, timeout=2):
+    def h_is_exist(self, locator, timeout=3):
         start = time.time()
         try:
             WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
@@ -560,6 +603,29 @@ class BasePage(BasePage):
         actions.perform()
 
     # ==================================================================================================================
+    # Function: h_long_press
+    # Description: Long press element
+    # Parameters: element or locator
+    # Return: N/A
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_long_press(self, locator, duration=1):
+        try:
+            element_rect = self.h_get_element(locator).rect
+            x = element_rect["x"] + element_rect['width'] / 2
+            y = element_rect["y"] + element_rect['height'] / 2
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(x, y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pause(duration)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+    # ==================================================================================================================
     # Function: h_swipe_element
     # Description: Swipe from element_B to element_A
     # Parameters: locator or WebElement (returned from find_element), speed (1 is fastest)
@@ -568,10 +634,8 @@ class BasePage(BasePage):
     # Author: Hausen
     # ==================================================================================================================
     def h_swipe_element(self, element_b, element_a, speed=10):
-        if type(element_b) == tuple:  # convert from tuple to WebElement
-            element_b = self.h_get_element(element_b)
-        if type(element_a) == tuple:  # convert from tuple to WebElement
-            element_a = self.h_get_element(element_a)
+        element_b = self.h_get_element(element_b)
+        element_a = self.h_get_element(element_a)
         try:
             if speed < 1:
                 speed = 1
@@ -601,6 +665,72 @@ class BasePage(BasePage):
             logger(f"[Error] {err}")
             return False
 
+    def h_swipe_location(self, start_x, start_y, end_x, end_y, speed=10, duration=0, x_offset=1):
+        """
+        # Function: h_swipe_location
+        # Description: Swipe from location to location
+        # Parameters: start_x: x-coordinate at which to start
+        #             start_y: y-coordinate at which to start
+        #             end_x: x-coordinate at which to stop
+        #             end_y: y-coordinate at which to stop
+        #             speed: 1 is fastest
+        #             duration: Waiting time to take the swipe, in ms.
+        #             x_offset: offset of x-coordinate to away from the edge
+        # Return: None
+        # Note: N/A
+        # Author: Hausen
+        """
+        try:
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pause(duration / 1000)
+            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return self  # type: ignore
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def h_swipe_playhead(self, x: int, speed=15):
+        """
+        # Function: h_swipe_playhead
+        # Description: Swipe the playhead to location
+        # Parameters:
+            :param x: x-coordinate of destination
+            :param speed: speed: 1 is fastest
+        # Return: None
+        # Note: length of x to trigger swiping is 25
+        # Author: Hausen
+        """
+        try:
+            if speed < 1:
+                speed = 1
+            playhead = self.h_get_element(L.edit.timeline.playhead).rect
+            playhead_x = playhead["x"]+playhead["width"]//2
+            ruler = self.h_get_element(L.edit.timeline.timeline_ruler).rect
+            y = ruler["y"]+ruler["height"]//2
+            temp_x = x
+
+            x_split = (x - playhead_x) // speed
+
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver,
+                                                mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(x, y).pointer_down()
+
+            for i in range(speed):
+                temp_x = int(temp_x - x_split)
+                actions.w3c_actions.pointer_action.move_to_location(temp_x, y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
     # ==================================================================================================================
     # Function: h_drag_element
     # Description: Drag element
@@ -621,6 +751,25 @@ class BasePage(BasePage):
             actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
             actions.w3c_actions.pointer_action.release()
             actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    # ==================================================================================================================
+    # Function: text_search
+    # Description: send text and send the key "Enter"
+    # Parameters: search locator, text
+    # Return: Boolean
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def text_search(self, locator, text):
+        try:
+            element = self.h_get_element(locator)
+            element.click()
+            element.send_keys(text)
+            self.driver.driver.press_keycode(66)
             return True
         except Exception as err:
             logger(f"[Error] {err}")

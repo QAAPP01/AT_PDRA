@@ -2,6 +2,8 @@ import os, cv2, math, time, numpy
 from os.path import exists
 from os.path import dirname
 from .log import logger, qa_log
+from functools import reduce
+from PIL import Image
 
 # ==================================================================================================================
 # Class: CompareImage
@@ -182,17 +184,107 @@ class CompareImage(object):
     # Author: Hausen
     # ==================================================================================================================
     def h_total_compare(self):
-        image_1 = cv2.imread(self.image_1_path)
-        image_2 = cv2.imread(self.image_2_path)
-        logger(f'Image1 resolution: {image_1.shape}  (file:{self.image_1_path})')
-        logger(f'Image2 resolution: {image_2.shape}  (file:{self.image_2_path})')
-        if image_1.shape[0] != image_2.shape[0] or image_1.shape[1] != image_2.shape[1]:
-            logger('\n[Fail] Images size are different')
-            return 0
-        else:
-            height = image_1.shape[0]
-            width = image_1.shape[1]
-            errorL2 = cv2.norm(image_1, image_2, cv2.NORM_L2)
-            similarity = 1 - errorL2 / (height * width)
-            logger(f'Similarity = {similarity}')
+        try:
+            image_1 = cv2.imread(self.image_1_path)
+            image_2 = cv2.imread(self.image_2_path)
+            logger(f'Image1 resolution: {image_1.shape}  (file:{self.image_1_path})')
+            logger(f'Image2 resolution: {image_2.shape}  (file:{self.image_2_path})')
+            if image_1.shape[0] != image_2.shape[0] or image_1.shape[1] != image_2.shape[1]:
+                logger('\n[Fail] Images size are different')
+                return 0
+            else:
+                height = image_1.shape[0]
+                width = image_1.shape[1]
+                errorL2 = cv2.norm(image_1, image_2, cv2.NORM_L2)
+                similarity = 1 - errorL2 / (height * width)
+                logger(f'Similarity = {similarity}')
+                return similarity
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+
+class HCompareImg(object):
+    def __init__(self, image_1_path, image_2_path):
+        """
+        :param image_1_path
+        :param image_2_path
+        """
+        self.image_1_path = image_1_path
+        self.image_2_path = image_2_path
+
+    def full_compare(self):
+        """
+        :Function: full_compare
+        :Description: Compare images with the same size and orientation
+        :Parameters: image_1_path, image_2_path
+        :Return: similarity or False
+        :Note: N/A
+        :Author: Hausen
+        """
+        try:
+            image_1 = cv2.imread(self.image_1_path)
+            image_2 = cv2.imread(self.image_2_path)
+            logger(f'Image1 resolution: {image_1.shape}  (file:{self.image_1_path})')
+            logger(f'Image2 resolution: {image_2.shape}  (file:{self.image_2_path})')
+            if image_1.shape[0] != image_2.shape[0] or image_1.shape[1] != image_2.shape[1]:
+                logger('\n[Fail] Images size are different')
+                return 0
+            else:
+                height = image_1.shape[0]
+                width = image_1.shape[1]
+                errorL2 = cv2.norm(image_1, image_2, cv2.NORM_L2)
+                similarity = 1 - errorL2 / (height * width)
+                logger(f'Similarity = {similarity}')
+                return similarity
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+    def keypoint_compare(self):
+        try:
+            """
+            :Description: Use Keypoint detection to compare 2 images
+            :return: similarity (0-1)
+            :Note: No suitable for rotating cases
+            :Author: Hausen
+            """
+            # 讀取圖片
+            logger(f'img1 = {self.image_1_path}')
+            logger(f'img2 = {self.image_2_path}')
+            img1 = cv2.imread(self.image_1_path)
+            img2 = cv2.imread(self.image_2_path)
+
+            # 調整大小
+            if img1.shape[0] != img2.shape[0] or img1.shape[1] != img2.shape[1]:
+                size = min(img1.shape[0], img1.shape[1], img2.shape[0], img2.shape[1])
+                img1 = cv2.resize(img1, (size, size))
+                img2 = cv2.resize(img2, (size, size))
+
+            # 將圖片轉換為灰階圖
+            gray_img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+            gray_img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+
+            # 建立ORB特徵檢測器
+            orb = cv2.ORB_create()
+
+            # 檢測特徵點並計算特徵描述子
+            kp1, des1 = orb.detectAndCompute(gray_img1, None)
+            kp2, des2 = orb.detectAndCompute(gray_img2, None)
+
+            # 建立BFMatcher對象
+            bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
+            # 匹配特徵點
+            matches = bf.match(des1, des2)
+
+            # 將匹配結果按照特徵點之間的距離進行排序
+            matches = sorted(matches, key=lambda x: x.distance)
+
+            # 計算相似度
+            similarity = 1 - (matches[0].distance / len(matches))
+            logger(f'similarity = {similarity}')
+
             return similarity
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+

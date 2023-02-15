@@ -32,13 +32,13 @@ class Test_SFT_Scenario_05_11:
         # ---- local mode ---
         from .conftest import DRIVER_DESIRED_CAPS
         global report
-        logger("\n[Start] Init driver session")
+        logger("[Start] Init driver session")
         desired_caps = {}
         desired_caps.update(app_config.cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         if desired_caps['udid'] == 'auto':
             del desired_caps['udid']
-        logger(f"\n[Info] caps={desired_caps}")
+        logger(f"[Info] caps={desired_caps}")
         self.report = report
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
@@ -64,35 +64,46 @@ class Test_SFT_Scenario_05_11:
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.report.set_driver(self.driver)
+        self.driver.driver.start_recording_screen()
         self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(0.2)
+        self.driver.implicit_wait(0.1)
 
         yield self.driver  # keep driver for the function which uses 'initial'
 
         # teardown
-        logger("\n[Done] Teardown")
+        logger("\n[Stop] Teardown")
         self.driver.stop_driver()
 
     # @pytest.mark.skip
     @report.exception_screenshot
     def test_sce_05_11_27(self):
-        result = {}
+        try:
+            result = {}
 
-        # sce_05_11_27
-        item_id = '05_11_27'
-        uuid = 'bfb8aabd-5575-47b4-9838-f0d6429974fa'
-        logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+            # sce_05_11_27
+            item_id = '05_11_27'
+            uuid = 'bfb8aabd-5575-47b4-9838-f0d6429974fa'
+            logger(f"\n[Start] sce_{item_id}")
+            self.report.start_uuid(uuid)
 
-        self.page_main.enter_launcher()
-        self.page_main.enter_timeline(item_id)
-        self.page_edit.intro_video.enter_intro()
-        self.page_edit.intro_video.edit_1st_template()
-        self.page_edit.intro_video.customize()
-        self.page_edit.intro_video.add_photo()
-        result[item_id] = not self.page_edit.intro_video.flip_pip()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.intro_video.enter_intro()
+            self.page_edit.intro_video.edit_1st_template()
+            self.page_edit.intro_video.customize()
+            self.page_edit.click_tool('Add')
+            self.page_edit.click_sub_tool('Photo')
+            if not self.page_media.select_local_photo(self.test_material_folder, 'photo.jpg'):
+                return False
+            self.page_edit.click_sub_tool('Flip')
+            pic_after = self.page_main.get_picture(L.edit.pip.pip_object)
+            pic_base = path.join(path.dirname(__file__), 'test_material', '05_11', '05_11_27.png')
+            result[item_id] = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
 
-        self.report.new_result(uuid, result[item_id])
+            self.report.new_result(uuid, result[item_id])
 
-        # print result
-        pprint(result)
+            # print result
+            pprint(result)
+
+        except Exception as err:
+            logger(f'[Error] {err}')

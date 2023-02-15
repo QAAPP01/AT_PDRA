@@ -7,12 +7,12 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 import math
-import configs.driver_config as DriverConfig
-import configs.app_config as AppConfig
+import ATFramework_aPDR.configs.driver_config as DriverConfig
+import ATFramework_aPDR.configs.app_config as AppConfig
 import os
 import uuid
 
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.log import logger
 
 try:
     import cv2
@@ -45,8 +45,11 @@ class AppiumU2Driver(Borg, BaseDriver):
     
     # Driver Functions
     def __init__(self,DriverConfig, AppConfig, mode="local", desired_caps={}):
-        url_remote = "http://{}:4723/wd/hub".format(DriverConfig.ip_local_appium)
-        if mode == 'grid':
+        if mode == "local":
+            url_remote = "http://{}:4723/wd/hub".format(DriverConfig.ip_local_appium)
+        elif mode == "debug":
+            url_remote = "http://{}:4724/wd/hub".format(DriverConfig.ip_local_appium)
+        elif mode == 'grid':
             url_remote = "http://{}:4444/wd/hub".format(DriverConfig.ip_grid_hub)
             print('url_remote-', url_remote)
 
@@ -837,7 +840,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             raise Exception
         return True
         
-    def save_pic(self,elem=None,last=False,file=None,offset=None):
+    def save_pic(self,elem=None,last=False,file=None, offset=None):
         '''
             # Function: save_pic
             # Description: save_pic

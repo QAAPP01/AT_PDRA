@@ -1,6 +1,10 @@
 import sys
-from os.path import dirname as dir
+from os.path import dirname
+from os import path
+import subprocess
 from pprint import pprint
+from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.locator.locator_type import *
 
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
@@ -9,11 +13,15 @@ from ATFramework_aPDR.configs import driver_config
 from ATFramework_aPDR.ATFramework.utils.log import logger
 import pytest
 import time
+
+from main import deviceName
 from .conftest import REPORT_INSTANCE
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-sys.path.insert(0, (dir(dir(__file__))))
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+
+sys.path.insert(0, (dirname(dirname(__file__))))
 
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
@@ -22,16 +30,17 @@ pdr_package = PACKAGE_NAME
 class Test_SFT_Scenario_05_01:
     @pytest.fixture(autouse=True)
     def initial(self):
+
         # ---- local mode ---
         from .conftest import DRIVER_DESIRED_CAPS
         global report
-        logger("\n[Start] Init driver session")
+        logger("[Start] Init driver session")
         desired_caps = {}
         desired_caps.update(app_config.cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         if desired_caps['udid'] == 'auto':
-            del desired_caps['udid']
-        logger(f"\n[Info] caps={desired_caps}")
+            desired_caps['udid'] = deviceName
+        logger(f"[Info] caps={desired_caps}")
         self.report = report
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
@@ -55,14 +64,17 @@ class Test_SFT_Scenario_05_01:
 
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
+        self.page_media = PageFactory().get_page_object("import_media", self.driver)
+        self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
         self.report.set_driver(self.driver)
+        self.driver.driver.start_recording_screen()
         self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(0.2)
+        self.driver.implicit_wait(0.1)
 
         yield self.driver  # keep driver for the function which uses 'initial'
 
         # teardown
-        logger("\n[Done] Teardown")
+        logger("\n[Stop] Teardown")
         self.driver.stop_driver()
 
     # @pytest.mark.skip
@@ -74,7 +86,7 @@ class Test_SFT_Scenario_05_01:
         logger("\n[Start] sce_05_01_01")
         self.report.start_uuid('d0bafbda-e361-4cbf-af80-9da541351a27')
         self.page_main.enter_launcher()
-        self.page_main.enter_timeline('sce_05_01')
+        self.page_main.enter_timeline()
         result['05_01_01'] = self.page_edit.intro_video.enter_intro()
         self.report.new_result('d0bafbda-e361-4cbf-af80-9da541351a27', result['05_01_01'])
 
@@ -97,10 +109,19 @@ class Test_SFT_Scenario_05_01:
         self.report.new_result('1ae322d8-d8ec-481f-84a3-08a5fdd76adb', result['05_01_05'])
 
         # sce_05_01_06
-        logger("\n[Start] sce_05_01_06")
-        self.report.start_uuid('71adbc41-8fea-4aca-a384-9afb48612000')
-        result['05_01_06'] = self.page_edit.intro_video.intro_profile()
-        self.report.new_result('71adbc41-8fea-4aca-a384-9afb48612000', result['05_01_06'])
+        item_id = '05_01_06'
+        uuid = '71adbc41-8fea-4aca-a384-9afb48612000'
+        logger(f"\n[Start] sce_{item_id}")
+        self.report.start_uuid(uuid)
+
+        result[item_id] = self.page_edit.intro_video.enter_intro_profile()
+
+        if result[item_id]:
+            self.page_main.h_click(xpath('(//android.widget.Image)[1]'))
+        else:
+            logger(f'\n[Fail] Cannot find profile page')
+
+        self.report.new_result(uuid, result[item_id])
 
         # sce_05_01_07
         logger("\n[Start] sce_05_01_07")

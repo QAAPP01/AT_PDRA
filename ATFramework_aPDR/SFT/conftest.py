@@ -42,7 +42,7 @@ def driver_get_desiredcap(udid, systemPort):
         DRIVER_DESIRED_CAPS = {'udid': str(udid), 'systemPort': str(systemPort)}
     else:
         DRIVER_DESIRED_CAPS = {'udid': str(udid)}
-    print('driver_get_desiredcap, caps=', DRIVER_DESIRED_CAPS)
+    # print('driver_get_desiredcap, caps=', DRIVER_DESIRED_CAPS)
     return True
     
 

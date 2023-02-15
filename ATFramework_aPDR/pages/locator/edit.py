@@ -1,15 +1,16 @@
 from .locator_type import *
 
 
-class Menu():
-    class Produce_sub_page():
+class Menu:
+    class Produce_sub_page:
         save = id('text_setting_save_project')
         produce = id('text_setting_save_and_produce_project')
+
     produce_sub_page = Produce_sub_page()
     back = aid("[AID]TimeLine_Back")
-    #back_session = aid("[AID]Session_Back")
+    # back_session = aid("[AID]Session_Back")
     back_session = id('btn_session_back')
-    back_library=aid("[AID]Library_Back")
+    back_library = aid("[AID]Library_Back")
     import_media = aid("[AID]TimeLine_VideoPhotoAudio")
     effect = aid("[AID]TimeLine_Layer")
     fx = aid("[AID]TimeLine_Fx")
@@ -18,12 +19,13 @@ class Menu():
     timeline_setting = aid("[AID]TimeLine_Setting")
     undo = aid("[AID]TimeLine_Undo")
     play = aid("[AID]TimeLine_Play")
-    #edit = id("btn_edit_img") # after select video
+    # edit = id("btn_edit_img") # after select video
     edit = id("btn_session_edit")
     split = id("btn_split")
     delete = id("btn_delete")
     home = id('btn_home')
     btn_apply_all = id('btn_apply_all')
+
 
 class ToolMenu:
     back = id('btn_session_back_icon')
@@ -57,7 +59,7 @@ class Edit_sub():
     color_selector = aid("[AID]FloatingMenu_Color Selector")
     mask = aid("[AID]FloatingMenu_Mask")
     blending = aid("[AID]FloatingMenu_Blending")
-    #bottom_edit_menu = id("entry_list")
+    # bottom_edit_menu = id("entry_list")
     bottom_edit_menu = id("tools_menu")
     back_button = id("btn_session_back")
     adjustment_menu = id("color_adjustments_fragment")
@@ -66,31 +68,32 @@ class Edit_sub():
     in_animation_entry = id('in_animation_entry')
     out_animation_entry = id('out_animation_entry')
 
+
 class Blending_Sub():
-    Blending0 = aid("[AID]BlendingThumbnail_0") #Normal
-    Blending1 = aid("[AID]BlendingThumbnail_1") #Overlay
-    Blending2 = aid("[AID]BlendingThumbnail_2") #Multiply
-    Blending3 = aid("[AID]BlendingThumbnail_3") #Screen
-    Blending4 = aid("[AID]BlendingThumbnail_4") #Hard Light
-    Blending5 = aid("[AID]BlendingThumbnail_5") #Soft Light
-    Blending6 = aid("[AID]BlendingThumbnail_6") #Lighten
-    Blending7 = aid("[AID]BlendingThumbnail_7") #Darken
-    Blending8 = aid("[AID]BlendingThumbnail_8") #Difference
-    Blending9 = aid("[AID]BlendingThumbnail_9") #Hue
-    Blending10 = aid("[AID]BlendingThumbnail_10") #Luminous
-    OpacitySpeedBar = aid("[AID]PiPControl_OpacitySpeedBar")  #OpacitySpeedBar
-    Reset = aid("[AID]Session_Reset")   #Reset
-    Back = aid("[AID]Session_Back")   #Back
+    Blending0 = aid("[AID]BlendingThumbnail_0")  # Normal
+    Blending1 = aid("[AID]BlendingThumbnail_1")  # Overlay
+    Blending2 = aid("[AID]BlendingThumbnail_2")  # Multiply
+    Blending3 = aid("[AID]BlendingThumbnail_3")  # Screen
+    Blending4 = aid("[AID]BlendingThumbnail_4")  # Hard Light
+    Blending5 = aid("[AID]BlendingThumbnail_5")  # Soft Light
+    Blending6 = aid("[AID]BlendingThumbnail_6")  # Lighten
+    Blending7 = aid("[AID]BlendingThumbnail_7")  # Darken
+    Blending8 = aid("[AID]BlendingThumbnail_8")  # Difference
+    Blending9 = aid("[AID]BlendingThumbnail_9")  # Hue
+    Blending10 = aid("[AID]BlendingThumbnail_10")  # Luminous
+    OpacitySpeedBar = aid("[AID]PiPControl_OpacitySpeedBar")  # OpacitySpeedBar
+    Reset = aid("[AID]Session_Reset")  # Reset
+    Back = aid("[AID]Session_Back")  # Back
 
 
 class Mask_Sub():
-    #mask_none = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_none']")
-    #mask_linear = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_linear']")
-    #mask_parallel = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_parallel']")
-    #mask_eclipse = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_eclipse']")
-    #mask_rectangle = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_rectangle']")
-    #seekbar_feather = xpath("/android.widget.SeekBar[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/seekbar_feather']")
-    #switch_invert = xpath("//android.widget.Switch[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/switch_invert']")
+    # mask_none = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_none']")
+    # mask_linear = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_linear']")
+    # mask_parallel = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_parallel']")
+    # mask_eclipse = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_eclipse']")
+    # mask_rectangle = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_rectangle']")
+    # seekbar_feather = xpath("/android.widget.SeekBar[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/seekbar_feather']")
+    # switch_invert = xpath("//android.widget.Switch[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/switch_invert']")
     mask_none = id("btn_mask_none")
     mask_linear = id("btn_mask_linear")
     mask_parallel = id("btn_mask_parallel")
@@ -104,20 +107,22 @@ class Mask_Sub():
 
 
 class Effect_Sub():
-    #title = id("tab_title")
+    # title = id("tab_title")
     title = id("library_menu_title")
-    #video = id("tab_pip_video")
+    # video = id("tab_pip_video")
     video = id("library_menu_pip_video")
-    #image = id("tab_pip_photo")
+    # image = id("tab_pip_photo")
     image = id("library_menu_pip_photo")
-    #sticker = id("tab_sticker")
+    # sticker = id("tab_sticker")
     sticker = id("library_menu_sticker")
     overlay = id('library_menu_overlay')
+
     class Sticker_tabs():
         tab_top = id('tab_top')
         tab_new = id('tab_new')
         tab_free = id('tab_free')
         tab_downloaded = id('tab_dlc_sticker')
+
     sticker_tabs = Sticker_tabs()
 
 
@@ -131,7 +136,7 @@ class Pan_Zoom_Effect():
     apply_to_all = id('btn_apply_all')
     custom_motion_start = id('layout_frame_start_roi')
     custom_motion_end = id('layout_frame_end_roi')
-    #back = aid('[AID]Session_Back')
+    # back = aid('[AID]Session_Back')
     back = aid('[AID]TimeLine_Back')
     reset = aid('[AID]Session_Reset')
 
@@ -155,15 +160,15 @@ class Crop:
     slider = id('movie_seekbar')
 
 
-
 class Reverse():
     dialog_ok = aid("[AID]Dialog_OK")
     dialog_cancel = aid("[AID]Dialog_Cancel")
     ad = id("native_ad_container")
     ad_promotion = id("cross_promotion")
-    remove_ok = aid("[AID]Dialog_OK")           # PDRa have to change the code
-    remove_cancel = aid("[AID]Dialog_Cancel")   # PDRa have to change the code
+    remove_ok = aid("[AID]Dialog_OK")  # PDRa have to change the code
+    remove_cancel = aid("[AID]Dialog_Cancel")  # PDRa have to change the code
     progress_bar = id('progress_bar')
+
 
 class Produce_Video_Window():
     cancel = aid("[AID]ProjectProperties_Cancel")
@@ -177,7 +182,7 @@ class Stabilizer():
     ad = id("native_ad_container")
     ad_promotion = id("cross_promotion")
     motion_level = id("ea_widget_parameter_seek_bar")
-    #iap_back = aid("[AID]Upgrade_No")
+    # iap_back = aid("[AID]Upgrade_No")
     iap_back = aid("[AID]IAP_Back")
 
 
@@ -187,7 +192,7 @@ class Sharpness():
 
 
 class Opacity():
-    #slider = aid("[AID]PiPControl_OpacitySpeedBar")
+    # slider = aid("[AID]PiPControl_OpacitySpeedBar")
     slider = id("adjustable_parameter_seek_bar")
 
 
@@ -216,9 +221,10 @@ class Color_Selector():
     pink = aid("[AID]ColorBoard_Pink")
 
 
-class Preview():
+class Preview:
     movie_view = id("movie_view")
     preview = xpath('//*[contains(@resource-id,"movie_view")]/android.view.View')
+    time_code = id('playingTime')
     set_font = aid("[AID]TitleDesign_RightTop")
     # rotate = aid("[AID]Resizable_RightBottom")
     rotate = id('rotate_point')
@@ -227,12 +233,12 @@ class Preview():
     pip_border = id('rectangle_mask_border')
     watermark = id("water_mark_image")
     water_mark = id("water_mark_image")
-    water_mark_border = id("watermark_border") # trigger subscription: water_mark_image > watermark_border
-    #btn_title_designer_right_top = aid("[AID]TitleDesign_RightTop")
-    #btn_title_designer_right_top = id("rz_control_corner_right_top")
+    water_mark_border = id("watermark_border")  # trigger subscription: water_mark_image > watermark_border
+    # btn_title_designer_right_top = aid("[AID]TitleDesign_RightTop")
+    # btn_title_designer_right_top = id("rz_control_corner_right_top")
     # btn_title_designer_right_top = id("rz_control_corner_style")
     btn_title_designer_right_top = id("title_designer_corner_right_top")
-    #btn_title_designer_right_bottom = aid("[AID]TitleDesign_RightBottom")
+    # btn_title_designer_right_bottom = aid("[AID]TitleDesign_RightBottom")
     # btn_title_designer_right_bottom = id("rz_control_corner_right_bottom")
     btn_title_designer_right_bottom = id("control_point_corner_right_bottom")
     btn_fullscreen_landscape_preview = id("btn_fullscreen_landscape_preview")
@@ -246,14 +252,19 @@ class Preview():
     import_tips_icon = id('import_tips_icon')
 
 
-class Timeline():
-    tool = id('label')
-    sub_tool = id('tool_entry_label')
+class Timeline:
+    main_track_import = id("icon_import_vp")
+    main_track_import_float = id("icon_import_vp_pinned")
+    tool = id('label')  # non unique
+    sub_tool = id('tool_entry_label')  # non unique
     timeline_area = id('container_of_tracks')
-    effect_1st = ("xpath" , "(//android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout)[2]")
-    clip =("xpath",'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]')
-    clip_photo = ("xpath",'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
-    clip_audio = ("xpath",'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
+    item_view_border = id("item_view_border")
+    master_clip = id("item_view_border")
+    effect_1st = (
+    "xpath", "(//android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout)[2]")
+
+    clip_photo = ("xpath", '//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
+    clip_audio = ("xpath", '//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
     clip_title = id("item_view_title")
     tx_out = aid("[AID]Item_TxEffectOut")
     tx_in = aid("[AID]Item_TxEffectIn")
@@ -261,7 +272,7 @@ class Timeline():
     trim_indicator = id("btn_trim_indicator")
     track = ("xpath", '//*[contains(@resource-id,"track_content")]')
     skin_smoothener = id("skin_smooth_effect")
-    #playhead_timecode = id('timeline_playhead_label')
+    # playhead_timecode = id('timeline_playhead_label')
     playhead_timecode = id('timeline_ruler')
     track_content = id('track_content')
     item_view_title = id('item_view_title')
@@ -278,8 +289,59 @@ class Timeline():
     intro_video_entry = id('intro_video_entry')
     outro_video_entry = id('outro_video_entry')
 
+    @staticmethod
+    def clip(index=1):
+        if index == 0:
+            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_host")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"item_view_thumbnail_host")]')
 
-class Pip_Designer():
+    @staticmethod
+    def master_video(file_name=None):
+        if file_name:
+            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")]')
+        else:
+            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]')
+
+    @staticmethod
+    def master_video_thumbnail(file_name=None, index=1):
+        if file_name:
+            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")])[{index}]/android.widget.ImageView')
+        else:
+            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]/android.widget.ImageView')
+
+    @staticmethod
+    def master_photo(file_name=None):
+        if file_name:
+            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_{file_name}")]')
+        else:
+            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
+
+
+class Pip:
+    @staticmethod
+    def clip(index=1):
+        if index == 0:
+            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_host")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"item_view_thumbnail_host")]')
+
+    @staticmethod
+    def clip_audio(file_name=None, index=1):
+        if file_name:
+            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")])[{index}]')
+        else:
+            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
+
+    @staticmethod
+    def audio_thumbnail(file_name=None, index=1):
+        if file_name:
+            return xpath(
+                f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")])[{index}]/android.widget.ImageView')
+        else:
+            return xpath(
+                f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]/android.widget.ImageView')
+
     tab_list = id('top_area_recycler')
     # btn_edit_face = id('text_button')
     btn_edit_face = find_string('Color')
@@ -325,7 +387,7 @@ class Pip_Designer():
     # title_object = id('rz_content')
     pip_object = id('resizable_boundary')
     title_text_edit_area = aid('[AID]TextEdit_Text')
-    title_text_edit_confirm = aid('[AID]TextEdit_Confirm')  
+    title_text_edit_confirm = aid('[AID]TextEdit_Confirm')
     switch_border = id('border_enable_switch')
     border_size_text = id('border_size_Text_view')
     slider_border_size = id('border_size_seek_bar')
@@ -343,6 +405,48 @@ class Pip_Designer():
     slider_distance = id('distance_slider')
     slider_direction = id('direction_slider')
 
+    class Text:
+        @staticmethod
+        def text_layout(index=1):
+            if index == 0:
+                return xpath(f'//*[contains(@resource-id,"btn_linearlayout")]')
+            else:
+                return xpath(f'(//*[contains(@resource-id,"btn_linearlayout")])[{index}]')
+
+        @staticmethod
+        def font_category(index=1):
+            if index == 0:
+                return xpath(f'//*[contains(@resource-id,"category_name")]')
+            else:
+                return xpath(f'(//*[contains(@resource-id,"category_name")])[{index}]')
+
+        @staticmethod
+        def font_name(index=1):
+            if index == 0:
+                return xpath(f'//*[contains(@resource-id,"material_text_item_text")]')
+            else:
+                return xpath(f'(//*[contains(@resource-id,"material_text_item_text")])[{index}]')
+
+        @staticmethod
+        def font(index=1):
+            if index == 0:
+                return xpath(f'//*[contains(@resource-id,"font_item")]')
+            else:
+                return xpath(f'(//*[contains(@resource-id,"font_item")])[{index}]')
+
+        add = id("library_unit_add")
+        back = id("back_button")
+        font_favorite_message = id("favorite_message")
+        font_import = id("import_button")
+        font_filter = id("filter_button")
+        font_filter_1 = xpath(f'(//*[contains(@resource-id,"selection_btn")])[1]')
+        font_filter_2 = xpath(f'(//*[contains(@resource-id,"selection_btn")])[2]')
+        font_filter_3 = xpath(f'(//*[contains(@resource-id,"selection_btn")])[3]')
+        font_filter_4 = xpath(f'(//*[contains(@resource-id,"selection_btn")])[4]')
+        font_filter_5 = xpath(f'(//*[contains(@resource-id,"selection_btn")])[5]')
+        font_filter_back = id("filter_back_button")
+
+
     class ColorPicker():
         page = id('customize_color_area')
         slider_hue = id('text_edit_primary_color_pick_vertical')
@@ -353,44 +457,57 @@ class Pip_Designer():
         text_red = id('color_red_edit_text')
         text_green = id('color_green_edit_text')
         text_blue = id('color_blue_edit_text')
+
     colorpicker = ColorPicker()
     premium_font_icon = id('try_icon')
 
 
+class AspectRatio:
+    ratio_16_9 = id("layout_ratio_16_9")
+    ratio_9_16 = id("layout_ratio_9_16")
+    ratio_1_1 = id("layout_ratio_1_1")
+    ratio_21_9 = id("layout_ratio_21_9")
+    ratio_4_5 = id("layout_ratio_4_5")
 
 class Transition():
     # duration_text = id('durationText')
     duration_text = id('adjustTextNow')
     timeline_transition = id('item_view_tx_effect_out')
     ok = aid('[AID]Dialog_OK')
-    #btn_show_transition_duration = id('btn_show_transition_duration')
+    # btn_show_transition_duration = id('btn_show_transition_duration')
     btn_show_transition_duration = id('btn_transition_duration')
     apply_to_all = aid('[AID]Transition_ApplyAllCheck')
 
+
 class Tips():
     chx_enable = id("help_enable_tip")
-    
+
+
 class Preset_sub():
     def __init__(self):
         for i in range(19):
-            setattr(self,"color_profile_%s" % i, aid("[AID]ColorPresetThumbnail_%s" % i))
+            setattr(self, "color_profile_%s" % i, aid("[AID]ColorPresetThumbnail_%s" % i))
+
     frame = id("content_container")
 
+
 class Adjust_sub():
-    #frames = xpath('//android.widget.LinearLayout[contains(@resource-id,"ea_widget_container")]/android.widget.LinearLayout')
+    # frames = xpath('//android.widget.LinearLayout[contains(@resource-id,"ea_widget_container")]/android.widget.LinearLayout')
     frames = id("adjustable_parameter_block")
-    #number = id("ea_widget_parameter_edit")
+    # number = id("ea_widget_parameter_edit")
     number = id("adjustTextNow")
-    #progress = id("ea_widget_parameter_seek_bar")
+    # progress = id("ea_widget_parameter_seek_bar")
     progress = id("adjustable_parameter_seek_bar")
     reset = id('btn_reset')
-    
+
+
 class ChromaKey_sub():
-    frames = xpath('//android.widget.LinearLayout[contains(@resource-id,"ea_widget_container")]/android.widget.LinearLayout')
+    frames = xpath(
+        '//android.widget.LinearLayout[contains(@resource-id,"ea_widget_container")]/android.widget.LinearLayout')
     number = id("ea_widget_parameter_edit")
     progress = id("ea_widget_parameter_seek_bar")
-    
-    
+
+
 class Color_sub():
     frame = aid("[AID]ColorPresetList")
     perset = id("btn_effect_color_preset")
@@ -401,20 +518,23 @@ class Color_sub():
     preset_sub = Preset_sub()
     # white_balance_sub = White_balance_sub()
 
+
 class Speed():
-    #slider = aid("[AID]SpeedControl_SpeedBar")
+    # slider = aid("[AID]SpeedControl_SpeedBar")
     slider = id("adjustable_parameter_seek_bar")
-    #preview_toast_text = id("preview_toast_text_hud")
+    # preview_toast_text = id("preview_toast_text_hud")
     preview_toast_text = id("adjustTextNow")
-    #ease_in = id("easeInSwitch")
-    #ease_out = id("easeOutSwitch")    
+    # ease_in = id("easeInSwitch")
+    # ease_out = id("easeOutSwitch")
     ease_in = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[2]')
     ease_out = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[3]')
-    #mute_audio = id("muteSwitch")
+    # mute_audio = id("muteSwitch")
     mute_audio = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[1]')
+
 
 class Subscription():
     btn_free_trial = id("subscribe_free_trial_btn_layout")
+
 
 class Try_Before_Buy():
     remove = aid('[AID]Upgrade_No')
@@ -427,6 +547,7 @@ class Try_Before_Buy():
     try_it = aid('[AID]Upgrade_No')
     btn_ads_sub = id('btnPurchase')
 
+
 class Audio_Mixing():
     edit_text = id('audioMixing_editText')
     ok = aid('[AID]Dialog_OK')
@@ -436,21 +557,34 @@ class Audio_Mixing():
     maintrack_frame = id('volume_of_vp')
     othertracks_frame = id('volumes_container_of_not_main')
 
+
 class Audio_Configuration():
-    #volume_seekbar = aid('[AID]Volume_Seekbar')
+    # volume_seekbar = aid('[AID]Volume_Seekbar')
     volume_seekbar = id('adjustable_parameter_seek_bar')
     btn_audio_mixing = id('audioMixingTextView')
     audio_mixing = Audio_Mixing()
     ok = aid('[AID]Dialog_OK')
     cancel = id('[AID]Dialog_Cancel')
-    
+
+
 class Audio_Denoise():
     denoise_value = id('denoise_param_value')
     slider = id('adjustable_parameter_seek_bar')
 
-class Settings():
-    class About():
-        version = id('textBuildVer')
+
+class Settings:
+    menu = id('btn_setting')
+    aspect_ratio = aid("[AID]Setting_Ratio")
+    preference = aid('[AID]Setting_About')
+
+
+    class DefaultImageDuration:
+        default_image_duration = id("settings_default_image_duration")
+        slider = aid("[AID]Transition_Seekbar")
+        txt_duration = id('durationText')
+        ok = aid("[AID]Dialog_OK")
+        cancel = aid("[AID]Dialog_Cancel")
+
     class SendFeedback():
         send_feedback_btn = id('send_feedback_layout')
         feedback_text = aid('[AID]FeedBack_Text')
@@ -460,26 +594,29 @@ class Settings():
         feedback_os_version_text = id('bc_feedback_osver')
         feedback_preview_view = id("scrollview_preview_feedback_outter")
         confirm_no_btn = id('no_text')
+
     about_btn = find_string('About PowerDirector')
     powerdirector_for_pc_btn = find_string('PowerDirector for PC')
     send_feedback_btn = id('faq_send_feedback')
-    about = About()
     send_feedback = SendFeedback()
     scroll_view = class_name('android.widget.ScrollView')
-        
+
 
 class Keyframe():
     btn_keyframe = id('btn_keyframe')
     btn_keyframe_img = id('btn_keyframe_img')
+
     class Transform_Keyframe():
         text_x = id('text_x')
         text_y = id('text_y')
         text_scale = id('text_scale')
         text_rotation = id('text_rotation')
+
     transform_keyframe = Transform_Keyframe()
     remove_all = id('item_setting_keyframe_remove_all')
     duplicate_previous = id('item_setting_keyframe_duplicate_previous')
     duplicate_next = id('item_setting_keyframe_duplicate_next')
+
 
 class Title_Animation():
     effect_list = id('animation_list')
@@ -489,7 +626,8 @@ class Title_Animation():
     btn_out_animation = id('btn_out_animation')
     ok_btn = aid('[AID]ConfirmDialog_OK')
     cancel_btn = aid('[AID]ConfirmDialog_Cancel')
-    
+
+
 class Backdrop():
     btn_backdrop_enable = id('btn_backdrop_enable')
     btn_backdrop_type = id('btn_backdrop_type')
@@ -505,7 +643,8 @@ class Backdrop():
     saturation_slider = aid('[AID]ColorBoard_ColorPick')
     preset_red = aid('[AID]ColorBoard_Red')
     preset_pink = aid('[AID]ColorBoard_Pink')
-    
+
+
 class Motion_Graphic_Title():
     dropdownmenu_text = id('material_title_item_text')
     font_list_body = ('id', 'android:id/select_dialog_listview')
@@ -513,8 +652,7 @@ class Motion_Graphic_Title():
     font_name = id('material_text_item_text')
     download_font = id('font_download_image')
     premium_font_icon = id('font_try_icon')
-    
-    
+
 
 class Tutorial_Bubble():
     dialog = id('tooltip_viewpager')
@@ -537,7 +675,8 @@ class Fit_And_Fill():
     pattern_layout = id('pattern_layout')
     blur_slider = id('adjustable_parameter_seek_bar')
     blur_text = id('adjustTextNow')
-    
+
+
 class Replace():
     btn_replace_anyway = id('replace_text_view')
     btn_cancel_replace = id('cancel_text_view')
@@ -550,15 +689,22 @@ class Replace():
     ok_btn = id('ok_btn')
     warning_title = id('warning_title')
 
-    
-class Duration():
+
+class Duration:
     slider = aid('[AID]Transition_Seekbar')
     text_duration = id('durationText')
-    btn_cancel = aid('[AID]Dialog_Cancel')
+    btn_cancel = id("btnClose")
     btn_ok = aid('[AID]Dialog_OK')
     switch_apply_to_all_photo = aid('[AID]Transition_ApplyAllPhotosCheck')
     switch_apply_to_all_pip = aid('[AID]Transition_ApplyAllPIPsCheck')
     switch_apply_as_default = aid('[AID]Transition_ApplyAsDefaultCheck')
+
+
+class Music:
+    local = id("tab_music_local")
+    sort = id("action_sort")
+    by_name = id("by_name")
+    by_ascending = id("order_asc")
 
 
 class Border_and_Shadow():
@@ -576,7 +722,8 @@ class Border_and_Shadow():
     slider = id('seekbar')
     btn_reset = id('btn_reset')
 
-class Intro_Video():
+
+class Intro_Video:
     intro_video_entry = id('intro_video_entry')
     outro_video_entry = id('outro_video_entry')
     library_caption = id('top_toolbar_title')
@@ -586,23 +733,25 @@ class Intro_Video():
     youtube_title = ('id', 'com.google.android.youtube:id/collapsed_title')
     top_toolbar_account = id('top_toolbar_account')
     profile_page = find_string('Posts')
-    intro_category = id('library_category_tab_text')        # not unique
-    intro_first_highlight = xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView[1]/android.widget.RelativeLayout[1]/android.widget.ImageView')
+    intro_category = id('library_category_tab_text')  # not unique
+    intro_first_highlight = xpath(
+        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView[1]/android.widget.RelativeLayout[1]/android.widget.ImageView')
     tab_cyberlink = id('cyberlink_switch')
     tab_discover = id('discover_switch')
     tab_search = id('search_switch')
+
     loading_icon = id('loading_progress')
     loading_designer = id('loading')
     top_toolbar_back = id('top_toolbar_back')
     list_category = id('category_recycler_view')
     list_template = id('template_recycler_view')
     top_toolbar_search = id('top_toolbar_search')
-    template_thumbnail = id('video_template_thumbnail')     # not unique
+    template_thumbnail = id('video_template_thumbnail')  # not unique
     video_template_favorite_icon = id('video_template_favorite_icon')
     duration_text = id('duration_text')
     list_libraryEntry = id('libraryEntryList')
     btn_save_menu = id('btn_save_menu')
-    
+
     # Save dialog
     btn_share = id('share_btn')
     btn_apply_to_timeline = id('apply_to_project_btn')
@@ -616,12 +765,16 @@ class Intro_Video():
     btn_no = id('no_btn')
 
     # Template info page
-    btn_back = xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[1]/android.widget.Image')
+    btn_back = xpath(
+        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[1]/android.widget.Image')
     btn_fav = ('id', "\u5716\u5C64_1")
-    preview = xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[4]/android.view.View/android.view.View')
-    loading = ('xpath', '//*[contains(@class,"android.widget.ProgressBar")]')
+    preview = xpath(
+        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[4]/android.view.View/android.view.View')
+    loading = xpath('//android.widget.ProgressBar')
+    web_page_loading = id('web_view_loading')
     edit_in_intro = find_string('Customize')
     add_to_timeline = find_string('Add to Your Video')
+    downloading = id('download_progress_bar')
 
     # Designer
     home = id('btn_home')
@@ -631,52 +784,54 @@ class Intro_Video():
     trim_play = id('playPauseBtn')
 
     # Added to timeline
-    intro_master_clip = aid('[AID]TimeLineVideo_16_9_S1_T1_1.mp4')
+    intro_master_clip = id("item_view_thumbnail_host")
 
 
-
-class Interface():
-    menu = Menu()
-    tool_menu = ToolMenu()
-    sub_menu = SubMenu_Timeline_Setting()
-    preview = Preview()
-    timeline = Timeline()
-    tips = Tips()
-    edit_sub = Edit_sub()
-    effect_sub = Effect_Sub()
-    color_sub = Color_sub()
+class Interface:
     adjust_sub = Adjust_sub()
-    reverse = Reverse()
-    stabilizing_video_window = Produce_Video_Window()
-    reverse_video_window = Produce_Video_Window()
-    pan_zoom_effect = Pan_Zoom_Effect()
-    crop = Crop()
-    stabilizer_correction = Stabilizer_Correction()
-    stabilizer = Stabilizer()
-    sharpness = Sharpness()
-    speed = Speed()
-    pip_designer = Pip_Designer()
-    transition = Transition()
-    opacity = Opacity()
-    fade = Fade()
+    audio_configuration = Audio_Configuration()
+    audio_denoise = Audio_Denoise()
+    aspect_ratio = AspectRatio
+    backdrop = Backdrop()
+    Blending_Sub = Blending_Sub()
+    border_and_shadow = Border_and_Shadow()
     chroma_key = Chroma_Key()
     color_board = Color_Board()
     color_selector = Color_Selector()
-    settings = Settings()
-    audio_configuration = Audio_Configuration()
-    show_timeline_pannel = id('btnShowTimeLine')
-    hide_timeline_pannel = id('btnHideTimeLine')
-    Blending_Sub = Blending_Sub()
-    Mask_Sub = Mask_Sub()
-    keyframe = Keyframe()
-    title_animation = Title_Animation()
-    backdrop = Backdrop()
-    motion_graphic_title = Motion_Graphic_Title()
-    try_before_buy = Try_Before_Buy()   
-    tutorial_bubble = Tutorial_Bubble()
-    audio_denoise = Audio_Denoise()
-    fit_and_fill = Fit_And_Fill()
-    replace = Replace()
+    color_sub = Color_sub()
+    crop = Crop()
     duration = Duration()
-    border_and_shadow = Border_and_Shadow()
+    edit_sub = Edit_sub()
+    effect_sub = Effect_Sub()
+    fade = Fade()
+    fit_and_fill = Fit_And_Fill()
+    hide_timeline_pannel = id('btnHideTimeLine')
     intro_video = Intro_Video()
+    keyframe = Keyframe()
+    Mask_Sub = Mask_Sub()
+    menu = Menu()
+    motion_graphic_title = Motion_Graphic_Title()
+    music = Music()
+    opacity = Opacity()
+    pan_zoom_effect = Pan_Zoom_Effect()
+    pip = Pip()
+    pip_library = Pip()
+    preview = Preview()
+    replace = Replace()
+    reverse = Reverse()
+    reverse_video_window = Produce_Video_Window()
+    settings = Settings()
+    sharpness = Sharpness()
+    show_timeline_pannel = id('btnShowTimeLine')
+    speed = Speed()
+    stabilizer = Stabilizer()
+    stabilizer_correction = Stabilizer_Correction()
+    stabilizing_video_window = Produce_Video_Window()
+    sub_menu = SubMenu_Timeline_Setting()
+    timeline = Timeline()
+    tips = Tips()
+    title_animation = Title_Animation()
+    tool_menu = ToolMenu()
+    transition = Transition()
+    try_before_buy = Try_Before_Buy()
+    tutorial_bubble = Tutorial_Bubble()
