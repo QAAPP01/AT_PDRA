@@ -53,7 +53,7 @@ class EditPage(BasePage):
     def back_to_launcher(self):
         self.h_click(L.edit.menu.home)
         # Churn Recovery
-        if self.h_is_exist(L.main.premium.pdr_premium):
+        if self.h_is_exist(L.main.premium.pdr_premium, 1):
             self.driver.driver.back()
 
     def preview_ratio(self):
@@ -120,9 +120,10 @@ class EditPage(BasePage):
             logger(f'[Error] {err}')
 
     def click_sub_tool(self, name, timeout=0.1):
-        if not self.h_is_exist(L.edit.timeline.sub_tool, 5):
-            logger("\n[Fail] Cannot find sub tool menu")
-            return False
+        if not self.is_sub_tool_exist(name, timeout=0.1):
+            logger("[Info] Cannot find sub tool menu")
+            logger("[Info] Select the first clip")
+            self.h_click(L.edit.timeline.clip())
         else:
             while 1:
                 if not self.h_is_exist(find_string(name), timeout=timeout):
@@ -823,6 +824,38 @@ class EditPage(BasePage):
         time.sleep(1)
         logger("length diff = %s" % (elem.rect['width'] - length_org))
         return elem.rect['width'] - length_org  # length diff
+
+    def trim_clip(self, locator=L.edit.timeline.clip(), frame="right", dx: "delta x of 1s" = 47):
+        try:
+            frame = frame.lower()
+            # if frame not in ["right", "left"]:
+            #     raise ValueError
+            self.h_click(locator)
+            clip = self.h_get_element(locator).rect
+            width_original = clip["width"]
+            y = clip["y"] + clip["height"]
+            if frame == "left":
+                start_x = clip["x"]
+                end_x = start_x + dx
+                self.h_swipe_location(start_x, y, end_x, y, speed=20, duration=500)
+            else:
+                start_x = clip["x"] + clip["width"]
+                end_x = start_x-dx
+                self.h_swipe_location(start_x, y, end_x, y, speed=20, duration=500)
+            width_after = self.h_get_element(locator).rect["width"]
+            if width_after < width_original:
+                return True
+            else:
+                logger(f'[Info] width_original = {width_original}')
+                logger(f'[Info] width_after = {width_after}')
+                return False
+
+
+        # except ValueError:
+        #     logger("[Error] Please check the input values")
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
 
     def trim_video(self, locator):
         logger("start trim_video")
@@ -1738,7 +1771,8 @@ class Sub_item():
     def is_progress(self, percentage):
         self.update()
         logger("%s / %s / %s" % (
-        (percentage * self.max), self.elem_progress.text, float(self.elem_progress.text) == (percentage * self.max)))
+            (percentage * self.max), self.elem_progress.text,
+            float(self.elem_progress.text) == (percentage * self.max)))
         return float(self.elem_progress.text) == (percentage * self.max)
 
 
@@ -3154,7 +3188,7 @@ class Intro_Video(BasePage):
                 if template_index > len(templates):
                     logger(f'\n[Fail] Cannot find the template index {template_index}')
                 else:
-                    templates[template_index-1].click()
+                    templates[template_index - 1].click()
                     return True
 
     def customize(self):
@@ -3473,10 +3507,8 @@ class Intro_Video(BasePage):
         self.click_sub_tool('Photo')
         self.h_click(id('select_view'))
 
-
     def flip_pip(self):
         pic_base = EditPage.get_picture(self, L.edit.pip_designer.pip_object)
         self.click_sub_tool('Flip')
         pic_after = EditPage.get_picture(self, L.edit.pip_designer.pip_object)
         return CompareImage(pic_base, pic_after, 7).compare_image()
-

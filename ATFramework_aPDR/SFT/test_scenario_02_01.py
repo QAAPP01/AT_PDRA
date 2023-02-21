@@ -112,7 +112,7 @@ class Test_sce_02_01_01:
         self.report.start_uuid("d5b79a1e-03ee-443a-8a49-d98349bba1b3")
         self.report.new_result("6805d7b3-1775-4b5f-930f-159965846428", result)
         self.report.new_result("d5b79a1e-03ee-443a-8a49-d98349bba1b3", result)
-        '''
+
         logger("[V]Trim")
         self.report.start_uuid("394f27cb-9e6f-411b-add7-638473575131")
         self.report.start_uuid("73720235-b876-49a2-82d9-75b7e3a4d620")
@@ -123,7 +123,6 @@ class Test_sce_02_01_01:
         self.report.start_uuid("ae24be03-9cad-455e-b23e-924d12984199")
         result = edit.check_timeline_gap()
         self.report.new_result("ae24be03-9cad-455e-b23e-924d12984199", result)
-        '''
 
         logger("[V]Flip")
         # edit.click(L.edit.menu.edit)

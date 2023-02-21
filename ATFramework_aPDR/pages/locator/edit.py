@@ -150,6 +150,7 @@ class Crop:
     btn_16_9 = id('btn_crop_16_9')
     btn_4_3 = id('btn_crop_4_3')
     btn_3_4 = id('btn_crop_3_4')
+    btn_21_9 = id('btn_crop_21_9')
     right_top = aid('[AID]Resizable_RightTop')
     boundary = id('resizable_boundary')
     apply = id('apply_btn')
@@ -264,7 +265,6 @@ class Timeline:
     "xpath", "(//android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout)[2]")
 
     clip_photo = ("xpath", '//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
-    clip_audio = ("xpath", '//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
     clip_title = id("item_view_title")
     tx_out = aid("[AID]Item_TxEffectOut")
     tx_in = aid("[AID]Item_TxEffectIn")
@@ -311,11 +311,30 @@ class Timeline:
             return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]/android.widget.ImageView')
 
     @staticmethod
-    def master_photo(file_name=None):
+    def master_photo(file_name=None, index=1):
         if file_name:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_{file_name}")]')
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_{file_name}")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_{file_name}")]')
         else:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
+
+    @staticmethod
+    def clip_audio(file_name=None, index=1):
+        if file_name:
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")]')
+        else:
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
 
 
 class Pip:
@@ -329,9 +348,15 @@ class Pip:
     @staticmethod
     def clip_audio(file_name=None, index=1):
         if file_name:
-            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")])[{index}]')
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")]')
         else:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
 
     @staticmethod
     def audio_thumbnail(file_name=None, index=1):

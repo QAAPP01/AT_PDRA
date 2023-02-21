@@ -156,7 +156,7 @@ class MainPage(BasePage):
             else:
                 self.h_click(L.main.project.new_project, 2)
             if skip_media:
-                self.h_click(I.menu.back, 2)
+                self.h_click(L.import_media.media_library.back)
                 if self.h_is_exist(L.edit.preview.movie_view, 1):
                     logger('[Done] Enter Timeline Done')
                     return True
@@ -164,7 +164,7 @@ class MainPage(BasePage):
                     logger('\n[Fail] Enter Timeline Fail')
                     return False
             else:
-                if self.h_is_exist(L.edit.preview.movie_view):
+                if self.h_is_exist(L.edit.preview.movie_view, 2):
                     logger('[Done] Enter Timeline Done')
                     return True
                 else:

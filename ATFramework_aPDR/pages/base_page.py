@@ -84,6 +84,7 @@ class BasePage(BasePage):
     def get_preview_pic(self):
         element = self.h_get_element(L.edit.preview.preview)
         while not element.get_attribute('displayed') == 'true':
+            time.sleep(1)
             element = self.h_get_element(L.edit.preview.preview)
         return self.get_picture(L.edit.preview.preview)
     def get_library_pic(self):
@@ -665,7 +666,7 @@ class BasePage(BasePage):
             logger(f"[Error] {err}")
             return False
 
-    def h_swipe_location(self, start_x, start_y, end_x, end_y, speed=10, duration=0, x_offset=1):
+    def h_swipe_location(self, start_x, start_y, end_x, end_y, speed=10, duration=0):
         """
         # Function: h_swipe_location
         # Description: Swipe from location to location
@@ -687,6 +688,7 @@ class BasePage(BasePage):
             actions.w3c_actions.pointer_action.pointer_down()
             actions.w3c_actions.pointer_action.pause(duration / 1000)
             actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.pause(duration / 1000)
             actions.w3c_actions.pointer_action.release()
             actions.perform()
             return self  # type: ignore
@@ -742,12 +744,13 @@ class BasePage(BasePage):
     def h_drag_element(self, locator, end_x, end_y):
         try:
             element_rect = self.h_get_element(locator).rect
-            start_x = element_rect['x'] + element_rect['width'] / 2
-            start_y = element_rect['y'] + element_rect['height'] / 2
+            start_x = element_rect['x'] + element_rect['width'] // 2
+            start_y = element_rect['y'] + element_rect['height'] // 2
             actions = ActionChains(self.driver.driver)
             actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
             actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
             actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.move_to_location((start_x + end_x)//2, (start_y + end_y)//2)
             actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
             actions.w3c_actions.pointer_action.release()
             actions.perform()

@@ -255,6 +255,7 @@ class HCompareImg(object):
 
             # 調整大小
             if img1.shape[0] != img2.shape[0] or img1.shape[1] != img2.shape[1]:
+                # logger(f"{img1.shape[0]}, {img1.shape[1]}, {img2.shape[0]}, {img2.shape[1]}")
                 size = min(img1.shape[0], img1.shape[1], img2.shape[0], img2.shape[1])
                 img1 = cv2.resize(img1, (size, size))
                 img2 = cv2.resize(img2, (size, size))

@@ -91,9 +91,9 @@ class Test_SFT_Scenario_01_04:
         self.page_main.enter_launcher()
         mode_setting = self.page_main.change_UI_mode("portrait")
         self.driver.driver.orientation = "LANDSCAPE"
-        self.page_main.enter_timeline(skip_media=False)
+        self.page_main.enter_timeline()
         orientation = self.driver.driver.orientation
-        self.click(L.import_media.menu.back)
+        self.page_edit.back_to_launcher()
 
         if mode_setting == "portrait" and orientation == "PORTRAIT":
             result = True
@@ -111,12 +111,11 @@ class Test_SFT_Scenario_01_04:
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_edit.back_to_launcher()
         mode_setting = self.page_main.change_UI_mode("landscape")
         self.driver.driver.orientation = "PORTRAIT"
-        self.page_main.enter_timeline(skip_media=False)
+        self.page_main.enter_timeline()
         orientation = self.driver.driver.orientation
-        self.click(L.edit.menu.home)
+        self.page_edit.back_to_launcher()
 
         if mode_setting == "landscape" and orientation == "LANDSCAPE":
             result = True
@@ -135,7 +134,6 @@ class Test_SFT_Scenario_01_04:
         self.report.start_uuid(uuid)
 
         # auto_portrait
-        self.page_edit.back_to_launcher()
         mode_setting = self.page_main.change_UI_mode("auto-rotate")
         self.driver.driver.orientation = "PORTRAIT"
         self.page_main.enter_timeline(skip_media=False)
@@ -154,7 +152,6 @@ class Test_SFT_Scenario_01_04:
         self.driver.driver.orientation = "LANDSCAPE"
         self.page_main.enter_timeline(skip_media=False)
         orientation = self.driver.driver.orientation
-        self.click(L.edit.menu.home)
 
         if mode_setting == "auto-rotate" and orientation == "LANDSCAPE":
             result_landscape = True

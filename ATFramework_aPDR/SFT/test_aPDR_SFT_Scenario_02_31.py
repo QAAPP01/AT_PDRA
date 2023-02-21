@@ -1,4 +1,5 @@
-import sys
+import inspect
+import sys, os, glob
 from os.path import dirname
 from os import path
 import subprocess
@@ -19,13 +20,12 @@ from .conftest import REPORT_INSTANCE
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage, HCompareImg
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
-
 
 class Test_SFT_Scenario_02_31:
     @pytest.fixture(autouse=True)
@@ -42,7 +42,7 @@ class Test_SFT_Scenario_02_31:
             desired_caps['udid'] = deviceName
         logger(f"[Info] caps={desired_caps}")
         self.report = report
-        self.device_udid = DRIVER_DESIRED_CAPS['udid']
+        self.device_udid = desired_caps['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
         self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
@@ -61,14 +61,17 @@ class Test_SFT_Scenario_02_31:
             except Exception as e:
                 logger(e)
                 retry -= 1
-
+        # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
         self.click = self.page_main.h_click
+        self.long_press = self.page_main.h_long_press
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
+        self.is_exist = self.page_main.h_is_exist
+
         self.report.set_driver(self.driver)
         self.driver.driver.start_recording_screen()
         self.driver.start_app(pdr_package)
@@ -79,6 +82,33 @@ class Test_SFT_Scenario_02_31:
         # teardown
         logger("\n[Stop] Teardown")
         self.driver.stop_driver()
+
+    def sce_2_31_22(self):
+        uuid = 'a441348c-7fc0-4b90-a0bf-b7672dc50e3b'
+        logger(f"\n[Start] {inspect.stack()[0][3]}")
+        self.report.start_uuid(uuid)
+
+        for i in range(4):
+            time.sleep(1)
+            self.click(L.edit.pip.Text.font_category(3))
+            self.click(L.edit.pip.Text.font(i + 1))
+            self.click(L.edit.try_before_buy.try_it, 1)
+            time.sleep(1)
+            while self.element(L.edit.pip.Text.font(i + 1)).get_attribute("selected") != "true":
+                time.sleep(1)
+            self.click(L.edit.pip.Text.back)
+            self.page_edit.click_sub_tool("Font")
+
+        if self.element(L.edit.pip.Text.font_name(5)).text == "Default":
+            result = True
+            fail_log = None
+        else:
+            result = False
+            fail_log = f'\n[Fail] 5th font name = {self.element(L.edit.pip.Text.font_name(5)).text}'
+            logger(fail_log)
+
+        self.report.new_result(uuid, result, fail_log=fail_log)
+        return "PASS" if result else "FAIL"
 
     # @pytest.mark.skip
     @report.exception_screenshot
@@ -451,25 +481,32 @@ class Test_SFT_Scenario_02_31:
                 logger(f'[Fail] result_highlight = {result_highlight}, result_other_no_recently_used = {result_other_no_recently_used}')
             self.report.new_result(uuid, result[item_id])
 
-            # Case
-            item_id = '02_31_22'
-            uuid = 'a441348c-7fc0-4b90-a0bf-b7672dc50e3b'
-            logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            result['2_31_22'] = self.sce_2_31_22()
 
-            for i in range(4):
-                self.click(L.edit.pip.Text.font_category(3))
-                self.click(L.edit.pip.Text.font(i+1))
-                self.click(L.edit.try_before_buy.try_it, 1)
-                self.click(L.edit.pip.Text.back)
-                self.page_edit.click_sub_tool("Font")
 
-            if self.element(L.edit.pip.Text.font_name(5)).text == "Default":
-                result[item_id] = True
-            else:
-                result[item_id] = False
-                logger(f'[Fail] 5th font name = {self.element(L.edit.pip.Text.font_name(5)).text}')
-            self.report.new_result(uuid, result[item_id])
+            # # Case
+            # item_id = '02_31_22'
+            # uuid = 'a441348c-7fc0-4b90-a0bf-b7672dc50e3b'
+            # logger(f"\n[Start] sce_{item_id}")
+            # self.report.start_uuid(uuid)
+            #
+            # for i in range(4):
+            #     self.click(L.edit.pip.Text.font_category(3))
+            #     self.click(L.edit.pip.Text.font(i+1))
+            #     self.click(L.edit.try_before_buy.try_it, 1)
+            #     select_font = self.element(L.edit.pip.Text.font(i+1))
+            #     while select_font.get_attribute("selected") != "true":
+            #         time.sleep(1)
+            #         select_font = self.element(L.edit.pip.Text.font(i + 1))
+            #     self.click(L.edit.pip.Text.back)
+            #     self.page_edit.click_sub_tool("Font")
+            #
+            # if self.element(L.edit.pip.Text.font_name(5)).text == "Default":
+            #     result[item_id] = True
+            # else:
+            #     result[item_id] = False
+            #     logger(f'[Fail] 5th font name = {self.element(L.edit.pip.Text.font_name(5)).text}')
+            # self.report.new_result(uuid, result[item_id])
 
             # Ending
             pprint(result)

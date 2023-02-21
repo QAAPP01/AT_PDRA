@@ -18,8 +18,8 @@ TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
 TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 
 # udid = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]
-udid = "R5CT32Q3WQN"
-# udid = "9596423546005V8"
+# udid = "R5CT32Q3WQN"
+udid = "9596423546005V8"
 
 device = {
     "udid": udid,
@@ -39,7 +39,6 @@ device = {
 driver = Remote("http://127.0.0.1:4723/wd/hub", device)
 
 
-
 # shortcut
 # self.test_material_folder = TEST_MATERIAL_FOLDER
 # self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
@@ -54,45 +53,43 @@ driver = Remote("http://127.0.0.1:4723/wd/hub", device)
 # self.is_exist = self.page_main.h_is_exist
 
 
-def h_swipe_playhead(timecode='00:01.0', x_offset=30):
+def h_swipe_playhead(sec=1, dx=47, x_offset=25):
     """
     # Function: h_swipe_playhead
-    # Description: Swipe the playhead to location
-    # Parameters: x: x-coordinate of destination
-    #             speed: 1 is fastest
-    #             x_offset: length of x to trigger swiping
+    # Description: Swipe the playhead to the second after
+    # Parameters:
+        :param sec: Swipe to seconds after
+        :param dx: delta x of 1s
+        :param x_offset: length of x to trigger swiping is 25
     # Return: None
     # Note: N/A
     # Author: Hausen
     """
+    playhead = driver.find_element("id", L.edit.timeline.playhead[1]).rect
+    playhead_x = playhead["x"] + playhead["width"] // 2
     ruler = driver.find_element("id", L.edit.timeline.timeline_ruler[1]).rect
     y = ruler["y"] + ruler["height"] // 2
-    x = ruler["x"] + ruler["width"] - 10
 
-    action = TouchAction(driver)
-    action.long_press(x=x, y=y)
+    actions = ActionChains(driver)
+    actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
 
-    timecode_flag = True
-    while timecode_flag:
-        x = int(x - x_offset)
-        print(f'move to {x}, {y}')
-        action.move_to(x=x, y=y).perform()
-        playhead = driver.find_element("id", L.edit.timeline.timecode[1]).text
-        print(playhead)
-        action.press(x=x, y=y)
+    delta = 9
+    delta_x = (dx + x_offset) // delta
+    for i in range(sec):
+        actions.w3c_actions.pointer_action.move_to_location(playhead_x, y).pointer_down()
+        start_x = playhead_x
+        for j in range(delta):
+            start_x -= delta_x
+            actions.w3c_actions.pointer_action.move_to_location(start_x, y)
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
 
-        if playhead == timecode:
-            timecode_flag = False
-            print('exit')
 
-    action.release().perform()
-    return True
 
 def swipe_without_release(driver, x1, y1, x2, y2):
     action = TouchAction(driver)
     action.long_press(x=x1, y=y1).move_to(x=x2, y=y2).release().perform()
 
 
-driver.quit()
-
+h_swipe_playhead(10)
 

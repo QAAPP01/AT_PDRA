@@ -3,6 +3,7 @@ from .locator_type import *
 
 class MediaLibrary:
     back = id("top_toolbar_back")
+    back_landscape = id("library_menu_back")
     video_library = id("video_switch")
     photo_library = id("photo_switch")
     search = id("searchText")

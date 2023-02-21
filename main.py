@@ -17,13 +17,14 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = 'TR230214-005'
-previous_tr_number = 'TR230208-001'  # Please update build version info manually
+tr_number = 'TR230221-004'
+previous_tr_number = 'TR230214-005'  # Please update build version info manually
 sr_number = 'DRA230208-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
 # deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device
 deviceName = "R5CT32Q3WQN"
+# deviceName = "9596423546005V8"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
