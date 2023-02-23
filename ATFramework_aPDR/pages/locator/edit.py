@@ -161,7 +161,7 @@ class Crop:
     slider = id('movie_seekbar')
 
 
-class Reverse():
+class Reverse:
     dialog_ok = aid("[AID]Dialog_OK")
     dialog_cancel = aid("[AID]Dialog_Cancel")
     ad = id("native_ad_container")

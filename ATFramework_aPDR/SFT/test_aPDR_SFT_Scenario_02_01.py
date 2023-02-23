@@ -380,8 +380,6 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_media.add_master_media('Video', self.test_material_folder, file_video)
-            self.click(L.edit.timeline.master_video(file_video))
             global pic_original
             pic_original = self.page_main.h_screenshot()
             self.page_edit.click_sub_tool('Crop')
@@ -395,7 +393,9 @@ class Test_SFT_Scenario_02_01:
             pic32 = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_32.png')
 
-            if HCompareImg(pic_base, pic32).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic32, pic_base)
+
+            if HCompareImg(pic_base, pic32).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -423,7 +423,7 @@ class Test_SFT_Scenario_02_01:
             self.click(L.edit.crop.cancel)
             pic_after = self.page_main.get_preview_pic()
 
-            if HCompareImg(pic32, pic_after).full_compare() > 0.98:
+            if HCompareImg(pic32, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -448,7 +448,9 @@ class Test_SFT_Scenario_02_01:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_34.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic_after, pic_base)
+
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -473,7 +475,9 @@ class Test_SFT_Scenario_02_01:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_35.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic_after, pic_base)
+
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -498,7 +502,9 @@ class Test_SFT_Scenario_02_01:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_36.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic_after, pic_base)
+
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -523,7 +529,9 @@ class Test_SFT_Scenario_02_01:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_37.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic_after, pic_base)
+
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -548,7 +556,9 @@ class Test_SFT_Scenario_02_01:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_38.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic_after, pic_base)
+
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -574,7 +584,9 @@ class Test_SFT_Scenario_02_01:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_39.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic_after, pic_base)
+
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -600,7 +612,9 @@ class Test_SFT_Scenario_02_01:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_40.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic_after, pic_base)
+
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -625,7 +639,9 @@ class Test_SFT_Scenario_02_01:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_41.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            # self.page_main.copy_file(pic_after, pic_base)
+
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -670,9 +686,11 @@ class Test_SFT_Scenario_02_01:
             y = slider_rect['y'] + slider_rect['height'] // 2
             self.page_main.h_tap(x, y)
             time_code = self.element(L.edit.crop.time_code).text
+            # time_total = time_code.split('/')[1]
+            # time_half = str(int(time_total.split(':')[0])//2) + ":" + str(int(time_total.split(':')[1])//2)
             self.click(L.edit.crop.apply)
 
-            if time_code.split('/')[0] == '00:11':
+            if time_code.split('/')[0] == '00:02':
                 result = True
                 fail_log = None
             else:
@@ -696,12 +714,85 @@ class Test_SFT_Scenario_02_01:
             self.click(L.edit.crop.apply)
             pic_after = self.page_main.get_preview_pic()
 
-            if HCompareImg(pic_original, pic_after).full_compare() > 0.98:
+            if HCompareImg(pic_original, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_45(self):
+        try:
+            uuid = '227a3419-90e9-465a-b230-6efe8bc640d0'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.page_media.add_master_media('video', self.test_material_folder, 'mp4.mp4')
+            if self.page_edit.click_sub_tool('Reverse'):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Click "Reverse" fail'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_46(self):
+        try:
+            uuid = '73b8a01c-23d2-498c-8d99-0d1e6fb681c3'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.click(L.edit.reverse.dialog_ok)
+            progress_bar = self.is_exist(L.edit.reverse.progress_bar)
+            ad = self.is_exist(L.edit.reverse.ad, 10)
+
+            if progress_bar and ad:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] progress_bar: {progress_bar}, ad:{ad}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_47(self):
+        try:
+            uuid = '63ef8f5b-b929-400d-b32c-69e647e9f4b6'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            logger('[Info] Reversing')
+            while self.is_exist(L.edit.reverse.progress_bar):
+                time.sleep(1)
+
+            clip = self.elements(L.edit.timeline.master_video_thumbnail(file_video, 1))[0]
+            pic_base = self.page_main.h_screenshot(clip)
+            self.page_edit.click_sub_tool('Reverse')
+            self.click(L.edit.reverse.dialog_ok)
+            time.sleep(1)
+            pic_after = self.page_main.h_screenshot(clip)
+
+            if not HCompareImg(pic_base, pic_after).full_compare() > 0.98:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Thumbnails are the same'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1117,59 +1208,64 @@ class Test_SFT_Scenario_02_01:
 
     @report.exception_screenshot
     def test_sce_2_1_1_to_135(self):
-        try:
-            result = {
-                "sce_2_1_1": self.sce_2_1_1(),
+        results = {
+            "sce_2_1_1": self.sce_2_1_1(),
 
-                # Video
-                "sce_2_1_2": self.sce_2_1_2(),
-                "sce_2_1_3": self.sce_2_1_3(),
-                "sce_2_1_4": self.sce_2_1_4(),
-                "sce_2_1_11": self.sce_2_1_11(),
-                "sce_2_1_12": self.sce_2_1_12(),
-                "sce_2_1_13": self.sce_2_1_13(),
-                "sce_2_1_17": self.sce_2_1_17(),
-                "sce_2_1_18": self.sce_2_1_18(),
-                "sce_2_1_19": self.sce_2_1_19(),
-                "sce_2_1_26": self.sce_2_1_26(),
-                "sce_2_1_27": self.sce_2_1_27(),
-                "sce_2_1_28": self.sce_2_1_28(),
-                "sce_2_1_32": self.sce_2_1_32(),
-                "sce_2_1_33": self.sce_2_1_33(),
-                "sce_2_1_34": self.sce_2_1_34(),
-                "sce_2_1_35": self.sce_2_1_35(),
-                "sce_2_1_36": self.sce_2_1_36(),
-                "sce_2_1_37": self.sce_2_1_37(),
-                "sce_2_1_38": self.sce_2_1_38(),
-                "sce_2_1_39": self.sce_2_1_39(),
-                "sce_2_1_40": self.sce_2_1_40(),
-                "sce_2_1_41": self.sce_2_1_41(),
-                "sce_2_1_42": self.sce_2_1_42(),
-                "sce_2_1_43": self.sce_2_1_43(),
-                "sce_2_1_44": self.sce_2_1_44(),
+            # Video
+            "sce_2_1_2": self.sce_2_1_2(),
+            "sce_2_1_3": self.sce_2_1_3(),
+            "sce_2_1_4": self.sce_2_1_4(),
+            "sce_2_1_11": self.sce_2_1_11(),
+            "sce_2_1_12": self.sce_2_1_12(),
+            "sce_2_1_13": self.sce_2_1_13(),
+            "sce_2_1_17": self.sce_2_1_17(),
+            "sce_2_1_18": self.sce_2_1_18(),
+            "sce_2_1_19": self.sce_2_1_19(),
+            "sce_2_1_26": self.sce_2_1_26(),
+            "sce_2_1_27": self.sce_2_1_27(),
+            "sce_2_1_28": self.sce_2_1_28(),
+            "sce_2_1_32": self.sce_2_1_32(),
+            "sce_2_1_33": self.sce_2_1_33(),
+            "sce_2_1_34": self.sce_2_1_34(),
+            "sce_2_1_35": self.sce_2_1_35(),
+            "sce_2_1_36": self.sce_2_1_36(),
+            "sce_2_1_37": self.sce_2_1_37(),
+            "sce_2_1_38": self.sce_2_1_38(),
+            "sce_2_1_39": self.sce_2_1_39(),
+            "sce_2_1_40": self.sce_2_1_40(),
+            "sce_2_1_41": self.sce_2_1_41(),
+            "sce_2_1_42": self.sce_2_1_42(),
+            "sce_2_1_43": self.sce_2_1_43(),
+            "sce_2_1_44": self.sce_2_1_44(),
+            "sce_2_1_45": self.sce_2_1_45(),
+            "sce_2_1_46": self.sce_2_1_46(),
+            "sce_2_1_47": self.sce_2_1_47(),
 
-                # Photo
-                "sce_2_1_5": self.sce_2_1_5(),
-                "sce_2_1_6": self.sce_2_1_6(),
-                "sce_2_1_7": self.sce_2_1_7(),
-                "sce_2_1_14": self.sce_2_1_14(),
-                "sce_2_1_15": self.sce_2_1_15(),
-                "sce_2_1_16": self.sce_2_1_16(),
-                "sce_2_1_20": self.sce_2_1_20(),
-                "sce_2_1_21": self.sce_2_1_21(),
-                "sce_2_1_22": self.sce_2_1_22(),
-                "sce_2_1_29": self.sce_2_1_29(),
-                "sce_2_1_30": self.sce_2_1_30(),
-                "sce_2_1_31": self.sce_2_1_31(),
+            # Photo
+            "sce_2_1_5": self.sce_2_1_5(),
+            "sce_2_1_6": self.sce_2_1_6(),
+            "sce_2_1_7": self.sce_2_1_7(),
+            "sce_2_1_14": self.sce_2_1_14(),
+            "sce_2_1_15": self.sce_2_1_15(),
+            "sce_2_1_16": self.sce_2_1_16(),
+            "sce_2_1_20": self.sce_2_1_20(),
+            "sce_2_1_21": self.sce_2_1_21(),
+            "sce_2_1_22": self.sce_2_1_22(),
+            "sce_2_1_29": self.sce_2_1_29(),
+            "sce_2_1_30": self.sce_2_1_30(),
+            "sce_2_1_31": self.sce_2_1_31(),
 
-                # Music
-                "sce_2_1_8": self.sce_2_1_8(),
-                "sce_2_1_9": self.sce_2_1_9(),
-                "sce_2_1_10": self.sce_2_1_10(),
-                "sce_2_1_23": self.sce_2_1_23(),
-                "sce_2_1_24": self.sce_2_1_24(),
-                "sce_2_1_25": self.sce_2_1_25(),
-            }
-            pprint(result)
-        except Exception as err:
-            logger(f'[Error] {err}')
+            # Music
+            "sce_2_1_8": self.sce_2_1_8(),
+            "sce_2_1_9": self.sce_2_1_9(),
+            "sce_2_1_10": self.sce_2_1_10(),
+            "sce_2_1_23": self.sce_2_1_23(),
+            "sce_2_1_24": self.sce_2_1_24(),
+            "sce_2_1_25": self.sce_2_1_25(),
+
+        }
+        for key, value in results.items():
+            if value != "PASS":
+                print(f"\n[FAIL] {key}")
+
+

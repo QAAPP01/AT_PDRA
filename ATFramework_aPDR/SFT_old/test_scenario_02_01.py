@@ -154,14 +154,14 @@ class Test_sce_02_01_01:
         result = edit.is_exist_in_bottom_edit_menu('Reverse')
         self.report.new_result("227a3419-90e9-465a-b230-6efe8bc640d0", result)
 
-        '''
+
         self.report.start_uuid("73b8a01c-23d2-498c-8d99-0d1e6fb681c3")
         self.report.start_uuid("63ef8f5b-b929-400d-b32c-69e647e9f4b6")
         edit.timeline_get_item_by_index_on_track(1, 2).click()  # select longer clip
         result_show_ad, result_remove_reverse = edit.click_reverse()
         self.report.new_result("73b8a01c-23d2-498c-8d99-0d1e6fb681c3", result_show_ad)
         self.report.new_result("63ef8f5b-b929-400d-b32c-69e647e9f4b6", result_remove_reverse)
-        '''
+
         edit.timeline_get_item_by_index_on_track(1, 1).click()  # select original clip
 
         logger("[V]Stabilizer")

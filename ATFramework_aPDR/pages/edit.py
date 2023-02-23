@@ -124,18 +124,17 @@ class EditPage(BasePage):
             logger("[Info] Cannot find sub tool menu")
             logger("[Info] Select the first clip")
             self.h_click(L.edit.timeline.clip())
-        else:
-            while 1:
-                if not self.h_is_exist(find_string(name), timeout=timeout):
-                    tool = self.h_get_elements(E.timeline.sub_tool)
-                    last = tool[len(tool) - 1].text
-                    self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=4)
-                    tool = self.h_get_elements(E.timeline.sub_tool)
-                    if tool[len(tool) - 1].text == last:
-                        logger(f'[Not exist] Tool "{name}" is not exist')
-                        return False
-                else:
-                    break
+        while 1:
+            if not self.h_is_exist(find_string(name), timeout=timeout):
+                tool = self.h_get_elements(E.timeline.sub_tool)
+                last = tool[len(tool) - 1].text
+                self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=4)
+                tool = self.h_get_elements(E.timeline.sub_tool)
+                if tool[len(tool) - 1].text == last:
+                    logger(f'[Not exist] Tool "{name}" is not exist')
+                    return False
+            else:
+                break
         return self.h_click(find_string(name))
 
     def is_sub_tool_exist(self, name, timeout=0.1):

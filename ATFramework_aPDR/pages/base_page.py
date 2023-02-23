@@ -1,4 +1,5 @@
 # dummy module
+import shutil
 import time, os
 import uuid
 
@@ -777,3 +778,21 @@ class BasePage(BasePage):
         except Exception as err:
             logger(f"[Error] {err}")
             return False
+
+    def copy_file(self, source_file, target_file):
+        """
+        :Function: copy_database_file
+        :Description: Copy file
+        :param source_file
+        :param target_file
+        :Returns: bool
+
+        """
+        try:
+            shutil.copy(source_file, target_file)
+            return True
+        except Exception as err:
+            logger(f'\n[Error]{err}')
+            return False
+
+

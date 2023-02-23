@@ -17,8 +17,8 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = 'TR230221-004'
-previous_tr_number = 'TR230214-005'  # Please update build version info manually
+tr_number = 'TR230222-020'
+previous_tr_number = 'TR230223-010'  # Please update build version info manually
 sr_number = 'DRA230208-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
