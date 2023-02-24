@@ -93,7 +93,7 @@ class Test_SFT_Scenario_02_31:
             self.click(L.edit.pip.Text.font_category(3))
             self.click(L.edit.pip.Text.font(i + 1))
             self.click(L.edit.try_before_buy.try_it, 1)
-            time.sleep(1)
+            time.sleep(3)
             while self.element(L.edit.pip.Text.font(i + 1)).get_attribute("selected") != "true":
                 time.sleep(1)
             self.click(L.edit.pip.Text.back)
