@@ -1,3 +1,4 @@
+import os
 import sys
 from main import deviceName
 from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
@@ -29,6 +30,8 @@ def test_app_init():
                     raise Exception("\n[Fail] Create driver fail")
             except Exception as e:
                 logger(e)
+                os.system(f"adb -s {deviceName} shell pm uninstall io.appium.settings")
+                os.system(f"adb -s {deviceName} shell pm uninstall io.appium.uiautomator2.server")
                 retry -= 1
         page_main = PageFactory().get_page_object("main_page", driver)
         page_main.enter_launcher()

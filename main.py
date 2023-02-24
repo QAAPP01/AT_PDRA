@@ -97,9 +97,9 @@ package_build_number = os.popen(f'adb -s {deviceName} shell dumpsys package {pac
 # [Report Mail Setting]
 send = True
 title_project = 'aPDR'
-receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
-            "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
-# receiver = ['hausen_lin@cyberlink.com']
+# receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
+#             "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
+receiver = ['hausen_lin@cyberlink.com']
 # script_version = 'Testing'
 script_version = 'Debug'
 

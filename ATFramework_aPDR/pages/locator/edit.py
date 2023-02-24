@@ -304,11 +304,11 @@ class Timeline:
             return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]')
 
     @staticmethod
-    def master_video_thumbnail(file_name=None, index=1):
+    def master_video_thumbnail(file_name=None, clip_index=1, thumbnail_index=1):
         if file_name:
-            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")])[{index}]/android.widget.ImageView')
+            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")])[{clip_index}]/android.widget.ImageView')
         else:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]/android.widget.ImageView')
+            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]/android.widget.ImageView)[1]')
 
     @staticmethod
     def master_photo(file_name=None, index=1):

@@ -85,7 +85,7 @@ class BasePage(BasePage):
     def get_preview_pic(self):
         element = self.h_get_element(L.edit.preview.preview)
         while not element.get_attribute('displayed') == 'true':
-            time.sleep(1)
+            time.sleep(2)
             element = self.h_get_element(L.edit.preview.preview)
         return self.get_picture(L.edit.preview.preview)
     def get_library_pic(self):

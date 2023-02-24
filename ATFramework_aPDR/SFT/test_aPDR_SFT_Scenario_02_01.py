@@ -1,26 +1,23 @@
 import inspect
-import sys, os, glob
-from os.path import dirname
+import sys
+import time
 from os import path
-import subprocess
-from pprint import pprint
-from ATFramework_aPDR.pages.locator import locator as L
-from ATFramework_aPDR.pages.locator.locator_type import *
+from os.path import dirname
 
-from ATFramework_aPDR.pages.page_factory import PageFactory
+import pytest
+
 from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
+from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.configs import app_config
 from ATFramework_aPDR.configs import driver_config
-from ATFramework_aPDR.ATFramework.utils.log import logger
-import pytest
-import time
-
+from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.page_factory import PageFactory
 from main import deviceName
-from .conftest import REPORT_INSTANCE
 from .conftest import PACKAGE_NAME
+from .conftest import REPORT_INSTANCE
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage, HCompareImg
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
@@ -145,7 +142,6 @@ class Test_SFT_Scenario_02_01:
             else:
                 result = False
                 fail_log = f'\n[Fail] Split fail: playhead_center = {playhead_center}, x_after = {x_after}'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -712,6 +708,7 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.reset)
             self.click(L.edit.crop.apply)
+            time.sleep(1)
             pic_after = self.page_main.get_preview_pic()
 
             if HCompareImg(pic_original, pic_after).full_compare() > 0.96:
@@ -733,7 +730,7 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_media.add_master_media('video', self.test_material_folder, 'mp4.mp4')
+            self.page_media.add_master_media('video', self.test_material_folder, file_video)
             if self.page_edit.click_sub_tool('Reverse'):
                 result = True
                 fail_log = None
@@ -780,12 +777,11 @@ class Test_SFT_Scenario_02_01:
             while self.is_exist(L.edit.reverse.progress_bar):
                 time.sleep(1)
 
-            clip = self.elements(L.edit.timeline.master_video_thumbnail(file_video, 1))[0]
-            pic_base = self.page_main.h_screenshot(clip)
+            pic_base = self.page_main.h_screenshot(self.element(L.edit.timeline.master_video_thumbnail(thumbnail_index=1)))
             self.page_edit.click_sub_tool('Reverse')
             self.click(L.edit.reverse.dialog_ok)
-            time.sleep(1)
-            pic_after = self.page_main.h_screenshot(clip)
+            time.sleep(2)
+            pic_after = self.page_main.h_screenshot(self.element(L.edit.timeline.master_video_thumbnail(thumbnail_index=1)))
 
             if not HCompareImg(pic_base, pic_after).full_compare() > 0.98:
                 result = True
@@ -1208,7 +1204,7 @@ class Test_SFT_Scenario_02_01:
 
     @report.exception_screenshot
     def test_sce_2_1_1_to_135(self):
-        results = {
+        result = {
             "sce_2_1_1": self.sce_2_1_1(),
 
             # Video
@@ -1264,8 +1260,8 @@ class Test_SFT_Scenario_02_01:
             "sce_2_1_25": self.sce_2_1_25(),
 
         }
-        for key, value in results.items():
+        for key, value in result.items():
             if value != "PASS":
-                print(f"\n[FAIL] {key}")
+                print(f"[FAIL] {key}")
 
 

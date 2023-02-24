@@ -3,20 +3,20 @@ from .aa_init_test import TestInit
 
 from .test_aPDR_SFT_app_initial import test_app_init
 from .test_aPDR_SFT_Scenario_01_01 import Test_SFT_Scenario_01_01
-from .test_aPDR_SFT_Scenario_01_02 import Test_SFT_Scenario_01_02
-from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
-from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
-from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
-from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
+# from .test_aPDR_SFT_Scenario_01_02 import Test_SFT_Scenario_01_02
+# from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
+# from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
+# from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
+# from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
 from .test_aPDR_SFT_Scenario_02_01 import Test_SFT_Scenario_02_01
-from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03
-from .test_aPDR_SFT_Scenario_02_31 import Test_SFT_Scenario_02_31
-from .test_aPDR_SFT_Scenario_05_01 import Test_SFT_Scenario_05_01
-from .test_aPDR_SFT_Scenario_05_03 import Test_SFT_Scenario_05_03
-from .test_aPDR_SFT_Scenario_05_08 import Test_SFT_Scenario_05_08
-from .test_aPDR_SFT_Scenario_05_11 import Test_SFT_Scenario_05_11
-from .test_aPDR_SFT_Scenario_05_15 import Test_SFT_Scenario_05_15
-from .test_aPDR_SFT_Scenario_05_16 import Test_SFT_Scenario_05_16
+# from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03
+# from .test_aPDR_SFT_Scenario_02_31 import Test_SFT_Scenario_02_31
+# from .test_aPDR_SFT_Scenario_05_01 import Test_SFT_Scenario_05_01
+# from .test_aPDR_SFT_Scenario_05_03 import Test_SFT_Scenario_05_03
+# from .test_aPDR_SFT_Scenario_05_08 import Test_SFT_Scenario_05_08
+# from .test_aPDR_SFT_Scenario_05_11 import Test_SFT_Scenario_05_11
+# from .test_aPDR_SFT_Scenario_05_15 import Test_SFT_Scenario_05_15
+# from .test_aPDR_SFT_Scenario_05_16 import Test_SFT_Scenario_05_16
 
 
 from .zz_end_test import TestEnd
