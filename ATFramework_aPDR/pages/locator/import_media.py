@@ -41,6 +41,7 @@ class MediaLibrary:
     library_unit_sound_fx_icon = id('library_unit_sound_fx_icon')  # Sound Title
     library_unit_layout = id('library_unit_layout')
     library_tabs_content = id('library_tabs_content')
+    creator_page = id("creatorWebsiteButton")
 
 
 
@@ -81,6 +82,7 @@ class MediaLibrary:
         getty = id('pickerGetty')
         getty_pro = id('pickerGettyPro')
         giphy = id('pickerGIPHY')
+        pexels = id('pickerPexels')
         pixabay = id('pickerPixabay')
         display_preview = id('videoDisplay')
 

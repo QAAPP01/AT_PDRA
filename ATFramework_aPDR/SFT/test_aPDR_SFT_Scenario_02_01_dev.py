@@ -100,7 +100,6 @@ class Test_SFT_Scenario_02_01:
         else:
             result = False
             fail_log = '\n[Fail] Cannot find timeline canvas'
-            logger(fail_log)
 
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
