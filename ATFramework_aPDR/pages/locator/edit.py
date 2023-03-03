@@ -254,6 +254,7 @@ class Preview:
 
 
 class Timeline:
+    slider = id("adjustable_parameter_seek_bar")
     main_track_import = id("icon_import_vp")
     main_track_import_float = id("icon_import_vp_pinned")
     tool = id('label')  # non unique
@@ -288,6 +289,7 @@ class Timeline:
     btn_import2 = id('icon_import_vp')  # import btn id is different when timeline have content
     intro_video_entry = id('intro_video_entry')
     outro_video_entry = id('outro_video_entry')
+    slider_value = id('adjustTextNow')
 
     @staticmethod
     def clip(index=1):

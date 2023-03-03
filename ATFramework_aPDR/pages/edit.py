@@ -138,8 +138,8 @@ class EditPage(BasePage):
         return self.h_click(find_string(name))
 
     def is_sub_tool_exist(self, name, timeout=0.1):
-        if not self.h_is_exist(L.edit.timeline.sub_tool, 5):
-            logger("\n[Fail] Cannot find sub tool menu")
+        if not self.h_is_exist(L.edit.timeline.sub_tool, timeout):
+            logger("[Info] Cannot find sub tool menu")
             return False
         else:
             while 1:
@@ -149,7 +149,7 @@ class EditPage(BasePage):
                     self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=4)
                     tool = self.h_get_elements(E.timeline.sub_tool)
                     if tool[len(tool) - 1].text == last:
-                        logger(f'[Not exist] Tool "{name}" is not exist')
+                        logger(f'[Info] Tool "{name}" is not exist')
                         return False
                 else:
                     break

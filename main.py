@@ -17,8 +17,8 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = 'TR230224-007'
-previous_tr_number = 'TR230222-020'  # Please update build version info manually
+tr_number = 'TR230302-010'
+previous_tr_number = 'TR230224-007'  # Please update build version info manually
 sr_number = 'DRA230208-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
@@ -97,9 +97,8 @@ package_build_number = os.popen(f'adb -s {deviceName} shell dumpsys package {pac
 # [Report Mail Setting]
 send = True
 title_project = 'aPDR'
-receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
-            "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
-# receiver = ['hausen_lin@cyberlink.com']
+# receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
+receiver = ['hausen_lin@cyberlink.com']
 script_version = 'Testing'
 # script_version = 'Debug'
 

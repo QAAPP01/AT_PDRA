@@ -697,6 +697,42 @@ class BasePage(BasePage):
             logger(f"[Error] {err}")
             return False
 
+    def h_swipe_element_to_location(self, locator, end_x, end_y=None, speed=2, duration=0):
+        """
+        # Function: h_swipe_element_to_location
+        # Description: Swipe element to location
+        # Parameters:
+            :param locator: element going to swipe
+            :param end_x: x-coordinate at which to stop
+            :param end_y: y-coordinate at which to stop
+            :param speed: 1 is fastest
+            :param duration: Waiting time to take the swipe, in s.
+        # Return: Boolean
+        # Note: N/A
+        # Author: Hausen
+        """
+        try:
+            element = self.h_get_element(locator)
+            element_rect = element.rect
+            start_x = element_rect['x'] + element_rect['width'] / 2
+            start_y = element_rect['y'] + element_rect['height'] / 2
+            if end_y is None:
+                end_y = start_y
+
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pause(duration)
+            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.pause(duration)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
     def h_swipe_playhead(self, x: int, speed=15):
         """
         # Function: h_swipe_playhead

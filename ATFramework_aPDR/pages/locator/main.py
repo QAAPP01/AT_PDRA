@@ -110,9 +110,8 @@ class Subscribe:
     # one_year = id('free_trial')
     
     # new
-    iap_monthly = id('iap_plan_monthly')
-    three_month = id('iap_txtBtn_right')
-    one_year = id('iap_txtBtn_middle')
+    iap_monthly = id('iap_radioBtn_monthly')
+    iap_yearly = id('iap_radioBtn_yearly')
     continue_btn = id('continueBtn')
     password = xpath('//android.widget.EditText')
     verify = xpath('//android.widget.Button[@text="Verify"]')
