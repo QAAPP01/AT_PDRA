@@ -57,10 +57,12 @@ class BasePage(BasePage):
 
             element = self.h_get_element(locator)
             element.screenshot(file_save)
-            rect = element.rect
-            rect.update({"x": 0, "y": 0})
-            with Image.open(file_save) as im:
-                if crop:
+
+            if crop:
+                rect = element.rect
+                rect.update({"x": 0, "y": 0})
+
+                with Image.open(file_save) as im:
                     for key in crop.keys():
                         rect.update({key: crop[key]})
 
@@ -70,6 +72,24 @@ class BasePage(BasePage):
             path_save = os.path.abspath(file_save)
             logger(path_save)
             return path_save
+
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def h_full_screenshot(self):
+        try:
+            path = os.getenv('temp', os.path.dirname(__file__))
+            file_save = "%s/%s.png" % (path, uuid.uuid4())
+
+            screenshot = self.driver.driver.get_screenshot_as_png()
+            with open(file_save, 'wb') as f:
+                f.write(screenshot)
+
+            path_save = os.path.abspath(file_save)
+            logger(path_save)
+            return path_save
+
         except Exception as err:
             logger(f"[Error] {err}")
             return False
@@ -817,14 +837,18 @@ class BasePage(BasePage):
 
     def copy_file(self, source_file, target_file):
         """
-        :Function: copy_database_file
-        :Description: Copy file
-        :param source_file
-        :param target_file
-        :Returns: bool
+        # Function: copy_database_file
+        # Description: Copy file
+        # Parameters:
+            :param source_file
+            :param target_file
+        # Returns: bool
 
         """
         try:
+            tgt_folder = os.path.dirname(target_file)
+            if not os.path.exists(tgt_folder):
+                os.makedirs(tgt_folder)
             shutil.copy(source_file, target_file)
             return True
         except Exception as err:

@@ -101,15 +101,15 @@ class MediaPage(BasePage):
         except Exception as err:
             logger(f'[Error] {err}')
 
-    def select_video_library(self, stock):
+    def select_video_library(self, stock_name):
         try:
             self.h_click(L.import_media.media_library.video_library)
             end = ""
-            while not self.h_click(stock, 1):
+            while not self.h_click(L.import_media.media_library.stock(stock_name), 1):
                 tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
                 last = tabs[-1].get_attribute("resource-id")
                 if last == end:
-                    logger(f'[Fail] No stock: {stock}')
+                    logger(f'[Fail] No stock: {stock_name}')
                     return False
                 else:
                     end = last
@@ -118,15 +118,15 @@ class MediaPage(BasePage):
         except Exception as err:
             logger(f'\n[Error] {err}')
 
-    def select_photo_library(self, stock):
+    def select_photo_library(self, stock_name):
         try:
             self.h_click(L.import_media.media_library.photo_library)
             end = ""
-            while not self.h_click(stock, 1):
+            while not self.h_click(L.import_media.media_library.stock(stock_name), 1):
                 tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
                 last = tabs[-1].get_attribute("resource-id")
                 if last == end:
-                    logger(f'[Fail] No stock: {stock}')
+                    logger(f'[Fail] Cannot find "{stock_name}"')
                     return False
                 else:
                     end = last

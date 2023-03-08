@@ -1255,4 +1255,5 @@ class Test_SFT_Scenario_01_01:
         }
         for key, value in result.items():
             if value != "PASS":
-                print(f"[FAIL] {key}")
+                print(f"[{value}] {key}")
+

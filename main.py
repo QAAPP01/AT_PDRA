@@ -23,8 +23,8 @@ sr_number = 'DRA230208-01'  # Please update build version info manually if didn'
 
 # [Device Setting]
 # deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device
-deviceName = "R5CT32Q3WQN"
-# deviceName = "9596423546005V8"
+# deviceName = "R5CT32Q3WQN"
+deviceName = "RFCW2198L7B"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
@@ -97,8 +97,8 @@ package_build_number = os.popen(f'adb -s {deviceName} shell dumpsys package {pac
 # [Report Mail Setting]
 send = True
 title_project = 'aPDR'
-# receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
-receiver = ['hausen_lin@cyberlink.com']
+receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
+# receiver = ['hausen_lin@cyberlink.com']
 script_version = 'Testing'
 # script_version = 'Debug'
 

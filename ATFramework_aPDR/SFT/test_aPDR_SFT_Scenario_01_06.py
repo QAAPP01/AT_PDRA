@@ -91,7 +91,7 @@ class Test_SFT_Scenario_01_06:
 
         self.page_main.enter_launcher()
         self.page_main.enter_timeline(skip_media=False)
-        self.page_media.select_photo_library(L.import_media.media_library.Photo.pixabay)
+        self.page_media.select_photo_library("pixabay")
         self.click(id("pixabayWebsiteBtn"))
         if self.is_exist(find_string("pixabay.com")):
             self.driver.driver.back()

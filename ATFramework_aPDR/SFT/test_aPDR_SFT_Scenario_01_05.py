@@ -82,7 +82,7 @@ class Test_SFT_Scenario_01_05:
         logger("\n[Stop] Teardown")
         self.driver.stop_driver()
 
-    def sce_01_05_01(self):
+    def sce_1_5_1(self):
         uuid = '45479986-4700-48e9-af00-d889b3ec09e0'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
@@ -104,7 +104,7 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_02(self):
+    def sce_1_5_2(self):
         uuid = '2cce56be-b6a5-4655-9c3e-a022085ebdfe'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
@@ -124,12 +124,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_03(self):
+    def sce_1_5_3(self):
         uuid = '6821d9a8-3839-4921-8323-5ee9b8c6c4a8'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.shutter_stock)
+        self.page_media.select_video_library("shutterstock")
         self.click(L.import_media.media_library.btn_preview())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -145,12 +145,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_04(self):
+    def sce_1_5_4(self):
         uuid = '5e99435d-14bd-484e-8384-ba2bf5276c94'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.shutter_stock)
+        self.page_media.select_video_library("shutterstock")
         self.long_press(L.import_media.media_library.media())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -166,12 +166,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_05(self):
+    def sce_1_5_5(self):
         uuid = '9b1af418-19cd-4ae0-81c6-a40da8c8ec84'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.getty)
+        self.page_media.select_video_library("getty")
         self.click(L.import_media.media_library.btn_preview())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -187,12 +187,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_06(self):
+    def sce_1_5_6(self):
         uuid = '8335bee7-4b82-44b5-8682-4a7077d35495'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.getty)
+        self.page_media.select_video_library("getty")
         self.long_press(L.import_media.media_library.media())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -208,12 +208,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_07(self):
+    def sce_1_5_7(self):
         uuid = 'f143d1a6-7761-478a-96f7-842b9cb01254'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.getty_pro)
+        self.page_media.select_video_library("getty_pro")
         self.click(L.import_media.media_library.btn_preview())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -229,12 +229,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_08(self):
+    def sce_1_5_8(self):
         uuid = '78f56ea6-74f9-4833-b9ec-e76ea0a61bfb'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.getty_pro)
+        self.page_media.select_video_library("getty_pro")
         self.long_press(L.import_media.media_library.media())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -250,12 +250,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_09(self):
+    def sce_1_5_9(self):
         uuid = '6014c97f-91d4-42ff-af47-119a13ee90a5'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.giphy)
+        self.page_media.select_video_library("giphy")
 
         if not self.is_exist(L.import_media.media_library.btn_preview()):
             result = True
@@ -267,12 +267,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_10(self):
+    def sce_1_5_10(self):
         uuid = '74e2d6cf-28d2-4c0f-9d2c-74183ca10472'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.giphy)
+        self.page_media.select_video_library("giphy")
         self.long_press(L.import_media.media_library.media())
 
         if not self.is_exist(L.import_media.media_library.Video.display_preview):
@@ -285,12 +285,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_11(self):
+    def sce_1_5_11(self):
         uuid = 'f44f57f1-ca9f-4d4c-b359-ae7446bcb1f8'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.pexels)
+        self.page_media.select_video_library("pexels")
         self.click(L.import_media.media_library.btn_preview())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -306,12 +306,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_12(self):
+    def sce_1_5_12(self):
         uuid = 'f953d5d4-fd9b-4dd3-9014-c9896e356d63'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.pexels)
+        self.page_media.select_video_library("pexels")
         self.long_press(L.import_media.media_library.media())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -326,7 +326,7 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_13(self):
+    def sce_1_5_13(self):
         uuid = 'f84c3132-2e68-49c5-bd1a-1d25ad3f6289'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
@@ -344,12 +344,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_14(self):
+    def sce_1_5_14(self):
         uuid = '87def98e-a0df-4769-a56c-dc1c90c68bc7'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.pixabay)
+        self.page_media.select_video_library("pixabay")
         self.click(L.import_media.media_library.btn_preview())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -365,12 +365,12 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    def sce_01_05_15(self):
+    def sce_1_5_15(self):
         uuid = '481cecde-a89e-466f-978b-72552512d9fd'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library(L.import_media.media_library.Video.pixabay)
+        self.page_media.select_video_library("pixabay")
         self.long_press(L.import_media.media_library.media())
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
@@ -388,23 +388,23 @@ class Test_SFT_Scenario_01_05:
 
     # @pytest.mark.skip
     @report.exception_screenshot
-    def test_sce_01_05_01_to_12(self):
+    def test_sce_1_5_1_to_15(self):
         result = {
-            "sce_01_05_01": self.sce_01_05_01(),
-            "sce_01_05_02": self.sce_01_05_02(),
-            "sce_01_05_03": self.sce_01_05_03(),
-            "sce_01_05_04": self.sce_01_05_04(),
-            "sce_01_05_05": self.sce_01_05_05(),
-            "sce_01_05_06": self.sce_01_05_06(),
-            "sce_01_05_07": self.sce_01_05_07(),
-            "sce_01_05_08": self.sce_01_05_08(),
-            "sce_01_05_09": self.sce_01_05_09(),
-            "sce_01_05_10": self.sce_01_05_10(),
-            "sce_01_05_11": self.sce_01_05_11(),
-            "sce_01_05_12": self.sce_01_05_12(),
-            "sce_01_05_13": self.sce_01_05_13(),
-            "sce_01_05_14": self.sce_01_05_14(),
-            "sce_01_05_15": self.sce_01_05_15(),
+            "sce_1_5_1": self.sce_1_5_1(),
+            "sce_1_5_2": self.sce_1_5_2(),
+            "sce_1_5_3": self.sce_1_5_3(),
+            "sce_1_5_4": self.sce_1_5_4(),
+            "sce_1_5_5": self.sce_1_5_5(),
+            "sce_1_5_6": self.sce_1_5_6(),
+            "sce_1_5_7": self.sce_1_5_7(),
+            "sce_1_5_8": self.sce_1_5_8(),
+            "sce_1_5_9": self.sce_1_5_9(),
+            "sce_1_5_10": self.sce_1_5_10(),
+            "sce_1_5_11": self.sce_1_5_11(),
+            "sce_1_5_12": self.sce_1_5_12(),
+            "sce_1_5_13": self.sce_1_5_13(),
+            "sce_1_5_14": self.sce_1_5_14(),
+            "sce_1_5_15": self.sce_1_5_15(),
         }
         for key, value in result.items():
             if value != "PASS":

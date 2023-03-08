@@ -7,7 +7,7 @@ class MediaLibrary:
     video_library = id("video_switch")
     photo_library = id("photo_switch")
     search = id("searchText")
-    waiting_cursor = id("waiting_cursor")
+    waiting_cursor = id("waiting_cursor")  # waiting media refresh
     downloading = id("loading_text")
     library_rooms = id('library_rooms')
     frame = id("pickerDeviceLibrary")
@@ -37,11 +37,12 @@ class MediaLibrary:
     add_sticker = id('library_unit_frame')
     icon_try_sticker = id('library_unit_lock')
     btn_stock_filter = id('btn_sort_order')
-    loading_circle = id('loading')
+    loading_circle = id('loading') # preview loading
     library_unit_sound_fx_icon = id('library_unit_sound_fx_icon')  # Sound Title
     library_unit_layout = id('library_unit_layout')
     library_tabs_content = id('library_tabs_content')
     creator_page = id("creatorWebsiteButton")
+
 
 
 
@@ -73,6 +74,24 @@ class MediaLibrary:
         else:
             return xpath(f'(//*[contains(@resource-id,"duration_text")])[{index}]')
 
+    @staticmethod
+    def orientation(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"ratio_image")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"ratio_image")])[{index}]')
+
+    @staticmethod
+    def stock(stock_name):
+        stock = {"shutterstock": id('pickerShutter'),
+                 "getty": id('pickerGetty'),
+                 "getty_pro": id('pickerGettyPro'),
+                 "giphy": id('pickerGIPHY'),
+                 "pexels": id('pickerPexels'),
+                 "pixabay": id('pickerPixabay')
+                 }
+        return stock[stock_name]
+
     class Video:
         video_capture = id('btn_camera')
         start_recording = aid("Start recording")  # SS A53
@@ -86,7 +105,6 @@ class MediaLibrary:
         pixabay = id('pickerPixabay')
         display_preview = id('videoDisplay')
 
-
     class Photo:
         photo_capture = id('btn_camera')
         take_picture = aid("Take picture")  # SS A53
@@ -94,8 +112,12 @@ class MediaLibrary:
         shutter_stock = id('pickerShutter')
         getty = id('pickerGetty')
         getty_pro = id('pickerGettyPro')
+        pexels = id('pickerPexels')
         pixabay = id('pickerPixabay')
         display_preview = id('imageDisplay')
+
+    video = Video
+    photo = Photo
 
 
 class Library_listview():

@@ -28,7 +28,12 @@ class Menu:
 
 
 class ToolMenu:
-    back = id('btn_session_back_icon')
+    back = id('btn_session_back')
+
+
+class SubToolMenu:
+    back = id('btn_session_back')
+    reset = id('btn_reset')
 
 
 class SubMenu_Timeline_Setting():
@@ -259,6 +264,7 @@ class Timeline:
     main_track_import_float = id("icon_import_vp_pinned")
     tool = id('label')  # non unique
     sub_tool = id('tool_entry_label')  # non unique
+    option_label = id("option_label")
     timeline_area = id('container_of_tracks')
     item_view_border = id("item_view_border")
     master_clip = id("item_view_border")
@@ -290,6 +296,7 @@ class Timeline:
     intro_video_entry = id('intro_video_entry')
     outro_video_entry = id('outro_video_entry')
     slider_value = id('adjustTextNow')
+    reset = id('btn_reset')
 
     @staticmethod
     def clip(index=1):
@@ -859,6 +866,7 @@ class Interface:
     tips = Tips()
     title_animation = Title_Animation()
     tool_menu = ToolMenu()
+    sub_tool_menu = SubToolMenu
     transition = Transition()
     try_before_buy = Try_Before_Buy()
     tutorial_bubble = Tutorial_Bubble()
