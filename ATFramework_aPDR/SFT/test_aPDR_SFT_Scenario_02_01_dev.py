@@ -961,7 +961,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_64.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1012,7 +1012,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_66.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1063,7 +1063,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_65.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1085,14 +1085,13 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.edit.timeline.reset)
             self.page_edit.click_sub_option_tool("Contrast")
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "0"
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_69.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1143,7 +1142,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_71.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1194,7 +1193,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_70.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1216,14 +1215,13 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.edit.timeline.reset)
             self.page_edit.click_sub_option_tool("Saturation")
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "100"
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_74.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1274,7 +1272,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_76.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1325,7 +1323,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_75.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1347,14 +1345,13 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.edit.timeline.reset)
             self.page_edit.click_sub_option_tool("Hue")
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "100"
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_79.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1405,7 +1402,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_81.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1456,7 +1453,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_80.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1478,14 +1475,13 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.edit.timeline.reset)
             self.page_edit.click_sub_option_tool("Temp")
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "50"
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_84.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1536,7 +1532,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_86.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1587,7 +1583,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_85.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1609,14 +1605,13 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.edit.timeline.reset)
             self.page_edit.click_sub_option_tool("Tint")
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "50"
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_89.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1667,7 +1662,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_91.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1718,7 +1713,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_90.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1740,14 +1735,13 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.edit.timeline.reset)
             self.page_edit.click_sub_option_tool("Sharpness")
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "0"
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_55.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1777,7 +1771,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_56.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1786,6 +1780,51 @@ class Test_SFT_Scenario_02_01:
             else:
                 result = False
                 fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_92(self):
+        try:
+            uuid = 'ef0b9513-1de9-45a3-a6e4-2059298ee095'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            if self.click(L.edit.timeline.apply_all):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] click apply all fail'
+
+            self.click(L.edit.timeline.reset)
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_93(self):
+        try:
+            uuid = '523fa5b4-4430-4696-a383-d2225a96f4ae'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.click(L.edit.sub_tool_menu.back)
+            self.page_edit.click_sub_tool("Skin Smoothener")
+
+            if self.click(L.edit.timeline.apply_all):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] click apply all fail'
+
+            self.click(L.edit.timeline.reset)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1811,7 +1850,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_53.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -1841,7 +1880,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_54.png')
-            
+
             result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
 
             if result_value and result_preview:
@@ -2317,17 +2356,17 @@ class Test_SFT_Scenario_02_01:
             "sce_2_1_68": self.sce_2_1_68(),
             "sce_2_1_70": self.sce_2_1_70(),
 
-            "sce_2_1_74": self.sce_2_1_74(),
-            "sce_2_1_72": self.sce_2_1_72(),
-            "sce_2_1_76": self.sce_2_1_76(),
-            "sce_2_1_73": self.sce_2_1_73(),
-            "sce_2_1_75": self.sce_2_1_75(),
-
             "sce_2_1_79": self.sce_2_1_79(),
             "sce_2_1_77": self.sce_2_1_77(),
             "sce_2_1_81": self.sce_2_1_81(),
             "sce_2_1_78": self.sce_2_1_78(),
             "sce_2_1_80": self.sce_2_1_80(),
+
+            "sce_2_1_74": self.sce_2_1_74(),
+            "sce_2_1_72": self.sce_2_1_72(),
+            "sce_2_1_76": self.sce_2_1_76(),
+            "sce_2_1_73": self.sce_2_1_73(),
+            "sce_2_1_75": self.sce_2_1_75(),
 
             "sce_2_1_84": self.sce_2_1_84(),
             "sce_2_1_82": self.sce_2_1_82(),
@@ -2343,6 +2382,10 @@ class Test_SFT_Scenario_02_01:
 
             "sce_2_1_55": self.sce_2_1_55(),
             "sce_2_1_56": self.sce_2_1_56(),
+            "sce_2_1_92": self.sce_2_1_92(),
+
+
+
             "sce_2_1_53": self.sce_2_1_53(),
             "sce_2_1_54": self.sce_2_1_54(),
 

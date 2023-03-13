@@ -1,0 +1,30 @@
+Encoding Time=-1.00
+Average PSNR=24.56
+Average PSNR_Y=24.94
+Average PSNR_U=28.22
+Average PSNR_V=17.92
+Worst PSNR=11.94
+Average SSIM=0.93387
+Average SSIM_Y=0.94337
+Average SSIM_U=0.94365
+Average SSIM_V=0.84816
+Worst SSIM=0.49010
+CPU Usage=-1.00
+EncodeParameter=
+Source Input Filename=C:\Users\ANGOL_~1\AppData\Local\Temp/Project_04-30(1)_SD 360p_LOW_FR24.mp4
+Encoded Output Filename=D:\PDRa_M5_1216\ATFramework_aPDR\SFT\test_material\01PDRa_Testing_Material\photo_color_preset_16_9.mp4
+PSNR Log Filename=D:\PDRa_M5_1216\ATFramework_aPDR\SFT\test_material\01PDRa_Testing_Material\[PSNR]photo_color_preset_16_9.csv
+Frame Count=343
+Autotest Command="C:\Program Files\CyberLink\HowQ 3.0(x64)\HowQ3_x64.exe"  /a evaluate /e autoclose /source "C:\Users\ANGOL_~1\AppData\Local\Temp/Project_04-30(1)_SD 360p_LOW_FR24.mp4" /output "D:\PDRa_M5_1216\ATFramework_aPDR\SFT\test_material\01PDRa_Testing_Material\photo_color_preset_16_9.mp4"
+Encoded file size=-1
+Target Bitrate=-1
+Actual Bitrate=-1
+FPS=-1.00
+Use quad-pel buffer=YES
+Peak virtual memory size=0 MB
+Peak private size=0 MB
+Peak working set size=0 MB
+Total physical size=0 MB
+Total page size=0 MB
+
+Result: OK

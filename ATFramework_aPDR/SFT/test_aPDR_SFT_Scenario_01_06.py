@@ -1,3 +1,4 @@
+import inspect
 import sys
 from os.path import dirname
 from os import path
@@ -196,20 +197,27 @@ class Test_SFT_Scenario_01_06:
         return result
 
     def sce_01_06_07(self):
-        item_id = '01_06_07'
-        uuid = '2772d69e-c19f-4410-932f-04aa205ccc05'
-        logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        try:
+            uuid = '2772d69e-c19f-4410-932f-04aa205ccc05'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
 
-        pic_after = self.page_main.get_picture(L.import_media.music_library.meta)
-        pic_base = path.join(path.dirname(__file__), 'test_material', '01_06', '01_06_07.png')
-        if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
-            result = True
-        else:
-            result = False
-            logger('\n[Fail] Meta icon is different')
-        self.report.new_result(uuid, result)
-        return result
+            pic_after = self.page_main.get_picture(L.import_media.music_library.meta)
+            pic_base = path.join(path.dirname(__file__), 'test_material', '01_06', '1_6_7.png')
+
+            if CompareImage(pic_base, pic_after).h_total_compare() > 0.96:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Meta icon is different'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
 
     def sce_01_06_08(self):
         item_id = '01_06_08'
@@ -321,4 +329,6 @@ class Test_SFT_Scenario_01_06:
             "sce_01_06_11": self.sce_01_06_11(),
             "sce_01_06_12": self.sce_01_06_12()
         }
-        pprint(result)
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")

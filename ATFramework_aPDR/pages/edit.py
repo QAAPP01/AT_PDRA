@@ -94,7 +94,7 @@ class EditPage(BasePage):
     def click_tool(self, name):
         try:
             for i in range(4):
-                if self.h_click(E.tool_menu.back, timeout=0.1):
+                if self.h_click(L.edit.tool_menu.back, timeout=0.1):
                     continue
                 else:
                     break

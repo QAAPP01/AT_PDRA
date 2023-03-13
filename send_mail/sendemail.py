@@ -62,7 +62,7 @@ def send_mail(opts):
     msg.attach(part1)
     msg.attach(part2)
     #msg.attach(att)
-    for f in opts['attachment']:
+    for f in attachment:
         with open("{}\\{}".format(os.path.dirname(os.path.abspath(__file__)), f), "rb") as fil:
             part = MIMEApplication(
                 fil.read(),

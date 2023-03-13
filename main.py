@@ -3,6 +3,7 @@ import os
 import sys
 from glob import glob
 import subprocess
+
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from multiprocessing import Process
 
@@ -17,14 +18,14 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = 'TR230302-010'
-previous_tr_number = 'TR230224-007'  # Please update build version info manually
-sr_number = 'DRA230208-01'  # Please update build version info manually if didn't use auto download
+tr_number = 'TR230309-002'
+previous_tr_number = 'TR230302-010'  # Please update build version info manually
+sr_number = 'DRA230308-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
 # deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device
-# deviceName = "R5CT32Q3WQN"
-deviceName = "RFCW2198L7B"
+deviceName = "R5CT32Q3WQN"
+# deviceName = "RFCW2198L7B"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
@@ -50,25 +51,30 @@ if __name__ == '__main__':
             logger(f'[Info] Newest Build {latest}')
             try:
                 your_build = int(
-                    os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[
+                    os.popen(
+                        f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split(
+                        '=')[
                         1].split(' ')[0])
             except IndexError:
                 your_build = 0
             if latest > your_build:
                 if your_build:
-                    if not subprocess.call(['adb', '-s', deviceName, 'shell', 'pm', 'uninstall', package_name], stdout=subprocess.DEVNULL,
+                    if not subprocess.call(['adb', '-s', deviceName, 'shell', 'pm', 'uninstall', package_name],
+                                           stdout=subprocess.DEVNULL,
                                            stderr=subprocess.STDOUT):
                         logger(f'[Info] Remove old build {your_build}')
                     else:
                         logger(f'[Info] Remove Fail')
-                if not subprocess.call(['adb', '-s', deviceName, 'install', install], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT):
+                if not subprocess.call(['adb', '-s', deviceName, 'install', install], stdout=subprocess.DEVNULL,
+                                       stderr=subprocess.STDOUT):
                     logger(f"[Info] Installed success!")
                 else:
                     logger(f"[Info] Installed fail!")
 
                 # Copy file
                 build_path = f'storage/emulated/0/Build/PDR/'
-                no_dir = subprocess.call(['adb', '-s', deviceName, 'shell', 'ls', build_path], stdout=subprocess.DEVNULL,
+                no_dir = subprocess.call(['adb', '-s', deviceName, 'shell', 'ls', build_path],
+                                         stdout=subprocess.DEVNULL,
                                          stderr=subprocess.STDOUT)
                 if no_dir:
                     subprocess.call(['adb', '-s', deviceName, 'shell', 'mkdir', build_path])
@@ -91,13 +97,18 @@ if __name__ == '__main__':
         else:
             logger('[Info] Cannot find apk from server')
 
-package_version = os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
-package_build_number = os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
+package_version = \
+os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[
+    1]
+package_build_number = \
+os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[
+    1].split(' ')[0]
 
 # [Report Mail Setting]
 send = True
 title_project = 'aPDR'
-receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
+receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
+            "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
 # receiver = ['hausen_lin@cyberlink.com']
 script_version = 'Testing'
 # script_version = 'Debug'
@@ -116,7 +127,8 @@ print('test_case_path=', test_case_path)
 
 # execute
 def __run_test(udid, system_port):
-    start = 'pytest -s "%s" --color=yes --udid=%s --systemPort=%s' % (os.path.normpath(os.path.join(test_case_path, 'main.py')), udid, system_port)
+    start = 'pytest -s "%s" --color=yes --udid=%s --systemPort=%s' % (
+    os.path.normpath(os.path.join(test_case_path, 'main.py')), udid, system_port)
     print(start)
     print('start to run test ---')
     try:
@@ -125,7 +137,8 @@ def __run_test(udid, system_port):
         pass
     stdout = os.popen(start).read()
     print(stdout)
-    report_list.append(os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name, 'report/%s/%s' % (udid + '_' + tr_number, 'SFT_Report.html'))))
+    report_list.append(os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name,
+                                                     'report/%s/%s' % (udid + '_' + tr_number, 'SFT_Report.html'))))
 
 
 if __name__ == '__main__':

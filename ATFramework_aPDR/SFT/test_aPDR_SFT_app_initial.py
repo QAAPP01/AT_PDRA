@@ -30,6 +30,7 @@ def test_app_init():
                     raise Exception("\n[Fail] Create driver fail")
             except Exception as e:
                 logger(e)
+                logger("Remove Appium")
                 os.system(f"adb -s {deviceName} shell pm uninstall io.appium.settings")
                 os.system(f"adb -s {deviceName} shell pm uninstall io.appium.uiautomator2.server")
                 retry -= 1

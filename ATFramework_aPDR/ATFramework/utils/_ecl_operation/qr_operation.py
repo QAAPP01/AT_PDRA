@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import Select
 import chromedriver_autoinstaller
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
-from password import Authorization
+from .password import Authorization
 
 try:
     from ..log import logger
@@ -72,7 +72,7 @@ class Qr_Operation():
             self.password = passwd_list[1]
             # initial browser
             self.driver = Edge() if para_dict["browser"] == 'edge' else Chrome()
-            self.driver.implicitly_wait(10)
+            self.driver.implicitly_wait(1)
             self.options = EdgeOptions if para_dict["browser"] == 'edge' else ChromeOptions()
             self.options.add_experimental_option("excludeSwitches", ['enable-automation', 'ignore-certificate-errors', 'enable-logging'])  # 新版本關閉“chrome正受到自動測試軟件的控製”信息
             self.options.add_argument("--no-first-run")

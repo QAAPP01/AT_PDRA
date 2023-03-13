@@ -1,8 +1,9 @@
-
 from .sendemail import send_mail
 import os
 import shutil
+import datetime
 from ATFramework_aPDR.ATFramework.utils._google_api.google_api import GoogleApi
+from ATFramework_aPDR.ATFramework.utils._ecl_operation import qr_operation
 
 def summary_report_header():
     summary_report_header = '<div class=WordSection1>'
@@ -64,6 +65,15 @@ def copy_rename(old_file_name, new_file_name, test_case_path, device_id):
         print(e)
     os.rename(dst_file, new_dst_file_name)
     return True
+
+
+def auto_create_qr(param_dict, att_list):
+    dst_dir = os.path.dirname(__file__)
+    file_dict = {}
+    for i in range(len(att_list)):
+        file_dict[f"upload_files_{i+1}"] = os.path.join(dst_dir, att_list[i])
+    param_dict["qr_dict"].update(file_dict)
+    qr_operation.create_qr(param_dict)
 
 
 def remove_attachment_file(att_list):
@@ -132,6 +142,16 @@ def send_report(title_project, udid_list, test_case_path, receiver_list, sr_numb
     opts['to'] = receiver_list
     opts['html'] = mail_body
     send_mail(opts)
+
+    tr_dict = {"browser": "Edge",
+               "tr_no": tr_number,
+               "qr_dict": {'short_description': opts['subject'],
+                           'build_day': datetime.date.today().strftime('%m%d'),
+                           'test_result': f'AutoTest Report Result [PASS: {summary_dict["pass"]}, FAIL: {summary_dict["fail"]}]',
+                           'test_result_details': f'Pass: {summary_dict["pass"]}\nFail: {summary_dict["fail"]}\nSkip: {summary_dict["skip"]}\nN/A: {summary_dict["na"]}\nTotal time: {summary_dict["duration"]}',
+                          }
+               }
+    auto_create_qr(tr_dict, opts['attachment'])
     # remove attachment files
     remove_attachment_file(opts['attachment'])
     print('compelte')

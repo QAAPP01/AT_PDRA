@@ -297,6 +297,7 @@ class Timeline:
     outro_video_entry = id('outro_video_entry')
     slider_value = id('adjustTextNow')
     reset = id('btn_reset')
+    apply_all = id('btn_apply_all')
 
     @staticmethod
     def clip(index=1):
