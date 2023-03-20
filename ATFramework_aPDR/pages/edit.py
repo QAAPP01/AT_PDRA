@@ -120,7 +120,7 @@ class EditPage(BasePage):
             logger(f'[Error] {err}')
 
     def click_sub_tool(self, name, timeout=0.1):
-        if not self.h_is_exist(L.edit.timeline.sub_tool, 1):
+        if not self.h_is_exist(L.edit.timeline.sub_tool, 3):
             logger("[Info] Cannot find sub tool menu")
             logger("[Info] Select the first clip")
             self.h_click(L.edit.timeline.clip())

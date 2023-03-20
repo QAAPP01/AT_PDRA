@@ -375,12 +375,12 @@ class Test_SFT_Scenario_02_31:
 
             self.click(xpath('(//*[contains(@resource-id, "category_name")])[2]'))
             self.click(L.edit.pip.Text.font_filter)
-            self.click(L.edit.pip.Text.font_filter_2)
+            self.click(find_string("English"))
             self.click(L.edit.pip.Text.font_filter_back)
             pic_after = self.page_main.get_picture(L.edit.pip.Text.font_filter)
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_31', '02_31_16.png')
 
-            result[item_id] = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+            result[item_id] = True if HCompareImg(pic_base, pic_after).full_compare() > 0.97 else False
             self.report.new_result(uuid, result[item_id])
 
             item_id = '02_31_17'
@@ -389,20 +389,20 @@ class Test_SFT_Scenario_02_31:
             self.report.start_uuid(uuid)
 
             self.click(L.edit.pip.Text.font_filter)
-            self.click(L.edit.pip.Text.font_filter_3)
+            self.click(find_string("Traditional Chinese"))
             self.click(L.edit.pip.Text.font_filter_back)
             pic_after = self.page_main.get_picture(L.edit.pip.Text.font_filter)
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_31', '02_31_17_1.png')
 
-            result_cht = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+            result_cht = True if HCompareImg(pic_base, pic_after).full_compare() > 0.97 else False
 
             self.click(L.edit.pip.Text.font_filter)
-            self.click(L.edit.pip.Text.font_filter_4)
+            self.click(find_string("Simplified Chinese"))
             self.click(L.edit.pip.Text.font_filter_back)
             pic_after = self.page_main.get_picture(L.edit.pip.Text.font_filter)
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_31', '02_31_17_2.png')
 
-            result_chs = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+            result_chs = True if HCompareImg(pic_base, pic_after).full_compare() > 0.97 else False
 
             result[item_id] = result_cht and result_chs
             if not result[item_id]:
@@ -415,12 +415,13 @@ class Test_SFT_Scenario_02_31:
             self.report.start_uuid(uuid)
 
             self.click(L.edit.pip.Text.font_filter)
-            self.click(L.edit.pip.Text.font_filter_5)
+            while not self.click(find_string("Japanese")):
+                self.page_main.h_swipe_element(L.edit.pip.Text.font_filter_4, L.edit.pip.Text.font_filter_1, 1)
             self.click(L.edit.pip.Text.font_filter_back)
             pic_after = self.page_main.get_picture(L.edit.pip.Text.font_filter)
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_31', '02_31_18.png')
 
-            result[item_id] = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+            result[item_id] = True if HCompareImg(pic_base, pic_after).full_compare() > 0.97 else False
             self.report.new_result(uuid, result[item_id])
 
             item_id = '02_31_19'
@@ -429,13 +430,13 @@ class Test_SFT_Scenario_02_31:
             self.report.start_uuid(uuid)
 
             self.click(L.edit.pip.Text.font_filter)
-            self.page_main.h_swipe_element(L.edit.pip.Text.font_filter_4, L.edit.pip.Text.font_filter_1, 1)
-            self.click(L.edit.pip.Text.font_filter_5)
+            while not self.click(find_string("Korean")):
+                self.page_main.h_swipe_element(L.edit.pip.Text.font_filter_4, L.edit.pip.Text.font_filter_1, 1)
             self.click(L.edit.pip.Text.font_filter_back)
             pic_after = self.page_main.get_picture(L.edit.pip.Text.font_filter)
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_31', '02_31_19.png')
 
-            result[item_id] = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+            result[item_id] = True if HCompareImg(pic_base, pic_after).full_compare() > 0.97 else False
             self.report.new_result(uuid, result[item_id])
 
             item_id = '02_31_20'

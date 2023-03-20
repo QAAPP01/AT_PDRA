@@ -20,12 +20,13 @@ from .conftest import REPORT_INSTANCE
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
+
 
 class Test_SFT_Scenario_02_03:
     @pytest.fixture(autouse=True)
@@ -84,71 +85,80 @@ class Test_SFT_Scenario_02_03:
         self.driver.stop_driver()
 
     def sce_02_03_16(self):
-        uuid = '2e869d26-d734-476c-a948-8fb7bcf3b64b'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        try:
+            uuid = '2e869d26-d734-476c-a948-8fb7bcf3b64b'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
 
-        import datetime
-        dt = datetime.datetime.today()
-        default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
-        self.page_main.enter_launcher()
-        self.page_main.enter_timeline(default_project_name)
+            import datetime
+            dt = datetime.datetime.today()
+            default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(default_project_name)
 
-        self.page_media.add_master_media('photo', self.test_material_folder, '9_16')
-        self.page_media.add_pip_media('photo', self.test_material_folder, '16_9')
-        self.page_edit.click_tool("Aspect Ratio")
-        global image_original
-        image_original = self.page_main.get_preview_pic()
+            self.page_media.add_master_media('photo', self.test_material_folder, '9_16')
+            self.page_media.add_pip_media('photo', self.test_material_folder, '16_9')
+            self.page_edit.click_tool("Aspect Ratio")
+            global image_original
+            image_original = self.page_main.get_preview_pic()
 
-        self.click(L.edit.aspect_ratio.ratio_9_16)
+            self.click(L.edit.aspect_ratio.ratio_9_16)
 
-        if self.page_edit.preview_ratio() == "9_16":
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] Project ratio is incorrect'
-            logger(fail_log)
+            if self.page_edit.preview_ratio() == "9_16":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Project ratio is incorrect'
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
 
     def sce_02_03_17(self):
-        uuid = '6b9cf2f2-87ab-4738-8dc4-614223eb8df0'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        try:
+            uuid = '6b9cf2f2-87ab-4738-8dc4-614223eb8df0'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
 
-        pic_after = self.page_main.get_preview_pic()
-        pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_17.png')
+            pic_after = self.page_main.get_preview_pic()
+            pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_17.png')
 
-        if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] Images are different'
-            logger(fail_log)
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Images are different'
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
 
     def sce_02_03_18(self):
-        uuid = '42d6c14a-c2d9-4d54-a888-85c6337e33e4'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        try:
+            uuid = '42d6c14a-c2d9-4d54-a888-85c6337e33e4'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
 
-        self.click(L.edit.aspect_ratio.ratio_1_1)
+            self.click(L.edit.aspect_ratio.ratio_1_1)
 
-        if self.page_edit.preview_ratio() == "1_1":
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] Project ratio is incorrect'
-            logger(fail_log)
+            if self.page_edit.preview_ratio() == "1_1":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Project ratio is incorrect'
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
 
     def sce_02_03_19(self):
         try:
@@ -159,18 +169,18 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_19.png')
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f'[Error] {err}')
+            logger(f"[Error] {err}")
+            return "ERROR"
 
     def sce_02_03_20(self):
         try:
@@ -186,12 +196,12 @@ class Test_SFT_Scenario_02_03:
             else:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f'[Error] {err}')
+            logger(f"[Error] {err}")
+            return "ERROR"
 
     def sce_02_03_21(self):
         try:
@@ -202,18 +212,18 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_21.png')
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_22(self):
         try:
@@ -229,12 +239,12 @@ class Test_SFT_Scenario_02_03:
             else:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_23(self):
         try:
@@ -245,18 +255,18 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_23.png')
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_24(self):
         try:
@@ -272,12 +282,12 @@ class Test_SFT_Scenario_02_03:
             else:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_25(self):
         try:
@@ -288,18 +298,18 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = image_original
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_26(self):
         try:
@@ -323,12 +333,12 @@ class Test_SFT_Scenario_02_03:
             else:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_27(self):
         try:
@@ -339,18 +349,18 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_27.png')
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_28(self):
         try:
@@ -366,12 +376,12 @@ class Test_SFT_Scenario_02_03:
             else:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_29(self):
         try:
@@ -382,18 +392,18 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_29.png')
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_30(self):
         try:
@@ -409,12 +419,12 @@ class Test_SFT_Scenario_02_03:
             else:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_31(self):
         try:
@@ -425,18 +435,18 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_31.png')
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_32(self):
         try:
@@ -452,12 +462,12 @@ class Test_SFT_Scenario_02_03:
             else:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_33(self):
         try:
@@ -468,18 +478,18 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_33.png')
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_34(self):
         try:
@@ -495,12 +505,12 @@ class Test_SFT_Scenario_02_03:
             else:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
+            return "ERROR"
 
     def sce_02_03_35(self):
         try:
@@ -511,50 +521,48 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = image_original
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = '\n[Fail] Images are different'
-                logger(fail_log)
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
-
+            return "ERROR"
 
     def test_sce_02_03_16_to_35(self):
-        result = {
-            "sce_02_03_16": self.sce_02_03_16(),
-            "sce_02_03_17": self.sce_02_03_17(),
-            "sce_02_03_18": self.sce_02_03_18(),
-            "sce_02_03_19": self.sce_02_03_19(),
-            "sce_02_03_20": self.sce_02_03_20(),
-            "sce_02_03_21": self.sce_02_03_21(),
-            "sce_02_03_22": self.sce_02_03_22(),
-            "sce_02_03_23": self.sce_02_03_23(),
-            "sce_02_03_24": self.sce_02_03_24(),
-            "sce_02_03_25": self.sce_02_03_25(),
-            "sce_02_03_26": self.sce_02_03_26(),
-            "sce_02_03_27": self.sce_02_03_27(),
-            "sce_02_03_28": self.sce_02_03_28(),
-            "sce_02_03_29": self.sce_02_03_29(),
-            "sce_02_03_30": self.sce_02_03_30(),
-            "sce_02_03_31": self.sce_02_03_31(),
-            "sce_02_03_32": self.sce_02_03_32(),
-            "sce_02_03_33": self.sce_02_03_33(),
-            "sce_02_03_34": self.sce_02_03_34(),
-            "sce_02_03_35": self.sce_02_03_35()
-        }
-        pprint(result)
-
-
+        result = {"sce_02_03_16": self.sce_02_03_16(),
+                  "sce_02_03_17": self.sce_02_03_17(),
+                  "sce_02_03_18": self.sce_02_03_18(),
+                  "sce_02_03_19": self.sce_02_03_19(),
+                  "sce_02_03_20": self.sce_02_03_20(),
+                  "sce_02_03_21": self.sce_02_03_21(),
+                  "sce_02_03_22": self.sce_02_03_22(),
+                  "sce_02_03_23": self.sce_02_03_23(),
+                  "sce_02_03_24": self.sce_02_03_24(),
+                  "sce_02_03_25": self.sce_02_03_25(),
+                  "sce_02_03_26": self.sce_02_03_26(),
+                  "sce_02_03_27": self.sce_02_03_27(),
+                  "sce_02_03_28": self.sce_02_03_28(),
+                  "sce_02_03_29": self.sce_02_03_29(),
+                  "sce_02_03_30": self.sce_02_03_30(),
+                  "sce_02_03_31": self.sce_02_03_31(),
+                  "sce_02_03_32": self.sce_02_03_32(),
+                  "sce_02_03_33": self.sce_02_03_33(),
+                  "sce_02_03_34": self.sce_02_03_34(),
+                  "sce_02_03_35": self.sce_02_03_35()
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
 
     # @pytest.mark.skip
     @report.exception_screenshot
-    def sce_02_03_310(self):
+    def test_sce_02_03_310(self):
         result = {}
 
         # sce_02_03_310
@@ -576,7 +584,7 @@ class Test_SFT_Scenario_02_03:
         self.page_edit.h_set_slider(1)
         pic_after = self.page_edit.get_preview_pic()
         pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_310.png')
-        result_photo = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+        result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '100'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
@@ -592,7 +600,7 @@ class Test_SFT_Scenario_02_03:
         self.page_edit.h_set_slider(0)
         pic_after = self.page_edit.get_preview_pic()
         pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_311.png')
-        result_photo = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+        result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '-100'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
@@ -608,7 +616,7 @@ class Test_SFT_Scenario_02_03:
         self.page_edit.h_set_slider(1)
         pic_after = self.page_edit.get_preview_pic()
         pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_312.png')
-        result_photo = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+        result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '200'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
@@ -624,7 +632,7 @@ class Test_SFT_Scenario_02_03:
         self.page_edit.h_set_slider(1)
         pic_after = self.page_edit.get_preview_pic()
         pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_313.png')
-        result_photo = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+        result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '200'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
@@ -639,8 +647,8 @@ class Test_SFT_Scenario_02_03:
         self.page_edit.click_sub_tool('Temp')
         self.page_edit.h_set_slider(0.7)
         pic_after = self.page_edit.get_preview_pic()
-        pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', item_id+'.png')
-        result_photo = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+        pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', item_id + '.png')
+        result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '70'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
@@ -656,7 +664,7 @@ class Test_SFT_Scenario_02_03:
         self.page_edit.h_set_slider(0.5)
         pic_after = self.page_edit.get_preview_pic()
         pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', item_id + '.png')
-        result_photo = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+        result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '50'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
@@ -672,7 +680,7 @@ class Test_SFT_Scenario_02_03:
         self.page_edit.h_set_slider(0.645)
         pic_after = self.page_edit.get_preview_pic()
         pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', item_id + '.png')
-        result_photo = True if CompareImage(pic_base, pic_after).h_total_compare() > 0.9 else False
+        result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '129'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value

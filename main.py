@@ -18,8 +18,8 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = 'TR230309-002'
-previous_tr_number = 'TR230302-010'  # Please update build version info manually
+tr_number = 'TR230317-006'
+previous_tr_number = 'TR230314-001'  # Please update build version info manually
 sr_number = 'DRA230308-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
@@ -105,7 +105,7 @@ os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  v
     1].split(' ')[0]
 
 # [Report Mail Setting]
-send = True
+send = False
 title_project = 'aPDR'
 receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
             "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]

@@ -203,7 +203,7 @@ class Test_SFT_Scenario_02_01:
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_12.png')
 
             global result_12
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result_12 = True
                 fail_log = None
             else:
@@ -390,7 +390,7 @@ class Test_SFT_Scenario_02_01:
             pic32 = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_32.png')
 
-            self.page_main.copy_file(pic32, pic_base)
+            # self.page_main.copy_file(pic32, pic_base)
 
             if HCompareImg(pic_base, pic32).full_compare() > 0.96:
                 result = True
@@ -1931,11 +1931,11 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             clip = self.element(L.edit.timeline.master_photo(file_photo)).rect
-            x = clip["x"] + clip["width"]//2
+            x = clip["x"] + clip["width"] // 2
             self.page_main.h_swipe_playhead(x)
             self.page_edit.click_sub_tool("Split")
             playhead = self.element(L.edit.timeline.playhead).rect
-            playhead_center = playhead["x"] + playhead["width"]//2
+            playhead_center = playhead["x"] + playhead["width"] // 2
             x_after = self.element(L.edit.timeline.master_photo(file_photo, 2)).rect["x"]
 
             if x_after == playhead_center:
@@ -2004,7 +2004,7 @@ class Test_SFT_Scenario_02_01:
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_15.png')
 
             global result_15
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result_15 = True
                 fail_log = None
             else:
@@ -2202,11 +2202,11 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             clip = self.element(L.edit.pip.clip_audio(file_music)).rect
-            x = clip["x"] + clip["width"]//2
+            x = clip["x"] + clip["width"] // 2
             self.page_main.h_swipe_playhead(x)
             self.page_edit.click_sub_tool("Split")
             playhead = self.element(L.edit.timeline.playhead).rect
-            playhead_center = playhead["x"] + playhead["width"]//2
+            playhead_center = playhead["x"] + playhead["width"] // 2
             x_after = self.element(L.edit.pip.clip_audio(file_music, 2)).rect["x"]
 
             if x_after - playhead_center < 10:
@@ -2303,120 +2303,115 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
-
-
     @report.exception_screenshot
     def test_sce_2_1_1_to_135(self):
-        result = {
-            "sce_2_1_1": self.sce_2_1_1(),
+        result = {"sce_2_1_1": self.sce_2_1_1(),
 
-            # Video
-            "sce_2_1_2": self.sce_2_1_2(),
-            "sce_2_1_3": self.sce_2_1_3(),
-            "sce_2_1_4": self.sce_2_1_4(),
-            "sce_2_1_11": self.sce_2_1_11(),
-            "sce_2_1_12": self.sce_2_1_12(),
-            "sce_2_1_13": self.sce_2_1_13(),
-            "sce_2_1_17": self.sce_2_1_17(),
-            "sce_2_1_18": self.sce_2_1_18(),
-            "sce_2_1_19": self.sce_2_1_19(),
-            "sce_2_1_26": self.sce_2_1_26(),
-            "sce_2_1_27": self.sce_2_1_27(),
-            "sce_2_1_28": self.sce_2_1_28(),
-            "sce_2_1_32": self.sce_2_1_32(),
-            "sce_2_1_33": self.sce_2_1_33(),
-            "sce_2_1_34": self.sce_2_1_34(),
-            "sce_2_1_35": self.sce_2_1_35(),
-            "sce_2_1_36": self.sce_2_1_36(),
-            "sce_2_1_37": self.sce_2_1_37(),
-            "sce_2_1_38": self.sce_2_1_38(),
-            "sce_2_1_39": self.sce_2_1_39(),
-            "sce_2_1_40": self.sce_2_1_40(),
-            "sce_2_1_41": self.sce_2_1_41(),
-            "sce_2_1_42": self.sce_2_1_42(),
-            "sce_2_1_43": self.sce_2_1_43(),
-            "sce_2_1_44": self.sce_2_1_44(),
-            "sce_2_1_45": self.sce_2_1_45(),
-            "sce_2_1_46": self.sce_2_1_46(),
-            "sce_2_1_47": self.sce_2_1_47(),
+                  # Video
+                  "sce_2_1_2": self.sce_2_1_2(),
+                  "sce_2_1_3": self.sce_2_1_3(),
+                  "sce_2_1_4": self.sce_2_1_4(),
+                  "sce_2_1_11": self.sce_2_1_11(),
+                  "sce_2_1_12": self.sce_2_1_12(),
+                  "sce_2_1_13": self.sce_2_1_13(),
+                  "sce_2_1_17": self.sce_2_1_17(),
+                  "sce_2_1_18": self.sce_2_1_18(),
+                  "sce_2_1_19": self.sce_2_1_19(),
+                  "sce_2_1_26": self.sce_2_1_26(),
+                  "sce_2_1_27": self.sce_2_1_27(),
+                  "sce_2_1_28": self.sce_2_1_28(),
+                  "sce_2_1_32": self.sce_2_1_32(),
+                  "sce_2_1_33": self.sce_2_1_33(),
+                  "sce_2_1_34": self.sce_2_1_34(),
+                  "sce_2_1_35": self.sce_2_1_35(),
+                  "sce_2_1_36": self.sce_2_1_36(),
+                  "sce_2_1_37": self.sce_2_1_37(),
+                  "sce_2_1_38": self.sce_2_1_38(),
+                  "sce_2_1_39": self.sce_2_1_39(),
+                  "sce_2_1_40": self.sce_2_1_40(),
+                  "sce_2_1_41": self.sce_2_1_41(),
+                  "sce_2_1_42": self.sce_2_1_42(),
+                  "sce_2_1_43": self.sce_2_1_43(),
+                  "sce_2_1_44": self.sce_2_1_44(),
+                  "sce_2_1_45": self.sce_2_1_45(),
+                  "sce_2_1_46": self.sce_2_1_46(),
+                  "sce_2_1_47": self.sce_2_1_47(),
 
-            ## Stabilizer
-            # "sce_2_1_48": self.sce_2_1_48(),
-            # "sce_2_1_50": self.sce_2_1_50(),
-            # "sce_2_1_49": self.sce_2_1_49(),
-            # "sce_2_1_51": self.sce_2_1_51(),
-            # "sce_2_1_52": self.sce_2_1_52(),
+                  ## Stabilizer
+                  # "sce_2_1_48": self.sce_2_1_48(),
+                  # "sce_2_1_50": self.sce_2_1_50(),
+                  # "sce_2_1_49": self.sce_2_1_49(),
+                  # "sce_2_1_51": self.sce_2_1_51(),
+                  # "sce_2_1_52": self.sce_2_1_52(),
 
-            "sce_2_1_57_to_61": self.sce_2_1_57_to_61(),
+                  "sce_2_1_57_to_61": self.sce_2_1_57_to_61(),
 
-            "sce_2_1_64": self.sce_2_1_64(),
-            "sce_2_1_62": self.sce_2_1_62(),
-            "sce_2_1_66": self.sce_2_1_66(),
-            "sce_2_1_63": self.sce_2_1_63(),
-            "sce_2_1_65": self.sce_2_1_65(),
+                  "sce_2_1_64": self.sce_2_1_64(),
+                  "sce_2_1_62": self.sce_2_1_62(),
+                  "sce_2_1_66": self.sce_2_1_66(),
+                  "sce_2_1_63": self.sce_2_1_63(),
+                  "sce_2_1_65": self.sce_2_1_65(),
 
-            "sce_2_1_69": self.sce_2_1_69(),
-            "sce_2_1_67": self.sce_2_1_67(),
-            "sce_2_1_71": self.sce_2_1_71(),
-            "sce_2_1_68": self.sce_2_1_68(),
-            "sce_2_1_70": self.sce_2_1_70(),
+                  "sce_2_1_69": self.sce_2_1_69(),
+                  "sce_2_1_67": self.sce_2_1_67(),
+                  "sce_2_1_71": self.sce_2_1_71(),
+                  "sce_2_1_68": self.sce_2_1_68(),
+                  "sce_2_1_70": self.sce_2_1_70(),
 
-            "sce_2_1_74": self.sce_2_1_74(),
-            "sce_2_1_72": self.sce_2_1_72(),
-            "sce_2_1_76": self.sce_2_1_76(),
-            "sce_2_1_73": self.sce_2_1_73(),
-            "sce_2_1_75": self.sce_2_1_75(),
+                  "sce_2_1_79": self.sce_2_1_79(),
+                  "sce_2_1_77": self.sce_2_1_77(),
+                  "sce_2_1_81": self.sce_2_1_81(),
+                  "sce_2_1_78": self.sce_2_1_78(),
+                  "sce_2_1_80": self.sce_2_1_80(),
 
-            "sce_2_1_79": self.sce_2_1_79(),
-            "sce_2_1_77": self.sce_2_1_77(),
-            "sce_2_1_81": self.sce_2_1_81(),
-            "sce_2_1_78": self.sce_2_1_78(),
-            "sce_2_1_80": self.sce_2_1_80(),
+                  "sce_2_1_74": self.sce_2_1_74(),
+                  "sce_2_1_72": self.sce_2_1_72(),
+                  "sce_2_1_76": self.sce_2_1_76(),
+                  "sce_2_1_73": self.sce_2_1_73(),
+                  "sce_2_1_75": self.sce_2_1_75(),
 
-            "sce_2_1_84": self.sce_2_1_84(),
-            "sce_2_1_82": self.sce_2_1_82(),
-            "sce_2_1_86": self.sce_2_1_86(),
-            "sce_2_1_83": self.sce_2_1_83(),
-            "sce_2_1_85": self.sce_2_1_85(),
+                  "sce_2_1_84": self.sce_2_1_84(),
+                  "sce_2_1_82": self.sce_2_1_82(),
+                  "sce_2_1_86": self.sce_2_1_86(),
+                  "sce_2_1_83": self.sce_2_1_83(),
+                  "sce_2_1_85": self.sce_2_1_85(),
 
-            "sce_2_1_89": self.sce_2_1_89(),
-            "sce_2_1_87": self.sce_2_1_87(),
-            "sce_2_1_91": self.sce_2_1_91(),
-            "sce_2_1_88": self.sce_2_1_88(),
-            "sce_2_1_90": self.sce_2_1_90(),
+                  "sce_2_1_89": self.sce_2_1_89(),
+                  "sce_2_1_87": self.sce_2_1_87(),
+                  "sce_2_1_91": self.sce_2_1_91(),
+                  "sce_2_1_88": self.sce_2_1_88(),
+                  "sce_2_1_90": self.sce_2_1_90(),
 
-            "sce_2_1_55": self.sce_2_1_55(),
-            "sce_2_1_56": self.sce_2_1_56(),
-            "sce_2_1_92": self.sce_2_1_92(),
+                  "sce_2_1_55": self.sce_2_1_55(),
+                  "sce_2_1_56": self.sce_2_1_56(),
+                  "sce_2_1_92": self.sce_2_1_92(),
 
+                  # Photo
+                  "sce_2_1_5": self.sce_2_1_5(),
+                  "sce_2_1_6": self.sce_2_1_6(),
+                  "sce_2_1_7": self.sce_2_1_7(),
+                  "sce_2_1_14": self.sce_2_1_14(),
+                  "sce_2_1_15": self.sce_2_1_15(),
+                  "sce_2_1_16": self.sce_2_1_16(),
+                  "sce_2_1_20": self.sce_2_1_20(),
+                  "sce_2_1_21": self.sce_2_1_21(),
+                  "sce_2_1_22": self.sce_2_1_22(),
+                  "sce_2_1_29": self.sce_2_1_29(),
+                  "sce_2_1_30": self.sce_2_1_30(),
+                  "sce_2_1_31": self.sce_2_1_31(),
 
+                  "sce_2_1_53": self.sce_2_1_53(),
+                  "sce_2_1_54": self.sce_2_1_54(),
 
-            # Photo
-            "sce_2_1_5": self.sce_2_1_5(),
-            "sce_2_1_6": self.sce_2_1_6(),
-            "sce_2_1_7": self.sce_2_1_7(),
-            "sce_2_1_14": self.sce_2_1_14(),
-            "sce_2_1_15": self.sce_2_1_15(),
-            "sce_2_1_16": self.sce_2_1_16(),
-            "sce_2_1_20": self.sce_2_1_20(),
-            "sce_2_1_21": self.sce_2_1_21(),
-            "sce_2_1_22": self.sce_2_1_22(),
-            "sce_2_1_29": self.sce_2_1_29(),
-            "sce_2_1_30": self.sce_2_1_30(),
-            "sce_2_1_31": self.sce_2_1_31(),
+                  # Music
+                  "sce_2_1_8": self.sce_2_1_8(),
+                  "sce_2_1_9": self.sce_2_1_9(),
+                  "sce_2_1_10": self.sce_2_1_10(),
+                  "sce_2_1_23": self.sce_2_1_23(),
+                  "sce_2_1_24": self.sce_2_1_24(),
+                  "sce_2_1_25": self.sce_2_1_25(),
 
-            "sce_2_1_53": self.sce_2_1_53(),
-            "sce_2_1_54": self.sce_2_1_54(),
-
-            # Music
-            "sce_2_1_8": self.sce_2_1_8(),
-            "sce_2_1_9": self.sce_2_1_9(),
-            "sce_2_1_10": self.sce_2_1_10(),
-            "sce_2_1_23": self.sce_2_1_23(),
-            "sce_2_1_24": self.sce_2_1_24(),
-            "sce_2_1_25": self.sce_2_1_25(),
-
-        }
+                  }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")

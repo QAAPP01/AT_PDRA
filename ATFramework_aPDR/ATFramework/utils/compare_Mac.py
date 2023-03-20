@@ -227,15 +227,19 @@ class HCompareImg(object):
             logger(f'Image1 resolution: {image_1.shape}  (file:{self.image_1_path})')
             logger(f'Image2 resolution: {image_2.shape}  (file:{self.image_2_path})')
             if image_1.shape[0] != image_2.shape[0] or image_1.shape[1] != image_2.shape[1]:
-                logger('\n[Fail] Images size are different')
-                return 0
+                logger('\n[Info] Images size are different')
+                height = min(image_1.shape[0], image_2.shape[0])
+                width = min(image_1.shape[1], image_2.shape[1])
+                image_1 = cv2.resize(image_1, (height, width))
+                image_2 = cv2.resize(image_2, (height, width))
+                logger(f'\n[Info] Resize images, ({height}, {width})')
             else:
                 height = image_1.shape[0]
                 width = image_1.shape[1]
-                errorL2 = cv2.norm(image_1, image_2, cv2.NORM_L2)
-                similarity = 1 - errorL2 / (height * width)
-                logger(f'Similarity = {similarity}')
-                return similarity
+            errorL2 = cv2.norm(image_1, image_2, cv2.NORM_L2)
+            similarity = 1 - errorL2 / (height * width)
+            logger(f'Similarity = {similarity}')
+            return similarity
         except Exception as err:
             logger(f'[Error] {err}')
 

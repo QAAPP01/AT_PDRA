@@ -103,6 +103,7 @@ class BasePage(BasePage):
         return path_save
 
     def get_preview_pic(self):
+        time.sleep(1)
         element = self.h_get_element(L.edit.preview.preview)
         while not element.get_attribute('displayed') == 'true':
             time.sleep(2)

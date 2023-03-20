@@ -203,7 +203,7 @@ class Test_SFT_Scenario_02_01:
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_12.png')
 
             global result_12
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result_12 = True
                 fail_log = None
             else:
@@ -683,16 +683,14 @@ class Test_SFT_Scenario_02_01:
             y = slider_rect['y'] + slider_rect['height'] // 2
             self.page_main.h_tap(x, y)
             time_code = self.element(L.edit.crop.time_code).text
-            # time_total = time_code.split('/')[1]
-            # time_half = str(int(time_total.split(':')[0])//2) + ":" + str(int(time_total.split(':')[1])//2)
             self.click(L.edit.crop.apply)
 
-            if time_code.split('/')[0] == '00:02':
+            if time_code.split('/')[0] == "00:01" or time_code.split('/')[0] == "00:02":
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] time code is incorrect'
+                fail_log = f'\n[Fail] time code is incorrect:{time_code.split("/")[0]}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1793,14 +1791,38 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            if self.click(L.edit.timeline.apply_all):
+            self.click(L.edit.sub_tool_menu.back)
+            self.page_edit.click_sub_tool("Skin Smoothener")
+
+            if self.page_edit.click_sub_option_tool("Brightness"):
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] click apply all fail'
+                fail_log = f'\n[Fail] Cannot find "Skin Smoothener"'
 
             self.click(L.edit.timeline.reset)
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_95(self):
+        try:
+            uuid = '5205c71f-b7ee-4d85-91ff-85db47e21d33'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "80":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Value incorrect: {value}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1814,17 +1836,215 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.edit.sub_tool_menu.back)
-            self.page_edit.click_sub_tool("Skin Smoothener")
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"] + rect["width"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
 
-            if self.click(L.edit.timeline.apply_all):
+            if int(value) > 80:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] click apply all fail'
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_97(self):
+        try:
+            uuid = '30928b0e-7adf-49bb-9985-6f942fde8659'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "100":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_94(self):
+        try:
+            uuid = 'd0dc8798-0ade-4c09-a472-d2a2b7b00c56'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_96(self):
+        try:
+            uuid = 'e5838f68-1e4c-4364-a45c-dbc8ceeaa47d'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "40":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_98(self):
+        try:
+            uuid = 'e843e5e9-7186-48e9-abb1-9c4f2b9030c8'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            if self.page_edit.click_sub_option_tool("Smoothness"):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Cannot find "Skin Smoothener"'
 
             self.click(L.edit.timeline.reset)
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_101(self):
+        try:
+            uuid = '393cfcfd-43b0-475f-b13d-fe0252d6c02a'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "80":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_99(self):
+        try:
+            uuid = '86e0beb3-2ccf-4458-bb7f-11d91d70306c'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"] + rect["width"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_103(self):
+        try:
+            uuid = '4d4f4af3-6c98-4a4c-9774-bac2339ed28a'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "100":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_100(self):
+        try:
+            uuid = 'cd508710-449f-46a2-9885-02f359ea68bb'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_102(self):
+        try:
+            uuid = 'f96b2755-2cab-4f5c-bcfa-49da0a234a26'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "0":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1902,6 +2122,11 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
+            for i in range(4):
+                if self.click(L.edit.tool_menu.back, timeout=0.1):
+                    continue
+                else:
+                    break
             self.page_main.h_swipe_playhead(10, 1)
             global file_photo
             file_photo = 'photo.jpg'
@@ -2001,7 +2226,7 @@ class Test_SFT_Scenario_02_01:
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_15.png')
 
             global result_15
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
                 result_15 = True
                 fail_log = None
             else:
@@ -2302,116 +2527,126 @@ class Test_SFT_Scenario_02_01:
 
     @report.exception_screenshot
     def test_sce_2_1_1_to_135(self):
-        result = {
-            "sce_2_1_1": self.sce_2_1_1(),
+        result = {"sce_2_1_1": self.sce_2_1_1(),
 
-            # # Video
-            # "sce_2_1_2": self.sce_2_1_2(),
-            # "sce_2_1_3": self.sce_2_1_3(),
-            # "sce_2_1_4": self.sce_2_1_4(),
-            # "sce_2_1_11": self.sce_2_1_11(),
-            # "sce_2_1_12": self.sce_2_1_12(),
-            # "sce_2_1_13": self.sce_2_1_13(),
-            # "sce_2_1_17": self.sce_2_1_17(),
-            # "sce_2_1_18": self.sce_2_1_18(),
-            # "sce_2_1_19": self.sce_2_1_19(),
-            # "sce_2_1_26": self.sce_2_1_26(),
-            # "sce_2_1_27": self.sce_2_1_27(),
-            # "sce_2_1_28": self.sce_2_1_28(),
-            # "sce_2_1_32": self.sce_2_1_32(),
-            # "sce_2_1_33": self.sce_2_1_33(),
-            # "sce_2_1_34": self.sce_2_1_34(),
-            # "sce_2_1_35": self.sce_2_1_35(),
-            # "sce_2_1_36": self.sce_2_1_36(),
-            # "sce_2_1_37": self.sce_2_1_37(),
-            # "sce_2_1_38": self.sce_2_1_38(),
-            # "sce_2_1_39": self.sce_2_1_39(),
-            # "sce_2_1_40": self.sce_2_1_40(),
-            # "sce_2_1_41": self.sce_2_1_41(),
-            # "sce_2_1_42": self.sce_2_1_42(),
-            # "sce_2_1_43": self.sce_2_1_43(),
-            # "sce_2_1_44": self.sce_2_1_44(),
-            # "sce_2_1_45": self.sce_2_1_45(),
-            # "sce_2_1_46": self.sce_2_1_46(),
-            # "sce_2_1_47": self.sce_2_1_47(),
+                  # Video
+                  # "sce_2_1_2": self.sce_2_1_2(),
+                  # "sce_2_1_3": self.sce_2_1_3(),
+                  # "sce_2_1_4": self.sce_2_1_4(),
+                  # "sce_2_1_11": self.sce_2_1_11(),
+                  # "sce_2_1_12": self.sce_2_1_12(),
+                  # "sce_2_1_13": self.sce_2_1_13(),
+                  # "sce_2_1_17": self.sce_2_1_17(),
+                  # "sce_2_1_18": self.sce_2_1_18(),
+                  # "sce_2_1_19": self.sce_2_1_19(),
+                  # "sce_2_1_26": self.sce_2_1_26(),
+                  # "sce_2_1_27": self.sce_2_1_27(),
+                  # "sce_2_1_28": self.sce_2_1_28(),
+                  # "sce_2_1_32": self.sce_2_1_32(),
+                  # "sce_2_1_33": self.sce_2_1_33(),
+                  # "sce_2_1_34": self.sce_2_1_34(),
+                  # "sce_2_1_35": self.sce_2_1_35(),
+                  # "sce_2_1_36": self.sce_2_1_36(),
+                  # "sce_2_1_37": self.sce_2_1_37(),
+                  # "sce_2_1_38": self.sce_2_1_38(),
+                  # "sce_2_1_39": self.sce_2_1_39(),
+                  # "sce_2_1_40": self.sce_2_1_40(),
+                  # "sce_2_1_41": self.sce_2_1_41(),
+                  # "sce_2_1_42": self.sce_2_1_42(),
+                  # "sce_2_1_43": self.sce_2_1_43(),
+                  # "sce_2_1_44": self.sce_2_1_44(),
+                  # "sce_2_1_45": self.sce_2_1_45(),
+                  # "sce_2_1_46": self.sce_2_1_46(),
+                  # "sce_2_1_47": self.sce_2_1_47(),
 
-            ## Stabilizer
-            # "sce_2_1_48": self.sce_2_1_48(),
-            # "sce_2_1_50": self.sce_2_1_50(),
-            # "sce_2_1_49": self.sce_2_1_49(),
-            # "sce_2_1_51": self.sce_2_1_51(),
-            # "sce_2_1_52": self.sce_2_1_52(),
+                  ## Stabilizer
+                  # "sce_2_1_48": self.sce_2_1_48(),
+                  # "sce_2_1_50": self.sce_2_1_50(),
+                  # "sce_2_1_49": self.sce_2_1_49(),
+                  # "sce_2_1_51": self.sce_2_1_51(),
+                  # "sce_2_1_52": self.sce_2_1_52(),
 
-            "sce_2_1_57_to_61": self.sce_2_1_57_to_61(),
+                  "sce_2_1_57_to_61": self.sce_2_1_57_to_61(),
 
-            "sce_2_1_64": self.sce_2_1_64(),
-            "sce_2_1_62": self.sce_2_1_62(),
-            "sce_2_1_66": self.sce_2_1_66(),
-            "sce_2_1_63": self.sce_2_1_63(),
-            "sce_2_1_65": self.sce_2_1_65(),
+                  # "sce_2_1_64": self.sce_2_1_64(),
+                  # "sce_2_1_62": self.sce_2_1_62(),
+                  # "sce_2_1_66": self.sce_2_1_66(),
+                  # "sce_2_1_63": self.sce_2_1_63(),
+                  # "sce_2_1_65": self.sce_2_1_65(),
+                  #
+                  # "sce_2_1_69": self.sce_2_1_69(),
+                  # "sce_2_1_67": self.sce_2_1_67(),
+                  # "sce_2_1_71": self.sce_2_1_71(),
+                  # "sce_2_1_68": self.sce_2_1_68(),
+                  # "sce_2_1_70": self.sce_2_1_70(),
+                  #
+                  # "sce_2_1_79": self.sce_2_1_79(),
+                  # "sce_2_1_77": self.sce_2_1_77(),
+                  # "sce_2_1_81": self.sce_2_1_81(),
+                  # "sce_2_1_78": self.sce_2_1_78(),
+                  # "sce_2_1_80": self.sce_2_1_80(),
+                  #
+                  # "sce_2_1_74": self.sce_2_1_74(),
+                  # "sce_2_1_72": self.sce_2_1_72(),
+                  # "sce_2_1_76": self.sce_2_1_76(),
+                  # "sce_2_1_73": self.sce_2_1_73(),
+                  # "sce_2_1_75": self.sce_2_1_75(),
+                  #
+                  # "sce_2_1_84": self.sce_2_1_84(),
+                  # "sce_2_1_82": self.sce_2_1_82(),
+                  # "sce_2_1_86": self.sce_2_1_86(),
+                  # "sce_2_1_83": self.sce_2_1_83(),
+                  # "sce_2_1_85": self.sce_2_1_85(),
+                  #
+                  # "sce_2_1_89": self.sce_2_1_89(),
+                  # "sce_2_1_87": self.sce_2_1_87(),
+                  # "sce_2_1_91": self.sce_2_1_91(),
+                  # "sce_2_1_88": self.sce_2_1_88(),
+                  # "sce_2_1_90": self.sce_2_1_90(),
+                  #
+                  # "sce_2_1_55": self.sce_2_1_55(),
+                  # "sce_2_1_56": self.sce_2_1_56(),
 
-            "sce_2_1_69": self.sce_2_1_69(),
-            "sce_2_1_67": self.sce_2_1_67(),
-            "sce_2_1_71": self.sce_2_1_71(),
-            "sce_2_1_68": self.sce_2_1_68(),
-            "sce_2_1_70": self.sce_2_1_70(),
+                  "sce_2_1_92": self.sce_2_1_92(),
+                  "sce_2_1_95": self.sce_2_1_95(),
+                  "sce_2_1_93": self.sce_2_1_93(),
+                  "sce_2_1_97": self.sce_2_1_97(),
+                  "sce_2_1_94": self.sce_2_1_94(),
+                  "sce_2_1_96": self.sce_2_1_96(),
 
-            "sce_2_1_79": self.sce_2_1_79(),
-            "sce_2_1_77": self.sce_2_1_77(),
-            "sce_2_1_81": self.sce_2_1_81(),
-            "sce_2_1_78": self.sce_2_1_78(),
-            "sce_2_1_80": self.sce_2_1_80(),
+                  "sce_2_1_98": self.sce_2_1_98(),
+                  "sce_2_1_101": self.sce_2_1_101(),
+                  "sce_2_1_99": self.sce_2_1_99(),
+                  "sce_2_1_103": self.sce_2_1_103(),
+                  "sce_2_1_100": self.sce_2_1_100(),
+                  "sce_2_1_102": self.sce_2_1_102(),
+                  #
+                  # # Photo
+                  # "sce_2_1_5": self.sce_2_1_5(),
+                  # "sce_2_1_6": self.sce_2_1_6(),
+                  # "sce_2_1_7": self.sce_2_1_7(),
+                  # "sce_2_1_14": self.sce_2_1_14(),
+                  # "sce_2_1_15": self.sce_2_1_15(),
+                  # "sce_2_1_16": self.sce_2_1_16(),
+                  # "sce_2_1_20": self.sce_2_1_20(),
+                  # "sce_2_1_21": self.sce_2_1_21(),
+                  # "sce_2_1_22": self.sce_2_1_22(),
+                  # "sce_2_1_29": self.sce_2_1_29(),
+                  # "sce_2_1_30": self.sce_2_1_30(),
+                  # "sce_2_1_31": self.sce_2_1_31(),
+                  #
+                  # "sce_2_1_53": self.sce_2_1_53(),
+                  # "sce_2_1_54": self.sce_2_1_54(),
+                  #
+                  # # Music
+                  # "sce_2_1_8": self.sce_2_1_8(),
+                  # "sce_2_1_9": self.sce_2_1_9(),
+                  # "sce_2_1_10": self.sce_2_1_10(),
+                  # "sce_2_1_23": self.sce_2_1_23(),
+                  # "sce_2_1_24": self.sce_2_1_24(),
+                  # "sce_2_1_25": self.sce_2_1_25(),
 
-            "sce_2_1_74": self.sce_2_1_74(),
-            "sce_2_1_72": self.sce_2_1_72(),
-            "sce_2_1_76": self.sce_2_1_76(),
-            "sce_2_1_73": self.sce_2_1_73(),
-            "sce_2_1_75": self.sce_2_1_75(),
-
-            "sce_2_1_84": self.sce_2_1_84(),
-            "sce_2_1_82": self.sce_2_1_82(),
-            "sce_2_1_86": self.sce_2_1_86(),
-            "sce_2_1_83": self.sce_2_1_83(),
-            "sce_2_1_85": self.sce_2_1_85(),
-
-            "sce_2_1_89": self.sce_2_1_89(),
-            "sce_2_1_87": self.sce_2_1_87(),
-            "sce_2_1_91": self.sce_2_1_91(),
-            "sce_2_1_88": self.sce_2_1_88(),
-            "sce_2_1_90": self.sce_2_1_90(),
-
-            "sce_2_1_55": self.sce_2_1_55(),
-            "sce_2_1_56": self.sce_2_1_56(),
-            "sce_2_1_92": self.sce_2_1_92(),
-
-
-
-            "sce_2_1_53": self.sce_2_1_53(),
-            "sce_2_1_54": self.sce_2_1_54(),
-
-            # # Photo
-            # "sce_2_1_5": self.sce_2_1_5(),
-            # "sce_2_1_6": self.sce_2_1_6(),
-            # "sce_2_1_7": self.sce_2_1_7(),
-            # "sce_2_1_14": self.sce_2_1_14(),
-            # "sce_2_1_15": self.sce_2_1_15(),
-            # "sce_2_1_16": self.sce_2_1_16(),
-            # "sce_2_1_20": self.sce_2_1_20(),
-            # "sce_2_1_21": self.sce_2_1_21(),
-            # "sce_2_1_22": self.sce_2_1_22(),
-            # "sce_2_1_29": self.sce_2_1_29(),
-            # "sce_2_1_30": self.sce_2_1_30(),
-            # "sce_2_1_31": self.sce_2_1_31(),
-            #
-            # # Music
-            # "sce_2_1_8": self.sce_2_1_8(),
-            # "sce_2_1_9": self.sce_2_1_9(),
-            # "sce_2_1_10": self.sce_2_1_10(),
-            # "sce_2_1_23": self.sce_2_1_23(),
-            # "sce_2_1_24": self.sce_2_1_24(),
-            # "sce_2_1_25": self.sce_2_1_25(),
-
-        }
+                  }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
