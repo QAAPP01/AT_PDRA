@@ -2052,6 +2052,77 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
+    def sce_2_1_117(self):
+        try:
+            uuid = 'a7a218b8-8869-4823-b94f-09e43738c99d'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.page_edit.click_sub_option_tool("Remove")
+            self.page_edit.add_master_media("photo", self.test_material_folder, "9_16.jpg")
+            self.page_edit.click_tool("Fit & Fill")
+            global pic_src
+            pic_src = self.page_main.get_preview_pic()
+            self.page_edit.click_sub_tool("Fill")
+            pic_fill = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_fill, pic_src).full_compare() > 0.97:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Images are the same'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_116(self):
+        try:
+            uuid = '1dd00bf7-eb3d-4c16-a59e-df719e686705'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.page_edit.click_sub_tool("Fit")
+            pic_fit = self.page_main.get_preview_pic()
+
+            if HCompareImg(pic_fit, pic_src).full_compare() > 0.97:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Images are different'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_118(self):
+        try:
+            uuid = 'df25ea97-3885-4565-8674-8e1dab542c1f'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.driver.zoom(L.edit.preview.preview)
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_tgt, pic_src).full_compare() > 0.97:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Images are the same'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
     def sce_2_1_53(self):
         # executed in test_aPDR_SFT_scenario_02_02
         pass
@@ -2620,6 +2691,10 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_103": self.sce_2_1_103(),
                   "sce_2_1_100": self.sce_2_1_100(),
                   "sce_2_1_102": self.sce_2_1_102(),
+                  "sce_2_1_117": self.sce_2_1_117(),
+                  "sce_2_1_116": self.sce_2_1_116(),
+                  "sce_2_1_118": self.sce_2_1_118(),
+
                   #
                   # # Photo
                   # "sce_2_1_5": self.sce_2_1_5(),

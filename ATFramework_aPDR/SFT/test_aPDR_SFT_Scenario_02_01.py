@@ -1806,23 +1806,313 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
+    def sce_2_1_95(self):
+        try:
+            uuid = '5205c71f-b7ee-4d85-91ff-85db47e21d33'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "80":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
     def sce_2_1_93(self):
         try:
             uuid = '523fa5b4-4430-4696-a383-d2225a96f4ae'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.edit.sub_tool_menu.back)
-            self.page_edit.click_sub_tool("Skin Smoothener")
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"] + rect["width"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
 
-            if self.click(L.edit.timeline.apply_all):
+            if int(value) > 80:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] click apply all fail'
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_97(self):
+        try:
+            uuid = '30928b0e-7adf-49bb-9985-6f942fde8659'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "100":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_94(self):
+        try:
+            uuid = 'd0dc8798-0ade-4c09-a472-d2a2b7b00c56'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_96(self):
+        try:
+            uuid = 'e5838f68-1e4c-4364-a45c-dbc8ceeaa47d'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "40":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_98(self):
+        try:
+            uuid = 'e843e5e9-7186-48e9-abb1-9c4f2b9030c8'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            if self.page_edit.click_sub_option_tool("Smoothness"):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Cannot find "Skin Smoothener"'
 
             self.click(L.edit.timeline.reset)
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_101(self):
+        try:
+            uuid = '393cfcfd-43b0-475f-b13d-fe0252d6c02a'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "80":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_99(self):
+        try:
+            uuid = '86e0beb3-2ccf-4458-bb7f-11d91d70306c'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"] + rect["width"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_103(self):
+        try:
+            uuid = '4d4f4af3-6c98-4a4c-9774-bac2339ed28a'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "100":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_100(self):
+        try:
+            uuid = 'cd508710-449f-46a2-9885-02f359ea68bb'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_102(self):
+        try:
+            uuid = 'f96b2755-2cab-4f5c-bcfa-49da0a234a26'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "0":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_117(self):
+        try:
+            uuid = 'a7a218b8-8869-4823-b94f-09e43738c99d'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.page_edit.click_sub_option_tool("Remove")
+            self.page_edit.add_master_media("photo", self.test_material_folder, "9_16.jpg")
+            self.page_edit.click_tool("Fit & Fill")
+            global pic_src
+            pic_src = self.page_main.get_preview_pic()
+            self.page_edit.click_sub_tool("Fill")
+            pic_fill = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_fill, pic_src).full_compare() > 0.97:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Images are the same'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_116(self):
+        try:
+            uuid = '1dd00bf7-eb3d-4c16-a59e-df719e686705'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.page_edit.click_sub_tool("Fit")
+            pic_fit = self.page_main.get_preview_pic()
+
+            if HCompareImg(pic_fit, pic_src).full_compare() > 0.97:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Images are different'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_118(self):
+        try:
+            uuid = 'df25ea97-3885-4565-8674-8e1dab542c1f'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.driver.zoom(L.edit.preview.preview)
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_tgt, pic_src).full_compare() > 0.97:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Images are the same'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2384,7 +2674,23 @@ class Test_SFT_Scenario_02_01:
 
                   "sce_2_1_55": self.sce_2_1_55(),
                   "sce_2_1_56": self.sce_2_1_56(),
+
                   "sce_2_1_92": self.sce_2_1_92(),
+                  "sce_2_1_95": self.sce_2_1_95(),
+                  "sce_2_1_93": self.sce_2_1_93(),
+                  "sce_2_1_97": self.sce_2_1_97(),
+                  "sce_2_1_94": self.sce_2_1_94(),
+                  "sce_2_1_96": self.sce_2_1_96(),
+
+                  "sce_2_1_98": self.sce_2_1_98(),
+                  "sce_2_1_101": self.sce_2_1_101(),
+                  "sce_2_1_99": self.sce_2_1_99(),
+                  "sce_2_1_103": self.sce_2_1_103(),
+                  "sce_2_1_100": self.sce_2_1_100(),
+                  "sce_2_1_102": self.sce_2_1_102(),
+                  "sce_2_1_117": self.sce_2_1_117(),
+                  "sce_2_1_116": self.sce_2_1_116(),
+                  "sce_2_1_118": self.sce_2_1_118(),
 
                   # Photo
                   "sce_2_1_5": self.sce_2_1_5(),
