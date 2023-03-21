@@ -105,7 +105,7 @@ os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  v
     1].split(' ')[0]
 
 # [Report Mail Setting]
-send = False
+send = True
 title_project = 'aPDR'
 receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
             "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]

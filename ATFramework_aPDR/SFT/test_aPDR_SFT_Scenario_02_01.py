@@ -1791,12 +1791,15 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            if self.click(L.edit.timeline.apply_all):
+            self.click(L.edit.sub_tool_menu.back)
+            self.page_edit.click_sub_tool("Skin Smoothener")
+
+            if self.page_edit.click_sub_option_tool("Brightness"):
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] click apply all fail'
+                fail_log = f'\n[Fail] Cannot find "Skin Smoothener"'
 
             self.click(L.edit.timeline.reset)
 
