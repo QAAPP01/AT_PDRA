@@ -701,9 +701,9 @@ class Fit_And_Fill():
     btn_background = id('btn_background')
     btn_none = id('btn_none')
     btn_blur = id('btn_blur')
+    card_color = id('card_color')
     btn_background_color = id('btn_background_color')
     btn_background_pattern = id('btn_background_pattern')
-    card_color = id('card_color')
     list_background_color = id('list_background_color')
     color_picker = id('applied_color')
     list_background_pattern = id('list_background_pattern')
@@ -711,6 +711,33 @@ class Fit_And_Fill():
     blur_slider = id('adjustable_parameter_seek_bar')
     blur_text = id('adjustTextNow')
 
+    @staticmethod
+    def card_color(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"card_color")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"card_color")])[{index}]')
+
+
+class Background:
+    btn_background = id('btn_background')
+    btn_none = id('btn_none')
+    btn_blur = id('btn_blur')
+    btn_background_color = id('btn_background_color')
+    btn_background_pattern = id('btn_background_pattern')
+    list_background_color = id('list_background_color')
+    color_picker = id('applied_color')
+    list_background_pattern = id('list_background_pattern')
+    pattern_layout = id('pattern_layout')
+    blur_slider = id('adjustable_parameter_seek_bar')
+    blur_text = id('adjustTextNow')
+
+    @staticmethod
+    def card_color(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"card_color")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"card_color")])[{index}]')
 
 class Replace():
     btn_replace_anyway = id('replace_text_view')
@@ -840,6 +867,7 @@ class Interface:
     effect_sub = Effect_Sub()
     fade = Fade()
     fit_and_fill = Fit_And_Fill()
+    background = Background
     hide_timeline_pannel = id('btnHideTimeLine')
     intro_video = Intro_Video()
     keyframe = Keyframe()

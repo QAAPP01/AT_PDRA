@@ -2059,7 +2059,7 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             self.page_edit.click_sub_option_tool("Remove")
-            self.page_edit.add_master_media("photo", self.test_material_folder, "9_16.jpg")
+            self.page_media.add_master_media("photo", self.test_material_folder, "9_16.jpg")
             self.page_edit.click_tool("Fit & Fill")
             global pic_src
             pic_src = self.page_main.get_preview_pic()
