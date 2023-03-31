@@ -126,7 +126,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_17.png')
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -169,7 +169,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_19.png')
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -212,7 +212,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_21.png')
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -255,7 +255,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_23.png')
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -298,7 +298,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = image_original
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -349,7 +349,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_27.png')
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -392,7 +392,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_29.png')
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -435,7 +435,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_31.png')
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -478,7 +478,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_33.png')
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -521,7 +521,7 @@ class Test_SFT_Scenario_02_03:
             pic_after = self.page_main.get_preview_pic()
             pic_base = image_original
 
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -696,10 +696,16 @@ class Test_SFT_Scenario_02_03:
                   "sce_02_03_33": self.sce_02_03_33(),
                   "sce_02_03_34": self.sce_02_03_34(),
                   "sce_02_03_35": self.sce_02_03_35(),
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
 
-                  "sce_2_3_310": self.sce_02_03_310(),
+    def test_sce_02_330_to_336(self):
+        result = {"sce_2_3_310": self.sce_02_03_310(),
                   "sce_2_3_336": self.sce_2_3_336(),
                   }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
+

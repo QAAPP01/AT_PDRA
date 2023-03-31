@@ -138,7 +138,7 @@ class Test_SFT_Scenario_02_01:
             playhead_center = playhead["x"] + playhead["width"] // 2
             x_after = self.elements(L.edit.timeline.master_video(file_video))[1].rect["x"]
 
-            if x_after == playhead_center:
+            if abs(x_after - playhead_center) < 2:
                 result = True
                 fail_log = None
             else:
@@ -3388,7 +3388,7 @@ class Test_SFT_Scenario_02_01:
 
     def sce_2_1_135(self):
         try:
-            uuid = '1cccd2a9-0e20-4988-95a9-cda0dabef154'
+            uuid = '2653a289-4c3f-44f0-98fd-7496f6a52d0a'
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]

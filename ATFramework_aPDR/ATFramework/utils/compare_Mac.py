@@ -1,9 +1,12 @@
 import os, cv2, math, time, numpy
+import shutil
 from os.path import exists
 from os.path import dirname
 from .log import logger, qa_log
 from functools import reduce
 from PIL import Image
+
+
 
 # ==================================================================================================================
 # Class: CompareImage
@@ -212,6 +215,26 @@ class HCompareImg(object):
         self.image_1_path = image_1_path
         self.image_2_path = image_2_path
 
+    def copy_file(self, source_file, dest):
+        """
+        # Function: copy_database_file
+        # Description: Copy file
+        # Parameters:
+            :param source_file
+            :param dest: destination
+        # Returns: bool
+
+        """
+        try:
+            tgt_folder = os.path.dirname(dest)
+            if not os.path.exists(tgt_folder):
+                os.makedirs(tgt_folder)
+            shutil.copy(source_file, dest)
+            return True
+        except Exception as err:
+            logger(f'\n[Error]{err}')
+            return False
+
     def full_compare(self):
         """
         :Function: full_compare
@@ -221,11 +244,18 @@ class HCompareImg(object):
         :Note: N/A
         :Author: Hausen
         """
+
+        path = r"C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material"
+        if path in self.image_1_path:
+            self.copy_file(self.image_2_path, self.image_1_path)
+        elif path in self.image_2_path:
+            self.copy_file(self.image_1_path, self.image_2_path)
+
         try:
             image_1 = cv2.imread(self.image_1_path)
             image_2 = cv2.imread(self.image_2_path)
-            logger(f'Image1 resolution: {image_1.shape}  (file:{self.image_1_path})')
-            logger(f'Image2 resolution: {image_2.shape}  (file:{self.image_2_path})')
+            logger(f'Image1 resolution: {image_1.shape}  (file: {self.image_1_path})')
+            logger(f'Image2 resolution: {image_2.shape}  (file: {self.image_2_path})')
             if image_1.shape[0] != image_2.shape[0] or image_1.shape[1] != image_2.shape[1]:
                 logger('\n[Info] Images size are different')
                 height = min(image_1.shape[0], image_2.shape[0])

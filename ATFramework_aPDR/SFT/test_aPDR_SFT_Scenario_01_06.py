@@ -1,31 +1,32 @@
 import inspect
 import sys
-from os.path import dirname
+import time
 from os import path
-import subprocess
-from pprint import pprint
-from ATFramework_aPDR.pages.locator import locator as L
-from ATFramework_aPDR.pages.locator.locator_type import *
+from os.path import dirname
 
-from ATFramework_aPDR.pages.page_factory import PageFactory
+import pytest
+
 from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
+from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.configs import app_config
 from ATFramework_aPDR.configs import driver_config
-from ATFramework_aPDR.ATFramework.utils.log import logger
-import pytest
-import time
-
+from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.page_factory import PageFactory
 from main import deviceName
-from .conftest import REPORT_INSTANCE
 from .conftest import PACKAGE_NAME
+from .conftest import REPORT_INSTANCE
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
+
+file_video = 'video.mp4'
+file_photo = 'photo.jpg'
 
 
 class Test_SFT_Scenario_01_06:
@@ -43,7 +44,7 @@ class Test_SFT_Scenario_01_06:
             desired_caps['udid'] = deviceName
         logger(f"[Info] caps={desired_caps}")
         self.report = report
-        self.device_udid = DRIVER_DESIRED_CAPS['udid']
+        self.device_udid = desired_caps['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
         self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
@@ -199,13 +200,15 @@ class Test_SFT_Scenario_01_06:
     def sce_01_06_07(self):
         try:
             uuid = '2772d69e-c19f-4410-932f-04aa205ccc05'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
             self.report.start_uuid(uuid)
 
-            pic_after = self.page_main.get_picture(L.import_media.music_library.meta)
-            pic_base = path.join(path.dirname(__file__), 'test_material', '01_06', '1_6_7.png')
+            pic_tgt = self.page_main.get_picture(L.import_media.music_library.meta)
+            pic_src = path.join(path.dirname(__file__), 'test_material', '01_06', case_id + '.png')
 
-            if CompareImage(pic_base, pic_after).h_total_compare() > 0.96:
+            if HCompareImg(pic_tgt, pic_src).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -217,7 +220,6 @@ class Test_SFT_Scenario_01_06:
         except Exception as err:
             logger(f"[Error] {err}")
             return "ERROR"
-
 
     def sce_01_06_08(self):
         item_id = '01_06_08'

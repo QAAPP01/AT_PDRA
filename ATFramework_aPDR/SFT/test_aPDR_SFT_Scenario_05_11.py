@@ -100,7 +100,7 @@ class Test_SFT_Scenario_05_11:
             pic_tgt = self.page_main.get_picture(L.edit.pip.pip_object)
             pic_src = path.join(path.dirname(__file__), 'test_material', '05_11', '5_11_27.png')
 
-            if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96:
+            if HCompareImg(pic_tgt, pic_src).full_compare_result():
                 result = True
                 fail_log = None
             else:
