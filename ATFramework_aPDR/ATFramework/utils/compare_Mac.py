@@ -243,6 +243,12 @@ class HCompareImg(object):
         except Exception as err:
             logger(f'[Error] {err}')
 
+    def full_compare_result(self):
+        try:
+            return True if self.full_compare() > 0.97 else False
+        except Exception as err:
+            logger(f'[Error] {err}')
+
     def keypoint_compare(self):
         try:
             """
@@ -292,4 +298,9 @@ class HCompareImg(object):
         except Exception as err:
             logger(f'[Error] {err}')
 
+    def keypoint_compare_result(self):
+        try:
+            return True if self.keypoint_compare() > 0.97 else False
+        except Exception as err:
+            logger(f'[Error] {err}')
 

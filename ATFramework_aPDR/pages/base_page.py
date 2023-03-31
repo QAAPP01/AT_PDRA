@@ -609,6 +609,20 @@ class BasePage(BasePage):
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
 
+    def h_is_child_id_exist(self, parent, child, timeout=3):
+        start = time.time()
+        try:
+            elem_parent = self.h_get_element(parent)
+            if not elem_parent:
+                logger(f"[No found parent element({round(time.time() - start, 2)})] {parent}")
+                return False
+            else:
+                WebDriverWait(elem_parent, timeout).until(EC.presence_of_element_located(child))
+            return True
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {child}")
+            return False
+
     # ==================================================================================================================
     # Function: h_tap
     # Description: Tap location
@@ -836,21 +850,21 @@ class BasePage(BasePage):
             logger(f"[Error] {err}")
             return False
 
-    def copy_file(self, source_file, target_file):
+    def copy_file(self, source_file, dest):
         """
         # Function: copy_database_file
         # Description: Copy file
         # Parameters:
             :param source_file
-            :param target_file
+            :param dest: destination
         # Returns: bool
 
         """
         try:
-            tgt_folder = os.path.dirname(target_file)
+            tgt_folder = os.path.dirname(dest)
             if not os.path.exists(tgt_folder):
                 os.makedirs(tgt_folder)
-            shutil.copy(source_file, target_file)
+            shutil.copy(source_file, dest)
             return True
         except Exception as err:
             logger(f'\n[Error]{err}')

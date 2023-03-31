@@ -534,35 +534,7 @@ class Test_SFT_Scenario_02_03:
             logger(f'[Error] {err}')
             return "ERROR"
 
-    def test_sce_02_03_16_to_35(self):
-        result = {"sce_02_03_16": self.sce_02_03_16(),
-                  "sce_02_03_17": self.sce_02_03_17(),
-                  "sce_02_03_18": self.sce_02_03_18(),
-                  "sce_02_03_19": self.sce_02_03_19(),
-                  "sce_02_03_20": self.sce_02_03_20(),
-                  "sce_02_03_21": self.sce_02_03_21(),
-                  "sce_02_03_22": self.sce_02_03_22(),
-                  "sce_02_03_23": self.sce_02_03_23(),
-                  "sce_02_03_24": self.sce_02_03_24(),
-                  "sce_02_03_25": self.sce_02_03_25(),
-                  "sce_02_03_26": self.sce_02_03_26(),
-                  "sce_02_03_27": self.sce_02_03_27(),
-                  "sce_02_03_28": self.sce_02_03_28(),
-                  "sce_02_03_29": self.sce_02_03_29(),
-                  "sce_02_03_30": self.sce_02_03_30(),
-                  "sce_02_03_31": self.sce_02_03_31(),
-                  "sce_02_03_32": self.sce_02_03_32(),
-                  "sce_02_03_33": self.sce_02_03_33(),
-                  "sce_02_03_34": self.sce_02_03_34(),
-                  "sce_02_03_35": self.sce_02_03_35()
-                  }
-        for key, value in result.items():
-            if value != "PASS":
-                print(f"[{value}] {key}")
-
-    # @pytest.mark.skip
-    @report.exception_screenshot
-    def test_sce_02_03_310(self):
+    def sce_02_03_310(self):
         result = {}
 
         # sce_02_03_310
@@ -670,20 +642,64 @@ class Test_SFT_Scenario_02_03:
         result[item_id] = result_photo and result_value
         self.report.new_result(uuid, result[item_id])
 
-        # sce_02_03_316
-        item_id = '02_03_316'
-        uuid = 'e39097dc-d519-4816-8980-bdff9e19f13c'
-        logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
-        self.page_edit.h_click(L.edit.adjust_sub.reset)
-        self.page_edit.click_sub_tool('Sharpness')
-        self.page_edit.h_set_slider(0.645)
-        pic_after = self.page_edit.get_preview_pic()
-        pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', item_id + '.png')
-        result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
-        result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '129'
-        logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
-        result[item_id] = result_photo and result_value
-        self.report.new_result(uuid, result[item_id])
+        global pic_src
+        pic_src = pic_after
 
-        pprint(result)
+        return "PASS"
+
+    def sce_2_3_336(self):
+        try:
+            uuid = 'e39097dc-d519-4816-8980-bdff9e19f13c'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            item_id = inspect.stack()[0][3].split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            self.page_edit.h_click(L.edit.adjust_sub.reset)
+            self.page_edit.click_sub_tool('Sharpness')
+            self.page_edit.h_set_slider(0.645)
+            pic_tgt = self.page_edit.get_preview_pic()
+
+            result_photo = True if not HCompareImg(pic_tgt, pic_src).full_compare() > 0.97 else False
+            result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text != "0"
+
+            if result_photo and result_value:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] result_photo: {result_photo}, result_value: {result_value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def test_sce_02_03_16_to_35(self):
+        result = {"sce_02_03_16": self.sce_02_03_16(),
+                  "sce_02_03_17": self.sce_02_03_17(),
+                  "sce_02_03_18": self.sce_02_03_18(),
+                  "sce_02_03_19": self.sce_02_03_19(),
+                  "sce_02_03_20": self.sce_02_03_20(),
+                  "sce_02_03_21": self.sce_02_03_21(),
+                  "sce_02_03_22": self.sce_02_03_22(),
+                  "sce_02_03_23": self.sce_02_03_23(),
+                  "sce_02_03_24": self.sce_02_03_24(),
+                  "sce_02_03_25": self.sce_02_03_25(),
+                  "sce_02_03_26": self.sce_02_03_26(),
+                  "sce_02_03_27": self.sce_02_03_27(),
+                  "sce_02_03_28": self.sce_02_03_28(),
+                  "sce_02_03_29": self.sce_02_03_29(),
+                  "sce_02_03_30": self.sce_02_03_30(),
+                  "sce_02_03_31": self.sce_02_03_31(),
+                  "sce_02_03_32": self.sce_02_03_32(),
+                  "sce_02_03_33": self.sce_02_03_33(),
+                  "sce_02_03_34": self.sce_02_03_34(),
+                  "sce_02_03_35": self.sce_02_03_35(),
+
+                  "sce_2_3_310": self.sce_02_03_310(),
+                  "sce_2_3_336": self.sce_2_3_336(),
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")

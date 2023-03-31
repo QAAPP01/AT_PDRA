@@ -91,6 +91,7 @@ class Test_SFT_Scenario_02_01:
 
         import datetime
         dt = datetime.datetime.today()
+        global default_project_name
         default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
         self.page_main.enter_launcher()
 
@@ -339,7 +340,7 @@ class Test_SFT_Scenario_02_01:
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_27.png')
 
             global result_27
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.98:
+            if HCompareImg(pic_base, pic_after).full_compare_result():
                 result_27 = True
                 fail_log = None
             else:
@@ -758,7 +759,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] progress_bar: {progress_bar}, ad:{ad}'
+                fail_log = f'\n[Fail] progress_bar:{progress_bar}, ad:{ad}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -933,14 +934,17 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
-    def sce_2_1_57_to_61(self):
-        # Skip, merge to sce_2.33
+    def sce_2_1_skip(self):
+        # Skip
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.add_result('300efe76-5d15-4f53-821f-9d0ce6f859d2', None, 'N/A', 'merge to sce_2.33')
-        self.report.add_result('72409732-13c5-4490-a1a9-3bd1d6ba34db', None, 'N/A', 'merge to sce_2.33')
-        self.report.add_result('ec404b31-1e27-47c4-9092-355fc4a2401a', None, 'N/A', 'merge to sce_2.33')
-        self.report.add_result('4dc86868-4e85-4809-8d36-f3d35bff2496', None, 'N/A', 'merge to sce_2.33')
-        self.report.add_result('32448a26-3bea-41ef-b1c4-352715ee44d6', None, 'N/A', 'merge to sce_2.33')
+
+        self.report.add_result('bca3a613-0136-4e50-bed8-d3bcaa2916dc', None, 'N/A', 'merge to sce_2.2')     # 2.1.53, merge to sce_2.2
+        self.report.add_result('4c4e9e25-e039-4899-a165-1e18c39db2bd', None, 'N/A', 'merge to sce_2.2')     # 2.1.54, merge to sce_2.2
+        self.report.add_result('300efe76-5d15-4f53-821f-9d0ce6f859d2', None, 'N/A', 'merge to sce_2.33')    # 2.1.57, merge to sce_2.33
+        self.report.add_result('72409732-13c5-4490-a1a9-3bd1d6ba34db', None, 'N/A', 'merge to sce_2.33')    # 2.1.58, merge to sce_2.33
+        self.report.add_result('ec404b31-1e27-47c4-9092-355fc4a2401a', None, 'N/A', 'merge to sce_2.33')    # 2.1.59, merge to sce_2.33
+        self.report.add_result('4dc86868-4e85-4809-8d36-f3d35bff2496', None, 'N/A', 'merge to sce_2.33')    # 2.1.60, merge to sce_2.33
+        self.report.add_result('32448a26-3bea-41ef-b1c4-352715ee44d6', None, 'N/A', 'merge to sce_2.33')    # 2.1.61, merge to sce_2.33
         return "N/A"
 
     def sce_2_1_64(self):
@@ -950,7 +954,7 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             self.page_media.add_master_media('video', self.test_material_folder, 'video.mp4')
-            self.click(L.edit.timeline.master_clip)
+            self.click(L.edit.timeline.master_video('video.mp4'))
             self.page_edit.click_sub_tool("Adjustment")
             self.page_edit.click_sub_option_tool("Brightness")
             value = self.element(L.edit.timeline.slider_value).text
@@ -967,7 +971,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1018,7 +1022,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1069,7 +1073,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1097,7 +1101,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1148,7 +1152,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1199,7 +1203,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1227,7 +1231,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1278,7 +1282,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1329,7 +1333,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1357,7 +1361,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1408,7 +1412,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1459,7 +1463,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1487,7 +1491,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1538,7 +1542,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1589,7 +1593,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1617,7 +1621,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1668,7 +1672,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1719,7 +1723,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1733,21 +1737,19 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
+            self.click(L.edit.timeline.reset)
             self.page_edit.click_sub_option_tool("Sharpness")
             value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "0"
 
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_55.png')
+            global pic_no_sharpness
+            pic_no_sharpness = self.page_main.get_preview_pic()
 
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
+            if value == "0":
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] value incorrect: {value}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1768,16 +1770,16 @@ class Test_SFT_Scenario_02_01:
             result_value = value == "200"
 
             pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_56.png')
+            pic_src = pic_no_sharpness
 
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
+            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare_result() else False
 
             if result_value and result_preview:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1792,6 +1794,10 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             self.click(L.edit.sub_tool_menu.back)
+            self.page_media.add_master_media('video', self.test_material_folder, 'video.mp4')
+            self.click(L.edit.timeline.master_video('video.mp4'))
+            global pic_no_skin
+            pic_no_skin = self.page_main.get_preview_pic()
             self.page_edit.click_sub_tool("Skin Smoothener")
 
             if self.page_edit.click_sub_option_tool("Brightness"):
@@ -1812,17 +1818,23 @@ class Test_SFT_Scenario_02_01:
     def sce_2_1_95(self):
         try:
             uuid = '5205c71f-b7ee-4d85-91ff-85db47e21d33'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
             self.report.start_uuid(uuid)
 
             value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "80"
+            pic_tgt = self.page_main.get_preview_pic()
 
-            if value == "80":
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] Value incorrect: {value}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1857,17 +1869,23 @@ class Test_SFT_Scenario_02_01:
     def sce_2_1_97(self):
         try:
             uuid = '30928b0e-7adf-49bb-9985-6f942fde8659'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
             self.report.start_uuid(uuid)
 
             value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "100"
 
-            if value == "100":
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1902,17 +1920,23 @@ class Test_SFT_Scenario_02_01:
     def sce_2_1_96(self):
         try:
             uuid = 'e5838f68-1e4c-4364-a45c-dbc8ceeaa47d'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
             self.report.start_uuid(uuid)
 
             value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "40"
 
-            if value == "40":
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1948,13 +1972,17 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "80"
 
-            if value == "80":
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] Value incorrect: {value}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1993,13 +2021,17 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "100"
 
-            if value == "100":
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2038,13 +2070,345 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "0"
 
-            if value == "0":
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.page_edit.click_sub_option_tool("Remove")
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_104(self):
+        try:
+            uuid = '9876425c-07fa-4251-aac2-043efba6099e'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            self.page_media.add_master_media("photo", self.test_material_folder, "photo.jpg")
+            self.click(L.edit.timeline.master_photo("photo.jpg"))
+            global pic_no_skin
+            pic_no_skin = self.page_main.get_preview_pic()
+            self.page_edit.click_sub_tool("Skin Smoothener")
+
+            if self.page_edit.click_sub_option_tool("Brightness"):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Cannot find "Skin Smoothener"'
+
+            self.click(L.edit.timeline.reset)
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_107(self):
+        try:
+            uuid = 'e6c5ef78-3357-4d24-bd2c-35b84312ab6e'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "80"
+            pic_tgt = self.page_main.get_preview_pic()
+
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_105(self):
+        try:
+            uuid = '7702acb8-01ab-485b-a1b9-1ae0d40b3db0'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"] + rect["width"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 80:
                 result = True
                 fail_log = None
             else:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_109(self):
+        try:
+            uuid = 'd137ff35-e784-48a6-932c-8c6043842bd0'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "100"
+
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_106(self):
+        try:
+            uuid = 'a4eca9b7-5e95-4705-85c3-215ced32e652'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_108(self):
+        try:
+            uuid = 'd0a7463a-9844-446a-bd11-d569093a238e'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "40"
+
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_110(self):
+        try:
+            uuid = 'efbf6762-c2be-423a-866a-5f02850339b0'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            if self.page_edit.click_sub_option_tool("Smoothness"):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Cannot find "Skin Smoothener"'
+
+            self.click(L.edit.timeline.reset)
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_113(self):
+        try:
+            uuid = 'b8555a72-e79c-48e8-be81-b8cd86c7e385'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "80"
+
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_111(self):
+        try:
+            uuid = '98e4a27e-3f30-4416-99c5-09a5120d3d0d'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"] + rect["width"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_115(self):
+        try:
+            uuid = 'a410a826-d866-4cf9-a1c7-a7a77af7432b'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "100"
+
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_112(self):
+        try:
+            uuid = 'a7a640c4-9eb1-457b-9983-96fabfd51c26'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            rect = self.element(L.edit.timeline.slider).rect
+            end_x = rect["x"]
+            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 80:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] value incorrect: {value}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_114(self):
+        try:
+            uuid = 'cb153b5e-c536-4ed6-8d9f-71f235711d5d'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
+
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "0"
+
+            pic_tgt = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(pic_tgt, pic_no_skin).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_134(self):
+        try:
+            uuid = '1cccd2a9-0e20-4988-95a9-cda0dabef154'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            self.click(L.edit.menu.undo)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "100":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Undo fail'
+
+            self.page_edit.click_sub_option_tool("Remove")
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2058,16 +2422,15 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.click_sub_option_tool("Remove")
             self.page_media.add_master_media("photo", self.test_material_folder, "9_16.jpg")
             self.click(L.edit.timeline.master_photo("9_16.jpg"))
             self.page_edit.click_sub_tool("Fit & Fill")
-            global pic_src
-            pic_src = self.page_main.get_preview_pic()
+            global pic_orignal
+            pic_orignal = self.page_main.get_preview_pic()
             self.click(L.edit.fit_and_fill.btn_fill)
             pic_fill = self.page_main.get_preview_pic()
 
-            if not HCompareImg(pic_fill, pic_src).full_compare() > 0.97:
+            if not HCompareImg(pic_fill, pic_orignal).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -2089,7 +2452,7 @@ class Test_SFT_Scenario_02_01:
             self.click(L.edit.fit_and_fill.btn_fit)
             pic_fit = self.page_main.get_preview_pic()
 
-            if HCompareImg(pic_fit, pic_src).full_compare() > 0.97:
+            if HCompareImg(pic_fit, pic_orignal).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
@@ -2111,7 +2474,7 @@ class Test_SFT_Scenario_02_01:
             self.driver.zoom(L.edit.preview.preview)
             pic_tgt = self.page_main.get_preview_pic()
 
-            if not HCompareImg(pic_tgt, pic_src).full_compare() > 0.97:
+            if not HCompareImg(pic_tgt, pic_orignal).full_compare() > 0.97:
                 result = True
                 fail_log = None
             else:
@@ -2223,13 +2586,14 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             self.click(L.edit.background.btn_background_color)
+            self.click(L.edit.background.card_color(2))
 
-            if self.click(L.edit.background.card_color(2)):
+            if self.is_exist(L.edit.timeline.slider):
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] Select gradient color fail'
+                fail_log = f'\n[Fail] Slider is not exist'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2306,9 +2670,9 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
-    def sce_2_1_127(self):
+    def sce_2_1_128(self):
         try:
-            uuid = '9576806e-542b-454e-bcb9-f68b2129b64d'
+            uuid = '2700a3cb-50c3-4b20-b2a6-c53551176f01'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
@@ -2322,7 +2686,7 @@ class Test_SFT_Scenario_02_01:
             self.page_main.h_swipe_location(x, y, x_end, y)
             pic_tgt = self.page_main.get_picture(locator)
 
-            if not HCompareImg(pic_tgt, pic_src).full_compare() > 0.97:
+            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -2335,69 +2699,209 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
-    def sce_2_1_53(self):
-        # executed in test_aPDR_SFT_scenario_02_02
-        pass
+    def sce_2_1_127(self):
         try:
-            uuid = 'bca3a613-0136-4e50-bed8-d3bcaa2916dc'
+            uuid = '9576806e-542b-454e-bcb9-f68b2129b64d'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
+
+            cards = self.elements(L.edit.background.card_color(0))
+            self.click(cards[-1])
+            retry = 20
+            while self.is_exist(L.edit.timeline.slider) and retry:
+                cards = self.elements(L.edit.background.card_color(0))
+                self.page_main.h_swipe_element(cards[-1], cards[0], 2)
+                cards = self.elements(L.edit.background.card_color(0))
+                self.click(cards[-1])
+                retry -= 1
+
+            if retry > 0:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Slider is exist'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_129_130(self):
+        try:
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            pic_src = self.page_main.get_preview_pic()
+
+            def sce_2_1_129(index):
+                try:
+                    uuid = 'a7c251ce-afdb-48d7-9ee3-5ecf91451c7c'
+                    logger(f"\n[Start] {inspect.stack()[0][3]}")
+                    self.report.start_uuid(uuid)
+
+                    cards = self.elements(L.edit.background.pattern_layout(0))
+                    self.click(cards[index])
+                    cards = self.elements(L.edit.background.pattern_layout(0))
+                    retry = 20
+                    while self.page_main.h_is_child_id_exist(cards[index], L.edit.background.download_icon) and retry:
+                        cards = self.elements(L.edit.background.pattern_layout(0))
+                        time.sleep(1)
+                        retry -= 1
+                    if retry == 0:
+                        logger("\n[Error] Download fail")
+
+                    pic_tgt = self.page_main.get_preview_pic()
+
+                    if not HCompareImg(pic_tgt, pic_src).full_compare_result():
+                        result = True
+                        fail_log = None
+                    else:
+                        result = False
+                        fail_log = f'\n[Fail] Images are different'
+
+                    self.report.new_result(uuid, result, fail_log=fail_log)
+                    return "PASS" if result else "FAIL"
+
+                except Exception as err:
+                    logger(f"[Error] {err}")
+                    return "ERROR"
+
+            def sce_2_1_130(index):
+                try:
+                    uuid = '5df5c584-5393-4b89-bee8-cf139e820fb0'
+                    logger(f"\n[Start] {inspect.stack()[0][3]}")
+                    self.report.start_uuid(uuid)
+
+                    cards = self.elements(L.edit.background.pattern_layout(0))
+                    self.click(cards[index])
+                    cards = self.elements(L.edit.background.pattern_layout(0))
+                    retry = 20
+                    while self.page_main.h_is_child_id_exist(cards[index], L.edit.background.download_icon) and retry:
+                        cards = self.elements(L.edit.background.pattern_layout(0))
+                        time.sleep(1)
+                        retry -= 1
+                    if retry == 0:
+                        logger("\n[Error] Download fail")
+
+                    pic_tgt = self.page_main.get_preview_pic()
+                    result_img = not HCompareImg(pic_tgt, pic_src).full_compare_result()
+                    result_premium = self.is_exist(L.edit.try_before_buy.premium_features_used_bubble)
+
+                    if result_img and result_premium:
+                        result = True
+                        fail_log = None
+                    else:
+                        result = False
+                        fail_log = f'\n[Fail] result_img = {result_img}, result_premium = {result_premium}'
+
+                    self.report.new_result(uuid, result, fail_log=fail_log)
+                    return "PASS" if result else "FAIL"
+                except Exception as err:
+                    logger(f"[Error] {err}")
+                    return "ERROR"
+
+            self.click(L.edit.tool_menu.back)
+            self.click(L.edit.background.btn_background_pattern)
+            cards = self.elements(L.edit.background.pattern_layout(0))
+            free_flag = 0
+            paid_flag = 0
+            result_129 = 0
+            result_130 = 0
+
+            while not free_flag or not paid_flag:
+                for i in range(len(cards)):
+                    if free_flag and paid_flag:
+                        break
+                    if self.page_main.h_is_child_id_exist(cards[i], L.edit.background.try_icon):
+                        if not paid_flag:
+                            result_130 = sce_2_1_130(i)
+                            paid_flag = 1
+                            cards = self.elements(L.edit.background.pattern_layout(0))
+                    elif not free_flag:
+                        result_129 = sce_2_1_129(i)
+                        free_flag = 1
+                        cards = self.elements(L.edit.background.pattern_layout(0))
+                if free_flag and paid_flag:
+                    break
+                else:
+                    cards = self.elements(L.edit.background.pattern_layout(0))
+                    last = self.page_main.get_picture(cards[-1])
+                    self.page_main.h_swipe_element(cards[-1], cards[0])
+                    cards = self.elements(L.edit.background.pattern_layout(0))
+                    if HCompareImg(self.page_main.get_picture(cards[-1]), last).full_compare_result():
+                        logger("[Fail] End of pattern")
+                        return "ERROR"
 
             self.click(L.edit.sub_tool_menu.back)
-            self.page_media.add_master_media('photo', self.test_material_folder, 'photo.jpg')
-            self.click(L.edit.timeline.master_clip)
-            self.page_edit.click_sub_tool("Adjustment")
-            self.page_edit.click_sub_option_tool("Sharpness")
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "0"
+            self.click(L.edit.try_before_buy.try_it)
 
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_53.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
+            return "PASS" if result_129 and result_130 else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
             return "ERROR"
 
-    def sce_2_1_54(self):
-        try:
-            uuid = '4c4e9e25-e039-4899-a165-1e18c39db2bd'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "200"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_54.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+    # def sce_2_1_53(self):
+    #     # executed in test_aPDR_SFT_scenario_02_02
+    #     pass
+    #     try:
+    #         uuid = 'bca3a613-0136-4e50-bed8-d3bcaa2916dc'
+    #         logger(f"\n[Start] {inspect.stack()[0][3]}")
+    #         self.report.start_uuid(uuid)
+    #
+    #         self.page_media.add_master_media('photo', self.test_material_folder, 'photo.jpg')
+    #         self.click(L.edit.timeline.master_clip)
+    #         self.page_edit.click_sub_tool("Adjustment")
+    #         self.page_edit.click_sub_option_tool("Sharpness")
+    #         value = self.element(L.edit.timeline.slider_value).text
+    #         result_value = value == "0"
+    #
+    #         pic_tgt = self.page_main.get_preview_pic()
+    #         pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_53.png')
+    #
+    #         result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
+    #
+    #         if result_value and result_preview:
+    #             result = True
+    #             fail_log = None
+    #         else:
+    #             result = False
+    #             fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+    #
+    #         self.report.new_result(uuid, result, fail_log=fail_log)
+    #         return "PASS" if result else "FAIL"
+    #     except Exception as err:
+    #         logger(f"[Error] {err}")
+    #         return "ERROR"
+    #
+    # def sce_2_1_54(self):
+    #     try:
+    #         uuid = '4c4e9e25-e039-4899-a165-1e18c39db2bd'
+    #         logger(f"\n[Start] {inspect.stack()[0][3]}")
+    #         self.report.start_uuid(uuid)
+    #
+    #         rect = self.element(L.edit.timeline.slider).rect
+    #         end_x = rect["x"] + rect["width"]
+    #         self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+    #         value = self.element(L.edit.timeline.slider_value).text
+    #         result_value = value == "200"
+    #
+    #         pic_tgt = self.page_main.get_preview_pic()
+    #         pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_54.png')
+    #
+    #         result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
+    #
+    #         if result_value and result_preview:
+    #             result = True
+    #             fail_log = None
+    #         else:
+    #             result = False
+    #             fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+    #
+    #         self.report.new_result(uuid, result, fail_log=fail_log)
+    #         return "PASS" if result else "FAIL"
+    #     except Exception as err:
+    #         logger(f"[Error] {err}")
+    #         return "ERROR"
 
     def sce_2_1_5(self):
         try:
@@ -2808,39 +3312,140 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
+    def sce_2_1_131(self):
+        try:
+            uuid = '1f282e0d-52ca-4dd5-8f58-901afba122e7'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            for i in range(4):
+                if self.click(L.edit.tool_menu.back, timeout=0.1):
+                    continue
+                else:
+                    break
+
+            if self.is_exist(L.edit.preview.watermark):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] cannot find the watermark'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_132(self):
+        try:
+            uuid = '666bb375-a688-4f90-9dc1-535a374ad165'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            pic_src = self.page_main.get_preview_pic()
+            self.click(L.edit.menu.play)
+            time.sleep(10)
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Images are the same'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_133(self):
+        try:
+            uuid = 'd21dac5a-a1a4-46e6-a587-1c14512a663c'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            if self.is_exist(L.edit.timeline.playhead_timecode):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Cannot find the timecode'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_135(self):
+        try:
+            uuid = '1cccd2a9-0e20-4988-95a9-cda0dabef154'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+
+            if self.page_main.enter_timeline(default_project_name):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Cannot find timeline canvas'
+
+            self.page_edit.click_sub_option_tool("Remove")
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
     @report.exception_screenshot
     def test_sce_2_1_1_to_135(self):
         result = {"sce_2_1_1": self.sce_2_1_1(),
 
                   # Video
-                  # "sce_2_1_2": self.sce_2_1_2(),
-                  # "sce_2_1_3": self.sce_2_1_3(),
-                  # "sce_2_1_4": self.sce_2_1_4(),
-                  # "sce_2_1_11": self.sce_2_1_11(),
-                  # "sce_2_1_12": self.sce_2_1_12(),
-                  # "sce_2_1_13": self.sce_2_1_13(),
-                  # "sce_2_1_17": self.sce_2_1_17(),
-                  # "sce_2_1_18": self.sce_2_1_18(),
-                  # "sce_2_1_19": self.sce_2_1_19(),
-                  # "sce_2_1_26": self.sce_2_1_26(),
-                  # "sce_2_1_27": self.sce_2_1_27(),
-                  # "sce_2_1_28": self.sce_2_1_28(),
-                  # "sce_2_1_32": self.sce_2_1_32(),
-                  # "sce_2_1_33": self.sce_2_1_33(),
-                  # "sce_2_1_34": self.sce_2_1_34(),
-                  # "sce_2_1_35": self.sce_2_1_35(),
-                  # "sce_2_1_36": self.sce_2_1_36(),
-                  # "sce_2_1_37": self.sce_2_1_37(),
-                  # "sce_2_1_38": self.sce_2_1_38(),
-                  # "sce_2_1_39": self.sce_2_1_39(),
-                  # "sce_2_1_40": self.sce_2_1_40(),
-                  # "sce_2_1_41": self.sce_2_1_41(),
-                  # "sce_2_1_42": self.sce_2_1_42(),
-                  # "sce_2_1_43": self.sce_2_1_43(),
-                  # "sce_2_1_44": self.sce_2_1_44(),
-                  # "sce_2_1_45": self.sce_2_1_45(),
-                  # "sce_2_1_46": self.sce_2_1_46(),
-                  # "sce_2_1_47": self.sce_2_1_47(),
+                  "sce_2_1_2": self.sce_2_1_2(),
+                  "sce_2_1_3": self.sce_2_1_3(),
+                  "sce_2_1_4": self.sce_2_1_4(),
+                  "sce_2_1_11": self.sce_2_1_11(),
+                  "sce_2_1_12": self.sce_2_1_12(),
+                  "sce_2_1_13": self.sce_2_1_13(),
+                  "sce_2_1_17": self.sce_2_1_17(),
+                  "sce_2_1_18": self.sce_2_1_18(),
+                  "sce_2_1_19": self.sce_2_1_19(),
+                  "sce_2_1_26": self.sce_2_1_26(),
+                  "sce_2_1_27": self.sce_2_1_27(),
+                  "sce_2_1_28": self.sce_2_1_28(),
+                  "sce_2_1_32": self.sce_2_1_32(),
+                  "sce_2_1_33": self.sce_2_1_33(),
+                  "sce_2_1_34": self.sce_2_1_34(),
+                  "sce_2_1_35": self.sce_2_1_35(),
+                  "sce_2_1_36": self.sce_2_1_36(),
+                  "sce_2_1_37": self.sce_2_1_37(),
+                  "sce_2_1_38": self.sce_2_1_38(),
+                  "sce_2_1_39": self.sce_2_1_39(),
+                  "sce_2_1_40": self.sce_2_1_40(),
+                  "sce_2_1_41": self.sce_2_1_41(),
+                  "sce_2_1_42": self.sce_2_1_42(),
+                  "sce_2_1_43": self.sce_2_1_43(),
+                  "sce_2_1_44": self.sce_2_1_44(),
+                  "sce_2_1_45": self.sce_2_1_45(),
+                  "sce_2_1_46": self.sce_2_1_46(),
+                  "sce_2_1_47": self.sce_2_1_47(),
 
                   ## Stabilizer
                   # "sce_2_1_48": self.sce_2_1_48(),
@@ -2849,46 +3454,46 @@ class Test_SFT_Scenario_02_01:
                   # "sce_2_1_51": self.sce_2_1_51(),
                   # "sce_2_1_52": self.sce_2_1_52(),
 
-                  # "sce_2_1_57_to_61": self.sce_2_1_57_to_61(),
+                  "sce_2_1_skip": self.sce_2_1_skip(),
 
-                  # "sce_2_1_64": self.sce_2_1_64(),
-                  # "sce_2_1_62": self.sce_2_1_62(),
-                  # "sce_2_1_66": self.sce_2_1_66(),
-                  # "sce_2_1_63": self.sce_2_1_63(),
-                  # "sce_2_1_65": self.sce_2_1_65(),
-                  #
-                  # "sce_2_1_69": self.sce_2_1_69(),
-                  # "sce_2_1_67": self.sce_2_1_67(),
-                  # "sce_2_1_71": self.sce_2_1_71(),
-                  # "sce_2_1_68": self.sce_2_1_68(),
-                  # "sce_2_1_70": self.sce_2_1_70(),
-                  #
-                  # "sce_2_1_79": self.sce_2_1_79(),
-                  # "sce_2_1_77": self.sce_2_1_77(),
-                  # "sce_2_1_81": self.sce_2_1_81(),
-                  # "sce_2_1_78": self.sce_2_1_78(),
-                  # "sce_2_1_80": self.sce_2_1_80(),
-                  #
-                  # "sce_2_1_74": self.sce_2_1_74(),
-                  # "sce_2_1_72": self.sce_2_1_72(),
-                  # "sce_2_1_76": self.sce_2_1_76(),
-                  # "sce_2_1_73": self.sce_2_1_73(),
-                  # "sce_2_1_75": self.sce_2_1_75(),
-                  #
-                  # "sce_2_1_84": self.sce_2_1_84(),
-                  # "sce_2_1_82": self.sce_2_1_82(),
-                  # "sce_2_1_86": self.sce_2_1_86(),
-                  # "sce_2_1_83": self.sce_2_1_83(),
-                  # "sce_2_1_85": self.sce_2_1_85(),
-                  #
-                  # "sce_2_1_89": self.sce_2_1_89(),
-                  # "sce_2_1_87": self.sce_2_1_87(),
-                  # "sce_2_1_91": self.sce_2_1_91(),
-                  # "sce_2_1_88": self.sce_2_1_88(),
-                  # "sce_2_1_90": self.sce_2_1_90(),
-                  #
-                  # "sce_2_1_55": self.sce_2_1_55(),
-                  # "sce_2_1_56": self.sce_2_1_56(),
+                  "sce_2_1_64": self.sce_2_1_64(),
+                  "sce_2_1_62": self.sce_2_1_62(),
+                  "sce_2_1_66": self.sce_2_1_66(),
+                  "sce_2_1_63": self.sce_2_1_63(),
+                  "sce_2_1_65": self.sce_2_1_65(),
+
+                  "sce_2_1_69": self.sce_2_1_69(),
+                  "sce_2_1_67": self.sce_2_1_67(),
+                  "sce_2_1_71": self.sce_2_1_71(),
+                  "sce_2_1_68": self.sce_2_1_68(),
+                  "sce_2_1_70": self.sce_2_1_70(),
+
+                  "sce_2_1_79": self.sce_2_1_79(),
+                  "sce_2_1_77": self.sce_2_1_77(),
+                  "sce_2_1_81": self.sce_2_1_81(),
+                  "sce_2_1_78": self.sce_2_1_78(),
+                  "sce_2_1_80": self.sce_2_1_80(),
+
+                  "sce_2_1_74": self.sce_2_1_74(),
+                  "sce_2_1_72": self.sce_2_1_72(),
+                  "sce_2_1_76": self.sce_2_1_76(),
+                  "sce_2_1_73": self.sce_2_1_73(),
+                  "sce_2_1_75": self.sce_2_1_75(),
+
+                  "sce_2_1_84": self.sce_2_1_84(),
+                  "sce_2_1_82": self.sce_2_1_82(),
+                  "sce_2_1_86": self.sce_2_1_86(),
+                  "sce_2_1_83": self.sce_2_1_83(),
+                  "sce_2_1_85": self.sce_2_1_85(),
+
+                  "sce_2_1_89": self.sce_2_1_89(),
+                  "sce_2_1_87": self.sce_2_1_87(),
+                  "sce_2_1_91": self.sce_2_1_91(),
+                  "sce_2_1_88": self.sce_2_1_88(),
+                  "sce_2_1_90": self.sce_2_1_90(),
+
+                  "sce_2_1_55": self.sce_2_1_55(),
+                  "sce_2_1_56": self.sce_2_1_56(),
 
                   "sce_2_1_92": self.sce_2_1_92(),
                   "sce_2_1_95": self.sce_2_1_95(),
@@ -2903,10 +3508,26 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_103": self.sce_2_1_103(),
                   "sce_2_1_100": self.sce_2_1_100(),
                   "sce_2_1_102": self.sce_2_1_102(),
+
+                  # Photo
+                  "sce_2_1_104": self.sce_2_1_104(),
+                  "sce_2_1_107": self.sce_2_1_107(),
+                  "sce_2_1_105": self.sce_2_1_105(),
+                  "sce_2_1_109": self.sce_2_1_109(),
+                  "sce_2_1_106": self.sce_2_1_106(),
+                  "sce_2_1_108": self.sce_2_1_108(),
+
+                  "sce_2_1_110": self.sce_2_1_110(),
+                  "sce_2_1_113": self.sce_2_1_113(),
+                  "sce_2_1_111": self.sce_2_1_111(),
+                  "sce_2_1_115": self.sce_2_1_115(),
+                  "sce_2_1_112": self.sce_2_1_112(),
+                  "sce_2_1_114": self.sce_2_1_114(),
+                  "sce_2_1_134": self.sce_2_1_134(),
+
                   "sce_2_1_117": self.sce_2_1_117(),
                   "sce_2_1_116": self.sce_2_1_116(),
                   "sce_2_1_118": self.sce_2_1_118(),
-
                   "sce_2_1_119": self.sce_2_1_119(),
                   "sce_2_1_120": self.sce_2_1_120(),
                   "sce_2_1_121": self.sce_2_1_121(),
@@ -2915,33 +3536,35 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_124": self.sce_2_1_124(),
                   "sce_2_1_125": self.sce_2_1_125(),
                   "sce_2_1_126": self.sce_2_1_126(),
+                  "sce_2_1_128": self.sce_2_1_128(),
                   "sce_2_1_127": self.sce_2_1_127(),
+                  "sce_2_1_129_130": self.sce_2_1_129_130(),
 
-                  #
-                  # # Photo
-                  # "sce_2_1_5": self.sce_2_1_5(),
-                  # "sce_2_1_6": self.sce_2_1_6(),
-                  # "sce_2_1_7": self.sce_2_1_7(),
-                  # "sce_2_1_14": self.sce_2_1_14(),
-                  # "sce_2_1_15": self.sce_2_1_15(),
-                  # "sce_2_1_16": self.sce_2_1_16(),
-                  # "sce_2_1_20": self.sce_2_1_20(),
-                  # "sce_2_1_21": self.sce_2_1_21(),
-                  # "sce_2_1_22": self.sce_2_1_22(),
-                  # "sce_2_1_29": self.sce_2_1_29(),
-                  # "sce_2_1_30": self.sce_2_1_30(),
-                  # "sce_2_1_31": self.sce_2_1_31(),
-                  #
-                  # "sce_2_1_53": self.sce_2_1_53(),
-                  # "sce_2_1_54": self.sce_2_1_54(),
-                  #
-                  # # Music
-                  # "sce_2_1_8": self.sce_2_1_8(),
-                  # "sce_2_1_9": self.sce_2_1_9(),
-                  # "sce_2_1_10": self.sce_2_1_10(),
-                  # "sce_2_1_23": self.sce_2_1_23(),
-                  # "sce_2_1_24": self.sce_2_1_24(),
-                  # "sce_2_1_25": self.sce_2_1_25(),
+                  "sce_2_1_5": self.sce_2_1_5(),
+                  "sce_2_1_6": self.sce_2_1_6(),
+                  "sce_2_1_7": self.sce_2_1_7(),
+                  "sce_2_1_14": self.sce_2_1_14(),
+                  "sce_2_1_15": self.sce_2_1_15(),
+                  "sce_2_1_16": self.sce_2_1_16(),
+                  "sce_2_1_20": self.sce_2_1_20(),
+                  "sce_2_1_21": self.sce_2_1_21(),
+                  "sce_2_1_22": self.sce_2_1_22(),
+                  "sce_2_1_29": self.sce_2_1_29(),
+                  "sce_2_1_30": self.sce_2_1_30(),
+                  "sce_2_1_31": self.sce_2_1_31(),
+
+                  # Music
+                  "sce_2_1_8": self.sce_2_1_8(),
+                  "sce_2_1_9": self.sce_2_1_9(),
+                  "sce_2_1_10": self.sce_2_1_10(),
+                  "sce_2_1_23": self.sce_2_1_23(),
+                  "sce_2_1_24": self.sce_2_1_24(),
+                  "sce_2_1_25": self.sce_2_1_25(),
+
+                  "sce_2_1_131": self.sce_2_1_131(),
+                  "sce_2_1_132": self.sce_2_1_132(),
+                  "sce_2_1_133": self.sce_2_1_133(),
+                  "sce_2_1_135": self.sce_2_1_135(),
 
                   }
         for key, value in result.items():

@@ -1395,14 +1395,15 @@ class EditPage(BasePage):
         logger(f"Didn't find {name} element")
         return False
 
-    def h_set_slider(self, percentage, offset=0.055):  # percentage: 0~1  ex: 0.5
-        slider = self.h_get_element(L.edit.color_sub.adjust_sub.progress).rect
-        width = slider["width"]
-        offset_width = width - 2 * width * offset
-        start_x = slider["x"] + width * offset
+    def h_set_slider(self, percentage, slider_draggable_offset=664/762):  # percentage: 0~1  ex: 0.5
+        slider = self.h_get_element(L.edit.timeline.slider).rect
+        slider_width = slider["width"]
+        slider_range = round(slider_width * slider_draggable_offset)
+        slider_unit = round((slider_width - slider_range)/2)
+        start_x = slider['x'] + slider_unit
         y = slider["y"] + slider["height"] / 2
-        end_x = start_x + percentage * offset_width
-        self.h_tap(end_x, y)
+        x = int(start_x + slider_range * percentage)
+        self.h_tap(x, y)
         return True
 
     def get_opacity_value(self):

@@ -279,8 +279,8 @@ class Timeline:
     trim_indicator = id("btn_trim_indicator")
     track = ("xpath", '//*[contains(@resource-id,"track_content")]')
     skin_smoothener = id("skin_smooth_effect")
-    # playhead_timecode = id('timeline_playhead_label')
-    playhead_timecode = id('timeline_ruler')
+    playhead_timecode = id('timeline_playhead_label')
+    # playhead_timecode = id('timeline_ruler')
     track_content = id('track_content')
     item_view_title = id('item_view_title')
     timecode = id("timeline_playhead_label")
@@ -711,12 +711,6 @@ class Fit_And_Fill():
     blur_slider = id('adjustable_parameter_seek_bar')
     blur_text = id('adjustTextNow')
 
-    @staticmethod
-    def card_color(index=1):
-        if index == 0:
-            return xpath(f'//*[contains(@resource-id,"card_color")]')
-        else:
-            return xpath(f'(//*[contains(@resource-id,"card_color")])[{index}]')
 
 
 class Background:
@@ -728,9 +722,10 @@ class Background:
     list_background_color = id('list_background_color')
     color_picker = id('applied_color')
     list_background_pattern = id('list_background_pattern')
-    pattern_layout = id('pattern_layout')
     blur_slider = id('adjustable_parameter_seek_bar')
     blur_text = id('adjustTextNow')
+    try_icon = xpath('//*[contains(@resource-id,"try_icon")]')
+    download_icon = id("download_icon")
 
     @staticmethod
     def card_color(index=1):
@@ -738,6 +733,13 @@ class Background:
             return xpath(f'//*[contains(@resource-id,"card_color")]')
         else:
             return xpath(f'(//*[contains(@resource-id,"card_color")])[{index}]')
+
+    @staticmethod
+    def pattern_layout(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"pattern_layout")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"pattern_layout")])[{index}]')
 
 class Replace():
     btn_replace_anyway = id('replace_text_view')
