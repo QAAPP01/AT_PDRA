@@ -91,6 +91,7 @@ class Test_SFT_Scenario_02_01:
 
         import datetime
         dt = datetime.datetime.today()
+        global default_project_name
         default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
         self.page_main.enter_launcher()
 
@@ -758,7 +759,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] progress_bar: {progress_bar}, ad:{ad}'
+                fail_log = f'\n[Fail] progress_bar:{progress_bar}, ad:{ad}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -933,14 +934,17 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
-    def sce_2_1_57_to_61(self):
-        # Skip, merge to sce_2.33
+    def sce_2_1_skip(self):
+        # Skip
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.add_result('300efe76-5d15-4f53-821f-9d0ce6f859d2', None, 'N/A', 'merge to sce_2.33')
-        self.report.add_result('72409732-13c5-4490-a1a9-3bd1d6ba34db', None, 'N/A', 'merge to sce_2.33')
-        self.report.add_result('ec404b31-1e27-47c4-9092-355fc4a2401a', None, 'N/A', 'merge to sce_2.33')
-        self.report.add_result('4dc86868-4e85-4809-8d36-f3d35bff2496', None, 'N/A', 'merge to sce_2.33')
-        self.report.add_result('32448a26-3bea-41ef-b1c4-352715ee44d6', None, 'N/A', 'merge to sce_2.33')
+
+        self.report.add_result('bca3a613-0136-4e50-bed8-d3bcaa2916dc', None, 'N/A', 'merge to sce_2.2')     # 2.1.53, merge to sce_2.2
+        self.report.add_result('4c4e9e25-e039-4899-a165-1e18c39db2bd', None, 'N/A', 'merge to sce_2.2')     # 2.1.54, merge to sce_2.2
+        self.report.add_result('300efe76-5d15-4f53-821f-9d0ce6f859d2', None, 'N/A', 'merge to sce_2.33')    # 2.1.57, merge to sce_2.33
+        self.report.add_result('72409732-13c5-4490-a1a9-3bd1d6ba34db', None, 'N/A', 'merge to sce_2.33')    # 2.1.58, merge to sce_2.33
+        self.report.add_result('ec404b31-1e27-47c4-9092-355fc4a2401a', None, 'N/A', 'merge to sce_2.33')    # 2.1.59, merge to sce_2.33
+        self.report.add_result('4dc86868-4e85-4809-8d36-f3d35bff2496', None, 'N/A', 'merge to sce_2.33')    # 2.1.60, merge to sce_2.33
+        self.report.add_result('32448a26-3bea-41ef-b1c4-352715ee44d6', None, 'N/A', 'merge to sce_2.33')    # 2.1.61, merge to sce_2.33
         return "N/A"
 
     def sce_2_1_64(self):
@@ -967,7 +971,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1018,7 +1022,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1069,7 +1073,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1097,7 +1101,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1148,7 +1152,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1199,7 +1203,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1227,7 +1231,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1278,7 +1282,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1329,7 +1333,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1357,7 +1361,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1408,7 +1412,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1459,7 +1463,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1487,7 +1491,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1538,7 +1542,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1589,7 +1593,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1617,7 +1621,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1668,7 +1672,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1719,7 +1723,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1775,7 +1779,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1830,7 +1834,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1881,7 +1885,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1932,7 +1936,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -1978,7 +1982,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2027,7 +2031,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2076,7 +2080,9 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.page_edit.click_sub_option_tool("Remove")
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2090,7 +2096,6 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.click_sub_option_tool("Remove")
             self.page_media.add_master_media("photo", self.test_material_folder, "photo.jpg")
             self.click(L.edit.timeline.master_photo("photo.jpg"))
             global pic_no_skin
@@ -2131,7 +2136,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2182,7 +2187,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2233,7 +2238,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2279,7 +2284,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2328,7 +2333,7 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2377,7 +2382,33 @@ class Test_SFT_Scenario_02_01:
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
+                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_134(self):
+        try:
+            uuid = '1cccd2a9-0e20-4988-95a9-cda0dabef154'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            self.click(L.edit.menu.undo)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "100":
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Undo fail'
+
+            self.page_edit.click_sub_option_tool("Remove")
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -2391,7 +2422,6 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.click_sub_option_tool("Remove")
             self.page_media.add_master_media("photo", self.test_material_folder, "9_16.jpg")
             self.click(L.edit.timeline.master_photo("9_16.jpg"))
             self.page_edit.click_sub_tool("Fit & Fill")
@@ -2780,10 +2810,13 @@ class Test_SFT_Scenario_02_01:
 
             while not free_flag or not paid_flag:
                 for i in range(len(cards)):
-                    if self.page_main.h_is_child_id_exist(cards[i], L.edit.background.try_icon) and not paid_flag:
-                        result_130 = sce_2_1_130(i)
-                        paid_flag = 1
-                        cards = self.elements(L.edit.background.pattern_layout(0))
+                    if free_flag and paid_flag:
+                        break
+                    if self.page_main.h_is_child_id_exist(cards[i], L.edit.background.try_icon):
+                        if not paid_flag:
+                            result_130 = sce_2_1_130(i)
+                            paid_flag = 1
+                            cards = self.elements(L.edit.background.pattern_layout(0))
                     elif not free_flag:
                         result_129 = sce_2_1_129(i)
                         free_flag = 1
@@ -2801,75 +2834,74 @@ class Test_SFT_Scenario_02_01:
 
             self.click(L.edit.sub_tool_menu.back)
             self.click(L.edit.try_before_buy.try_it)
-            self.click(L.edit.sub_tool_menu.back)
-            self.click(L.edit.sub_tool_menu.back)
+
             return "PASS" if result_129 and result_130 else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
             return "ERROR"
 
-    def sce_2_1_53(self):
-        # executed in test_aPDR_SFT_scenario_02_02
-        pass
-        try:
-            uuid = 'bca3a613-0136-4e50-bed8-d3bcaa2916dc'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            self.page_media.add_master_media('photo', self.test_material_folder, 'photo.jpg')
-            self.click(L.edit.timeline.master_clip)
-            self.page_edit.click_sub_tool("Adjustment")
-            self.page_edit.click_sub_option_tool("Sharpness")
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "0"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_53.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_54(self):
-        try:
-            uuid = '4c4e9e25-e039-4899-a165-1e18c39db2bd'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "200"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_54.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value: {result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+    # def sce_2_1_53(self):
+    #     # executed in test_aPDR_SFT_scenario_02_02
+    #     pass
+    #     try:
+    #         uuid = 'bca3a613-0136-4e50-bed8-d3bcaa2916dc'
+    #         logger(f"\n[Start] {inspect.stack()[0][3]}")
+    #         self.report.start_uuid(uuid)
+    #
+    #         self.page_media.add_master_media('photo', self.test_material_folder, 'photo.jpg')
+    #         self.click(L.edit.timeline.master_clip)
+    #         self.page_edit.click_sub_tool("Adjustment")
+    #         self.page_edit.click_sub_option_tool("Sharpness")
+    #         value = self.element(L.edit.timeline.slider_value).text
+    #         result_value = value == "0"
+    #
+    #         pic_tgt = self.page_main.get_preview_pic()
+    #         pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_53.png')
+    #
+    #         result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
+    #
+    #         if result_value and result_preview:
+    #             result = True
+    #             fail_log = None
+    #         else:
+    #             result = False
+    #             fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+    #
+    #         self.report.new_result(uuid, result, fail_log=fail_log)
+    #         return "PASS" if result else "FAIL"
+    #     except Exception as err:
+    #         logger(f"[Error] {err}")
+    #         return "ERROR"
+    #
+    # def sce_2_1_54(self):
+    #     try:
+    #         uuid = '4c4e9e25-e039-4899-a165-1e18c39db2bd'
+    #         logger(f"\n[Start] {inspect.stack()[0][3]}")
+    #         self.report.start_uuid(uuid)
+    #
+    #         rect = self.element(L.edit.timeline.slider).rect
+    #         end_x = rect["x"] + rect["width"]
+    #         self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+    #         value = self.element(L.edit.timeline.slider_value).text
+    #         result_value = value == "200"
+    #
+    #         pic_tgt = self.page_main.get_preview_pic()
+    #         pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_54.png')
+    #
+    #         result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
+    #
+    #         if result_value and result_preview:
+    #             result = True
+    #             fail_log = None
+    #         else:
+    #             result = False
+    #             fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+    #
+    #         self.report.new_result(uuid, result, fail_log=fail_log)
+    #         return "PASS" if result else "FAIL"
+    #     except Exception as err:
+    #         logger(f"[Error] {err}")
+    #         return "ERROR"
 
     def sce_2_1_5(self):
         try:
@@ -3280,6 +3312,107 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
+    def sce_2_1_131(self):
+        try:
+            uuid = '1f282e0d-52ca-4dd5-8f58-901afba122e7'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            for i in range(4):
+                if self.click(L.edit.tool_menu.back, timeout=0.1):
+                    continue
+                else:
+                    break
+
+            if self.is_exist(L.edit.preview.watermark):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] cannot find the watermark'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_132(self):
+        try:
+            uuid = '666bb375-a688-4f90-9dc1-535a374ad165'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            pic_src = self.page_main.get_preview_pic()
+            self.click(L.edit.menu.play)
+            time.sleep(10)
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Images are the same'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_133(self):
+        try:
+            uuid = 'd21dac5a-a1a4-46e6-a587-1c14512a663c'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            if self.is_exist(L.edit.timeline.playhead_timecode):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] Cannot find the timecode'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
+    def sce_2_1_135(self):
+        try:
+            uuid = '1cccd2a9-0e20-4988-95a9-cda0dabef154'
+            func_name = inspect.stack()[0][3]
+            logger(f"\n[Start] {func_name}")
+            case_id = func_name.split("sce_")[1]
+            self.report.start_uuid(uuid)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+
+            if self.page_main.enter_timeline(default_project_name):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Cannot find timeline canvas'
+
+            self.page_edit.click_sub_option_tool("Remove")
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
+
     @report.exception_screenshot
     def test_sce_2_1_1_to_135(self):
         result = {"sce_2_1_1": self.sce_2_1_1(),
@@ -3321,7 +3454,7 @@ class Test_SFT_Scenario_02_01:
                   # "sce_2_1_51": self.sce_2_1_51(),
                   # "sce_2_1_52": self.sce_2_1_52(),
 
-                  "sce_2_1_57_to_61": self.sce_2_1_57_to_61(),
+                  "sce_2_1_skip": self.sce_2_1_skip(),
 
                   "sce_2_1_64": self.sce_2_1_64(),
                   "sce_2_1_62": self.sce_2_1_62(),
@@ -3376,6 +3509,7 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_100": self.sce_2_1_100(),
                   "sce_2_1_102": self.sce_2_1_102(),
 
+                  # Photo
                   "sce_2_1_104": self.sce_2_1_104(),
                   "sce_2_1_107": self.sce_2_1_107(),
                   "sce_2_1_105": self.sce_2_1_105(),
@@ -3389,6 +3523,7 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_115": self.sce_2_1_115(),
                   "sce_2_1_112": self.sce_2_1_112(),
                   "sce_2_1_114": self.sce_2_1_114(),
+                  "sce_2_1_134": self.sce_2_1_134(),
 
                   "sce_2_1_117": self.sce_2_1_117(),
                   "sce_2_1_116": self.sce_2_1_116(),
@@ -3405,7 +3540,6 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_127": self.sce_2_1_127(),
                   "sce_2_1_129_130": self.sce_2_1_129_130(),
 
-                  # Photo
                   "sce_2_1_5": self.sce_2_1_5(),
                   "sce_2_1_6": self.sce_2_1_6(),
                   "sce_2_1_7": self.sce_2_1_7(),
@@ -3419,9 +3553,6 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_30": self.sce_2_1_30(),
                   "sce_2_1_31": self.sce_2_1_31(),
 
-                  "sce_2_1_53": self.sce_2_1_53(),
-                  "sce_2_1_54": self.sce_2_1_54(),
-
                   # Music
                   "sce_2_1_8": self.sce_2_1_8(),
                   "sce_2_1_9": self.sce_2_1_9(),
@@ -3429,6 +3560,11 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_23": self.sce_2_1_23(),
                   "sce_2_1_24": self.sce_2_1_24(),
                   "sce_2_1_25": self.sce_2_1_25(),
+
+                  "sce_2_1_131": self.sce_2_1_131(),
+                  "sce_2_1_132": self.sce_2_1_132(),
+                  "sce_2_1_133": self.sce_2_1_133(),
+                  "sce_2_1_135": self.sce_2_1_135(),
 
                   }
         for key, value in result.items():
