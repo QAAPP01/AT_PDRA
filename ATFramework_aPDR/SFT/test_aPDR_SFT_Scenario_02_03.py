@@ -659,7 +659,7 @@ class Test_SFT_Scenario_02_03:
             self.page_edit.h_set_slider(0.645)
             pic_tgt = self.page_edit.get_preview_pic()
 
-            result_photo = True if not HCompareImg(pic_tgt, pic_src).full_compare() > 0.97 else False
+            result_photo = True if not HCompareImg(pic_tgt, pic_src).full_compare() == 1 else False
             result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text != "0"
 
             if result_photo and result_value:

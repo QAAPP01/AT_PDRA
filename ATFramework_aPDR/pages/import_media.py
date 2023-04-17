@@ -56,9 +56,11 @@ class MediaPage(BasePage):
             if media_type not in ['Video', 'Photo']:
                 media_type = None
 
-            if not self.page_edit.click_tool(media_type):
-                logger('[FAIL] Cannot enter media room')
+            if not self.page_edit.click_tool("Media"):
                 return False
+            else:
+                if not self.h_click(find_string(media_type)):
+                    return False
             if folder and file_name:
                 if media_type == 'Video':
                     self.select_local_video(folder, file_name)
@@ -69,7 +71,7 @@ class MediaPage(BasePage):
             return True
 
         except Exception as err:
-            logger(f'[ERROR] {err}')
+            logger(f'\n[ERROR] {err}')
 
     def select_local_video(self, folder, file_name):
         try:

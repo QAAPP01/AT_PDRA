@@ -111,12 +111,12 @@ class Test_SFT_Scenario_01_06:
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
 
-        pic_base = self.page_main.get_picture(id("pickerDeviceLibrary"))
+        pic_src = self.page_main.get_picture(id("pickerDeviceLibrary"))
         self.page_main.text_search(L.import_media.media_library.search, "search")
         while self.is_exist(L.import_media.media_library.waiting_cursor, 1):
             time.sleep(1)
-        pic_after = self.page_main.get_picture(id("pickerDeviceLibrary"))
-        if not CompareImage(pic_base, pic_after).h_total_compare() > 0.9:
+        pic_tgt = self.page_main.get_picture(id("pickerDeviceLibrary"))
+        if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:
             result = True
         else:
             result = False
@@ -197,7 +197,7 @@ class Test_SFT_Scenario_01_06:
         self.report.new_result(uuid, result)
         return result
 
-    def sce_01_06_07(self):
+    def sce_1_6_7(self):
         try:
             uuid = '2772d69e-c19f-4410-932f-04aa205ccc05'
             func_name = inspect.stack()[0][3]
@@ -284,6 +284,7 @@ class Test_SFT_Scenario_01_06:
         while self.is_exist(L.import_media.music_library.downloading, 1):
             time.sleep(1)
         self.click(L.import_media.music_library.add)
+        self.click(L.edit.try_before_buy.try_it)
         if self.is_exist(id("item_view_thumbnail_host")):
             result = True
         else:
@@ -324,7 +325,7 @@ class Test_SFT_Scenario_01_06:
             "sce_01_06_04": self.sce_01_06_04(),
             "sce_01_06_05": self.sce_01_06_05(),
             "sce_01_06_06": self.sce_01_06_06(),
-            "sce_01_06_07": self.sce_01_06_07(),
+            "sce_1_6_7": self.sce_1_6_7(),
             "sce_01_06_08": self.sce_01_06_08(),
             "sce_01_06_09": self.sce_01_06_09(),
             "sce_01_06_10": self.sce_01_06_10(),

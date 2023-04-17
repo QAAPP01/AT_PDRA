@@ -17,7 +17,7 @@ class Menu:
     settings = id('btn_setting')
     produce = aid("[AID]TimeLine_Save")
     timeline_setting = aid("[AID]TimeLine_Setting")
-    undo = aid("[AID]TimeLine_Undo")
+    undo = id("btn_undo")
     play = aid("[AID]TimeLine_Play")
     # edit = id("btn_edit_img") # after select video
     edit = id("btn_session_edit")

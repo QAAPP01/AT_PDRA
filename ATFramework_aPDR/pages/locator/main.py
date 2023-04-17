@@ -59,6 +59,34 @@ class Project_Info():
     btn_back = aid('[AID]SelectProject_Back')
 
 
+class AiEffect:
+    ai_effect_entry = id("ai_template_entry")
+    library_title = id("top_toolbar_title")
+    back = id("top_toolbar_back")
+    try_now = id("btn_try_now")
+
+    @staticmethod
+    def template(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"ai_template_image_view")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"ai_template_image_view")])[{index}]')
+
+    @staticmethod
+    def template_duration(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"template_duration_text")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"template_duration_text")])[{index}]')
+
+    @staticmethod
+    def template_clip_number(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"video_template_clip_count_text")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"video_template_clip_count_text")])[{index}]')
+
+
 class Menu:
     menu = xpath('//*[contains(@resource-id,"iv_menu")][1]')
     back = id("iv_back")
@@ -197,3 +225,4 @@ class Interface():
     sample_projects = Sample_Projects()
     gamification = Gamification()
     premium = Premium()
+    ai_effect = AiEffect

@@ -245,11 +245,14 @@ class HCompareImg(object):
         :Author: Hausen
         """
 
-        path = r"C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material"
-        if path in self.image_1_path:
-            self.copy_file(self.image_2_path, self.image_1_path)
-        elif path in self.image_2_path:
-            self.copy_file(self.image_1_path, self.image_2_path)
+        # Copy file
+        copy_file = False
+        if copy_file:
+            path = r"C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material"
+            if path in self.image_1_path:
+                self.copy_file(self.image_2_path, self.image_1_path)
+            elif path in self.image_2_path:
+                self.copy_file(self.image_1_path, self.image_2_path)
 
         try:
             image_1 = cv2.imread(self.image_1_path)

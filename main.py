@@ -18,8 +18,8 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = 'TR230330-015'
-previous_tr_number = 'TR230329-015'  # Please update build version info manually
+tr_number = 'TR230414-018'
+previous_tr_number = 'TR230411-009'  # Please update build version info manually
 sr_number = 'DRA230308-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
@@ -35,7 +35,7 @@ test_case_main_file = 'main.py'
 report_list = []
 
 # [Auto Download The Newest Build]
-auto_download = False
+auto_download = True
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 if __name__ == '__main__':
     if auto_download:
@@ -105,7 +105,7 @@ os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  v
     1].split(' ')[0]
 
 # [Report Mail Setting]
-send = False
+send = True
 title_project = 'aPDR'
 receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
             "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]

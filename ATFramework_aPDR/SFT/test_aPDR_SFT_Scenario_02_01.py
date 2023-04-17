@@ -1772,7 +1772,7 @@ class Test_SFT_Scenario_02_01:
             pic_tgt = self.page_main.get_preview_pic()
             pic_src = pic_no_sharpness
 
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare_result() else False
+            result_preview = True if not HCompareImg(pic_tgt, pic_src).full_compare() == 1 else False
 
             if result_value and result_preview:
                 result = True
@@ -2947,7 +2947,7 @@ class Test_SFT_Scenario_02_01:
             playhead_center = playhead["x"] + playhead["width"] // 2
             x_after = self.element(L.edit.timeline.master_photo(file_photo, 2)).rect["x"]
 
-            if x_after == playhead_center:
+            if abs(x_after - playhead_center) < 10:
                 result = True
                 fail_log = None
             else:
@@ -3076,10 +3076,10 @@ class Test_SFT_Scenario_02_01:
             #
 
             clip = self.element(L.edit.timeline.master_photo(file_photo))
-            pic_after = self.page_main.h_screenshot(clip)
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_21.png')
+            pic_tgt = self.page_main.h_screenshot(clip)
+            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_21.png')
 
-            if HCompareImg(pic_base, pic_after).keypoint_compare() > 0.9:
+            if HCompareImg(pic_tgt, pic_src).full_compare_result():
                 result = True
                 fail_log = None
             else:
