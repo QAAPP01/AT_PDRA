@@ -94,12 +94,13 @@ class Test_SFT_Scenario_01_05:
             time.sleep(1)
 
         if self.is_exist(L.import_media.media_library.Video.display_preview):
-            self.driver.driver.back()
             result = True
             fail_log = None
         else:
             result = False
-            fail_log = '\n[Fail] id "videoDisplay" is not exist'
+            fail_log = '\n[Fail] id "display_preview" is not exist'
+
+        self.driver.driver.back()
 
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
@@ -114,12 +115,13 @@ class Test_SFT_Scenario_01_05:
             time.sleep(1)
 
         if self.is_exist(L.import_media.media_library.Video.display_preview):
-            self.driver.driver.back()
             result = True
             fail_log = None
         else:
             result = False
-            fail_log = '\n[Fail] id "videoDisplay" is not exist'
+            fail_log = '\n[Fail] id "display_preview" is not exist'
+
+        self.driver.driver.back()
 
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
@@ -129,42 +131,16 @@ class Test_SFT_Scenario_01_05:
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library("shutterstock")
-        self.click(L.import_media.media_library.btn_preview())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
-
-        if self.is_exist(L.import_media.media_library.Video.display_preview):
-            self.driver.driver.back()
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] id "videoDisplay" is not exist'
-
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+        self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+        return 'N/A'
 
     def sce_1_5_4(self):
         uuid = '5e99435d-14bd-484e-8384-ba2bf5276c94'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library("shutterstock")
-        self.long_press(L.import_media.media_library.media())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
-
-        if self.is_exist(L.import_media.media_library.Video.display_preview):
-            self.driver.driver.back()
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] id "videoDisplay" is not exist'
-
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+        self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+        return 'N/A'
 
     def sce_1_5_5(self):
         uuid = '9b1af418-19cd-4ae0-81c6-a40da8c8ec84'
@@ -275,7 +251,7 @@ class Test_SFT_Scenario_01_05:
         self.page_media.select_video_library("giphy")
         self.long_press(L.import_media.media_library.media())
 
-        if not self.is_exist(L.import_media.media_library.Video.display_preview):
+        if not self.is_exist(id("videoDisplay")):
             result = True
             fail_log = None
         else:
@@ -295,7 +271,7 @@ class Test_SFT_Scenario_01_05:
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
 
-        if self.is_exist(L.import_media.media_library.Video.display_preview):
+        if self.is_exist(id("videoDisplay")):
             self.driver.driver.back()
             result = True
             fail_log = None
@@ -316,7 +292,7 @@ class Test_SFT_Scenario_01_05:
         while self.is_exist(L.import_media.media_library.loading_circle, 1):
             time.sleep(1)
 
-        if self.is_exist(L.import_media.media_library.Video.display_preview):
+        if self.is_exist(id("videoDisplay")):
             result = True
             fail_log = None
         else:

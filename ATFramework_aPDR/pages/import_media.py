@@ -153,6 +153,23 @@ class MediaPage(BasePage):
         except Exception as err:
             logger(f'\n[Error] {err}')
 
+    def waiting_download(self):
+        for i in range(60):
+            if self.h_is_exist(L.main.ai_effect.downloading):
+                time.sleep(1)
+            else:
+                return True
+        logger("[Warning] downloading timeout")
+        return False
+
+    def waiting_loading(self):
+        for i in range(60):
+            if self.h_is_exist(L.import_media.media_library.loading_circle):
+                time.sleep(1)
+            else:
+                return True
+        logger("[Warning] loading timeout")
+        return False
 
     def import_last_folder(self):
         logger ("start >> import_last_folder <<")

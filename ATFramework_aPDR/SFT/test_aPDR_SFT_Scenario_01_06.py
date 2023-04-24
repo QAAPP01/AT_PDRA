@@ -113,8 +113,6 @@ class Test_SFT_Scenario_01_06:
 
         pic_src = self.page_main.get_picture(id("pickerDeviceLibrary"))
         self.page_main.text_search(L.import_media.media_library.search, "search")
-        while self.is_exist(L.import_media.media_library.waiting_cursor, 1):
-            time.sleep(1)
         pic_tgt = self.page_main.get_picture(id("pickerDeviceLibrary"))
         if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:
             result = True

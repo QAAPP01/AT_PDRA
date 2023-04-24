@@ -1,6 +1,8 @@
 import sys, time, os
+from telnetlib import EC
 
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.wait import WebDriverWait
 
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
@@ -30,78 +32,55 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def enter_launcher(self):
-        # logger("[Start] enter_launcher")
         try:
             # 1st Launch
+            target_activity = 'com.cyberlink.powerdirector.project2.Project2Activity'
             if self.h_click(L.main.permission.gdpr_accept, timeout=0.5):
-                # logger("\n[Info] 1st Launch")
-                if self.h_is_exist(L.main.permission.loading_bar):
+                if self.driver.driver.current_activity != target_activity:
                     # Loading
-                    while self.h_is_exist(L.main.permission.loading_bar, timeout=0.5):
-                        continue
+                    flag_activity = 1
+                    for i in range(60):
+                        if self.driver.driver.current_activity == target_activity:
+                            flag_activity = 0
+                            break
+                        else:
+                            flag_activity = 1
+                            time.sleep(1)
+                    if flag_activity:
+                        logger("\n[Fail] Enter Launcher Fail")
+                        return False
+                    else:
+                        # IAP
+                        self.h_click(L.main.premium.iap_back)
 
-                    # IAP
-                    self.h_click(L.main.premium.iap_back)
+                        # # Churn Recovery
+                        # if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
+                        #     self.driver.driver.back()
 
-                    # # Churn Recovery
-                    # if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
-                    #     self.driver.driver.back()
-
-                    # Done
-                    logger("[Done] Enter Launcher")
-                    return True
-
-                else:
-                    print("\n[Fail] Enter Launcher Fail")
-                    return False
-
-            else:
-                if self.h_is_exist(L.main.permission.loading_bar, timeout=0.5):
-                    # logger("\n[Info] Loading")
-                    # Loading
-                    while self.h_is_exist(L.main.permission.loading_bar, timeout=0.5):
-                        continue
-
-                # 2nd Launch
-                if self.h_click(L.main.tutorials.close_open_tutorial, timeout=0.2):
-                    # logger("\n[Info] 2nd Launch")
-
-                    # IAP
-                    self.h_click(L.main.premium.iap_back)
-
-                    # # Churn Recovery
-                    # if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
-                    #     self.driver.driver.back()
-
-                    # Done
-                    logger("[Done] Enter Launcher")
-                    return True
-
-                # 3rd Launch
-                else:
-                    # logger("\n[Info] 3rd Launch")
-
-                    # IAP
-                    if self.h_click(L.main.premium.iap_back, timeout=0.2):
-                        pass
-                    # else:
-                    # logger("\n[Skip] IAP")
-
-                    # Churn Recovery
-                    if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
-                        self.driver.driver.back()
-                        # Done
                         logger("[Done] Enter Launcher")
                         return True
-                    # else:
-                    # logger("\n[Skip] Churn Recovery")
-
-                    # Check in
-                    self.h_click(L.main.gamification.check_in_later, timeout=0.2)
-
-                    # Done
-                    logger("[Done] Enter Launcher")
-                    return True
+            else:
+                opening_activity = "com.cyberlink.powerdirector.tutorial.OpenIntroActivity"
+                for i in range(60):
+                    current_activity = self.driver.driver.current_activity
+                    if current_activity == opening_activity:
+                        self.h_click(L.main.tutorials.close_open_tutorial)
+                        self.h_click(L.main.premium.iap_back)
+                        logger("[Done] Enter Launcher")
+                        return True
+                    elif current_activity == target_activity:
+                        if self.h_is_exist(L.main.tutorials.close_open_tutorial, 0.2):
+                            continue
+                        self.h_click(L.main.premium.iap_back, timeout=0.2)
+                        # Churn Recovery
+                        if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
+                            self.driver.driver.back()
+                        else:
+                            self.h_click(L.main.gamification.check_in_later, timeout=0.2)
+                        logger("[Done] Enter Launcher")
+                        return True
+                    else:
+                        time.sleep(1)
 
         except Exception as err:
             logger(f"[Error] {err}")

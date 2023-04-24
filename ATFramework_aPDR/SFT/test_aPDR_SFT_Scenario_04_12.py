@@ -106,7 +106,7 @@ class Test_SFT_Scenario_04_12:
             self.click(L.import_media.media_library.btn_preview())
             while self.is_exist(L.import_media.media_library.loading_circle, 1):
                 time.sleep(1)
-            rect = self.element(L.import_media.media_library.Video.display_preview).rect
+            rect = self.element(L.import_media.media_library.video.videoDisplay).rect
 
             if rect["height"] > rect["width"]:
                 self.driver.driver.back()

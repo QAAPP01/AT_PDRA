@@ -189,13 +189,15 @@ class Test_SFT_Scenario_01_01:
 
             self.click(L.edit.menu.delete)
             self.page_edit.click_tool("Edit")
+            toast_default = 'Insert at least one media file'
+            toast = self.element(xpath('/hierarchy/android.widget.Toast[1]')).text
 
-            if self.is_exist(find_string('Insert at least one media')):
+            if toast == toast_default:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = '\n[Fail] Cannot find the toast'
+                fail_log = f'\n[Fail] Toast incorrect: {toast}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -215,12 +217,15 @@ class Test_SFT_Scenario_01_01:
             self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'right')
             self.page_edit.click_tool("Edit")
 
-            if self.is_exist(find_string('Add a media at this time slot to edit')):
+            toast_default = 'Add a media at this time slot to edit'
+            toast = self.element(xpath('/hierarchy/android.widget.Toast[1]')).text
+
+            if toast == toast_default:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = '\n[Fail] Cannot find the toast'
+                fail_log = f'\n[Fail] Toast incorrect: {toast}'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"

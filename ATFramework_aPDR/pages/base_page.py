@@ -845,6 +845,11 @@ class BasePage(BasePage):
             element.click()
             element.send_keys(text)
             self.driver.driver.press_keycode(66)
+            for i in range(60):
+                if self.h_is_exist(L.import_media.media_library.waiting_cursor, 1):
+                    time.sleep(1)
+                else:
+                    break
             return True
         except Exception as err:
             logger(f"[Error] {err}")

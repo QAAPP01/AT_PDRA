@@ -6,9 +6,9 @@ class MediaLibrary:
     back_landscape = id("library_menu_back")
     video_library = id("video_switch")
     photo_library = id("photo_switch")
+    color_board = id("color_board_switch")
     search = id("searchText")
     waiting_cursor = id("waiting_cursor")  # waiting media refresh
-    downloading = id("loading_text")
     library_rooms = id('library_rooms')
     frame = id("pickerDeviceLibrary")
     library_recycler_gridview = id('library_recycler_gridview')
@@ -38,10 +38,12 @@ class MediaLibrary:
     icon_try_sticker = id('library_unit_lock')
     btn_stock_filter = id('btn_sort_order')
     loading_circle = id('loading') # preview loading
+    downloading = id("download_progress_bar")
     library_unit_sound_fx_icon = id('library_unit_sound_fx_icon')  # Sound Title
     library_unit_layout = id('library_unit_layout')
     library_tabs_content = id('library_tabs_content')
     creator_page = id("creatorWebsiteButton")
+    next = id("mediaPickerClipSelectionOK")
 
 
 
@@ -103,7 +105,8 @@ class MediaLibrary:
         giphy = id('pickerGIPHY')
         pexels = id('pickerPexels')
         pixabay = id('pickerPixabay')
-        display_preview = id('videoDisplay')
+        display_preview = id('playerView')
+        videoDisplay = id("videoDisplay")
 
     class Photo:
         photo_capture = id('btn_camera')
@@ -115,6 +118,7 @@ class MediaLibrary:
         pexels = id('pickerPexels')
         pixabay = id('pickerPixabay')
         display_preview = id('imageDisplay')
+
 
     video = Video
     photo = Photo
@@ -178,6 +182,7 @@ class Menu():
             return xpath(f'//*[contains(@resource-id,"title_text")]')
         else:
             return xpath(f'(//*[contains(@resource-id,"title_text")])[{index}]')
+
 
 class SortMenu:
     sort_button = id("sort_button")

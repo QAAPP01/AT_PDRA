@@ -35,6 +35,7 @@ files_list = []
 project_name = ""
 clip_width = ""
 
+
 class Test_SFT_Scenario_01_03:
     @pytest.fixture(autouse=True)
     def initial(self):
@@ -307,28 +308,33 @@ class Test_SFT_Scenario_01_03:
         return "PASS" if result else "FAIL"
 
     def sce_01_03_11(self):
-        uuid = '6915774e-803f-4bdc-b3e2-801265ab092d'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        try:
+            uuid = '6915774e-803f-4bdc-b3e2-801265ab092d'
+            logger(f"\n[Start] {inspect.stack()[0][3]}")
+            self.report.start_uuid(uuid)
 
-        self.click(L.import_media.sort_menu.by_name)
-        self.click(L.import_media.sort_menu.descending)
-        self.driver.driver.back()
+            self.click(L.import_media.sort_menu.by_name)
+            self.click(L.import_media.sort_menu.descending)
+            self.driver.driver.back()
 
-        files_name = []
-        files = self.elements(L.import_media.media_library.file_name(0))
-        for i in files:
-            files_name.append(i.text)
-        file_name_order = sorted(files_name, reverse=True)
+            files_name = []
+            files = self.elements(L.import_media.media_library.file_name(0))
+            for i in files:
+                files_name.append(i.text)
+            file_name_order = sorted(files_name, reverse=True)
 
-        if file_name_order == files_name:
-            result = True
-        else:
-            result = False
-            logger(f'\n[Fail] files_name = {files_name}')
+            if file_name_order == files_name:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
 
-        self.report.new_result(uuid, result)
-        return "PASS" if result else "FAIL"
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return "ERROR"
 
     def sce_01_03_13(self):
         uuid = 'f94ff455-5b41-48e5-8fbb-ae82e1a0f06c'
@@ -629,34 +635,32 @@ class Test_SFT_Scenario_01_03:
 
     @report.exception_screenshot
     def test_sce_01_03_01_to_34(self):
-        try:
-            result = {
-                "sce_01_03_01": self.sce_01_03_01(),
-                "sce_01_03_02": self.sce_01_03_02(),
-                "sce_01_03_03": self.sce_01_03_03(),
-                "sce_01_03_04": self.sce_01_03_04(),
-                "sce_01_03_05": self.sce_01_03_05(),
-                "sce_01_03_06": self.sce_01_03_06(),
-                "sce_01_03_07": self.sce_01_03_07(),
-                "sce_01_03_08": self.sce_01_03_08(),
-                "sce_01_03_09": self.sce_01_03_09(),
-                "sce_01_03_10": self.sce_01_03_10(),
-                "sce_01_03_11": self.sce_01_03_11(),
-                "sce_01_03_13": self.sce_01_03_13(),
-                "sce_01_03_14": self.sce_01_03_14(),
-                "sce_01_03_15": self.sce_01_03_15(),
-                "sce_01_03_12": self.sce_01_03_12(),
-                "sce_01_03_16": self.sce_01_03_16(),
-                "sce_01_03_17": self.sce_01_03_17(),
-                "sce_01_03_18": self.sce_01_03_18(),
-                "sce_01_03_19": self.sce_01_03_19(),
-                "sce_01_03_20": self.sce_01_03_20(),
-                "sce_01_03_21": self.sce_01_03_21(),
-                "sce_01_03_22": self.sce_01_03_22(),
-                "sce_01_03_23": self.sce_01_03_23(),
-                "sce_01_03_24": self.sce_01_03_24(),
-                "sce_01_03_34": self.sce_01_03_34()
-            }
-            pprint(result)
-        except Exception as err:
-            logger(f'[Error] {err}')
+        result = {"sce_01_03_01": self.sce_01_03_01(),
+                  "sce_01_03_02": self.sce_01_03_02(),
+                  "sce_01_03_03": self.sce_01_03_03(),
+                  "sce_01_03_04": self.sce_01_03_04(),
+                  "sce_01_03_05": self.sce_01_03_05(),
+                  "sce_01_03_06": self.sce_01_03_06(),
+                  "sce_01_03_07": self.sce_01_03_07(),
+                  "sce_01_03_08": self.sce_01_03_08(),
+                  "sce_01_03_09": self.sce_01_03_09(),
+                  "sce_01_03_10": self.sce_01_03_10(),
+                  "sce_01_03_11": self.sce_01_03_11(),
+                  "sce_01_03_13": self.sce_01_03_13(),
+                  "sce_01_03_14": self.sce_01_03_14(),
+                  "sce_01_03_15": self.sce_01_03_15(),
+                  "sce_01_03_12": self.sce_01_03_12(),
+                  "sce_01_03_16": self.sce_01_03_16(),
+                  "sce_01_03_17": self.sce_01_03_17(),
+                  "sce_01_03_18": self.sce_01_03_18(),
+                  "sce_01_03_19": self.sce_01_03_19(),
+                  "sce_01_03_20": self.sce_01_03_20(),
+                  "sce_01_03_21": self.sce_01_03_21(),
+                  "sce_01_03_22": self.sce_01_03_22(),
+                  "sce_01_03_23": self.sce_01_03_23(),
+                  "sce_01_03_24": self.sce_01_03_24(),
+                  "sce_01_03_34": self.sce_01_03_34()
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")

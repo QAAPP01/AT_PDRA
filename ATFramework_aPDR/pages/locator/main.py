@@ -64,6 +64,14 @@ class AiEffect:
     library_title = id("top_toolbar_title")
     back = id("top_toolbar_back")
     try_now = id("btn_try_now")
+    premium = xpath(f'//android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView[contains(@resource-id,"premium_icon")]')
+    full_preview = id("ai_template_preview_card_view")
+    media_library = id("pickerDeviceLibrary")
+    toast = id("toast_text_hud")
+    downloading = id("download_progress_bar")
+    produce = id("iv_produce")
+    leave = id("exit_btn")
+    close = id("iv_close")
 
     @staticmethod
     def template(index=1):
