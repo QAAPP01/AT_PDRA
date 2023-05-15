@@ -85,78 +85,118 @@ class Test_SFT_Scenario_01_06:
         logger("\n[Stop] Teardown")
         self.driver.stop_driver()
 
-    def sce_01_06_01(self):
-        item_id = '01_06_01'
+    def sce_1_6_1(self):
         uuid = 'd013615b-af96-45e6-9131-ebb28cf4e62a'
-        logger(f"\n[Start] sce_{item_id}")
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        case_id = func_name.split("sce_")[1]
         self.report.start_uuid(uuid)
 
-        self.page_main.enter_launcher()
-        self.page_main.enter_timeline(skip_media=False)
-        self.page_media.select_photo_library("pixabay")
-        self.click(id("pixabayWebsiteBtn"))
-        if self.is_exist(find_string("pixabay.com")):
-            self.driver.driver.back()
-            result = True
-        else:
-            self.driver.driver.back()
-            result = False
-            logger('\n[Fail] Cannot find "pixabay.com"')
-        self.report.new_result(uuid, result)
-        return result
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_photo_library("pixabay")
+            self.click(id("pixabayWebsiteBtn"))
 
-    def sce_01_06_02(self):
-        item_id = '01_06_02'
+            if self.is_exist(find_string("pixabay.com")):
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Cannot find "pixabay.com"'
+
+            self.driver.driver.back()
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            self.report.new_result(uuid, False, fail_log="ERROR")
+            return "ERROR"
+
+    def sce_1_6_2(self):
         uuid = 'a7fe71e0-2d94-465d-82d6-0984681d921e'
-        logger(f"\n[Start] sce_{item_id}")
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        case_id = func_name.split("sce_")[1]
         self.report.start_uuid(uuid)
 
-        pic_src = self.page_main.get_picture(id("pickerDeviceLibrary"))
-        self.page_main.text_search(L.import_media.media_library.search, "search")
-        pic_tgt = self.page_main.get_picture(id("pickerDeviceLibrary"))
-        if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:
-            result = True
-        else:
-            result = False
-            logger('\n[Fail] Image no change')
-        self.report.new_result(uuid, result)
-        return result
+        try:
+            pic_src = self.page_main.get_picture(id("pickerDeviceLibrary"))
+            self.page_main.text_search(L.import_media.media_library.search, "search")
+            pic_tgt = self.page_main.get_picture(id("pickerDeviceLibrary"))
 
-    def sce_01_06_03(self):
-        item_id = '01_06_03'
+            if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Image no changed'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            self.report.new_result(uuid, False, fail_log="ERROR")
+            return "ERROR"
+
+    def sce_1_6_3(self):
         uuid = '98254f7e-2c56-4758-90fc-569aed52a0d4'
-        logger(f"\n[Start] sce_{item_id}")
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        case_id = func_name.split("sce_")[1]
         self.report.start_uuid(uuid)
 
-        self.click(L.import_media.media_library.btn_preview())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
-        if self.is_exist(L.import_media.media_library.Photo.display_preview):
-            self.driver.driver.back()
-            result = True
-        else:
-            result = False
-            logger('\n[Fail] Preview window is not exist')
-        self.report.new_result(uuid, result)
-        return result
+        try:
+            self.click(L.import_media.media_library.btn_preview())
+            self.page_media.waiting_loading()
 
-    def sce_01_06_04(self):
-        item_id = '01_06_04'
+            if self.is_exist(L.import_media.media_library.Photo.display_preview):
+
+                self.driver.driver.back()
+
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Preview window is not exist'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            self.report.new_result(uuid, False, fail_log="ERROR")
+            return "ERROR"
+
+
+    def sce_1_6_4(self):
         uuid = '7259b134-e694-4766-bf01-58d9293aead7'
-        logger(f"\n[Start] sce_{item_id}")
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        case_id = func_name.split("sce_")[1]
         self.report.start_uuid(uuid)
 
-        self.long_press(L.import_media.media_library.media())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
-        if self.is_exist(L.import_media.media_library.Photo.display_preview):
-            self.driver.driver.back()
-            result = True
-        else:
-            result = False
-            logger('\n[Fail] Preview window is not exist')
-        self.report.new_result(uuid, result)
-        return result
+        try:
+            self.long_press(L.import_media.media_library.media())
+            self.page_media.waiting_loading()
+
+            if self.is_exist(L.import_media.media_library.Photo.display_preview):
+
+                self.driver.driver.back()
+
+                result = True
+                fail_log = None
+            else:
+                result = False
+                fail_log = '\n[Fail] Preview window is not exist'
+
+            self.report.new_result(uuid, result, fail_log=fail_log)
+            return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f"[Error] {err}")
+            self.report.new_result(uuid, False, fail_log="ERROR")
+            return "ERROR"
+
 
     def sce_01_06_05(self):
         item_id = '01_06_05'
@@ -317,10 +357,10 @@ class Test_SFT_Scenario_01_06:
     @report.exception_screenshot
     def test_sce_01_06_01_to_12(self):
         result = {
-            "sce_01_06_01": self.sce_01_06_01(),
-            "sce_01_06_02": self.sce_01_06_02(),
-            "sce_01_06_03": self.sce_01_06_03(),
-            "sce_01_06_04": self.sce_01_06_04(),
+            "sce_1_6_1": self.sce_1_6_1(),
+            "sce_1_6_2": self.sce_1_6_2(),
+            "sce_1_6_3": self.sce_1_6_3(),
+            "sce_1_6_4": self.sce_1_6_4(),
             "sce_01_06_05": self.sce_01_06_05(),
             "sce_01_06_06": self.sce_01_06_06(),
             "sce_1_6_7": self.sce_1_6_7(),

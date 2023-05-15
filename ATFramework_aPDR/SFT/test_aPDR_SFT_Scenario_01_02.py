@@ -522,9 +522,9 @@ class Test_SFT_Scenario_01_02:
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
 
-        self.click(L.import_media.media_library.Photo.photo_capture)
-        self.click(L.import_media.media_library.Photo.take_picture)
-        self.click(L.import_media.media_library.Photo.camera_ok)
+        self.click(L.import_media.media_library.photo.photo_capture)
+        self.click(L.import_media.media_library.photo.take_picture)
+        self.click(L.import_media.media_library.photo.camera_ok)
         capture_photo_name = "PDR_" + "{:04}{:02}{:02}".format(dt.year, dt.month, dt.day)
         global capture_1st_file
         capture_1st_file = self.element(L.import_media.media_library.file_name(index=1)).text

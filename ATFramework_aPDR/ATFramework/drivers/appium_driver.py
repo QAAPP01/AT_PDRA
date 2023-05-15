@@ -48,7 +48,7 @@ class AppiumU2Driver(Borg, BaseDriver):
         if mode == "local":
             url_remote = "http://{}:4723/wd/hub".format(DriverConfig.ip_local_appium)
         elif mode == "debug":
-            url_remote = "http://{}:4724/wd/hub".format(DriverConfig.ip_local_appium)
+            url_remote = "http://{}:4725/wd/hub".format(DriverConfig.ip_local_appium)
         elif mode == 'grid':
             url_remote = "http://{}:4444/wd/hub".format(DriverConfig.ip_grid_hub)
             print('url_remote-', url_remote)
@@ -944,6 +944,16 @@ class AppiumU2Driver(Borg, BaseDriver):
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             TouchAction(self.driver).press(None, x_center, y_center, 1).wait(2000).move_to(None, x_center + int(
                 slider_rect['width'] / 4), y_center).release().perform()
+        except Exception:
+            raise Exception
+        return True
+
+    def drag_slider_from_left_to_right(self, locator):
+        try:
+            slider_rect = self.driver.find_element(locator[0],locator[1]).rect
+            y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
+            TouchAction(self.driver).press(None, slider_rect['x'], y_center, 1).wait(2000).move_to(None, slider_rect['x'] + int(
+                slider_rect['width']), y_center).release().perform()
         except Exception:
             raise Exception
         return True

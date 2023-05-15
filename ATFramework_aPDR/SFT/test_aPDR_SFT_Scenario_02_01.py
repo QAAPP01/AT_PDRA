@@ -3079,7 +3079,7 @@ class Test_SFT_Scenario_02_01:
             pic_tgt = self.page_main.h_screenshot(clip)
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_21.png')
 
-            if HCompareImg(pic_tgt, pic_src).full_compare_result():
+            if HCompareImg(pic_tgt, pic_src).keypoint_compare() > 0.97:
                 result = True
                 fail_log = None
             else:

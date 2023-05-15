@@ -39,16 +39,16 @@ class BasePage(BasePage):
         self.udid = self.driver.driver.desired_capabilities['deviceUDID']
         self.package_name = self.app_package
         # logger("PackageName = %s" % PACKAGE_NAME)
-    def click(self,element,*args):
-        retry = 3
-        while retry:
-            try:
-                logger(f"click {element}")
-                self.el(element).click()
-                break
-            except:
-                retry -= 1
-                logger(f'[WARNING] Can not click the element. Retry: {retry}')
+    def click(self, locator, timeout=5):
+        try:
+            element = self.h_get_element(locator, timeout)
+            if element:
+                element.click()
+                return True
+            else:
+                return False
+        except Exception as err:
+            logger(f'[Error] {err}')
 
     def h_screenshot(self, locator=L.edit.preview.preview, crop=None):
         try:

@@ -1,6 +1,5 @@
 from .locator_type import *
 
-
 class MediaLibrary:
     back = id("top_toolbar_back")
     back_landscape = id("library_menu_back")
@@ -39,13 +38,15 @@ class MediaLibrary:
     btn_stock_filter = id('btn_sort_order')
     loading_circle = id('loading') # preview loading
     downloading = id("download_progress_bar")
+    cancel = id("cancel_button")
     library_unit_sound_fx_icon = id('library_unit_sound_fx_icon')  # Sound Title
     library_unit_layout = id('library_unit_layout')
     library_tabs_content = id('library_tabs_content')
     creator_page = id("creatorWebsiteButton")
     next = id("mediaPickerClipSelectionOK")
-
-
+    pexels_link = id("pexelsWebsiteBtn")
+    pixabay_link = id("pixabayWebsiteBtn")
+    sort_button = id("sort_button")
 
 
     @staticmethod
@@ -54,6 +55,13 @@ class MediaLibrary:
             return xpath(f'//*[contains(@resource-id,"select_view")]')
         else:
             return xpath(f'(//*[contains(@resource-id,"select_view")])[{index}]')
+
+    @staticmethod
+    def media_order(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"library_unit_order")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"library_unit_order")]')
 
     @staticmethod
     def file_name(index=1):
@@ -90,9 +98,17 @@ class MediaLibrary:
                  "getty_pro": id('pickerGettyPro'),
                  "giphy": id('pickerGIPHY'),
                  "pexels": id('pickerPexels'),
-                 "pixabay": id('pickerPixabay')
+                 "pixabay": id('pickerPixabay'),
+                 "google_drive": id('pickerGoogleDrive'),
                  }
         return stock[stock_name]
+
+    @staticmethod
+    def google_folder(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"library_unit_background")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"library_unit_background")])[{index}]')
 
     class Video:
         video_capture = id('btn_camera')

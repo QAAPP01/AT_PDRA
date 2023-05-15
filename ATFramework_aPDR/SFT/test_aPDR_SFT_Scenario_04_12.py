@@ -94,8 +94,11 @@ class Test_SFT_Scenario_04_12:
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_all_orientation)
             self.driver.driver.back()
-            while not self.is_exist(L.import_media.media_library.media(), 1):
-                time.sleep(1)
+            for i in range(60):
+                if not self.is_exist(L.import_media.media_library.media(), 1):
+                    time.sleep(1)
+                else:
+                    break
             global pic_all
             pic_all = self.page_main.h_full_screenshot()
             self.click(L.import_media.sort_menu.sort_button)
@@ -132,11 +135,9 @@ class Test_SFT_Scenario_04_12:
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_horizontal)
             self.driver.driver.back()
-            while self.is_exist(L.import_media.media_library.waiting_cursor, 10):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             self.click(L.import_media.media_library.btn_preview())
-            while self.is_exist(L.import_media.media_library.loading_circle, 1):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             rect = self.element(L.import_media.media_library.Video.display_preview).rect
 
             if rect["height"] < rect["width"]:
@@ -163,11 +164,9 @@ class Test_SFT_Scenario_04_12:
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_square)
             self.driver.driver.back()
-            while self.is_exist(L.import_media.media_library.waiting_cursor, 10):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             self.click(L.import_media.media_library.btn_preview())
-            while self.is_exist(L.import_media.media_library.loading_circle, 1):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             rect = self.element(L.import_media.media_library.Video.display_preview).rect
 
             if rect["height"] == rect["width"]:
@@ -194,8 +193,7 @@ class Test_SFT_Scenario_04_12:
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_all_orientation)
             self.driver.driver.back()
-            while self.is_exist(L.import_media.media_library.waiting_cursor, 10):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             pic_tgt = self.page_main.h_full_screenshot()
 
             if HCompareImg(pic_tgt, pic_all).full_compare() > 0.98:
@@ -218,8 +216,11 @@ class Test_SFT_Scenario_04_12:
             self.report.start_uuid(uuid)
 
             self.page_media.select_photo_library("pexels")
-            while not self.is_exist(L.import_media.media_library.media(), 1):
-                time.sleep(1)
+            for i in range(60):
+                if not self.is_exist(L.import_media.media_library.media(), 1):
+                    time.sleep(1)
+                else:
+                    break
             global pic_all
             pic_all = self.page_main.h_full_screenshot()
             self.click(L.import_media.sort_menu.sort_button)
@@ -256,11 +257,9 @@ class Test_SFT_Scenario_04_12:
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_horizontal)
             self.driver.driver.back()
-            while self.is_exist(L.import_media.media_library.waiting_cursor, 10):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             self.click(L.import_media.media_library.btn_preview())
-            while self.is_exist(L.import_media.media_library.loading_circle, 1):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             rect = self.element(L.import_media.media_library.photo.display_preview).rect
 
             if rect["height"] < rect["width"]:
@@ -287,11 +286,9 @@ class Test_SFT_Scenario_04_12:
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_square)
             self.driver.driver.back()
-            while self.is_exist(L.import_media.media_library.waiting_cursor, 10):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             self.click(L.import_media.media_library.btn_preview())
-            while self.is_exist(L.import_media.media_library.loading_circle, 1):
-                time.sleep(1)
+            self.page_media.waiting_loading()
             rect = self.element(L.import_media.media_library.photo.display_preview).rect
 
             if rect["height"] == rect["width"]:
@@ -318,8 +315,7 @@ class Test_SFT_Scenario_04_12:
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_all_orientation)
             self.driver.driver.back()
-            while self.is_exist(L.import_media.media_library.waiting_cursor, 1):
-                time.sleep(10)
+            self.page_media.waiting_loading()
             pic_tgt = self.page_main.h_full_screenshot()
 
             if HCompareImg(pic_tgt, pic_all).full_compare() > 0.98:

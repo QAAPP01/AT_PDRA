@@ -190,3 +190,6 @@ class BasePage(Borg, unittest.TestCase):
 
     def drag_slider_from_center_to_right(self, locator):
         return self.driver.drag_slider_from_center_to_right(locator)
+
+    def drag_slider_from_left_to_right(self, locator):
+        return self.driver.drag_slider_from_left_to_right(locator)

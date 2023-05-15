@@ -25,6 +25,20 @@ class MediaPage(BasePage):
         self.udid = self.driver.driver.desired_capabilities['deviceUDID']
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
 
+    def sort_date_descend(self, timeout=60):
+        try:
+            self.click(L.import_media.media_library.sort_button)
+            self.click(L.import_media.sort_menu.by_date)
+            self.click(L.import_media.sort_menu.descending)
+            self.driver.driver.back()
+            if self.waiting_loading(timeout):
+                return True
+            else:
+                return False
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+
     def add_master_media(self, media_type=None, folder=None, file_name=None):
         try:
             if media_type:
@@ -155,15 +169,15 @@ class MediaPage(BasePage):
 
     def waiting_download(self):
         for i in range(60):
-            if self.h_is_exist(L.main.ai_effect.downloading):
+            if self.h_is_exist(L.import_media.media_library.downloading):
                 time.sleep(1)
             else:
                 return True
         logger("[Warning] downloading timeout")
         return False
 
-    def waiting_loading(self):
-        for i in range(60):
+    def waiting_loading(self, timeout=60):
+        for i in range(timeout):
             if self.h_is_exist(L.import_media.media_library.loading_circle):
                 time.sleep(1)
             else:
@@ -362,9 +376,6 @@ class MediaPage(BasePage):
         element = frame.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]/..')
         btn_add = element.find_element_by_xpath("//android.widget.ImageView[contains(@resource-id,'library_unit_add')]")
         btn_add.click()
-
-    def click(self, element, *args):
-        self.el(element).click()
 
     def switch_to_video_library(self):
         # logger("start >> switch_to_video_library <<")

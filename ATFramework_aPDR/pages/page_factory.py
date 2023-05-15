@@ -5,7 +5,7 @@ Add elif clauses as and when you implement new pages.
 """
 
 
-class PageFactory():
+class PageFactory:
     """ PageFactory uses the factory design pattern.  """
     @staticmethod
     def get_page_object(page_name, driver):
@@ -30,4 +30,7 @@ class PageFactory():
         elif page_name == "produce":
             from .produce import ProducePage
             page_obj = ProducePage(driver)
+        elif page_name == "ai_effect":
+            from .ai_effect import AIEffect
+            page_obj = AIEffect(driver)
         return page_obj
