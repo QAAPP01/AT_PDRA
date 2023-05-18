@@ -59,9 +59,10 @@ class Editor:
         @staticmethod
         def clip_duration(index=1):
             if index == 0:
-                return xpath(f'//*[contains(@resource-id,"duration")]')
+                return xpath(f'//android.widget.TextView[2]/[contains(@resource-id,"duration")]')
             else:
-                return xpath(f'(//*[contains(@resource-id,"duration")])[{index}]')
+                return xpath(f'(//android.widget.TextView[2]/[contains(@resource-id,"duration")])[{index}]')
+
 
     class Volume:
         slider = id('adjustable_parameter_seek_bar')

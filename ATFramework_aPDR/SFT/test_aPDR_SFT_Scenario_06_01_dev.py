@@ -111,7 +111,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_2_1(self):
@@ -138,7 +138,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_2_2(self):
@@ -165,7 +165,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_2_3(self):
@@ -190,7 +190,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_2_6(self):
@@ -284,7 +284,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_3_1(self):
@@ -313,7 +313,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_3_2(self):
@@ -346,7 +346,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_3_3(self):
@@ -371,7 +371,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_3_4(self):
@@ -407,7 +407,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_3_5(self):
@@ -432,7 +432,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_3_6(self):
@@ -459,7 +459,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_1(self):
@@ -486,7 +486,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_2(self):
@@ -515,7 +515,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_3(self):
@@ -551,7 +551,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_4(self):
@@ -587,7 +587,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_5(self):
@@ -620,7 +620,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_6(self):
@@ -650,7 +650,7 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_7(self):
@@ -680,20 +680,12 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
-            return "FAIL"
 
-    def reenter_template(self):
-        self.click(L.main.ai_effect.close)
-        self.click(L.main.ai_effect.leave)
-        self.click(L.main.ai_effect.template())
-        # swipe up to free template for export test and 1 clip required
-        while self.is_exist(L.main.ai_effect.premium, 1) or self.element(L.main.ai_effect.template_clip_number()).text != "1 clip":
-            page_before = self.element(L.main.ai_effect.full_preview)
-            self.driver.swipe_up()
-            if page_before == self.element(L.main.ai_effect.full_preview):
-                break
-        self.click(L.main.ai_effect.try_now)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
+
+            return "FAIL"
 
     def sce_6_4_8(self):
         uuid = '27f41d5f-29af-4ce2-a93d-b98a7a53171f'
@@ -703,7 +695,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             file_name = "mkv.mkv"
             self.page_media.select_local_video(self.test_material_folder, file_name)
@@ -726,6 +718,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -737,7 +733,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             file_name = "slow_motion.mp4"
             self.page_media.select_local_video(self.test_material_folder, file_name)
@@ -760,6 +756,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -771,7 +771,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             file_name = "4k.mp4"
             self.page_media.select_local_video(self.test_material_folder, file_name)
@@ -809,7 +809,7 @@ class Test_SFT_Scenario_06_01:
             return 'N/A'
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_12(self):
@@ -824,7 +824,7 @@ class Test_SFT_Scenario_06_01:
             return 'N/A'
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_13(self):
@@ -839,7 +839,7 @@ class Test_SFT_Scenario_06_01:
             return 'N/A'
         except Exception as err:
             logger(err)
-            
+
             return "FAIL"
 
     def sce_6_4_14(self):
@@ -869,6 +869,10 @@ class Test_SFT_Scenario_06_01:
             return 'N/A'
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -880,7 +884,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             self.page_media.select_video_library("getty")
             self.click(L.import_media.sort_menu.sort_button)
@@ -1031,6 +1035,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -1042,7 +1050,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             self.page_media.select_video_library("getty_pro")
             self.click(L.import_media.sort_menu.sort_button)
@@ -1200,7 +1208,7 @@ class Test_SFT_Scenario_06_01:
             
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
+            self.page_ai_effect.enter_editor()
             return "FAIL"
 
     def sce_6_4_26(self):
@@ -1326,15 +1334,19 @@ class Test_SFT_Scenario_06_01:
 
         try:
             self.click(L.import_media.media_library.btn_preview())
-            self.page_media.waiting_loading()
-            self.driver.driver.back()
+            timeout = self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.video.videoDisplay):
+            if self.is_exist(L.import_media.media_library.video.videoDisplay) and timeout:
                 result = True
                 fail_log = None
+            elif not timeout:
+                result = False
+                fail_log = '\n[Fail] Media loading timeout'
             else:
                 result = False
                 fail_log = '\n[Fail] id "display_preview" is not exist'
+
+            self.driver.driver.back()
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             if result:
@@ -1379,7 +1391,6 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1416,7 +1427,6 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1498,7 +1508,6 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1516,12 +1525,12 @@ class Test_SFT_Scenario_06_01:
 
         try:
             self.click(L.import_media.media_library.btn_preview())
-            waiting = self.page_media.waiting_loading()
+            timeout = self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.Video.display_preview) and waiting:
+            if self.is_exist(L.import_media.media_library.Video.display_preview) and timeout:
                 result = True
                 fail_log = None
-            elif not waiting:
+            elif not timeout:
                 result = False
                 fail_log = '\n[Fail] Media loading timeout'
             else:
@@ -1537,7 +1546,6 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1576,7 +1584,6 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1613,7 +1620,6 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1629,7 +1635,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             self.page_media.switch_to_photo_library()
             self.click(L.import_media.sort_menu.sort_button)
@@ -1657,7 +1663,6 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1728,6 +1733,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -1739,7 +1748,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             file_name = "gif.gif"
             self.page_media.select_local_photo(self.test_material_folder, file_name)
@@ -1760,6 +1769,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -1771,7 +1784,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             file_name = "png.png"
             self.page_media.select_local_photo(self.test_material_folder, file_name)
@@ -1792,6 +1805,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -1803,7 +1820,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             if not self.is_exist(L.import_media.media_library.color_board):
                 result = True
@@ -2059,6 +2076,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -2070,7 +2091,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             self.page_media.select_photo_library("getty_pro")
             self.click(L.import_media.sort_menu.sort_button)
@@ -2225,6 +2246,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -2236,7 +2261,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             self.page_media.select_photo_library("pexels")
             self.click(L.import_media.media_library.pexels_link)
@@ -2382,7 +2407,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -2394,7 +2419,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             self.page_media.select_photo_library("pixabay")
             self.click(L.import_media.media_library.pixabay_link)
@@ -2560,7 +2585,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
+            self.page_ai_effect.enter_editor()
 
             return "FAIL"
 
@@ -2572,21 +2597,24 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             self.click(L.import_media.media_library.video.video_capture)
             self.click(L.import_media.media_library.video.start_recording)
             time.sleep(5)
             self.click(L.import_media.media_library.video.stop_recording)
             self.click(L.import_media.media_library.video.camera_ok)
-            self.page_media.waiting_download()
             self.page_media.sort_date_descend()
             self.click(L.import_media.media_library.media())
             self.click(L.import_media.media_library.next)
+            import_timeout = self.page_media.waiting_download()
 
-            if self.is_exist(L.main.ai_effect.produce):
+            if self.is_exist(L.main.ai_effect.produce) and import_timeout:
                 result = True
                 fail_log = None
+            elif not import_timeout:
+                result = False
+                fail_log = '\n[Fail] Media import timeout'
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
@@ -2598,6 +2626,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -2609,7 +2641,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            self.reenter_template()
+            self.page_ai_effect.leave_editor_to_library(reenter=True)
 
             self.click(L.import_media.media_library.photo_library)
             self.click(L.import_media.media_library.photo.photo_capture)
@@ -2617,10 +2649,14 @@ class Test_SFT_Scenario_06_01:
             self.click(L.import_media.media_library.photo.camera_ok)
             self.click(L.import_media.media_library.media())
             self.click(L.import_media.media_library.next)
+            import_timeout = self.page_media.waiting_download()
 
-            if self.is_exist(L.main.ai_effect.produce):
+            if self.is_exist(L.main.ai_effect.produce) and import_timeout:
                 result = True
                 fail_log = None
+            elif not import_timeout:
+                result = False
+                fail_log = '\n[Fail] Media import timeout'
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
@@ -2632,6 +2668,10 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_ai_effect.enter_editor()
             
             return "FAIL"
 
@@ -2671,7 +2711,8 @@ class Test_SFT_Scenario_06_01:
             
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
+            self.page_ai_effect.enter_editor()
+
             return "FAIL"
 
     def sce_6_4_71(self):
@@ -2710,7 +2751,8 @@ class Test_SFT_Scenario_06_01:
             
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
+            self.page_ai_effect.enter_editor()
+
             return "FAIL"
 
     def sce_6_4_72(self):
@@ -2741,7 +2783,7 @@ class Test_SFT_Scenario_06_01:
             
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
+            self.page_ai_effect.enter_editor()
             return "FAIL"
 
     def sce_6_4_73(self):
@@ -2786,7 +2828,7 @@ class Test_SFT_Scenario_06_01:
         self.report.start_uuid(uuid)
 
         try:
-            if self.element(L.import_media.media_library.next).get_attribute("enable") == "true":
+            if self.element(L.import_media.media_library.next).get_attribute("enabled") == "true":
                 result = True
                 fail_log = None
             else:
@@ -2871,6 +2913,7 @@ class Test_SFT_Scenario_06_01:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_ai_effect.enter_editor(clip=2)
+
             return "FAIL"
 
     def sce_6_6_1(self):
@@ -3641,7 +3684,6 @@ class Test_SFT_Scenario_06_01:
                 raise Exception(fail_log)
         except Exception as err:
             logger(err)
-            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -3683,7 +3725,6 @@ class Test_SFT_Scenario_06_01:
             logger(err)
             
             return "FAIL"
-
 
     @report.exception_screenshot
     def test_sce_6_1_1_to_135(self):
