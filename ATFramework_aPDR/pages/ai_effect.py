@@ -103,3 +103,13 @@ class AIEffect(BasePage):
         except Exception as err:
             logger(f'[{inspect.stack()[0][3]}] {err}')
             return False
+
+    def waiting_processing(self):
+        for i in range(60):
+            if self.is_exist(L.ai_effect.editor.crop_range.progress_bar):
+                time.sleep(1)
+            else:
+                return True
+        logger("[Warning] processing timeout")
+        return False
+

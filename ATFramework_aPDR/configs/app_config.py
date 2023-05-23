@@ -12,7 +12,7 @@ cap = {
     "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
     "language": "en",
     "locale": "US",
-    'autoGrantPermissions': True,
+    # 'autoGrantPermissions': True,
     "noReset": True,
     "autoLaunch": False,
     'noSign': True

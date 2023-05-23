@@ -927,7 +927,7 @@ class AppiumU2Driver(Borg, BaseDriver):
         
     def drag_slider_from_center_to_left(self, locator):
         try:
-            print(f'drag_slider_from_center_to_left - locator={locator}')
+            # print(f'drag_slider_from_center_to_left - locator={locator}')
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             x_center = slider_rect['x'] + int(slider_rect['width'] / 2)
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)

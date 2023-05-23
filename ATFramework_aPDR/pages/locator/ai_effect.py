@@ -59,9 +59,9 @@ class Editor:
         @staticmethod
         def clip_duration(index=1):
             if index == 0:
-                return xpath(f'//android.widget.TextView[2]/[contains(@resource-id,"duration")]')
+                return id("duration")
             else:
-                return xpath(f'(//android.widget.TextView[2]/[contains(@resource-id,"duration")])[{index}]')
+                return xpath(f'(//android.widget.FrameLayout/android.widget.TextView[2][contains(@resource-id,"duration")])[{index}]')
 
 
     class Volume:
@@ -73,7 +73,9 @@ class Editor:
 
     class CropRange:
         done = id('ok_btn')
+        preview = xpath('//android.widget.RelativeLayout/android.view.ViewGroup/android.view.View')
         trim_bar = id('trim_scroll_view')
+        progress_bar = id('progress_bar')
 
     class Produce:
         back = id('iv_back')
@@ -87,6 +89,7 @@ class Editor:
     media_picker = MediaPicker
     volume = Volume
     crop_range = CropRange
+    produce = Produce
 
 class Producing:
     back = aid('[AID]Produce_Back')

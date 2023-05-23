@@ -169,7 +169,7 @@ class MediaPage(BasePage):
 
     def waiting_download(self):
         for i in range(60):
-            if self.h_is_exist(L.import_media.media_library.downloading):
+            if self.h_is_exist(L.import_media.media_library.downloading, 1):
                 time.sleep(1)
             else:
                 return True

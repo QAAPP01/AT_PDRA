@@ -47,37 +47,37 @@ def driver_get_desiredcap(udid, systemPort):
     return True
 
 
-# @pytest.fixture(scope='session', autouse=True)
-# def driver():
-#     import os
-#     from ATFramework_aPDR.ATFramework.utils.log import logger
-#     from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
-#     from ATFramework_aPDR.configs import app_config
-#     from ATFramework_aPDR.configs import driver_config
-#     from main import deviceName
-#
-#     desired_caps = {}
-#     desired_caps.update(app_config.cap)
-#     desired_caps.update(DRIVER_DESIRED_CAPS)
-#     if 'udid' not in desired_caps:
-#         desired_caps['udid'] = deviceName
-#
-#     retry = 3
-#     while retry:
-#         try:
-#             driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
-#                                                               desired_caps)
-#             if driver:
-#                 logger("\n[Done] Driver created!")
-#                 break
-#             else:
-#                 raise Exception("\n[Fail] Create driver fail")
-#         except Exception as e:
-#             logger(e)
-#             logger("Remove Appium")
-#             os.system(f"adb -s {deviceName} shell pm uninstall io.appium.settings")
-#             os.system(f"adb -s {deviceName} shell pm uninstall io.appium.uiautomator2.server")
-#             retry -= 1
-#
-#     yield driver
-#     driver.stop_driver()
+@pytest.fixture
+def driver():
+    import os
+    from ATFramework_aPDR.ATFramework.utils.log import logger
+    from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
+    from ATFramework_aPDR.configs import app_config
+    from ATFramework_aPDR.configs import driver_config
+    from main import deviceName
+
+    desired_caps = {}
+    desired_caps.update(app_config.cap)
+    desired_caps.update(DRIVER_DESIRED_CAPS)
+    if desired_caps['udid'] not in desired_caps:
+        desired_caps['udid'] = deviceName
+
+    retry = 3
+    while retry:
+        try:
+            driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
+                                                              desired_caps)
+            if driver:
+                logger("\n[Done] Driver created!")
+                break
+            else:
+                raise Exception("\n[Fail] Create driver fail")
+        except Exception as e:
+            logger(e)
+            logger("Remove Appium")
+            os.system(f"adb -s {deviceName} shell pm uninstall io.appium.settings")
+            os.system(f"adb -s {deviceName} shell pm uninstall io.appium.uiautomator2.server")
+            retry -= 1
+
+    yield driver
+    driver.driver.quit()
