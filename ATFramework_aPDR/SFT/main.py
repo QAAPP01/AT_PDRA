@@ -1,6 +1,7 @@
 from .aa_init_test import TestInit
 
-from .test_aPDR_SFT_app_initial_dev import test_app_init
+
+from .test_aPDR_SFT_app_initial import test_app_init
 from .test_aPDR_SFT_Scenario_01_01_dev import Test_SFT_Scenario_01_01
 from .test_aPDR_SFT_Scenario_01_02_dev import Test_SFT_Scenario_01_02
 from .test_aPDR_SFT_Scenario_01_03_dev import Test_SFT_Scenario_01_03
@@ -8,7 +9,8 @@ from .test_aPDR_SFT_Scenario_01_04_dev import Test_SFT_Scenario_01_04
 from .test_aPDR_SFT_Scenario_01_05_dev import Test_SFT_Scenario_01_05
 from .test_aPDR_SFT_Scenario_01_06_dev import Test_SFT_Scenario_01_06
 from .test_aPDR_SFT_Scenario_02_01_dev import Test_SFT_Scenario_02_01
-from .test_aPDR_SFT_Scenario_02_03_dev import Test_SFT_Scenario_02_03
+from .test_aPDR_SFT_Scenario_02_02 import Test_SFT_Scenario_02_02
+from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03
 from .test_aPDR_SFT_Scenario_02_31_dev import Test_SFT_Scenario_02_31
 from .test_aPDR_SFT_Scenario_04_12_dev import Test_SFT_Scenario_04_12
 from .test_aPDR_SFT_Scenario_05_01_dev import Test_SFT_Scenario_05_01
@@ -18,25 +20,6 @@ from .test_aPDR_SFT_Scenario_05_11_dev import Test_SFT_Scenario_05_11
 from .test_aPDR_SFT_Scenario_05_15_dev import Test_SFT_Scenario_05_15
 from .test_aPDR_SFT_Scenario_05_16_dev import Test_SFT_Scenario_05_16
 from .test_aPDR_SFT_Scenario_06_01_dev import Test_SFT_Scenario_06_01
-
-# from .test_aPDR_SFT_app_initial import test_app_init
-# from .test_aPDR_SFT_Scenario_01_01 import Test_SFT_Scenario_01_01
-# from .test_aPDR_SFT_Scenario_01_02 import Test_SFT_Scenario_01_02
-# from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
-# from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
-# from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
-# from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
-# from .test_aPDR_SFT_Scenario_02_01 import Test_SFT_Scenario_02_01
-# from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03
-# from .test_aPDR_SFT_Scenario_02_31 import Test_SFT_Scenario_02_31
-# from .test_aPDR_SFT_Scenario_04_12 import Test_SFT_Scenario_04_12
-# from .test_aPDR_SFT_Scenario_05_01 import Test_SFT_Scenario_05_01
-# from .test_aPDR_SFT_Scenario_05_03 import Test_SFT_Scenario_05_03
-# from .test_aPDR_SFT_Scenario_05_08 import Test_SFT_Scenario_05_08
-# from .test_aPDR_SFT_Scenario_05_11 import Test_SFT_Scenario_05_11
-# from .test_aPDR_SFT_Scenario_05_15 import Test_SFT_Scenario_05_15
-# from .test_aPDR_SFT_Scenario_05_16 import Test_SFT_Scenario_05_16
-# from .test_aPDR_SFT_Scenario_06_01 import Test_SFT_Scenario_06_01
 
 
 

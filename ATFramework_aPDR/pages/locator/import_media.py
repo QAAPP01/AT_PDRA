@@ -3,8 +3,8 @@ from .locator_type import *
 class MediaLibrary:
     back = id("top_toolbar_back")
     back_landscape = id("library_menu_back")
-    video_library = id("video_switch")
-    photo_library = id("photo_switch")
+    video_entry = id("video_switch")
+    photo_entry = id("photo_switch")
     color_board = id("color_board_switch")
     search = id("searchText")
     waiting_cursor = id("waiting_cursor")  # waiting media refresh
@@ -228,9 +228,9 @@ class Video_Category():
     txt_video_capture = id('btn_camera')
 
 
-class Video_Library():
+class Video_Library:
+    video_entry = id("video_switch")
     select_folder = id('album_arrow')
-    folders = id('album_text')  # not unique
     sort_menu = SortMenu
     # back = aid("[AID]Library_Back")
     # back = aid("[AID]TimeLine_Back")
@@ -247,8 +247,16 @@ class Video_Library():
     shutterstock_ToU_OK = aid('[AID]ConfirmDialog_OK')
     searchClear = id('searchClear')
 
+    @staticmethod
+    def folder_name(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"album_text")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"album_text")]')
 
-class Photo_Library():
+
+class Photo_Library:
+    photo_entry = id("photo_switch")
     select_folder = id('album_arrow')
     folders = id('album_text')  # not unique
     sort_menu = SortMenu
@@ -259,6 +267,13 @@ class Photo_Library():
     # close_and_play = aid("[AID]Library_CloseAndPlay")
     close_and_play = id("close_libraries_and_play")
     photo_capture_text = ("xpath", '(//*[contains(@text,"Photo Capture")])')
+
+    @staticmethod
+    def folder_name(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"album_text")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"album_text")]')
 
 
 class Music_Library:
@@ -346,8 +361,8 @@ class Interface:
     media_library = MediaLibrary()
     library_listview = Library_listview()
     video_category = Video_Category()
-    video_library = Video_Library()
-    photo_library = Photo_Library()
+    video_library = Video_Library
+    photo_library = Photo_Library
     music_library = Music_Library()
     menu = Menu()
     sort_menu = SortMenu

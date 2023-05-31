@@ -13,6 +13,7 @@ import os
 import uuid
 
 from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.locator import locator as L
 
 try:
     import cv2
@@ -81,8 +82,8 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.driver.quit()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # App Management Functions
     # ==================================================================================================================
@@ -96,8 +97,8 @@ class AppiumU2Driver(Borg, BaseDriver):
     def install_app(self, apk_path, package):
         try:
             self.driver.install_app(apk_path)
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
         return self.driver.is_app_installed(package)
 
@@ -112,8 +113,8 @@ class AppiumU2Driver(Borg, BaseDriver):
     def remove_app(self, package):
         try:
             self.driver.remove_app(package)
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
         return not self.driver.is_app_installed(package)
 
@@ -196,8 +197,8 @@ class AppiumU2Driver(Borg, BaseDriver):
     def background_app(self, package):
         try:
             self.driver.close_app()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
         return 2 <= self.driver.query_app_state(package) <= 3
 
@@ -214,8 +215,8 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.driver.reset()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # Orientation Control Functions
     # ==================================================================================================================
@@ -229,8 +230,8 @@ class AppiumU2Driver(Borg, BaseDriver):
     def get_orientation(self):
         try:
             return self.driver.orientation()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: set_orientation
@@ -283,8 +284,8 @@ class AppiumU2Driver(Borg, BaseDriver):
             # logger("set new implicitly_wait: %s" % time )
             self.driver._implicitly_wait(time)
             return time
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: open_notification
@@ -298,8 +299,8 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.driver.open_notifications()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: put_file
@@ -315,8 +316,8 @@ class AppiumU2Driver(Borg, BaseDriver):
                 data = str(selected_file.read())
             self.driver.push_file(path, data.encode('base64'))
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: get_file
@@ -330,8 +331,8 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.driver.pull_file(path)
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # Element Operation Functions
     # ==================================================================================================================
@@ -424,8 +425,25 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.get_element(locator).click()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
+
+    # ==================================================================================================================
+    # Function: tap_coordinate
+    # Description: Tap the x, y coordinate
+    # Parameters: x, y
+    # Return: True/False
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def tap_coordinate(self, x, y):
+        try:
+            actions = TouchAction(self.driver)
+            actions.tap(x=x, y=y)
+            actions.perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: tap_element
@@ -441,8 +459,8 @@ class AppiumU2Driver(Borg, BaseDriver):
             actions.tap(self.get_element(locator))
             actions.perform()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: long_press_element
@@ -836,8 +854,8 @@ class AppiumU2Driver(Borg, BaseDriver):
             x = int(size['width'] * 0.5) + int(x_shift)
             y = int(size['height'] * 0.5) + int(y_shift)
             TouchAction(self.driver).tap(None, x, y, 1).perform()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
         return True
         
     def save_pic(self,elem=None,last=False,file=None, offset=None):
@@ -933,8 +951,8 @@ class AppiumU2Driver(Borg, BaseDriver):
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             TouchAction(self.driver).press(None, x_center, y_center, 1).wait(2000).move_to(None, x_center - int(
                 slider_rect['width'] / 4), y_center).release().perform()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
         return True
 
     def drag_slider_from_center_to_right(self, locator):
@@ -944,16 +962,16 @@ class AppiumU2Driver(Borg, BaseDriver):
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             TouchAction(self.driver).press(None, x_center, y_center, 1).wait(2000).move_to(None, x_center + int(
                 slider_rect['width'] / 4), y_center).release().perform()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
         return True
 
-    def drag_slider_from_left_to_right(self, locator):
+    def drag_slider_from_left_to_right(self, locator=L.edit.tool_menu.slider):
         try:
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             TouchAction(self.driver).press(None, slider_rect['x'], y_center, 1).wait(2000).move_to(None, slider_rect['x'] + int(
                 slider_rect['width']), y_center).release().perform()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
         return True

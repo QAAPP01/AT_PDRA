@@ -782,7 +782,7 @@ class Test_SFT_Scenario_02_03:
         except Exception as err:
             logger(f"[Error] {err}")
             return "ERROR"
-
+        
     def test_case(self):
         result = {"sce_2_3_1": self.sce_2_3_1(),
                   "sce_2_3_9": self.sce_2_3_9(),

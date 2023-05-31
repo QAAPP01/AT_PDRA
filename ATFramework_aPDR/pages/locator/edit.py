@@ -1,6 +1,117 @@
 from .locator_type import *
 
 
+class Converting:
+    ok = aid('[AID]ConfirmDialog_OK')
+    progress_bar = id('progress_bar')
+class Timeline:
+    timeline_area = id('container_of_tracks')
+    slider = id("adjustable_parameter_seek_bar")
+    main_track_import = id("icon_import_vp")
+    main_track_import_float = id("icon_import_vp_pinned")
+    tool = id('label')  # non unique
+    sub_tool = id('tool_entry_label')  # non unique
+    option_label = id("option_label")
+    item_view_border = id("item_view_border")
+    master_clip = id("item_view_border")
+    effect_1st = (
+    "xpath", "(//android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout)[2]")
+
+    clip_photo = ("xpath", '//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
+    clip_title = id("item_view_title")
+    tx_out = aid("[AID]Item_TxEffectOut")
+    tx_in = aid("[AID]Item_TxEffectIn")
+    playhead = id("timeline_playhead_indicator")
+    trim_indicator = id("btn_trim_indicator")
+    track = ("xpath", '//*[contains(@resource-id,"track_content")]')
+    skin_smoothener = id("skin_smooth_effect")
+    playhead_timecode = id('timeline_playhead_label')
+    # playhead_timecode = id('timeline_ruler')
+    track_content = id('track_content')
+    item_view_title = id('item_view_title')
+    timecode = id("timeline_playhead_label")
+    fx_effect_thumbnail = id('fx_effect_thumbnail')
+    item_view_thumbnail_host = id('item_view_thumbnail_host')
+    exceed_max_video = aid('[AID]ConfirmDialog_OK')
+
+    first_audio = ("xpath", '(//android.widget.LinearLayout[@content-desc="[AID]TimeLineAudio_mp3.mp3"])[1]')
+    timeline_ruler = id('timeline_ruler')
+    track_of_ruler = id('track_of_ruler')
+    overlaytrack_container = id('tracks_container_of_not_main')
+    btn_import = id('layout_import')
+    btn_import2 = id('icon_import_vp')  # import btn id is different when timeline have content
+    intro_video_entry = id('intro_video_entry')
+    outro_video_entry = id('outro_video_entry')
+    slider_value = id('adjustTextNow')
+    reset = id('btn_reset')
+    apply_all = id('btn_apply_all')
+
+    @staticmethod
+    def clip(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_host")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"item_view_thumbnail_host")]')
+
+    @staticmethod
+    def master_video(file_name=None):
+        if file_name:
+            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")]')
+        else:
+            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]')
+
+    @staticmethod
+    def master_video_thumbnail(file_name=None, clip_index=1, thumbnail_index=1):
+        if file_name:
+            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")])[{clip_index}]/android.widget.ImageView')
+        else:
+            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]/android.widget.ImageView)[1]')
+
+    @staticmethod
+    def master_photo(file_name=None, index=1):
+        if file_name:
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_{file_name}")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_{file_name}")]')
+        else:
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
+
+    @staticmethod
+    def clip_audio(file_name=None, index=1):
+        if file_name:
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")]')
+        else:
+            if index:
+                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
+
+    class MasterTrack:
+        trim_indicator = id('btn_trim_indicator')
+        editing_keyframe = id('item_view_editing_keyframes')
+
+        @staticmethod
+        def master_clip(index=1):
+            if index == 0:
+                return xpath(f'(//*[contains(@resource-id,"item_view_border")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"item_view_border")]')
+
+    class Pip:
+        clip_thumbnail = id('item_view_thumbnail_host')
+
+
+
+    master_track = MasterTrack
+    pip = Pip
+
 class Menu:
     class Produce_sub_page:
         save = id('text_setting_save_project')
@@ -29,7 +140,47 @@ class Menu:
 
 class ToolMenu:
     back = id('btn_session_back')
+    slider = id("adjustable_parameter_seek_bar")
+    slider_value = id('adjustTextNow')
 
+    @staticmethod
+    def tool(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"tool_entry_layout")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"tool_entry_layout")]')
+
+    class AIEffect:
+        none_highlight = id('title_border')
+        edit = id('itemEdit')
+        param_area = id('param_edit_area')
+        reset = id('btn_reset')
+
+
+        @staticmethod
+        def effect(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"containerView")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"containerView")]')
+        @staticmethod
+        def effect_name(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+        @staticmethod
+        def param_value(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"fx_param_value")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"fx_param_value")]')
+
+    class Cutout:
+        try_it = aid('[AID]Upgrade_No')
+
+    ai_effect = AIEffect
+    cutout = Cutout
 
 class SubToolMenu:
     back = id('btn_session_back')
@@ -228,6 +379,7 @@ class Color_Selector():
 
 
 class Preview:
+    pip_preview = id('resizable_boundary')
     movie_view = id("movie_view")
     preview = xpath('//*[contains(@resource-id,"movie_view")]/android.view.View')
     time_code = id('playingTime')
@@ -257,94 +409,6 @@ class Preview:
     btn_close = id('btn_close')
     import_tips_icon = id('import_tips_icon')
 
-
-class Timeline:
-    slider = id("adjustable_parameter_seek_bar")
-    main_track_import = id("icon_import_vp")
-    main_track_import_float = id("icon_import_vp_pinned")
-    tool = id('label')  # non unique
-    sub_tool = id('tool_entry_label')  # non unique
-    option_label = id("option_label")
-    timeline_area = id('container_of_tracks')
-    item_view_border = id("item_view_border")
-    master_clip = id("item_view_border")
-    effect_1st = (
-    "xpath", "(//android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout)[2]")
-
-    clip_photo = ("xpath", '//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
-    clip_title = id("item_view_title")
-    tx_out = aid("[AID]Item_TxEffectOut")
-    tx_in = aid("[AID]Item_TxEffectIn")
-    playhead = id("timeline_playhead_indicator")
-    trim_indicator = id("btn_trim_indicator")
-    track = ("xpath", '//*[contains(@resource-id,"track_content")]')
-    skin_smoothener = id("skin_smooth_effect")
-    playhead_timecode = id('timeline_playhead_label')
-    # playhead_timecode = id('timeline_ruler')
-    track_content = id('track_content')
-    item_view_title = id('item_view_title')
-    timecode = id("timeline_playhead_label")
-    fx_effect_thumbnail = id('fx_effect_thumbnail')
-    item_view_thumbnail_host = id('item_view_thumbnail_host')
-    exceed_max_video = aid('[AID]ConfirmDialog_OK')
-    first_audio = ("xpath", '(//android.widget.LinearLayout[@content-desc="[AID]TimeLineAudio_mp3.mp3"])[1]')
-    timeline_ruler = id('timeline_ruler')
-    track_of_ruler = id('track_of_ruler')
-    overlaytrack_container = id('tracks_container_of_not_main')
-    btn_import = id('layout_import')
-    btn_import2 = id('icon_import_vp')  # import btn id is different when timeline have content
-    intro_video_entry = id('intro_video_entry')
-    outro_video_entry = id('outro_video_entry')
-    slider_value = id('adjustTextNow')
-    reset = id('btn_reset')
-    apply_all = id('btn_apply_all')
-
-    @staticmethod
-    def clip(index=1):
-        if index == 0:
-            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_host")])[{index}]')
-        else:
-            return xpath(f'//*[contains(@resource-id,"item_view_thumbnail_host")]')
-
-    @staticmethod
-    def master_video(file_name=None):
-        if file_name:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")]')
-        else:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]')
-
-    @staticmethod
-    def master_video_thumbnail(file_name=None, clip_index=1, thumbnail_index=1):
-        if file_name:
-            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")])[{clip_index}]/android.widget.ImageView')
-        else:
-            return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]/android.widget.ImageView)[1]')
-
-    @staticmethod
-    def master_photo(file_name=None, index=1):
-        if file_name:
-            if index:
-                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_{file_name}")])[{index}]')
-            else:
-                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_{file_name}")]')
-        else:
-            if index:
-                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")])[{index}]')
-            else:
-                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
-
-    @staticmethod
-    def clip_audio(file_name=None, index=1):
-        if file_name:
-            if index:
-                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")])[{index}]')
-            else:
-                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_{file_name}")]')
-        else:
-            if index:
-                return xpath(f'(//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")])[{index}]')
-            else:
-                return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineAudio_")]')
 
 
 class Pip:
@@ -852,6 +916,10 @@ class Intro_Video:
 
 
 class Interface:
+    converting = Converting
+    timeline = Timeline()
+    tool_menu = ToolMenu()
+
     adjust_sub = Adjust_sub()
     audio_configuration = Audio_Configuration()
     audio_denoise = Audio_Denoise()
@@ -893,10 +961,8 @@ class Interface:
     stabilizer_correction = Stabilizer_Correction()
     stabilizing_video_window = Produce_Video_Window()
     sub_menu = SubMenu_Timeline_Setting()
-    timeline = Timeline()
     tips = Tips()
     title_animation = Title_Animation()
-    tool_menu = ToolMenu()
     sub_tool_menu = SubToolMenu
     transition = Transition()
     try_before_buy = Try_Before_Buy()

@@ -2643,7 +2643,7 @@ class Test_SFT_Scenario_06_01:
         try:
             self.page_ai_effect.leave_editor_to_library(reenter=True)
 
-            self.click(L.import_media.media_library.photo_library)
+            self.click(L.import_media.media_library.photo_entry)
             self.click(L.import_media.media_library.photo.photo_capture)
             self.click(L.import_media.media_library.photo.take_picture)
             self.click(L.import_media.media_library.photo.camera_ok)
@@ -2795,7 +2795,7 @@ class Test_SFT_Scenario_06_01:
 
         try:
             self.page_ai_effect.leave_editor_to_library(reenter=True, clip=2)
-            self.click(L.import_media.media_library.photo_library)
+            self.click(L.import_media.media_library.photo_entry)
             self.click(L.import_media.media_library.media(1))
             self.click(L.import_media.media_library.media(2))
             selected_num = len(self.elements(L.import_media.media_library.media_order(0)))
@@ -2846,7 +2846,7 @@ class Test_SFT_Scenario_06_01:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_ai_effect.enter_free_template_media_picker(clip=2)
-            self.click(L.import_media.media_library.photo_library)
+            self.click(L.import_media.media_library.photo_entry)
             self.click(L.import_media.media_library.media(1))
             self.click(L.import_media.media_library.media(2))
             return "FAIL"
@@ -2879,7 +2879,7 @@ class Test_SFT_Scenario_06_01:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_ai_effect.enter_free_template_media_picker(clip=2)
-            self.click(L.import_media.media_library.photo_library)
+            self.click(L.import_media.media_library.photo_entry)
             self.click(L.import_media.media_library.media(1))
             self.click(L.import_media.media_library.media(2))
             self.click(L.import_media.media_library.next)

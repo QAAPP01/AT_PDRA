@@ -23,7 +23,6 @@ class MediaPage(BasePage):
         self.el = lambda id: self.driver.driver.find_element(id[0], id[1])
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
         self.udid = self.driver.driver.desired_capabilities['deviceUDID']
-        self.page_edit = PageFactory().get_page_object("edit", self.driver)
 
     def sort_date_descend(self, timeout=60):
         try:
@@ -38,88 +37,47 @@ class MediaPage(BasePage):
         except Exception as err:
             logger(f'[Error] {err}')
 
-
-    def add_master_media(self, media_type=None, folder=None, file_name=None):
-        try:
-            if media_type:
-                if len(media_type) > 1:
-                    media_type = media_type[0].upper() + media_type[1:].lower()
-                if media_type not in ['Video', 'Photo']:
-                    media_type = None
-
-            if not self.h_click(L.edit.preview.import_tips_icon, timeout=1):
-                if not self.h_click(L.edit.timeline.main_track_import, timeout=1):
-                    if not self.h_click(L.edit.timeline.main_track_import_float):
-                        logger('[FAIL] Cannot enter media room')
-                        return False
-            if folder and file_name:
-                if media_type == 'Video':
-                    self.select_local_video(folder, file_name)
-                elif media_type == 'Photo':
-                    self.select_local_photo(folder, file_name)
-            else:
-                logger('[Warning] Did not assign folder or file name')
-            return True
-
-        except Exception as err:
-            logger(f'[ERROR] {err}')
-
-    def add_pip_media(self, media_type="", folder=None, file_name=None):
-        try:
-            media_type = media_type[0].upper() + media_type[1:].lower()
-            if media_type not in ['Video', 'Photo']:
-                media_type = None
-
-            if not self.page_edit.click_tool("Media"):
-                return False
-            else:
-                if not self.h_click(find_string(media_type)):
-                    return False
-            if folder and file_name:
-                if media_type == 'Video':
-                    self.select_local_video(folder, file_name)
-                elif media_type == 'Photo':
-                    self.select_local_photo(folder, file_name)
-            else:
-                logger('[Warning] Did not assign folder or file name')
-            return True
-
-        except Exception as err:
-            logger(f'\n[ERROR] {err}')
-
     def select_local_video(self, folder, file_name):
         try:
-            self.switch_to_video_library()
-            if not self.h_get_element(L.import_media.video_library.folders).text == folder:
-                self.h_click(L.import_media.video_library.select_folder)
-                for i in range(3):
-                    if self.h_click(find_string(folder)):
-                        break
-                    else:
-                        folders = self.h_get_elements(L.import_media.video_library.folders)
-                        self.h_swipe_element(folders[len(folders)-1], folders[0], speed=3)
+            if not self.click(L.import_media.video_library.video_entry):
+                raise Exception('Click video library fail')
+
+            if not self.element(L.import_media.video_library.folder_name(1)).text == folder:
+                self.click(L.import_media.video_library.select_folder)
+                while not self.click(find_string(folder)):
+                    folders = self.elements(L.import_media.video_library.folder_name(0))
+                    last_folder = folders[-1].text
+                    self.h_swipe_element(folders[-1], folders[1], speed=3)
+                    folders = self.elements(L.import_media.video_library.folder_name(0))
+                    if folders[-1].text == last_folder:
+                        raise Exception(f'No found folder: {folder}')
+
             return True if self.select_media_by_text(file_name) else False
         except Exception as err:
             logger(f'[Error] {err}')
 
     def select_local_photo(self, folder, file_name):
         try:
-            self.switch_to_photo_library()
-            if not self.h_get_element(L.import_media.photo_library.folders).text == folder:
-                self.h_click(L.import_media.photo_library.select_folder)
-                for i in range(5):
-                    if self.h_click(find_string(folder)):
-                        break
-                    else:
-                        folders = self.h_get_elements(L.import_media.photo_library.folders)
-                        self.h_swipe_element(folders[len(folders)-1], folders[0], speed=3)
+            if not self.click(L.import_media.photo_library.photo_entry):
+                raise Exception('Click photo library fail')
+
+            if not self.element(L.import_media.photo_library.folder_name(1)).text == folder:
+                self.click(L.import_media.photo_library.select_folder)
+                while not self.click(find_string(folder)):
+                    folders = self.elements(L.import_media.photo_library.folder_name(0))
+                    last_folder = folders[-1].text
+                    self.h_swipe_element(folders[-1], folders[1], speed=3)
+                    folders = self.elements(L.import_media.photo_library.folder_name(0))
+                    if folders[-1].text == last_folder:
+                        raise Exception(f'No found folder: {folder}')
+
             return True if self.select_media_by_text(file_name) else False
         except Exception as err:
             logger(f'[Error] {err}')
 
     def select_video_library(self, stock_name):
         try:
-            self.h_click(L.import_media.media_library.video_library)
+            self.h_click(L.import_media.media_library.video_entry)
             end = ""
             while not self.h_click(L.import_media.media_library.stock(stock_name), 1):
                 tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
@@ -136,7 +94,7 @@ class MediaPage(BasePage):
 
     def select_photo_library(self, stock_name):
         try:
-            self.h_click(L.import_media.media_library.photo_library)
+            self.h_click(L.import_media.media_library.photo_entry)
             end = ""
             while not self.h_click(L.import_media.media_library.stock(stock_name), 1):
                 tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
@@ -379,7 +337,7 @@ class MediaPage(BasePage):
 
     def switch_to_video_library(self):
         # logger("start >> switch_to_video_library <<")
-        self.h_click(L.import_media.menu.video_library)
+        self.h_click(L.import_media.menu.video_entry)
         
     def switch_to_pip_video_library(self):
         logger("start >> switch_to_pip_video_library <<")
@@ -388,7 +346,7 @@ class MediaPage(BasePage):
 
     def switch_to_photo_library(self):
         # logger("[Info] Switch_to_photo_library")
-        self.h_click(L.import_media.menu.photo_library)
+        self.h_click(L.import_media.menu.photo_entry)
     
     def switch_to_title_library(self):
         logger("start >> switch_to_title_library <<")
@@ -900,7 +858,7 @@ class MediaPage(BasePage):
 
     def _in_google_driver(self,timeout = 5):
         # if self.is_not_exist(L.library_gridview.refresh,timeout):
-        if self.is_exist(L.menu.video_library, timeout):
+        if self.is_exist(L.menu.video_entry, timeout):
             logger('this is not google driver folder')
             return False
         return True

@@ -20,7 +20,7 @@ def test_app_init(driver):
         page_main.h_click(L.main.permission.photo_allow)
         page_main.h_click(("id", "btn_play_container"))
         page_main.h_click(L.import_media.media_library.apply)
-        page_main.h_click(find_string("Use Original"), 3)
+        page_main.h_click(find_string("Use Original"), 4)
         page_main.h_click(L.edit.settings.menu)
         page_main.h_click(L.edit.settings.preference)
         while not page_main.h_is_exist(L.main.menu.display_file_name_switch, 1):

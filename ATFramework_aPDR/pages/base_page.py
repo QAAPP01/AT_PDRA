@@ -571,6 +571,19 @@ class BasePage(BasePage):
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
 
+    def element(self, locator, timeout=5):
+        start = time.time()
+        try:
+            if type(locator) == tuple:  # convert from tuple to WebElement
+                element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+                # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
+                return element
+            else:
+                return locator
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
+
     # ==================================================================================================================
     # Function: h_get_elements
     # Description: Get elements with non-unique locator
@@ -580,6 +593,15 @@ class BasePage(BasePage):
     # Author: Hausen
     # ==================================================================================================================
     def h_get_elements(self, locator, timeout=5):
+        try:
+            WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            elements = self.driver.driver.find_elements(locator[0], locator[1])
+            return elements
+        except TimeoutException:
+            logger(f"[Info] Cannot find {locator}")
+            return False
+
+    def elements(self, locator, timeout=5):
         try:
             WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
             elements = self.driver.driver.find_elements(locator[0], locator[1])

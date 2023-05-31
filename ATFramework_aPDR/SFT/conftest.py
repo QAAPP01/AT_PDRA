@@ -47,7 +47,7 @@ def driver_get_desiredcap(udid, systemPort):
     return True
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def driver():
     import os
     from ATFramework_aPDR.ATFramework.utils.log import logger
@@ -56,16 +56,19 @@ def driver():
     from ATFramework_aPDR.configs import driver_config
     from main import deviceName
 
+    driver = None
     desired_caps = {}
     desired_caps.update(app_config.cap)
     desired_caps.update(DRIVER_DESIRED_CAPS)
-    if desired_caps['udid'] not in desired_caps:
+    mode = 'local'
+    if 'udid' not in desired_caps:
         desired_caps['udid'] = deviceName
+        mode = 'debug'
 
     retry = 3
     while retry:
         try:
-            driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
+            driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, mode,
                                                               desired_caps)
             if driver:
                 logger("\n[Done] Driver created!")
@@ -80,4 +83,7 @@ def driver():
             retry -= 1
 
     yield driver
-    driver.driver.quit()
+    if mode == 'local':
+        driver.driver.close()
+    else:
+        driver.driver.quit()

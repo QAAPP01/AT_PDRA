@@ -1,3 +1,4 @@
+import inspect
 import sys, time
 import os
 import shutil
@@ -22,11 +23,14 @@ from .locator.locator_type import *
 from .locator.locator import edit as E
 
 from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.pages.page_factory import PageFactory
 
 
 class EditPage(BasePage):
     def __init__(self, *args, **kwargs):
         BasePage.__init__(self, *args, **kwargs)
+        self.page_media = PageFactory().get_page_object("import_media", self.driver)
+
         self.el = lambda id: self.driver.driver.find_element(id[0], id[1])
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
         self.color = Color(self.driver.driver)
@@ -49,12 +53,105 @@ class EditPage(BasePage):
         self.duration = Duration(self.driver)
         self.border_and_shadow = Border_and_Shadow(self.driver)
         self.intro_video = Intro_Video(self.driver)
+        self.click = self.h_click
+        self.long_press = self.h_long_press
+        self.element = self.h_get_element
+        self.elements = self.h_get_elements
+        self.is_exist = self.h_is_exist
+
+    def add_master_media(self, media_type=None, folder=None, file_name=None):
+        try:
+            if media_type:
+                if len(media_type) > 1:
+                    media_type = media_type[0].upper() + media_type[1:].lower()
+                if media_type not in ['Video', 'Photo']:
+                    media_type = None
+
+            if not self.h_click(L.edit.preview.import_tips_icon, timeout=1):
+                if not self.h_click(L.edit.timeline.main_track_import, timeout=1):
+                    if not self.h_click(L.edit.timeline.main_track_import_float):
+                        logger('[FAIL] Cannot enter media room')
+                        return False
+            if folder and file_name:
+                if media_type == 'Video':
+                    self.page_media.select_local_video(folder, file_name)
+                elif media_type == 'Photo':
+                    self.page_media.select_local_photo(folder, file_name)
+            else:
+                logger('[Warning] Did not assign folder or file name')
+            return True
+
+        except Exception as err:
+            logger(f'[ERROR] {err}')
+            return False
+
+    def add_pip_media(self, media_type="", folder=None, file_name=None):
+        try:
+            media_type = media_type[0].upper() + media_type[1:].lower()
+            if media_type not in ['Video', 'Photo']:
+                media_type = 'Video'
+                logger('[Warning] Did not assign media type')
+
+            self.tap_blank_space()
+            if not self.enter_main_tool("Media"):
+                raise Exception('Click "Media" fail')
+            else:
+                if not self.h_click(find_string(media_type)):
+                    raise Exception(f'Click "{media_type}" fail')
+                else:
+                    if folder and file_name:
+                        if media_type == 'Video':
+                            self.page_media.select_local_video(folder, file_name)
+                            self.convert_pip_video()
+                        elif media_type == 'Photo':
+                            self.page_media.select_local_photo(folder, file_name)
+                    else:
+                        logger('[Warning] Did not assign folder or file name')
+                        self.click(L.import_media.media_library.media())
+
+                    if self.is_exist(L.edit.timeline.pip.clip_thumbnail):
+                        return True
+                    else:
+                        raise Exception('Cannot find clip thumbnail')
+
+        except Exception as err:
+            logger(f'\n[ERROR] {err}')
+            return False
 
     def back_to_launcher(self):
         self.h_click(L.edit.menu.home)
         # Churn Recovery
         if self.h_is_exist(L.main.premium.pdr_premium, 1):
             self.driver.driver.back()
+
+    def convert_pip_video(self, timeout=60):
+        self.click(L.edit.converting.ok, 2)
+        timeout_flag = True
+        for i in range(timeout):
+            if self.is_exist(L.edit.converting.progress_bar, 1):
+                continue
+            else:
+                timeout_flag = False
+                break
+        if timeout_flag:
+            logger('[Fail] Converting timeout')
+            return False
+        else:
+            return True
+
+    def tap_blank_space(self):
+        try:
+            time_code = self.element(L.edit.preview.time_code).rect
+            timeline = self.element(L.edit.timeline.timeline_area).rect
+            x = time_code['x'] + time_code['width']//2
+            y = timeline['y'] + timeline['height']//2
+            self.driver.driver.tap([(x, y)])
+            return True
+        except Exception as err:
+            logger(f'{inspect.stack()[0][3]} {err}')
+            return False
+
+
 
     def preview_ratio(self):
         """
@@ -118,6 +215,72 @@ class EditPage(BasePage):
 
         except Exception as err:
             logger(f'[Error] {err}')
+
+    def enter_main_tool(self, name, timeout=0.2):
+        try:
+            for i in range(4):
+                if self.h_click(L.edit.tool_menu.back, timeout=0.1):
+                    continue
+                else:
+                    break
+            if not self.h_is_exist(L.edit.timeline.tool):
+                logger("\n[Fail] Cannot find tool menu")
+                return False
+            else:
+                while 1:
+                    if not self.h_is_exist(find_string(name), timeout):
+                        tool = self.h_get_elements(E.timeline.tool)
+                        last = tool[len(tool) - 1].text
+                        self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=3)
+                        tool = self.h_get_elements(E.timeline.tool)
+                        if tool[len(tool) - 1].text == last:
+                            logger(f'[Not exist] Tool "{name}" is not exist')
+                            return False
+                    else:
+                        break
+            return self.click(find_string(name))
+
+        except Exception as err:
+            logger(f'[Error] {err}')
+            return False
+
+    def enter_sub_tool(self, name, timeout=0.2):
+        if not self.h_is_exist(L.edit.timeline.sub_tool, 3):
+            logger("[Info] Cannot find sub tool menu")
+            logger("[Info] Select the first clip")
+            self.h_click(L.edit.timeline.clip())
+        locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
+        while 1:
+            if not self.h_is_exist(locator, timeout=timeout):
+                tool = self.h_get_elements(E.timeline.sub_tool)
+                last = tool[len(tool) - 1].text
+                self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=3)
+                tool = self.h_get_elements(E.timeline.sub_tool)
+                if tool[len(tool) - 1].text == last:
+                    logger(f'[Not exist] Tool "{name}" is not exist')
+                    return False
+            else:
+                break
+        return self.click(locator)
+
+    def enter_sub_option_tool(self, name, timeout=0.1):
+        if not self.h_is_exist(L.edit.timeline.option_label, 1):
+            logger("[Info] Cannot find sub option tool menu")
+            return False
+        locator = ('xpath', '//*[contains(@resource-id,"option_label") and contains(@text,"'+name+'")]')
+        while 1:
+            if not self.h_is_exist(locator, timeout=timeout):
+                tool = self.h_get_elements(E.timeline.option_label)
+                last = tool[len(tool) - 1].text
+                self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=4)
+                tool = self.h_get_elements(E.timeline.option_label)
+                if tool[len(tool) - 1].text == last:
+                    logger(f'[Not exist] Tool "{name}" is not exist')
+                    return False
+            else:
+                break
+        return self.h_click(locator)
+
 
     def click_sub_tool(self, name, timeout=0.1):
         if not self.h_is_exist(L.edit.timeline.sub_tool, 3):
@@ -1628,7 +1791,7 @@ class EditPage(BasePage):
                 self.el(L.edit.timeline.btn_import).click()
             elif self.is_exist(L.edit.timeline.btn_import2, 15):
                 self.el(L.edit.timeline.btn_import2).click()
-            if self.is_exist(L.import_media.menu.video_library):
+            if self.is_exist(L.import_media.menu.video_entry):
                 logger('Open library success.')
                 return True
             else:

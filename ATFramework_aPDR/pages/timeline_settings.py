@@ -89,7 +89,7 @@ class TimelineSettingsPage(BasePage):
     def check_timeline_image_duration(self, add_image=True, file_name='9_16.jpg'):
         try:
             if add_image:
-                self.page_media.add_master_media('Photo', self.test_material_folder, file_name)
+                self.page_edit.add_master_media('Photo', self.test_material_folder, file_name)
             self.page_edit.click_tool('Edit')
             self.page_edit.click_sub_tool('Duration', 0.1)
             duration_text = self.h_get_element(L.edit.duration.text_duration).text

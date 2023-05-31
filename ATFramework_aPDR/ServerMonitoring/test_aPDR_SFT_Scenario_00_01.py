@@ -165,7 +165,7 @@ class Test_SFT_Scenario_00_01b:
         page_main.project_set_9_16()  
         logger('[V] Tips_Edit Page')
         page_media = PageFactory().get_page_object("import_media", self.driver)
-        page_media.el(L.import_media.video_library.back).click()
+        page_media.el(L.import_media.video_entry.back).click()
         #6.8.1 new feature: tool menu is hide by default
         page_edit.el(L.edit.menu.timeline_setting).click()
         page_edit.el(L.edit.sub_menu.settings).click()

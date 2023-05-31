@@ -38,59 +38,29 @@ files_by_file_size = ["jpg.jpg", "bmp.bmp", "gif.gif", "png.png"]
 
 class Test_SFT_Scenario_01_02:
     @pytest.fixture(autouse=True)
-    def initial(self):
-
-        # ---- local mode ---
-        from .conftest import DRIVER_DESIRED_CAPS
+    def initial(self, driver):
         global report
         logger("[Start] Init driver session")
-        desired_caps = {}
-        desired_caps.update(app_config.cap)
-        desired_caps.update(DRIVER_DESIRED_CAPS)
-        if desired_caps['udid'] == 'auto':
-            desired_caps['udid'] = deviceName
-        logger(f"[Info] caps={desired_caps}")
+
+        self.driver = driver
         self.report = report
-        self.device_udid = DRIVER_DESIRED_CAPS['udid']
-        # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
         self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
-        # retry 3 time if create driver fail
-        retry = 3
-        while retry:
-            try:
-                self.driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
-                                                                       desired_caps)
-                if self.driver:
-                    logger("\n[Done] Driver created!")
-                    break
-                else:
-                    raise Exception("\n[Fail] Create driver fail")
-            except Exception as e:
-                logger(e)
-                retry -= 1
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
+
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(self.driver)
-        self.driver.driver.start_recording_screen()
-        self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(0.1)
-
-        yield self.driver  # keep driver for the function which uses 'initial'
-
-        # teardown
-        logger("\n[Stop] Teardown")
-        self.driver.stop_driver()
+        self.report.set_driver(driver)
+        driver.driver.launch_app()
 
     def sce_01_02_01(self):
         item_id = '01_02_01'
@@ -707,6 +677,7 @@ class Test_SFT_Scenario_01_02:
             result_media_room = True
             self.click(find_string(capture_1st_video))
             self.click(L.import_media.media_library.apply, timeout=1)
+            self.click(find_string('Use Original'), 3)
             if self.is_exist(L.edit.timeline.master_video(capture_1st_video)):
                 result_timeline = True
             else:

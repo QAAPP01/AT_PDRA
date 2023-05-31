@@ -8,8 +8,9 @@ class TestEnd():
         print('REPORT_INSTANCE=', REPORT_INSTANCE)
         cls.report = REPORT_INSTANCE
 
-    def test_end(self):
+    def test_end(self, driver):
         print('Start to export report')
         #calculate test duration
         #self.report.add_ovinfo("duration", "xxx")
         self.report.export()
+        driver.driver.quit()

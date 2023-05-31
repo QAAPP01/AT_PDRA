@@ -319,8 +319,8 @@ class MainPage(BasePage):
         else:
             self.click(L.setting.ratio_16_9)
         if type.lower() == "photo":
-            logger("Select Photo: %s" % str(L_media.menu.photo_library))
-            import_media.click(L_media.menu.photo_library)
+            logger("Select Photo: %s" % str(L_media.menu.photo_entry))
+            import_media.click(L_media.menu.photo_entry)
             import_media.select_media_by_text("00PDRa_Testing_Material")
             # import_media.select_media_by_text("jpg.jpg")
             import_media.select_media_by_order(2)
