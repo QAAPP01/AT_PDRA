@@ -139,6 +139,16 @@ class EditPage(BasePage):
         else:
             return True
 
+    def drag_color_picker(self):
+        try:
+            preview_rect = self.element(L.edit.tool_menu.cutout.color_picker.preview).rect
+            x = preview_rect['x']
+            y = preview_rect['y']
+            self.h_drag_element(L.edit.tool_menu.cutout.color_picker.picker_image, x, y)
+            return True
+        except Exception as err:
+            raise Exception(err)
+
     def tap_blank_space(self):
         try:
             time_code = self.element(L.edit.preview.time_code).rect
@@ -2940,8 +2950,8 @@ class Fit_and_Fill(BasePage):
         # elm = self.el(L.edit.edit_sub.bottom_edit_menu)
         # locator = L.edit.fit_and_fill.color_picker
         for retry in range(10):
-            if self.is_exist(L.edit.fit_and_fill.color_picker):
-                self.el(L.edit.fit_and_fill.color_picker).click()
+            if self.is_exist(L.edit.fit_and_fill.picker_image):
+                self.el(L.edit.fit_and_fill.picker_image).click()
                 break
             else:
                 self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'right', 400)

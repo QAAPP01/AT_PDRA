@@ -161,7 +161,7 @@ class Test_SFT_Scenario_02_03:
             return "FAIL"
 
     def sce_2_3_12(self):
-        uuid = '7a1459b5-88c9-42e7-8e06-d1937b8d2e64'
+        uuid = 'c2b0eea9-4983-42b3-8e1a-6ee13b2851f5'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
@@ -190,9 +190,441 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('Cutout')
-            self.page_edit.enter_sub_option_tool('Remove Background')
 
             return "FAIL"
+
+    def sce_2_3_13(self):
+        uuid = 'fd2eb945-b2f0-4697-bfb6-7274e2d11b5d'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.page_edit.enter_sub_option_tool('Chroma Key'):
+                raise Exception('Click Chroma Key fail')
+            toast_default = 'Drag the color picker on the screen to select a color.'
+            toast = self.element(L.edit.toast).text
+
+            if toast == toast_default:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Toast incorrect: {toast}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
+    def sce_2_3_14(self):
+        uuid = '87d52e81-e0e8-4dce-931e-0b814ea32f51'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            pic_src = self.page_main.get_picture(L.edit.tool_menu.cutout.color_picker.preview)
+            self.page_edit.drag_color_picker()
+            pic_tgt = self.page_main.get_picture(L.edit.tool_menu.cutout.color_picker.preview)
+
+            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Before and after images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+            self.page_edit.drag_color_picker()
+
+            return "FAIL"
+
+    def sce_2_3_15(self):
+        uuid = '2c0f4591-9721-4091-8a60-037a3bb30dd2'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            result_max = self.driver.drag_slider_to_max(L.edit.tool_menu.cutout.color_picker.picker_slider)
+            result_min = self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.picker_slider)
+
+            if result_max and result_min:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Drag to max and min fail'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+            self.driver.drag_slider_from_center_to_right(L.edit.tool_menu.cutout.color_picker.picker_slider)
+
+            return "FAIL"
+
+    def sce_2_3_16(self):
+        uuid = '738da597-7238-43ec-99b7-34ea822e51cf'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.tool_menu.cutout.color_picker.picker_btn)
+
+            if self.is_exist(L.edit.tool_menu.cutout.color_picker.picker_image):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] No found color picker on the preview'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
+    def sce_2_3_17(self):
+        uuid = '3167c930-80a6-4113-8e56-c5f352b1749d'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            global range_value_default
+            range_value_default = '13'
+
+            if range_value == range_value_default:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Range value incorrect: {range_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
+    def sce_2_3_18(self):
+        uuid = '98101220-f6a3-46c0-8044-1a85757b0df9'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.tool_menu.cutout.color_picker.range_slider)
+            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            range_value_max = "100"
+
+            if range_value == range_value_max:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Range value incorrect:{range_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
+    def sce_2_3_19(self):
+        uuid = 'c4940dac-33e1-4d08-9d57-0f2dbfee9ae8'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.range_slider)
+            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            range_value_min= "0"
+
+            if range_value == range_value_min:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Range value incorrect:{range_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
+    def sce_2_3_20(self):
+        uuid = 'fb594b20-242e-4779-8bcc-6172b648e03e'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            global denoise_value_default
+            denoise_value_default = "20"
+
+            if denoise_value == denoise_value_default:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Range value incorrect:{denoise_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
+    def sce_2_3_21(self):
+        uuid = '26578cc4-5a39-446c-b4a5-ac3e0a6aed44'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.tool_menu.cutout.color_picker.denoise_slider)
+            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            denoise_value_max = "100"
+
+            if denoise_value == denoise_value_max:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Range value incorrect:{denoise_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
+    def sce_2_3_22(self):
+        uuid = 'f8f2dce3-eeb4-4015-8236-453dd3f5baba'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.denoise_slider)
+            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            denoise_value_min = "0"
+
+            if denoise_value == denoise_value_min:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Range value incorrect:{denoise_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.range_slider)
+            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.denoise_slider)
+
+            return "FAIL"
+
+    def sce_2_3_23(self):
+        uuid = 'f76319dc-54b2-4c10-b286-50e8188ab845'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(L.edit.tool_menu.cutout.color_picker.apply):
+                raise Exception('Click Apply fail')
+
+            if not self.page_edit.enter_sub_option_tool('Chroma Key'):
+                raise Exception('Enter Chroma Key fail')
+
+            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+
+            if range_value == denoise_value == "0":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: range_value:{range_value}, denoise_value:{denoise_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
+    def sce_2_3_24(self):
+        uuid = '68f5e57a-ac2b-452a-91c6-b4bfb43f2b1b'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(L.edit.tool_menu.cutout.color_picker.reset):
+                raise Exception('Click Reset fail')
+
+            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+
+            if range_value == range_value_default and denoise_value == denoise_value_default:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: range_value:{range_value}, denoise_value:{denoise_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.range_slider)
+            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.denoise_slider)
+
+            return "FAIL"
+
+    def sce_2_3_25(self):
+        uuid = '545c205b-66f4-4036-8856-ea10ab4a340e'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(L.edit.tool_menu.cutout.color_picker.cancel):
+                raise Exception('Click Cancel fail')
+
+            if not self.page_edit.enter_sub_option_tool('Chroma Key'):
+                raise Exception('Enter Chroma Key fail')
+
+            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+
+            if range_value == denoise_value == "0":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: range_value:{range_value}, denoise_value:{denoise_value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_option_tool('Chroma Key')
+
+            return "FAIL"
+
 
 
     def sce_2_3_32(self):
@@ -789,6 +1221,19 @@ class Test_SFT_Scenario_02_03:
                   "sce_2_3_10": self.sce_2_3_10(),
                   "sce_2_3_11": self.sce_2_3_11(),
                   "sce_2_3_12": self.sce_2_3_12(),
+                  "sce_2_3_13": self.sce_2_3_13(),
+                  "sce_2_3_14": self.sce_2_3_14(),
+                  "sce_2_3_15": self.sce_2_3_15(),
+                  "sce_2_3_16": self.sce_2_3_16(),
+                  "sce_2_3_17": self.sce_2_3_17(),
+                  "sce_2_3_18": self.sce_2_3_18(),
+                  "sce_2_3_19": self.sce_2_3_19(),
+                  "sce_2_3_20": self.sce_2_3_20(),
+                  "sce_2_3_21": self.sce_2_3_21(),
+                  "sce_2_3_22": self.sce_2_3_22(),
+                  "sce_2_3_23": self.sce_2_3_23(),
+                  "sce_2_3_24": self.sce_2_3_24(),
+                  "sce_2_3_25": self.sce_2_3_25(),
                   }
         for key, value in result.items():
             if value != "PASS":

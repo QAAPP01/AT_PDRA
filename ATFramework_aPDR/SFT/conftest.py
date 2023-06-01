@@ -63,6 +63,7 @@ def driver():
     mode = 'local'
     if 'udid' not in desired_caps:
         desired_caps['udid'] = deviceName
+        # desired_caps['udid'] = 'RFCW2198L7B'
         mode = 'debug'
 
     retry = 3

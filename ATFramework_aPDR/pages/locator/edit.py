@@ -1,5 +1,6 @@
 from .locator_type import *
 
+toast = xpath('/hierarchy/android.widget.Toast[1]')
 
 class Converting:
     ok = aid('[AID]ConfirmDialog_OK')
@@ -112,32 +113,6 @@ class Timeline:
     master_track = MasterTrack
     pip = Pip
 
-class Menu:
-    class Produce_sub_page:
-        save = id('text_setting_save_project')
-        produce = id('text_setting_save_and_produce_project')
-
-    produce_sub_page = Produce_sub_page()
-    back = aid("[AID]TimeLine_Back")
-    # back_session = aid("[AID]Session_Back")
-    back_session = id('btn_session_back')
-    back_library = aid("[AID]Library_Back")
-    import_media = aid("[AID]TimeLine_VideoPhotoAudio")
-    effect = aid("[AID]TimeLine_Layer")
-    fx = aid("[AID]TimeLine_Fx")
-    settings = id('btn_setting')
-    produce = aid("[AID]TimeLine_Save")
-    timeline_setting = aid("[AID]TimeLine_Setting")
-    undo = id("btn_undo")
-    play = aid("[AID]TimeLine_Play")
-    # edit = id("btn_edit_img") # after select video
-    edit = id("btn_session_edit")
-    split = id("btn_split")
-    delete = id("btn_delete")
-    home = id('btn_home')
-    btn_apply_all = id('btn_apply_all')
-
-
 class ToolMenu:
     back = id('btn_session_back')
     slider = id("adjustable_parameter_seek_bar")
@@ -179,8 +154,51 @@ class ToolMenu:
     class Cutout:
         try_it = aid('[AID]Upgrade_No')
 
+        class ColorPicker:
+            preview = xpath(f'//*[contains(@resource-id,"movie_view")]/android.view.View')
+            picker_image = xpath(f'(//*[contains(@resource-id,"original_preview_layout")]/android.widget.ImageView)[2]')
+            picker_slider = id('seekBarColor')
+            picker_btn = id('btnColorPicker')
+            range_value = id('editTextRange')
+            range_slider = id('seekBarRange')
+            denoise_value = id('editTextDenoise')
+            denoise_slider = id('seekBarDenoise')
+            cancel = id('btnClose')
+            apply = id('btnApply')
+            reset = xpath(f'//android.widget.ImageView[3][contains(@resource-id,"btn_reset")]')
+
+        color_picker = ColorPicker
+
     ai_effect = AIEffect
     cutout = Cutout
+
+
+class Menu:
+    class Produce_sub_page:
+        save = id('text_setting_save_project')
+        produce = id('text_setting_save_and_produce_project')
+
+    produce_sub_page = Produce_sub_page()
+    back = aid("[AID]TimeLine_Back")
+    # back_session = aid("[AID]Session_Back")
+    back_session = id('btn_session_back')
+    back_library = aid("[AID]Library_Back")
+    import_media = aid("[AID]TimeLine_VideoPhotoAudio")
+    effect = aid("[AID]TimeLine_Layer")
+    fx = aid("[AID]TimeLine_Fx")
+    settings = id('btn_setting')
+    produce = aid("[AID]TimeLine_Save")
+    timeline_setting = aid("[AID]TimeLine_Setting")
+    undo = id("btn_undo")
+    play = aid("[AID]TimeLine_Play")
+    # edit = id("btn_edit_img") # after select video
+    edit = id("btn_session_edit")
+    split = id("btn_split")
+    delete = id("btn_delete")
+    home = id('btn_home')
+    btn_apply_all = id('btn_apply_all')
+
+
 
 class SubToolMenu:
     back = id('btn_session_back')
@@ -918,6 +936,7 @@ class Intro_Video:
 class Interface:
     converting = Converting
     timeline = Timeline()
+    toast = toast
     tool_menu = ToolMenu()
 
     adjust_sub = Adjust_sub()
