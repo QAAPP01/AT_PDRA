@@ -21,6 +21,12 @@ sys.path.insert(0, (dirname(dirname(__file__))))
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
 
+test_material_folder = TEST_MATERIAL_FOLDER
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
+
 
 class Test_SFT_Scenario_01_05:
     @pytest.fixture(autouse=True)
@@ -30,8 +36,6 @@ class Test_SFT_Scenario_01_05:
 
         self.driver = driver
         self.report = report
-        self.test_material_folder = TEST_MATERIAL_FOLDER
-        self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)

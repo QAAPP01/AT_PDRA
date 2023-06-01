@@ -971,7 +971,31 @@ class AppiumU2Driver(Borg, BaseDriver):
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             TouchAction(self.driver).press(None, slider_rect['x'], y_center, 1).wait(2000).move_to(None, slider_rect['x'] + int(
-                slider_rect['width']), y_center).release().perform()
+                slider_rect['width'] / 4), y_center).release().perform()
         except Exception as err:
             raise Exception(err)
         return True
+
+    def drag_slider_to_max(self, locator=L.edit.tool_menu.slider):
+        try:
+            slider = self.driver.find_element(locator[0],locator[1])
+            slider_rect = slider.rect
+            y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
+            start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
+            end_x = slider_rect['x'] + int(slider_rect['width'])
+            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(2000).move_to(x=end_x, y=y_center).release().perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+    def drag_slider_to_min(self, locator=L.edit.tool_menu.slider):
+        try:
+            slider = self.driver.find_element(locator[0],locator[1])
+            slider_rect = slider.rect
+            y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
+            start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
+            end_x = slider_rect['x']
+            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(2000).move_to(x=end_x, y=y_center).release().perform()
+            return True
+        except Exception as err:
+            raise Exception(err)

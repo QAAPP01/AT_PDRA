@@ -1,26 +1,21 @@
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+
 import inspect
-import sys, os, glob
-from os.path import dirname
-from os import path
-import subprocess
-from pprint import pprint
-from ATFramework_aPDR.pages.locator import locator as L
-from ATFramework_aPDR.pages.locator.locator_type import *
-
-from ATFramework_aPDR.pages.page_factory import PageFactory
-from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
-from ATFramework_aPDR.configs import app_config
-from ATFramework_aPDR.configs import driver_config
-from ATFramework_aPDR.ATFramework.utils.log import logger
-import pytest
+import sys
 import time
+from os.path import dirname
 
-from main import deviceName
-from .conftest import REPORT_INSTANCE
+import pytest
+
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
+from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import PACKAGE_NAME
+from .conftest import REPORT_INSTANCE
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
@@ -35,62 +30,38 @@ files_by_date = ["bmp.bmp", "gif.gif", "jpg.jpg", "png.png"]
 files_by_resolution = ["gif.gif", "bmp.bmp", "jpg.jpg", "png.png"]
 files_by_file_size = ["jpg.jpg", "bmp.bmp", "gif.gif", "png.png"]
 
+test_material_folder = TEST_MATERIAL_FOLDER
+test_material_folder_01 = TEST_MATERIAL_FOLDER_01
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
+
 
 class Test_SFT_Scenario_01_02:
     @pytest.fixture(autouse=True)
-    def initial(self):
-
-        # ---- local mode ---
-        from .conftest import DRIVER_DESIRED_CAPS
+    def initial(self, driver):
         global report
         logger("[Start] Init driver session")
-        desired_caps = {}
-        desired_caps.update(app_config.cap)
-        desired_caps.update(DRIVER_DESIRED_CAPS)
-        if desired_caps['udid'] == 'auto':
-            desired_caps['udid'] = deviceName
-        logger(f"[Info] caps={desired_caps}")
-        self.report = report
-        self.device_udid = DRIVER_DESIRED_CAPS['udid']
-        # ---- local mode > end ----
-        self.test_material_folder = TEST_MATERIAL_FOLDER
-        self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
-        # retry 3 time if create driver fail
-        retry = 3
-        while retry:
-            try:
-                self.driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
-                                                                       desired_caps)
-                if self.driver:
-                    logger("\n[Done] Driver created!")
-                    break
-                else:
-                    raise Exception("\n[Fail] Create driver fail")
-            except Exception as e:
-                logger(e)
-                retry -= 1
+        self.driver = driver
+        self.report = report
+
+
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
+
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(self.driver)
-        self.driver.driver.start_recording_screen()
-        self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(0.1)
-
-        yield self.driver  # keep driver for the function which uses 'initial'
-
-        # teardown
-        logger("\n[Stop] Teardown")
-        self.driver.stop_driver()
+        self.report.set_driver(driver)
+        driver.driver.launch_app()
 
     def sce_01_02_01(self):
         item_id = '01_02_01'
@@ -100,7 +71,7 @@ class Test_SFT_Scenario_01_02:
 
         self.page_main.enter_launcher()
         self.page_main.enter_timeline(skip_media=False)
-        self.page_media.select_local_photo(self.test_material_folder, "9_16.jpg")
+        self.page_media.select_local_photo(test_material_folder, "9_16.jpg")
         self.click(L.edit.menu.home)
         if self.is_exist(L.main.premium.pdr_premium): # Churn Recovery
             self.driver.driver.back()
@@ -228,7 +199,7 @@ class Test_SFT_Scenario_01_02:
         self.page_main.h_click(L.timeline_settings.settings.default_pan_zoom_effect)
         self.driver.driver.back()
         self.page_main.h_click(L.edit.preview.import_tips_icon)
-        self.page_media.select_local_photo(self.test_material_folder, '9_16.jpg')
+        self.page_media.select_local_photo(test_material_folder, '9_16.jpg')
         pic_base = self.page_main.get_preview_pic()
         self.page_main.h_click(L.edit.menu.play)
         time.sleep(10)
@@ -246,64 +217,97 @@ class Test_SFT_Scenario_01_02:
         self.report.new_result(uuid, result)
         return "PASS" if result else "FAIL"
 
-    def sce_01_02_08(self):
-        item_id = '01_02_08'
-        # 1
+    def sce_1_2_8(self):
         uuid = 'dd7500a6-e070-48ec-b3bf-68fb668bca80'
-        logger(f"\n[Start] sce_{item_id}")
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
-        self.click(L.edit.preview.import_tips_icon)
-        self.page_media.switch_to_photo_library()
-        if not self.element(L.import_media.photo_library.folders).text == self.test_material_folder_01:
-            self.click(L.import_media.photo_library.select_folder)
-            for i in range(5):
-                if self.click(find_string(self.test_material_folder_01)):
-                    break
-                else:
-                    folders = self.elements(L.import_media.photo_library.folders)
-                    self.page_main.h_swipe_element(folders[len(folders) - 1], folders[0], speed=3)
+        try:
+            self.click(L.edit.preview.import_tips_icon)
+            self.page_media.switch_to_photo_library()
 
-        if self.element(L.import_media.photo_library.folders).text == self.test_material_folder_01:
-            result_1 = True
-        else:
-            result_1 = False
-            logger(f'\n[Fail] result_1: Cannot find the folder{self.test_material_folder_01}')
-        self.report.new_result(uuid, result_1)
-
-        # 2
-        uuid = '343131de-0a4c-4e60-9bba-a1a8f694c7d4'
-        self.report.start_uuid(uuid)
-
-        for retry in range(20):
-            if not self.is_exist(find_string("jpg.jpg")):
-                self.driver.swipe_element(L.import_media.media_library.frame, 'up', 300)
+            if self.page_media.select_local_folder(test_material_folder_01):
+                self.report.new_result(uuid, True)
+                return "PASS"
             else:
-                break
+                fail_log = f'[Fail] Cannot find the folder{test_material_folder_01}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
 
-        if self.is_exist(find_string("jpg.jpg")):
-            result_2 = True
-        else:
-            result_2 = False
-            logger(f'\n[Fail] result_2: Cannot find the file "jpg.jpg"')
-        self.report.new_result(uuid, result_2)
+        except Exception as err:
+            logger(f'\n{err}')
 
-        # 3
-        uuid = '3c73bac0-4dd1-4850-9d6f-4433fa65f6be'
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.switch_to_photo_library()
+
+            return "FAIL"
+
+    def sce_1_2_9(self):
+        uuid = '343131de-0a4c-4e60-9bba-a1a8f694c7d4'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
-        self.click(L.import_media.sort_menu.sort_button)
-        result_date = self.element(L.import_media.sort_menu.by_date).get_attribute("checked")
-        result_descending = self.element(L.import_media.sort_menu.descending).get_attribute("checked")
+        try:
+            for retry in range(20):
+                if not self.is_exist(find_string("jpg.jpg")):
+                    self.driver.swipe_element(L.import_media.media_library.frame, 'up', 300)
+                else:
+                    break
 
-        if result_date == "true" and result_descending == "true":
-            result_3 = True
-        else:
-            result_3 = False
-            logger(f'\n[Fail] result_3: result_date = {result_date}, result_descending = {result_descending}')
-        self.report.new_result(uuid, result_3)
+            if self.is_exist(find_string("jpg.jpg")):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] Cannot find the file "jpg.jpg"'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
 
-        return "PASS" if result_1 and result_2 and result_3 else "FAIL"
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.switch_to_photo_library()
+
+            return "FAIL"
+
+    def sce_1_2_10(self):
+        uuid = '3c73bac0-4dd1-4850-9d6f-4433fa65f6be'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.import_media.sort_menu.sort_button)
+            result_date = self.element(L.import_media.sort_menu.by_date).get_attribute("checked")
+            result_descending = self.element(L.import_media.sort_menu.descending).get_attribute("checked")
+
+            if result_date == "true" and result_descending == "true":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] result_date = {result_date}, result_descending = {result_descending}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.switch_to_photo_library()
+            self.click(L.import_media.sort_menu.sort_button)
+
+            return "FAIL"
 
     def sce_01_02_09(self):
         item_id = '01_02_09'
@@ -563,7 +567,7 @@ class Test_SFT_Scenario_01_02:
         self.report.start_uuid(uuid)
 
         file_name = 'gif.gif'
-        self.page_edit.add_master_media('photo', self.test_material_folder, file_name)
+        self.page_edit.add_master_media('photo', test_material_folder, file_name)
 
         if self.is_exist(L.edit.timeline.master_photo(file_name)):
             result = True
@@ -596,7 +600,7 @@ class Test_SFT_Scenario_01_02:
         self.report.start_uuid(uuid)
 
         self.page_edit.add_master_media()
-        self.page_media.select_local_photo(self.test_material_folder, 'png.png')
+        self.page_media.select_local_photo(test_material_folder, 'png.png')
 
         if self.is_exist(L.edit.timeline.master_photo('png.png')):
             result = True
@@ -629,7 +633,7 @@ class Test_SFT_Scenario_01_02:
         self.report.start_uuid(uuid)
 
         self.page_edit.add_master_media()
-        self.page_media.select_local_photo(self.test_material_folder, 'jpg.jpg')
+        self.page_media.select_local_photo(test_material_folder, 'jpg.jpg')
 
         if self.is_exist(L.edit.timeline.master_photo('jpg.jpg')):
             result = True
@@ -662,7 +666,7 @@ class Test_SFT_Scenario_01_02:
         self.report.start_uuid(uuid)
 
         self.page_edit.add_master_media()
-        self.page_media.select_local_photo(self.test_material_folder, 'bmp.bmp')
+        self.page_media.select_local_photo(test_material_folder, 'bmp.bmp')
 
         if self.is_exist(L.edit.timeline.master_photo('bmp.bmp')):
             result = True
@@ -707,6 +711,7 @@ class Test_SFT_Scenario_01_02:
             result_media_room = True
             self.click(find_string(capture_1st_video))
             self.click(L.import_media.media_library.apply, timeout=1)
+            self.click(find_string('Use Original'), 3)
             if self.is_exist(L.edit.timeline.master_video(capture_1st_video)):
                 result_timeline = True
             else:
@@ -734,7 +739,7 @@ class Test_SFT_Scenario_01_02:
 
         self.page_edit.add_master_media()
         file_name = "mp4.mp4"
-        self.page_media.select_local_video(self.test_material_folder, file_name)
+        self.page_media.select_local_video(test_material_folder, file_name)
 
         if self.is_exist(L.edit.timeline.master_video(file_name)):
             result = True
@@ -752,7 +757,7 @@ class Test_SFT_Scenario_01_02:
 
         self.page_edit.add_master_media()
         file_name = "3gp.3gp"
-        self.page_media.select_local_video(self.test_material_folder, file_name)
+        self.page_media.select_local_video(test_material_folder, file_name)
 
         if self.is_exist(L.edit.timeline.master_video(file_name)):
             result = True
@@ -771,7 +776,7 @@ class Test_SFT_Scenario_01_02:
 
         self.page_edit.add_master_media()
         file_name = "mkv.mkv"
-        self.page_media.select_local_video(self.test_material_folder, file_name)
+        self.page_media.select_local_video(test_material_folder, file_name)
 
         if self.is_exist(L.edit.timeline.master_video(file_name)):
             result = True
@@ -803,43 +808,43 @@ class Test_SFT_Scenario_01_02:
         self.report.new_result(uuid, result)
         return "PASS" if result else "FAIL"
 
-    @report.exception_screenshot
-    def test_sce_01_02_01_to_32(self):
-        try:
-            result = {
-                "sce_01_02_01": self.sce_01_02_01(),
-                "sce_01_02_02": self.sce_01_02_02(),
-                "sce_01_02_03": self.sce_01_02_03(),
-                "sce_01_02_04": self.sce_01_02_04(),
-                "sce_01_02_05": self.sce_01_02_05(),
-                "sce_01_02_06": self.sce_01_02_06(),
-                "sce_01_02_07": self.sce_01_02_07(),
-                "sce_01_02_08": self.sce_01_02_08(),
-                "sce_01_02_09": self.sce_01_02_09(),
-                "sce_01_02_10": self.sce_01_02_10(),
-                "sce_01_02_11": self.sce_01_02_11(),
-                "sce_01_02_12": self.sce_01_02_12(),
-                "sce_01_02_13": self.sce_01_02_13(),
-                "sce_01_02_14": self.sce_01_02_14(),
-                "sce_01_02_16": self.sce_01_02_16(),
-                "sce_01_02_17": self.sce_01_02_17(),
-                "sce_01_02_15": self.sce_01_02_15(),
-                "sce_01_02_18": self.sce_01_02_18(),
-                "sce_01_02_19": self.sce_01_02_19(),
-                "sce_01_02_20": self.sce_01_02_20(),
-                "sce_01_02_21": self.sce_01_02_21(),
-                "sce_01_02_22": self.sce_01_02_22(),
-                "sce_01_02_23": self.sce_01_02_23(),
-                "sce_01_02_24": self.sce_01_02_24(),
-                "sce_01_02_25": self.sce_01_02_25(),
-                "sce_01_02_26": self.sce_01_02_26(),
-                "sce_01_02_27": self.sce_01_02_27(),
-                "sce_01_02_28": self.sce_01_02_28(),
-                "sce_01_02_29": self.sce_01_02_29(),
-                "sce_01_02_30": self.sce_01_02_30(),
-                "sce_01_02_31": self.sce_01_02_31(),
-                "sce_01_02_32": self.sce_01_02_32(),
-            }
-            pprint(result)
-        except Exception as err:
-            logger(f'[Error] {err}')
+
+    def test_case(self):
+        result = {"sce_01_02_01": self.sce_01_02_01(),
+                  "sce_01_02_02": self.sce_01_02_02(),
+                  "sce_01_02_03": self.sce_01_02_03(),
+                  "sce_01_02_04": self.sce_01_02_04(),
+                  "sce_01_02_05": self.sce_01_02_05(),
+                  "sce_01_02_06": self.sce_01_02_06(),
+                  "sce_01_02_07": self.sce_01_02_07(),
+                  "sce_1_2_8": self.sce_1_2_8(),
+                  "sce_1_2_9": self.sce_1_2_9(),
+                  "sce_1_2_10": self.sce_1_2_10(),
+                  "sce_01_02_09": self.sce_01_02_09(),
+                  "sce_01_02_10": self.sce_01_02_10(),
+                  "sce_01_02_11": self.sce_01_02_11(),
+                  "sce_01_02_12": self.sce_01_02_12(),
+                  "sce_01_02_13": self.sce_01_02_13(),
+                  "sce_01_02_14": self.sce_01_02_14(),
+                  "sce_01_02_16": self.sce_01_02_16(),
+                  "sce_01_02_17": self.sce_01_02_17(),
+                  "sce_01_02_15": self.sce_01_02_15(),
+                  "sce_01_02_18": self.sce_01_02_18(),
+                  "sce_01_02_19": self.sce_01_02_19(),
+                  "sce_01_02_20": self.sce_01_02_20(),
+                  "sce_01_02_21": self.sce_01_02_21(),
+                  "sce_01_02_22": self.sce_01_02_22(),
+                  "sce_01_02_23": self.sce_01_02_23(),
+                  "sce_01_02_24": self.sce_01_02_24(),
+                  "sce_01_02_25": self.sce_01_02_25(),
+                  "sce_01_02_26": self.sce_01_02_26(),
+                  "sce_01_02_27": self.sce_01_02_27(),
+                  "sce_01_02_28": self.sce_01_02_28(),
+                  "sce_01_02_29": self.sce_01_02_29(),
+                  "sce_01_02_30": self.sce_01_02_30(),
+                  "sce_01_02_31": self.sce_01_02_31(),
+                  "sce_01_02_32": self.sce_01_02_32(),
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")

@@ -37,11 +37,8 @@ class MediaPage(BasePage):
         except Exception as err:
             logger(f'[Error] {err}')
 
-    def select_local_video(self, folder, file_name):
+    def select_local_folder(self, folder):
         try:
-            if not self.click(L.import_media.video_library.video_entry):
-                raise Exception('Click video library fail')
-
             if not self.element(L.import_media.video_library.folder_name(1)).text == folder:
                 self.click(L.import_media.video_library.select_folder)
                 while not self.click(find_string(folder)):
@@ -51,29 +48,53 @@ class MediaPage(BasePage):
                     folders = self.elements(L.import_media.video_library.folder_name(0))
                     if folders[-1].text == last_folder:
                         raise Exception(f'No found folder: {folder}')
-
-            return True if self.select_media_by_text(file_name) else False
+            return True
         except Exception as err:
-            logger(f'[Error] {err}')
+            raise Exception(err)
+
+    def select_local_file(self, media_type, folder, file_name):
+        try:
+            media_type = media_type[0].upper() + media_type[1:].lower()
+            if media_type not in ['Video', 'Photo']:
+                media_type = 'Video'
+                logger('[Warning] Did not assign media type')
+            if media_type == 'Video':
+                if not self.switch_to_video_library():
+                    raise Exception('Click video library fail')
+            elif media_type == 'Photo':
+                if not self.switch_to_photo_library():
+                    raise Exception('Click photo library fail')
+            if not self.select_local_folder(folder):
+                raise Exception('Open folder fail')
+            if not self.select_media_by_text(file_name):
+                raise Exception('Select file fail')
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+    def select_local_video(self, folder, file_name):
+        try:
+            if not self.switch_to_video_library():
+                raise Exception('Click video library fail')
+            if not self.select_local_folder(folder):
+                raise Exception('Open folder fail')
+            if not self.select_media_by_text(file_name):
+                raise Exception('Select file fail')
+            return True
+        except Exception as err:
+            raise Exception(err)
 
     def select_local_photo(self, folder, file_name):
         try:
-            if not self.click(L.import_media.photo_library.photo_entry):
+            if not self.switch_to_photo_library():
                 raise Exception('Click photo library fail')
-
-            if not self.element(L.import_media.photo_library.folder_name(1)).text == folder:
-                self.click(L.import_media.photo_library.select_folder)
-                while not self.click(find_string(folder)):
-                    folders = self.elements(L.import_media.photo_library.folder_name(0))
-                    last_folder = folders[-1].text
-                    self.h_swipe_element(folders[-1], folders[1], speed=3)
-                    folders = self.elements(L.import_media.photo_library.folder_name(0))
-                    if folders[-1].text == last_folder:
-                        raise Exception(f'No found folder: {folder}')
-
-            return True if self.select_media_by_text(file_name) else False
+            if not self.select_local_folder(folder):
+                raise Exception('Open folder fail')
+            if not self.select_media_by_text(file_name):
+                raise Exception('Select file fail')
+            return True
         except Exception as err:
-            logger(f'[Error] {err}')
+            raise Exception(err)
 
     def select_video_library(self, stock_name):
         try:
@@ -336,18 +357,22 @@ class MediaPage(BasePage):
         btn_add.click()
 
     def switch_to_video_library(self):
-        # logger("start >> switch_to_video_library <<")
-        self.h_click(L.import_media.menu.video_entry)
-        
+        try:
+            return True if self.h_click(L.import_media.video_library.video_entry) else False
+        except Exception as err:
+            raise Exception(err)
+    def switch_to_photo_library(self):
+        try:
+            return True if self.h_click(L.import_media.photo_library.photo_entry) else False
+        except Exception as err:
+            raise Exception(err)
+
     def switch_to_pip_video_library(self):
         logger("start >> switch_to_pip_video_library <<")
         time.sleep(10)
         self.tap_element(L.menu.pip_video_library)
 
-    def switch_to_photo_library(self):
-        # logger("[Info] Switch_to_photo_library")
-        self.h_click(L.import_media.menu.photo_entry)
-    
+
     def switch_to_title_library(self):
         logger("start >> switch_to_title_library <<")
         time.sleep(10)
