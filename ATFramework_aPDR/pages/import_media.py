@@ -98,7 +98,11 @@ class MediaPage(BasePage):
 
     def select_video_library(self, stock_name):
         try:
-            self.h_click(L.import_media.media_library.video_entry)
+            self.h_click(L.import_media.video_library.video_entry)
+            if not self.click(L.import_media.media_library.stock(stock_name), 1):
+                while not self.is_exist(L.import_media.video_library.local_folder):
+                    tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
+                    self.h_swipe_element(tabs[0], tabs[-1], 3)
             end = ""
             while not self.h_click(L.import_media.media_library.stock(stock_name), 1):
                 tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
@@ -108,7 +112,7 @@ class MediaPage(BasePage):
                     return False
                 else:
                     end = last
-                    self.h_swipe_element(tabs[-1], tabs[0], 5)
+                    self.h_swipe_element(tabs[-1], tabs[0], 3)
             return True
         except Exception as err:
             logger(f'\n[Error] {err}')
@@ -116,6 +120,10 @@ class MediaPage(BasePage):
     def select_photo_library(self, stock_name):
         try:
             self.h_click(L.import_media.media_library.photo_entry)
+            if not self.click(L.import_media.media_library.stock(stock_name), 1):
+                while not self.is_exist(L.import_media.photo_library.local_folder):
+                    tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
+                    self.h_swipe_element(tabs[0], tabs[-1], 3)
             end = ""
             while not self.h_click(L.import_media.media_library.stock(stock_name), 1):
                 tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
@@ -125,7 +133,7 @@ class MediaPage(BasePage):
                     return False
                 else:
                     end = last
-                    self.h_swipe_element(tabs[-1], tabs[0], 5)
+                    self.h_swipe_element(tabs[-1], tabs[0], 3)
             return True
         except Exception as err:
             logger(f'\n[Error] {err}')

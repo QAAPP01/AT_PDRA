@@ -2,11 +2,11 @@ from .aa_init_test import TestInit
 
 
 from .test_aPDR_SFT_app_initial import test_app_init
-from .test_aPDR_SFT_Scenario_01_01_dev import Test_SFT_Scenario_01_01
+from .test_aPDR_SFT_Scenario_01_01 import Test_SFT_Scenario_01_01
 from .test_aPDR_SFT_Scenario_01_02 import Test_SFT_Scenario_01_02
-from .test_aPDR_SFT_Scenario_01_03_dev import Test_SFT_Scenario_01_03
-from .test_aPDR_SFT_Scenario_01_04_dev import Test_SFT_Scenario_01_04
-from .test_aPDR_SFT_Scenario_01_05_dev import Test_SFT_Scenario_01_05
+from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
+from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
+from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
 from .test_aPDR_SFT_Scenario_01_06_dev import Test_SFT_Scenario_01_06
 from .test_aPDR_SFT_Scenario_02_01_dev import Test_SFT_Scenario_02_01
 from .test_aPDR_SFT_Scenario_02_02 import Test_SFT_Scenario_02_02

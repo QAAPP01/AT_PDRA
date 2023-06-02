@@ -293,7 +293,7 @@ class Test_SFT_Scenario_01_02:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '[Fail] result_date = {result_date}, result_descending = {result_descending}'
+                fail_log = f'[Fail] result_date = {result_date}, result_descending = {result_descending}'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 

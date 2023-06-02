@@ -101,15 +101,34 @@ class Test_SFT_Scenario_01_05:
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+        self.report.new_result(uuid, None, 'N/A', 'Stock is removed')
         return 'N/A'
+
+        # try:
+        #     if not self.page_media.select_video_library("shutterstock"):
+        #         self.report.new_result(uuid, True)
+        #         return "PASS"
+        #     else:
+        #         fail_log = f'[Fail] shutterstock is exist'
+        #         self.report.new_result(uuid, False, fail_log=fail_log)
+        #         raise Exception(fail_log)
+        #
+        # except Exception as err:
+        #     logger(f'\n{err}')
+        #
+        #     self.driver.driver.close_app()
+        #     self.driver.driver.launch_app()
+        #     self.page_main.enter_launcher()
+        #     self.page_main.enter_timeline(skip_media=False)
+        #
+        #     return "FAIL"
 
     def sce_1_5_4(self):
         uuid = '5e99435d-14bd-484e-8384-ba2bf5276c94'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+        self.report.new_result(uuid, None, 'N/A', 'Stock is removed')
         return 'N/A'
 
     def sce_1_5_5(self):
@@ -156,80 +175,93 @@ class Test_SFT_Scenario_01_05:
 
     def sce_1_5_7(self):
         uuid = 'f143d1a6-7761-478a-96f7-842b9cb01254'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library("getty_pro")
-        self.click(L.import_media.media_library.btn_preview())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        try:
+            if not self.page_media.select_video_library("getty_pro"):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] getty_pro is exist'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
 
-        if self.is_exist(L.import_media.media_library.Video.display_preview):
-            self.driver.driver.back()
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] id "videoDisplay" is not exist'
+        except Exception as err:
+            logger(f'\n{err}')
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+
+            return "FAIL"
+
 
     def sce_1_5_8(self):
         uuid = '78f56ea6-74f9-4833-b9ec-e76ea0a61bfb'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library("getty_pro")
-        self.long_press(L.import_media.media_library.media())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
-
-        if self.is_exist(L.import_media.media_library.Video.display_preview):
-            self.driver.driver.back()
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] id "videoDisplay" is not exist'
-
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+        self.report.new_result(uuid, None, 'N/A', 'Stock is removed')
+        return 'N/A'
 
     def sce_1_5_9(self):
         uuid = '6014c97f-91d4-42ff-af47-119a13ee90a5'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library("giphy")
+        try:
+            if not self.page_media.select_video_library("giphy"):
+                raise Exception('Enter Giphy stock fail')
 
-        if not self.is_exist(L.import_media.media_library.btn_preview()):
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] id "videoDisplay" is exist'
+            if not self.is_exist(L.import_media.media_library.btn_preview()):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] id "videoDisplay" is exist'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+
+            return "FAIL"
+
 
     def sce_1_5_10(self):
         uuid = '74e2d6cf-28d2-4c0f-9d2c-74183ca10472'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_media.select_video_library("giphy")
-        self.long_press(L.import_media.media_library.media())
+        try:
+            if not self.page_media.select_video_library("giphy"):
+                raise Exception('Enter Giphy stock fail')
+            self.long_press(L.import_media.media_library.media())
 
-        if not self.is_exist(id("videoDisplay")):
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = '\n[Fail] id "videoDisplay" is not exist'
+            if not self.is_exist(id("videoDisplay")):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] id "videoDisplay" is not exist'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+
+            return "FAIL"
 
     def sce_1_5_11(self):
         uuid = 'f44f57f1-ca9f-4d4c-b359-ae7446bcb1f8'
@@ -332,26 +364,23 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    # @pytest.mark.skip
-    @report.exception_screenshot
-    def test_sce_1_5_1_to_15(self):
-        result = {
-            "sce_1_5_1": self.sce_1_5_1(),
-            "sce_1_5_2": self.sce_1_5_2(),
-            "sce_1_5_3": self.sce_1_5_3(),
-            "sce_1_5_4": self.sce_1_5_4(),
-            "sce_1_5_5": self.sce_1_5_5(),
-            "sce_1_5_6": self.sce_1_5_6(),
-            "sce_1_5_7": self.sce_1_5_7(),
-            "sce_1_5_8": self.sce_1_5_8(),
-            "sce_1_5_9": self.sce_1_5_9(),
-            "sce_1_5_10": self.sce_1_5_10(),
-            "sce_1_5_11": self.sce_1_5_11(),
-            "sce_1_5_12": self.sce_1_5_12(),
-            "sce_1_5_13": self.sce_1_5_13(),
-            "sce_1_5_14": self.sce_1_5_14(),
-            "sce_1_5_15": self.sce_1_5_15(),
-        }
+    def test_case(self):
+        result = {"sce_1_5_1": self.sce_1_5_1(),
+                  "sce_1_5_2": self.sce_1_5_2(),
+                  "sce_1_5_3": self.sce_1_5_3(),
+                  "sce_1_5_4": self.sce_1_5_4(),
+                  "sce_1_5_5": self.sce_1_5_5(),
+                  "sce_1_5_6": self.sce_1_5_6(),
+                  "sce_1_5_7": self.sce_1_5_7(),
+                  "sce_1_5_8": self.sce_1_5_8(),
+                  "sce_1_5_9": self.sce_1_5_9(),
+                  "sce_1_5_10": self.sce_1_5_10(),
+                  "sce_1_5_11": self.sce_1_5_11(),
+                  "sce_1_5_12": self.sce_1_5_12(),
+                  "sce_1_5_13": self.sce_1_5_13(),
+                  "sce_1_5_14": self.sce_1_5_14(),
+                  "sce_1_5_15": self.sce_1_5_15(),
+                  }
         for key, value in result.items():
             if value != "PASS":
-                print(f"[FAIL] {key}")
+                print(f"[{value}] {key}")

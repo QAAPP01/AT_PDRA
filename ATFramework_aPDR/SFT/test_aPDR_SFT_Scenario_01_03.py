@@ -1,26 +1,22 @@
-import inspect
-import sys, os, glob
-from os.path import dirname
-from os import path
-import subprocess
-from pprint import pprint
-from ATFramework_aPDR.pages.locator import locator as L
-from ATFramework_aPDR.pages.locator.locator_type import *
-
-from ATFramework_aPDR.pages.page_factory import PageFactory
-from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
-from ATFramework_aPDR.configs import app_config
-from ATFramework_aPDR.configs import driver_config
-from ATFramework_aPDR.ATFramework.utils.log import logger
-import pytest
-import time
-
 from main import deviceName
-from .conftest import REPORT_INSTANCE
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+
+import inspect
+import sys
+import time
+from os.path import dirname
+
+import pytest
+
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
+from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import PACKAGE_NAME
+from .conftest import REPORT_INSTANCE
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
@@ -31,6 +27,9 @@ pdr_package = PACKAGE_NAME
 files_by_date = ["3gp.3gp", "slow_motion.mp4", "mp4.mp4", "mkv.mkv"]
 files_by_resolution = ["mkv.mkv", "mp4.mp4", "slow_motion.mp4", "3gp.3gp"]
 files_by_file_size = ["mkv.mkv", "3gp.3gp", "mp4.mp4", "slow_motion.mp4"]
+
+test_material_folder = TEST_MATERIAL_FOLDER
+test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 files_list = []
 project_name = ""
 clip_width = ""
@@ -38,59 +37,27 @@ clip_width = ""
 
 class Test_SFT_Scenario_01_03:
     @pytest.fixture(autouse=True)
-    def initial(self):
-
-        # ---- local mode ---
-        from .conftest import DRIVER_DESIRED_CAPS
+    def initial(self, driver):
         global report
         logger("[Start] Init driver session")
-        desired_caps = {}
-        desired_caps.update(app_config.cap)
-        desired_caps.update(DRIVER_DESIRED_CAPS)
-        if desired_caps['udid'] == 'auto':
-            desired_caps['udid'] = deviceName
-        logger(f"[Info] caps={desired_caps}")
-        self.report = report
-        self.device_udid = desired_caps['udid']
-        # ---- local mode > end ----
-        self.test_material_folder = TEST_MATERIAL_FOLDER
-        self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
-        # retry 3 time if create driver fail
-        retry = 3
-        while retry:
-            try:
-                self.driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
-                                                                       desired_caps)
-                if self.driver:
-                    logger("\n[Done] Driver created!")
-                    break
-                else:
-                    raise Exception("\n[Fail] Create driver fail")
-            except Exception as e:
-                logger(e)
-                retry -= 1
+        self.driver = driver
+        self.report = report
+
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
+
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(self.driver)
-        self.driver.driver.start_recording_screen()
-        self.driver.start_app(pdr_package)
-        self.driver.implicit_wait(0.1)
-
-        yield self.driver  # keep driver for the function which uses 'initial'
-
-        # teardown
-        logger("\n[Stop] Teardown")
-        self.driver.stop_driver()
+        self.report.set_driver(driver)
+        driver.driver.launch_app()
 
     def sce_01_03_01(self):
         uuid = 'c023139e-c9cc-4328-8712-3ee02658fbaa'
@@ -99,7 +66,7 @@ class Test_SFT_Scenario_01_03:
 
         global project_name
         project_name = '16_9'
-        self.page_main.add_project_list(self.device_udid, pdr_package, project_name)
+        self.page_main.add_project_list(deviceName, pdr_package, project_name)
         self.page_main.enter_launcher()
 
         if self.page_main.enter_timeline(project_name):
@@ -199,7 +166,7 @@ class Test_SFT_Scenario_01_03:
         self.page_main.h_click(L.timeline_settings.settings.default_pan_zoom_effect)
         self.driver.driver.back()
         self.page_main.h_click(L.edit.preview.import_tips_icon)
-        self.page_media.select_local_photo(self.test_material_folder, '16_9.jpg')
+        self.page_media.select_local_photo(test_material_folder, '16_9.jpg')
         pic_base = self.page_main.get_preview_pic()
         self.page_main.h_click(L.edit.menu.play)
         time.sleep(10)
@@ -226,7 +193,7 @@ class Test_SFT_Scenario_01_03:
         self.page_main.h_click(L.timeline_settings.settings.default_pan_zoom_effect)
         self.driver.driver.back()
         self.page_main.h_click(L.edit.preview.import_tips_icon)
-        self.page_media.select_local_photo(self.test_material_folder, '16_9.jpg')
+        self.page_media.select_local_photo(test_material_folder, '16_9.jpg')
         pic_base = self.page_main.get_preview_pic()
         self.page_main.h_click(L.edit.menu.play)
         time.sleep(10)
@@ -243,69 +210,91 @@ class Test_SFT_Scenario_01_03:
         self.report.new_result(uuid, result)
         return "PASS" if result else "FAIL"
 
-    def sce_01_03_08(self):
+    def sce_1_3_8(self):
         uuid = '8b96e410-9567-43bd-9318-e708588c121f'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.click(L.edit.preview.import_tips_icon)
-        self.page_media.switch_to_video_library()
-        if not self.element(L.import_media.video_library.folders).text == self.test_material_folder_01:
-            self.click(L.import_media.video_library.select_folder)
-            for i in range(5):
-                if self.click(find_string(self.test_material_folder_01)):
-                    break
-                else:
-                    folders = self.elements(L.import_media.video_library.folders)
-                    self.page_main.h_swipe_element(folders[len(folders) - 1], folders[0], speed=3)
+        try:
+            self.click(L.edit.preview.import_tips_icon)
+            self.page_media.switch_to_video_library()
 
-        if self.element(L.import_media.video_library.folders).text == self.test_material_folder_01:
-            result = True
-        else:
-            result = False
-            logger(f'\n[Fail] result_1: Cannot find the folder{self.test_material_folder_01}')
+            if self.page_media.select_local_folder(test_material_folder_01):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Cannot find the folder{test_material_folder_01}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
 
-        self.report.new_result(uuid, result)
-        return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f'\n{err}')
 
-    def sce_01_03_09(self):
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+
+            return "FAIL"
+
+    def sce_1_3_9(self):
         uuid = '8c798524-1b86-45d2-8817-b571a2d24744'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        for retry in range(20):
-            if not self.is_exist(find_string("mp4.mp4")):
-                self.driver.swipe_element(L.import_media.media_library.frame, 'up', 300)
+        try:
+            for retry in range(20):
+                if not self.is_exist(find_string("mp4.mp4")):
+                    self.driver.swipe_element(L.import_media.media_library.frame, 'up', 300)
+                else:
+                    break
+
+            if self.is_exist(find_string("mp4.mp4")):
+                self.report.new_result(uuid, True)
+                return "PASS"
             else:
-                break
+                fail_log = '[Fail] Cannot find the file "mp4.mp4"'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
 
-        if self.is_exist(find_string("mp4.mp4")):
-            result = True
-        else:
-            result = False
-            logger(f'\n[Fail] Cannot find the file "mp4.mp4"')
+        except Exception as err:
+            logger(f'\n{err}')
 
-        self.report.new_result(uuid, result)
-        return "PASS" if result else "FAIL"
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
 
-    def sce_01_03_10(self):
+            return "FAIL"
+
+    def sce_1_3_10(self):
         uuid = 'e86a08d6-ef03-489f-9c25-0cb1129c7ec7'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.driver.swipe_element(L.import_media.media_library.frame, 'down', 300)
-        self.click(L.import_media.sort_menu.sort_button)
-        result_date = self.element(L.import_media.sort_menu.by_date).get_attribute("checked")
-        result_descending = self.element(L.import_media.sort_menu.descending).get_attribute("checked")
+        try:
+            self.click(L.import_media.sort_menu.sort_button)
+            result_date = self.element(L.import_media.sort_menu.by_date).get_attribute("checked")
+            result_descending = self.element(L.import_media.sort_menu.descending).get_attribute("checked")
 
-        if result_date == "true" and result_descending == "true":
-            result = True
-        else:
-            result = False
-            logger(f'\n[Fail] result_date = {result_date}, result_descending = {result_descending}')
+            if result_date == "true" and result_descending == "true":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] result_date = {result_date}, result_descending = {result_descending}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
 
-        self.report.new_result(uuid, result)
-        return "PASS" if result else "FAIL"
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.sort_menu.sort_button)
+
+            return "FAIL"
 
     def sce_01_03_11(self):
         try:
@@ -437,7 +426,7 @@ class Test_SFT_Scenario_01_03:
         self.report.start_uuid(uuid)
 
         file_name = "mp4.mp4"
-        self.page_media.select_local_video(self.test_material_folder, file_name)
+        self.page_media.select_local_video(test_material_folder, file_name)
 
         if self.is_exist(L.edit.timeline.master_video(file_name)):
             result = True
@@ -456,7 +445,7 @@ class Test_SFT_Scenario_01_03:
 
         self.page_edit.add_master_media()
         file_name = "mkv.mkv"
-        self.page_media.select_local_video(self.test_material_folder, file_name)
+        self.page_media.select_local_video(test_material_folder, file_name)
 
         if self.is_exist(L.edit.timeline.master_video(file_name)):
             result = True
@@ -475,7 +464,7 @@ class Test_SFT_Scenario_01_03:
 
         self.page_edit.add_master_media()
         file_name = 'gif.gif'
-        self.page_media.select_local_photo(self.test_material_folder, file_name)
+        self.page_media.select_local_photo(test_material_folder, file_name)
 
         if self.is_exist(L.edit.timeline.master_photo(file_name)):
             result = True
@@ -509,7 +498,7 @@ class Test_SFT_Scenario_01_03:
 
         self.page_edit.add_master_media()
         file_name = 'png.png'
-        self.page_media.select_local_photo(self.test_material_folder, file_name)
+        self.page_media.select_local_photo(test_material_folder, file_name)
 
         if self.is_exist(L.edit.timeline.master_photo(file_name)):
             result = True
@@ -542,7 +531,7 @@ class Test_SFT_Scenario_01_03:
         self.page_edit.click_tool("Audio")
         self.page_main.h_click(find_string("Music"))
         self.page_main.h_click(L.import_media.music_library.local)
-        self.page_main.h_click(find_string(self.test_material_folder))
+        self.page_main.h_click(find_string(test_material_folder))
         global files_list
         files = self.page_main.h_get_elements(L.import_media.music_library.file_name)
         for i in files:
@@ -571,7 +560,7 @@ class Test_SFT_Scenario_01_03:
         self.page_edit.click_tool("Audio")
         self.page_main.h_click(find_string("Music"))
         self.page_main.h_click(L.import_media.music_library.local)
-        self.page_main.h_click(find_string(self.test_material_folder))
+        self.page_main.h_click(find_string(test_material_folder))
 
         add = self.page_main.h_get_elements(L.import_media.music_library.add)
         file_name = 'mp3.mp3'
@@ -596,7 +585,7 @@ class Test_SFT_Scenario_01_03:
         self.page_edit.click_tool("Audio")
         self.page_main.h_click(find_string("Music"))
         self.page_main.h_click(L.import_media.music_library.local)
-        self.page_main.h_click(find_string(self.test_material_folder))
+        self.page_main.h_click(find_string(test_material_folder))
 
         add = self.page_main.h_get_elements(L.import_media.music_library.add)
         file_name = 'wav.wav'
@@ -633,8 +622,8 @@ class Test_SFT_Scenario_01_03:
         self.report.new_result(uuid, result)
         return "PASS" if result else "FAIL"
 
-    @report.exception_screenshot
-    def test_sce_01_03_01_to_34(self):
+
+    def test_case(self):
         result = {"sce_01_03_01": self.sce_01_03_01(),
                   "sce_01_03_02": self.sce_01_03_02(),
                   "sce_01_03_03": self.sce_01_03_03(),
@@ -642,9 +631,9 @@ class Test_SFT_Scenario_01_03:
                   "sce_01_03_05": self.sce_01_03_05(),
                   "sce_01_03_06": self.sce_01_03_06(),
                   "sce_01_03_07": self.sce_01_03_07(),
-                  "sce_01_03_08": self.sce_01_03_08(),
-                  "sce_01_03_09": self.sce_01_03_09(),
-                  "sce_01_03_10": self.sce_01_03_10(),
+                  "sce_1_3_8": self.sce_1_3_8(),
+                  "sce_1_3_9": self.sce_1_3_9(),
+                  "sce_1_3_10": self.sce_1_3_10(),
                   "sce_01_03_11": self.sce_01_03_11(),
                   "sce_01_03_13": self.sce_01_03_13(),
                   "sce_01_03_14": self.sce_01_03_14(),

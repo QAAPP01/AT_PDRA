@@ -230,6 +230,7 @@ class Video_Category():
 
 class Video_Library:
     video_entry = id("video_switch")
+    local_folder = id('select_album_area')
     select_folder = id('album_arrow')
     sort_menu = SortMenu
     # back = aid("[AID]Library_Back")
@@ -257,6 +258,7 @@ class Video_Library:
 
 class Photo_Library:
     photo_entry = id("photo_switch")
+    local_folder = id('select_album_area')
     select_folder = id('album_arrow')
     folders = id('album_text')  # not unique
     sort_menu = SortMenu

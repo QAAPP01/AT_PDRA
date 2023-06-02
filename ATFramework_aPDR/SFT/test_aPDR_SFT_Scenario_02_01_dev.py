@@ -710,9 +710,17 @@ class Test_SFT_Scenario_02_01:
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
+
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', self.test_material_folder, file_video)
+
+            return "FAIL"
 
     def sce_2_1_46(self):
         try:
