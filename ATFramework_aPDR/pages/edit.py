@@ -30,6 +30,7 @@ class EditPage(BasePage):
     def __init__(self, *args, **kwargs):
         BasePage.__init__(self, *args, **kwargs)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
+        self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
 
         self.el = lambda id: self.driver.driver.find_element(id[0], id[1])
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
@@ -124,6 +125,39 @@ class EditPage(BasePage):
         if self.h_is_exist(L.main.premium.pdr_premium, 1):
             self.driver.driver.back()
 
+    def check_timeline_image_duration(self, add_image=True, file_name='9_16.jpg'):
+        try:
+            if add_image:
+                self.add_master_media('Photo', self.test_material_folder, file_name)
+            self.click_tool('Edit')
+            self.click_sub_tool('Duration', 0.1)
+            duration_text = self.h_get_element(L.edit.duration.text_duration).text
+            self.h_click(L.edit.duration.btn_cancel)
+            return duration_text
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+    def check_setting_image_duration(self, sec, change_parameter=True):
+        try:
+            if sec == 0.1:
+                percentage = 0
+            elif sec == 10.0:
+                percentage = 1
+            else:
+                percentage = sec / 10.0
+            self.h_click(L.edit.settings.menu)
+            self.h_click(L.edit.settings.preference)
+            self.h_click(L.edit.settings.DefaultImageDuration.default_image_duration)
+
+            if change_parameter:
+                self.page_preference.h_setting_duration(percentage)
+            duration_text = self.h_get_element(L.edit.settings.DefaultImageDuration.txt_duration).text
+            self.h_click(L.edit.settings.DefaultImageDuration.ok)
+            self.h_click(L.timeline_settings.preference.back)
+            return duration_text
+        except Exception as err:
+            logger(f'[Error] {err}')
+
     def convert_pip_video(self, timeout=60):
         self.click(L.edit.converting.ok, 2)
         timeout_flag = True
@@ -148,6 +182,33 @@ class EditPage(BasePage):
             return True
         except Exception as err:
             raise Exception(err)
+
+    def scroll_playhead_to_beginning(self):
+        try:
+            x = 0
+            new_x = self.element(L.edit.timeline.timeline_ruler).rect['x']
+            while new_x != x:
+                x = new_x
+                self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'right')
+                new_x = self.element(L.edit.timeline.timeline_ruler).rect['x']
+            return True
+        except Exception as err:
+            raise Exception(f'[Error] {err}')
+
+    def trigger_default_pan_zoom_effect(self, enable=True):
+        # Start from timeline editor page
+        try:
+            self.click(L.edit.settings.menu)
+            self.click(L.edit.settings.preference)
+            status = self.page_preference.check_setting(L.timeline_settings.preference.default_pan_zoom_effect)
+            if status != enable:
+                self.page_preference.click_setting(L.timeline_settings.preference.default_pan_zoom_effect)
+            self.click(L.timeline_settings.preference.back)
+            return True
+        except Exception as err:
+            raise Exception(f'[Error] {err}')
+
+
 
     def tap_blank_space(self):
         try:

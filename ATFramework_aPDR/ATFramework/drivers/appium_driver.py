@@ -971,7 +971,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             TouchAction(self.driver).press(None, slider_rect['x'], y_center, 1).wait(2000).move_to(None, slider_rect['x'] + int(
-                slider_rect['width'] / 4), y_center).release().perform()
+                slider_rect['width']), y_center).release().perform()
         except Exception as err:
             raise Exception(err)
         return True

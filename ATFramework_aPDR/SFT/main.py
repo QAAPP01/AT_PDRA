@@ -7,7 +7,7 @@ from .test_aPDR_SFT_Scenario_01_02 import Test_SFT_Scenario_01_02
 from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
 from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
 from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
-from .test_aPDR_SFT_Scenario_01_06_dev import Test_SFT_Scenario_01_06
+from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
 from .test_aPDR_SFT_Scenario_02_01_dev import Test_SFT_Scenario_02_01
 from .test_aPDR_SFT_Scenario_02_02 import Test_SFT_Scenario_02_02
 from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03

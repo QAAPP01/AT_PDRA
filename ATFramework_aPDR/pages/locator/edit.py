@@ -100,7 +100,7 @@ class Timeline:
 
         @staticmethod
         def master_clip(index=1):
-            if index == 0:
+            if index:
                 return xpath(f'(//*[contains(@resource-id,"item_view_border")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"item_view_border")]')
@@ -115,6 +115,8 @@ class Timeline:
 
 class ToolMenu:
     back = id('btn_session_back')
+    apply = id('btnApply')
+    apply_to_all = id('btn_apply_all')
     slider = id("adjustable_parameter_seek_bar")
     slider_value = id('adjustTextNow')
 
@@ -124,6 +126,13 @@ class ToolMenu:
             return xpath(f'(//*[contains(@resource-id,"tool_entry_layout")])[{index}]')
         else:
             return xpath(f'//*[contains(@resource-id,"tool_entry_layout")]')
+
+    @staticmethod
+    def option_label(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"option_label")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"option_label")]')
 
     class AIEffect:
         none_highlight = id('title_border')
@@ -169,8 +178,16 @@ class ToolMenu:
 
         color_picker = ColorPicker
 
+    class PanZoom:
+        class Custom:
+            apply = id('btnApply')
+            start_position = aid('[AID] Start Position')
+
+        custom = Custom
+
     ai_effect = AIEffect
     cutout = Cutout
+    pan_zoom = PanZoom
 
 
 class Menu:
@@ -653,7 +670,7 @@ class Subscription():
     btn_free_trial = id("subscribe_free_trial_btn_layout")
 
 
-class Try_Before_Buy():
+class Try_Before_Buy:
     remove = aid('[AID]Upgrade_No')
     free_trial = aid('[AID]Subscribe_Unlock_All')
     premium_features_used_bubble = id('premium_features_used_bubble')
@@ -984,5 +1001,5 @@ class Interface:
     title_animation = Title_Animation()
     sub_tool_menu = SubToolMenu
     transition = Transition()
-    try_before_buy = Try_Before_Buy()
+    try_before_buy = Try_Before_Buy
     tutorial_bubble = Tutorial_Bubble()

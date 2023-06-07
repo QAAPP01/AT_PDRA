@@ -141,16 +141,21 @@ class MediaPage(BasePage):
     def select_music_library(self, stock):
         try:
             end = ""
-            while not self.h_click(stock, 1):
-                tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.widget.RelativeLayout'))
-                last = tabs[-1].get_attribute("resource-id")
-                if last == end:
-                    logger(f'[Fail] No stock: {stock}')
-                    return False
-                else:
-                    end = last
-                    self.h_swipe_element(tabs[-1], tabs[0], 5)
-            return True
+            if not self.is_exist(stock):
+                while not self.h_click(stock, 1):
+                    tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.widget.RelativeLayout'))
+                    last = tabs[-1].get_attribute("resource-id")
+                    if last == end:
+                        logger(f'[Fail] No stock: {stock}')
+                        return False
+                    else:
+                        end = last
+                        self.h_swipe_element(tabs[-1], tabs[0], 5)
+                return True
+            else:
+                if self.element(stock).get_attribute('selected') == 'false':
+                    self.h_click(stock, 1)
+                return True
         except Exception as err:
             logger(f'\n[Error] {err}')
 
@@ -188,18 +193,24 @@ class MediaPage(BasePage):
 
     def select_media_by_text(self, name):
         try:
-            for retry in range(20):
-                if not self.h_is_exist(find_string(name)):
-                    self.driver.swipe_element(L.import_media.media_library.frame, 'up', 300)
-                else:
-                    break
-            element = self.h_get_element(find_string(name))
-            element.click()
+            if not self.h_is_exist(find_string(name), 0.5):
+                clips = self.elements(L.import_media.media_library.file_name(0))
+                last = clips[-1].get_attribute('text')
+                while not self.h_is_exist(find_string(name), 0.5):
+                    self.h_swipe_element(clips[-1], clips[0], speed=8)
+                    clips = self.elements(L.import_media.media_library.file_name(0))
+                    last_temp = clips[-1].get_attribute('text')
+                    if last_temp == last:
+                        raise Exception('File not found')
+                    else:
+                        last = last_temp
+
+            self.click(find_string(name))
             self.h_click(L.import_media.media_library.apply, timeout=0.5)
-        except Exception:
-            logger(f"Fail to locate element - {name}")
-            raise Exception
-        return True    
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            raise Exception(err)
         
     def get_music_name(self, index, timeout=10):
         logger("start >> get_music_name<<")

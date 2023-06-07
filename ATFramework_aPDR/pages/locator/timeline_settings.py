@@ -1,9 +1,10 @@
 from .locator_type import *
 
 class Preference:
+    scroll_view = id('scrollView')
     default_image_duration = id("settings_default_image_duration")
     default_image_duration_value = id('settings_default_image_duration_value')
-    default_pan_zoom_effect = aid("[AID]PremiumContent_Switch")
+    default_pan_zoom_effect = id('default_image_effect_switch')
     back = id("iv_back")
     reset_all_tips = id("reseting_all_tips")
     default_transition_duration = id('settings_default_transition_duration')

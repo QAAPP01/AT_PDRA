@@ -6,14 +6,10 @@ from os.path import dirname
 
 import pytest
 
-from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.configs import app_config
-from ATFramework_aPDR.configs import driver_config
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from main import deviceName
 from .conftest import PACKAGE_NAME
 from .conftest import REPORT_INSTANCE
 from .conftest import TEST_MATERIAL_FOLDER
@@ -25,8 +21,11 @@ sys.path.insert(0, (dirname(dirname(__file__))))
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
 
-file_video = 'video.mp4'
-file_photo = 'jpg.jpg'
+test_material_folder = TEST_MATERIAL_FOLDER
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
 
 
 class Test_SFT_Scenario_02_02:
@@ -36,8 +35,6 @@ class Test_SFT_Scenario_02_02:
 
         self.driver = driver
         self.report = report
-        self.test_material_folder = TEST_MATERIAL_FOLDER
-        self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -88,8 +85,11 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            if not self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo):
+            if not self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16):
                 raise Exception('Add media fail')
+            global pic_photo_default
+            pic_photo_default = self.page_main.get_preview_pic()
+
             if not self.page_edit.enter_main_tool('AI Effect'):
                 raise Exception('Enter AI Effect fail')
 
@@ -108,7 +108,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
 
             return "FAIL"
@@ -135,7 +135,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
 
             return "FAIL"
@@ -168,7 +168,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
 
             return "FAIL"
@@ -195,7 +195,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
 
             return "FAIL"
@@ -210,6 +210,7 @@ class Test_SFT_Scenario_02_02:
             index = 1
             if not self.click(L.edit.tool_menu.ai_effect.effect(index)):
                 raise Exception('Click effect fail')
+            self.click(L.edit.try_before_buy.try_it, 2)
 
             if self.element(L.edit.tool_menu.ai_effect.effect_name(index)).get_attribute('selected') == 'true':
                 self.report.new_result(uuid, True)
@@ -226,7 +227,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
             self.click(L.edit.tool_menu.ai_effect.effect(1))
 
@@ -257,7 +258,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
             self.click(L.edit.tool_menu.ai_effect.effect(1))
             self.click(L.edit.tool_menu.ai_effect.edit)
@@ -301,7 +302,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
             self.click(L.edit.tool_menu.ai_effect.effect(1))
             self.click(L.edit.tool_menu.ai_effect.edit)
@@ -333,7 +334,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
             self.click(L.edit.tool_menu.ai_effect.effect(1))
             self.click(L.edit.tool_menu.ai_effect.edit)
@@ -365,7 +366,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
             self.click(L.edit.tool_menu.ai_effect.effect(1))
 
@@ -393,16 +394,309 @@ class Test_SFT_Scenario_02_02:
         except Exception as err:
             logger(f'\n{err}')
 
+            return "FAIL"
+
+    def sce_2_2_14(self):
+        uuid = '7eb3f4d4-b6a0-464c-a046-3859f69557b5'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", self.test_material_folder, file_photo)
-            self.page_edit.enter_main_tool('AI Effect')
+
+            if not self.page_edit.trigger_default_pan_zoom_effect(enable=True):
+                raise Exception('Click default_pan_zoom_effect fail')
+
+            self.page_edit.scroll_playhead_to_beginning()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.scroll_playhead_to_beginning()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+
+            if not self.click(L.edit.timeline.master_track.master_clip(1)):
+                raise Exception('Click 1st clip fail')
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+
+            if self.element(find_string('Random')).get_attribute('selected') == 'true':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] Random is not selected'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
 
             return "FAIL"
 
-    @report.exception_screenshot
+    def sce_2_2_12(self):
+        uuid = '6adefecd-8cbd-4164-aa84-9dd4bd06577e'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'left', 300)
+            if not self.click(L.edit.timeline.master_track.master_clip(2)):
+                raise Exception('Click 2nd clip fail')
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+            self.click(find_string('No Effect'))
+            if not self.click(L.edit.tool_menu.apply_to_all):
+                raise Exception('Click apply_to_all fail')
+
+            self.page_edit.tap_blank_space()
+            if not self.click(L.edit.timeline.master_track.master_clip(1)):
+                raise Exception('Click 1st clip fail')
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+
+            if self.element(find_string('No Effect')).get_attribute('selected') == 'true':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] No Effect is not selected'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+
+            return "FAIL"
+
+    def sce_2_2_13(self):
+        uuid = 'd49362dd-6d87-4c27-8d5f-785749caeef2'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.page_edit.tap_blank_space()
+            if not self.click(L.edit.timeline.master_track.master_clip(2)):
+                raise Exception('Click 2nd clip fail')
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+            self.click(find_string('Random'))
+            if not self.click(L.edit.tool_menu.apply_to_all):
+                raise Exception('Click apply_to_all fail')
+
+            self.page_edit.tap_blank_space()
+            if not self.click(L.edit.timeline.master_track.master_clip(1)):
+                raise Exception('Click 1st clip fail')
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+
+            if self.element(find_string('Random')).get_attribute('selected') == 'true':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] Random is not selected'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+
+            return "FAIL"
+
+    def sce_2_2_15(self):
+        uuid = '4411db3a-3fdc-461c-930f-793ab72b45a2'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.page_edit.tap_blank_space()
+            if not self.click(L.edit.timeline.master_track.master_clip(2)):
+                raise Exception('Click 2nd clip fail')
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+            if not self.click(find_string('Custom')):
+                raise Exception('Click Custom fail')
+            self.click(L.edit.tool_menu.pan_zoom.custom.apply)
+            if not self.click(L.edit.tool_menu.apply_to_all):
+                raise Exception('Click apply_to_all fail')
+
+            self.page_edit.tap_blank_space()
+            if not self.click(L.edit.timeline.master_track.master_clip(1)):
+                raise Exception('Click 1st clip fail')
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+
+            if self.element(find_string('Custom')).get_attribute('selected') == 'true':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] Custom is not selected'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+
+            return "FAIL"
+
+    def sce_2_2_16(self):
+        uuid = '80556c5f-b177-455d-bade-d46c0fa34195'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.page_edit.scroll_playhead_to_beginning()
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            if not self.click(find_string('No Effect')):
+                raise Exception('Click No Effect fail')
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if HCompareImg(pic_tgt, pic_photo_default).full_compare_result():
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] Image are different'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+
+            return "FAIL"
+
+    def sce_2_2_17(self):
+        uuid = 'adc2ccca-482d-4eb7-ac83-5bf5d4de19b7'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(find_string('Random')):
+                raise Exception('Click Random fail')
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_tgt, pic_photo_default).full_compare_result():
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] Image are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Pan & Zoom')
+
+            return "FAIL"
+
+    def sce_2_2_19(self):
+        uuid = '1b938b47-d9e3-43db-bc7f-93deba4de02f'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(find_string('Custom')):
+                raise Exception('Click Custom fail')
+            self.driver.swipe_element(L.edit.tool_menu.pan_zoom.custom.start_position, 'up', 100)
+            self.click(L.edit.tool_menu.pan_zoom.custom.apply)
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_tgt, pic_photo_default).full_compare_result():
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] Image are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+
+            return "FAIL"
+
+    def sce_2_2_18(self):
+        uuid = '2fd0c8b8-59d5-4986-ad84-405637852a86'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+
+            if not self.page_edit.trigger_default_pan_zoom_effect(enable=False):
+                raise Exception('Disable Pan & Zoom Fail')
+            self.page_edit.scroll_playhead_to_beginning()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if HCompareImg(pic_tgt, pic_photo_default).full_compare_result():
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = '[Fail] Image are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+
+            return "FAIL"
+
     def test_case(self):
         result = {"sce_2_2_1": self.sce_2_2_1(),
                   "sce_2_2_2": self.sce_2_2_2(),
@@ -415,6 +709,14 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_9": self.sce_2_2_9(),
                   "sce_2_2_10": self.sce_2_2_10(),
                   "sce_2_2_11": self.sce_2_2_11(),
+                  "sce_2_2_14": self.sce_2_2_14(),
+                  "sce_2_2_12": self.sce_2_2_12(),
+                  "sce_2_2_13": self.sce_2_2_13(),
+                  "sce_2_2_15": self.sce_2_2_15(),
+                  "sce_2_2_16": self.sce_2_2_16(),
+                  "sce_2_2_17": self.sce_2_2_17(),
+                  "sce_2_2_19": self.sce_2_2_19(),
+                  "sce_2_2_18": self.sce_2_2_18(),
                   }
         for key, value in result.items():
             if value != "PASS":

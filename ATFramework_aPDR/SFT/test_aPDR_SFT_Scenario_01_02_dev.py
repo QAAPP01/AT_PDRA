@@ -112,8 +112,8 @@ class Test_SFT_Scenario_01_02:
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
 
-        duration_result = self.page_preference.check_setting_image_duration(10.0, False)
-        timeline_result = self.page_preference.check_timeline_image_duration(False)
+        duration_result = self.page_edit.check_setting_image_duration(10.0, False)
+        timeline_result = self.page_edit.check_timeline_image_duration(False)
         self.page_main.h_click(L.edit.timeline.item_view_border)
         self.page_main.h_click(L.edit.menu.delete)
 
@@ -133,8 +133,8 @@ class Test_SFT_Scenario_01_02:
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
 
-        duration_result = self.page_preference.check_setting_image_duration(0.1)
-        timeline_result = self.page_preference.check_timeline_image_duration()
+        duration_result = self.page_edit.check_setting_image_duration(0.1)
+        timeline_result = self.page_edit.check_timeline_image_duration()
         self.page_main.h_click(L.edit.timeline.item_view_border)
         self.page_main.h_click(L.edit.menu.delete)
 
@@ -153,8 +153,8 @@ class Test_SFT_Scenario_01_02:
         logger(f"\n[Start] sce_{item_id}")
         self.report.start_uuid(uuid)
 
-        duration_result = self.page_preference.check_setting_image_duration(10.0)
-        timeline_result = self.page_preference.check_timeline_image_duration()
+        duration_result = self.page_edit.check_setting_image_duration(10.0)
+        timeline_result = self.page_edit.check_timeline_image_duration()
         global clip_width
         clip_width = self.page_main.h_get_element(L.edit.timeline.item_view_border).rect['width']
 

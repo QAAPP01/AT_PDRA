@@ -18,8 +18,8 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = 'TR230601-063'
-previous_tr_number = 'TR230530-010'  # Please update build version info manually
+tr_number = 'TR230606-010'
+previous_tr_number = 'TR230601-063'  # Please update build version info manually
 sr_number = 'DRA230411-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
@@ -35,9 +35,64 @@ test_case_main_file = 'main.py'
 report_list = []
 
 # [Auto Download The Newest Build]
-auto_download = True
+auto_download = False
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
+try:
+    package_version = os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
+except IndexError:
+    package_version = os.popen(f'adb shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
+try:
+    package_build_number = os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
+except IndexError:
+    package_build_number = os.popen(f'adb shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
+
+# [Report Mail Setting]
+send = True
+title_project = 'aPDR'
+receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
+            "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
+# receiver = ['hausen_lin@cyberlink.com']
+script_version = 'Testing'
+# script_version = 'Debug'
+
+# ======================================================================================================================
+
+platform_type = platform.system()
+print('Current OS:', platform_type)
+
+# generate path - test case, report
+dir_path = os.path.dirname(os.path.realpath(__file__))
+test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name))
+app_path = os.path.normpath(os.path.join(dir_path, project_name, 'app'))
+print('test_case_path=', test_case_path)
+
+
+# execute
+def __run_test(udid, system_port):
+    start = 'pytest -s "%s" --color=yes --udid=%s --systemPort=%s' % (
+    os.path.normpath(os.path.join(test_case_path, 'main.py')), udid, system_port)
+    print(start)
+    print('start to run test ---')
+    try:
+        os.system('color')
+    except:
+        pass
+    stdout = os.popen(start).read()
+    print(stdout)
+    report_list.append(os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name,
+                                                     'report/%s/%s' % (udid + '_' + tr_number, 'SFT_Report.html'))))
+
+
 if __name__ == '__main__':
+    procs = []
+    deviceid_list = []
+    package_version = \
+    os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[
+        1]
+    package_build_number = \
+    os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[
+        1].split(' ')[0]
+
     if auto_download:
         path = r'\\clt-qaserver\Testing\_RD_Build\PowerDirector_Android\PowerDirector*\PowerDirector*.apk'
         latest = 0
@@ -97,53 +152,7 @@ if __name__ == '__main__':
         else:
             logger('[Info] Cannot find apk from server')
 
-package_version = \
-os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[
-    1]
-package_build_number = \
-os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[
-    1].split(' ')[0]
 
-# [Report Mail Setting]
-send = True
-title_project = 'aPDR'
-receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
-            "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
-# receiver = ['hausen_lin@cyberlink.com']
-script_version = 'Testing'
-# script_version = 'Debug'
-
-# ======================================================================================================================
-
-platform_type = platform.system()
-print('Current OS:', platform_type)
-
-# generate path - test case, report
-dir_path = os.path.dirname(os.path.realpath(__file__))
-test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name))
-app_path = os.path.normpath(os.path.join(dir_path, project_name, 'app'))
-print('test_case_path=', test_case_path)
-
-
-# execute
-def __run_test(udid, system_port):
-    start = 'pytest -s "%s" --color=yes --udid=%s --systemPort=%s' % (
-    os.path.normpath(os.path.join(test_case_path, 'main.py')), udid, system_port)
-    print(start)
-    print('start to run test ---')
-    try:
-        os.system('color')
-    except:
-        pass
-    stdout = os.popen(start).read()
-    print(stdout)
-    report_list.append(os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name,
-                                                     'report/%s/%s' % (udid + '_' + tr_number, 'SFT_Report.html'))))
-
-
-if __name__ == '__main__':
-    procs = []
-    deviceid_list = []
 
     # check version
     if sys.version_info < (3, 7):

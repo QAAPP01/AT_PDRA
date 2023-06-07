@@ -306,8 +306,14 @@ class Music_Library:
     filter_all = aid('[AID]Filter_All')
     filter_genres = id("stock_music_tab_genres")
     filter_moods = aid('[AID]Filter_Moods')
-    category_name = id("library_unit_caption")
     search = id("searchText")
+
+    @staticmethod
+    def category_name(index=1):
+        if index == 0:
+            return xpath(f'//*[contains(@resource-id,"library_unit_caption")]')
+        else:
+            return xpath(f'(//*[contains(@resource-id,"library_unit_caption")])[{index}]')
 
     @staticmethod
     def clip(index=1):

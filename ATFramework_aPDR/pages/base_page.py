@@ -41,7 +41,7 @@ class BasePage(BasePage):
         # logger("PackageName = %s" % PACKAGE_NAME)
     def click(self, locator, timeout=5):
         try:
-            element = self.h_get_element(locator, timeout)
+            element = self.element(locator, timeout)
             if element:
                 element.click()
                 return True
@@ -137,31 +137,15 @@ class BasePage(BasePage):
             elem.click()
             return elem
         return None
-    def is_exist(self,locator,timeout=5):
-        logger("start is_exist")
-        retry = 3
-        while retry:
-            try:
-                implicitly = self.driver.driver.implicitly_wait()
-                self.driver.driver.implicitly_wait(0.1)
-                wait = WebDriverWait(self.driver.driver, timeout)
-                break
-            except Exception as e:
-                logger(f"exception={e}")
-                retry -= 1
-                time.sleep(1)
-        timer_start = time.time()
-        result = False
-        while time.time() - timer_start < timeout:
-            try:
-                elem = wait.until(EC.presence_of_element_located(locator), "Locator still not exist: " + str(locator))
-                result = True
-                logger(f"[is_exist] {locator} found:" + str(time.time() - timer_start))
-                break
-            except:
-                logger(f"[is_exist] {locator} Not found:" + str(time.time() - timer_start))
-        self.driver.driver.implicitly_wait(implicitly)
-        return result
+    def is_exist(self, locator, timeout=3):
+        start = time.time()
+        try:
+            WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            # logger(f"[Found ({round(time.time()-start, 2)})] {locator}")
+            return True
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
         
     def is_not_exist(self,locator,timeout=5):
         logger("start is_not_exist")

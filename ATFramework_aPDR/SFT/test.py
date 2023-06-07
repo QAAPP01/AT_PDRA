@@ -1,95 +1,72 @@
-import pprint
+import inspect
+import sys
 import time
-import uuid
-import os
+from os import path
+from os.path import dirname
 
-import cv2
-from appium.webdriver import Remote
-from appium.webdriver.common.touch_action import TouchAction
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.actions import interaction
-from selenium.webdriver.common.actions.action_builder import ActionBuilder
-from selenium.webdriver.common.actions.pointer_input import PointerInput
+import pytest
 
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
+from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
+from .conftest import PACKAGE_NAME
+from .conftest import REPORT_INSTANCE
+from .conftest import TEST_MATERIAL_FOLDER
+from .conftest import TEST_MATERIAL_FOLDER_01
+from ATFramework_aPDR.pages.locator.locator_type import *
 
-TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
-TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
+sys.path.insert(0, (dirname(dirname(__file__))))
 
-# udid = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]
-# udid = "R5CT32Q3WQN"
-udid = "9596423546005V8"
+report = REPORT_INSTANCE
+pdr_package = PACKAGE_NAME
 
-device = {
-    "udid": udid,
-    "deviceName": "deviceName",
-    "platformName": "Android",
-    "settings[waitForIdleTimeout]": 10,
-    "newCommandTimeout": 1800,
-    "language": "en",
-    "locale": "US",
-    # "localeScript": "Hant",
-    "appPackage": "com.cyberlink.powerdirector.DRA140225_01",
-    "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
-    'autoGrantPermissions': True,
-    "noReset": True,  # Delete app data: False
-    "autoLaunch": False
-}
-driver = Remote("http://127.0.0.1:4723/wd/hub", device)
+test_material_folder = TEST_MATERIAL_FOLDER
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
 
 
-# shortcut
-# self.test_material_folder = TEST_MATERIAL_FOLDER
-# self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
-# self.page_main = PageFactory().get_page_object("main_page", self.driver)
-# self.page_edit = PageFactory().get_page_object("edit", self.driver)
-# self.page_media = PageFactory().get_page_object("import_media", self.driver)
-# self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
-# self.click = self.page_main.h_click
-# self.long_press = self.page_main.h_long_press
-# self.element = self.page_main.h_get_element
-# self.elements = self.page_main.h_get_elements
-# self.is_exist = self.page_main.h_is_exist
+class Test_SFT_Scenario_02_02:
+    @pytest.fixture(autouse=True)
+    def initial(self, driver):
+        logger("[Start] Init driver session")
 
+        self.driver = driver
+        self.report = report
 
-def h_swipe_playhead(sec=1, dx=47, x_offset=25):
-    """
-    # Function: h_swipe_playhead
-    # Description: Swipe the playhead to the second after
-    # Parameters:
-        :param sec: Swipe to seconds after
-        :param dx: delta x of 1s
-        :param x_offset: length of x to trigger swiping is 25
-    # Return: None
-    # Note: N/A
-    # Author: Hausen
-    """
-    playhead = driver.find_element("id", L.edit.timeline.playhead[1]).rect
-    playhead_x = playhead["x"] + playhead["width"] // 2
-    ruler = driver.find_element("id", L.edit.timeline.timeline_ruler[1]).rect
-    y = ruler["y"] + ruler["height"] // 2
+        # shortcut
+        self.page_main = PageFactory().get_page_object("main_page", self.driver)
+        self.page_edit = PageFactory().get_page_object("edit", self.driver)
+        self.page_media = PageFactory().get_page_object("import_media", self.driver)
+        self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
 
-    actions = ActionChains(driver)
-    actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+        self.click = self.page_main.h_click
+        self.long_press = self.page_main.h_long_press
+        self.element = self.page_main.h_get_element
+        self.elements = self.page_main.h_get_elements
+        self.is_exist = self.page_main.h_is_exist
 
-    delta = 9
-    delta_x = (dx + x_offset) // delta
-    for i in range(sec):
-        actions.w3c_actions.pointer_action.move_to_location(playhead_x, y).pointer_down()
-        start_x = playhead_x
-        for j in range(delta):
-            start_x -= delta_x
-            actions.w3c_actions.pointer_action.move_to_location(start_x, y)
-        actions.w3c_actions.pointer_action.release()
-        actions.perform()
+        self.report.set_driver(driver)
+        driver.driver.launch_app()
+
+    def test_case(self):
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            time.sleep(5)
+            self.click(L.edit.timeline.master_track.master_clip(2))
+            time.sleep(5)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            time.sleep(5)
+            self.click(L.edit.timeline.master_track.master_clip(2))
 
 
 
-def swipe_without_release(driver, x1, y1, x2, y2):
-    action = TouchAction(driver)
-    action.long_press(x=x1, y=y1).move_to(x=x2, y=y2).release().perform()
-
-
-h_swipe_playhead(10)
+        except Exception as err:
+            logger(f'\n{err}')
 
