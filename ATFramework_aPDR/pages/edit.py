@@ -34,6 +34,8 @@ class EditPage(BasePage):
 
         self.el = lambda id: self.driver.driver.find_element(id[0], id[1])
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
+
+        self.preference = Preference
         self.color = Color(self.driver.driver)
         self.skin_smoothener = Skin_smoothener(self.driver.driver)
         self.speed = Speed(self.driver.driver)
@@ -54,11 +56,14 @@ class EditPage(BasePage):
         self.duration = Duration(self.driver)
         self.border_and_shadow = Border_and_Shadow(self.driver)
         self.intro_video = Intro_Video(self.driver)
+
+
         self.click = self.h_click
         self.long_press = self.h_long_press
         self.element = self.h_get_element
         self.elements = self.h_get_elements
         self.is_exist = self.h_is_exist
+
 
     def add_master_media(self, media_type=None, folder=None, file_name=None):
         try:
@@ -208,6 +213,22 @@ class EditPage(BasePage):
         except Exception as err:
             raise Exception(f'[Error] {err}')
 
+    def trigger_default_file_name(self, enable=True):
+        # Start from timeline editor page
+        try:
+            self.click(L.edit.settings.menu)
+            self.click(L.edit.settings.preference)
+            if not self.is_exist(L.timeline_settings.preference.display_file_name_switch):
+                self.driver.swipe_up
+
+            status = self.page_preference.check_setting(L.timeline_settings.preference.display_file_name_switch)
+            if status != enable:
+                self.page_preference.click_setting(L.timeline_settings.preference.display_file_name_switch)
+            self.click(L.timeline_settings.preference.back)
+            return True
+        except Exception as err:
+            raise Exception(f'[Error] {err}')
+
 
 
     def tap_blank_space(self):
@@ -287,6 +308,24 @@ class EditPage(BasePage):
         except Exception as err:
             logger(f'[Error] {err}')
 
+    def click_tool_by_itemName(self, name, timeout=0.2):
+        try:
+            tool = self.h_get_elements(id('itemName'))
+            last = tool[-1].text
+            while not self.click(find_string(name), timeout):
+                self.h_swipe_element(tool[-1], tool[0], speed=3)
+                tool = self.h_get_elements(id('itemName'))
+                new_last = tool[-1].text
+                if new_last == last:
+                    raise Exception(f'"{name}" not found')
+                else:
+                    last = new_last
+            return True
+
+        except Exception as err:
+            logger(f'[Error] {err}')
+            return False
+
     def enter_main_tool(self, name, timeout=0.2):
         try:
             for i in range(4):
@@ -315,12 +354,15 @@ class EditPage(BasePage):
             logger(f'[Error] {err}')
             return False
 
-    def enter_sub_tool(self, name, timeout=0.2):
+    def enter_sub_tool(self, name, timeout=0.2, exclusive=None):
         if not self.h_is_exist(L.edit.timeline.sub_tool, 3):
             logger("[Info] Cannot find sub tool menu")
             logger("[Info] Select the first clip")
             self.h_click(L.edit.timeline.clip())
-        locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
+        if exclusive:
+            locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}") and not(contains(@text,"{exclusive}"))]')
+        else:
+            locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
         while 1:
             if not self.h_is_exist(locator, timeout=timeout):
                 tool = self.h_get_elements(E.timeline.sub_tool)
@@ -1925,6 +1967,32 @@ class EditPage(BasePage):
             logger("exception occurs")
             raise Exception
 
+class Preference(EditPage):
+    def __init__(self, *args, **kwargs):
+        super.__init__(*args, **kwargs)
+
+    def trigger_fileName(self, enable=True):
+        try:
+            self.click(L.edit.settings.menu)
+            self.click(L.edit.settings.preference)
+            layout = self.element(id('layout_container'))
+            while not self.is_exist(L.timeline_settings.preference.display_file_name_switch):
+                self.driver.swipe_up()
+                new_layout = self.element(id('layout_container'))
+                if new_layout == layout:
+                    raise Exception('No found display_file_name_switch')
+                else:
+                    layout = new_layout
+
+            status = self.page_preference.check_setting(L.timeline_settings.preference.display_file_name_switch)
+            if status != enable:
+                self.page_preference.click_setting(L.timeline_settings.preference.display_file_name_switch)
+            self.click(L.timeline_settings.preference.back)
+            return True
+        except Exception as err:
+            raise Exception(f'[Error] {err}')
+
+
 
 class Sub_item():
     def __init__(self, driver, item):
@@ -2041,6 +2109,7 @@ class Sub_item():
             (percentage * self.max), self.elem_progress.text,
             float(self.elem_progress.text) == (percentage * self.max)))
         return float(self.elem_progress.text) == (percentage * self.max)
+
 
 
 class Audio_Denoise_Sub_item(Sub_item):
@@ -2784,13 +2853,7 @@ class Settings(BasePage):
         super().__init__(driver)
         self.driver = driver
 
-    def enable_fileName(self):
-        self.h_click(L.edit.menu.settings)
-        self.h_click(L.edit.sub_menu.settings)
-        self.h_click(L.timeline_settings.settings.advanced_setting)
-        if self.h_get_element(L.timeline_settings.settings.display_file_name_switch).get_attribute(
-                'checked') == 'false':
-            self.h_click(L.timeline_settings.settings.display_file_name_switch)
+
 
     def swipe_to_option(self, option):
         logger("start >> swipe_to_option <<")

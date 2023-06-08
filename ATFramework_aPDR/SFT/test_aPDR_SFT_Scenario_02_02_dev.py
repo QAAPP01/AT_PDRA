@@ -87,8 +87,6 @@ class Test_SFT_Scenario_02_02:
         try:
             if not self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16):
                 raise Exception('Add media fail')
-            global pic_photo_default
-            pic_photo_default = self.page_main.get_preview_pic()
 
             if not self.page_edit.enter_main_tool('AI Effect'):
                 raise Exception('Enter AI Effect fail')
@@ -406,13 +404,13 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
 
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            global pic_photo_default
+            pic_photo_default = self.page_main.get_preview_pic()
             if not self.page_edit.trigger_default_pan_zoom_effect(enable=True):
                 raise Exception('Click default_pan_zoom_effect fail')
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
 
-            self.page_edit.scroll_playhead_to_beginning()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.scroll_playhead_to_beginning()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
 
             if not self.click(L.edit.timeline.master_track.master_clip(1)):
                 raise Exception('Click 1st clip fail')
@@ -884,8 +882,8 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Pan & Zoom')
 
@@ -919,8 +917,318 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+
+            return "FAIL"
+
+    def sce_2_2_26(self):
+        uuid = '720154f9-f1e7-4e07-b01a-1b0fe8bcd216'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+        log = 'Feature removed'
+        self.report.new_result(uuid, None, 'N/A', log)
+        return 'N/A'
+
+    def sce_2_2_27(self):
+        uuid = 'af2a4980-71b7-4181-a105-e978b380bb99'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+        log = 'Feature removed'
+        self.report.new_result(uuid, None, 'N/A', log)
+        return 'N/A'
+
+    def sce_2_2_28(self):
+        uuid = '343072ee-7556-45fe-bc52-2a8889eed30c'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+        log = 'Feature removed'
+        self.report.new_result(uuid, None, 'N/A', log)
+        return 'N/A'
+
+    def sce_2_2_31(self):
+        uuid = '6cb4e483-d200-4a12-9ae1-14abc04f6d28'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.page_edit.tap_blank_space()
+            if not self.click(L.edit.timeline.master_track.master_clip(1)):
+                raise Exception('Select clip fail')
+            if not self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect'):
+                raise Exception('Enter Effect fail')
+            if not self.page_edit.click_tool_by_itemName('Beating'):
+                raise Exception('Click Beating fail')
+            if not self.click(L.edit.tool_menu.effect.edit):
+                raise Exception('Click Edit button fail')
+            if not self.click(find_string('Frequency')):
+                raise Exception('Click Frequency fail')
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "20":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Frequency'))
+
+            return "FAIL"
+
+    def sce_2_2_30(self):
+        uuid = 'fe5e2f0d-ee84-43b7-9bba-1a27df66d71e'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value_before = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
+            value_after = self.element(L.edit.tool_menu.slider_value).text
+
+            if int(value_after) < int(value_before):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value is not decreased'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Frequency'))
+
+            return "FAIL"
+
+    def sce_2_2_32(self):
+        uuid = '7cd0f6de-d928-4319-97f5-c2cb2e66ff7c'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "5":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Frequency'))
+
+            return "FAIL"
+
+    def sce_2_2_29(self):
+        uuid = '4260b495-a0f0-4ccb-81fc-d816bfd627c6'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value_before = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
+            value_after = self.element(L.edit.tool_menu.slider_value).text
+
+            if int(value_after) > int(value_before):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value is not increased'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Frequency'))
+
+            return "FAIL"
+
+    def sce_2_2_33(self):
+        uuid = 'b3da4cba-cbe8-49c6-8d1f-5df90e7bef60'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "40":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Strength'))
+
+            return "FAIL"
+
+    def sce_2_2_34(self):
+        uuid = 'ab490a99-98de-4070-9442-608fe225c520'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(find_string('Strength')):
+                raise Exception('Click Strength fail')
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "120":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Strength'))
+
+            return "FAIL"
+
+    def sce_2_2_35(self):
+        uuid = '094cff54-681b-43f6-9bdd-300857c70370'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "110":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Strength'))
+
+            return "FAIL"
+
+    def sce_2_2_36(self):
+        uuid = '00a7f2e5-8f0c-467c-a7ae-c4c718ba985b'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "150":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Strength'))
 
             return "FAIL"
 
@@ -957,6 +1265,17 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_23": self.sce_2_2_23(),
                   "sce_2_2_24": self.sce_2_2_24(),
                   "sce_2_2_25": self.sce_2_2_25(),
+                  "sce_2_2_26": self.sce_2_2_26(),
+                  "sce_2_2_27": self.sce_2_2_27(),
+                  "sce_2_2_28": self.sce_2_2_28(),
+                  "sce_2_2_31": self.sce_2_2_31(),
+                  "sce_2_2_30": self.sce_2_2_30(),
+                  "sce_2_2_32": self.sce_2_2_32(),
+                  "sce_2_2_29": self.sce_2_2_29(),
+                  "sce_2_2_33": self.sce_2_2_33(),
+                  "sce_2_2_34": self.sce_2_2_34(),
+                  "sce_2_2_35": self.sce_2_2_35(),
+                  "sce_2_2_36": self.sce_2_2_36(),
                   }
         for key, value in result.items():
             if value != "PASS":

@@ -178,6 +178,10 @@ class ToolMenu:
 
         color_picker = ColorPicker
 
+    class Effect:
+        edit = id('itemEdit')
+
+
     class PanZoom:
         class Custom:
             apply = id('btnApply')
@@ -187,6 +191,7 @@ class ToolMenu:
 
     ai_effect = AIEffect
     cutout = Cutout
+    effect = Effect
     pan_zoom = PanZoom
 
 
