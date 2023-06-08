@@ -35,7 +35,7 @@ class EditPage(BasePage):
         self.el = lambda id: self.driver.driver.find_element(id[0], id[1])
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
 
-        self.preference = Preference
+        self.preference = Preference(self.driver)
         self.color = Color(self.driver.driver)
         self.skin_smoothener = Skin_smoothener(self.driver.driver)
         self.speed = Speed(self.driver.driver)
@@ -1967,22 +1967,21 @@ class EditPage(BasePage):
             logger("exception occurs")
             raise Exception
 
-class Preference(EditPage):
-    def __init__(self, *args, **kwargs):
-        super.__init__(*args, **kwargs)
+class Preference(BasePage):
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.driver = driver
+
+        self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
 
     def trigger_fileName(self, enable=True):
         try:
             self.click(L.edit.settings.menu)
             self.click(L.edit.settings.preference)
-            layout = self.element(id('layout_container'))
             while not self.is_exist(L.timeline_settings.preference.display_file_name_switch):
-                self.driver.swipe_up()
-                new_layout = self.element(id('layout_container'))
-                if new_layout == layout:
+                if self.is_exist(xpath('//*[contains(@text,"Enable All Default Tips")]')):
                     raise Exception('No found display_file_name_switch')
-                else:
-                    layout = new_layout
+                self.driver.swipe_up()
 
             status = self.page_preference.check_setting(L.timeline_settings.preference.display_file_name_switch)
             if status != enable:

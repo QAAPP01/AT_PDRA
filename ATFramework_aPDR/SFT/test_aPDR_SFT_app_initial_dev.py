@@ -1,6 +1,8 @@
 import sys
 import time
 
+import pytest
+
 from ATFramework_aPDR.pages.locator.locator_type import find_string
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from ATFramework_aPDR.pages.locator import locator as L
@@ -36,4 +38,4 @@ def test_app_init(driver):
         page_main.h_click(L.main.project.dialog_ok)
         logger("\n[Done] app_initial")
     except Exception as err:
-        raise Exception(f'[Error] {err}')
+        pytest.fail(f'[Error] {err}')
