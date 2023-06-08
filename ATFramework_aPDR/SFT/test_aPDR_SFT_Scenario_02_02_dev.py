@@ -409,6 +409,7 @@ class Test_SFT_Scenario_02_02:
             pic_photo_default = self.page_main.get_preview_pic()
             if not self.page_edit.trigger_default_pan_zoom_effect(enable=True):
                 raise Exception('Click default_pan_zoom_effect fail')
+            self.page_edit.scroll_playhead_to_beginning()
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
 
 
@@ -829,9 +830,9 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.page_edit.scroll_playhead_to_beginning()
             if not self.click(find_string('No Effect')):
                 raise Exception('Click No Effect fail')
+            self.page_edit.scroll_playhead_to_beginning()
             pic_tgt = self.page_main.get_preview_pic()
 
             if HCompareImg(pic_tgt, pic_video_default).full_compare_result():
@@ -1232,6 +1233,568 @@ class Test_SFT_Scenario_02_02:
 
             return "FAIL"
 
+    def sce_2_2_39(self):
+        uuid = '05fbc53e-aa2e-46ee-9942-3ac55343435d'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.page_edit.tap_blank_space()
+            if not self.click(L.edit.timeline.master_track.master_clip(1)):
+                raise Exception('Select clip fail')
+            if not self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect'):
+                raise Exception('Enter Effect fail')
+            if not self.page_edit.click_tool_by_itemName('Bloom'):
+                raise Exception('Click Bloom fail')
+            if not self.click(L.edit.tool_menu.effect.edit):
+                raise Exception('Click Edit button fail')
+            if not self.click(find_string('Sample Weight')):
+                raise Exception('Click Sample Weight fail')
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "100":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Sample Weight'))
+
+            return "FAIL"
+
+    def sce_2_2_38(self):
+        uuid = 'ef7c6f67-9c99-4092-93e3-cbc71daa8a32'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value_before = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
+            value_after = self.element(L.edit.tool_menu.slider_value).text
+
+            if int(value_after) < int(value_before):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value is not decreased'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Sample Weight'))
+
+            return "FAIL"
+
+    def sce_2_2_40(self):
+        uuid = '88eb60c0-199b-4009-aa12-b0a22b961669'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "0":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Sample Weight'))
+
+            return "FAIL"
+
+    def sce_2_2_37(self):
+        uuid = 'ea4aa246-1530-4d35-a9fc-9c1e9a0104f1'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value_before = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
+            value_after = self.element(L.edit.tool_menu.slider_value).text
+
+            if int(value_after) > int(value_before):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value is not increased'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Sample Weight'))
+
+            return "FAIL"
+
+    def sce_2_2_41(self):
+        uuid = '524be4d9-98b2-4db8-903f-278778410326'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "200":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Sample Weight'))
+
+            return "FAIL"
+
+    def sce_2_2_42(self):
+        uuid = 'f1061dea-2e58-4764-93dd-9c0b11a61066'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(find_string('Light Number')):
+                raise Exception('Click Light Number fail')
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "2":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Light Number'))
+
+            return "FAIL"
+
+    def sce_2_2_43(self):
+        uuid = '756a3f0f-2f9e-4923-805b-76a0c9ea1ae3'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "1":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Light Number'))
+
+            return "FAIL"
+
+    def sce_2_2_44(self):
+        uuid = '07fc3b8d-eac6-4f29-980f-683fd687ab85'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "3":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Light Number'))
+
+            return "FAIL"
+
+    def sce_2_2_45(self):
+        uuid = '5d72248a-f7fd-4a3f-a1c6-0ad31155c63f'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(find_string('Angle')):
+                raise Exception('Click Angle fail')
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "50":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Angle'))
+
+            return "FAIL"
+
+    def sce_2_2_46(self):
+        uuid = '6ba7a9de-597a-4c79-abf8-699dcf9a0986'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "0":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Angle'))
+
+            return "FAIL"
+
+    def sce_2_2_47(self):
+        uuid = '2d933688-36c3-4b35-8ca8-d016b17dd005'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "200":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Angle'))
+
+            return "FAIL"
+
+    def sce_2_2_50(self):
+        uuid = '1e96519a-d4e2-46e4-b954-f15bee0992cf'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.page_edit.tap_blank_space()
+            if not self.click(L.edit.timeline.master_track.master_clip(1)):
+                raise Exception('Select clip fail')
+            if not self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect'):
+                raise Exception('Enter Effect fail')
+            if not self.page_edit.click_tool_by_itemName('Black & White'):
+                raise Exception('Click Black & White fail')
+            if not self.click(L.edit.tool_menu.effect.edit):
+                raise Exception('Click Edit button fail')
+            if not self.click(find_string('Degree')):
+                raise Exception('Click Degree fail')
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "200":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Black & White')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Degree'))
+
+            return "FAIL"
+
+    def sce_2_2_49(self):
+        uuid = '338277ce-767a-4948-b34b-88d0e66186a3'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value_before = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
+            value_after = self.element(L.edit.tool_menu.slider_value).text
+
+            if int(value_after) < int(value_before):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value is not decreased'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Black & White')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Degree'))
+
+            return "FAIL"
+
+    def sce_2_2_51(self):
+        uuid = 'b64a4b32-804d-45bf-a049-7e79d36e35fb'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "0":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Black & White')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Degree'))
+
+            return "FAIL"
+
+    def sce_2_2_48(self):
+        uuid = 'ef54fa97-ccf7-4f9e-a0cc-78ef011ba1d2'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value_before = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
+            value_after = self.element(L.edit.tool_menu.slider_value).text
+
+            if int(value_after) > int(value_before):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value is not increased'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Black & White')
+            self.click(L.edit.tool_menu.effect.edit)
+            self.click(find_string('Degree'))
+
+            return "FAIL"
+
+    def sce_2_2_52(self):
+        uuid = '57cd0f6de-d928-4319-97f5-c2cb2e66ff7c'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.tool_menu.slider_value).text
+
+            if value == "200":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value incorrect: {value}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+
+            return "FAIL"
+
 
     def test_case_1(self):
         result = {"sce_2_2_1": self.sce_2_2_1(),
@@ -1276,6 +1839,22 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_34": self.sce_2_2_34(),
                   "sce_2_2_35": self.sce_2_2_35(),
                   "sce_2_2_36": self.sce_2_2_36(),
+                  "sce_2_2_39": self.sce_2_2_39(),
+                  "sce_2_2_38": self.sce_2_2_38(),
+                  "sce_2_2_40": self.sce_2_2_40(),
+                  "sce_2_2_37": self.sce_2_2_37(),
+                  "sce_2_2_41": self.sce_2_2_41(),
+                  "sce_2_2_42": self.sce_2_2_42(),
+                  "sce_2_2_43": self.sce_2_2_43(),
+                  "sce_2_2_44": self.sce_2_2_44(),
+                  "sce_2_2_45": self.sce_2_2_45(),
+                  "sce_2_2_46": self.sce_2_2_46(),
+                  "sce_2_2_47": self.sce_2_2_47(),
+                  "sce_2_2_50": self.sce_2_2_50(),
+                  "sce_2_2_49": self.sce_2_2_49(),
+                  "sce_2_2_51": self.sce_2_2_51(),
+                  "sce_2_2_48": self.sce_2_2_48(),
+                  "sce_2_2_52": self.sce_2_2_52(),
                   }
         for key, value in result.items():
             if value != "PASS":

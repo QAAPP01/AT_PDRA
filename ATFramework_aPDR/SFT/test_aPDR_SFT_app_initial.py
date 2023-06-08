@@ -14,6 +14,7 @@ def test_app_init(driver):
         driver.driver.launch_app()
 
         page_main = PageFactory().get_page_object("main_page", driver)
+        page_edit = PageFactory().get_page_object("edit", driver)
         page_main.enter_launcher()
         page_main.h_click(L.main.project.new_project, 2)
         page_main.h_click(L.main.permission.file_ok)
@@ -35,4 +36,4 @@ def test_app_init(driver):
         page_main.h_click(L.main.project.dialog_ok)
         logger("\n[Done] app_initial")
     except Exception as err:
-        raise Exception(f'[Error] {err}')
+        pytest.fail(f'[Error] {err}')
