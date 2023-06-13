@@ -52,6 +52,8 @@ class Test_SFT_Scenario_05_01:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     # @pytest.mark.skip
     @report.exception_screenshot

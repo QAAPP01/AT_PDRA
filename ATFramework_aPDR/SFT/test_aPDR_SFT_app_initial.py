@@ -1,6 +1,8 @@
 import sys
 import time
 
+import pytest
+
 from ATFramework_aPDR.pages.locator.locator_type import find_string
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from ATFramework_aPDR.pages.locator import locator as L

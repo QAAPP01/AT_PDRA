@@ -53,6 +53,8 @@ class Test_SFT_Scenario_02_01:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     def sce_2_1_1(self):
         uuid = '923cc0c9-f6d8-4f65-8076-f1b585d5b1a3'
@@ -784,7 +786,7 @@ class Test_SFT_Scenario_02_01:
 
             global stab_before
             stab_before = self.page_main.h_screenshot()
-            self.click(L.edit.tool_menu.back, timeout=0.1)
+            self.click(L.edit.sub_tool.back, timeout=0.1)
 
             if self.page_edit.click_sub_tool("Stabilizer"):
                 result = True
@@ -2778,7 +2780,7 @@ class Test_SFT_Scenario_02_01:
                     logger(f"[Error] {err}")
                     return "ERROR"
 
-            self.click(L.edit.tool_menu.back)
+            self.click(L.edit.sub_tool.back)
             self.click(L.edit.background.btn_background_pattern)
             cards = self.elements(L.edit.background.pattern_layout(0))
             free_flag = 0
@@ -2888,7 +2890,7 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             for i in range(4):
-                if self.click(L.edit.tool_menu.back, timeout=0.1):
+                if self.click(L.edit.sub_tool.back, timeout=0.1):
                     continue
                 else:
                     break
@@ -3299,7 +3301,7 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             for i in range(4):
-                if self.click(L.edit.tool_menu.back, timeout=0.1):
+                if self.click(L.edit.sub_tool.back, timeout=0.1):
                     continue
                 else:
                     break

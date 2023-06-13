@@ -50,6 +50,8 @@ class Test_SFT_Scenario_02_02:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     def sce_2_2_1(self):
         uuid = '4979f807-43ed-48ae-b85f-9a28b2ab989a'
@@ -151,7 +153,7 @@ class Test_SFT_Scenario_02_02:
             if not self.page_edit.enter_sub_tool('AI Effect'):
                 raise Exception('Enter AI Effect fail')
 
-            if self.is_exist(L.edit.tool_menu.ai_effect.effect(0)):
+            if self.is_exist(L.edit.sub_tool.ai_effect.effect(0)):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -178,7 +180,7 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            if self.element(L.edit.tool_menu.ai_effect.none_highlight).get_attribute('selected') == 'true':
+            if self.element(L.edit.sub_tool.ai_effect.none_highlight).get_attribute('selected') == 'true':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -206,11 +208,11 @@ class Test_SFT_Scenario_02_02:
 
         try:
             index = 1
-            if not self.click(L.edit.tool_menu.ai_effect.effect(index)):
+            if not self.click(L.edit.sub_tool.ai_effect.effect(index)):
                 raise Exception('Click effect fail')
             self.click(L.edit.try_before_buy.try_it, 2)
 
-            if self.element(L.edit.tool_menu.ai_effect.effect_name(index)).get_attribute('selected') == 'true':
+            if self.element(L.edit.sub_tool.ai_effect.effect_name(index)).get_attribute('selected') == 'true':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -227,7 +229,7 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
-            self.click(L.edit.tool_menu.ai_effect.effect(1))
+            self.click(L.edit.sub_tool.ai_effect.effect(1))
 
             return "FAIL"
 
@@ -238,10 +240,10 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            if not self.click(L.edit.tool_menu.ai_effect.edit):
+            if not self.click(L.edit.sub_tool.ai_effect.edit):
                 raise Exception('Click editing icon fail')
 
-            if self.is_exist(L.edit.tool_menu.ai_effect.param_area):
+            if self.is_exist(L.edit.sub_tool.ai_effect.param_area):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -258,8 +260,8 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
-            self.click(L.edit.tool_menu.ai_effect.effect(1))
-            self.click(L.edit.tool_menu.ai_effect.edit)
+            self.click(L.edit.sub_tool.ai_effect.effect(1))
+            self.click(L.edit.sub_tool.ai_effect.edit)
 
             return "FAIL"
 
@@ -270,22 +272,22 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            param_num = len(self.elements(L.edit.tool_menu.ai_effect.param_value(0)))
+            param_num = len(self.elements(L.edit.sub_tool.ai_effect.param_value(0)))
             param_flag = 0
             global default_value
             for i in range(param_num):
-                if self.element(L.edit.tool_menu.ai_effect.param_value(i + 1)).text == "":
+                if self.element(L.edit.sub_tool.ai_effect.param_value(i + 1)).text == "":
                     continue
                 else:
                     param_flag = 1
-                    default_value = (i + 1, self.element(L.edit.tool_menu.ai_effect.param_value(i + 1)).text)
-                    self.click(L.edit.tool_menu.ai_effect.param_value(i + 1))
+                    default_value = (i + 1, self.element(L.edit.sub_tool.ai_effect.param_value(i + 1)).text)
+                    self.click(L.edit.sub_tool.ai_effect.param_value(i + 1))
                     self.driver.drag_slider_from_left_to_right()
                     break
             if not param_flag:
                 raise Exception('No parameter can edit in this effect')
 
-            if self.element(L.edit.tool_menu.slider_value).text != default_value[1]:
+            if self.element(L.edit.sub_tool.slider_value).text != default_value[1]:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -302,8 +304,8 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
-            self.click(L.edit.tool_menu.ai_effect.effect(1))
-            self.click(L.edit.tool_menu.ai_effect.edit)
+            self.click(L.edit.sub_tool.ai_effect.effect(1))
+            self.click(L.edit.sub_tool.ai_effect.edit)
 
             return "FAIL"
 
@@ -314,10 +316,10 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            if not self.click(L.edit.tool_menu.ai_effect.reset):
+            if not self.click(L.edit.sub_tool.ai_effect.reset):
                 raise Exception('Click Reset fail')
 
-            if self.element(L.edit.tool_menu.ai_effect.param_value(default_value[0])).text == default_value[1]:
+            if self.element(L.edit.sub_tool.ai_effect.param_value(default_value[0])).text == default_value[1]:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -334,8 +336,8 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
-            self.click(L.edit.tool_menu.ai_effect.effect(1))
-            self.click(L.edit.tool_menu.ai_effect.edit)
+            self.click(L.edit.sub_tool.ai_effect.effect(1))
+            self.click(L.edit.sub_tool.ai_effect.edit)
 
             return "FAIL"
 
@@ -346,10 +348,10 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            if not self.click(L.edit.tool_menu.back):
+            if not self.click(L.edit.sub_tool.back):
                 raise Exception('Click Back fail')
 
-            if self.is_exist(L.edit.tool_menu.ai_effect.effect()):
+            if self.is_exist(L.edit.sub_tool.ai_effect.effect()):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -366,7 +368,7 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('AI Effect')
-            self.click(L.edit.tool_menu.ai_effect.effect(1))
+            self.click(L.edit.sub_tool.ai_effect.effect(1))
 
 
             return "FAIL"
@@ -378,10 +380,10 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            if not self.click(L.edit.tool_menu.back):
+            if not self.click(L.edit.sub_tool.back):
                 raise Exception('Tap Back button fail')
 
-            if self.is_exist(L.edit.tool_menu.tool(0)):
+            if self.is_exist(L.edit.sub_tool.tool(0)):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -449,7 +451,7 @@ class Test_SFT_Scenario_02_02:
                 raise Exception('Click 2nd clip fail')
             self.page_edit.enter_sub_tool('Pan & Zoom')
             self.click(find_string('No Effect'))
-            if not self.click(L.edit.tool_menu.apply_to_all):
+            if not self.click(L.edit.sub_tool.apply_to_all):
                 raise Exception('Click apply_to_all fail')
 
             self.page_edit.tap_blank_space()
@@ -489,7 +491,7 @@ class Test_SFT_Scenario_02_02:
                 raise Exception('Click 2nd clip fail')
             self.page_edit.enter_sub_tool('Pan & Zoom')
             self.click(find_string('Random'))
-            if not self.click(L.edit.tool_menu.apply_to_all):
+            if not self.click(L.edit.sub_tool.apply_to_all):
                 raise Exception('Click apply_to_all fail')
 
             self.page_edit.tap_blank_space()
@@ -530,8 +532,8 @@ class Test_SFT_Scenario_02_02:
             self.page_edit.enter_sub_tool('Pan & Zoom')
             if not self.click(find_string('Custom')):
                 raise Exception('Click Custom fail')
-            self.click(L.edit.tool_menu.pan_zoom.custom.apply)
-            if not self.click(L.edit.tool_menu.apply_to_all):
+            self.click(L.edit.sub_tool.pan_zoom.custom.apply)
+            if not self.click(L.edit.sub_tool.apply_to_all):
                 raise Exception('Click apply_to_all fail')
 
             self.page_edit.tap_blank_space()
@@ -637,8 +639,8 @@ class Test_SFT_Scenario_02_02:
         try:
             if not self.click(find_string('Custom')):
                 raise Exception('Click Custom fail')
-            self.driver.swipe_element(L.edit.tool_menu.pan_zoom.custom.start_position, 'up', 100)
-            self.click(L.edit.tool_menu.pan_zoom.custom.apply)
+            self.driver.swipe_element(L.edit.sub_tool.pan_zoom.custom.start_position, 'up', 100)
+            self.click(L.edit.sub_tool.pan_zoom.custom.apply)
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, pic_photo_default).full_compare_result():
@@ -711,14 +713,14 @@ class Test_SFT_Scenario_02_02:
             self.page_edit.enter_sub_tool('Pan & Zoom')
             if not self.click(find_string('Custom')):
                 raise Exception('Click Custom fail')
-            self.click(L.edit.tool_menu.pan_zoom.custom.apply)
+            self.click(L.edit.sub_tool.pan_zoom.custom.apply)
 
             self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'left', 300)
             if not self.click(L.edit.timeline.master_track.master_clip(2)):
                 raise Exception('Click 2nd clip fail')
             self.page_edit.enter_sub_tool('Pan & Zoom')
             self.click(find_string('No Effect'))
-            if not self.click(L.edit.tool_menu.apply_to_all):
+            if not self.click(L.edit.sub_tool.apply_to_all):
                 raise Exception('Click apply_to_all fail')
 
             self.page_edit.tap_blank_space()
@@ -792,8 +794,8 @@ class Test_SFT_Scenario_02_02:
             self.page_edit.enter_sub_tool('Pan & Zoom')
             if not self.click(find_string('Custom')):
                 raise Exception('Click Custom fail')
-            self.click(L.edit.tool_menu.pan_zoom.custom.apply)
-            if not self.click(L.edit.tool_menu.apply_to_all):
+            self.click(L.edit.sub_tool.pan_zoom.custom.apply)
+            if not self.click(L.edit.sub_tool.apply_to_all):
                 raise Exception('Click apply_to_all fail')
 
             self.page_edit.tap_blank_space()
@@ -899,8 +901,8 @@ class Test_SFT_Scenario_02_02:
         try:
             if not self.click(find_string('Custom')):
                 raise Exception('Click Custom fail')
-            self.driver.swipe_element(L.edit.tool_menu.pan_zoom.custom.start_position, 'up', 100)
-            self.click(L.edit.tool_menu.pan_zoom.custom.apply)
+            self.driver.swipe_element(L.edit.sub_tool.pan_zoom.custom.start_position, 'up', 100)
+            self.click(L.edit.sub_tool.pan_zoom.custom.apply)
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, pic_photo_default).full_compare_result():
@@ -957,18 +959,20 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.page_edit.tap_blank_space()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
             if not self.click(L.edit.timeline.master_track.master_clip(1)):
                 raise Exception('Select clip fail')
             if not self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect'):
                 raise Exception('Enter Effect fail')
             if not self.page_edit.click_tool_by_itemName('Beating'):
                 raise Exception('Click Beating fail')
-            if not self.click(L.edit.tool_menu.effect.edit):
+            if not self.click(L.edit.sub_tool.effect.edit):
                 raise Exception('Click Edit button fail')
             if not self.click(find_string('Frequency')):
                 raise Exception('Click Frequency fail')
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "20":
                 self.report.new_result(uuid, True)
@@ -989,7 +993,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Beating')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Frequency'))
 
             return "FAIL"
@@ -1001,9 +1005,9 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value_before = self.element(L.edit.tool_menu.slider_value).text
-            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
-            value_after = self.element(L.edit.tool_menu.slider_value).text
+            value_before = self.element(L.edit.sub_tool.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.sub_tool.slider)
+            value_after = self.element(L.edit.sub_tool.slider_value).text
 
             if int(value_after) < int(value_before):
                 self.report.new_result(uuid, True)
@@ -1024,7 +1028,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Beating')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Frequency'))
 
             return "FAIL"
@@ -1036,7 +1040,7 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "5":
                 self.report.new_result(uuid, True)
@@ -1057,7 +1061,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Beating')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Frequency'))
 
             return "FAIL"
@@ -1069,9 +1073,9 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value_before = self.element(L.edit.tool_menu.slider_value).text
-            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
-            value_after = self.element(L.edit.tool_menu.slider_value).text
+            value_before = self.element(L.edit.sub_tool.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            value_after = self.element(L.edit.sub_tool.slider_value).text
 
             if int(value_after) > int(value_before):
                 self.report.new_result(uuid, True)
@@ -1092,7 +1096,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Beating')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Frequency'))
 
             return "FAIL"
@@ -1104,7 +1108,7 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "40":
                 self.report.new_result(uuid, True)
@@ -1125,7 +1129,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Beating')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Strength'))
 
             return "FAIL"
@@ -1139,7 +1143,7 @@ class Test_SFT_Scenario_02_02:
         try:
             if not self.click(find_string('Strength')):
                 raise Exception('Click Strength fail')
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "120":
                 self.report.new_result(uuid, True)
@@ -1160,7 +1164,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Beating')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Strength'))
 
             return "FAIL"
@@ -1172,8 +1176,8 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
-            value = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.sub_tool.slider)
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "110":
                 self.report.new_result(uuid, True)
@@ -1194,7 +1198,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Beating')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Strength'))
 
             return "FAIL"
@@ -1206,8 +1210,8 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
-            value = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "150":
                 self.report.new_result(uuid, True)
@@ -1228,7 +1232,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Beating')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Strength'))
 
             return "FAIL"
@@ -1247,11 +1251,11 @@ class Test_SFT_Scenario_02_02:
                 raise Exception('Enter Effect fail')
             if not self.page_edit.click_tool_by_itemName('Bloom'):
                 raise Exception('Click Bloom fail')
-            if not self.click(L.edit.tool_menu.effect.edit):
+            if not self.click(L.edit.sub_tool.effect.edit):
                 raise Exception('Click Edit button fail')
             if not self.click(find_string('Sample Weight')):
                 raise Exception('Click Sample Weight fail')
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "100":
                 self.report.new_result(uuid, True)
@@ -1272,7 +1276,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Sample Weight'))
 
             return "FAIL"
@@ -1284,9 +1288,9 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value_before = self.element(L.edit.tool_menu.slider_value).text
-            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
-            value_after = self.element(L.edit.tool_menu.slider_value).text
+            value_before = self.element(L.edit.sub_tool.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.sub_tool.slider)
+            value_after = self.element(L.edit.sub_tool.slider_value).text
 
             if int(value_after) < int(value_before):
                 self.report.new_result(uuid, True)
@@ -1307,7 +1311,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Sample Weight'))
 
             return "FAIL"
@@ -1319,7 +1323,7 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "0":
                 self.report.new_result(uuid, True)
@@ -1340,7 +1344,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Sample Weight'))
 
             return "FAIL"
@@ -1352,9 +1356,9 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value_before = self.element(L.edit.tool_menu.slider_value).text
-            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
-            value_after = self.element(L.edit.tool_menu.slider_value).text
+            value_before = self.element(L.edit.sub_tool.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            value_after = self.element(L.edit.sub_tool.slider_value).text
 
             if int(value_after) > int(value_before):
                 self.report.new_result(uuid, True)
@@ -1375,7 +1379,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Sample Weight'))
 
             return "FAIL"
@@ -1387,7 +1391,7 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "200":
                 self.report.new_result(uuid, True)
@@ -1408,7 +1412,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Sample Weight'))
 
             return "FAIL"
@@ -1422,7 +1426,7 @@ class Test_SFT_Scenario_02_02:
         try:
             if not self.click(find_string('Light Number')):
                 raise Exception('Click Light Number fail')
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "2":
                 self.report.new_result(uuid, True)
@@ -1443,7 +1447,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Light Number'))
 
             return "FAIL"
@@ -1455,8 +1459,8 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
-            value = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.sub_tool.slider)
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "1":
                 self.report.new_result(uuid, True)
@@ -1477,7 +1481,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Light Number'))
 
             return "FAIL"
@@ -1489,8 +1493,8 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
-            value = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "3":
                 self.report.new_result(uuid, True)
@@ -1511,7 +1515,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Light Number'))
 
             return "FAIL"
@@ -1525,7 +1529,7 @@ class Test_SFT_Scenario_02_02:
         try:
             if not self.click(find_string('Angle')):
                 raise Exception('Click Angle fail')
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "50":
                 self.report.new_result(uuid, True)
@@ -1546,7 +1550,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Angle'))
 
             return "FAIL"
@@ -1558,8 +1562,8 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
-            value = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.sub_tool.slider)
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "0":
                 self.report.new_result(uuid, True)
@@ -1580,7 +1584,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Angle'))
 
             return "FAIL"
@@ -1592,8 +1596,8 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
-            value = self.element(L.edit.tool_menu.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "200":
                 self.report.new_result(uuid, True)
@@ -1614,7 +1618,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Bloom')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Angle'))
 
             return "FAIL"
@@ -1633,11 +1637,11 @@ class Test_SFT_Scenario_02_02:
                 raise Exception('Enter Effect fail')
             if not self.page_edit.click_tool_by_itemName('Black & White'):
                 raise Exception('Click Black & White fail')
-            if not self.click(L.edit.tool_menu.effect.edit):
+            if not self.click(L.edit.sub_tool.effect.edit):
                 raise Exception('Click Edit button fail')
             if not self.click(find_string('Degree')):
                 raise Exception('Click Degree fail')
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "200":
                 self.report.new_result(uuid, True)
@@ -1658,7 +1662,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Black & White')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Degree'))
 
             return "FAIL"
@@ -1670,9 +1674,9 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value_before = self.element(L.edit.tool_menu.slider_value).text
-            self.driver.drag_slider_to_min(L.edit.tool_menu.slider)
-            value_after = self.element(L.edit.tool_menu.slider_value).text
+            value_before = self.element(L.edit.sub_tool.slider_value).text
+            self.driver.drag_slider_to_min(L.edit.sub_tool.slider)
+            value_after = self.element(L.edit.sub_tool.slider_value).text
 
             if int(value_after) < int(value_before):
                 self.report.new_result(uuid, True)
@@ -1693,7 +1697,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Black & White')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Degree'))
 
             return "FAIL"
@@ -1705,7 +1709,7 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "0":
                 self.report.new_result(uuid, True)
@@ -1726,7 +1730,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Black & White')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Degree'))
 
             return "FAIL"
@@ -1738,9 +1742,9 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value_before = self.element(L.edit.tool_menu.slider_value).text
-            self.driver.drag_slider_to_max(L.edit.tool_menu.slider)
-            value_after = self.element(L.edit.tool_menu.slider_value).text
+            value_before = self.element(L.edit.sub_tool.slider_value).text
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            value_after = self.element(L.edit.sub_tool.slider_value).text
 
             if int(value_after) > int(value_before):
                 self.report.new_result(uuid, True)
@@ -1761,7 +1765,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
             self.page_edit.click_tool_by_itemName('Black & White')
-            self.click(L.edit.tool_menu.effect.edit)
+            self.click(L.edit.sub_tool.effect.edit)
             self.click(find_string('Degree'))
 
             return "FAIL"
@@ -1773,7 +1777,7 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            value = self.element(L.edit.tool_menu.slider_value).text
+            value = self.element(L.edit.sub_tool.slider_value).text
 
             if value == "200":
                 self.report.new_result(uuid, True)
@@ -1792,6 +1796,392 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
             self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Black & White')
+            self.click(L.edit.sub_tool.effect.edit)
+            self.click(find_string('Degree'))
+
+            return "FAIL"
+
+    def sce_2_2_53(self):
+        uuid = '0a65b372-42de-4762-a678-d2f2b6951660'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.sub_tool.slider_value).text
+            self.driver.drag_slider_to_min()
+
+            if self.element(L.edit.sub_tool.slider_value).text != value:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Value is not changed'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Black & White')
+            self.click(L.edit.sub_tool.effect.edit)
+            self.click(find_string('Degree'))
+
+            return "FAIL"
+
+    def sce_2_2_54(self):
+        uuid = '561c6461-f8c4-49dd-89a2-7347d4a0d65b'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            pic_src = self.page_main.get_preview_pic()
+            self.driver.drag_slider_to_max()
+            pic_tgt = self.page_main.get_preview_pic()
+
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.click(L.edit.menu.delete)
+
+            if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+
+            return "FAIL"
+
+    def sce_2_2_55(self):
+        uuid = '77ed7370-d1b1-4c36-8159-02eaee850020'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        global pic_pip_effect
+        try:
+            self.page_edit.add_pip_media('Video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.pip.pip_clip(1))
+
+            pic_src = self.page_main.get_picture(L.edit.preview.pip_preview)
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            if not self.page_edit.click_tool_by_itemName('Bloom'):
+                raise Exception('Click Bloom fail')
+
+
+            pic_pip_effect = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            if not HCompareImg(pic_pip_effect, pic_src).full_compare_result():
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media("Video", test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_track.master_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Bloom')
+            pic_pip_effect = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            return "FAIL"
+
+    def sce_2_2_56(self):
+        uuid = '071e7446-914c-4fce-ac7f-e6628bfc5408'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.sub_tool.effect.edit)
+            if not self.click(find_string('Sample Weight')):
+                raise Exception('Click Sample Weight fail')
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            pic_tgt = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            self.click(L.edit.menu.delete)
+
+            if not HCompareImg(pic_tgt, pic_pip_effect).full_compare() == 1:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+
+            return "FAIL"
+
+    def sce_2_2_57(self):
+        uuid = '1e3925fc-6203-458a-9932-b07ead0fa797'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        global pic_pip_effect
+        try:
+            self.page_edit.add_pip_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.pip.pip_clip(1))
+
+            pic_src = self.page_main.get_picture(L.edit.preview.pip_preview)
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            if not self.page_edit.click_tool_by_itemName('Beating'):
+                raise Exception('Click Beating fail')
+            pic_pip_effect = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            if not HCompareImg(pic_src, pic_pip_effect).full_compare() == 1:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.pip.pip_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Beating')
+            pic_pip_effect = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            return "FAIL"
+
+    def sce_2_2_58(self):
+        uuid = '114a8820-25cb-45a4-9208-735db7a3690e'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.sub_tool.effect.edit)
+            if not self.click(find_string('Strength')):
+                raise Exception('Click Strength fail')
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            pic_tgt = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            self.click(L.edit.menu.delete)
+
+            if not HCompareImg(pic_tgt, pic_pip_effect).full_compare() == 1:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+
+            return "FAIL"
+
+    def sce_2_2_59(self):
+        uuid = '5bc0675a-4b90-431c-98b1-37f79bb27f2a'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        global pic_pip_effect
+        try:
+            self.page_edit.add_pip_colorboard(6)
+            self.click(L.edit.timeline.pip.pip_clip())
+
+            pic_src = self.page_main.get_picture(L.edit.preview.pip_preview)
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            if not self.page_edit.click_tool_by_itemName('Black & White'):
+                raise Exception('Click Black & White fail')
+            pic_pip_effect = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            if not HCompareImg(pic_src, pic_pip_effect).full_compare() == 1:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_pip_colorboard(6)
+            self.click(L.edit.timeline.pip.pip_clip())
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Black & White')
+            pic_pip_effect = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            return "FAIL"
+
+    def sce_2_2_60(self):
+        uuid = '4df5c28e-3226-4f2b-8ac7-e1d3193bb76b'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.sub_tool.effect.edit)
+            if not self.click(find_string('Degree')):
+                raise Exception('Click Degree fail')
+            self.driver.drag_slider_to_min(L.edit.sub_tool.slider)
+            pic_tgt = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            self.click(L.edit.menu.delete)
+
+            if not HCompareImg(pic_tgt, pic_pip_effect).full_compare() == 1:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+
+            return "FAIL"
+
+    def sce_2_2_61(self):
+        uuid = 'a0c6ea80-8f40-48ce-a82e-5e21813b6aa6'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        global pic_pip_effect
+        try:
+            self.page_edit.enter_main_tool('Sticker')
+            if not self.click(find_string("Add Sticker")):
+                raise Exception('Enter Sticker fail')
+            self.click(find_string("New"))
+            if not self.click(L.edit.main_tool.sticker.item()):
+                raise Exception('Click Sticker fail')
+
+            timeout_flag = 1
+            for i in range(60):
+                if self.is_exist(L.edit.main_tool.sticker.library, 1):
+                    continue
+                else:
+                    timeout_flag = 0
+                    break
+            if timeout_flag:
+                raise Exception('Download sticker timeout')
+
+            self.click(L.edit.timeline.pip.pip_clip(1))
+            pic_src = self.page_main.get_picture(L.edit.preview.pip_preview)
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            if not self.page_edit.click_tool_by_itemName('Chinese Painting'):
+                raise Exception('Click Chinese Painting fail')
+            pic_pip_effect = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            if not HCompareImg(pic_src, pic_pip_effect).full_compare() == 1:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Sticker')
+            self.click(find_string("Add Sticker"))
+            self.click(find_string("New"))
+            self.click(L.edit.main_tool.sticker.item())
+            for i in range(60):
+                if self.is_exist(L.edit.main_tool.sticker.library, 1):
+                    continue
+                else:
+                    timeout_flag = 0
+                    break
+            self.click(L.edit.timeline.pip.pip_clip(1))
+            self.page_edit.enter_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_tool_by_itemName('Chinese Painting')
+            pic_pip_effect = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            return "FAIL"
+
+    def sce_2_2_62(self):
+        uuid = '0a20ef94-bb4d-4ff9-8cf6-12f2b5b03a57'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.sub_tool.effect.edit)
+            if not self.click(find_string('Detail')):
+                raise Exception('Click Detail fail')
+            self.driver.drag_slider_to_max(L.edit.sub_tool.slider)
+            pic_tgt = self.page_main.get_picture(L.edit.preview.pip_preview)
+
+            if not HCompareImg(pic_tgt, pic_pip_effect).full_compare() == 1:
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Images are the same'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
 
             return "FAIL"
 
@@ -1831,7 +2221,13 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_26": self.sce_2_2_26(),
                   "sce_2_2_27": self.sce_2_2_27(),
                   "sce_2_2_28": self.sce_2_2_28(),
-                  "sce_2_2_31": self.sce_2_2_31(),
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
+
+    def test_case_3(self):
+        result = {"sce_2_2_31": self.sce_2_2_31(),
                   "sce_2_2_30": self.sce_2_2_30(),
                   "sce_2_2_32": self.sce_2_2_32(),
                   "sce_2_2_29": self.sce_2_2_29(),
@@ -1855,6 +2251,16 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_51": self.sce_2_2_51(),
                   "sce_2_2_48": self.sce_2_2_48(),
                   "sce_2_2_52": self.sce_2_2_52(),
+                  "sce_2_2_53": self.sce_2_2_53(),
+                  "sce_2_2_54": self.sce_2_2_54(),
+                  "sce_2_2_55": self.sce_2_2_55(),
+                  "sce_2_2_56": self.sce_2_2_56(),
+                  "sce_2_2_57": self.sce_2_2_57(),
+                  "sce_2_2_58": self.sce_2_2_58(),
+                  "sce_2_2_59": self.sce_2_2_59(),
+                  "sce_2_2_60": self.sce_2_2_60(),
+                  "sce_2_2_61": self.sce_2_2_61(),
+                  "sce_2_2_62": self.sce_2_2_62(),
                   }
         for key, value in result.items():
             if value != "PASS":

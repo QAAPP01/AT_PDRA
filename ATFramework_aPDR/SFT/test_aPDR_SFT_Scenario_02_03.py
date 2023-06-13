@@ -50,6 +50,8 @@ class Test_SFT_Scenario_02_03:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     def sce_2_3_1(self):
         uuid = '4f38b72e-6424-40dc-adec-fe50681b6bdc'
@@ -170,7 +172,7 @@ class Test_SFT_Scenario_02_03:
             pic_src = self.page_main.get_picture(L.edit.preview.pip_preview)
             if not self.page_edit.enter_sub_option_tool('Remove Background'):
                 raise Exception('Click Remove Background fail')
-            self.click(L.edit.tool_menu.cutout.try_it, 2)
+            self.click(L.edit.sub_tool.cutout.try_it, 2)
             pic_tgt = self.page_main.get_picture(L.edit.preview.pip_preview)
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
@@ -233,9 +235,9 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            pic_src = self.page_main.get_picture(L.edit.tool_menu.cutout.color_picker.preview)
+            pic_src = self.page_main.get_picture(L.edit.sub_tool.cutout.color_picker.preview)
             self.page_edit.drag_color_picker()
-            pic_tgt = self.page_main.get_picture(L.edit.tool_menu.cutout.color_picker.preview)
+            pic_tgt = self.page_main.get_picture(L.edit.sub_tool.cutout.color_picker.preview)
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
                 self.report.new_result(uuid, True)
@@ -266,8 +268,8 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            result_max = self.driver.drag_slider_to_max(L.edit.tool_menu.cutout.color_picker.picker_slider)
-            result_min = self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.picker_slider)
+            result_max = self.driver.drag_slider_to_max(L.edit.sub_tool.cutout.color_picker.picker_slider)
+            result_min = self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.picker_slider)
 
             if result_max and result_min:
                 self.report.new_result(uuid, True)
@@ -287,7 +289,7 @@ class Test_SFT_Scenario_02_03:
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
-            self.driver.drag_slider_from_center_to_right(L.edit.tool_menu.cutout.color_picker.picker_slider)
+            self.driver.drag_slider_from_center_to_right(L.edit.sub_tool.cutout.color_picker.picker_slider)
 
             return "FAIL"
 
@@ -298,9 +300,9 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.tool_menu.cutout.color_picker.picker_btn)
+            self.click(L.edit.sub_tool.cutout.color_picker.picker_btn)
 
-            if self.is_exist(L.edit.tool_menu.cutout.color_picker.picker_image):
+            if self.is_exist(L.edit.sub_tool.cutout.color_picker.picker_image):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -328,7 +330,7 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            range_value = self.element(L.edit.sub_tool.cutout.color_picker.range_value).text
             global range_value_default
             range_value_default = '13'
 
@@ -360,8 +362,8 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.tool_menu.cutout.color_picker.range_slider)
-            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            self.driver.drag_slider_to_max(L.edit.sub_tool.cutout.color_picker.range_slider)
+            range_value = self.element(L.edit.sub_tool.cutout.color_picker.range_value).text
             range_value_max = "100"
 
             if range_value == range_value_max:
@@ -392,8 +394,8 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.range_slider)
-            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
+            self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.range_slider)
+            range_value = self.element(L.edit.sub_tool.cutout.color_picker.range_value).text
             range_value_min= "0"
 
             if range_value == range_value_min:
@@ -424,7 +426,7 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
             global denoise_value_default
             denoise_value_default = "20"
 
@@ -456,8 +458,8 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.tool_menu.cutout.color_picker.denoise_slider)
-            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            self.driver.drag_slider_to_max(L.edit.sub_tool.cutout.color_picker.denoise_slider)
+            denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
             denoise_value_max = "100"
 
             if denoise_value == denoise_value_max:
@@ -488,8 +490,8 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.denoise_slider)
-            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.denoise_slider)
+            denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
             denoise_value_min = "0"
 
             if denoise_value == denoise_value_min:
@@ -510,8 +512,8 @@ class Test_SFT_Scenario_02_03:
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
-            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.range_slider)
-            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.denoise_slider)
+            self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.range_slider)
+            self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.denoise_slider)
 
             return "FAIL"
 
@@ -522,14 +524,14 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            if not self.click(L.edit.tool_menu.cutout.color_picker.apply):
+            if not self.click(L.edit.sub_tool.cutout.color_picker.apply):
                 raise Exception('Click Apply fail')
 
             if not self.page_edit.enter_sub_option_tool('Chroma Key'):
                 raise Exception('Enter Chroma Key fail')
 
-            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
-            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            range_value = self.element(L.edit.sub_tool.cutout.color_picker.range_value).text
+            denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
 
             if range_value == denoise_value == "0":
                 self.report.new_result(uuid, True)
@@ -559,11 +561,11 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            if not self.click(L.edit.tool_menu.cutout.color_picker.reset):
+            if not self.click(L.edit.sub_tool.cutout.color_picker.reset):
                 raise Exception('Click Reset fail')
 
-            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
-            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            range_value = self.element(L.edit.sub_tool.cutout.color_picker.range_value).text
+            denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
 
             if range_value == range_value_default and denoise_value == denoise_value_default:
                 self.report.new_result(uuid, True)
@@ -583,8 +585,8 @@ class Test_SFT_Scenario_02_03:
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
             self.page_edit.enter_main_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
-            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.range_slider)
-            self.driver.drag_slider_to_min(L.edit.tool_menu.cutout.color_picker.denoise_slider)
+            self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.range_slider)
+            self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.denoise_slider)
 
             return "FAIL"
 
@@ -595,14 +597,14 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
-            if not self.click(L.edit.tool_menu.cutout.color_picker.cancel):
+            if not self.click(L.edit.sub_tool.cutout.color_picker.cancel):
                 raise Exception('Click Cancel fail')
 
             if not self.page_edit.enter_sub_option_tool('Chroma Key'):
                 raise Exception('Enter Chroma Key fail')
 
-            range_value = self.element(L.edit.tool_menu.cutout.color_picker.range_value).text
-            denoise_value = self.element(L.edit.tool_menu.cutout.color_picker.denoise_value).text
+            range_value = self.element(L.edit.sub_tool.cutout.color_picker.range_value).text
+            denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
 
             if range_value == denoise_value == "0":
                 self.report.new_result(uuid, True)

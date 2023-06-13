@@ -53,6 +53,8 @@ class Test_SFT_Scenario_01_01:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     def sce_1_1_1(self):
         try:
@@ -183,7 +185,7 @@ class Test_SFT_Scenario_01_01:
 
             self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'left', 100)
             self.page_edit.add_pip_media('photo', self.test_material_folder, '9_16.jpg')
-            self.click(L.edit.tool_menu.back, timeout=0.1)
+            self.click(L.edit.sub_tool.back, timeout=0.1)
             self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'right')
             self.page_edit.click_tool("Edit")
 

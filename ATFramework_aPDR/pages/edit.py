@@ -124,6 +124,29 @@ class EditPage(BasePage):
             logger(f'\n[ERROR] {err}')
             return False
 
+    def add_pip_colorboard(self, index=1):
+        try:
+            self.tap_blank_space()
+            if not self.enter_main_tool("Media"):
+                raise Exception('Click "Media" fail')
+            else:
+                if not self.h_click(find_string('Photo')):
+                    raise Exception(f'Click "Photo" fail')
+                else:
+                    self.click(L.import_media.media_library.color_board)
+                    self.click(L.import_media.media_library.media(index))
+
+                if self.is_exist(L.edit.timeline.pip.clip_thumbnail):
+                    return True
+                else:
+                    raise Exception('Cannot find clip thumbnail')
+
+        except Exception as err:
+            logger(f'[ERROR] {err}')
+            return False
+
+
+
     def back_to_launcher(self):
         self.h_click(L.edit.menu.home)
         # Churn Recovery
@@ -180,17 +203,17 @@ class EditPage(BasePage):
 
     def drag_color_picker(self):
         try:
-            preview_rect = self.element(L.edit.tool_menu.cutout.color_picker.preview).rect
+            preview_rect = self.element(L.edit.sub_tool.cutout.color_picker.preview).rect
             x = preview_rect['x']
             y = preview_rect['y']
-            self.h_drag_element(L.edit.tool_menu.cutout.color_picker.picker_image, x, y)
+            self.h_drag_element(L.edit.sub_tool.cutout.color_picker.picker_image, x, y)
             return True
         except Exception as err:
             raise Exception(err)
 
     def scroll_playhead_to_beginning(self):
         try:
-            x = 0
+            x = None
             new_x = self.element(L.edit.timeline.timeline_ruler).rect['x']
             while new_x != x:
                 x = new_x
@@ -283,7 +306,7 @@ class EditPage(BasePage):
     def click_tool(self, name):
         try:
             for i in range(4):
-                if self.h_click(L.edit.tool_menu.back, timeout=0.1):
+                if self.h_click(L.edit.sub_tool.back, timeout=0.1):
                     continue
                 else:
                     break
@@ -329,7 +352,7 @@ class EditPage(BasePage):
     def enter_main_tool(self, name, timeout=0.2):
         try:
             for i in range(4):
-                if self.h_click(L.edit.tool_menu.back, timeout=0.1):
+                if self.h_click(L.edit.sub_tool.back, timeout=0.1):
                     continue
                 else:
                     break
@@ -3782,7 +3805,7 @@ class Intro_Video(BasePage):
 
     def click_tool(self, name, retry=10):
         for i in range(4):
-            if self.h_click(L.edit.tool_menu.back, timeout=1):
+            if self.h_click(L.edit.sub_tool.back, timeout=1):
                 continue
             else:
                 break

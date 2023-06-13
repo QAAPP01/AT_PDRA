@@ -1,10 +1,10 @@
-import pytest
-import sys
+import pytest, sys
+from appium.webdriver.appium_service import AppiumService
+
 from os.path import dirname as dir
 sys.path.insert(0,(dir(dir(dir(__file__)))))
 from ATFramework_aPDR.ATFramework.utils import MyReport
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.pages.page_factory import PageFactory
 from main import tr_number, previous_tr_number, package_name
 
 DRIVER_DESIRED_CAPS = ''
@@ -60,11 +60,26 @@ def driver():
     desired_caps = {}
     desired_caps.update(app_config.cap)
     desired_caps.update(DRIVER_DESIRED_CAPS)
-    mode = 'local'
+
     if 'udid' not in desired_caps:
-        # desired_caps['udid'] = deviceName
-        desired_caps['udid'] = 'RFCW2198L7B'
+        desired_caps['udid'] = deviceName
+        # desired_caps['udid'] = 'RFCW2198L7B'
         mode = 'debug'
+        args = [
+            "--address", "127.0.0.1",
+            "--port", "4725",
+            "--base-path", '/wd/hub'
+        ]
+    else:
+        mode = 'local'
+        args = [
+            "--address", "127.0.0.1",
+            "--port", "4723",
+            "--base-path", '/wd/hub'
+        ]
+
+    appium = AppiumService()
+    appium.start(args=args)
 
     retry = 3
     while retry:
@@ -84,7 +99,5 @@ def driver():
             retry -= 1
 
     yield driver
-    if mode == 'local':
-        driver.driver.close()
-    else:
-        driver.driver.quit()
+    driver.driver.quit()
+    appium.stop()

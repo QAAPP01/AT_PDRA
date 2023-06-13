@@ -108,12 +108,30 @@ class Timeline:
     class Pip:
         clip_thumbnail = id('item_view_thumbnail_host')
 
+        @staticmethod
+        def pip_clip(index=1):
+            if index:
+                return xpath(f'(//android.widget.LinearLayout/*/*/*/*/*[contains(@resource-id,"item_view_thumbnail_host")])[{index}]')
+            else:
+                return xpath(f'//android.widget.LinearLayout/*/*/*/*/*[contains(@resource-id,"item_view_thumbnail_host")]')
+
 
 
     master_track = MasterTrack
     pip = Pip
 
-class ToolMenu:
+class MainTool:
+    class Sticker:
+        library = id('actual_view')
+        @staticmethod
+        def item(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"cms_sticker_library_item")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"cms_sticker_library_item")]')
+
+    sticker = Sticker
+class SubTool:
     back = id('btn_session_back')
     apply = id('btnApply')
     apply_to_all = id('btn_apply_all')
@@ -957,9 +975,10 @@ class Intro_Video:
 
 class Interface:
     converting = Converting
-    timeline = Timeline()
+    timeline = Timeline
     toast = toast
-    tool_menu = ToolMenu()
+    main_tool = MainTool
+    sub_tool = SubTool
 
     adjust_sub = Adjust_sub()
     audio_configuration = Audio_Configuration()

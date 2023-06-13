@@ -51,6 +51,8 @@ class Test_SFT_Scenario_05_11:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     def sce_5_11_27(self):
         try:

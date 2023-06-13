@@ -942,10 +942,38 @@ class AppiumU2Driver(Borg, BaseDriver):
         
         zoom.add(act1,act2)
         zoom.perform()
-        
+
+    def drag_slider_to_left(self):
+        try:
+            slider = L.edit.sub_tool.slider
+            slider_value = L.edit.sub_tool.slider_value
+            slider_rect = self.driver.find_element(slider[0],slider[1]).rect
+            slider_value_rect = self.driver.find_element(slider_value[0],slider_value[1]).rect
+            x_start = slider_value_rect['x'] + slider_value_rect['width'] // 2
+            x_end = x_start - slider_rect['width'] // 4
+            y_center = slider_rect['y'] + slider_rect['height'] // 2
+            TouchAction(self.driver).press(x=x_start, y=y_center, pressure=1).wait(2000).move_to(x=x_end, y=y_center).release().perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+    def drag_slider_to_right(self):
+        try:
+            slider = L.edit.sub_tool.slider
+            slider_value = L.edit.sub_tool.slider_value
+            slider_rect = self.driver.find_element(slider[0],slider[1]).rect
+            slider_value_rect = self.driver.find_element(slider_value[0],slider_value[1]).rect
+            x_start = slider_value_rect['x'] + slider_value_rect['width'] // 2
+            x_end = x_start + slider_rect['width'] // 4
+            y_center = slider_rect['y'] + slider_rect['height'] // 2
+            TouchAction(self.driver).press(x=x_start, y=y_center, pressure=1).wait(2000).move_to(x=x_end, y=y_center).release().perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+
     def drag_slider_from_center_to_left(self, locator):
         try:
-            # print(f'drag_slider_from_center_to_left - locator={locator}')
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             x_center = slider_rect['x'] + int(slider_rect['width'] / 2)
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
@@ -966,7 +994,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             raise Exception(err)
         return True
 
-    def drag_slider_from_left_to_right(self, locator=L.edit.tool_menu.slider):
+    def drag_slider_from_left_to_right(self, locator=L.edit.sub_tool.slider):
         try:
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
@@ -976,7 +1004,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             raise Exception(err)
         return True
 
-    def drag_slider_to_max(self, locator=L.edit.tool_menu.slider):
+    def drag_slider_to_max(self, locator=L.edit.sub_tool.slider):
         try:
             slider = self.driver.find_element(locator[0],locator[1])
             slider_rect = slider.rect
@@ -988,7 +1016,7 @@ class AppiumU2Driver(Borg, BaseDriver):
         except Exception as err:
             raise Exception(err)
 
-    def drag_slider_to_min(self, locator=L.edit.tool_menu.slider):
+    def drag_slider_to_min(self, locator=L.edit.sub_tool.slider):
         try:
             slider = self.driver.find_element(locator[0],locator[1])
             slider_rect = slider.rect
