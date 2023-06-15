@@ -1410,33 +1410,23 @@ class EditPage(BasePage):
         return caption_list_count
 
     def calculate_transition_amount(self):
-        logger("start calculate_transition_amount")
         try:
-            caption_list = set()
-            caption_list_count = len(caption_list)
-            caption_list_count_prev = -1
-            while caption_list_count != caption_list_count_prev:
-                logger(
-                    f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
-                if caption_list_count_prev != -1:
-                    self.swipe_element(L.import_media.transition_list.transition_list, 'left', 300)
-                    time.sleep(1)
-                    self.swipe_element(L.import_media.transition_list.transition_list, 'left', 300)
-                    time.sleep(1)
-                caption_list_count_prev = caption_list_count
-                els_item_list = self.els(L.import_media.transition_list.tx_name)
-                logger(f'current clips count={len(els_item_list)}')
-                if len(els_item_list) > 0:
-                    logger('enter update caption set')
-                    for el_item in els_item_list:
-                        caption_list.add(el_item.text)
-                caption_list_count = len(caption_list)
-                logger(f'caption set count={caption_list_count}')
-        except Exception:
-            logger('exception occurs')
-            raise Exception
-        logger(f'content amount={caption_list_count}')
-        return caption_list_count
+            transition_list = set()
+            tx = self.elements(L.edit.timeline.master_track.transition.tx_name(0))
+            last = ""
+            new_last = tx[-1].text
+            while not new_last == last:
+                last = new_last
+                for i in tx:
+                    transition_list.add(i.text)
+                self.h_swipe_element(tx[-1], tx[2], 3)
+                tx = self.elements(L.edit.timeline.master_track.transition.tx_name(0))
+                new_last = tx[-1].text
+            return len(transition_list)
+
+        except Exception as err:
+            logger(f'[Error] {err}')
+            return False
 
     def calculate_music_library_content_amount(self):
         logger("start calculate_music_library_content_amount")
@@ -1604,20 +1594,23 @@ class EditPage(BasePage):
         return False
 
     def select_transition_from_bottom_menu(self, name):
-        logger(f"start select_transition_from_bottom_menu - {name}")
-        elm = self.el(L.import_media.transition_list.transition_list)
-        locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
-        for retry in range(10):
-            if self.is_exist(locator):
-                elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
-                logger(f"Found {name}, click it.")
-                return True
-            else:
-                # elm.driver.swipe_left()
-                self.swipe_element(L.import_media.transition_list.transition_list, 'left', 300)
-                time.sleep(1)
-        logger(f"Didn't find {name}")
-        return False
+        try:
+            locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
+            tx = self.elements(L.edit.timeline.master_track.transition.tx_name(0))
+            last = tx[-1].text
+            while not self.click(locator):
+                self.h_swipe_element(tx[-1], tx[2], 3)
+                tx = self.elements(L.edit.timeline.master_track.transition.tx_name(0))
+                new_last = tx[-1].text
+                if new_last == last:
+                    raise Exception(f'No found "{name}"')
+                else:
+                    last = new_last
+            return True
+
+        except Exception as err:
+            logger(f'[Error] {err}')
+            return False
 
     def select_transition_category(self, name):
         logger(f"start select_transition_category - {name}")

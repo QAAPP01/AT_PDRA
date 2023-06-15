@@ -98,12 +98,31 @@ class Timeline:
         trim_indicator = id('btn_trim_indicator')
         editing_keyframe = id('item_view_editing_keyframes')
 
+
         @staticmethod
         def master_clip(index=1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"item_view_border")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"item_view_border")]')
+
+        class transition:
+            tx_list = id('transition_list')
+            tx_in = aid("[AID]Item_TxEffectIn")
+
+            @staticmethod
+            def tx_out(index=1):
+                if index:
+                    return xpath(f'(//android.widget.FrameLayout[contains(@content-desc,"[AID]Item_TxEffectOut")])[{index}]')
+                else:
+                    return xpath(f'//android.widget.FrameLayout[contains(@content-desc,"[AID]Item_TxEffectOut")]')
+
+            @staticmethod
+            def tx_name(index=1):
+                if index:
+                    return xpath(f'(//android.widget.TextView[contains(@resource-id,"effect_name")])[{index}]')
+                else:
+                    return xpath(f'//android.widget.TextView[contains(@resource-id,"effect_name")]')
 
     class Pip:
         clip_thumbnail = id('item_view_thumbnail_host')
@@ -135,6 +154,7 @@ class SubTool:
     back = id('btn_session_back')
     apply = id('btnApply')
     apply_to_all = id('btn_apply_all')
+    reset = id('btn_reset')
     slider = id("adjustable_parameter_seek_bar")
     slider_value = id('adjustTextNow')
 
@@ -198,6 +218,15 @@ class SubTool:
 
     class Effect:
         edit = id('itemEdit')
+
+    class filter:
+
+        @staticmethod
+        def filter_border(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"filter_border")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"filter_border")]')
 
 
     class PanZoom:

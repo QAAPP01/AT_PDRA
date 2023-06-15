@@ -55,36 +55,10 @@ class Test_SFT_Scenario_02_31:
         yield
         driver.driver.close_app()
 
-    def sce_2_31_22(self):
-        uuid = 'a441348c-7fc0-4b90-a0bf-b7672dc50e3b'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
-
-        for i in range(4):
-            time.sleep(1)
-            self.click(L.edit.pip.Text.font_category(3))
-            self.click(L.edit.pip.Text.font(i + 1))
-            self.click(L.edit.try_before_buy.try_it, 1)
-            time.sleep(3)
-            while self.element(L.edit.pip.Text.font(i + 1)).get_attribute("selected") != "true":
-                time.sleep(1)
-            self.click(L.edit.pip.Text.back)
-            self.page_edit.click_sub_tool("Font")
-
-        if self.element(L.edit.pip.Text.font_name(5)).text == "Default":
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = f'\n[Fail] 5th font name = {self.element(L.edit.pip.Text.font_name(5)).text}'
-            logger(fail_log)
-
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
 
     # @pytest.mark.skip
     @report.exception_screenshot
-    def test_sce_02_31_01_to_22(self):
+    def sce_02_31_01_to_22(self):
         try:
             result = {}
 
@@ -486,3 +460,48 @@ class Test_SFT_Scenario_02_31:
 
         except Exception as err:
             logger(f'[Error] {err}')
+
+    def sce_2_31_22(self):
+        uuid = 'a441348c-7fc0-4b90-a0bf-b7672dc50e3b'
+        logger(f"\n[Start] {inspect.stack()[0][3]}")
+        self.report.start_uuid(uuid)
+
+        try:
+            for i in range(4):
+                time.sleep(1)
+                self.click(L.edit.pip.Text.font_category(3))
+                self.click(L.edit.pip.Text.font(i + 1))
+                self.click(L.edit.try_before_buy.try_it, 1)
+                time.sleep(3)
+                timeout_flag = 1
+                for j in range(60):
+                    if self.element(L.edit.pip.Text.font(i + 1)).get_attribute("selected") != "true":
+                        time.sleep(1)
+                    else:
+                        timeout_flag = 0
+                        break
+                if timeout_flag:
+                    raise Exception('Download font timeout ')
+                self.click(L.edit.pip.Text.back)
+                self.page_edit.click_sub_tool("Font")
+
+            if self.element(L.edit.pip.Text.font_name(5)).text == "Default":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] 5th font name = {self.element(L.edit.pip.Text.font_name(5)).text}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+        except Exception as err:
+            logger(f'\n{err}')
+
+            return "FAIL"
+
+
+    def test_case(self):
+        result = {"sce_02_31_01_to_22": self.sce_02_31_01_to_22(),
+                  "sce_2_31_22": self.sce_2_31_22(),
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")

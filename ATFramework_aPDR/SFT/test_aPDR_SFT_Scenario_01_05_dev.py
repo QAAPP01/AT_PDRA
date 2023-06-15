@@ -51,6 +51,8 @@ class Test_SFT_Scenario_01_05:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     def sce_1_5_1(self):
         uuid = '45479986-4700-48e9-af00-d889b3ec09e0'

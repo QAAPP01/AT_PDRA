@@ -24,6 +24,7 @@ def test_app_init(driver):
         page_main.h_click(("id", "btn_play_container"))
         page_main.h_click(L.import_media.media_library.apply)
         page_main.h_click(find_string("Use Original"), 4)
+        page_main.h_click("id", "tv_hint")
         if not page_edit.preference.trigger_fileName(enable=True):
             raise Exception('trigger_fileName fail')
         page_main.h_click(L.edit.menu.play)

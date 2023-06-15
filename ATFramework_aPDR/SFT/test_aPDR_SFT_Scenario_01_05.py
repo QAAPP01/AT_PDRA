@@ -42,6 +42,7 @@ class Test_SFT_Scenario_01_05:
         self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
+
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
         self.element = self.page_main.h_get_element
@@ -384,4 +385,4 @@ class Test_SFT_Scenario_01_05:
                   }
         for key, value in result.items():
             if value != "PASS":
-                print(f"[FAIL] {key}")
+                print(f"[{value}] {key}")

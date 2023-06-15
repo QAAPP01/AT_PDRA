@@ -62,6 +62,8 @@ class Test_SFT_Scenario_01_02:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     def sce_01_02_01(self):
         item_id = '01_02_01'

@@ -952,7 +952,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             x_start = slider_value_rect['x'] + slider_value_rect['width'] // 2
             x_end = x_start - slider_rect['width'] // 4
             y_center = slider_rect['y'] + slider_rect['height'] // 2
-            TouchAction(self.driver).press(x=x_start, y=y_center, pressure=1).wait(2000).move_to(x=x_end, y=y_center).release().perform()
+            TouchAction(self.driver).press(x=x_start, y=y_center, pressure=1).wait(500).move_to(x=x_end, y=y_center).release().perform()
             return True
         except Exception as err:
             raise Exception(err)
@@ -966,7 +966,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             x_start = slider_value_rect['x'] + slider_value_rect['width'] // 2
             x_end = x_start + slider_rect['width'] // 4
             y_center = slider_rect['y'] + slider_rect['height'] // 2
-            TouchAction(self.driver).press(x=x_start, y=y_center, pressure=1).wait(2000).move_to(x=x_end, y=y_center).release().perform()
+            TouchAction(self.driver).press(x=x_start, y=y_center, pressure=1).wait(500).move_to(x=x_end, y=y_center).release().perform()
             return True
         except Exception as err:
             raise Exception(err)
@@ -977,7 +977,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             x_center = slider_rect['x'] + int(slider_rect['width'] / 2)
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
-            TouchAction(self.driver).press(None, x_center, y_center, 1).wait(2000).move_to(None, x_center - int(
+            TouchAction(self.driver).press(None, x_center, y_center, 1).wait(500).move_to(None, x_center - int(
                 slider_rect['width'] / 4), y_center).release().perform()
         except Exception as err:
             raise Exception(err)
@@ -988,7 +988,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             x_center = slider_rect['x'] + int(slider_rect['width'] / 2)
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
-            TouchAction(self.driver).press(None, x_center, y_center, 1).wait(2000).move_to(None, x_center + int(
+            TouchAction(self.driver).press(None, x_center, y_center, 1).wait(500).move_to(None, x_center + int(
                 slider_rect['width'] / 4), y_center).release().perform()
         except Exception as err:
             raise Exception(err)
@@ -998,7 +998,7 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
-            TouchAction(self.driver).press(None, slider_rect['x'], y_center, 1).wait(2000).move_to(None, slider_rect['x'] + int(
+            TouchAction(self.driver).press(None, slider_rect['x'], y_center, 1).wait(500).move_to(None, slider_rect['x'] + int(
                 slider_rect['width']), y_center).release().perform()
         except Exception as err:
             raise Exception(err)
@@ -1011,7 +1011,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
             end_x = slider_rect['x'] + int(slider_rect['width'])
-            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(2000).move_to(x=end_x, y=y_center).release().perform()
+            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(500).move_to(x=end_x, y=y_center).release().perform()
             return True
         except Exception as err:
             raise Exception(err)
@@ -1023,7 +1023,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
             end_x = slider_rect['x']
-            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(2000).move_to(x=end_x, y=y_center).release().perform()
+            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(500).move_to(x=end_x, y=y_center).release().perform()
             return True
         except Exception as err:
             raise Exception(err)

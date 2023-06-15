@@ -46,6 +46,8 @@ class Test_SFT_Scenario_02_03:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
 
     def sce_2_3_1(self):
         uuid = '4f38b72e-6424-40dc-adec-fe50681b6bdc'
@@ -152,7 +154,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
 
             return "FAIL"
 
@@ -185,7 +187,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
 
             return "FAIL"
 
@@ -217,7 +219,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
@@ -249,7 +251,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
             self.page_edit.drag_color_picker()
 
@@ -281,7 +283,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
             self.driver.drag_slider_from_center_to_right(L.edit.sub_tool.cutout.color_picker.picker_slider)
 
@@ -312,7 +314,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
@@ -344,7 +346,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
@@ -376,7 +378,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
@@ -408,7 +410,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
@@ -440,7 +442,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
@@ -472,7 +474,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
@@ -504,7 +506,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
             self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.range_slider)
             self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.denoise_slider)
@@ -543,7 +545,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
@@ -577,7 +579,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
             self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.range_slider)
             self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.denoise_slider)
@@ -616,7 +618,7 @@ class Test_SFT_Scenario_02_03:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Cutout')
+            self.page_edit.enter_sub_tool('Cutout')
             self.page_edit.enter_sub_option_tool('Chroma Key')
 
             return "FAIL"
