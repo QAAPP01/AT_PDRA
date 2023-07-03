@@ -266,6 +266,7 @@ class Menu:
     delete = id("btn_delete")
     home = id('btn_home')
     btn_apply_all = id('btn_apply_all')
+    full_screen = id('btn_fullScreen')
 
 
 
@@ -489,6 +490,8 @@ class Preview:
     btn_fullscreen_landscape_preview = id("btn_fullscreen_landscape_preview")
     btn_fullscreen_portrait_preview = id("btn_fullscreen_portrait_preview")
     fullscreen_current_position = id("current_position")
+    fullscreen_timecode = id("current_position")
+    fullscreen_back = id('leave_fullscreen')
     btn_fullscreen_play_pause = id("movie_play_pause")
     pan_and_zoom_preview = id("pan_zoom_video_roi_view")
     btn_close_fullscreen = id('leave_fullscreen')
@@ -780,6 +783,7 @@ class Settings:
         feedback_os_version_text = id('bc_feedback_osver')
         feedback_preview_view = id("scrollview_preview_feedback_outter")
         confirm_no_btn = id('no_text')
+        add_image = aid('[AID]FeedBack_AddScreenshot')
 
     about_btn = find_string('About PowerDirector')
     powerdirector_for_pc_btn = find_string('PowerDirector for PC')

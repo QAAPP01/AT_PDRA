@@ -2253,6 +2253,9 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.master_track.transition.tx_out(1))
+            self.page_edit.select_transition_from_bottom_menu('Cross')
 
             return "FAIL"
 
@@ -2268,10 +2271,20 @@ class Test_SFT_Scenario_02_02:
 
             if self.element(none_border).get_attribute("selected") == 'true':
                 self.report.new_result(uuid, True)
+
+                # sce_2_2_104
+                self.report.start_uuid('d4a10596-a73a-4395-91b4-74a6e72dee7a')
+                self.report.new_result('d4a10596-a73a-4395-91b4-74a6e72dee7a', True)
+
                 return "PASS"
             else:
                 fail_log = f'[Fail] 2nd transition None is not selected'
                 self.report.new_result(uuid, False, fail_log=fail_log)
+
+                # sce_2_2_104
+                self.report.start_uuid('d4a10596-a73a-4395-91b4-74a6e72dee7a')
+                self.report.new_result('d4a10596-a73a-4395-91b4-74a6e72dee7a', False)
+
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -2281,6 +2294,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.click(L.edit.timeline.master_track.transition.tx_out(2))
@@ -2301,6 +2315,41 @@ class Test_SFT_Scenario_02_02:
                 return "PASS"
             else:
                 fail_log = f'[Fail] transition_amount is {transition_amount}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.master_track.transition.tx_out(1))
+            self.page_edit.select_transition_from_bottom_menu('Cross')
+
+            return "FAIL"
+
+    def sce_2_2_103(self):
+        uuid = '49437a84-cd81-4f47-8b2a-51e1b0ff0e73'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.timeline.master_track.transition.tx_out(1))
+            self.page_edit.transition.set_duration(3.0, 1)
+            self.click(L.edit.timeline.master_track.transition.tx_out(2))
+            duration = self.element(L.edit.timeline.slider_value).text
+
+            if duration == '3.0':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Duration incorrect: {duration}'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
@@ -3691,6 +3740,7 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_64": self.sce_2_2_64(),
                   "sce_2_2_65": self.sce_2_2_65(),
                   "sce_2_2_66": self.sce_2_2_66(),
+                  "sce_2_2_103": self.sce_2_2_103(),
                   }
         for key, value in result.items():
             if value != "PASS":

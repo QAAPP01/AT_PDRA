@@ -43,7 +43,7 @@ class EditPage(BasePage):
         self.different_fx = Different_fx(self.driver.driver)
         self.sharpness_effect = Sharpness_effect(self.driver.driver)
         self.pan_zoom = Pan_Zoom(self.driver.driver)
-        self.transition = Transition(self.driver.driver)
+        self.transition = Transition(self.driver)
         self.fade = Fade(self.driver.driver)
         self.chroma_key = Chroma_Key(self.driver.driver)
         self.color_selector = Color_Selector(self.driver.driver)
@@ -148,10 +148,21 @@ class EditPage(BasePage):
 
 
     def back_to_launcher(self):
-        self.h_click(L.edit.menu.home)
-        # Churn Recovery
-        if self.h_is_exist(L.main.premium.pdr_premium, 1):
-            self.driver.driver.back()
+        try:
+            self.h_click(L.edit.menu.home)
+
+            # Churn Recovery
+            if self.h_is_exist(L.main.premium.pdr_premium, 1):
+                self.driver.driver.back()
+
+            if self.is_exist(L.main.main.new_project):
+                return True
+            else:
+                raise Exception('No new_project')
+
+        except Exception as e:
+            logger(f'[Error back_to_launcher] {e}')
+            return False
 
     def check_timeline_image_duration(self, add_image=True, file_name='9_16.jpg'):
         try:
@@ -2786,38 +2797,22 @@ class Pan_Zoom():
         return True
 
 
-class Transition():
+class Transition(BasePage):
     def __init__(self, driver):
-        self.el = lambda id: driver.find_element(id[0], id[1])
-        self.els = lambda id: driver.find_elements(id[0], id[1])
+        super().__init__(driver)
         self.driver = driver
 
-    def set_duration(self, expect_duration='2.0', apply_to_all=0):
-        logger("start >> set_duration <<")
-        logger(f"expect_duration={expect_duration}")
+    def set_duration(self, expect_duration=2.0, apply_to_all=0):
         try:
-            # self.el(L.edit.transition.btn_show_transition_duration).click()
-            txt_duration = self.el(L.timeline_settings.default_transition_duration.txt_duration).get_attribute('text')
-            if txt_duration != f'{expect_duration} s':
-                logger(f'enter set duration - current:{txt_duration}')
-                el_slider = self.el(L.timeline_settings.default_transition_duration.slider)
-                el_slider.set_text(str(float(expect_duration) * 10 - 1))
-                txt_duration = self.el(L.timeline_settings.default_transition_duration.txt_duration).get_attribute(
-                    'text')
-                if txt_duration != f'{expect_duration} s':
-                    logger(f"Fail to set duration as {expect_duration} s, current duration is {txt_duration}")
-                    raise Exception
-            if (apply_to_all == 1 and self.el(L.edit.transition.apply_to_all).get_attribute(
-                    'checked') == 'false') or (
-                    apply_to_all == 0 and self.el(L.edit.transition.apply_to_all).get_attribute(
-                'checked') == 'true'):
-                logger("enable apply to all")
-                self.el(L.edit.transition.apply_to_all).click()
-            # self.el(L.timeline_settings.default_transition_duration.ok).click()
-        except Exception:
-            logger("Exception occurs")
-            raise Exception
-        return True
+            slider = self.element(L.edit.timeline.slider)
+            slider.send_keys(float(expect_duration)*10-1)
+
+            if apply_to_all:
+                self.click(L.edit.timeline.apply_all)
+            return True
+        except Exception as e:
+            logger(f'[Error] {e}')
+            return False
 
 
 class Fade():

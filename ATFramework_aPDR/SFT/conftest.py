@@ -64,6 +64,7 @@ def driver():
     if 'udid' not in desired_caps:
         desired_caps['udid'] = deviceName
         # desired_caps['udid'] = 'RFCW2198L7B'
+
         mode = 'debug'
         args = [
             "--address", "127.0.0.1",

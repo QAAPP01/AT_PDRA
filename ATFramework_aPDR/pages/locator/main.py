@@ -1,5 +1,8 @@
 from .locator_type import *
 
+class Main:
+    new_project = id('layout_new_project')
+
 class Permission:
     gdpr_accept = id("gdpr_accept_button")
     loading_bar = id("splashWaitingProgress")
@@ -225,6 +228,7 @@ class Interface():
     permission = Permission()
     project = Project()
     project_info = Project_Info()
+    main = Main
     menu = Menu()
     setting = Setting()
     tutorials = Tutorials()

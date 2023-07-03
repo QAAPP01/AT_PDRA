@@ -50,21 +50,72 @@ class Test_SFT_Scenario_02_02:
 
         self.report.set_driver(driver)
         driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
+
 
     def test_case(self):
         try:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Video", test_material_folder, video_9_16)
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.click(L.edit.timeline.master_track.master_clip(1))
-            time.sleep(5)
-            self.click(L.edit.timeline.master_track.master_clip(2))
-            time.sleep(5)
-            self.click(L.edit.timeline.master_track.master_clip(1))
-            time.sleep(5)
-            self.click(L.edit.timeline.master_track.master_clip(2))
 
+            def enter_mixtype():
+                self.click(id("Audio"))
+                self.click(id('Music'))
+                self.click(id("tab_mix_tape_sound_clip"))
+
+            all_category = set()
+            all_music = set()
+            adding_category = None
+
+            while True:
+                enter_mixtype()
+                if adding_category:
+                    self.click(find_string(adding_category))
+                else:
+                    category = self.elements(id('library_unit_caption'))
+                    last = category[-1].text
+
+                    for i in category:
+                        if i.text == 'Downloaded':
+                            continue
+                        elif i.text in all_category:
+                            if i.text == last:
+                                self.page_main.h_swipe_element(category[-1], category[0], 5)
+                                category = self.elements(id('library_unit_caption'))
+                                if category[-1].text == last:
+                                    return True
+                                else:
+                                    last = category[-1].text
+                            else:
+                                continue
+                        else:
+                            adding_category = i.text
+                            all_category.add(i.text)
+                            i.click()
+
+                            music = self.elements(id('library_unit_caption'))
+                            last_music = music[-1].text
+
+                            for j in range(len(music)):
+                                if music[j].text in all_music:
+                                    if music[j].text == last_music:
+                                        self.page_main.h_swipe_element(music[-1], music[0], 5)
+                                        music = self.elements(id('library_unit_caption'))
+                                        if music[-1].text == last_music:
+                                            adding_category = None
+                                        else:
+                                            last_music = music[-1].text
+                                    else:
+                                        continue
+                                else:
+                                    music[j].click()
+                                    self.click(id('library_unit_download'))
+                                    self.click(xpath(f'(//*[contains(@resource-id,"library_unit_add")])[{j+1}]'))
+                                    self.click(L.edit.menu.play)
+                                    self.click(L.edit.menu.delete)
+                                    break
+                            break
 
 
         except Exception as err:

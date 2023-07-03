@@ -2253,6 +2253,9 @@ class Test_SFT_Scenario_02_02:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.master_track.transition.tx_out(1))
+            self.page_edit.select_transition_from_bottom_menu('Cross')
 
             return "FAIL"
 
@@ -2268,10 +2271,20 @@ class Test_SFT_Scenario_02_02:
 
             if self.element(none_border).get_attribute("selected") == 'true':
                 self.report.new_result(uuid, True)
+
+                # sce_2_2_104
+                self.report.start_uuid('d4a10596-a73a-4395-91b4-74a6e72dee7a')
+                self.report.new_result('d4a10596-a73a-4395-91b4-74a6e72dee7a', True)
+
                 return "PASS"
             else:
                 fail_log = f'[Fail] 2nd transition None is not selected'
                 self.report.new_result(uuid, False, fail_log=fail_log)
+
+                # sce_2_2_104
+                self.report.start_uuid('d4a10596-a73a-4395-91b4-74a6e72dee7a')
+                self.report.new_result('d4a10596-a73a-4395-91b4-74a6e72dee7a', False)
+
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -2281,6 +2294,7 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.click(L.edit.timeline.master_track.transition.tx_out(2))
@@ -2301,6 +2315,41 @@ class Test_SFT_Scenario_02_02:
                 return "PASS"
             else:
                 fail_log = f'[Fail] transition_amount is {transition_amount}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
+            self.click(L.edit.timeline.master_track.transition.tx_out(1))
+            self.page_edit.select_transition_from_bottom_menu('Cross')
+
+            return "FAIL"
+
+    def sce_2_2_103(self):
+        uuid = '49437a84-cd81-4f47-8b2a-51e1b0ff0e73'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.timeline.master_track.transition.tx_out(1))
+            self.page_edit.transition.set_duration(3.0, 1)
+            self.click(L.edit.timeline.master_track.transition.tx_out(2))
+            duration = self.element(L.edit.timeline.slider_value).text
+
+            if duration == '3.0':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Duration incorrect: {duration}'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
@@ -3604,10 +3653,154 @@ class Test_SFT_Scenario_02_02:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('Photo', test_material_folder, photo_9_16)
-            self.click(L.edit.timeline.master_track.master_clip(1))
-            self.page_edit.enter_sub_tool('Adjustment')
-            self.page_edit.enter_sub_option_tool('Tint')
+
+            return "FAIL"
+
+    def sce_2_2_105(self):
+        uuid = '5bd41804-74f8-4e9b-bff4-246537c0af45'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.menu.full_screen)
+
+            if self.is_exist(L.edit.preview.watermark):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] No watermark'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.click(L.edit.menu.full_screen)
+
+            return "FAIL"
+
+    def sce_2_2_106(self):
+        uuid = '3f81b17b-7ec0-463a-9423-acd1c8fad3ea'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.is_exist(L.edit.preview.fullscreen_timecode):
+                self.click(L.edit.preview.movie_view)
+
+            if self.is_exist(L.edit.preview.fullscreen_timecode):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] No fullscreen_timecode'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.click(L.edit.menu.full_screen)
+
+            return "FAIL"
+
+    def sce_2_2_109(self):
+        uuid = '1a3be899-15fd-4058-bc84-7e3a26dd7cad'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.is_exist(L.edit.preview.fullscreen_back):
+                self.click(L.edit.preview.movie_view)
+            self.click(L.edit.preview.fullscreen_back)
+
+            if self.page_edit.back_to_launcher():
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Back to launcher fail'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+
+            return "FAIL"
+
+    def sce_2_2_107(self):
+        uuid = '6fbc941d-12c6-40ef-b1cd-000b035ee8b1'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.click(L.main.menu.menu)
+            self.page_edit.settings.swipe_to_option('FAQ & Send Feedback')
+            self.click(find_string('FAQ & Send Feedback'))
+            self.click(L.edit.settings.send_feedback.send_feedback_btn)
+
+            if self.is_exist(L.edit.settings.send_feedback.feedback_text):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] No found feedback page'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.click(L.main.menu.menu)
+            self.page_edit.settings.swipe_to_option('FAQ & Send Feedback')
+            self.click(L.edit.settings.send_feedback.send_feedback_btn)
+
+            return "FAIL"
+
+    def sce_2_2_108(self):
+        uuid = '225633cb-308a-4aaa-9ff6-fc1582084b5b'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            self.element(L.edit.settings.send_feedback.feedback_text).send_keys('QA AT Testing')
+            self.element(L.edit.settings.send_feedback.feedback_email).send_keys('qa@cyberlink.com')
+            self.click(L.edit.settings.send_feedback.add_image)
+            self.click(xpath('//android.widget.TextView[@content-desc="Search"]'))
+            self.element(xpath('//*[contains(@resource-id, "search_src_text")]')).send_keys("jpg")
+            self.driver.driver.press_keycode(66)    # keycode 66: Enter
+            time.sleep(2)
+            self.click(xpath('//*[contains(@text,".jpg")]'))
+            self.click(L.edit.settings.send_feedback.top_right_btn)
+            model_name = self.element(L.edit.settings.send_feedback.feedback_device_model_text).text
+
+            if model_name == "SM-A5360":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] model_name incorrect: {model_name}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
 
             return "FAIL"
 
@@ -3690,49 +3883,57 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_63": self.sce_2_2_63(),
                   "sce_2_2_64": self.sce_2_2_64(),
                   "sce_2_2_65": self.sce_2_2_65(),
+                  # sce_2_2_104 is in sce_2_2_65
                   "sce_2_2_66": self.sce_2_2_66(),
+                  "sce_2_2_103": self.sce_2_2_103(),
                   }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
 
     def test_case_4(self):
-        result = {"sce_2_2_67": self.sce_2_2_67(),
-                  "sce_2_2_69": self.sce_2_2_69(),
-                  "sce_2_2_68": self.sce_2_2_68(),
-                  "sce_2_2_70": self.sce_2_2_70(),
-                  "sce_2_2_73": self.sce_2_2_73(),
-                  "sce_2_2_72": self.sce_2_2_72(),
-                  "sce_2_2_74": self.sce_2_2_74(),
-                  "sce_2_2_71": self.sce_2_2_71(),
-                  "sce_2_2_75": self.sce_2_2_75(),
-                  "sce_2_2_78": self.sce_2_2_78(),
-                  "sce_2_2_77": self.sce_2_2_77(),
-                  "sce_2_2_79": self.sce_2_2_79(),
-                  "sce_2_2_76": self.sce_2_2_76(),
-                  "sce_2_2_80": self.sce_2_2_80(),
-                  "sce_2_2_83": self.sce_2_2_83(),
-                  "sce_2_2_82": self.sce_2_2_82(),
-                  "sce_2_2_84": self.sce_2_2_84(),
-                  "sce_2_2_81": self.sce_2_2_81(),
-                  "sce_2_2_85": self.sce_2_2_85(),
-                  "sce_2_2_88": self.sce_2_2_88(),
-                  "sce_2_2_87": self.sce_2_2_87(),
-                  "sce_2_2_89": self.sce_2_2_89(),
-                  "sce_2_2_86": self.sce_2_2_86(),
-                  "sce_2_2_90": self.sce_2_2_90(),
-                  "sce_2_2_93": self.sce_2_2_93(),
-                  "sce_2_2_92": self.sce_2_2_92(),
-                  "sce_2_2_94": self.sce_2_2_94(),
-                  "sce_2_2_91": self.sce_2_2_91(),
-                  "sce_2_2_95": self.sce_2_2_95(),
-                  "sce_2_2_98": self.sce_2_2_98(),
-                  "sce_2_2_97": self.sce_2_2_97(),
-                  "sce_2_2_99": self.sce_2_2_99(),
-                  "sce_2_2_96": self.sce_2_2_96(),
-                  "sce_2_2_100": self.sce_2_2_100(),
-                  "sce_2_2_101": self.sce_2_2_101(),
-                  "sce_2_2_102": self.sce_2_2_102(),
+        result = {
+            # "sce_2_2_67": self.sce_2_2_67(),
+                  # "sce_2_2_69": self.sce_2_2_69(),
+                  # "sce_2_2_68": self.sce_2_2_68(),
+                  # "sce_2_2_70": self.sce_2_2_70(),
+                  # "sce_2_2_73": self.sce_2_2_73(),
+                  # "sce_2_2_72": self.sce_2_2_72(),
+                  # "sce_2_2_74": self.sce_2_2_74(),
+                  # "sce_2_2_71": self.sce_2_2_71(),
+                  # "sce_2_2_75": self.sce_2_2_75(),
+                  # "sce_2_2_78": self.sce_2_2_78(),
+                  # "sce_2_2_77": self.sce_2_2_77(),
+                  # "sce_2_2_79": self.sce_2_2_79(),
+                  # "sce_2_2_76": self.sce_2_2_76(),
+                  # "sce_2_2_80": self.sce_2_2_80(),
+                  # "sce_2_2_83": self.sce_2_2_83(),
+                  # "sce_2_2_82": self.sce_2_2_82(),
+                  # "sce_2_2_84": self.sce_2_2_84(),
+                  # "sce_2_2_81": self.sce_2_2_81(),
+                  # "sce_2_2_85": self.sce_2_2_85(),
+                  # "sce_2_2_88": self.sce_2_2_88(),
+                  # "sce_2_2_87": self.sce_2_2_87(),
+                  # "sce_2_2_89": self.sce_2_2_89(),
+                  # "sce_2_2_86": self.sce_2_2_86(),
+                  # "sce_2_2_90": self.sce_2_2_90(),
+                  # "sce_2_2_93": self.sce_2_2_93(),
+                  # "sce_2_2_92": self.sce_2_2_92(),
+                  # "sce_2_2_94": self.sce_2_2_94(),
+                  # "sce_2_2_91": self.sce_2_2_91(),
+                  # "sce_2_2_95": self.sce_2_2_95(),
+                  # "sce_2_2_98": self.sce_2_2_98(),
+                  # "sce_2_2_97": self.sce_2_2_97(),
+                  # "sce_2_2_99": self.sce_2_2_99(),
+                  # "sce_2_2_96": self.sce_2_2_96(),
+                  # "sce_2_2_100": self.sce_2_2_100(),
+                  # "sce_2_2_101": self.sce_2_2_101(),
+                  # "sce_2_2_102": self.sce_2_2_102(),
+                  # "sce_2_2_105": self.sce_2_2_105(),
+                  # "sce_2_2_106": self.sce_2_2_106(),
+                  "sce_2_2_109": self.sce_2_2_109(),
+                  "sce_2_2_107": self.sce_2_2_107(),
+                  "sce_2_2_108": self.sce_2_2_108(),
                   }
         for key, value in result.items():
             if value != "PASS":
