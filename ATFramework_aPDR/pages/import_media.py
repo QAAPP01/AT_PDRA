@@ -162,7 +162,7 @@ class MediaPage(BasePage):
     def waiting_download(self):
         for i in range(60):
             if self.h_is_exist(L.import_media.media_library.downloading, 1):
-                time.sleep(1)
+                continue
             else:
                 return True
         logger("[Warning] downloading timeout")
@@ -170,8 +170,8 @@ class MediaPage(BasePage):
 
     def waiting_loading(self, timeout=60):
         for i in range(timeout):
-            if self.h_is_exist(L.import_media.media_library.loading_circle):
-                time.sleep(1)
+            if self.h_is_exist(L.import_media.media_library.loading_circle, 1):
+                continue
             else:
                 return True
         logger("[Warning] loading timeout")

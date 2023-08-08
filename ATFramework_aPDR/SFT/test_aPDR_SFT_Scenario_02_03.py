@@ -76,6 +76,213 @@ class Test_SFT_Scenario_02_03:
 
             return "FAIL"
 
+    def sce_2_3_4(self):
+        uuid = '4aa79f8e-ec89-4298-9ff7-a332c8af9110'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            duration = self.page_edit.preference.enter_default_text_duration()
+
+            if duration == '5.0 s':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Duration incorrect: {duration}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.preference.enter_default_text_duration()
+
+            return "FAIL"
+
+    def sce_2_3_2(self):
+        uuid = '819376c8-8d0b-4a4f-8272-9b1d1dd63e76'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        slider = L.timeline_settings.preference.slider
+        try:
+            duration_before = self.element(slider).text
+            self.driver.drag_slider_to_max(slider)
+            duration_after = self.element(slider).text
+
+            if float(duration_after) > float(duration_before):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] duration_before = {duration_before}, duration_after = {duration_after}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.preference.enter_default_text_duration()
+            self.driver.drag_slider_to_max(slider)
+
+            return "FAIL"
+
+    def sce_2_3_6(self):
+        uuid = '345b40e7-fe5c-4ce4-b937-620046a29299'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            duration = self.element(L.timeline_settings.preference.duration_text).text
+
+            if duration == '10.0 s':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Duration incorrect: {duration}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.preference.enter_default_text_duration()
+
+            return "FAIL"
+
+    def sce_2_3_3(self):
+        uuid = 'a1785993-89ab-4fff-9392-558f1dba1f8b'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        slider = L.timeline_settings.preference.slider
+        try:
+            duration_before = self.element(slider).text
+            self.driver.drag_slider_to_min(slider)
+            duration_after = self.element(slider).text
+
+            if float(duration_after) < float(duration_before):
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] duration_before = {duration_before}, duration_after = {duration_after}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.preference.enter_default_text_duration()
+            self.driver.drag_slider_to_min(slider)
+
+            return "FAIL"
+
+    def sce_2_3_5(self):
+        uuid = 'c1920d5d-e501-468f-8a66-8eb3723c0584'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            duration = self.element(L.timeline_settings.preference.duration_text).text
+            self.click(L.timeline_settings.preference.ok)
+            self.page_edit.preference.back_to_timeline()
+
+            if duration == '0.5 s':
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Duration incorrect: {duration}'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+
+            return "FAIL"
+
+    def sce_2_3_7(self):
+        uuid = '22625080-9f16-4ba3-9bc7-6d6cbd5ee1c1'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if self.page_edit.text.check_built_in_title():
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                fail_log = f'[Fail] Built in title checking fail'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.text.enter_category('Classic')
+
+            return "FAIL"
+
+    def sce_2_3_8(self):
+        uuid = '30281dfe-de3b-4809-9dcd-469ce0741ecf'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
+
+        try:
+            if not self.click(find_string('Assembly Line')):
+                raise Exception('No found "Assembly Line"')
+            self.click(L.edit.text.add)
+
+            if self.is_exist(L.edit.text.text_preview):
+                self.report.new_result(uuid, True)
+
+                self.click(L.edit.menu.delete)
+
+                return "PASS"
+            else:
+                fail_log = f'[Fail] No found text clip'
+                self.report.new_result(uuid, False, fail_log=fail_log)
+                raise Exception(fail_log)
+
+        except Exception as err:
+            logger(f'\n{err}')
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+
+            return "FAIL"
+
     def sce_2_3_9(self):
         uuid = 'bc2a6a8d-5832-4136-a5eb-dcf232d3ad69'
         func_name = inspect.stack()[0][3]
@@ -1215,6 +1422,13 @@ class Test_SFT_Scenario_02_03:
 
     def test_case(self):
         result = {"sce_2_3_1": self.sce_2_3_1(),
+                  "sce_2_3_4": self.sce_2_3_4(),
+                  "sce_2_3_2": self.sce_2_3_2(),
+                  "sce_2_3_6": self.sce_2_3_6(),
+                  "sce_2_3_3": self.sce_2_3_3(),
+                  "sce_2_3_5": self.sce_2_3_5(),
+                  "sce_2_3_7": self.sce_2_3_7(),
+                  "sce_2_3_8": self.sce_2_3_8(),
                   "sce_2_3_9": self.sce_2_3_9(),
                   "sce_2_3_10": self.sce_2_3_10(),
                   "sce_2_3_11": self.sce_2_3_11(),

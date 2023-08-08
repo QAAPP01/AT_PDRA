@@ -1,4 +1,4 @@
-import pytest, sys
+import pytest, sys, subprocess
 from appium.webdriver.appium_service import AppiumService
 
 from os.path import dirname as dir
@@ -62,8 +62,21 @@ def driver():
     desired_caps.update(DRIVER_DESIRED_CAPS)
 
     if 'udid' not in desired_caps:
-        desired_caps['udid'] = deviceName
-        # desired_caps['udid'] = 'RFCW2198L7B'
+
+        def get_connected_devices():
+            adb_devices_command = "adb devices"
+            result = subprocess.run(adb_devices_command, shell=True, capture_output=True, text=True)
+            devices_output = result.stdout.strip().split("\n")[1:]
+            devices = [line.split("\t")[0] for line in devices_output if line.endswith("\tdevice")]
+            return devices
+
+        devices = get_connected_devices()
+
+        # desired_caps['udid'] = "RFCW2198L7B"
+        if deviceName in devices:
+            desired_caps['udid'] = deviceName
+        else:
+            desired_caps['udid'] = devices[0] if devices else None
 
         mode = 'debug'
         args = [
@@ -71,6 +84,16 @@ def driver():
             "--port", "4725",
             "--base-path", '/wd/hub'
         ]
+
+        cap = {
+            # "udid": "",
+            # "language": "ja",
+            # "locale": "JP",
+            # 'autoGrantPermissions': True,
+            # "noReset": True,
+            # "autoLaunch": False,
+        }
+        desired_caps.update(cap)
     else:
         mode = 'local'
         args = [

@@ -19,9 +19,9 @@ class SubMenu:
     play = ("",)
 
 
-class Title():
+class Title:
 
-    add = ("id", "library_unit_add")
+    add = id('library_unit_add')
     play = ("",)
 
     get_more = ("",)

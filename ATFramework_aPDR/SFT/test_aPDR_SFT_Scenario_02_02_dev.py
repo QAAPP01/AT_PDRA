@@ -1,10 +1,5 @@
-import inspect
-import sys
-import time
+import pytest, inspect, sys, time
 from os import path
-from os.path import dirname
-
-import pytest
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
@@ -16,7 +11,7 @@ from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
-sys.path.insert(0, (dirname(dirname(__file__))))
+sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
@@ -211,6 +206,7 @@ class Test_SFT_Scenario_02_02:
             if not self.click(L.edit.sub_tool.ai_effect.effect(index)):
                 raise Exception('Click effect fail')
             self.click(L.edit.try_before_buy.try_it, 2)
+            self.page_media.waiting_download()
 
             if self.element(L.edit.sub_tool.ai_effect.effect_name(index)).get_attribute('selected') == 'true':
                 self.report.new_result(uuid, True)
@@ -271,19 +267,44 @@ class Test_SFT_Scenario_02_02:
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
+        global default_value
         try:
-            param_num = len(self.elements(L.edit.sub_tool.ai_effect.param_value(0)))
             param_flag = 0
-            global default_value
-            for i in range(param_num):
-                if self.element(L.edit.sub_tool.ai_effect.param_value(i + 1)).text == "":
-                    continue
-                else:
+
+            param_elements = self.elements(L.edit.sub_tool.ai_effect.param_value(0))
+            for i, param_element in enumerate(param_elements, start=1):
+                if param_element.text != "":
                     param_flag = 1
-                    default_value = (i + 1, self.element(L.edit.sub_tool.ai_effect.param_value(i + 1)).text)
-                    self.click(L.edit.sub_tool.ai_effect.param_value(i + 1))
+                    default_value = (i, param_element.text)
+                    self.click(param_element)
                     self.driver.drag_slider_from_left_to_right()
                     break
+
+            if not param_flag:
+                self.click(L.edit.sub_tool_menu.back)
+                effect = self.elements(L.edit.sub_tool.ai_effect.effect(0))
+                other_effect_num = len(effect)
+                effect_index = 1
+                for j in range(other_effect_num):
+                    self.click(effect[effect_index])
+                    self.click(L.edit.sub_tool.ai_effect.edit)
+
+                    param_elements = self.elements(L.edit.sub_tool.ai_effect.param_value(0))
+                    for i, param_element in enumerate(param_elements, start=1):
+                        if param_element.text != "":
+                            param_flag = 1
+                            default_value = (i, param_element.text)
+                            self.click(param_element)
+                            self.driver.drag_slider_from_left_to_right()
+                            break
+
+                    if param_flag:
+                        break
+                    else:
+                        self.click(L.edit.sub_tool_menu.back)
+                        effect = self.elements(L.edit.sub_tool.ai_effect.effect(0))
+                        effect_index += 1
+
             if not param_flag:
                 raise Exception('No parameter can edit in this effect')
 
@@ -3892,45 +3913,44 @@ class Test_SFT_Scenario_02_02:
                 print(f"[{value}] {key}")
 
     def test_case_4(self):
-        result = {
-            # "sce_2_2_67": self.sce_2_2_67(),
-                  # "sce_2_2_69": self.sce_2_2_69(),
-                  # "sce_2_2_68": self.sce_2_2_68(),
-                  # "sce_2_2_70": self.sce_2_2_70(),
-                  # "sce_2_2_73": self.sce_2_2_73(),
-                  # "sce_2_2_72": self.sce_2_2_72(),
-                  # "sce_2_2_74": self.sce_2_2_74(),
-                  # "sce_2_2_71": self.sce_2_2_71(),
-                  # "sce_2_2_75": self.sce_2_2_75(),
-                  # "sce_2_2_78": self.sce_2_2_78(),
-                  # "sce_2_2_77": self.sce_2_2_77(),
-                  # "sce_2_2_79": self.sce_2_2_79(),
-                  # "sce_2_2_76": self.sce_2_2_76(),
-                  # "sce_2_2_80": self.sce_2_2_80(),
-                  # "sce_2_2_83": self.sce_2_2_83(),
-                  # "sce_2_2_82": self.sce_2_2_82(),
-                  # "sce_2_2_84": self.sce_2_2_84(),
-                  # "sce_2_2_81": self.sce_2_2_81(),
-                  # "sce_2_2_85": self.sce_2_2_85(),
-                  # "sce_2_2_88": self.sce_2_2_88(),
-                  # "sce_2_2_87": self.sce_2_2_87(),
-                  # "sce_2_2_89": self.sce_2_2_89(),
-                  # "sce_2_2_86": self.sce_2_2_86(),
-                  # "sce_2_2_90": self.sce_2_2_90(),
-                  # "sce_2_2_93": self.sce_2_2_93(),
-                  # "sce_2_2_92": self.sce_2_2_92(),
-                  # "sce_2_2_94": self.sce_2_2_94(),
-                  # "sce_2_2_91": self.sce_2_2_91(),
-                  # "sce_2_2_95": self.sce_2_2_95(),
-                  # "sce_2_2_98": self.sce_2_2_98(),
-                  # "sce_2_2_97": self.sce_2_2_97(),
-                  # "sce_2_2_99": self.sce_2_2_99(),
-                  # "sce_2_2_96": self.sce_2_2_96(),
-                  # "sce_2_2_100": self.sce_2_2_100(),
-                  # "sce_2_2_101": self.sce_2_2_101(),
-                  # "sce_2_2_102": self.sce_2_2_102(),
-                  # "sce_2_2_105": self.sce_2_2_105(),
-                  # "sce_2_2_106": self.sce_2_2_106(),
+        result = {"sce_2_2_67": self.sce_2_2_67(),
+                  "sce_2_2_69": self.sce_2_2_69(),
+                  "sce_2_2_68": self.sce_2_2_68(),
+                  "sce_2_2_70": self.sce_2_2_70(),
+                  "sce_2_2_73": self.sce_2_2_73(),
+                  "sce_2_2_72": self.sce_2_2_72(),
+                  "sce_2_2_74": self.sce_2_2_74(),
+                  "sce_2_2_71": self.sce_2_2_71(),
+                  "sce_2_2_75": self.sce_2_2_75(),
+                  "sce_2_2_78": self.sce_2_2_78(),
+                  "sce_2_2_77": self.sce_2_2_77(),
+                  "sce_2_2_79": self.sce_2_2_79(),
+                  "sce_2_2_76": self.sce_2_2_76(),
+                  "sce_2_2_80": self.sce_2_2_80(),
+                  "sce_2_2_83": self.sce_2_2_83(),
+                  "sce_2_2_82": self.sce_2_2_82(),
+                  "sce_2_2_84": self.sce_2_2_84(),
+                  "sce_2_2_81": self.sce_2_2_81(),
+                  "sce_2_2_85": self.sce_2_2_85(),
+                  "sce_2_2_88": self.sce_2_2_88(),
+                  "sce_2_2_87": self.sce_2_2_87(),
+                  "sce_2_2_89": self.sce_2_2_89(),
+                  "sce_2_2_86": self.sce_2_2_86(),
+                  "sce_2_2_90": self.sce_2_2_90(),
+                  "sce_2_2_93": self.sce_2_2_93(),
+                  "sce_2_2_92": self.sce_2_2_92(),
+                  "sce_2_2_94": self.sce_2_2_94(),
+                  "sce_2_2_91": self.sce_2_2_91(),
+                  "sce_2_2_95": self.sce_2_2_95(),
+                  "sce_2_2_98": self.sce_2_2_98(),
+                  "sce_2_2_97": self.sce_2_2_97(),
+                  "sce_2_2_99": self.sce_2_2_99(),
+                  "sce_2_2_96": self.sce_2_2_96(),
+                  "sce_2_2_100": self.sce_2_2_100(),
+                  "sce_2_2_101": self.sce_2_2_101(),
+                  "sce_2_2_102": self.sce_2_2_102(),
+                  "sce_2_2_105": self.sce_2_2_105(),
+                  "sce_2_2_106": self.sce_2_2_106(),
                   "sce_2_2_109": self.sce_2_2_109(),
                   "sce_2_2_107": self.sce_2_2_107(),
                   "sce_2_2_108": self.sce_2_2_108(),

@@ -8,6 +8,7 @@ from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 from os.path import dirname
 
+from selenium.common import StaleElementReferenceException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
@@ -35,11 +36,19 @@ class EditPage(BasePage):
         self.el = lambda id: self.driver.driver.find_element(id[0], id[1])
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
 
+        self.click = self.h_click
+        self.long_press = self.h_long_press
+        self.element = self.h_get_element
+        self.elements = self.h_get_elements
+        self.is_exist = self.h_is_exist
+
+        self.sticker = self.Sticker(self)
         self.preference = Preference(self.driver)
         self.color = Color(self.driver.driver)
         self.skin_smoothener = Skin_smoothener(self.driver.driver)
         self.speed = Speed(self.driver.driver)
         self.title_designer = Title_Designer(self.driver)
+        self.text = Title_Designer(self.driver)
         self.different_fx = Different_fx(self.driver.driver)
         self.sharpness_effect = Sharpness_effect(self.driver.driver)
         self.pan_zoom = Pan_Zoom(self.driver.driver)
@@ -58,14 +67,44 @@ class EditPage(BasePage):
         self.intro_video = Intro_Video(self.driver)
 
 
-        self.click = self.h_click
-        self.long_press = self.h_long_press
-        self.element = self.h_get_element
-        self.elements = self.h_get_elements
-        self.is_exist = self.h_is_exist
+    def click_category(self, name, locator):
+        last = ""
+        category_list = self.elements(locator)
+        for i in range(60):
+            if self.click(find_string(name), 1):
+                return True
+            else:
+                self.h_swipe_element(category_list[-1], category_list[0], 4)
+                category_list = self.elements(locator)
+                new_last = category_list[-1].text
+                if new_last == last:
+                    logger(f'Cannot find the category "{name}"')
+                    return False
+                else:
+                    last = new_last
+        logger('Function reach the limit')
+        return False
 
-
-    def add_master_media(self, media_type=None, folder=None, file_name=None):
+    def click_effect(self, name, locator):
+        last = ""
+        category_list = self.elements(locator)
+        for i in range(60):
+            if self.click(find_string(name), 1):
+                return True
+            else:
+                category_list_amount = len(category_list)
+                self.h_swipe_element(category_list[-1], category_list[(3 - category_list_amount % 4)], 2)
+                category_list = self.elements(locator)
+                new_last = category_list[-1].text
+                if new_last == last:
+                    logger(f'Cannot find the effect "{name}"')
+                    return False
+                else:
+                    last = new_last
+        logger('Function reach the limit')
+        return False
+    
+    def add_master_media(self, media_type=None, folder='00PDRa_Testing_Material', file_name=None):
         try:
             if media_type:
                 if len(media_type) > 1:
@@ -214,7 +253,7 @@ class EditPage(BasePage):
 
     def drag_color_picker(self):
         try:
-            preview_rect = self.element(L.edit.sub_tool.cutout.color_picker.preview).rect
+            preview_rect = self.element(L.edit.preview.preview).rect
             x = preview_rect['x']
             y = preview_rect['y']
             self.h_drag_element(L.edit.sub_tool.cutout.color_picker.picker_image, x, y)
@@ -1994,12 +2033,89 @@ class EditPage(BasePage):
             logger("exception occurs")
             raise Exception
 
+    class Sticker:
+        def __init__(self, edit):
+            self.edit = edit
+
+            self.element = self.edit.element
+            self.elements = self.edit.elements
+            self.click = self.edit.click
+            self.is_exist = self.edit.is_exist
+
+            self.ai_sticker = self.AISticker(self)
+
+
+        class AISticker:
+            def __init__(self, sticker):
+                self.sticker = sticker
+
+                self.element = self.sticker.element
+                self.elements = self.sticker.elements
+                self.click = self.sticker.click
+                self.is_exist = self.sticker.is_exist
+
+            def enter_ai_sticker(self):
+                try:
+                    self.sticker.edit.enter_main_tool('Sticker')
+                    self.click(find_string('AI Sticker'))
+                    page_title = self.element(L.edit.main_tool.sticker.ai_sticker.title).text
+                    if page_title == "AI Sticker":
+                        return True
+                    else:
+                        raise Exception(f'Title incorrect: {page_title}')
+
+                except Exception as e:
+                    logger(f'[Error] {e}')
+                    return False
+
+
 class Preference(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
 
         self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
+
+    def back_to_timeline(self):
+        try:
+            self.click(L.timeline_settings.preference.back)
+            return True
+        except Exception as e:
+            logger(f'[Error] {e}')
+            return False
+
+    def enter_default_text_duration(self):
+        try:
+            self.click(L.edit.settings.menu)
+            self.click(L.edit.settings.preference)
+            while not self.is_exist(L.timeline_settings.preference.default_text_duration):
+                if self.is_exist(xpath('//*[contains(@text,"Enable All Default Tips")]')):
+                    raise Exception('No found default_text_duration')
+                else:
+                    self.driver.swipe_up()
+            self.click(L.timeline_settings.preference.default_text_duration)
+            return self.element(L.timeline_settings.preference.duration_text).text
+        except Exception as e:
+            logger(f'[Error] {e}')
+            return False
+
+    def change_default_text_duration(self, duration):
+        try:
+            self.click(L.edit.settings.menu)
+            self.click(L.edit.settings.preference)
+            while not self.is_exist(L.timeline_settings.preference.default_text_duration):
+                if self.is_exist(xpath('//*[contains(@text,"Enable All Default Tips")]')):
+                    raise Exception('No found default_text_duration')
+                else:
+                    self.driver.swipe_up()
+            self.click(L.timeline_settings.preference.default_text_duration)
+            slider = self.element(L.timeline_settings.preference.slider)
+            slider.send_keys(float(duration)*10-5)
+            return True
+        except Exception as e:
+            logger(f'[Error] {e}')
+            return False
+
 
     def trigger_fileName(self, enable=True):
         try:
@@ -2008,7 +2124,8 @@ class Preference(BasePage):
             while not self.is_exist(L.timeline_settings.preference.display_file_name_switch):
                 if self.is_exist(xpath('//*[contains(@text,"Enable All Default Tips")]')):
                     raise Exception('No found display_file_name_switch')
-                self.driver.swipe_up()
+                else:
+                    self.driver.swipe_up()
 
             status = self.page_preference.check_setting(L.timeline_settings.preference.display_file_name_switch)
             if status != enable:
@@ -2017,7 +2134,6 @@ class Preference(BasePage):
             return True
         except Exception as err:
             raise Exception(f'[Error] {err}')
-
 
 
 class Sub_item():
@@ -2396,8 +2512,74 @@ class Speed():
 
 class Title_Designer(BasePage):
     def __init__(self, driver):
-        super().__init__(driver)
         self.driver = driver
+        self.edit = EditPage
+
+    def check_built_in_title(self):
+        try:
+            self.edit.enter_main_tool(self, 'Text')
+            category = set()
+            built_in = {'Default', 'Expressive Titles', 'Classic'}
+
+            category_temp = self.elements(L.edit.text.category_name(0))
+            last = category_temp[-1].text
+
+            while last not in category:
+                built_in_flag = 0
+                for i in category_temp:
+                    if i.text in category:
+                        continue
+                    else:
+                        category.add(i.text)
+
+                        # 檢查 built_in 內容是否為空
+                        if i.text in built_in:
+                            built_in_flag = 1
+                            i.click()
+                            text_items = self.elements(L.edit.text.text_item(0))
+                            if len(text_items) == 0:
+                                raise Exception(f'"{i.text}" is empty')
+                            break
+
+                if built_in_flag:
+                    category_temp = self.elements(L.edit.text.category_name(0))
+                    last = category_temp[-1].text
+                    continue
+                else:
+                    self.h_swipe_element(category_temp[-1], category_temp[0], 6)
+                    category_temp = self.elements(L.edit.text.category_name(0))
+                    last = category_temp[-1].text
+
+            if built_in - category:
+                raise Exception(f'Some built-in titles are missing: {built_in - category}')
+
+            return True
+
+        except Exception as e:
+            logger(f'[Error] {e}')
+            return False
+
+    def enter_category(self, category_name):
+        try:
+            self.edit.enter_main_tool(self, 'Text')
+            category_temp = self.elements(L.edit.text.category_name(0))
+            last = category_temp[-1].text
+
+            while not self.is_exist(find_string(category_name)):
+                self.h_swipe_element(category_temp[-1], category_temp[0], 6)
+                category_temp = self.elements(L.edit.text.category_name(0))
+                new_last = category_temp[-1].text
+                if new_last == last:
+                    raise Exception(f'No found {category_name}')
+                else:
+                    last = new_last
+            self.click(find_string(category_name))
+            return True
+
+        except Exception as e:
+            logger(f'[Error] {e}')
+            return False
+
 
     def select_tab(self, name):
         logger(f"start select_tab - {name}")

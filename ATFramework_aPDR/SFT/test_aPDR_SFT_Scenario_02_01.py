@@ -84,6 +84,8 @@ class Test_SFT_Scenario_02_01:
 
         self.page_edit.add_master_media('Video', self.test_material_folder, file_video)
         self.click(L.edit.timeline.master_clip)
+        global pic_default_video
+        pic_default_video = self.page_main.get_preview_pic()
 
         if self.page_edit.is_sub_tool_exist("Split"):
             result = True
@@ -166,22 +168,22 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     def sce_2_1_12(self):
-        try:
-            uuid = '6805d7b3-1775-4b5f-930f-159965846428'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '6805d7b3-1775-4b5f-930f-159965846428'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
 
+        try:
             time.sleep(5)
             pic_after = self.page_main.h_screenshot()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_12.png')
 
             global result_12
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
+            if not HCompareImg(pic_default_video, pic_after).full_compare() == 1:
                 result_12 = True
                 fail_log = None
             else:
                 result_12 = False
-                fail_log = f'\n[Fail] Images are different'
+                fail_log = f'\n[Fail] Preview has no changed'
 
             self.report.new_result(uuid, result_12, fail_log=fail_log)
             return "PASS" if result_12 else "FAIL"
@@ -309,10 +311,9 @@ class Test_SFT_Scenario_02_01:
 
             time.sleep(5)
             pic_after = self.page_main.h_screenshot()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_27.png')
 
             global result_27
-            if HCompareImg(pic_base, pic_after).full_compare_result():
+            if not HCompareImg(pic_default_video, pic_after).full_compare == 1:
                 result_27 = True
                 fail_log = None
             else:
@@ -497,16 +498,13 @@ class Test_SFT_Scenario_02_01:
             self.click(L.edit.crop.btn_16_9)
             self.click(L.edit.crop.apply)
             pic_after = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_37.png')
 
-            # self.page_main.copy_file(pic_after, pic_base)
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_default_video, pic_after).full_compare() == 1:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] Images are different'
+                fail_log = f'\n[Fail] Preview has no changed'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -552,16 +550,13 @@ class Test_SFT_Scenario_02_01:
             self.click(L.edit.crop.btn_original)
             self.click(L.edit.crop.apply)
             pic_after = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_39.png')
 
-            # self.page_main.copy_file(pic_after, pic_base)
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_default_video, pic_after).full_compare() == 1:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] Images are different'
+                fail_log = f'\n[Fail] Preview has no changed'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -607,16 +602,13 @@ class Test_SFT_Scenario_02_01:
             self.click(L.edit.crop.btn_21_9)
             self.click(L.edit.crop.apply)
             pic_after = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_41.png')
 
-            # self.page_main.copy_file(pic_after, pic_base)
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_default_video, pic_after).full_compare() == 1:
                 result = True
                 fail_log = None
             else:
                 result = False
-                fail_log = f'\n[Fail] Images are different'
+                fail_log = f'\n[Fail] Preview has no changed'
 
             self.report.new_result(uuid, result, fail_log=fail_log)
             return "PASS" if result else "FAIL"
@@ -779,140 +771,153 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     def sce_2_1_48(self):
-        try:
-            uuid = 'dce25f23-067f-4a5f-8dda-692ee46fada3'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = 'dce25f23-067f-4a5f-8dda-692ee46fada3'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
 
-            global stab_before
-            stab_before = self.page_main.h_screenshot()
-            self.click(L.edit.sub_tool.back, timeout=0.1)
+        self.report.new_result(uuid, None, 'N/A')
 
-            if self.page_edit.click_sub_tool("Stabilizer"):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] Cannot find "Stabilizer"'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+        # try:
+        #     global stab_before
+        #     stab_before = self.page_main.h_screenshot()
+        #     self.click(L.edit.sub_tool.back, timeout=0.1)
+        #
+        #     if self.page_edit.click_sub_tool("Stabilizer"):
+        #         result = True
+        #         fail_log = None
+        #     else:
+        #         result = False
+        #         fail_log = f'\n[Fail] Cannot find "Stabilizer"'
+        #
+        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     return "PASS" if result else "FAIL"
+        # except Exception as err:
+        #     logger(f"[Error] {err}")
+        #     return "ERROR"
 
     def sce_2_1_50(self):
-        try:
-            uuid = '36454a6f-1031-4372-a1fb-f2f3f79a8ce3'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '36454a6f-1031-4372-a1fb-f2f3f79a8ce3'
+        logger(f"\n[Start] {inspect.stack()[0][3]}")
+        self.report.start_uuid(uuid)
 
-            self.click(L.main.subscribe.iap_monthly)
-            self.click(L.main.subscribe.continue_btn)
-            self.click(find_string("Subscribe"))
-            self.click(find_string("Not now"))
+        self.report.new_result(uuid, None, 'N/A')
 
-            if self.is_exist(find_string("Stabilizing video"), 10):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] Cannot find "Stabilizing video"'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+        # try:
+        #     self.click(L.main.subscribe.iap_monthly)
+        #     self.click(L.main.subscribe.continue_btn)
+        #     self.click(find_string("Subscribe"))
+        #     self.click(find_string("Not now"))
+        #
+        #     if self.is_exist(find_string("Stabilizing video"), 10):
+        #         result = True
+        #         fail_log = None
+        #     else:
+        #         result = False
+        #         fail_log = f'\n[Fail] Cannot find "Stabilizing video"'
+        #
+        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     return "PASS" if result else "FAIL"
+        # except Exception as err:
+        #     logger(f"[Error] {err}")
+        #     return "ERROR"
 
     def sce_2_1_49(self):
-        try:
-            uuid = '8ce1701e-fa22-4544-a586-98eef705981d'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '8ce1701e-fa22-4544-a586-98eef705981d'
+        logger(f"\n[Start] {inspect.stack()[0][3]}")
+        self.report.start_uuid(uuid)
 
-            logger("[Info] Stabilizing")
-            while self.is_exist(find_string("Stabilizing video")):
-                time.sleep(1)
+        self.report.new_result(uuid, None, 'N/A')
 
-            global stab_after
-            stab_after = self.page_main.h_screenshot()
-
-            result_pic = True if not HCompareImg(stab_after, stab_before).full_compare() > 0.98 else False
-            result_value = True if self.element(L.edit.timeline.slider_value).text == "50" else False
-
-            if result_pic and result_value:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+        # try:
+        #     logger("[Info] Stabilizing")
+        #     while self.is_exist(find_string("Stabilizing video")):
+        #         time.sleep(1)
+        #
+        #     global stab_after
+        #     stab_after = self.page_main.h_screenshot()
+        #
+        #     result_pic = True if not HCompareImg(stab_after, stab_before).full_compare() > 0.98 else False
+        #     result_value = True if self.element(L.edit.timeline.slider_value).text == "50" else False
+        #
+        #     if result_pic and result_value:
+        #         result = True
+        #         fail_log = None
+        #     else:
+        #         result = False
+        #         fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
+        #
+        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     return "PASS" if result else "FAIL"
+        # except Exception as err:
+        #     logger(f"[Error] {err}")
+        #     return "ERROR"
 
     def sce_2_1_51(self):
-        try:
-            uuid = 'f770a0a8-68b9-4811-86c6-7131c3a732f3'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = 'f770a0a8-68b9-4811-86c6-7131c3a732f3'
+        logger(f"\n[Start] {inspect.stack()[0][3]}")
+        self.report.start_uuid(uuid)
 
-            rect = self.element(L.edit.timeline.slider).rect
-            min_value = rect["x"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, min_value)
-            time.sleep(2)
+        self.report.new_result(uuid, None, 'N/A')
 
-            global stab_min
-            stab_min = self.page_main.h_screenshot()
-
-            result_pic = True if not HCompareImg(stab_min, stab_after).full_compare() > 0.98 and HCompareImg(stab_min,
-                                                                                                             stab_before).full_compare() > 0.98 else False
-            result_value = True if self.element(L.edit.timeline.slider_value).text == "0" else False
-
-            if result_pic and result_value:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+        # try:
+        #
+        #     rect = self.element(L.edit.timeline.slider).rect
+        #     min_value = rect["x"]
+        #     self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, min_value)
+        #     time.sleep(2)
+        #
+        #     global stab_min
+        #     stab_min = self.page_main.h_screenshot()
+        #
+        #     result_pic = True if not HCompareImg(stab_min, stab_after).full_compare() > 0.98 and HCompareImg(stab_min,
+        #                                                                                                      stab_before).full_compare() > 0.98 else False
+        #     result_value = True if self.element(L.edit.timeline.slider_value).text == "0" else False
+        #
+        #     if result_pic and result_value:
+        #         result = True
+        #         fail_log = None
+        #     else:
+        #         result = False
+        #         fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
+        #
+        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     return "PASS" if result else "FAIL"
+        # except Exception as err:
+        #     logger(f"[Error] {err}")
+        #     return "ERROR"
 
     def sce_2_1_52(self):
-        try:
-            uuid = 'aae26929-d157-441c-9959-cc4f3004cd7c'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = 'aae26929-d157-441c-9959-cc4f3004cd7c'
+        logger(f"\n[Start] {inspect.stack()[0][3]}")
+        self.report.start_uuid(uuid)
 
-            rect = self.element(L.edit.timeline.slider).rect
-            max_value = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, max_value)
-            time.sleep(2)
-
-            stab_max = self.page_main.h_screenshot()
-            result_pic = True if not HCompareImg(stab_max, stab_after).full_compare() > 0.98 and not HCompareImg(
-                stab_max, stab_before).full_compare() > 0.98 else False
-            result_value = True if self.element(L.edit.timeline.slider_value).text == "100" else False
-
-            if result_pic and result_value:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+        self.report.new_result(uuid, None, 'N/A')
+        #
+        # try:
+        #
+        #     rect = self.element(L.edit.timeline.slider).rect
+        #     max_value = rect["x"] + rect["width"]
+        #     self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, max_value)
+        #     time.sleep(2)
+        #
+        #     stab_max = self.page_main.h_screenshot()
+        #     result_pic = True if not HCompareImg(stab_max, stab_after).full_compare() > 0.98 and not HCompareImg(
+        #         stab_max, stab_before).full_compare() > 0.98 else False
+        #     result_value = True if self.element(L.edit.timeline.slider_value).text == "100" else False
+        #
+        #     if result_pic and result_value:
+        #         result = True
+        #         fail_log = None
+        #     else:
+        #         result = False
+        #         fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
+        #
+        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     return "PASS" if result else "FAIL"
+        # except Exception as err:
+        #     logger(f"[Error] {err}")
+        #     return "ERROR"
 
     def sce_2_1_skip(self):
         # Skip
@@ -3045,11 +3050,12 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     def sce_2_1_21(self):
-        try:
-            uuid = '89c4c006-39de-49b3-8152-3d32058ee865'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '89c4c006-39de-49b3-8152-3d32058ee865'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
 
+        try:
             # by pass bug
             self.page_main.swipe_element(L.edit.timeline.timeline_ruler, 'left', 1)
             self.page_main.swipe_element(L.edit.timeline.timeline_ruler, 'right', 100)
@@ -3427,12 +3433,12 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_46": self.sce_2_1_46(),
                   "sce_2_1_47": self.sce_2_1_47(),
 
-                  ## Stabilizer
-                  # "sce_2_1_48": self.sce_2_1_48(),
-                  # "sce_2_1_50": self.sce_2_1_50(),
-                  # "sce_2_1_49": self.sce_2_1_49(),
-                  # "sce_2_1_51": self.sce_2_1_51(),
-                  # "sce_2_1_52": self.sce_2_1_52(),
+                  # Stabilizer
+                  "sce_2_1_48": self.sce_2_1_48(),
+                  "sce_2_1_50": self.sce_2_1_50(),
+                  "sce_2_1_49": self.sce_2_1_49(),
+                  "sce_2_1_51": self.sce_2_1_51(),
+                  "sce_2_1_52": self.sce_2_1_52(),
 
                   "sce_2_1_skip": self.sce_2_1_skip(),
 

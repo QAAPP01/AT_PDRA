@@ -1006,7 +1006,10 @@ class AppiumU2Driver(Borg, BaseDriver):
 
     def drag_slider_to_max(self, locator=L.edit.sub_tool.slider):
         try:
-            slider = self.driver.find_element(locator[0],locator[1])
+            if type(locator) == tuple:
+                slider = self.driver.find_element(locator[0],locator[1])
+            else:
+                slider = locator
             slider_rect = slider.rect
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
@@ -1018,7 +1021,10 @@ class AppiumU2Driver(Borg, BaseDriver):
 
     def drag_slider_to_min(self, locator=L.edit.sub_tool.slider):
         try:
-            slider = self.driver.find_element(locator[0],locator[1])
+            if type(locator) == tuple:
+                slider = self.driver.find_element(locator[0],locator[1])
+            else:
+                slider = locator
             slider_rect = slider.rect
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
             start_x = slider_rect['x'] + int(slider_rect['width'] / 2)

@@ -2,6 +2,60 @@ from .locator_type import *
 
 toast = xpath('/hierarchy/android.widget.Toast[1]')
 
+class Master:
+
+    @staticmethod
+    def sub_tool(name):
+        return xpath(f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
+    @staticmethod
+    def master_clip(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"item_view_border")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"item_view_border")]')
+    class ai_effect:
+        cancel = id('btn_cancel')
+        edit = id('itemEdit')
+        dropper = id('dropper_button')
+        apply = id('btn_apply_icon')
+
+
+        @staticmethod
+        def category(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"library_category_tab_text")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"library_category_tab_text")]')
+
+        @staticmethod
+        def effect(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"top_area")]')
+
+        @staticmethod
+        def effect_name(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+        @staticmethod
+        def favorite_icon(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemFavorite")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemFavorite")]')
+
+        @staticmethod
+        def color_preset(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"color_image_view")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"color_image_view")]')
+
+
 class Converting:
     ok = aid('[AID]ConfirmDialog_OK')
     progress_bar = id('progress_bar')
@@ -140,7 +194,7 @@ class Timeline:
     pip = Pip
 
 class MainTool:
-    class Sticker:
+    class sticker:
         library = id('actual_view')
         @staticmethod
         def item(index=1):
@@ -149,7 +203,17 @@ class MainTool:
             else:
                 return xpath(f'//*[contains(@resource-id,"cms_sticker_library_item")]')
 
-    sticker = Sticker
+
+        class ai_sticker:
+            title = id('tv_title')
+            prompt_entry = id('et_prompt')
+            count = id('tv_word_count')
+            count_total = id('tv_word_count_total')
+            gen_btn = id('btn_generate')
+            clear = id('iv_reset')
+            selected_style = id('view_is_selected')
+
+
 class SubTool:
     back = id('btn_session_back')
     apply = id('btnApply')
@@ -281,6 +345,24 @@ class SubMenu_Timeline_Setting():
     settings = aid("[AID]Setting_About")
     tips = aid("[AID]Setting_Helo")
     tutorials = aid("[AID]Setting_Help_Videos")
+
+class Text:
+    text_clip_text = id('item_view_title')
+    text_preview = id('resizeable_title_view')
+    add = id('library_unit_add')
+    @staticmethod
+    def category_name(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"library_category_tab_text")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"library_category_tab_text")]')
+
+    @staticmethod
+    def text_item(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"title_library_item")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"title_library_item")]')
 
 
 class Edit_sub():
@@ -502,6 +584,7 @@ class Preview:
 
 
 class Pip:
+
     @staticmethod
     def clip(index=1):
         if index == 0:
@@ -733,7 +816,7 @@ class Try_Before_Buy:
     btn_subtounlock = id('unlock_content_view')
     icon_try = id('library_unit_lock')
     btn_delete_premium = id('delete_premium_btn')
-    try_it = aid('[AID]Upgrade_No')
+    try_it_first = id('btnCancel')
     btn_ads_sub = id('btnPurchase')
 
 
@@ -1012,6 +1095,7 @@ class Interface:
     toast = toast
     main_tool = MainTool
     sub_tool = SubTool
+    text = Text
 
     adjust_sub = Adjust_sub()
     audio_configuration = Audio_Configuration()
@@ -1060,3 +1144,4 @@ class Interface:
     transition = Transition()
     try_before_buy = Try_Before_Buy
     tutorial_bubble = Tutorial_Bubble()
+    master = Master

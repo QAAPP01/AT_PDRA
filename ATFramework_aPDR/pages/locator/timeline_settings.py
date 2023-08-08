@@ -10,6 +10,7 @@ class Preference:
     default_transition_duration = id('settings_default_transition_duration')
     default_transition_duration_value = id('settings_default_transition_duration_value')
     default_title_duration = id('settings_default_title_duration')
+    default_text_duration = id('settings_default_title_duration')
     default_title_duration_value = id('settings_default_title_duration_value')
     shopping_cart = id("btn_shopping_cart")
     open_tool_menu_switch = aid("[AID]Open_Tool_Menu_When_Select_An_Object_In_Timeline")
@@ -22,6 +23,9 @@ class Preference:
     radio_btn_portrait = id('radio_btn_portrait')
     radio_btn_landscape = id('radio_btn_landscape')
     radio_btn_auto = id('radio_btn_auto')
+    slider = aid('[AID]Transition_Seekbar')
+    duration_text = id('durationText')
+    ok = aid('[AID]Dialog_OK')
 
     @staticmethod
     def UI_mode(mode):

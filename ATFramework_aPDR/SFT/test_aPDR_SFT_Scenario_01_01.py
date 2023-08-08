@@ -189,7 +189,7 @@ class Test_SFT_Scenario_01_01:
             self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'right')
             self.page_edit.click_tool("Edit")
 
-            toast_default = 'Add a media at this time slot to edit.'
+            toast_default = 'Insert at least one media file.'
             toast = self.element(xpath('/hierarchy/android.widget.Toast[1]')).text
 
             if toast == toast_default:
