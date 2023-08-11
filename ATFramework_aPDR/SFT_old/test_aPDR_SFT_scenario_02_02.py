@@ -80,7 +80,7 @@ class Test_SFT_Scenario_02_02:
         # page_main.el(L.main.project_info.btn_edit_project).click()
         self.report.new_result('4979f807-43ed-48ae-b85f-9a28b2ab989a',
                                page_edit.check_preview_aspect_ratio(project_title))
-        self.report.start_uuid('255f3e69-7e80-4d64-ad07-b99646558dae')
+        self.report.start_uuid('*255f3e69-7e80-4d64-ad07-b99646558dae')
         #add media video & photo
         page_edit.el(L.edit.menu.import_media).click()
         page_media.switch_to_video_library()

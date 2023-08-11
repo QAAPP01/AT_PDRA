@@ -176,8 +176,8 @@ class Test_SFT_Scenario_00_01b:
         page_media.select_media_by_order(1)
         page_media.el(L.import_media.library_gridview.add).click()
         
-        page_media.el(L.import_media.video_library.back).click()
-        page_media.el(L.import_media.video_library.back).click()
+        page_media.el(L.import_media.video_entry.back).click()
+        page_media.el(L.import_media.video_entry.back).click()
         
         
         page_edit.el(L.edit.menu.play).click()

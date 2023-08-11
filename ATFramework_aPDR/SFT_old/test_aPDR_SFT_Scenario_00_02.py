@@ -107,7 +107,7 @@ class Test_SFT_Scenario_00_02b:
         page_main.project_set_9_16()
         logger('[V] Tips_Edit Page')
         page_media = PageFactory().get_page_object("import_media", self.driver)
-        page_media.el(L.import_media.video_library.back).click()
+        page_media.el(L.import_media.video_entry.back).click()
         '''
         self.report.new_result(udid[1], page_edit.check_help_enable_tip_visible())
         self.report.start_uuid('36a2d103-2852-4f11-9ded-0f3f681e4ee5')

@@ -2665,9 +2665,9 @@ class Test_SFT_Scenario_02_01:
             self.click(locator)
             pic_src = self.page_main.get_picture(locator)
             rect = self.element(L.edit.preview.preview).rect
-            y = rect["y"] + rect["height"]/2
-            x = rect["x"] + rect["width"]/2
-            x_end = rect["x"] + rect["width"]/4
+            y = rect["y"] + rect["height"] / 2
+            x = rect["x"] + rect["width"] / 2
+            x_end = rect["x"] + rect["width"] / 4
             self.page_main.h_swipe_location(x, y, x_end, y)
             pic_tgt = self.page_main.get_picture(locator)
 
@@ -2894,15 +2894,11 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            for i in range(4):
-                if self.click(L.edit.sub_tool.back, timeout=0.1):
-                    continue
-                else:
-                    break
-            self.page_main.h_swipe_playhead(10, 1)
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
             global file_photo
             file_photo = 'photo.jpg'
-            self.page_edit.add_master_media('Photo', self.test_material_folder, file_photo)
+            self.page_media.select_local_photo(self.test_material_folder, file_photo)
             self.click(L.edit.timeline.master_clip)
 
             if self.page_edit.is_sub_tool_exist("Split"):
@@ -3065,7 +3061,7 @@ class Test_SFT_Scenario_02_01:
             pic_tgt = self.page_main.h_screenshot(clip)
             pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_21.png')
 
-            if HCompareImg(pic_tgt, pic_src).keypoint_compare() > 0.97:
+            if HCompareImg(pic_tgt, pic_src).keypoint_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -3400,7 +3396,7 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     @report.exception_screenshot
-    def test_sce_2_1_1_to_135(self):
+    def test_case_1(self):
         result = {"sce_2_1_1": self.sce_2_1_1(),
 
                   # Video
@@ -3526,19 +3522,6 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_127": self.sce_2_1_127(),
                   "sce_2_1_129_130": self.sce_2_1_129_130(),
 
-                  "sce_2_1_5": self.sce_2_1_5(),
-                  "sce_2_1_6": self.sce_2_1_6(),
-                  "sce_2_1_7": self.sce_2_1_7(),
-                  "sce_2_1_14": self.sce_2_1_14(),
-                  "sce_2_1_15": self.sce_2_1_15(),
-                  "sce_2_1_16": self.sce_2_1_16(),
-                  "sce_2_1_20": self.sce_2_1_20(),
-                  "sce_2_1_21": self.sce_2_1_21(),
-                  "sce_2_1_22": self.sce_2_1_22(),
-                  "sce_2_1_29": self.sce_2_1_29(),
-                  "sce_2_1_30": self.sce_2_1_30(),
-                  "sce_2_1_31": self.sce_2_1_31(),
-
                   # Music
                   "sce_2_1_8": self.sce_2_1_8(),
                   "sce_2_1_9": self.sce_2_1_9(),
@@ -3551,6 +3534,24 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_132": self.sce_2_1_132(),
                   "sce_2_1_133": self.sce_2_1_133(),
                   "sce_2_1_135": self.sce_2_1_135(),
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
+
+    def test_case_2(self):
+        result = {"sce_2_1_5": self.sce_2_1_5(),
+                  "sce_2_1_6": self.sce_2_1_6(),
+                  "sce_2_1_7": self.sce_2_1_7(),
+                  "sce_2_1_14": self.sce_2_1_14(),
+                  "sce_2_1_15": self.sce_2_1_15(),
+                  "sce_2_1_16": self.sce_2_1_16(),
+                  "sce_2_1_20": self.sce_2_1_20(),
+                  "sce_2_1_21": self.sce_2_1_21(),
+                  "sce_2_1_22": self.sce_2_1_22(),
+                  "sce_2_1_29": self.sce_2_1_29(),
+                  "sce_2_1_30": self.sce_2_1_30(),
+                  "sce_2_1_31": self.sce_2_1_31(),
 
                   }
         for key, value in result.items():

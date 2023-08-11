@@ -2518,6 +2518,7 @@ class Title_Designer(BasePage):
     def check_built_in_title(self):
         try:
             self.edit.enter_main_tool(self, 'Text')
+            self.click(find_string("Add Text"))
             category = set()
             built_in = {'Default', 'Expressive Titles', 'Classic'}
 

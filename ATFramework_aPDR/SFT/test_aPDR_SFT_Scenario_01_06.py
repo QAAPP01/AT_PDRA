@@ -295,7 +295,7 @@ class Test_SFT_Scenario_01_06:
 
         try:
             self.click(L.import_media.music_library.download)
-            self.click(L.edit.try_before_buy.try_it, 1)
+            self.click(find_string('Try it First'), 1)
             while self.is_exist(L.import_media.music_library.downloading, 1):
                 time.sleep(1)
             if not self.click(L.import_media.music_library.add):

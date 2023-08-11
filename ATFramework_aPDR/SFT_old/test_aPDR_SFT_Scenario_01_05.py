@@ -99,7 +99,7 @@ class Test_SFT_Scenario_01_05:
         # Enter stock video: pixabay
         self.report.start_uuid('2d748d11-432d-489b-bbad-f2f710608992')
         page_media.select_media_by_text('Stock Video')
-        page_media.el(L.import_media.video_library.tab_pixabay).click()
+        page_media.el(L.import_media.video_entry.tab_pixabay).click()
         page_media.select_media_by_order(2)
         page_media.select_media_by_order(1)
         page_media.download_video()
@@ -109,9 +109,9 @@ class Test_SFT_Scenario_01_05:
         self.report.new_result('2d748d11-432d-489b-bbad-f2f710608992', page_edit.is_exist(L.import_media.library_gridview.add))        
         # Enter Shutterstock
         self.report.start_uuid('0ebd7445-c423-484c-9853-c5fb70c2f83d')
-        page_media.el(L.import_media.video_library.tab_video_shutterstock).click()
-        if  page_edit.is_exist(L.import_media.video_library.shutterstock_ToU_OK):
-            page_media.el(L.import_media.video_library.shutterstock_ToU_OK).click()
+        page_media.el(L.import_media.video_entry.tab_video_shutterstock).click()
+        if  page_edit.is_exist(L.import_media.video_entry.shutterstock_ToU_OK):
+            page_media.el(L.import_media.video_entry.shutterstock_ToU_OK).click()
         page_media.select_media_by_order(1)
         page_media.download_video()
         time.sleep(5)
@@ -133,7 +133,7 @@ class Test_SFT_Scenario_01_05:
         
         # Search in pixabay
         self.report.start_uuid('dd73a4e5-97c8-4d66-8bc9-885b4e0af3a4')
-        page_media.el(L.import_media.video_library.searchClear).click()
+        page_media.el(L.import_media.video_entry.searchClear).click()
         time.sleep(5)
         page_media.search_video('ball')
         time.sleep(15)

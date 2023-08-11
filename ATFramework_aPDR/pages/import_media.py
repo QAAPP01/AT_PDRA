@@ -71,6 +71,7 @@ class MediaPage(BasePage):
             return True
         except Exception as err:
             raise Exception(err)
+            return False
 
     def select_local_video(self, folder, file_name):
         try:

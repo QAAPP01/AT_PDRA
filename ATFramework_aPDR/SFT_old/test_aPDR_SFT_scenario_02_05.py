@@ -87,7 +87,7 @@ class Test_SFT_Scenario_02_05:
         page_edit.el(L.edit.menu.delete).click()
         time.sleep(1)
         page_edit.el(L.edit.menu.import_media).click()
-        page_edit.el(L.import_media.menu.photo_library).click()
+        page_edit.el(L.import_media.menu.photo_entry).click()
         page_media.select_media_by_text('Color Board')
         #page_media.select_media_by_text(media_list[0])
         page_media.select_media_by_order(1)

@@ -145,12 +145,12 @@ class Test_SFT_Scenario_01_04:
         # enter folder > PDRa_Testing_Material
         self.report.start_uuid(udid[1])
         page_media.select_media_by_text(self.test_material_folder)
-        self.report.new_result(udid[1], page_media.check_element_exists(L.import_media.video_library.sort))
+        self.report.new_result(udid[1], page_media.check_element_exists(L.import_media.video_entry.sort))
         self.report.start_uuid(udid[2])
         # check default sorting as date + descending
-        page_media.click(L.import_media.video_library.sort)
-        if page_media.is_element_checked(L.import_media.video_library.sort_menu.by_date):
-            if page_media.is_element_checked(L.import_media.video_library.sort_menu.descending):
+        page_media.click(L.import_media.video_entry.sort)
+        if page_media.is_element_checked(L.import_media.video_entry.sort_menu.by_date):
+            if page_media.is_element_checked(L.import_media.video_entry.sort_menu.descending):
                 self.report.new_result(udid[2], True)
             else:
                 self.report.new_result(udid[2], False)
@@ -243,9 +243,9 @@ class Test_SFT_Scenario_01_04:
             # add media
             self.report.start_uuid(udid[index])
             page_media.select_media_by_text(self.test_material_folder)
-            page_media.click(L.import_media.video_library.sort)
-            page_media.click(L.import_media.video_library.sort_menu.by_date)
-            page_media.click(L.import_media.video_library.sort_menu.descending)
+            page_media.click(L.import_media.video_entry.sort)
+            page_media.click(L.import_media.video_entry.sort_menu.by_date)
+            page_media.click(L.import_media.video_entry.sort_menu.descending)
             page_media.driver.driver.back()
             page_media.select_media_by_text(media_list[index_media])
             #page_media.select_media_by_order(index_media+1)
@@ -307,45 +307,45 @@ class Test_SFT_Scenario_01_04:
         page_media.switch_to_video_library()
         # enter folder > PDRa_Testing_Material
         page_media.select_media_by_text(self.test_material_folder)
-        page_media.click(L.import_media.video_library.sort)
+        page_media.click(L.import_media.video_entry.sort)
         # case 1: (Ascending) By Name
-        page_media.click(L.import_media.video_library.sort_menu.by_name)
-        page_media.click(L.import_media.video_library.sort_menu.ascending)
+        page_media.click(L.import_media.video_entry.sort_menu.by_name)
+        page_media.click(L.import_media.video_entry.sort_menu.ascending)
         page_media.driver.driver.back()
         self.report.add_result(udid[0], page_media.video_list_check_item(material_list[0], material_list[1]),
                                case_name)
         # case 2: (Ascending) By Date
         self.report.start_uuid(udid[1])
-        page_media.click(L.import_media.video_library.sort)
-        page_media.click(L.import_media.video_library.sort_menu.by_date)
+        page_media.click(L.import_media.video_entry.sort)
+        page_media.click(L.import_media.video_entry.sort_menu.by_date)
         page_media.driver.driver.back()
         self.report.add_result(udid[1], page_media.video_list_check_item(material_list[1], material_list[0]),
                                case_name)
         # case 4: (Ascending) By Resolution
         self.report.start_uuid(udid[2])
-        page_media.click(L.import_media.video_library.sort)
-        page_media.click(L.import_media.video_library.sort_menu.by_resolution)
+        page_media.click(L.import_media.video_entry.sort)
+        page_media.click(L.import_media.video_entry.sort_menu.by_resolution)
         page_media.driver.driver.back()
         self.report.add_result(udid[2], page_media.video_list_check_item(material_list[0], material_list[2]),
                                case_name)
         # case 3: (Ascending) By Duration
         self.report.start_uuid(udid[3])
-        page_media.click(L.import_media.video_library.sort)
-        page_media.click(L.import_media.video_library.sort_menu.by_duration)
+        page_media.click(L.import_media.video_entry.sort)
+        page_media.click(L.import_media.video_entry.sort_menu.by_duration)
         page_media.driver.driver.back()
         self.report.add_result(udid[3], page_media.video_list_check_item(material_list[3], material_list[2]),
                                case_name)
         # case 5: (Ascending) By File size
         self.report.start_uuid(udid[4])
-        page_media.click(L.import_media.video_library.sort)
-        page_media.click(L.import_media.video_library.sort_menu.by_filesize)
+        page_media.click(L.import_media.video_entry.sort)
+        page_media.click(L.import_media.video_entry.sort_menu.by_filesize)
         page_media.driver.driver.back()
         self.report.add_result(udid[4], page_media.video_list_check_item(material_list[3], material_list[0]),
                                case_name)
         # set back to default by Descending + Date
-        page_media.click(L.import_media.video_library.sort)
-        page_media.click(L.import_media.video_library.sort_menu.by_date)
-        page_media.click(L.import_media.video_library.sort_menu.descending)
+        page_media.click(L.import_media.video_entry.sort)
+        page_media.click(L.import_media.video_entry.sort_menu.by_date)
+        page_media.click(L.import_media.video_entry.sort_menu.descending)
         page_media.driver.driver.back()
 
     @pytest.mark.skip
