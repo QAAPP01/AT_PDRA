@@ -816,6 +816,7 @@ class Try_Before_Buy:
     btn_subtounlock = id('unlock_content_view')
     icon_try = id('library_unit_lock')
     btn_delete_premium = id('delete_premium_btn')
+    try_it = aid('[AID]Upgrade_No')
     try_it_first = id('btnCancel')
     btn_ads_sub = id('btnPurchase')
 

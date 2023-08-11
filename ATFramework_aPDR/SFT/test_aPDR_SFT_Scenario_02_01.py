@@ -3169,8 +3169,17 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.click_tool("Audio")
+            self.click(find_string("Music"))
+            self.click(L.import_media.music_library.local)
+            self.click(find_string(self.test_material_folder))
+
             global file_music
-            file_music = "wav.wav"
+            file_music = self.element(L.import_media.music_library.file_name).text
+            self.click(L.import_media.music_library.add)
+
             self.click(L.edit.timeline.clip_audio(file_music))
 
             if self.page_edit.is_sub_tool_exist("Split"):
@@ -3521,15 +3530,6 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_128": self.sce_2_1_128(),
                   "sce_2_1_127": self.sce_2_1_127(),
                   "sce_2_1_129_130": self.sce_2_1_129_130(),
-
-                  # Music
-                  "sce_2_1_8": self.sce_2_1_8(),
-                  "sce_2_1_9": self.sce_2_1_9(),
-                  "sce_2_1_10": self.sce_2_1_10(),
-                  "sce_2_1_23": self.sce_2_1_23(),
-                  "sce_2_1_24": self.sce_2_1_24(),
-                  "sce_2_1_25": self.sce_2_1_25(),
-
                   "sce_2_1_131": self.sce_2_1_131(),
                   "sce_2_1_132": self.sce_2_1_132(),
                   "sce_2_1_133": self.sce_2_1_133(),
@@ -3557,3 +3557,19 @@ class Test_SFT_Scenario_02_01:
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
+
+
+    def test_case_3(self):
+        result = {
+                  # Music
+                  "sce_2_1_8": self.sce_2_1_8(),
+                  "sce_2_1_9": self.sce_2_1_9(),
+                  "sce_2_1_10": self.sce_2_1_10(),
+                  "sce_2_1_23": self.sce_2_1_23(),
+                  "sce_2_1_24": self.sce_2_1_24(),
+                  "sce_2_1_25": self.sce_2_1_25(),
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
+
