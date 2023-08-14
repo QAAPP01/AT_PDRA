@@ -2251,6 +2251,7 @@ class Test_SFT_Scenario_02_02:
         try:
             self.page_edit.select_transition_from_bottom_menu('Cross')
             self.click(L.edit.timeline.master_track.transition.tx_out(1))
+            self.click(L.edit.try_before_buy.try_it_first, 1)
             pic_src = self.page_main.get_preview_pic()
             self.click(L.edit.menu.play)
             time.sleep(1)

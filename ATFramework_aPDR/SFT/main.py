@@ -21,7 +21,7 @@ from .test_aPDR_SFT_Scenario_05_15_dev import Test_SFT_Scenario_05_15
 from .test_aPDR_SFT_Scenario_05_16_dev import Test_SFT_Scenario_05_16
 from .test_aPDR_SFT_Scenario_06_01_dev import Test_SFT_Scenario_06_01
 
-from .test_07_01_edit_sticker_aiSticker import Test_AiSticker
+from .test_edit_master_ai_effect_07_01 import Test_Case
 
 
 

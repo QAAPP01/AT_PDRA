@@ -217,24 +217,22 @@ class EditPage(BasePage):
 
     def check_setting_image_duration(self, sec, change_parameter=True):
         try:
-            if sec == 0.1:
-                percentage = 0
-            elif sec == 10.0:
-                percentage = 1
-            else:
-                percentage = sec / 10.0
+            percentage = sec * 10 - 1
             self.h_click(L.edit.settings.menu)
             self.h_click(L.edit.settings.preference)
             self.h_click(L.edit.settings.DefaultImageDuration.default_image_duration)
 
             if change_parameter:
-                self.page_preference.h_setting_duration(percentage)
+                slider = self.element(L.edit.settings.DefaultImageDuration.slider)
+                if slider.text != str(percentage):
+                    slider.send_keys(percentage)
             duration_text = self.h_get_element(L.edit.settings.DefaultImageDuration.txt_duration).text
             self.h_click(L.edit.settings.DefaultImageDuration.ok)
             self.h_click(L.timeline_settings.preference.back)
             return duration_text
         except Exception as err:
             logger(f'[Error] {err}')
+            return False
 
     def convert_pip_video(self, timeout=60):
         self.click(L.edit.converting.ok, 2)
@@ -256,7 +254,7 @@ class EditPage(BasePage):
             preview_rect = self.element(L.edit.preview.preview).rect
             x = preview_rect['x']
             y = preview_rect['y']
-            self.h_drag_element(L.edit.sub_tool.cutout.color_picker.picker_image, x, y)
+            self.h_drag_element(L.edit.master.ai_effect.color_picker, x, y)
             return True
         except Exception as err:
             raise Exception(err)

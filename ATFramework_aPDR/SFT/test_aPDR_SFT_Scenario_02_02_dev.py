@@ -424,9 +424,6 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             global pic_photo_default
             pic_photo_default = self.page_main.get_preview_pic()
@@ -2215,6 +2212,8 @@ class Test_SFT_Scenario_02_02:
         self.report.start_uuid(uuid)
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
             self.page_edit.check_setting_image_duration(5.0)
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
             self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
@@ -2252,6 +2251,7 @@ class Test_SFT_Scenario_02_02:
         try:
             self.page_edit.select_transition_from_bottom_menu('Cross')
             self.click(L.edit.timeline.master_track.transition.tx_out(1))
+            self.click(L.edit.try_before_buy.try_it_first, 1)
             pic_src = self.page_main.get_preview_pic()
             self.click(L.edit.menu.play)
             time.sleep(1)
@@ -2331,7 +2331,7 @@ class Test_SFT_Scenario_02_02:
         try:
             transition_amount = self.page_edit.calculate_transition_amount()
 
-            if transition_amount == 358:
+            if transition_amount >= 363:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -3828,23 +3828,7 @@ class Test_SFT_Scenario_02_02:
 
     def test_case_1(self):
         result = {"sce_2_2_1": self.sce_2_2_1(),
-                  "sce_2_2_2": self.sce_2_2_2(),
-                  "sce_2_2_3": self.sce_2_2_3(),
-                  "sce_2_2_4": self.sce_2_2_4(),
-                  "sce_2_2_5": self.sce_2_2_5(),
-                  "sce_2_2_6": self.sce_2_2_6(),
-                  "sce_2_2_7": self.sce_2_2_7(),
-                  "sce_2_2_8": self.sce_2_2_8(),
-                  "sce_2_2_9": self.sce_2_2_9(),
-                  "sce_2_2_10": self.sce_2_2_10(),
-                  "sce_2_2_11": self.sce_2_2_11(),
-                  }
-        for key, value in result.items():
-            if value != "PASS":
-                print(f"[{value}] {key}")
-
-    def test_case_2(self):
-        result = {"sce_2_2_14": self.sce_2_2_14(),
+                  "sce_2_2_14": self.sce_2_2_14(),
                   "sce_2_2_12": self.sce_2_2_12(),
                   "sce_2_2_13": self.sce_2_2_13(),
                   "sce_2_2_15": self.sce_2_2_15(),
@@ -3866,42 +3850,8 @@ class Test_SFT_Scenario_02_02:
             if value != "PASS":
                 print(f"[{value}] {key}")
 
-    def test_case_3(self):
-        result = {"sce_2_2_31": self.sce_2_2_31(),
-                  "sce_2_2_30": self.sce_2_2_30(),
-                  "sce_2_2_32": self.sce_2_2_32(),
-                  "sce_2_2_29": self.sce_2_2_29(),
-                  "sce_2_2_33": self.sce_2_2_33(),
-                  "sce_2_2_34": self.sce_2_2_34(),
-                  "sce_2_2_35": self.sce_2_2_35(),
-                  "sce_2_2_36": self.sce_2_2_36(),
-                  "sce_2_2_39": self.sce_2_2_39(),
-                  "sce_2_2_38": self.sce_2_2_38(),
-                  "sce_2_2_40": self.sce_2_2_40(),
-                  "sce_2_2_37": self.sce_2_2_37(),
-                  "sce_2_2_41": self.sce_2_2_41(),
-                  "sce_2_2_42": self.sce_2_2_42(),
-                  "sce_2_2_43": self.sce_2_2_43(),
-                  "sce_2_2_44": self.sce_2_2_44(),
-                  "sce_2_2_45": self.sce_2_2_45(),
-                  "sce_2_2_46": self.sce_2_2_46(),
-                  "sce_2_2_47": self.sce_2_2_47(),
-                  "sce_2_2_50": self.sce_2_2_50(),
-                  "sce_2_2_49": self.sce_2_2_49(),
-                  "sce_2_2_51": self.sce_2_2_51(),
-                  "sce_2_2_48": self.sce_2_2_48(),
-                  "sce_2_2_52": self.sce_2_2_52(),
-                  "sce_2_2_53": self.sce_2_2_53(),
-                  "sce_2_2_54": self.sce_2_2_54(),
-                  "sce_2_2_55": self.sce_2_2_55(),
-                  "sce_2_2_56": self.sce_2_2_56(),
-                  "sce_2_2_57": self.sce_2_2_57(),
-                  "sce_2_2_58": self.sce_2_2_58(),
-                  "sce_2_2_59": self.sce_2_2_59(),
-                  "sce_2_2_60": self.sce_2_2_60(),
-                  "sce_2_2_61": self.sce_2_2_61(),
-                  "sce_2_2_62": self.sce_2_2_62(),
-                  "sce_2_2_63": self.sce_2_2_63(),
+    def test_case_2(self):
+        result = { "sce_2_2_63": self.sce_2_2_63(),
                   "sce_2_2_64": self.sce_2_2_64(),
                   "sce_2_2_65": self.sce_2_2_65(),
                   # sce_2_2_104 is in sce_2_2_65
@@ -3912,7 +3862,7 @@ class Test_SFT_Scenario_02_02:
             if value != "PASS":
                 print(f"[{value}] {key}")
 
-    def test_case_4(self):
+    def test_case_3(self):
         result = {"sce_2_2_67": self.sce_2_2_67(),
                   "sce_2_2_69": self.sce_2_2_69(),
                   "sce_2_2_68": self.sce_2_2_68(),

@@ -14,10 +14,15 @@ class Master:
         else:
             return xpath(f'//*[contains(@resource-id,"item_view_border")]')
     class ai_effect:
-        cancel = id('btn_cancel')
         edit = id('itemEdit')
+        cancel = id('btn_cancel')
+        ok = id('btn_ok')
         dropper = id('dropper_button')
+        color_picker = id('color_dropper_straw_view')
         apply = id('btn_apply_icon')
+        reset = id('btn_reset')
+        back = id('btn_back')
+
 
 
         @staticmethod
@@ -54,6 +59,13 @@ class Master:
                 return xpath(f'(//*[contains(@resource-id,"color_image_view")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"color_image_view")]')
+
+        @staticmethod
+        def slider(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"seekbar")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"seekbar")]')
 
 
 class Converting:
