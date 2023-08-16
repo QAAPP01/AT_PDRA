@@ -141,7 +141,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
 
             return "FAIL"
 
@@ -169,7 +169,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
 
             return "FAIL"
@@ -205,7 +205,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.long_press(L.edit.master.ai_effect.effect(1))
             self.click(find_string("Favorites"))
@@ -236,7 +236,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
 
             return "FAIL"
@@ -263,7 +263,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
 
@@ -293,7 +293,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -330,7 +330,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -348,8 +348,10 @@ class Test_Case:
             self.click(L.edit.master.ai_effect.color_preset(1))
             if not self.click(L.edit.master.ai_effect.dropper):
                 raise Exception("Cannot find the dropper")
-            self.page_edit.drag_color_picker()
-            self.click(L.edit.master.ai_effect.apply)
+            if not self.page_edit.drag_color_picker():
+                raise Exception("Drag_color_picker fail")
+            if not self.click(L.edit.master.ai_effect.apply):
+                raise Exception("Click apply fail")
             preview_after = self.page_main.get_preview_pic()
 
             if HCompareImg(preview_after, preview_before).full_compare() < 1:
@@ -367,7 +369,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -400,7 +402,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -415,7 +417,8 @@ class Test_Case:
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.master.ai_effect.slider(1))
+            if not self.driver.drag_slider_to_max(L.edit.master.ai_effect.slider(1)):
+                raise Exception("Drag slider to the max fail")
             size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
             size_text = self.element(size_text).text
 
@@ -434,7 +437,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -466,7 +469,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -500,7 +503,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -532,7 +535,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -566,7 +569,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
@@ -598,7 +601,7 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.master_clip())
+            self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool("AI Effect")
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))

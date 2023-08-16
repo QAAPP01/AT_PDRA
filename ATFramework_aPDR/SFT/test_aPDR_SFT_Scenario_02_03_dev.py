@@ -405,6 +405,7 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
 
         try:
+            self.click(find_string('No Effect'), 30)
             if not self.page_edit.enter_sub_option_tool('Chroma Key'):
                 raise Exception('Click Chroma Key fail')
             toast_default = 'Drag the color picker on the screen to select a color.'
@@ -414,12 +415,11 @@ class Test_SFT_Scenario_02_03:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = f'[Fail] Toast incorrect: {toast}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Toast incorrect: {toast}')
 
         except Exception as err:
             logger(f'\n{err}')
+            self.report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1422,14 +1422,14 @@ class Test_SFT_Scenario_02_03:
         
     def test_case(self):
         result = {"sce_2_3_1": self.sce_2_3_1(),
-                  "sce_2_3_4": self.sce_2_3_4(),
-                  "sce_2_3_2": self.sce_2_3_2(),
-                  "sce_2_3_6": self.sce_2_3_6(),
-                  "sce_2_3_3": self.sce_2_3_3(),
-                  "sce_2_3_5": self.sce_2_3_5(),
-                  "sce_2_3_7": self.sce_2_3_7(),
-                  "sce_2_3_8": self.sce_2_3_8(),
-                  "sce_2_3_9": self.sce_2_3_9(),
+                  # "sce_2_3_4": self.sce_2_3_4(),
+                  # "sce_2_3_2": self.sce_2_3_2(),
+                  # "sce_2_3_6": self.sce_2_3_6(),
+                  # "sce_2_3_3": self.sce_2_3_3(),
+                  # "sce_2_3_5": self.sce_2_3_5(),
+                  # "sce_2_3_7": self.sce_2_3_7(),
+                  # "sce_2_3_8": self.sce_2_3_8(),
+                  # "sce_2_3_9": self.sce_2_3_9(),
                   "sce_2_3_10": self.sce_2_3_10(),
                   "sce_2_3_11": self.sce_2_3_11(),
                   "sce_2_3_12": self.sce_2_3_12(),
@@ -1437,15 +1437,15 @@ class Test_SFT_Scenario_02_03:
                   "sce_2_3_14": self.sce_2_3_14(),
                   "sce_2_3_15": self.sce_2_3_15(),
                   "sce_2_3_16": self.sce_2_3_16(),
-                  "sce_2_3_17": self.sce_2_3_17(),
-                  "sce_2_3_18": self.sce_2_3_18(),
-                  "sce_2_3_19": self.sce_2_3_19(),
-                  "sce_2_3_20": self.sce_2_3_20(),
-                  "sce_2_3_21": self.sce_2_3_21(),
-                  "sce_2_3_22": self.sce_2_3_22(),
-                  "sce_2_3_23": self.sce_2_3_23(),
-                  "sce_2_3_24": self.sce_2_3_24(),
-                  "sce_2_3_25": self.sce_2_3_25(),
+                  # "sce_2_3_17": self.sce_2_3_17(),
+                  # "sce_2_3_18": self.sce_2_3_18(),
+                  # "sce_2_3_19": self.sce_2_3_19(),
+                  # "sce_2_3_20": self.sce_2_3_20(),
+                  # "sce_2_3_21": self.sce_2_3_21(),
+                  # "sce_2_3_22": self.sce_2_3_22(),
+                  # "sce_2_3_23": self.sce_2_3_23(),
+                  # "sce_2_3_24": self.sce_2_3_24(),
+                  # "sce_2_3_25": self.sce_2_3_25(),
                   }
         for key, value in result.items():
             if value != "PASS":

@@ -8,7 +8,7 @@ class Master:
     def sub_tool(name):
         return xpath(f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
     @staticmethod
-    def master_clip(index=1):
+    def clip(index=1):
         if index:
             return xpath(f'(//*[contains(@resource-id,"item_view_border")])[{index}]')
         else:
@@ -67,6 +67,59 @@ class Master:
             else:
                 return xpath(f'//*[contains(@resource-id,"seekbar")]')
 
+    class effect:
+        edit = id('itemEdit')
+        cancel = id('btn_cancel')
+        ok = id('btn_ok')
+        dropper = id('dropper_button')
+        color_picker = id('color_dropper_straw_view')
+        apply = id('btn_apply_icon')
+        reset = id('btn_reset')
+        back = id('btn_back')
+
+
+
+        @staticmethod
+        def category(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"library_category_tab_text")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"library_category_tab_text")]')
+
+        @staticmethod
+        def effect(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"top_area")]')
+
+        @staticmethod
+        def effect_name(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+        @staticmethod
+        def favorite_icon(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemFavorite")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemFavorite")]')
+
+        @staticmethod
+        def color_preset(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"color_image_view")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"color_image_view")]')
+
+        @staticmethod
+        def slider(index:int=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"seekbar")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"seekbar")]')
 
 class Converting:
     ok = aid('[AID]ConfirmDialog_OK')

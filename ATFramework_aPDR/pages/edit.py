@@ -249,12 +249,12 @@ class EditPage(BasePage):
         else:
             return True
 
-    def drag_color_picker(self):
+    def drag_color_picker(self, locator=L.edit.master.ai_effect.color_picker):
         try:
             preview_rect = self.element(L.edit.preview.preview).rect
             x = preview_rect['x']
             y = preview_rect['y']
-            self.h_drag_element(L.edit.master.ai_effect.color_picker, x, y)
+            self.h_drag_element(locator, x, y)
             return True
         except Exception as err:
             raise Exception(err)
@@ -466,12 +466,15 @@ class EditPage(BasePage):
         return self.h_click(locator)
 
 
-    def click_sub_tool(self, name, timeout=0.1):
-        if not self.h_is_exist(L.edit.timeline.sub_tool, 3):
+    def click_sub_tool(self, name, timeout=0.2, exclusive=None):
+        if not self.h_is_exist(L.edit.timeline.sub_tool, 2):
             logger("[Info] Cannot find sub tool menu")
             logger("[Info] Select the first clip")
-            self.h_click(L.edit.timeline.clip())
-        locator = ('xpath', '//*[contains(@resource-id,"tool_entry_label") and contains(@text,"'+name+'")]')
+            self.click(L.edit.timeline.clip())
+        if exclusive:
+            locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}") and not(contains(@text,"{exclusive}"))]')
+        else:
+            locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
         while 1:
             if not self.h_is_exist(locator, timeout=timeout):
                 tool = self.h_get_elements(E.timeline.sub_tool)
@@ -2030,6 +2033,17 @@ class EditPage(BasePage):
         except Exception:
             logger("exception occurs")
             raise Exception
+
+    def waiting(self, timeout=60):
+        for i in range(timeout):
+            if self.is_exist(find_string("Cancel"), 1):
+                logger("Cancel")
+                continue
+            else:
+                logger("NO Cancel")
+                return True
+        logger("[Warning] loading timeout")
+        return False
 
     class Sticker:
         def __init__(self, edit):

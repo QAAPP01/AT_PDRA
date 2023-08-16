@@ -376,6 +376,7 @@ class Test_SFT_Scenario_02_03:
             if not self.page_edit.enter_sub_option_tool('Remove Background'):
                 raise Exception('Click Remove Background fail')
             self.click(L.edit.sub_tool.cutout.try_it, 2)
+            self.page_edit.waiting()
             pic_tgt = self.page_main.get_picture(L.edit.preview.pip_preview)
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
@@ -414,12 +415,11 @@ class Test_SFT_Scenario_02_03:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = f'[Fail] Toast incorrect: {toast}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Toast incorrect: {toast}')
 
         except Exception as err:
             logger(f'\n{err}')
+            self.report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()

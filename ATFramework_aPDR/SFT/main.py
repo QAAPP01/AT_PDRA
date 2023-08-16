@@ -1,7 +1,7 @@
 from .aa_init_test import TestInit
 
 
-from .test_aPDR_SFT_app_initial import test_app_init
+from .test_app_initial import test_app_init
 from .test_aPDR_SFT_Scenario_01_01 import Test_SFT_Scenario_01_01
 from .test_aPDR_SFT_Scenario_01_02 import Test_SFT_Scenario_01_02
 from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
@@ -22,6 +22,7 @@ from .test_aPDR_SFT_Scenario_05_16_dev import Test_SFT_Scenario_05_16
 from .test_aPDR_SFT_Scenario_06_01_dev import Test_SFT_Scenario_06_01
 
 from .test_edit_master_ai_effect_07_01 import Test_Case
+from .test_edit_master_effect_07_02 import Test_Case
 
 
 
