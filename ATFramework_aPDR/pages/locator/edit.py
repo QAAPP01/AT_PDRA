@@ -121,6 +121,14 @@ class Master:
             else:
                 return xpath(f'//*[contains(@resource-id,"seekbar")]')
 
+        @staticmethod
+        def value(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"value")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"value")]')
+
+
 class Converting:
     ok = aid('[AID]ConfirmDialog_OK')
     progress_bar = id('progress_bar')

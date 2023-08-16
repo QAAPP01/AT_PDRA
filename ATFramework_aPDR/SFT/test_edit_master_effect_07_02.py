@@ -52,8 +52,8 @@ class Test_Case:
         yield
         driver.driver.close_app()
 
-    def sce_7_1_1(self):
-        uuid = '7713342c-d600-43b7-9fe8-1675a2124c7b'
+    def sce_7_2_1(self):
+        uuid = '5934f484-9410-45e9-b636-5b23e9c99ff6'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
@@ -62,9 +62,10 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
-            self.page_edit.click_tool('AI Effect')
+            self.click(L.edit.master.clip())
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
 
-            if self.is_exist(L.edit.master.ai_effect.effect()):
+            if self.is_exist(L.edit.master.effect.effect()):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -79,12 +80,13 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
-            self.page_edit.click_tool('AI Effect')
+            self.click(L.edit.master.clip())
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
 
             return "FAIL"
 
-    def sce_7_1_2(self):
-        uuid = '09586d72-f271-4863-9e7e-36416d682706'
+    def sce_7_2_2(self):
+        uuid = '0606d5b9-b7a0-4f29-b0a8-a4590f535afd'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
@@ -92,7 +94,7 @@ class Test_Case:
         try:
             global preview_default
             preview_default = self.page_main.get_preview_pic()
-            self.click(L.edit.master.ai_effect.effect(1))
+            self.click(L.edit.master.effect.effect(1))
             self.click(L.edit.try_before_buy.try_it_first, 1)
 
             if self.element(id('itemMask')).get_attribute("selected") == "true":
@@ -110,20 +112,21 @@ class Test_Case:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
-            self.page_edit.click_tool('AI Effect')
+            self.click(L.edit.master.clip())
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
             self.click(L.edit.master.ai_effect.effect(1))
             self.click(L.edit.try_before_buy.try_it_first, 1)
 
             return "FAIL"
 
-    def sce_7_1_3(self):
-        uuid = 'b235c57c-2f0e-41af-94b7-559ef7848880'
+    def sce_7_2_3(self):
+        uuid = 'b5509a27-f666-46aa-86f3-80308c15e20a'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.master.ai_effect.cancel)
+            self.click(L.edit.master.effect.cancel)
             after_preview = self.page_main.get_preview_pic()
 
             if HCompareImg(after_preview, preview_default).full_compare() > 0.96:
@@ -142,50 +145,23 @@ class Test_Case:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
 
             return "FAIL"
 
-    def sce_7_1_4(self):
-        uuid = '283f410f-a8aa-4ff7-aa9f-b60221586e8d'
+    def sce_7_2_4(self):
+        uuid = '628bbb74-58fe-4124-b436-1ac2c85c0c5c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            self.page_edit.click_sub_tool("AI Effect")
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            effect_name = self.element(L.edit.master.effect.effect_name(1)).text
 
-            if self.is_exist(L.edit.master.ai_effect.effect()):
-                self.report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot find the effect')
+            self.long_press(L.edit.master.effect.effect(1))
 
-        except Exception as err:
-            logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-
-            return "FAIL"
-
-    def sce_7_1_5(self):
-        uuid = 'a887fe92-4174-45eb-b042-3e5967c6df35'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
-
-        try:
-            effect_name = self.element(L.edit.master.ai_effect.effect_name(1)).text
-
-            self.long_press(L.edit.master.ai_effect.effect(1))
-
-            if not self.element(L.edit.master.ai_effect.favorite_icon(1)).get_attribute("selected") == "true":
+            if not self.element(L.edit.master.effect.favorite_icon(1)).get_attribute("selected") == "true":
                 raise Exception('[Fail] Favorite icon is not lighted up')
 
             self.click(find_string("Favorites"))
@@ -204,24 +180,24 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.long_press(L.edit.master.ai_effect.effect(1))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.long_press(L.edit.master.effect.effect(1))
             self.click(find_string("Favorites"))
 
             return "FAIL"
 
-    def sce_7_1_6(self):
-        uuid = 'b6684755-ce40-4db2-b117-54004bf61e0e'
+    def sce_7_2_5(self):
+        uuid = 'cb938d4f-259e-4640-9062-49bb8425faec'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            self.long_press(L.edit.master.ai_effect.effect(1))
+            self.long_press(L.edit.master.effect.effect(1))
 
-            if not self.is_exist(L.edit.master.ai_effect.effect(0)):
+            if not self.is_exist(L.edit.master.effect.effect(0)):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -235,24 +211,24 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
 
             return "FAIL"
 
-    def sce_7_1_7(self):
-        uuid = 'b38fa219-f9de-4492-9d97-cb8385bb2a4b'
+    def sce_7_2_6(self):
+        uuid = '8d2a5c71-5274-4786-ad45-89d3825a62d3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            if self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0)):
+            if self.page_edit.click_category("Style", L.edit.master.effect.category(0)):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot enter "Body Effect"')
+                raise Exception('[Fail] Cannot enter "Style"')
 
         except Exception as err:
             logger(f'\n{err}')
@@ -262,27 +238,27 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
 
             return "FAIL"
 
-    def sce_7_1_8(self):
-        uuid = 'fcebcfb5-f2b5-41d7-91d8-70425154ba2c'
+    def sce_7_2_7(self):
+        uuid = 'e67df955-4cbd-4bd5-900d-e9cd2164374c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
-        self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+        self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
 
         try:
-            if self.is_exist(L.edit.master.ai_effect.edit):
+            if self.is_exist(L.edit.master.effect.edit):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot find "Contour 2"')
+                raise Exception('[Fail] Cannot find "Solarize"')
 
         except Exception as err:
             logger(f'\n{err}')
@@ -292,102 +268,28 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
 
             return "FAIL"
 
-    def sce_7_1_9(self):
-        uuid = '8f6911a6-f3ab-4d48-8626-08287afb95af'
+    def sce_7_2_8(self):
+        uuid = 'f298392c-b7cf-4972-9e22-f481e186d1be'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.master.ai_effect.edit)
+            self.click(L.edit.master.effect.edit)
             global preview_before
             preview_before = self.page_main.get_preview_pic()
 
-            color = self.elements(L.edit.master.ai_effect.color_preset(0))
-            self.click(color[-1])
-            preview_after = self.page_main.get_preview_pic()
+            size_text = self.element(L.edit.master.effect.value()).text
 
-            if HCompareImg(preview_after, preview_before).full_compare() < 1:
-                self.report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception('[Fail] Preview has no changed')
-
-        except Exception as err:
-            logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
-            self.click(L.edit.master.ai_effect.edit)
-
-            return "FAIL"
-
-    def sce_7_1_10(self):
-        uuid = '6b006448-51b4-4c0e-aaa4-2ce61454af32'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.edit.master.ai_effect.color_preset(1))
-            if not self.click(L.edit.master.ai_effect.dropper):
-                raise Exception("Cannot find the dropper")
-            if not self.page_edit.drag_color_picker():
-                raise Exception("Drag_color_picker fail")
-            if not self.click(L.edit.master.ai_effect.apply):
-                raise Exception("Click apply fail")
-            preview_after = self.page_main.get_preview_pic()
-
-            if HCompareImg(preview_after, preview_before).full_compare() < 1:
-                self.report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception('[Fail] Preview has no changed')
-
-        except Exception as err:
-            logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
-            self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
-            self.click(L.edit.master.ai_effect.edit)
-
-            return "FAIL"
-
-    def sce_7_1_11(self):
-        uuid = '03719502-c937-4167-8080-3ba26a580979'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
-
-        try:
-            size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
-            size_text = self.element(size_text).text
-
-            if size_text == '5':
+            if size_text == '120':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -401,28 +303,26 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
             return "FAIL"
 
-    def sce_7_1_12(self):
-        uuid = 'fde57950-3d73-4734-af2d-cf97feacb94b'
+    def sce_7_2_9(self):
+        uuid = '8e18a9e8-a447-4aea-8f1e-123595cb55bd'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            if not self.driver.drag_slider_to_max(L.edit.master.ai_effect.slider(1)):
-                raise Exception("Drag slider to the max fail")
-            size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
-            size_text = self.element(size_text).text
+            self.driver.drag_slider_to_max(L.edit.master.effect.slider())
+            size_text = self.element(L.edit.master.effect.value()).text
 
-            if size_text == '100':
+            if size_text == '255':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -436,17 +336,17 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
             return "FAIL"
 
-    def sce_7_1_13(self):
-        uuid = '96e00830-27e6-4bd8-af67-799faed17367'
+    def sce_7_2_10(self):
+        uuid = '10e58ba1-fb87-4d7b-84e9-d1aa3921a521'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
@@ -468,31 +368,30 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
             return "FAIL"
 
-    def sce_7_1_14(self):
-        uuid = 'ec71b63d-857a-45e8-9aa6-ed255b7cf1a7'
+    def sce_7_2_11(self):
+        uuid = 'fa2f384c-53e7-420d-9d49-6d6272aa4238'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.master.ai_effect.slider(1))
-            size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
-            size_text = self.element(size_text).text
+            self.driver.drag_slider_to_min(L.edit.master.effect.slider())
+            size_text = self.element(L.edit.master.effect.value()).text
 
             if size_text == '0':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Max value incorrect: {size_text}')
+                raise Exception(f'[Fail] min value incorrect: {size_text}')
 
         except Exception as err:
             logger(f'\n{err}')
@@ -502,17 +401,17 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
             return "FAIL"
 
-    def sce_7_1_15(self):
-        uuid = '64a6b861-c343-4afe-8758-8d522c2ee234'
+    def sce_7_2_12(self):
+        uuid = '6ba32eb7-728c-4868-8831-c22cf170352b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
@@ -534,31 +433,30 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
             return "FAIL"
 
-    def sce_7_1_16(self):
-        uuid = 'b1842e2f-85e1-4733-b66a-e9e9a2709f43'
+    def sce_7_2_13(self):
+        uuid = 'cfee92ca-96aa-4b3a-b6b3-acf267d197bb'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.master.ai_effect.reset)
-            size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
-            size_text = self.element(size_text).text
+            self.click(L.edit.master.effect.reset)
+            size_text = self.element(L.edit.master.effect.value()).text
 
-            if size_text == '5':
+            if size_text == '120':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value is not the default(5): {size_text}')
+                raise Exception(f'[Fail] Value is not the default(120): {size_text}')
 
         except Exception as err:
             logger(f'\n{err}')
@@ -568,25 +466,25 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
             return "FAIL"
 
-    def sce_7_1_17(self):
-        uuid = 'aa3241e2-63f4-4e06-b722-d3c751c0aefe'
+    def sce_7_2_14(self):
+        uuid = '28afbbfa-bf9e-49cc-9036-b878869456c8'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.master.ai_effect.back)
+            self.click(L.edit.master.effect.back)
 
-            if self.is_exist(L.edit.master.ai_effect.effect()):
+            if self.is_exist(L.edit.master.effect.effect()):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -600,22 +498,22 @@ class Test_Case:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', file_name=video_9_16)
+            self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool("AI Effect")
-            self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
-            self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
+            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
+            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
 
             return "FAIL"
 
-    def sce_7_1_18(self):
-        uuid = '9bd61e1e-f41a-4e72-8c8e-0060a3c86afe'
+    def sce_7_2_15(self):
+        uuid = '57de526e-0748-46d3-aa15-1e6d9f2af112'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.master.ai_effect.ok)
+            self.click(L.edit.master.effect.ok)
             preview_after = self.page_main.get_preview_pic()
 
             if HCompareImg(preview_after, preview_default).full_compare() < 1:
@@ -631,25 +529,26 @@ class Test_Case:
             return "FAIL"
 
     def test_case(self):
-        result = {"sce_7_1_1": self.sce_7_1_1(),
-                  "sce_7_1_2": self.sce_7_1_2(),
-                  "sce_7_1_3": self.sce_7_1_3(),
-                  "sce_7_1_4": self.sce_7_1_4(),
-                  "sce_7_1_5": self.sce_7_1_5(),
-                  "sce_7_1_6": self.sce_7_1_6(),
-                  "sce_7_1_7": self.sce_7_1_7(),
-                  "sce_7_1_8": self.sce_7_1_8(),
-                  "sce_7_1_9": self.sce_7_1_9(),
-                  "sce_7_1_10": self.sce_7_1_10(),
-                  "sce_7_1_11": self.sce_7_1_11(),
-                  "sce_7_1_12": self.sce_7_1_12(),
-                  "sce_7_1_13": self.sce_7_1_13(),
-                  "sce_7_1_14": self.sce_7_1_14(),
-                  "sce_7_1_15": self.sce_7_1_15(),
-                  "sce_7_1_16": self.sce_7_1_16(),
-                  "sce_7_1_17": self.sce_7_1_17(),
-                  "sce_7_1_18": self.sce_7_1_18(),
+        result = {"sce_7_2_1": self.sce_7_2_1(),
+                  "sce_7_2_2": self.sce_7_2_2(),
+                  "sce_7_2_3": self.sce_7_2_3(),
+                  "sce_7_2_4": self.sce_7_2_4(),
+                  "sce_7_2_5": self.sce_7_2_5(),
+                  "sce_7_2_6": self.sce_7_2_6(),
+                  "sce_7_2_7": self.sce_7_2_7(),
+                  "sce_7_2_8": self.sce_7_2_8(),
+                  "sce_7_2_9": self.sce_7_2_9(),
+                  "sce_7_2_10": self.sce_7_2_10(),
+                  "sce_7_2_11": self.sce_7_2_11(),
+                  "sce_7_2_12": self.sce_7_2_12(),
+                  "sce_7_2_13": self.sce_7_2_13(),
+                  "sce_7_2_14": self.sce_7_2_14(),
+                  "sce_7_2_15": self.sce_7_2_15(),
+
                   }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
+
+
+

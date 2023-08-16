@@ -72,11 +72,11 @@ def driver():
 
         devices = get_connected_devices()
 
-        # desired_caps['udid'] = "RFCW2198L7B"
-        if deviceName in devices:
-            desired_caps['udid'] = deviceName
-        else:
-            desired_caps['udid'] = devices[0] if devices else None
+        desired_caps['udid'] = "RFCW2198L7B"
+        # if deviceName in devices:
+        #     desired_caps['udid'] = deviceName
+        # else:
+        #     desired_caps['udid'] = devices[0] if devices else None
 
         mode = 'debug'
         args = [
