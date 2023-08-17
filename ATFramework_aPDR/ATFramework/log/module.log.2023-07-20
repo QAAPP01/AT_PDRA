@@ -1,0 +1,24 @@
+07/17/2023 12:38:24 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+07/17/2023 12:38:24 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+07/17/2023 12:38:24 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+07/17/2023 12:38:51 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0450866'}
+07/17/2023 04:41:38 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+07/17/2023 04:41:38 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+07/17/2023 04:41:38 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+07/17/2023 04:42:02 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0450887'}
+07/18/2023 11:53:34 AM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+07/18/2023 11:53:34 AM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+07/18/2023 11:53:34 AM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+07/18/2023 11:53:59 AM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0450930'}
+07/18/2023 04:46:57 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+07/18/2023 04:46:57 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+07/18/2023 04:46:57 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+07/18/2023 04:47:22 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0450949'}
+07/19/2023 02:21:13 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+07/19/2023 02:21:13 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+07/19/2023 02:21:13 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+07/19/2023 02:21:39 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0450987'}
+07/20/2023 12:14:05 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+07/20/2023 12:14:05 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+07/20/2023 12:14:05 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+07/20/2023 12:14:30 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0451060'}

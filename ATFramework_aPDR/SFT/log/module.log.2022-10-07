@@ -1,0 +1,852 @@
+10/07/2022 10:17:56 AM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 10:17:56 AM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x00000287CC210250>
+10/07/2022 10:17:57 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 30) - 
+============<Init driver session>============
+10/07/2022 10:17:57 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 10:18:05 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 50) - driver created!
+10/07/2022 10:18:11 AM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 10:18:11 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:18:12 AM <base_page.py> [is_exist](line 91) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.26836681365966797
+10/07/2022 10:18:12 AM <main_page.py> [project_click_new](line 40) - start >> project_click_new <<
+10/07/2022 10:18:12 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:18:17 AM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_exclusive_offer_for_you') Not found:5.467242956161499
+10/07/2022 10:18:18 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:18:18 AM <base_page.py> [is_exist](line 91) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.2392876148223877
+10/07/2022 10:18:18 AM <main_page.py> [project_click_new](line 48) - new project button exists
+10/07/2022 10:18:18 AM <base_page.py> [click](line 33) - click ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+10/07/2022 10:18:18 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:18:19 AM <base_page.py> [is_exist](line 91) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.6394217014312744
+10/07/2022 10:18:19 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:18:19 AM <base_page.py> [is_exist](line 91) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.043641090393066406
+10/07/2022 10:18:19 AM <main_page.py> [project_check_default_project_name](line 125) - start >> get_default_project_name <<
+10/07/2022 10:18:19 AM <main_page.py> [project_check_default_project_name](line 128) - project name:Project 10-07
+10/07/2022 10:18:19 AM <main_page.py> [project_check_default_project_name](line 131) - project name_default:Project 10-07
+10/07/2022 10:18:19 AM <report.py> [add_result](line 100) - Add Result = 61aa4cc9-a43d-4736-93f9-668e65b4fd8b / True / scenario_01_01 / 
+10/07/2022 10:18:19 AM <main_page.py> [project_set_name](line 82) - start >> project_set_name <<
+10/07/2022 10:18:20 AM <main_page.py> [project_set_16_9](line 86) - start >> project_set_16_9 <<
+10/07/2022 10:18:21 AM <main_page.py> [check_edit_mode_ready](line 118) - start >> check_edit_mode_ready <<
+10/07/2022 10:18:37 AM <report.py> [add_result](line 100) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / False / scenario_01_01 / 
+10/07/2022 10:18:37 AM <report.py> [add_result](line 112) - Fail screenshot = 1_scenario_01_01.png
+10/07/2022 10:18:38 AM <report.py> [add_result](line 132) - [Fail] ID = f3e277f2-67f0-4da8-80fe-02bb72857123 , Screenshot = True , fail number = 1
+10/07/2022 10:18:38 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 65) - 
+============<Teardown>============
+10/07/2022 10:19:15 AM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 10:19:15 AM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000026AC05003D0>
+10/07/2022 10:19:15 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 30) - 
+============<Init driver session>============
+10/07/2022 10:19:15 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 10:19:24 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 50) - driver created!
+10/07/2022 10:19:30 AM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 10:19:30 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:19:30 AM <base_page.py> [is_exist](line 91) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.27693748474121094
+10/07/2022 10:19:30 AM <main_page.py> [project_click_new](line 40) - start >> project_click_new <<
+10/07/2022 10:19:30 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:19:36 AM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_exclusive_offer_for_you') Not found:5.5214667320251465
+10/07/2022 10:19:36 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:19:36 AM <base_page.py> [is_exist](line 91) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.09704923629760742
+10/07/2022 10:19:36 AM <main_page.py> [project_click_new](line 48) - new project button exists
+10/07/2022 10:19:36 AM <base_page.py> [click](line 33) - click ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+10/07/2022 10:19:36 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:19:37 AM <base_page.py> [is_exist](line 91) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.6551492214202881
+10/07/2022 10:19:37 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:19:37 AM <base_page.py> [is_exist](line 91) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.04484987258911133
+10/07/2022 10:19:37 AM <main_page.py> [project_check_default_project_name](line 125) - start >> get_default_project_name <<
+10/07/2022 10:19:37 AM <main_page.py> [project_check_default_project_name](line 128) - project name:Project 10-07
+10/07/2022 10:19:38 AM <main_page.py> [project_check_default_project_name](line 131) - project name_default:Project 10-07
+10/07/2022 10:19:38 AM <report.py> [add_result](line 100) - Add Result = 61aa4cc9-a43d-4736-93f9-668e65b4fd8b / True / scenario_01_01 / 
+10/07/2022 10:19:38 AM <main_page.py> [project_set_name](line 82) - start >> project_set_name <<
+10/07/2022 10:19:39 AM <main_page.py> [project_set_16_9](line 86) - start >> project_set_16_9 <<
+10/07/2022 10:19:40 AM <main_page.py> [check_edit_mode_ready](line 118) - start >> check_edit_mode_ready <<
+10/07/2022 10:19:40 AM <report.py> [add_result](line 100) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / scenario_01_01 / 
+10/07/2022 10:19:41 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 65) - 
+============<Teardown>============
+10/07/2022 10:49:49 AM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 10:49:50 AM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001E41BC903D0>
+10/07/2022 10:49:50 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 30) - 
+============<Init driver session>============
+10/07/2022 10:49:50 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 10:49:59 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 50) - driver created!
+10/07/2022 10:50:07 AM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 10:50:07 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:50:07 AM <base_page.py> [is_exist](line 91) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.1689741611480713
+10/07/2022 10:50:07 AM <main_page.py> [project_click_new](line 40) - start >> project_click_new <<
+10/07/2022 10:50:07 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:50:12 AM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_exclusive_offer_for_you') Not found:5.428816795349121
+10/07/2022 10:50:13 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:50:13 AM <base_page.py> [is_exist](line 91) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.15448594093322754
+10/07/2022 10:50:13 AM <main_page.py> [project_click_new](line 48) - new project button exists
+10/07/2022 10:50:13 AM <base_page.py> [click](line 33) - click ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+10/07/2022 10:50:13 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:50:14 AM <base_page.py> [is_exist](line 91) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.6051616668701172
+10/07/2022 10:50:14 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 10:50:14 AM <base_page.py> [is_exist](line 91) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.041860103607177734
+10/07/2022 10:50:14 AM <main_page.py> [project_check_default_project_name](line 125) - start >> get_default_project_name <<
+10/07/2022 10:50:14 AM <main_page.py> [project_check_default_project_name](line 128) - project name:Project 10-07
+10/07/2022 10:50:14 AM <main_page.py> [project_check_default_project_name](line 131) - project name_default:Project 10-07
+10/07/2022 10:50:14 AM <report.py> [add_result](line 100) - Add Result = 61aa4cc9-a43d-4736-93f9-668e65b4fd8b / True / scenario_01_01 / 
+10/07/2022 10:50:14 AM <main_page.py> [project_set_name](line 82) - start >> project_set_name <<
+10/07/2022 10:50:15 AM <main_page.py> [project_set_16_9](line 86) - start >> project_set_16_9 <<
+10/07/2022 10:50:16 AM <main_page.py> [check_edit_mode_ready](line 118) - start >> check_edit_mode_ready <<
+10/07/2022 10:50:31 AM <report.py> [add_result](line 100) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / False / scenario_01_01 / 
+10/07/2022 10:50:32 AM <report.py> [add_result](line 112) - Fail screenshot = 1_scenario_01_01.png
+10/07/2022 10:50:32 AM <report.py> [add_result](line 132) - [Fail] ID = f3e277f2-67f0-4da8-80fe-02bb72857123 , Screenshot = True , fail number = 1
+10/07/2022 10:50:32 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 65) - 
+============<Teardown>============
+10/07/2022 11:25:20 AM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 11:25:20 AM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001C0251C03D0>
+10/07/2022 11:25:20 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 30) - 
+============<Init driver session>============
+10/07/2022 11:25:20 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 11:25:29 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 50) - driver created!
+10/07/2022 11:25:37 AM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 11:25:37 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 11:25:38 AM <base_page.py> [is_exist](line 91) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.17950701713562012
+10/07/2022 11:25:38 AM <main_page.py> [project_click_new](line 40) - start >> project_click_new <<
+10/07/2022 11:25:38 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 11:25:43 AM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_exclusive_offer_for_you') Not found:5.429012775421143
+10/07/2022 11:25:43 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 11:25:44 AM <base_page.py> [is_exist](line 91) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.14153218269348145
+10/07/2022 11:25:44 AM <main_page.py> [project_click_new](line 48) - new project button exists
+10/07/2022 11:25:44 AM <base_page.py> [click](line 33) - click ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+10/07/2022 11:25:45 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 11:25:45 AM <base_page.py> [is_exist](line 91) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.6338913440704346
+10/07/2022 11:25:45 AM <base_page.py> [is_exist](line 73) - start is_exist
+10/07/2022 11:25:46 AM <base_page.py> [is_exist](line 91) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.044850826263427734
+10/07/2022 11:25:46 AM <main_page.py> [project_check_default_project_name](line 125) - start >> get_default_project_name <<
+10/07/2022 11:25:46 AM <main_page.py> [project_check_default_project_name](line 128) - project name:Project 10-07
+10/07/2022 11:25:46 AM <main_page.py> [project_check_default_project_name](line 131) - project name_default:Project 10-07
+10/07/2022 11:25:46 AM <report.py> [add_result](line 100) - Add Result = 61aa4cc9-a43d-4736-93f9-668e65b4fd8b / True / scenario_01_01 / 
+10/07/2022 11:25:46 AM <main_page.py> [project_set_name](line 82) - start >> project_set_name <<
+10/07/2022 11:25:47 AM <main_page.py> [project_set_16_9](line 86) - start >> project_set_16_9 <<
+10/07/2022 11:25:48 AM <main_page.py> [check_edit_mode_ready](line 118) - start >> check_edit_mode_ready <<
+10/07/2022 11:26:04 AM <report.py> [add_result](line 100) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / False / scenario_01_01 / 
+10/07/2022 11:26:04 AM <report.py> [add_result](line 112) - Fail screenshot = 1_scenario_01_01.png
+10/07/2022 11:26:05 AM <report.py> [add_result](line 132) - [Fail] ID = f3e277f2-67f0-4da8-80fe-02bb72857123 , Screenshot = True , fail number = 1
+10/07/2022 11:26:05 AM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 65) - 
+============<Teardown>============
+10/07/2022 11:26:06 AM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:25:37 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:25:37 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000026DBD610430>
+10/07/2022 02:25:37 PM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 30) - 
+============<Init driver session>============
+10/07/2022 02:25:37 PM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:25:46 PM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 50) - driver created!
+10/07/2022 02:25:54 PM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 02:25:54 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:25:58 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:3.5460708141326904
+10/07/2022 02:25:58 PM <main_page.py> [project_click_new](line 116) - start >> project_click_new <<
+10/07/2022 02:25:58 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:26:03 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_exclusive_offer_for_you') Not found:5.291738033294678
+10/07/2022 02:26:03 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:26:04 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.29576539993286133
+10/07/2022 02:26:04 PM <main_page.py> [project_click_new](line 124) - new project button exists
+10/07/2022 02:26:04 PM <base_page.py> [click](line 36) - click ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+10/07/2022 02:26:04 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:26:05 PM <base_page.py> [is_exist](line 94) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.6405479907989502
+10/07/2022 02:26:05 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:26:05 PM <base_page.py> [is_exist](line 94) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.042526960372924805
+10/07/2022 02:26:05 PM <main_page.py> [project_check_default_project_name](line 201) - start >> get_default_project_name <<
+10/07/2022 02:26:05 PM <main_page.py> [project_check_default_project_name](line 204) - project name:Project 10-07
+10/07/2022 02:26:05 PM <main_page.py> [project_check_default_project_name](line 207) - project name_default:Project 10-07
+10/07/2022 02:26:05 PM <report.py> [add_result](line 100) - Add Result = 61aa4cc9-a43d-4736-93f9-668e65b4fd8b / True / scenario_01_01 / 
+10/07/2022 02:26:05 PM <main_page.py> [project_set_name](line 158) - start >> project_set_name <<
+10/07/2022 02:26:06 PM <main_page.py> [project_set_16_9](line 162) - start >> project_set_16_9 <<
+10/07/2022 02:26:07 PM <main_page.py> [check_edit_mode_ready](line 194) - start >> check_edit_mode_ready <<
+10/07/2022 02:26:23 PM <report.py> [add_result](line 100) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / False / scenario_01_01 / 
+10/07/2022 02:26:23 PM <report.py> [add_result](line 112) - Fail screenshot = 1_scenario_01_01.png
+10/07/2022 02:26:24 PM <report.py> [add_result](line 132) - [Fail] ID = f3e277f2-67f0-4da8-80fe-02bb72857123 , Screenshot = True , fail number = 1
+10/07/2022 02:26:24 PM <test_aPDR_SFT_Scenario_01_01.py> [initial](line 65) - 
+============<Teardown>============
+10/07/2022 02:26:25 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:26:53 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:26:53 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x00000223590C0280>
+10/07/2022 02:26:53 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+[Start] Init driver session
+10/07/2022 02:26:53 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 34) - 
+[Info] desired_caps={'platformName': 'Android', 'deviceName': 'Android', 'automationName': 'UiAutomator2', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True}
+10/07/2022 02:26:54 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:28:36 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:28:36 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001F4522303A0>
+10/07/2022 02:28:37 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+============<Init driver sessioin>============
+10/07/2022 02:28:37 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:28:45 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 51) - driver created!
+10/07/2022 02:28:47 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_08](line 302) - >>> test_sce_05_01_08: Video Intro - Edit Background Video<<<
+10/07/2022 02:28:48 PM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 02:28:48 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:28:53 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') Not found:5.57570219039917
+10/07/2022 02:28:53 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:28:59 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/project_16_9') Not found:5.744994878768921
+10/07/2022 02:29:00 PM <base_page.py> [_terminate_app](line 272) - [Terminate] com.cyberlink.powerdirector.DRA140225_01 : True
+10/07/2022 02:29:02 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_08.png
+10/07/2022 02:29:02 PM <report.py> [wrapper](line 275) - Exception: 'WebDriver' object has no attribute 'driver'
+10/07/2022 02:29:03 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 66) - 
+============<Teardown>============
+10/07/2022 02:29:03 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+============<Init driver sessioin>============
+10/07/2022 02:29:03 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:29:11 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 51) - driver created!
+10/07/2022 02:29:14 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_09](line 560) - >>> test_sce_05_01_09: Video Intro - Add Default Text<<<
+10/07/2022 02:29:14 PM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 02:29:14 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:29:20 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') Not found:5.709738254547119
+10/07/2022 02:29:20 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:29:25 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/project_16_9') Not found:5.354630708694458
+10/07/2022 02:29:26 PM <base_page.py> [_terminate_app](line 272) - [Terminate] com.cyberlink.powerdirector.DRA140225_01 : True
+10/07/2022 02:29:28 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_09.png
+10/07/2022 02:29:28 PM <report.py> [wrapper](line 275) - Exception: 'WebDriver' object has no attribute 'driver'
+10/07/2022 02:29:29 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 66) - 
+============<Teardown>============
+10/07/2022 02:29:29 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:30:59 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:30:59 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000002700C8D0400>
+10/07/2022 02:30:59 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+============<Init driver sessioin>============
+10/07/2022 02:30:59 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:31:08 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 51) - driver created!
+10/07/2022 02:31:10 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_08](line 302) - >>> test_sce_05_01_08: Video Intro - Edit Background Video<<<
+10/07/2022 02:31:10 PM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 02:31:10 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:31:16 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') Not found:5.730241060256958
+10/07/2022 02:31:16 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:31:22 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/project_16_9') Not found:5.256516456604004
+10/07/2022 02:31:22 PM <base_page.py> [_terminate_app](line 272) - [Terminate] com.cyberlink.powerdirector.DRA140225_01 : True
+10/07/2022 02:31:25 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_08.png
+10/07/2022 02:31:25 PM <report.py> [wrapper](line 275) - Exception: 'WebDriver' object has no attribute 'driver'
+10/07/2022 02:31:25 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 66) - 
+============<Teardown>============
+10/07/2022 02:31:26 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+============<Init driver sessioin>============
+10/07/2022 02:31:26 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:31:34 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 51) - driver created!
+10/07/2022 02:31:36 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_09](line 560) - >>> test_sce_05_01_09: Video Intro - Add Default Text<<<
+10/07/2022 02:31:36 PM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 02:31:37 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:31:42 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') Not found:5.758320569992065
+10/07/2022 02:31:42 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:31:48 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/project_16_9') Not found:5.293572425842285
+10/07/2022 02:31:49 PM <base_page.py> [_terminate_app](line 272) - [Terminate] com.cyberlink.powerdirector.DRA140225_01 : True
+10/07/2022 02:31:51 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_09.png
+10/07/2022 02:31:51 PM <report.py> [wrapper](line 275) - Exception: 'WebDriver' object has no attribute 'driver'
+10/07/2022 02:31:51 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 66) - 
+============<Teardown>============
+10/07/2022 02:31:52 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:32:16 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:32:16 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x00000188BE2C03A0>
+10/07/2022 02:32:17 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+[Start] Init driver session
+10/07/2022 02:32:17 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True}
+10/07/2022 02:32:17 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+[Start] Init driver session
+10/07/2022 02:32:17 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True}
+10/07/2022 02:32:17 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:32:47 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:32:47 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x00000191FB280250>
+10/07/2022 02:32:48 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+============<Init driver sessioin>============
+10/07/2022 02:32:48 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True}
+10/07/2022 02:32:48 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+============<Init driver sessioin>============
+10/07/2022 02:32:48 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True}
+10/07/2022 02:32:48 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:33:20 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:33:20 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000028A55470430>
+10/07/2022 02:33:20 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+============<Init driver sessioin>============
+10/07/2022 02:33:21 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 38) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:33:29 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 51) - driver created!
+10/07/2022 02:33:31 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_08](line 302) - >>> test_sce_05_01_08: Video Intro - Edit Background Video<<<
+10/07/2022 02:33:32 PM <ad.py> [close_opening_ads](line 232) - close opening ads...
+10/07/2022 02:33:32 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:33:37 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') Not found:5.850294351577759
+10/07/2022 02:33:38 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:33:43 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/project_16_9') Not found:5.209259986877441
+10/07/2022 02:33:44 PM <base_page.py> [_terminate_app](line 272) - [Terminate] com.cyberlink.powerdirector.DRA140225_01 : True
+10/07/2022 02:34:28 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:34:28 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001EBFF790460>
+10/07/2022 02:34:29 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+[Start] Init driver session
+10/07/2022 02:34:29 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 34) - 
+[Info] desired_caps={'platformName': 'Android', 'deviceName': 'Android', 'automationName': 'UiAutomator2', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:34:33 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 52) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+10/07/2022 02:34:42 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 47) - 
+ [Done] Driver created!
+10/07/2022 02:34:45 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 76) - 
+[Start] sce_05_01_01
+10/07/2022 02:34:47 PM <main_page.py> [enter_launcher](line 101) - 
+[Fail] Enter Launcher Fail
+10/07/2022 02:34:47 PM <main_page.py> [enter_launcher](line 102) - [Exception Error] 'Permission' object has no attribute 'loading_bar'
+10/07/2022 02:34:47 PM <main_page.py> [project_click_new](line 116) - start >> project_click_new <<
+10/07/2022 02:34:47 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:34:53 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_exclusive_offer_for_you') Not found:5.7249815464019775
+10/07/2022 02:34:53 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:34:54 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.7670528888702393
+10/07/2022 02:34:54 PM <main_page.py> [project_click_new](line 124) - new project button exists
+10/07/2022 02:34:54 PM <base_page.py> [click](line 36) - click ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+10/07/2022 02:34:55 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:34:55 PM <base_page.py> [is_exist](line 94) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.1725931167602539
+10/07/2022 02:34:55 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:34:55 PM <base_page.py> [is_exist](line 94) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.10564684867858887
+10/07/2022 02:34:56 PM <main_page.py> [project_set_name](line 158) - start >> project_set_name <<
+10/07/2022 02:34:57 PM <main_page.py> [project_set_16_9](line 162) - start >> project_set_16_9 <<
+10/07/2022 02:35:06 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 02:35:10 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:35:10 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') found:0.08212780952453613
+10/07/2022 02:35:16 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:35:16 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') found:0.06309103965759277
+10/07/2022 02:35:22 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:35:28 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.041866779327393
+10/07/2022 02:35:28 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:35:28 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.04086041450500488
+10/07/2022 02:35:28 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 02:35:28 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 02:35:29 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 62) - 
+[Done] Teardown
+10/07/2022 02:35:29 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:42:00 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:42:00 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x00000255972B0400>
+10/07/2022 02:42:01 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 26) - 
+[Start] Init driver session
+10/07/2022 02:42:01 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+[Info] desired_caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:42:09 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 44) - 
+[Done] Driver created!
+10/07/2022 02:42:12 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 73) - 
+[Start] sce_05_01_01
+10/07/2022 02:42:14 PM <main_page.py> [enter_launcher](line 101) - 
+[Fail] Enter Launcher Fail
+10/07/2022 02:42:14 PM <main_page.py> [enter_launcher](line 102) - [Exception Error] 'Permission' object has no attribute 'loading_bar'
+10/07/2022 02:42:14 PM <main_page.py> [project_click_new](line 129) - start >> project_click_new <<
+10/07/2022 02:42:14 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:42:20 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_exclusive_offer_for_you') Not found:5.911562204360962
+10/07/2022 02:42:20 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:42:21 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.8758187294006348
+10/07/2022 02:42:21 PM <main_page.py> [project_click_new](line 137) - new project button exists
+10/07/2022 02:42:21 PM <base_page.py> [click](line 36) - click ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+10/07/2022 02:42:22 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:42:22 PM <base_page.py> [is_exist](line 94) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.6274404525756836
+10/07/2022 02:42:23 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:42:23 PM <base_page.py> [is_exist](line 94) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.05581355094909668
+10/07/2022 02:42:23 PM <main_page.py> [project_set_name](line 171) - start >> project_set_name <<
+10/07/2022 02:42:24 PM <main_page.py> [project_set_16_9](line 175) - start >> project_set_16_9 <<
+10/07/2022 02:42:33 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 02:42:37 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:42:37 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') found:0.07375049591064453
+10/07/2022 02:42:43 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:42:43 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') found:0.06831789016723633
+10/07/2022 02:42:49 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:42:55 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.05627703666687
+10/07/2022 02:42:56 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:42:56 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.0477299690246582
+10/07/2022 02:42:56 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 02:42:56 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 02:42:56 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 59) - 
+[Done] Teardown
+10/07/2022 02:42:57 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 02:44:07 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:44:07 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001A9940F0370>
+10/07/2022 02:44:07 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 26) - 
+[Start] Init driver session
+10/07/2022 02:44:07 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+[Info] desired_caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:44:16 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 44) - 
+[Done] Driver created!
+10/07/2022 02:44:19 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 73) - 
+[Start] sce_05_01_01
+10/07/2022 02:44:21 PM <main_page.py> [enter_launcher](line 101) - 
+[Fail] Enter Launcher Fail
+10/07/2022 02:44:21 PM <main_page.py> [enter_launcher](line 102) - [Exception Error] 'Permission' object has no attribute 'loading_bar'
+10/07/2022 02:44:21 PM <main_page.py> [project_click_new](line 129) - start >> project_click_new <<
+10/07/2022 02:44:21 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:44:27 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_exclusive_offer_for_you') Not found:5.854726076126099
+10/07/2022 02:44:27 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:44:28 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project') found:0.46799421310424805
+10/07/2022 02:44:28 PM <main_page.py> [project_click_new](line 137) - new project button exists
+10/07/2022 02:44:28 PM <base_page.py> [click](line 36) - click ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+10/07/2022 02:44:29 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:44:29 PM <base_page.py> [is_exist](line 94) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.13112092018127441
+10/07/2022 02:44:29 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:44:29 PM <base_page.py> [is_exist](line 94) - [is_exist] ('accessibility id', '[AID]Modify_ProjectName') found:0.4076840877532959
+10/07/2022 02:44:30 PM <main_page.py> [project_set_name](line 171) - start >> project_set_name <<
+10/07/2022 02:44:31 PM <main_page.py> [project_set_16_9](line 175) - start >> project_set_16_9 <<
+10/07/2022 02:44:40 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 02:44:44 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:44:44 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') found:0.07219934463500977
+10/07/2022 02:44:50 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:44:50 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') found:0.0802309513092041
+10/07/2022 02:44:56 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:44:56 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') found:0.0673680305480957
+10/07/2022 02:45:02 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 02:45:02 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') found:0.05888962745666504
+10/07/2022 02:57:34 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 02:57:34 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001C41CC00400>
+10/07/2022 02:57:34 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 26) - 
+[Start] Init driver session
+10/07/2022 02:57:34 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 30) - 
+[Info] desired_caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 02:57:39 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 49) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+10/07/2022 02:57:49 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 44) - 
+[Done] Driver created!
+10/07/2022 02:57:51 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 73) - 
+[Start] sce_05_01_01
+10/07/2022 02:57:55 PM <main_page.py> [enter_launcher](line 101) - 
+[Fail] Enter Launcher Fail
+10/07/2022 02:57:55 PM <main_page.py> [enter_launcher](line 102) - [Exception Error] 'Permission' object has no attribute 'loading_bar'
+10/07/2022 02:57:56 PM <main_page.py> [project_set_name](line 172) - start >> project_set_name <<
+10/07/2022 02:58:03 PM <main_page.py> [enter_timeline](line 112) - 
+[Done] Enter Timeline Done
+10/07/2022 02:58:08 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 02:58:10 PM <edit.py> [enter_intro_video_library](line 1345) - exception occurs
+10/07/2022 02:58:11 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_01.png
+10/07/2022 02:58:11 PM <report.py> [wrapper](line 275) - Exception: 
+10/07/2022 02:58:11 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 59) - 
+[Done] Teardown
+10/07/2022 03:03:08 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:03:08 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000020127200280>
+10/07/2022 03:03:08 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:03:08 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps=None
+10/07/2022 03:03:17 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:03:20 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:03:22 PM <main_page.py> [enter_launcher](line 101) - 
+[Fail] Enter Launcher Fail
+10/07/2022 03:03:22 PM <main_page.py> [enter_launcher](line 102) - [Exception Error] 'Permission' object has no attribute 'loading_bar'
+10/07/2022 03:03:23 PM <main_page.py> [project_set_name](line 172) - start >> project_set_name <<
+10/07/2022 03:03:32 PM <main_page.py> [enter_timeline](line 112) - 
+[Done] Enter Timeline Done
+10/07/2022 03:03:37 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:03:38 PM <edit.py> [enter_intro_video_library](line 1345) - exception occurs
+10/07/2022 03:03:39 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_01.png
+10/07/2022 03:03:39 PM <report.py> [wrapper](line 275) - Exception: 
+10/07/2022 03:03:40 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:03:41 PM <report.py> [add_result](line 132) - [Fail] ID = d0bafbda-e361-4cbf-af80-9da541351a27 , Screenshot = False , fail number = 1
+10/07/2022 03:03:41 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:04:51 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:04:51 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001B4700E0400>
+10/07/2022 03:04:52 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:05:00 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:05:03 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:05:06 PM <main_page.py> [enter_launcher](line 101) - 
+[Fail] Enter Launcher Fail
+10/07/2022 03:05:06 PM <main_page.py> [enter_launcher](line 102) - [Exception Error] 'Permission' object has no attribute 'loading_bar'
+10/07/2022 03:05:07 PM <main_page.py> [project_set_name](line 172) - start >> project_set_name <<
+10/07/2022 03:05:15 PM <main_page.py> [enter_timeline](line 112) - 
+[Done] Enter Timeline Done
+10/07/2022 03:05:20 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:05:21 PM <edit.py> [enter_intro_video_library](line 1345) - exception occurs
+10/07/2022 03:05:22 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_01.png
+10/07/2022 03:05:22 PM <report.py> [wrapper](line 275) - Exception: 
+10/07/2022 03:05:22 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:05:23 PM <report.py> [add_result](line 132) - [Fail] ID = d0bafbda-e361-4cbf-af80-9da541351a27 , Screenshot = False , fail number = 1
+10/07/2022 03:05:23 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:14:50 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:14:50 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000022B16FD03A0>
+10/07/2022 03:14:51 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:14:51 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:14:59 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:15:02 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:15:15 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_01.png
+10/07/2022 03:15:15 PM <report.py> [wrapper](line 275) - Exception: 'EditPage' object has no attribute 'enter_timeline'
+10/07/2022 03:15:15 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:15:16 PM <report.py> [add_result](line 132) - [Fail] ID = d0bafbda-e361-4cbf-af80-9da541351a27 , Screenshot = False , fail number = 1
+10/07/2022 03:15:16 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:17:45 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:17:45 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000018D191F0400>
+10/07/2022 03:17:45 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:17:45 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:17:54 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:17:56 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:18:11 PM <edit.py> [enter_timeline](line 1595) - 
+[Fail] Enter Launcher Fail
+10/07/2022 03:18:11 PM <edit.py> [enter_timeline](line 1596) - [Exception Error] 'EditPage' object has no attribute 'project_set_name'
+10/07/2022 03:18:16 PM <edit.py> [enter_intro_video_library](line 1332) - start enter_intro_video_library
+10/07/2022 03:18:16 PM <edit.py> [enter_intro_video_library](line 1348) - exception occurs
+10/07/2022 03:18:17 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_01.png
+10/07/2022 03:18:17 PM <report.py> [wrapper](line 275) - Exception: 
+10/07/2022 03:18:17 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:18:18 PM <report.py> [add_result](line 132) - [Fail] ID = d0bafbda-e361-4cbf-af80-9da541351a27 , Screenshot = False , fail number = 1
+10/07/2022 03:18:18 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:28:30 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:28:30 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x00000238088603D0>
+10/07/2022 03:28:30 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:28:30 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:28:39 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:28:42 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:28:56 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_01_01.png
+10/07/2022 03:28:56 PM <report.py> [wrapper](line 275) - Exception: 'EditPage' object has no attribute 'enter_timeline'
+10/07/2022 03:28:56 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:28:57 PM <report.py> [add_result](line 132) - [Fail] ID = d0bafbda-e361-4cbf-af80-9da541351a27 , Screenshot = False , fail number = 1
+10/07/2022 03:28:58 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:29:37 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:29:37 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000002185AAD03A0>
+10/07/2022 03:29:37 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:29:37 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:29:46 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:29:48 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:30:03 PM <main_page.py> [project_set_name](line 172) - start >> project_set_name <<
+10/07/2022 03:30:07 PM <main_page.py> [enter_timeline](line 112) - 
+[Done] Enter Timeline Done
+10/07/2022 03:30:12 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:30:16 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:30:22 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.361764192581177
+10/07/2022 03:30:22 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:30:23 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.3636319637298584
+10/07/2022 03:30:23 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:30:23 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:30:23 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:30:24 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:31:33 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:31:33 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000017B95100400>
+10/07/2022 03:31:34 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:31:34 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:31:42 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:31:45 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:32:00 PM <main_page.py> [enter_timeline](line 107) - 
+[Start] enter_timeline
+10/07/2022 03:32:00 PM <main_page.py> [project_set_name](line 173) - start >> project_set_name <<
+10/07/2022 03:32:05 PM <main_page.py> [enter_timeline](line 113) - 
+[Done] Enter Timeline Done
+10/07/2022 03:32:10 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:32:13 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:32:19 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.355425119400024
+10/07/2022 03:32:19 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:32:20 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.3336756229400635
+10/07/2022 03:32:20 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:32:20 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:32:20 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:32:21 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:34:22 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:34:22 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000002C7620103A0>
+10/07/2022 03:34:22 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:34:22 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:34:30 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:34:33 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:34:33 PM <main_page.py> [enter_launcher](line 34) - [Start] enter_launcher
+10/07/2022 03:34:47 PM <main_page.py> [enter_timeline](line 110) - 
+[Start] enter_timeline
+10/07/2022 03:34:48 PM <main_page.py> [project_set_name](line 176) - start >> project_set_name <<
+10/07/2022 03:34:52 PM <main_page.py> [enter_timeline](line 116) - 
+[Done] Enter Timeline Done
+10/07/2022 03:34:57 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:35:01 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:35:07 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.6832475662231445
+10/07/2022 03:35:07 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:35:08 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.42784595489501953
+10/07/2022 03:35:08 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:35:08 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:35:08 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:35:09 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:37:45 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:37:45 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000002823C200250>
+10/07/2022 03:37:45 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:37:45 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:37:54 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:37:56 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:37:56 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 03:38:10 PM <main_page.py> [enter_timeline](line 117) - 
+[Start] enter_timeline
+10/07/2022 03:38:10 PM <main_page.py> [project_set_name](line 183) - start >> project_set_name <<
+10/07/2022 03:38:15 PM <main_page.py> [enter_timeline](line 123) - 
+[Done] Enter Timeline Done
+10/07/2022 03:38:20 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:38:23 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:38:30 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.355453252792358
+10/07/2022 03:38:30 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:38:30 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.45450639724731445
+10/07/2022 03:38:30 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:38:31 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:38:31 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:38:32 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:38:41 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:38:41 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x00000166E9D003D0>
+10/07/2022 03:38:41 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:38:41 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:38:50 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:38:52 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:38:52 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 03:39:07 PM <main_page.py> [enter_timeline](line 117) - 
+[Start] enter_timeline
+10/07/2022 03:39:07 PM <main_page.py> [project_set_name](line 183) - start >> project_set_name <<
+10/07/2022 03:39:11 PM <main_page.py> [enter_timeline](line 123) - 
+[Done] Enter Timeline Done
+10/07/2022 03:39:16 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:39:20 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:39:26 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.7066144943237305
+10/07/2022 03:39:26 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:39:27 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.3146533966064453
+10/07/2022 03:39:27 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:39:27 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:39:27 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:39:28 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:43:39 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:43:39 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001CE7E7C0400>
+10/07/2022 03:43:39 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:43:39 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:43:48 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:43:50 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:43:51 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 03:43:57 PM <main_page.py> [enter_timeline](line 121) - 
+[Start] enter_timeline
+10/07/2022 03:43:57 PM <main_page.py> [project_set_name](line 187) - start >> project_set_name <<
+10/07/2022 03:44:02 PM <main_page.py> [enter_timeline](line 127) - 
+[Done] Enter Timeline Done
+10/07/2022 03:44:07 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:44:10 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:44:17 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.466609477996826
+10/07/2022 03:44:17 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:44:17 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.3298654556274414
+10/07/2022 03:44:17 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:44:17 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:44:17 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:44:18 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:46:53 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:46:53 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000001D3520D03D0>
+10/07/2022 03:46:53 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:46:53 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:47:01 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:47:04 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:47:04 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 03:47:10 PM <main_page.py> [enter_launcher](line 75) - 
+[Info] 3rd Launch
+10/07/2022 03:47:12 PM <main_page.py> [enter_launcher](line 80) - 
+[Done] Enter Launcher
+10/07/2022 03:47:12 PM <main_page.py> [enter_timeline](line 118) - 
+[Start] enter_timeline
+10/07/2022 03:47:12 PM <main_page.py> [project_set_name](line 184) - start >> project_set_name <<
+10/07/2022 03:47:17 PM <main_page.py> [enter_timeline](line 124) - 
+[Done] Enter Timeline Done
+10/07/2022 03:47:22 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:47:30 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:47:30 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000021175F60400>
+10/07/2022 03:47:31 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:47:31 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:47:35 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 51) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+10/07/2022 03:47:45 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:47:47 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:47:47 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 03:47:55 PM <main_page.py> [enter_launcher](line 75) - 
+[Info] 3rd Launch
+10/07/2022 03:47:57 PM <main_page.py> [enter_launcher](line 80) - 
+[Done] Enter Launcher
+10/07/2022 03:47:57 PM <main_page.py> [enter_timeline](line 118) - 
+[Start] enter_timeline
+10/07/2022 03:47:57 PM <main_page.py> [project_set_name](line 184) - start >> project_set_name <<
+10/07/2022 03:48:03 PM <main_page.py> [enter_timeline](line 124) - 
+[Done] Enter Timeline Done
+10/07/2022 03:48:08 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:48:11 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:48:12 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:1.2879514694213867
+10/07/2022 03:48:19 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:7.844881772994995
+10/07/2022 03:48:19 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:48:19 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.4146406650543213
+10/07/2022 03:48:19 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:48:20 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:48:20 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:48:21 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:48:37 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:48:37 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x00000153D80C03D0>
+10/07/2022 03:48:38 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:48:38 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:48:47 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:48:49 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:48:49 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 03:48:53 PM <base_page.py> [h_is_exist](line 507) - [No found] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+10/07/2022 03:48:55 PM <main_page.py> [enter_launcher](line 75) - 
+[Info] 3rd Launch
+10/07/2022 03:48:57 PM <main_page.py> [enter_launcher](line 80) - 
+[Done] Enter Launcher
+10/07/2022 03:48:57 PM <main_page.py> [enter_timeline](line 118) - 
+[Start] enter_timeline
+10/07/2022 03:48:58 PM <main_page.py> [project_set_name](line 184) - start >> project_set_name <<
+10/07/2022 03:49:02 PM <main_page.py> [enter_timeline](line 124) - 
+[Done] Enter Timeline Done
+10/07/2022 03:49:07 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:49:11 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:49:17 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.720682382583618
+10/07/2022 03:49:17 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:49:18 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.4146568775177002
+10/07/2022 03:49:18 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:49:18 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:49:18 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:49:19 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 03:52:48 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 03:52:48 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000023550F20400>
+10/07/2022 03:52:48 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 03:52:48 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 03:52:57 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 03:52:59 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 03:53:00 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 03:53:05 PM <base_page.py> [h_is_exist](line 508) - [No found] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress') (3.68)
+10/07/2022 03:53:07 PM <main_page.py> [enter_launcher](line 75) - 
+[Info] 3rd Launch
+10/07/2022 03:53:09 PM <main_page.py> [enter_launcher](line 80) - 
+[Done] Enter Launcher
+10/07/2022 03:53:09 PM <main_page.py> [enter_timeline](line 118) - 
+[Start] enter_timeline
+10/07/2022 03:53:09 PM <main_page.py> [project_set_name](line 184) - start >> project_set_name <<
+10/07/2022 03:53:14 PM <main_page.py> [enter_timeline](line 124) - 
+[Done] Enter Timeline Done
+10/07/2022 03:53:19 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 03:53:22 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:53:29 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.586288213729858
+10/07/2022 03:53:29 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 03:53:29 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.3987557888031006
+10/07/2022 03:53:29 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 03:53:29 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 03:53:29 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 03:53:30 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+10/07/2022 06:25:58 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 06:25:58 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x0000026989F50430>
+10/07/2022 06:25:58 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 06:25:58 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 06:26:07 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 06:26:11 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 06:26:11 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 06:26:15 PM <base_page.py> [h_is_exist](line 508) - [No found (2.59)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+10/07/2022 06:26:17 PM <main_page.py> [enter_launcher](line 75) - 
+[Info] 3rd Launch
+10/07/2022 06:26:19 PM <main_page.py> [enter_launcher](line 80) - 
+[Done] Enter Launcher
+10/07/2022 06:26:19 PM <main_page.py> [enter_timeline](line 115) - 
+[Start] enter_timeline
+10/07/2022 06:26:22 PM <main_page.py> [project_set_name](line 181) - start >> project_set_name <<
+10/07/2022 06:27:28 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+10/07/2022 06:27:28 PM <conftest.py> [report_initial](line 35) - report = <ATFramework.utils._report.report.MyReport object at 0x000002B21E2E03D0>
+10/07/2022 06:27:28 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 28) - 
+[Start] Init driver session
+10/07/2022 06:27:28 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 32) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+10/07/2022 06:27:33 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 51) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+10/07/2022 06:27:42 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 46) - 
+[Done] Driver created!
+10/07/2022 06:27:44 PM <test_aPDR_SFT_scenario_05_01.py> [test_sce_05_01_01](line 75) - 
+[Start] sce_05_01_01
+10/07/2022 06:27:45 PM <main_page.py> [enter_launcher](line 34) - 
+[Start] enter_launcher
+10/07/2022 06:27:50 PM <base_page.py> [h_is_exist](line 508) - [No found (1.53)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+10/07/2022 06:27:51 PM <main_page.py> [enter_launcher](line 75) - 
+[Info] 3rd Launch
+10/07/2022 06:27:53 PM <main_page.py> [enter_launcher](line 82) - 
+[Skip] IAP
+10/07/2022 06:27:55 PM <base_page.py> [h_is_exist](line 508) - [No found (1.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+10/07/2022 06:27:55 PM <main_page.py> [enter_launcher](line 91) - 
+[Skip] Churn Recovery
+10/07/2022 06:27:57 PM <main_page.py> [enter_launcher](line 99) - 
+[Skip] Check in
+10/07/2022 06:27:57 PM <main_page.py> [enter_launcher](line 102) - 
+[Done] Enter Launcher
+10/07/2022 06:27:57 PM <main_page.py> [enter_timeline](line 112) - 
+[Start] enter_timeline
+10/07/2022 06:27:57 PM <main_page.py> [project_set_name](line 178) - start >> project_set_name <<
+10/07/2022 06:28:01 PM <main_page.py> [enter_timeline](line 118) - 
+[Done] Enter Timeline Done
+10/07/2022 06:28:06 PM <edit.py> [enter_intro_video_library](line 1329) - start enter_intro_video_library
+10/07/2022 06:28:10 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 06:28:16 PM <base_page.py> [is_exist](line 97) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress') Not found:6.215870380401611
+10/07/2022 06:28:16 PM <base_page.py> [is_exist](line 76) - start is_exist
+10/07/2022 06:28:16 PM <base_page.py> [is_exist](line 94) - [is_exist] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/template_recycler_view') found:0.06898999214172363
+10/07/2022 06:28:16 PM <edit.py> [enter_intro_video_library](line 1339) - Load complete.
+10/07/2022 06:28:16 PM <report.py> [add_result](line 100) - Add Result = d0bafbda-e361-4cbf-af80-9da541351a27 / True / sce_05_01_01 / 
+10/07/2022 06:28:16 PM <test_aPDR_SFT_scenario_05_01.py> [initial](line 61) - 
+[Done] Teardown
+10/07/2022 06:28:17 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...

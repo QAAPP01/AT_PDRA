@@ -1,4 +1,4 @@
-import pytest, sys, subprocess
+import pytest, sys, subprocess, os
 from appium.webdriver.appium_service import AppiumService
 
 from os.path import dirname as dir
@@ -14,6 +14,10 @@ platform_type = 'Android'
 PACKAGE_NAME = package_name
 TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
 TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
+
+# Recording path
+folder_path = os.path.join(os.path.dirname(__file__), "recording")
+os.makedirs(folder_path, exist_ok=True)
 
 def pytest_addoption(parser):
     parser.addoption("--udid", action="store", default="auto", help="device unique udid")

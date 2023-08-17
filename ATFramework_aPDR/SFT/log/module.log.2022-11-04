@@ -1,0 +1,1405 @@
+11/04/2022 09:53:11 AM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 09:53:11 AM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001B70F8AC3D0>
+11/04/2022 09:53:11 AM <test_aPDR_SFT_scenario_05_08.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 09:53:11 AM <test_aPDR_SFT_scenario_05_08.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 09:53:21 AM <test_aPDR_SFT_scenario_05_08.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 09:53:24 AM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 84) - 
+[Start] sce_05_08_24
+11/04/2022 09:53:26 AM <base_page.py> [h_get_element](line 497) - [No found (1.22)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 09:53:27 AM <base_page.py> [h_is_exist](line 532) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 09:53:27 AM <base_page.py> [h_get_element](line 497) - [No found (0.86)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 09:53:28 AM <base_page.py> [h_get_element](line 497) - [No found (0.88)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 09:53:29 AM <base_page.py> [h_is_exist](line 532) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 09:53:30 AM <base_page.py> [h_get_element](line 497) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 09:53:30 AM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 09:53:35 AM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 09:53:37 AM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 09:53:38 AM <base_page.py> [h_get_element](line 497) - [No found (1.57)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/video_template_thumbnail')
+11/04/2022 09:53:44 AM <base_page.py> [h_get_element](line 497) - [No found (1.68)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/video_template_thumbnail')
+11/04/2022 09:53:52 AM <base_page.py> [h_is_exist](line 532) - [No found (1.94)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 09:53:53 AM <edit.py> [customize](line 1525) - [Done] Enter intro designer
+11/04/2022 09:53:54 AM <base_page.py> [h_get_element](line 497) - [No found (1.31)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 09:53:58 AM <base_page.py> [get_preview_pic](line 49) - C:\Users\HAUSEN~1\AppData\Local\Temp\c5b839cf-9bbb-400e-ad28-120f25e8dca1.png
+11/04/2022 09:54:02 AM <base_page.py> [get_preview_pic](line 49) - C:\Users\HAUSEN~1\AppData\Local\Temp\52a4f5a3-0c84-46e6-babe-f6b08e32eef1.png
+11/04/2022 09:54:02 AM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\c5b839cf-9bbb-400e-ad28-120f25e8dca1.png)
+11/04/2022 09:54:02 AM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\52a4f5a3-0c84-46e6-babe-f6b08e32eef1.png)
+11/04/2022 09:54:03 AM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.005935280018770953
+11/04/2022 09:54:03 AM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 09:54:03 AM <report.py> [add_result](line 100) - Add Result = 5841c726-6358-4715-826c-bbcde03e926b / True / sce_05_08_24 / 
+11/04/2022 09:54:03 AM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 97) - 
+[Start] sce_05_08_25
+11/04/2022 09:54:06 AM <base_page.py> [h_get_element](line 497) - [No found (1.39)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 09:54:10 AM <base_page.py> [get_preview_pic](line 49) - C:\Users\HAUSEN~1\AppData\Local\Temp\5c8604bd-c8be-4f51-9c33-4bbcfdf331f1.png
+11/04/2022 09:54:14 AM <base_page.py> [get_preview_pic](line 49) - C:\Users\HAUSEN~1\AppData\Local\Temp\7ea5dfc7-19d1-45ae-91f2-cf6e1aa8b468.png
+11/04/2022 09:54:14 AM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\5c8604bd-c8be-4f51-9c33-4bbcfdf331f1.png)
+11/04/2022 09:54:14 AM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\7ea5dfc7-19d1-45ae-91f2-cf6e1aa8b468.png)
+11/04/2022 09:54:14 AM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.001113304709650186
+11/04/2022 09:54:14 AM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 09:54:14 AM <report.py> [add_result](line 100) - Add Result = f81a3deb-4a14-42c1-93a7-8a76e703210a / True / sce_05_08_24 / 
+11/04/2022 09:54:15 AM <report.py> [add_result](line 103) - [Warning] UUID is not in running list. Do you forget start_uuid(f81a3deb-4a14-42c1-93a7-8a76e703210a)?
+11/04/2022 09:54:15 AM <test_aPDR_SFT_scenario_05_08.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 11:01:10 AM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 11:01:10 AM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000181819B8370>
+11/04/2022 11:01:10 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 11:01:10 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 11:01:18 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 11:01:21 AM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 11:01:22 AM <base_page.py> [h_get_element](line 504) - [No found (1.36)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 11:01:23 AM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 11:01:24 AM <base_page.py> [h_get_element](line 504) - [No found (0.83)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 11:01:25 AM <base_page.py> [h_get_element](line 504) - [No found (0.83)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 11:01:26 AM <base_page.py> [h_is_exist](line 539) - [No found (0.83)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 11:01:27 AM <base_page.py> [h_get_element](line 504) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 11:01:27 AM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 11:01:32 AM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 11:01:33 AM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 11:01:35 AM <base_page.py> [h_is_exist](line 539) - [No found (1.25)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 11:01:38 AM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/auto_TR220711-018/[Exception]test_sce_05_11_27.png
+11/04/2022 11:01:38 AM <report.py> [wrapper](line 275) - Exception: appium.webdriver.webdriver.WebDriver.find_element() argument after * must be an iterable, not WebElement
+11/04/2022 11:01:38 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 11:04:05 AM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 11:04:05 AM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001D9CE5E84F0>
+11/04/2022 11:04:05 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 11:04:05 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 11:04:13 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 11:04:16 AM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 11:04:17 AM <base_page.py> [h_get_element](line 504) - [No found (1.18)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 11:04:18 AM <base_page.py> [h_is_exist](line 539) - [No found (0.83)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 11:04:19 AM <base_page.py> [h_get_element](line 504) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 11:04:20 AM <base_page.py> [h_get_element](line 504) - [No found (0.86)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 11:04:21 AM <base_page.py> [h_is_exist](line 539) - [No found (0.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 11:04:22 AM <base_page.py> [h_get_element](line 504) - [No found (0.86)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 11:04:22 AM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 11:04:26 AM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 11:04:28 AM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 11:04:30 AM <base_page.py> [h_is_exist](line 539) - [No found (2.17)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 11:04:33 AM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/auto_TR220711-018/[Exception]test_sce_05_11_27.png
+11/04/2022 11:04:33 AM <report.py> [wrapper](line 275) - Exception: 'Intro_Video' object has no attribute 'templates'
+11/04/2022 11:04:33 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 11:05:06 AM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 11:05:06 AM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001FA181C84F0>
+11/04/2022 11:05:06 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 11:05:06 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 11:05:14 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 11:05:17 AM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 11:05:18 AM <base_page.py> [h_get_element](line 504) - [No found (1.27)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 11:05:19 AM <base_page.py> [h_is_exist](line 539) - [No found (0.89)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 11:05:20 AM <base_page.py> [h_get_element](line 504) - [No found (0.75)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 11:05:21 AM <base_page.py> [h_get_element](line 504) - [No found (0.72)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 11:05:21 AM <base_page.py> [h_is_exist](line 539) - [No found (0.77)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 11:05:22 AM <base_page.py> [h_get_element](line 504) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 11:05:22 AM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 11:05:27 AM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 11:05:28 AM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 11:05:30 AM <base_page.py> [h_is_exist](line 539) - [No found (1.1)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 11:05:37 AM <base_page.py> [h_is_exist](line 539) - [No found (1.44)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 11:05:38 AM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 11:05:39 AM <base_page.py> [h_get_element](line 504) - [No found (1.5)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 11:05:48 AM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\75e0cd54-88e4-4448-a3f5-a0ec937125a7.png
+11/04/2022 11:05:53 AM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\4b9aeaf7-7e51-4385-b215-73eb54a72df4.png
+11/04/2022 11:05:53 AM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\75e0cd54-88e4-4448-a3f5-a0ec937125a7.png)
+11/04/2022 11:05:53 AM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\4b9aeaf7-7e51-4385-b215-73eb54a72df4.png)
+11/04/2022 11:05:53 AM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.00020537777407720923
+11/04/2022 11:05:53 AM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 11:05:53 AM <report.py> [add_result](line 100) - Add Result = bfb8aabd-5575-47b4-9838-f0d6429974fa / True / sce_05_11_27 / 
+11/04/2022 11:05:53 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 11:07:12 AM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 11:07:12 AM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001D0C17183A0>
+11/04/2022 11:07:12 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 11:07:12 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 11:07:20 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 11:07:23 AM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 11:07:24 AM <base_page.py> [h_get_element](line 503) - [No found (1.08)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 11:07:25 AM <base_page.py> [h_is_exist](line 538) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 11:07:26 AM <base_page.py> [h_get_element](line 503) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 11:07:27 AM <base_page.py> [h_get_element](line 503) - [No found (0.87)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 11:07:27 AM <base_page.py> [h_is_exist](line 538) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 11:07:28 AM <base_page.py> [h_get_element](line 503) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 11:07:28 AM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 11:07:33 AM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 11:07:35 AM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 11:07:37 AM <base_page.py> [h_is_exist](line 538) - [No found (2.12)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 11:07:44 AM <base_page.py> [h_is_exist](line 538) - [No found (1.42)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 11:07:45 AM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 11:07:46 AM <base_page.py> [h_get_element](line 503) - [No found (1.33)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 11:07:53 AM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/auto_TR220711-018/[Exception]test_sce_05_11_27.png
+11/04/2022 11:07:53 AM <report.py> [wrapper](line 275) - Exception: Message: An element could not be located on the page using the given search parameters.
+Stacktrace:
+NoSuchElementError: An element could not be located on the page using the given search parameters.
+    at AndroidUiautomator2Driver.findElOrEls (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-android-driver\lib\commands\find.js:75:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at AndroidUiautomator2Driver.findElOrElsWithProcessing (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\basedriver\commands\find.js:33:12)
+    at AndroidUiautomator2Driver.findElement (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\basedriver\commands\find.js:53:10)
+11/04/2022 11:07:53 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 11:09:37 AM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 11:09:38 AM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002D70E588490>
+11/04/2022 11:09:38 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 11:09:38 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 11:09:46 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 11:09:49 AM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 11:09:50 AM <base_page.py> [h_get_element](line 504) - [No found (1.12)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 11:09:51 AM <base_page.py> [h_is_exist](line 539) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 11:09:52 AM <base_page.py> [h_get_element](line 504) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 11:09:53 AM <base_page.py> [h_get_element](line 504) - [No found (0.77)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 11:09:53 AM <base_page.py> [h_is_exist](line 539) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 11:09:54 AM <base_page.py> [h_get_element](line 504) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 11:09:54 AM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 11:09:59 AM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 11:10:01 AM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 11:10:03 AM <base_page.py> [h_is_exist](line 539) - [No found (2.09)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 11:10:11 AM <base_page.py> [h_is_exist](line 539) - [No found (1.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 11:10:12 AM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 11:10:13 AM <base_page.py> [h_get_element](line 504) - [No found (1.43)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 11:10:22 AM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\c999c80e-a0e3-46ab-b4a9-c4b709c15306.png
+11/04/2022 11:10:27 AM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\76e389c7-d965-45eb-ae11-a8ac3233c44e.png
+11/04/2022 11:10:27 AM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (303, 539)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\c999c80e-a0e3-46ab-b4a9-c4b709c15306.png)
+11/04/2022 11:10:27 AM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (303, 539)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\76e389c7-d965-45eb-ae11-a8ac3233c44e.png)
+11/04/2022 11:10:27 AM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.0010413055655576857
+11/04/2022 11:10:27 AM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 11:10:27 AM <report.py> [add_result](line 100) - Add Result = bfb8aabd-5575-47b4-9838-f0d6429974fa / True / sce_05_11_27 / 
+11/04/2022 11:10:27 AM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 12:07:01 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 12:07:01 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001E987088460>
+11/04/2022 12:07:01 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 12:07:01 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 12:07:10 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 12:07:13 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 84) - 
+[Start] sce_05_15_1
+11/04/2022 12:07:14 PM <base_page.py> [h_get_element](line 504) - [No found (1.37)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 12:07:15 PM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 12:07:16 PM <base_page.py> [h_get_element](line 504) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 12:07:17 PM <base_page.py> [h_get_element](line 504) - [No found (0.73)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 12:07:18 PM <base_page.py> [h_is_exist](line 539) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 12:07:19 PM <base_page.py> [h_get_element](line 504) - [No found (0.78)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 12:07:19 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 12:07:23 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 12:07:25 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 12:07:28 PM <base_page.py> [h_is_exist](line 539) - [No found (2.16)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 12:07:33 PM <base_page.py> [h_is_exist](line 539) - [No found (1.63)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 12:07:33 PM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 12:07:41 PM <base_page.py> [h_get_element](line 504) - [No found (5.45)] ('xpath', '//*[contains(@text,"Add to Yout Video")]')
+11/04/2022 12:07:41 PM <edit.py> [add_to_video_in_intro](line 1568) - 
+[Fail] Cannot find "Add to Yout Video"
+11/04/2022 12:07:41 PM <report.py> [add_result](line 100) - Add Result = 2b94f7e6-0550-4942-bdfa-ea7de20d3179 / False / sce_05_15_1 / Fail Log is not set. 
+11/04/2022 12:07:41 PM <report.py> [add_result](line 112) - Fail screenshot = 1_sce_05_15_1.png
+11/04/2022 12:07:41 PM <report.py> [add_result](line 132) - [Fail] ID = 2b94f7e6-0550-4942-bdfa-ea7de20d3179 , Screenshot = True , fail number = 1
+11/04/2022 12:07:41 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 99) - 
+[Start] sce_05_15_2
+11/04/2022 12:07:47 PM <base_page.py> [h_get_element](line 504) - [No found (5.32)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/intro_video_entry')
+11/04/2022 12:07:50 PM <base_page.py> [h_is_exist](line 539) - [No found (2.36)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/top_toolbar_back')
+11/04/2022 12:07:50 PM <edit.py> [enter_intro](line 1382) - 
+[Fail] Enter Intro Fail
+11/04/2022 12:07:52 PM <base_page.py> [h_is_exist](line 539) - [No found (1.56)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 12:07:53 PM <base_page.py> [h_get_element](line 504) - [No found (1.51)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/video_template_thumbnail')
+11/04/2022 12:08:00 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/auto_TR220711-018/[Exception]test_sce_05_15_1.png
+11/04/2022 12:08:01 PM <report.py> [wrapper](line 275) - Exception: object of type 'bool' has no len()
+11/04/2022 12:08:02 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 12:08:13 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 12:08:13 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000224826384F0>
+11/04/2022 12:08:13 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 12:08:13 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 12:08:22 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 12:08:25 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 84) - 
+[Start] sce_05_15_1
+11/04/2022 12:08:26 PM <base_page.py> [h_get_element](line 504) - [No found (0.98)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 12:08:26 PM <base_page.py> [h_is_exist](line 539) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 12:08:28 PM <base_page.py> [h_get_element](line 504) - [No found (1.04)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 12:08:28 PM <base_page.py> [h_get_element](line 504) - [No found (0.8)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 12:08:29 PM <base_page.py> [h_is_exist](line 539) - [No found (0.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 12:08:30 PM <base_page.py> [h_get_element](line 504) - [No found (0.84)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 12:08:30 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 12:08:35 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 12:08:37 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 12:08:38 PM <base_page.py> [h_is_exist](line 539) - [No found (1.33)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 12:08:44 PM <base_page.py> [h_is_exist](line 539) - [No found (2.53)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 12:08:45 PM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 12:08:47 PM <edit.py> [add_to_video_in_intro](line 1562) - [Done] Add to Your Video
+11/04/2022 12:08:47 PM <report.py> [add_result](line 100) - Add Result = 2b94f7e6-0550-4942-bdfa-ea7de20d3179 / True / sce_05_15_1 / 
+11/04/2022 12:08:47 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 99) - 
+[Start] sce_05_15_2
+11/04/2022 12:08:49 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 12:08:51 PM <base_page.py> [h_is_exist](line 539) - [No found (2.03)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 12:08:55 PM <base_page.py> [h_is_exist](line 539) - [No found (1.45)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 12:08:55 PM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 12:08:58 PM <edit.py> [share_template](line 1575) - [Done] Share Template
+11/04/2022 12:08:58 PM <report.py> [add_result](line 100) - Add Result = cb72109e-8791-43ca-a22e-36664f0e0e38 / True / sce_05_15_1 / 
+11/04/2022 12:08:58 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 02:32:53 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 02:32:54 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001ECC964C340>
+11/04/2022 02:32:54 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 41) - 
+[Start] Init driver session
+11/04/2022 02:32:54 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 47) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 02:32:58 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 66) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+11/04/2022 02:33:08 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 61) - 
+[Done] Driver created!
+11/04/2022 02:33:10 PM <test_aPDR_SFT_scenario_05_16.py> [test_sce_05_16_16](line 90) - 
+[Start] sce_05_16_16
+11/04/2022 02:33:11 PM <base_page.py> [h_get_element](line 504) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 02:33:14 PM <base_page.py> [h_is_exist](line 539) - [No found (1.18)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 02:33:15 PM <base_page.py> [h_get_element](line 504) - [No found (1.01)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 02:33:16 PM <base_page.py> [h_get_element](line 504) - [No found (0.93)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 02:33:17 PM <base_page.py> [h_is_exist](line 539) - [No found (0.93)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 02:33:18 PM <base_page.py> [h_get_element](line 504) - [No found (0.94)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 02:33:18 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 02:33:23 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 02:33:24 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 02:33:28 PM <base_page.py> [h_is_exist](line 539) - [No found (1.12)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 02:33:36 PM <base_page.py> [h_is_exist](line 539) - [No found (1.88)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 02:33:36 PM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 02:33:38 PM <edit.py> [share_template](line 1575) - [Done] Share Template
+11/04/2022 02:33:40 PM <report.py> [add_result](line 100) - Add Result = d6cd4a33-715a-4eae-ad88-271e44b91482 / True / sce_05_16_16 / 
+11/04/2022 02:33:40 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 79) - 
+[Done] Teardown
+11/04/2022 02:41:22 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 02:41:22 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001D9B4D5EE90>
+11/04/2022 02:41:22 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 02:41:22 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:42:36 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 02:42:36 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001AE2FFE4520>
+11/04/2022 02:42:36 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 02:42:36 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:42:46 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 75) - 
+[Done] Driver created!
+11/04/2022 02:42:49 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 104) - 
+[Start] sce_02_03_310
+11/04/2022 02:42:50 PM <base_page.py> [h_get_element](line 504) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 02:42:52 PM <base_page.py> [h_is_exist](line 539) - [No found (2.15)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 02:42:55 PM <main_page.py> [enter_launcher](line 70) - [Done] Enter Launcher
+11/04/2022 02:43:00 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 02:43:08 PM <base_page.py> [h_get_element](line 504) - [No found (1.43)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 02:43:09 PM <import_media.py> [switch_to_photo_library](line 263) - [Info] Switch_to_photo_library
+11/04/2022 02:43:16 PM <base_page.py> [h_get_element](line 504) - [No found (0.76)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/mediaPickerStoryboardOK')
+11/04/2022 02:43:21 PM <base_page.py> [h_get_element](line 504) - [No found (1.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 02:43:22 PM <base_page.py> [h_is_exist](line 539) - [No found (1.89)] ('xpath', '//*[contains(@text,"Effect")]')
+11/04/2022 02:43:28 PM <base_page.py> [h_is_exist](line 539) - [No found (1.28)] ('xpath', '//*[contains(@text,"Brightness")]')
+11/04/2022 02:43:35 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_02_03_310.png
+11/04/2022 02:43:35 PM <report.py> [wrapper](line 275) - Exception: object of type 'bool' has no len()
+11/04/2022 02:43:35 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 93) - 
+[Done] Teardown
+11/04/2022 02:43:36 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 02:43:36 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:53:18 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 02:53:18 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001A650D84550>
+11/04/2022 02:53:19 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 02:53:19 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:53:24 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 80) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+11/04/2022 02:53:34 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 75) - 
+[Done] Driver created!
+11/04/2022 02:53:37 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 104) - 
+[Start] sce_02_03_310
+11/04/2022 02:53:38 PM <base_page.py> [h_get_element](line 504) - [No found (0.89)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 02:53:40 PM <base_page.py> [h_is_exist](line 539) - [No found (1.15)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 02:53:41 PM <base_page.py> [h_get_element](line 504) - [No found (0.99)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 02:53:42 PM <base_page.py> [h_get_element](line 504) - [No found (0.77)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 02:53:42 PM <base_page.py> [h_is_exist](line 539) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 02:53:43 PM <base_page.py> [h_get_element](line 504) - [No found (0.86)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 02:53:43 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 02:53:48 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 02:53:56 PM <base_page.py> [h_get_element](line 504) - [No found (1.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 02:53:57 PM <import_media.py> [switch_to_photo_library](line 263) - [Info] Switch_to_photo_library
+11/04/2022 02:54:03 PM <base_page.py> [h_get_element](line 504) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/mediaPickerStoryboardOK')
+11/04/2022 02:54:06 PM <base_page.py> [h_get_element](line 504) - [No found (1.52)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 02:54:08 PM <base_page.py> [h_is_exist](line 539) - [No found (1.8)] ('xpath', '//*[contains(@text,"Effect")]')
+11/04/2022 02:54:19 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\55ea8ade-0267-40c8-b7d1-6c0c04b9a188.png
+11/04/2022 02:54:20 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_310.png)
+11/04/2022 02:54:20 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\55ea8ade-0267-40c8-b7d1-6c0c04b9a188.png)
+11/04/2022 02:54:20 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.008265155199904919
+11/04/2022 02:54:20 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:54:20 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 124) - [Info] result_photo = False, result_value = True
+11/04/2022 02:54:20 PM <report.py> [add_result](line 100) - Add Result = 72f8d373-9b32-4dad-bf16-81bce0cb87a7 / False / sce_02_03_310 / Fail Log is not set. 
+11/04/2022 02:54:21 PM <report.py> [add_result](line 112) - Fail screenshot = 1_sce_02_03_310.png
+11/04/2022 02:54:21 PM <report.py> [add_result](line 132) - [Fail] ID = 72f8d373-9b32-4dad-bf16-81bce0cb87a7 , Screenshot = True , fail number = 1
+11/04/2022 02:54:21 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 131) - 
+[Start] sce_02_03_311
+11/04/2022 02:54:25 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\6f49d54b-c634-44a4-8f66-06e5d9e7e4a4.png
+11/04/2022 02:54:26 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_311.png)
+11/04/2022 02:54:26 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\6f49d54b-c634-44a4-8f66-06e5d9e7e4a4.png)
+11/04/2022 02:54:26 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.008740929625325994
+11/04/2022 02:54:26 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:54:26 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 140) - [Info] result_photo = False, result_value = True
+11/04/2022 02:54:26 PM <report.py> [add_result](line 100) - Add Result = 4f7e1155-33ab-4d1c-b080-e6ecf11af385 / False / sce_02_03_310 / Fail Log is not set. 
+11/04/2022 02:54:27 PM <report.py> [add_result](line 112) - Fail screenshot = 2_sce_02_03_310.png
+11/04/2022 02:54:27 PM <report.py> [add_result](line 132) - [Fail] ID = 4f7e1155-33ab-4d1c-b080-e6ecf11af385 , Screenshot = True , fail number = 2
+11/04/2022 02:54:27 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 147) - 
+[Start] sce_02_03_312
+11/04/2022 02:54:31 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\35cc53a0-47f7-48c3-9d73-7ad1f7db5707.png
+11/04/2022 02:54:31 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_312.png)
+11/04/2022 02:54:32 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\35cc53a0-47f7-48c3-9d73-7ad1f7db5707.png)
+11/04/2022 02:54:32 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.00876978689198007
+11/04/2022 02:54:32 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:54:32 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 156) - [Info] result_photo = False, result_value = True
+11/04/2022 02:54:32 PM <report.py> [add_result](line 100) - Add Result = f2482eb4-c4f4-42ae-9ae0-fa9b48305eaa / False / sce_02_03_310 / Fail Log is not set. 
+11/04/2022 02:54:32 PM <report.py> [add_result](line 112) - Fail screenshot = 3_sce_02_03_310.png
+11/04/2022 02:54:33 PM <report.py> [add_result](line 132) - [Fail] ID = f2482eb4-c4f4-42ae-9ae0-fa9b48305eaa , Screenshot = True , fail number = 3
+11/04/2022 02:54:33 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 163) - 
+[Start] sce_02_03_313
+11/04/2022 02:54:37 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\b649aa0b-2152-4b8a-9065-ffab71e031ba.png
+11/04/2022 02:54:37 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_313.png)
+11/04/2022 02:54:37 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\b649aa0b-2152-4b8a-9065-ffab71e031ba.png)
+11/04/2022 02:54:37 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.008932087245486593
+11/04/2022 02:54:37 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:54:38 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 172) - [Info] result_photo = False, result_value = True
+11/04/2022 02:54:38 PM <report.py> [add_result](line 100) - Add Result = d7723b46-9d61-442b-a905-0f3be2e45010 / False / sce_02_03_310 / Fail Log is not set. 
+11/04/2022 02:54:38 PM <report.py> [add_result](line 112) - Fail screenshot = 4_sce_02_03_310.png
+11/04/2022 02:54:39 PM <report.py> [add_result](line 132) - [Fail] ID = d7723b46-9d61-442b-a905-0f3be2e45010 , Screenshot = True , fail number = 4
+11/04/2022 02:54:39 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 179) - 
+[Start] sce_02_03_314
+11/04/2022 02:54:41 PM <base_page.py> [h_is_exist](line 539) - [No found (1.74)] ('xpath', '//*[contains(@text,"Temp")]')
+11/04/2022 02:54:50 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\29796649-b6a4-4acb-9233-cfac508c3408.png
+11/04/2022 02:54:50 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_314.png)
+11/04/2022 02:54:50 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\29796649-b6a4-4acb-9233-cfac508c3408.png)
+11/04/2022 02:54:50 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.0087954222706224
+11/04/2022 02:54:50 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:54:51 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 188) - [Info] result_photo = False, result_value = True
+11/04/2022 02:54:51 PM <report.py> [add_result](line 100) - Add Result = 21609f3c-7e8e-4498-9d81-8002f059998f / False / sce_02_03_310 / Fail Log is not set. 
+11/04/2022 02:54:51 PM <report.py> [add_result](line 112) - Fail screenshot = 5_sce_02_03_310.png
+11/04/2022 02:54:51 PM <report.py> [add_result](line 132) - [Fail] ID = 21609f3c-7e8e-4498-9d81-8002f059998f , Screenshot = True , fail number = 5
+11/04/2022 02:54:51 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 195) - 
+[Start] sce_02_03_315
+11/04/2022 02:54:55 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\9c374339-37f0-49aa-b52e-ceddd8e5db1c.png
+11/04/2022 02:54:56 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_315.png)
+11/04/2022 02:54:56 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\9c374339-37f0-49aa-b52e-ceddd8e5db1c.png)
+11/04/2022 02:54:56 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.00882575714259668
+11/04/2022 02:54:56 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:54:56 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 204) - [Info] result_photo = False, result_value = True
+11/04/2022 02:54:56 PM <report.py> [add_result](line 100) - Add Result = 0f261b4a-1644-41d6-8534-6f94570712ae / False / sce_02_03_310 / Fail Log is not set. 
+11/04/2022 02:54:56 PM <report.py> [add_result](line 112) - Fail screenshot = 6_sce_02_03_310.png
+11/04/2022 02:54:57 PM <report.py> [add_result](line 132) - [Fail] ID = 0f261b4a-1644-41d6-8534-6f94570712ae , Screenshot = True , fail number = 6
+11/04/2022 02:54:57 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 211) - 
+[Start] sce_02_03_316
+11/04/2022 02:55:01 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\85f5297c-1c3a-46d5-89e4-c85fadf7670c.png
+11/04/2022 02:55:01 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_316.png)
+11/04/2022 02:55:01 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\85f5297c-1c3a-46d5-89e4-c85fadf7670c.png)
+11/04/2022 02:55:01 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.00846167972195748
+11/04/2022 02:55:02 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:55:02 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 220) - [Info] result_photo = False, result_value = True
+11/04/2022 02:55:02 PM <report.py> [add_result](line 100) - Add Result = e39097dc-d519-4816-8980-bdff9e19f13c / False / sce_02_03_310 / Fail Log is not set. 
+11/04/2022 02:55:02 PM <report.py> [add_result](line 112) - Fail screenshot = 7_sce_02_03_310.png
+11/04/2022 02:55:03 PM <report.py> [add_result](line 132) - [Fail] ID = e39097dc-d519-4816-8980-bdff9e19f13c , Screenshot = True , fail number = 7
+11/04/2022 02:55:03 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 93) - 
+[Done] Teardown
+11/04/2022 02:55:03 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 02:55:04 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:55:13 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 02:55:15 PM <test_aPDR_SFT_scenario_05_03.py> [test_sce_05_03_30](line 84) - 
+[Start] sce_05_03_30
+11/04/2022 02:55:16 PM <base_page.py> [h_get_element](line 504) - [No found (0.89)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 02:55:20 PM <base_page.py> [h_is_exist](line 539) - [No found (1.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 02:55:21 PM <base_page.py> [h_get_element](line 504) - [No found (1.19)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 02:55:22 PM <base_page.py> [h_get_element](line 504) - [No found (0.78)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 02:55:23 PM <base_page.py> [h_is_exist](line 539) - [No found (0.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 02:55:24 PM <base_page.py> [h_get_element](line 504) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 02:55:24 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 02:55:29 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 02:55:30 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 02:55:32 PM <base_page.py> [h_is_exist](line 539) - [No found (1.68)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 02:55:39 PM <base_page.py> [h_is_exist](line 539) - [No found (1.09)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 02:55:42 PM <base_page.py> [h_is_exist](line 539) - [No found (2.6)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_home')
+11/04/2022 02:55:42 PM <edit.py> [customize](line 1544) - [Fail] Enter intro designer Fail
+11/04/2022 02:55:42 PM <report.py> [add_result](line 100) - Add Result = 2dfd00f8-53a6-4380-9b9e-54355ff851ad / False / sce_05_03_30 / Fail Log is not set. 
+11/04/2022 02:55:42 PM <report.py> [add_result](line 112) - Fail screenshot = 8_sce_05_03_30.png
+11/04/2022 02:55:43 PM <report.py> [add_result](line 132) - [Fail] ID = 2dfd00f8-53a6-4380-9b9e-54355ff851ad , Screenshot = True , fail number = 8
+11/04/2022 02:55:43 PM <test_aPDR_SFT_scenario_05_03.py> [test_sce_05_03_30](line 96) - 
+[Start] sce_05_03_31
+11/04/2022 02:55:46 PM <base_page.py> [h_is_exist](line 539) - [No found (1.3)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 02:55:51 PM <base_page.py> [h_is_exist](line 539) - [No found (2.52)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 02:55:52 PM <edit.py> [add_to_video](line 1552) - [Done] Add to Your Video
+11/04/2022 02:55:52 PM <report.py> [add_result](line 100) - Add Result = 82d2f413-f2b9-4ba0-94cc-75e66bf03cd0 / True / sce_05_03_30 / 
+11/04/2022 02:55:52 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 02:55:53 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 02:55:53 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:56:02 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 02:56:04 PM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 84) - 
+[Start] sce_05_08_24
+11/04/2022 02:56:05 PM <base_page.py> [h_get_element](line 504) - [No found (1.01)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 02:56:07 PM <base_page.py> [h_is_exist](line 539) - [No found (1.51)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 02:56:09 PM <base_page.py> [h_get_element](line 504) - [No found (1.09)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 02:56:09 PM <base_page.py> [h_get_element](line 504) - [No found (0.91)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 02:56:10 PM <base_page.py> [h_is_exist](line 539) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 02:56:11 PM <base_page.py> [h_get_element](line 504) - [No found (0.96)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 02:56:11 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 02:56:16 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 02:56:18 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 02:56:20 PM <base_page.py> [h_is_exist](line 539) - [No found (1.26)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 02:56:25 PM <base_page.py> [h_is_exist](line 539) - [No found (2.35)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 02:56:26 PM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 02:56:27 PM <base_page.py> [h_get_element](line 504) - [No found (1.33)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 02:56:32 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\a995f44a-1d8d-4011-b3b2-44ff610e1601.png
+11/04/2022 02:56:36 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\b2a4c788-1937-4ce3-a568-98a64de311d1.png
+11/04/2022 02:56:36 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\a995f44a-1d8d-4011-b3b2-44ff610e1601.png)
+11/04/2022 02:56:36 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\b2a4c788-1937-4ce3-a568-98a64de311d1.png)
+11/04/2022 02:56:36 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.01219670100688518
+11/04/2022 02:56:37 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:56:37 PM <report.py> [add_result](line 100) - Add Result = 5841c726-6358-4715-826c-bbcde03e926b / True / sce_05_08_24 / 
+11/04/2022 02:56:37 PM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 99) - 
+[Start] sce_05_08_25
+11/04/2022 02:56:40 PM <base_page.py> [h_get_element](line 504) - [No found (1.39)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 02:56:44 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\41387ee8-0431-4a01-8746-93366a661c79.png
+11/04/2022 02:56:49 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\347b7d56-a4df-462c-96f5-2e1ece0ee5ac.png
+11/04/2022 02:56:49 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\41387ee8-0431-4a01-8746-93366a661c79.png)
+11/04/2022 02:56:49 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\347b7d56-a4df-462c-96f5-2e1ece0ee5ac.png)
+11/04/2022 02:56:49 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.005938762760292706
+11/04/2022 02:56:49 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 02:56:49 PM <report.py> [add_result](line 100) - Add Result = f81a3deb-4a14-42c1-93a7-8a76e703210a / True / sce_05_08_24 / 
+11/04/2022 02:56:49 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 02:56:50 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 02:56:50 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:56:59 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 02:57:02 PM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 02:57:03 PM <base_page.py> [h_get_element](line 504) - [No found (0.97)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 02:57:05 PM <base_page.py> [h_is_exist](line 539) - [No found (1.54)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 02:57:06 PM <base_page.py> [h_get_element](line 504) - [No found (0.89)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 02:57:07 PM <base_page.py> [h_get_element](line 504) - [No found (0.98)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 02:57:08 PM <base_page.py> [h_is_exist](line 539) - [No found (0.89)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 02:57:09 PM <base_page.py> [h_get_element](line 504) - [No found (0.95)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 02:57:09 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 02:57:14 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 02:57:15 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 02:57:17 PM <base_page.py> [h_is_exist](line 539) - [No found (1.22)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 02:57:38 PM <base_page.py> [h_get_element](line 504) - [No found (15.79)] ('xpath', '//*[contains(@text,"Customize")]')
+11/04/2022 02:57:40 PM <base_page.py> [h_is_exist](line 539) - [No found (1.6)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 02:57:42 PM <base_page.py> [h_is_exist](line 539) - [No found (2.42)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_home')
+11/04/2022 02:57:42 PM <edit.py> [customize](line 1544) - [Fail] Enter intro designer Fail
+11/04/2022 02:57:48 PM <base_page.py> [h_get_element](line 504) - [No found (5.68)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_save_menu')
+11/04/2022 02:57:54 PM <base_page.py> [h_get_element](line 504) - [No found (5.62)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/resizable_boundary')
+11/04/2022 02:57:54 PM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\0bdce68b-9cc0-4781-a1c0-fadbefe9fcab.png
+11/04/2022 02:57:56 PM <base_page.py> [h_is_exist](line 539) - [No found (1.57)] ('xpath', '//*[contains(@text,"Flip")]')
+11/04/2022 02:58:02 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_11_27.png
+11/04/2022 02:58:02 PM <report.py> [wrapper](line 275) - Exception: object of type 'bool' has no len()
+11/04/2022 02:58:02 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 02:58:03 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 02:58:03 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:58:12 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 02:58:15 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 84) - 
+[Start] sce_05_15_1
+11/04/2022 02:58:16 PM <base_page.py> [h_get_element](line 504) - [No found (1.01)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 02:58:18 PM <base_page.py> [h_is_exist](line 539) - [No found (2.2)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 02:58:19 PM <base_page.py> [h_get_element](line 504) - [No found (0.77)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 02:58:20 PM <base_page.py> [h_get_element](line 504) - [No found (0.82)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 02:58:21 PM <base_page.py> [h_is_exist](line 539) - [No found (0.86)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 02:58:22 PM <base_page.py> [h_get_element](line 504) - [No found (0.97)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 02:58:22 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 02:58:26 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 02:58:28 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 02:58:29 PM <base_page.py> [h_is_exist](line 539) - [No found (1.02)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 02:58:35 PM <base_page.py> [h_is_exist](line 539) - [No found (2.27)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 02:58:35 PM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 02:58:38 PM <edit.py> [add_to_video_in_intro](line 1562) - [Done] Add to Your Video
+11/04/2022 02:58:38 PM <report.py> [add_result](line 100) - Add Result = 2b94f7e6-0550-4942-bdfa-ea7de20d3179 / True / sce_05_15_1 / 
+11/04/2022 02:58:38 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 99) - 
+[Start] sce_05_15_2
+11/04/2022 02:58:40 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 02:58:41 PM <base_page.py> [h_is_exist](line 539) - [No found (1.18)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 02:58:46 PM <base_page.py> [h_is_exist](line 539) - [No found (1.69)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 02:58:46 PM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 02:58:49 PM <edit.py> [share_template](line 1575) - [Done] Share Template
+11/04/2022 02:58:49 PM <report.py> [add_result](line 100) - Add Result = cb72109e-8791-43ca-a22e-36664f0e0e38 / True / sce_05_15_1 / 
+11/04/2022 02:58:49 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 02:58:50 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 41) - 
+[Start] Init driver session
+11/04/2022 02:58:50 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 47) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 02:58:59 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 61) - 
+[Done] Driver created!
+11/04/2022 02:59:02 PM <test_aPDR_SFT_scenario_05_16.py> [test_sce_05_16_16](line 90) - 
+[Start] sce_05_16_16
+11/04/2022 02:59:03 PM <base_page.py> [h_get_element](line 504) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 02:59:05 PM <base_page.py> [h_is_exist](line 539) - [No found (1.56)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 02:59:06 PM <base_page.py> [h_get_element](line 504) - [No found (1.2)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 02:59:07 PM <base_page.py> [h_get_element](line 504) - [No found (0.81)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 02:59:08 PM <base_page.py> [h_is_exist](line 539) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 02:59:09 PM <base_page.py> [h_get_element](line 504) - [No found (0.95)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 02:59:09 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 02:59:14 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 02:59:16 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 02:59:17 PM <base_page.py> [h_is_exist](line 539) - [No found (1.2)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 02:59:23 PM <base_page.py> [h_is_exist](line 539) - [No found (2.53)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 02:59:24 PM <edit.py> [customize](line 1541) - [Done] Enter intro designer
+11/04/2022 02:59:27 PM <edit.py> [share_template](line 1575) - [Done] Share Template
+11/04/2022 02:59:29 PM <report.py> [add_result](line 100) - Add Result = d6cd4a33-715a-4eae-ad88-271e44b91482 / True / sce_05_16_16 / 
+11/04/2022 02:59:29 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 79) - 
+[Done] Teardown
+11/04/2022 02:59:30 PM <report.py> [add_result](line 132) - [Fail] ID = bfb8aabd-5575-47b4-9838-f0d6429974fa , Screenshot = False , fail number = 9
+11/04/2022 02:59:30 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+11/04/2022 03:32:34 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 03:32:34 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000199D6B94520>
+11/04/2022 03:32:34 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 03:32:34 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:32:39 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 80) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+11/04/2022 03:32:49 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 75) - 
+[Done] Driver created!
+11/04/2022 03:32:52 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 104) - 
+[Start] sce_02_03_310
+11/04/2022 03:33:03 PM <base_page.py> [h_is_exist](line 539) - [No found (1.12)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:33:08 PM <base_page.py> [h_get_element](line 504) - [No found (5.05)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:33:08 PM <main_page.py> [enter_launcher](line 48) - [Done] Enter Launcher
+11/04/2022 03:33:10 PM <base_page.py> [h_get_element](line 504) - [No found (1.67)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_shopping_cart')
+11/04/2022 03:33:19 PM <base_page.py> [h_get_element](line 504) - [No found (5.76)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/top_toolbar_back')
+11/04/2022 03:33:19 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:33:24 PM <base_page.py> [h_get_element](line 504) - [No found (5.27)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_setting')
+11/04/2022 03:33:29 PM <base_page.py> [h_get_element](line 504) - [No found (5.3)] ('accessibility id', '[AID]Setting_About')
+11/04/2022 03:33:35 PM <base_page.py> [h_get_element](line 504) - [No found (5.26)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/advanced_setting')
+11/04/2022 03:33:52 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 03:33:52 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001AD94C04520>
+11/04/2022 03:33:53 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 03:33:53 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:33:57 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 80) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+11/04/2022 03:34:08 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 75) - 
+[Done] Driver created!
+11/04/2022 03:34:10 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 104) - 
+[Start] sce_02_03_310
+11/04/2022 03:34:12 PM <base_page.py> [h_get_element](line 504) - [No found (1.67)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:34:13 PM <base_page.py> [h_is_exist](line 539) - [No found (0.75)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:34:19 PM <base_page.py> [h_get_element](line 504) - [No found (5.62)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:34:19 PM <main_page.py> [enter_launcher](line 70) - [Done] Enter Launcher
+11/04/2022 03:34:21 PM <base_page.py> [h_get_element](line 504) - [No found (1.67)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_shopping_cart')
+11/04/2022 03:34:25 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:34:32 PM <base_page.py> [h_get_element](line 504) - [No found (1.77)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:34:33 PM <import_media.py> [switch_to_photo_library](line 263) - [Info] Switch_to_photo_library
+11/04/2022 03:34:39 PM <base_page.py> [h_get_element](line 504) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/mediaPickerStoryboardOK')
+11/04/2022 03:34:44 PM <base_page.py> [h_get_element](line 504) - [No found (1.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:34:46 PM <base_page.py> [h_is_exist](line 539) - [No found (1.81)] ('xpath', '//*[contains(@text,"Effect")]')
+11/04/2022 03:34:52 PM <base_page.py> [h_get_element](line 504) - [No found (1.12)] ('accessibility id', '[AID]Upgrade_No')
+11/04/2022 03:34:56 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\1870cd20-19fb-4a75-a3fd-7325114ad1a5.png
+11/04/2022 03:34:56 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_310.png)
+11/04/2022 03:34:56 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\1870cd20-19fb-4a75-a3fd-7325114ad1a5.png)
+11/04/2022 03:34:56 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 03:34:56 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:34:57 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 129) - [Info] result_photo = True, result_value = True
+11/04/2022 03:34:57 PM <report.py> [add_result](line 100) - Add Result = 72f8d373-9b32-4dad-bf16-81bce0cb87a7 / True / sce_02_03_310 / 
+11/04/2022 03:34:57 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 136) - 
+[Start] sce_02_03_311
+11/04/2022 03:35:01 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\2f6507cd-25ff-4e0e-bbf0-44e7e2b2415a.png
+11/04/2022 03:35:01 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_311.png)
+11/04/2022 03:35:02 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\2f6507cd-25ff-4e0e-bbf0-44e7e2b2415a.png)
+11/04/2022 03:35:02 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 03:35:02 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:35:02 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 145) - [Info] result_photo = True, result_value = True
+11/04/2022 03:35:02 PM <report.py> [add_result](line 100) - Add Result = 4f7e1155-33ab-4d1c-b080-e6ecf11af385 / True / sce_02_03_310 / 
+11/04/2022 03:35:02 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 152) - 
+[Start] sce_02_03_312
+11/04/2022 03:35:07 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\058c7845-dd20-4842-b8c7-a6bbd0403e5c.png
+11/04/2022 03:35:07 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_312.png)
+11/04/2022 03:35:07 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\058c7845-dd20-4842-b8c7-a6bbd0403e5c.png)
+11/04/2022 03:35:07 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 03:35:07 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:35:07 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 161) - [Info] result_photo = True, result_value = True
+11/04/2022 03:35:08 PM <report.py> [add_result](line 100) - Add Result = f2482eb4-c4f4-42ae-9ae0-fa9b48305eaa / True / sce_02_03_310 / 
+11/04/2022 03:35:08 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 168) - 
+[Start] sce_02_03_313
+11/04/2022 03:35:12 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\7708fba7-2b92-44aa-99b8-fd4184e28202.png
+11/04/2022 03:35:12 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_313.png)
+11/04/2022 03:35:13 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\7708fba7-2b92-44aa-99b8-fd4184e28202.png)
+11/04/2022 03:35:13 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 03:35:13 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:35:13 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 177) - [Info] result_photo = True, result_value = True
+11/04/2022 03:35:13 PM <report.py> [add_result](line 100) - Add Result = d7723b46-9d61-442b-a905-0f3be2e45010 / True / sce_02_03_310 / 
+11/04/2022 03:35:13 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 184) - 
+[Start] sce_02_03_314
+11/04/2022 03:35:16 PM <base_page.py> [h_is_exist](line 539) - [No found (1.61)] ('xpath', '//*[contains(@text,"Temp")]')
+11/04/2022 03:35:24 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\c3e93d20-6bfd-444e-8ca4-f76dea5b73c9.png
+11/04/2022 03:35:24 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_314.png)
+11/04/2022 03:35:24 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\c3e93d20-6bfd-444e-8ca4-f76dea5b73c9.png)
+11/04/2022 03:35:24 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 03:35:24 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:35:25 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 193) - [Info] result_photo = True, result_value = True
+11/04/2022 03:35:25 PM <report.py> [add_result](line 100) - Add Result = 21609f3c-7e8e-4498-9d81-8002f059998f / True / sce_02_03_310 / 
+11/04/2022 03:35:25 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 200) - 
+[Start] sce_02_03_315
+11/04/2022 03:35:29 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\0cafb5ee-856d-4da6-a90c-d3795a434416.png
+11/04/2022 03:35:29 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_315.png)
+11/04/2022 03:35:30 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\0cafb5ee-856d-4da6-a90c-d3795a434416.png)
+11/04/2022 03:35:30 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 03:35:30 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:35:30 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 209) - [Info] result_photo = True, result_value = True
+11/04/2022 03:35:30 PM <report.py> [add_result](line 100) - Add Result = 0f261b4a-1644-41d6-8534-6f94570712ae / True / sce_02_03_310 / 
+11/04/2022 03:35:31 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 216) - 
+[Start] sce_02_03_316
+11/04/2022 03:35:35 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\5eacad87-2556-4b71-9d53-3a621558028c.png
+11/04/2022 03:35:35 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_316.png)
+11/04/2022 03:35:35 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\5eacad87-2556-4b71-9d53-3a621558028c.png)
+11/04/2022 03:35:35 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 03:35:35 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:35:35 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 225) - [Info] result_photo = True, result_value = True
+11/04/2022 03:35:35 PM <report.py> [add_result](line 100) - Add Result = e39097dc-d519-4816-8980-bdff9e19f13c / True / sce_02_03_310 / 
+11/04/2022 03:35:36 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 93) - 
+[Done] Teardown
+11/04/2022 03:35:36 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 03:35:36 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:35:46 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 03:35:49 PM <test_aPDR_SFT_scenario_05_03.py> [test_sce_05_03_30](line 84) - 
+[Start] sce_05_03_30
+11/04/2022 03:35:51 PM <base_page.py> [h_get_element](line 504) - [No found (1.55)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:35:52 PM <base_page.py> [h_is_exist](line 539) - [No found (0.76)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:35:52 PM <base_page.py> [h_get_element](line 504) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:35:53 PM <base_page.py> [h_get_element](line 504) - [No found (0.74)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:35:54 PM <base_page.py> [h_is_exist](line 539) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:35:55 PM <base_page.py> [h_get_element](line 504) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:35:55 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:36:00 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:36:02 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:36:03 PM <base_page.py> [h_is_exist](line 539) - [No found (1.15)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:36:12 PM <base_page.py> [h_is_exist](line 539) - [No found (2.63)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:36:14 PM <base_page.py> [h_is_exist](line 539) - [No found (1.64)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:36:17 PM <base_page.py> [h_is_exist](line 539) - [No found (2.75)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_home')
+11/04/2022 03:36:17 PM <edit.py> [customize](line 1547) - [Fail] Enter intro designer Fail
+11/04/2022 03:36:17 PM <report.py> [add_result](line 100) - Add Result = 2dfd00f8-53a6-4380-9b9e-54355ff851ad / False / sce_05_03_30 / Fail Log is not set. 
+11/04/2022 03:36:17 PM <report.py> [add_result](line 112) - Fail screenshot = 1_sce_05_03_30.png
+11/04/2022 03:36:18 PM <report.py> [add_result](line 132) - [Fail] ID = 2dfd00f8-53a6-4380-9b9e-54355ff851ad , Screenshot = True , fail number = 1
+11/04/2022 03:36:18 PM <test_aPDR_SFT_scenario_05_03.py> [test_sce_05_03_30](line 96) - 
+[Start] sce_05_03_31
+11/04/2022 03:36:21 PM <base_page.py> [h_is_exist](line 539) - [No found (1.17)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:36:26 PM <base_page.py> [h_is_exist](line 539) - [No found (2.59)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:36:29 PM <base_page.py> [h_is_exist](line 539) - [No found (2.28)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:36:29 PM <edit.py> [add_to_video](line 1557) - [Done] Add to Your Video
+11/04/2022 03:36:29 PM <report.py> [add_result](line 100) - Add Result = 82d2f413-f2b9-4ba0-94cc-75e66bf03cd0 / True / sce_05_03_30 / 
+11/04/2022 03:36:29 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 03:36:30 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 03:36:30 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:36:39 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 03:36:42 PM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 84) - 
+[Start] sce_05_08_24
+11/04/2022 03:36:43 PM <base_page.py> [h_get_element](line 504) - [No found (1.34)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:36:44 PM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:36:45 PM <base_page.py> [h_get_element](line 504) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:36:46 PM <base_page.py> [h_get_element](line 504) - [No found (0.78)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:36:47 PM <base_page.py> [h_is_exist](line 539) - [No found (0.92)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:36:47 PM <base_page.py> [h_get_element](line 504) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:36:47 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:36:52 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:36:54 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:36:55 PM <base_page.py> [h_is_exist](line 539) - [No found (1.13)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:37:01 PM <base_page.py> [h_is_exist](line 539) - [No found (2.63)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:37:04 PM <base_page.py> [h_is_exist](line 539) - [No found (2.25)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:37:04 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 03:37:06 PM <base_page.py> [h_get_element](line 504) - [No found (1.3)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:37:10 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\9a15beaf-e058-4304-8e4b-509582b29047.png
+11/04/2022 03:37:15 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\5600de04-bab9-4688-ae34-bf3716f75424.png
+11/04/2022 03:37:15 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\9a15beaf-e058-4304-8e4b-509582b29047.png)
+11/04/2022 03:37:15 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\5600de04-bab9-4688-ae34-bf3716f75424.png)
+11/04/2022 03:37:15 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.01219670100688518
+11/04/2022 03:37:15 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 03:37:15 PM <report.py> [add_result](line 100) - Add Result = 5841c726-6358-4715-826c-bbcde03e926b / True / sce_05_08_24 / 
+11/04/2022 03:37:15 PM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 99) - 
+[Start] sce_05_08_25
+11/04/2022 03:37:19 PM <base_page.py> [h_get_element](line 504) - [No found (1.41)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:37:23 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\5f6dd264-e01f-4927-bf77-3582bdc992e8.png
+11/04/2022 03:37:27 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\7a326cf1-9517-4569-97f4-323cd77f0da1.png
+11/04/2022 03:37:27 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\5f6dd264-e01f-4927-bf77-3582bdc992e8.png)
+11/04/2022 03:37:27 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\7a326cf1-9517-4569-97f4-323cd77f0da1.png)
+11/04/2022 03:37:28 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.005938762760292706
+11/04/2022 03:37:28 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 03:37:28 PM <report.py> [add_result](line 100) - Add Result = f81a3deb-4a14-42c1-93a7-8a76e703210a / True / sce_05_08_24 / 
+11/04/2022 03:37:28 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 03:37:29 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 03:37:29 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:37:38 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 03:37:41 PM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 03:37:42 PM <base_page.py> [h_get_element](line 504) - [No found (1.06)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:37:43 PM <base_page.py> [h_is_exist](line 539) - [No found (0.96)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:37:44 PM <base_page.py> [h_get_element](line 504) - [No found (0.77)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:37:44 PM <base_page.py> [h_get_element](line 504) - [No found (0.76)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:37:45 PM <base_page.py> [h_is_exist](line 539) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:37:46 PM <base_page.py> [h_get_element](line 504) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:37:46 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:37:51 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:37:53 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:37:54 PM <base_page.py> [h_is_exist](line 539) - [No found (1.12)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:37:58 PM <base_page.py> [h_is_exist](line 539) - [No found (1.1)] ('xpath', '//*[contains(@text,"The account or password is incorrect.")]')
+11/04/2022 03:38:06 PM <base_page.py> [h_is_exist](line 539) - [No found (2.28)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:38:12 PM <base_page.py> [h_get_element](line 504) - [No found (5.94)] ('xpath', '//*[contains(@text,"Customize")]')
+11/04/2022 03:38:14 PM <base_page.py> [h_is_exist](line 539) - [No found (1.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:38:16 PM <base_page.py> [h_is_exist](line 539) - [No found (2.37)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_home')
+11/04/2022 03:38:16 PM <edit.py> [customize](line 1547) - [Fail] Enter intro designer Fail
+11/04/2022 03:39:07 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 03:39:07 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001D7001244F0>
+11/04/2022 03:39:07 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 03:39:07 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:39:12 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 80) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+11/04/2022 03:39:22 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 75) - 
+[Done] Driver created!
+11/04/2022 03:39:25 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 104) - 
+[Start] sce_02_03_310
+11/04/2022 03:39:26 PM <base_page.py> [h_get_element](line 504) - [No found (1.25)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:39:27 PM <base_page.py> [h_is_exist](line 539) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:39:28 PM <base_page.py> [h_get_element](line 504) - [No found (0.76)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:39:29 PM <base_page.py> [h_get_element](line 504) - [No found (0.73)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:39:30 PM <base_page.py> [h_is_exist](line 539) - [No found (0.87)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:39:30 PM <base_page.py> [h_get_element](line 504) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:39:31 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:39:32 PM <base_page.py> [h_get_element](line 504) - [No found (1.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_shopping_cart')
+11/04/2022 03:39:37 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:39:44 PM <base_page.py> [h_get_element](line 504) - [No found (1.78)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:39:45 PM <import_media.py> [switch_to_photo_library](line 263) - [Info] Switch_to_photo_library
+11/04/2022 03:39:51 PM <base_page.py> [h_get_element](line 504) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/mediaPickerStoryboardOK')
+11/04/2022 03:39:54 PM <base_page.py> [h_get_element](line 504) - [No found (1.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:39:55 PM <base_page.py> [h_is_exist](line 539) - [No found (1.59)] ('xpath', '//*[contains(@text,"Effect")]')
+11/04/2022 03:40:01 PM <base_page.py> [h_get_element](line 504) - [No found (1.05)] ('accessibility id', '[AID]Upgrade_No')
+11/04/2022 03:40:05 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\b547cd9c-5e4d-4486-ada6-f0b03e855653.png
+11/04/2022 03:40:05 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_310.png)
+11/04/2022 03:40:05 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\b547cd9c-5e4d-4486-ada6-f0b03e855653.png)
+11/04/2022 03:40:05 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 03:40:05 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:40:06 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 129) - [Info] result_photo = True, result_value = True
+11/04/2022 03:40:06 PM <report.py> [add_result](line 100) - Add Result = 72f8d373-9b32-4dad-bf16-81bce0cb87a7 / True / sce_02_03_310 / 
+11/04/2022 03:40:06 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 136) - 
+[Start] sce_02_03_311
+11/04/2022 03:40:10 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\15e5289b-6970-460d-b861-7c7abfdbba1c.png
+11/04/2022 03:40:10 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_311.png)
+11/04/2022 03:40:10 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\15e5289b-6970-460d-b861-7c7abfdbba1c.png)
+11/04/2022 03:40:10 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 03:40:10 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:40:11 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 145) - [Info] result_photo = True, result_value = True
+11/04/2022 03:40:11 PM <report.py> [add_result](line 100) - Add Result = 4f7e1155-33ab-4d1c-b080-e6ecf11af385 / True / sce_02_03_310 / 
+11/04/2022 03:40:11 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 152) - 
+[Start] sce_02_03_312
+11/04/2022 03:40:15 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\b82b9201-fae1-43a0-8974-f5a5356bad0f.png
+11/04/2022 03:40:15 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_312.png)
+11/04/2022 03:40:15 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\b82b9201-fae1-43a0-8974-f5a5356bad0f.png)
+11/04/2022 03:40:15 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 03:40:15 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:40:16 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 161) - [Info] result_photo = True, result_value = True
+11/04/2022 03:40:16 PM <report.py> [add_result](line 100) - Add Result = f2482eb4-c4f4-42ae-9ae0-fa9b48305eaa / True / sce_02_03_310 / 
+11/04/2022 03:40:16 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 168) - 
+[Start] sce_02_03_313
+11/04/2022 03:40:20 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\6c325e7a-8022-4b21-b48f-5aab92c9d50d.png
+11/04/2022 03:40:20 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_313.png)
+11/04/2022 03:40:20 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\6c325e7a-8022-4b21-b48f-5aab92c9d50d.png)
+11/04/2022 03:40:20 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 03:40:20 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:40:21 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 177) - [Info] result_photo = True, result_value = True
+11/04/2022 03:40:21 PM <report.py> [add_result](line 100) - Add Result = d7723b46-9d61-442b-a905-0f3be2e45010 / True / sce_02_03_310 / 
+11/04/2022 03:40:21 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 184) - 
+[Start] sce_02_03_314
+11/04/2022 03:40:23 PM <base_page.py> [h_is_exist](line 539) - [No found (1.76)] ('xpath', '//*[contains(@text,"Temp")]')
+11/04/2022 03:40:31 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\6bef1fea-e4c9-4588-a605-f1fd0bc81d3d.png
+11/04/2022 03:40:32 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_314.png)
+11/04/2022 03:40:32 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\6bef1fea-e4c9-4588-a605-f1fd0bc81d3d.png)
+11/04/2022 03:40:32 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 03:40:32 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:40:32 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 193) - [Info] result_photo = True, result_value = True
+11/04/2022 03:40:32 PM <report.py> [add_result](line 100) - Add Result = 21609f3c-7e8e-4498-9d81-8002f059998f / True / sce_02_03_310 / 
+11/04/2022 03:40:32 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 200) - 
+[Start] sce_02_03_315
+11/04/2022 03:40:36 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\75f05653-95d1-4f00-94c8-6fd22eaeede2.png
+11/04/2022 03:40:37 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_315.png)
+11/04/2022 03:40:37 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\75f05653-95d1-4f00-94c8-6fd22eaeede2.png)
+11/04/2022 03:40:37 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 03:40:37 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:40:37 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 209) - [Info] result_photo = True, result_value = True
+11/04/2022 03:40:37 PM <report.py> [add_result](line 100) - Add Result = 0f261b4a-1644-41d6-8534-6f94570712ae / True / sce_02_03_310 / 
+11/04/2022 03:40:37 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 216) - 
+[Start] sce_02_03_316
+11/04/2022 03:40:41 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\80585dd2-5d64-431a-b2e6-255694afa659.png
+11/04/2022 03:40:41 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_316.png)
+11/04/2022 03:40:41 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\80585dd2-5d64-431a-b2e6-255694afa659.png)
+11/04/2022 03:40:42 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 03:40:42 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 03:40:42 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 225) - [Info] result_photo = True, result_value = True
+11/04/2022 03:40:42 PM <report.py> [add_result](line 100) - Add Result = e39097dc-d519-4816-8980-bdff9e19f13c / True / sce_02_03_310 / 
+11/04/2022 03:40:42 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 93) - 
+[Done] Teardown
+11/04/2022 03:40:43 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 03:40:43 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:40:52 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 03:40:55 PM <test_aPDR_SFT_scenario_05_03.py> [test_sce_05_03_30](line 84) - 
+[Start] sce_05_03_30
+11/04/2022 03:40:56 PM <base_page.py> [h_get_element](line 504) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:40:56 PM <base_page.py> [h_is_exist](line 539) - [No found (0.78)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:40:57 PM <base_page.py> [h_get_element](line 504) - [No found (0.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:40:58 PM <base_page.py> [h_get_element](line 504) - [No found (0.76)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:40:59 PM <base_page.py> [h_is_exist](line 539) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:41:00 PM <base_page.py> [h_get_element](line 504) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:41:00 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:41:04 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:41:06 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:41:07 PM <base_page.py> [h_is_exist](line 539) - [No found (1.3)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:41:14 PM <base_page.py> [h_is_exist](line 539) - [No found (2.57)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:41:17 PM <base_page.py> [h_is_exist](line 539) - [No found (2.45)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:41:17 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 03:41:17 PM <report.py> [add_result](line 100) - Add Result = 2dfd00f8-53a6-4380-9b9e-54355ff851ad / True / sce_05_03_30 / 
+11/04/2022 03:41:17 PM <test_aPDR_SFT_scenario_05_03.py> [test_sce_05_03_30](line 96) - 
+[Start] sce_05_03_31
+11/04/2022 03:41:20 PM <base_page.py> [h_is_exist](line 539) - [No found (1.17)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:41:26 PM <base_page.py> [h_is_exist](line 539) - [No found (2.65)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:41:28 PM <base_page.py> [h_is_exist](line 539) - [No found (2.31)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:41:29 PM <edit.py> [add_to_video](line 1557) - [Done] Add to Your Video
+11/04/2022 03:41:29 PM <report.py> [add_result](line 100) - Add Result = 82d2f413-f2b9-4ba0-94cc-75e66bf03cd0 / True / sce_05_03_30 / 
+11/04/2022 03:41:29 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 03:41:30 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 03:41:30 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:41:38 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 03:41:41 PM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 84) - 
+[Start] sce_05_08_24
+11/04/2022 03:41:42 PM <base_page.py> [h_get_element](line 504) - [No found (0.95)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:41:43 PM <base_page.py> [h_is_exist](line 539) - [No found (0.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:41:44 PM <base_page.py> [h_get_element](line 504) - [No found (0.77)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:41:45 PM <base_page.py> [h_get_element](line 504) - [No found (0.75)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:41:46 PM <base_page.py> [h_is_exist](line 539) - [No found (0.92)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:41:46 PM <base_page.py> [h_get_element](line 504) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:41:46 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:41:51 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:41:53 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:41:54 PM <base_page.py> [h_is_exist](line 539) - [No found (1.28)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:42:01 PM <base_page.py> [h_is_exist](line 539) - [No found (2.65)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:42:04 PM <base_page.py> [h_is_exist](line 539) - [No found (2.48)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:42:05 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 03:42:06 PM <base_page.py> [h_get_element](line 504) - [No found (1.28)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:42:10 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\4ff83ead-e7df-46bb-a636-0255836cce31.png
+11/04/2022 03:42:15 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\b3b5b60d-5237-44d1-a89b-0926a2f80640.png
+11/04/2022 03:42:15 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\4ff83ead-e7df-46bb-a636-0255836cce31.png)
+11/04/2022 03:42:15 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\b3b5b60d-5237-44d1-a89b-0926a2f80640.png)
+11/04/2022 03:42:15 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.01219670100688518
+11/04/2022 03:42:15 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 03:42:15 PM <report.py> [add_result](line 100) - Add Result = 5841c726-6358-4715-826c-bbcde03e926b / True / sce_05_08_24 / 
+11/04/2022 03:42:15 PM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 99) - 
+[Start] sce_05_08_25
+11/04/2022 03:42:19 PM <base_page.py> [h_get_element](line 504) - [No found (1.43)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:42:23 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\25b4ac52-0495-4120-a9b8-c47f8210c119.png
+11/04/2022 03:42:27 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\1a70516c-2c5d-4723-b120-53ad7543e004.png
+11/04/2022 03:42:27 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\25b4ac52-0495-4120-a9b8-c47f8210c119.png)
+11/04/2022 03:42:28 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\1a70516c-2c5d-4723-b120-53ad7543e004.png)
+11/04/2022 03:42:28 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.005938762760292706
+11/04/2022 03:42:28 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 03:42:28 PM <report.py> [add_result](line 100) - Add Result = f81a3deb-4a14-42c1-93a7-8a76e703210a / True / sce_05_08_24 / 
+11/04/2022 03:42:28 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 03:42:29 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 03:42:29 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:42:38 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 03:42:41 PM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 03:42:42 PM <base_page.py> [h_get_element](line 504) - [No found (1.32)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:42:43 PM <base_page.py> [h_is_exist](line 539) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:42:44 PM <base_page.py> [h_get_element](line 504) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:42:45 PM <base_page.py> [h_get_element](line 504) - [No found (0.75)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:42:46 PM <base_page.py> [h_is_exist](line 539) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:42:46 PM <base_page.py> [h_get_element](line 504) - [No found (0.76)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:42:46 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:42:51 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:42:53 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:42:54 PM <base_page.py> [h_is_exist](line 539) - [No found (1.26)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:43:02 PM <base_page.py> [h_is_exist](line 539) - [No found (2.72)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:43:04 PM <base_page.py> [h_is_exist](line 539) - [No found (2.41)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:43:05 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 03:43:12 PM <base_page.py> [h_get_element](line 504) - [No found (5.32)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/resizable_boundary')
+11/04/2022 03:43:13 PM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\0a947f5e-b8ce-4a49-8192-617c5fdbb4e7.png
+11/04/2022 03:43:14 PM <base_page.py> [h_is_exist](line 539) - [No found (1.55)] ('xpath', '//*[contains(@text,"Flip")]')
+11/04/2022 03:43:20 PM <report.py> [wrapper](line 274) - Exception screenshot: C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT/report/R5CT32Q3WQN_TR220711-018/[Exception]test_sce_05_11_27.png
+11/04/2022 03:43:20 PM <report.py> [wrapper](line 275) - Exception: object of type 'bool' has no len()
+11/04/2022 03:43:20 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 03:43:21 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 03:43:21 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:43:30 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 03:43:33 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 84) - 
+[Start] sce_05_15_1
+11/04/2022 03:43:34 PM <base_page.py> [h_get_element](line 504) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:43:35 PM <base_page.py> [h_is_exist](line 539) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:43:35 PM <base_page.py> [h_get_element](line 504) - [No found (0.78)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:43:36 PM <base_page.py> [h_get_element](line 504) - [No found (0.76)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:43:37 PM <base_page.py> [h_is_exist](line 539) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:43:38 PM <base_page.py> [h_get_element](line 504) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:43:38 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:43:43 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:43:45 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:43:46 PM <base_page.py> [h_is_exist](line 539) - [No found (1.31)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:43:53 PM <base_page.py> [h_is_exist](line 539) - [No found (2.71)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:43:56 PM <base_page.py> [h_is_exist](line 539) - [No found (2.23)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:43:56 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 03:43:59 PM <edit.py> [add_to_video_in_intro](line 1567) - [Done] Add to Your Video
+11/04/2022 03:43:59 PM <report.py> [add_result](line 100) - Add Result = 2b94f7e6-0550-4942-bdfa-ea7de20d3179 / True / sce_05_15_1 / 
+11/04/2022 03:43:59 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 99) - 
+[Start] sce_05_15_2
+11/04/2022 03:44:01 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:44:03 PM <base_page.py> [h_is_exist](line 539) - [No found (1.97)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:44:08 PM <base_page.py> [h_is_exist](line 539) - [No found (2.7)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:44:10 PM <base_page.py> [h_is_exist](line 539) - [No found (2.23)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:44:11 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 03:44:13 PM <edit.py> [share_template](line 1580) - [Done] Share Template
+11/04/2022 03:44:14 PM <report.py> [add_result](line 100) - Add Result = cb72109e-8791-43ca-a22e-36664f0e0e38 / True / sce_05_15_1 / 
+11/04/2022 03:44:14 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 03:44:14 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 41) - 
+[Start] Init driver session
+11/04/2022 03:44:14 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 47) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 03:44:23 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 61) - 
+[Done] Driver created!
+11/04/2022 03:44:26 PM <test_aPDR_SFT_scenario_05_16.py> [test_sce_05_16_16](line 90) - 
+[Start] sce_05_16_16
+11/04/2022 03:44:27 PM <base_page.py> [h_get_element](line 504) - [No found (0.98)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:44:28 PM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:44:28 PM <base_page.py> [h_get_element](line 504) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:44:29 PM <base_page.py> [h_get_element](line 504) - [No found (0.77)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:44:30 PM <base_page.py> [h_is_exist](line 539) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:44:31 PM <base_page.py> [h_get_element](line 504) - [No found (0.76)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:44:31 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:44:35 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:44:37 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:44:40 PM <base_page.py> [h_is_exist](line 539) - [No found (2.11)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:44:46 PM <base_page.py> [h_is_exist](line 539) - [No found (2.73)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:44:49 PM <base_page.py> [h_is_exist](line 539) - [No found (2.43)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:44:50 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 03:44:53 PM <edit.py> [share_template](line 1580) - [Done] Share Template
+11/04/2022 03:44:55 PM <report.py> [add_result](line 100) - Add Result = d6cd4a33-715a-4eae-ad88-271e44b91482 / True / sce_05_16_16 / 
+11/04/2022 03:44:55 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 79) - 
+[Done] Teardown
+11/04/2022 03:44:56 PM <report.py> [add_result](line 132) - [Fail] ID = bfb8aabd-5575-47b4-9838-f0d6429974fa , Screenshot = False , fail number = 1
+11/04/2022 03:44:56 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...
+11/04/2022 03:48:54 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+11/04/2022 03:48:54 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x0000015E74E7C3A0>
+11/04/2022 03:48:54 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 03:48:55 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'systemPort': '8200'}
+11/04/2022 03:49:04 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 03:49:06 PM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 03:49:08 PM <base_page.py> [h_get_element](line 504) - [No found (1.43)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 03:49:09 PM <base_page.py> [h_is_exist](line 539) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 03:49:09 PM <base_page.py> [h_get_element](line 504) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 03:49:10 PM <base_page.py> [h_get_element](line 504) - [No found (0.73)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 03:49:11 PM <base_page.py> [h_is_exist](line 539) - [No found (0.78)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 03:49:12 PM <base_page.py> [h_get_element](line 504) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 03:49:12 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 03:49:16 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 03:49:18 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 03:49:20 PM <base_page.py> [h_is_exist](line 539) - [No found (1.29)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 03:49:22 PM <base_page.py> [h_is_exist](line 539) - [No found (2.18)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loginPage')
+11/04/2022 03:49:22 PM <edit.py> [log_in](line 1428) - 
+[No found] Cannot find login page
+11/04/2022 03:49:30 PM <base_page.py> [h_is_exist](line 539) - [No found (2.54)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 03:49:31 PM <base_page.py> [h_is_exist](line 539) - [No found (1.12)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 03:49:34 PM <base_page.py> [h_is_exist](line 539) - [No found (2.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_home')
+11/04/2022 03:49:34 PM <edit.py> [customize](line 1547) - [Fail] Enter intro designer Fail
+11/04/2022 03:49:36 PM <base_page.py> [h_get_element](line 504) - [No found (1.34)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 03:49:45 PM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\82b18f50-31a8-49d5-a72f-7189eeb13d3d.png
+11/04/2022 03:49:49 PM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\7c0d2289-2ddb-40fa-9932-a58cbc406427.png
+11/04/2022 03:49:49 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (303, 539)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\82b18f50-31a8-49d5-a72f-7189eeb13d3d.png)
+11/04/2022 03:49:49 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (303, 539)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\7c0d2289-2ddb-40fa-9932-a58cbc406427.png)
+11/04/2022 03:49:49 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.0010413055655576857
+11/04/2022 03:49:49 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 03:49:50 PM <report.py> [add_result](line 100) - Add Result = bfb8aabd-5575-47b4-9838-f0d6429974fa / True / sce_05_11_27 / 
+11/04/2022 03:49:50 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 04:26:26 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 04:26:26 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x0000026264DA44C0>
+11/04/2022 04:26:27 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 04:26:27 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 04:26:38 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 75) - 
+[Done] Driver created!
+11/04/2022 04:26:42 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 104) - 
+[Start] sce_02_03_310
+11/04/2022 04:26:45 PM <base_page.py> [h_is_exist](line 539) - [No found (2.83)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 04:26:47 PM <base_page.py> [h_get_element](line 504) - [No found (1.96)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_shopping_cart')
+11/04/2022 04:26:50 PM <base_page.py> [h_get_element](line 504) - [No found (2.87)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+11/04/2022 04:27:01 PM <main_page.py> [enter_timeline](line 121) - 
+[Fail] Enter Launcher Fail
+11/04/2022 04:27:01 PM <main_page.py> [enter_timeline](line 122) - [Exception Error] 
+11/04/2022 04:27:03 PM <base_page.py> [h_get_element](line 504) - [No found (2.5)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_setting')
+11/04/2022 04:27:06 PM <base_page.py> [h_get_element](line 504) - [No found (2.4)] ('accessibility id', '[AID]Setting_About')
+11/04/2022 04:27:09 PM <base_page.py> [h_get_element](line 504) - [No found (2.48)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/advanced_setting')
+11/04/2022 04:27:30 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 04:27:30 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001C1BDB844C0>
+11/04/2022 04:27:30 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 04:27:30 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 04:27:35 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 80) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+11/04/2022 04:27:46 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 75) - 
+[Done] Driver created!
+11/04/2022 04:27:49 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 104) - 
+[Start] sce_02_03_310
+11/04/2022 04:27:50 PM <base_page.py> [h_get_element](line 504) - [No found (1.01)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 04:27:52 PM <base_page.py> [h_is_exist](line 539) - [No found (2.37)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 04:27:53 PM <base_page.py> [h_get_element](line 504) - [No found (1.18)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 04:27:54 PM <base_page.py> [h_get_element](line 504) - [No found (0.9)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 04:27:55 PM <base_page.py> [h_is_exist](line 539) - [No found (0.9)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 04:27:57 PM <base_page.py> [h_get_element](line 504) - [No found (0.94)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 04:27:57 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 04:28:03 PM <base_page.py> [h_get_element](line 504) - [No found (2.33)] ('xpath', '//*[contains(@text,"Subscribe")]')
+11/04/2022 04:28:05 PM <base_page.py> [h_get_element](line 504) - [No found (1.58)] ('xpath', '//*[contains(@text,"Not now")]')
+11/04/2022 04:28:07 PM <base_page.py> [h_get_element](line 504) - [No found (2.38)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_create_new_project')
+11/04/2022 04:29:11 PM <conftest.py> [report_initial](line 33) - report_init, udid=R5CT32Q3WQN
+11/04/2022 04:29:11 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000284ED1C4550>
+11/04/2022 04:29:12 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 55) - 
+[Start] Init driver session
+11/04/2022 04:29:12 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 61) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 04:29:17 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 80) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+11/04/2022 04:29:28 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 75) - 
+[Done] Driver created!
+11/04/2022 04:29:30 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 104) - 
+[Start] sce_02_03_310
+11/04/2022 04:29:32 PM <base_page.py> [h_get_element](line 504) - [No found (1.32)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 04:29:33 PM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 04:29:34 PM <base_page.py> [h_get_element](line 504) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 04:29:35 PM <base_page.py> [h_get_element](line 504) - [No found (0.84)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 04:29:35 PM <base_page.py> [h_is_exist](line 539) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 04:29:36 PM <base_page.py> [h_get_element](line 504) - [No found (0.86)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 04:29:37 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 04:29:38 PM <base_page.py> [h_get_element](line 504) - [No found (1.6)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_shopping_cart')
+11/04/2022 04:29:43 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 04:29:51 PM <base_page.py> [h_get_element](line 504) - [No found (1.78)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 04:29:52 PM <import_media.py> [switch_to_photo_library](line 263) - [Info] Switch_to_photo_library
+11/04/2022 04:29:59 PM <base_page.py> [h_get_element](line 504) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/mediaPickerStoryboardOK')
+11/04/2022 04:30:02 PM <base_page.py> [h_get_element](line 504) - [No found (1.47)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 04:30:04 PM <base_page.py> [h_is_exist](line 539) - [No found (1.9)] ('xpath', '//*[contains(@text,"Effect")]')
+11/04/2022 04:30:11 PM <base_page.py> [h_get_element](line 504) - [No found (2.31)] ('accessibility id', '[AID]Upgrade_No')
+11/04/2022 04:30:14 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\6cc39936-30f2-4f9c-8842-c83b20e4d011.png
+11/04/2022 04:30:14 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_310.png)
+11/04/2022 04:30:15 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\6cc39936-30f2-4f9c-8842-c83b20e4d011.png)
+11/04/2022 04:30:15 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 04:30:15 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 04:30:15 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 129) - [Info] result_photo = True, result_value = True
+11/04/2022 04:30:15 PM <report.py> [add_result](line 100) - Add Result = 72f8d373-9b32-4dad-bf16-81bce0cb87a7 / True / sce_02_03_310 / 
+11/04/2022 04:30:15 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 136) - 
+[Start] sce_02_03_311
+11/04/2022 04:30:20 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\b96b3541-3d08-41da-a945-0a6321862be8.png
+11/04/2022 04:30:20 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_311.png)
+11/04/2022 04:30:20 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\b96b3541-3d08-41da-a945-0a6321862be8.png)
+11/04/2022 04:30:20 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 04:30:20 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 04:30:21 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 145) - [Info] result_photo = True, result_value = True
+11/04/2022 04:30:21 PM <report.py> [add_result](line 100) - Add Result = 4f7e1155-33ab-4d1c-b080-e6ecf11af385 / True / sce_02_03_310 / 
+11/04/2022 04:30:21 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 152) - 
+[Start] sce_02_03_312
+11/04/2022 04:30:25 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\2c7173cd-7df9-4499-9ea2-657f241f47a4.png
+11/04/2022 04:30:25 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_312.png)
+11/04/2022 04:30:25 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\2c7173cd-7df9-4499-9ea2-657f241f47a4.png)
+11/04/2022 04:30:25 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 04:30:25 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 04:30:26 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 161) - [Info] result_photo = True, result_value = True
+11/04/2022 04:30:26 PM <report.py> [add_result](line 100) - Add Result = f2482eb4-c4f4-42ae-9ae0-fa9b48305eaa / True / sce_02_03_310 / 
+11/04/2022 04:30:26 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 168) - 
+[Start] sce_02_03_313
+11/04/2022 04:30:30 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\d84e1adc-bb31-4098-a442-f64fc10c2bc9.png
+11/04/2022 04:30:30 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_313.png)
+11/04/2022 04:30:31 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\d84e1adc-bb31-4098-a442-f64fc10c2bc9.png)
+11/04/2022 04:30:31 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 04:30:31 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 04:30:31 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 177) - [Info] result_photo = True, result_value = True
+11/04/2022 04:30:31 PM <report.py> [add_result](line 100) - Add Result = d7723b46-9d61-442b-a905-0f3be2e45010 / True / sce_02_03_310 / 
+11/04/2022 04:30:31 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 184) - 
+[Start] sce_02_03_314
+11/04/2022 04:30:34 PM <base_page.py> [h_is_exist](line 539) - [No found (1.73)] ('xpath', '//*[contains(@text,"Temp")]')
+11/04/2022 04:30:42 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\f975f0bd-bb6d-49b2-9b34-92e63866a9bc.png
+11/04/2022 04:30:42 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_314.png)
+11/04/2022 04:30:42 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\f975f0bd-bb6d-49b2-9b34-92e63866a9bc.png)
+11/04/2022 04:30:42 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 04:30:43 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 04:30:43 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 193) - [Info] result_photo = True, result_value = True
+11/04/2022 04:30:43 PM <report.py> [add_result](line 100) - Add Result = 21609f3c-7e8e-4498-9d81-8002f059998f / True / sce_02_03_310 / 
+11/04/2022 04:30:43 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 200) - 
+[Start] sce_02_03_315
+11/04/2022 04:30:47 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\ac00d15f-1b83-463f-92fc-9fcae6321856.png
+11/04/2022 04:30:47 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_315.png)
+11/04/2022 04:30:47 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\ac00d15f-1b83-463f-92fc-9fcae6321856.png)
+11/04/2022 04:30:47 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 5.960464477539063e-08
+11/04/2022 04:30:47 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 04:30:48 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 209) - [Info] result_photo = True, result_value = True
+11/04/2022 04:30:48 PM <report.py> [add_result](line 100) - Add Result = 0f261b4a-1644-41d6-8534-6f94570712ae / True / sce_02_03_310 / 
+11/04/2022 04:30:48 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 216) - 
+[Start] sce_02_03_316
+11/04/2022 04:30:52 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\b764f4d0-3a0d-48eb-aa8c-1e43c56407b4.png
+11/04/2022 04:30:52 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\SFT\test_material\02_03\02_03_316.png)
+11/04/2022 04:30:53 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\b764f4d0-3a0d-48eb-aa8c-1e43c56407b4.png)
+11/04/2022 04:30:53 PM <compare_Mac.py> [compare_image](line 55) - Diff. Rate: 0.0
+11/04/2022 04:30:53 PM <compare_Mac.py> [compare_image](line 56) - compare pass
+11/04/2022 04:30:53 PM <test_aPDR_SFT_scenario_02_03.py> [test_sce_02_03_310](line 225) - [Info] result_photo = True, result_value = True
+11/04/2022 04:30:53 PM <report.py> [add_result](line 100) - Add Result = e39097dc-d519-4816-8980-bdff9e19f13c / True / sce_02_03_310 / 
+11/04/2022 04:30:54 PM <test_aPDR_SFT_scenario_02_03.py> [initial](line 93) - 
+[Done] Teardown
+11/04/2022 04:30:54 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 04:30:54 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 04:31:04 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 04:31:07 PM <test_aPDR_SFT_scenario_05_03.py> [test_sce_05_03_30](line 84) - 
+[Start] sce_05_03_30
+11/04/2022 04:31:09 PM <base_page.py> [h_get_element](line 504) - [No found (1.29)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 04:31:10 PM <base_page.py> [h_is_exist](line 539) - [No found (0.83)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 04:31:10 PM <base_page.py> [h_get_element](line 504) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 04:31:11 PM <base_page.py> [h_get_element](line 504) - [No found (0.82)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 04:31:12 PM <base_page.py> [h_is_exist](line 539) - [No found (0.87)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 04:31:13 PM <base_page.py> [h_get_element](line 504) - [No found (0.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 04:31:13 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 04:31:18 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 04:31:20 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 04:31:22 PM <base_page.py> [h_is_exist](line 539) - [No found (1.11)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 04:31:32 PM <base_page.py> [h_is_exist](line 539) - [No found (2.59)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 04:31:35 PM <base_page.py> [h_is_exist](line 539) - [No found (1.63)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 04:31:37 PM <base_page.py> [h_is_exist](line 539) - [No found (2.11)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_home')
+11/04/2022 04:31:37 PM <edit.py> [customize](line 1547) - [Fail] Enter intro designer Fail
+11/04/2022 04:31:37 PM <report.py> [add_result](line 100) - Add Result = 2dfd00f8-53a6-4380-9b9e-54355ff851ad / False / sce_05_03_30 / Fail Log is not set. 
+11/04/2022 04:31:37 PM <report.py> [add_result](line 112) - Fail screenshot = 1_sce_05_03_30.png
+11/04/2022 04:31:38 PM <report.py> [add_result](line 132) - [Fail] ID = 2dfd00f8-53a6-4380-9b9e-54355ff851ad , Screenshot = True , fail number = 1
+11/04/2022 04:31:38 PM <test_aPDR_SFT_scenario_05_03.py> [test_sce_05_03_30](line 96) - 
+[Start] sce_05_03_31
+11/04/2022 04:31:41 PM <base_page.py> [h_is_exist](line 539) - [No found (1.19)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 04:31:47 PM <base_page.py> [h_is_exist](line 539) - [No found (2.54)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 04:31:50 PM <base_page.py> [h_is_exist](line 539) - [No found (2.18)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 04:31:50 PM <edit.py> [add_to_video](line 1557) - [Done] Add to Your Video
+11/04/2022 04:31:50 PM <report.py> [add_result](line 100) - Add Result = 82d2f413-f2b9-4ba0-94cc-75e66bf03cd0 / True / sce_05_03_30 / 
+11/04/2022 04:31:50 PM <test_aPDR_SFT_scenario_05_03.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 04:31:51 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 04:31:51 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 04:32:01 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 04:32:03 PM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 84) - 
+[Start] sce_05_08_24
+11/04/2022 04:32:05 PM <base_page.py> [h_get_element](line 504) - [No found (1.45)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 04:32:06 PM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 04:32:07 PM <base_page.py> [h_get_element](line 504) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 04:32:08 PM <base_page.py> [h_get_element](line 504) - [No found (0.85)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 04:32:09 PM <base_page.py> [h_is_exist](line 539) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 04:32:10 PM <base_page.py> [h_get_element](line 504) - [No found (0.76)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 04:32:10 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 04:32:15 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 04:32:16 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 04:32:18 PM <base_page.py> [h_is_exist](line 539) - [No found (1.07)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 04:32:33 PM <base_page.py> [h_is_exist](line 539) - [No found (2.41)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 04:32:35 PM <base_page.py> [h_is_exist](line 539) - [No found (1.6)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 04:32:36 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 04:32:37 PM <base_page.py> [h_get_element](line 504) - [No found (1.42)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 04:32:42 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\9f3cab79-2cb9-4bc2-908d-c9b3dba0ccaf.png
+11/04/2022 04:32:46 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\545ef49e-2d03-4494-aa76-05a7f2ff93e7.png
+11/04/2022 04:32:46 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\9f3cab79-2cb9-4bc2-908d-c9b3dba0ccaf.png)
+11/04/2022 04:32:46 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\545ef49e-2d03-4494-aa76-05a7f2ff93e7.png)
+11/04/2022 04:32:47 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.01219670100688518
+11/04/2022 04:32:47 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 04:32:47 PM <report.py> [add_result](line 100) - Add Result = 5841c726-6358-4715-826c-bbcde03e926b / True / sce_05_08_24 / 
+11/04/2022 04:32:47 PM <test_aPDR_SFT_scenario_05_08.py> [test_sce_05_08_24](line 99) - 
+[Start] sce_05_08_25
+11/04/2022 04:32:50 PM <base_page.py> [h_get_element](line 504) - [No found (1.39)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 04:32:55 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\03b5b77d-d33d-48f3-8bec-246eb071c1d7.png
+11/04/2022 04:32:59 PM <base_page.py> [get_preview_pic](line 56) - C:\Users\HAUSEN~1\AppData\Local\Temp\d97c1483-4c8d-4eec-b3cd-fbd6b28fdeb4.png
+11/04/2022 04:33:00 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\03b5b77d-d33d-48f3-8bec-246eb071c1d7.png)
+11/04/2022 04:33:00 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (1229, 1080)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\d97c1483-4c8d-4eec-b3cd-fbd6b28fdeb4.png)
+11/04/2022 04:33:00 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.005938762760292706
+11/04/2022 04:33:00 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 04:33:00 PM <report.py> [add_result](line 100) - Add Result = f81a3deb-4a14-42c1-93a7-8a76e703210a / True / sce_05_08_24 / 
+11/04/2022 04:33:00 PM <test_aPDR_SFT_scenario_05_08.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 04:33:01 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 04:33:01 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 04:33:11 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 04:33:14 PM <test_aPDR_SFT_scenario_05_11.py> [test_sce_05_11_27](line 84) - 
+[Start] sce_05_11_27
+11/04/2022 04:33:15 PM <base_page.py> [h_get_element](line 504) - [No found (1.21)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 04:33:16 PM <base_page.py> [h_is_exist](line 539) - [No found (0.84)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 04:33:17 PM <base_page.py> [h_get_element](line 504) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 04:33:18 PM <base_page.py> [h_get_element](line 504) - [No found (0.8)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 04:33:19 PM <base_page.py> [h_is_exist](line 539) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 04:33:20 PM <base_page.py> [h_get_element](line 504) - [No found (0.79)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 04:33:20 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 04:33:25 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 04:33:27 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 04:33:28 PM <base_page.py> [h_is_exist](line 539) - [No found (1.1)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 04:33:35 PM <base_page.py> [h_is_exist](line 539) - [No found (2.64)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 04:33:37 PM <base_page.py> [h_is_exist](line 539) - [No found (2.34)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 04:33:38 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 04:33:39 PM <base_page.py> [h_get_element](line 504) - [No found (1.39)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+11/04/2022 04:33:48 PM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\0e60a820-bca3-4b33-b82d-06eccc11dea7.png
+11/04/2022 04:33:53 PM <base_page.py> [get_picture](line 50) - C:\Users\HAUSEN~1\AppData\Local\Temp\f5cfbdb3-05cc-4e7e-b188-5df6bee9c6b6.png
+11/04/2022 04:33:53 PM <compare_Mac.py> [compare_image](line 50) - Image1 resolution: (303, 539)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\0e60a820-bca3-4b33-b82d-06eccc11dea7.png)
+11/04/2022 04:33:53 PM <compare_Mac.py> [compare_image](line 51) - Image2 resolution: (303, 539)  (file:C:\Users\HAUSEN~1\AppData\Local\Temp\f5cfbdb3-05cc-4e7e-b188-5df6bee9c6b6.png)
+11/04/2022 04:33:54 PM <compare_Mac.py> [compare_image](line 59) - Diff. Rate: 0.0010413055655576857
+11/04/2022 04:33:54 PM <compare_Mac.py> [compare_image](line 60) - compare fail
+11/04/2022 04:33:54 PM <report.py> [add_result](line 100) - Add Result = bfb8aabd-5575-47b4-9838-f0d6429974fa / True / sce_05_11_27 / 
+11/04/2022 04:33:54 PM <test_aPDR_SFT_scenario_05_11.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 04:33:55 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 35) - 
+[Start] Init driver session
+11/04/2022 04:33:55 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 41) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 04:34:05 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 55) - 
+[Done] Driver created!
+11/04/2022 04:34:07 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 84) - 
+[Start] sce_05_15_1
+11/04/2022 04:34:09 PM <base_page.py> [h_get_element](line 504) - [No found (1.4)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 04:34:10 PM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 04:34:11 PM <base_page.py> [h_get_element](line 504) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 04:34:12 PM <base_page.py> [h_get_element](line 504) - [No found (0.84)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 04:34:13 PM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 04:34:13 PM <base_page.py> [h_get_element](line 504) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 04:34:14 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 04:34:18 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 04:34:20 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 04:34:21 PM <base_page.py> [h_is_exist](line 539) - [No found (1.13)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 04:34:28 PM <base_page.py> [h_is_exist](line 539) - [No found (2.48)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 04:34:31 PM <base_page.py> [h_is_exist](line 539) - [No found (2.48)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 04:34:31 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 04:34:34 PM <edit.py> [add_to_video_in_intro](line 1567) - [Done] Add to Your Video
+11/04/2022 04:34:34 PM <report.py> [add_result](line 100) - Add Result = 2b94f7e6-0550-4942-bdfa-ea7de20d3179 / True / sce_05_15_1 / 
+11/04/2022 04:34:34 PM <test_aPDR_SFT_scenario_05_15.py> [test_sce_05_15_1](line 99) - 
+[Start] sce_05_15_2
+11/04/2022 04:34:36 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 04:34:38 PM <base_page.py> [h_is_exist](line 539) - [No found (1.65)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 04:34:43 PM <base_page.py> [h_is_exist](line 539) - [No found (2.66)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 04:34:46 PM <base_page.py> [h_is_exist](line 539) - [No found (2.42)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 04:34:46 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 04:34:49 PM <edit.py> [share_template](line 1580) - [Done] Share Template
+11/04/2022 04:34:49 PM <report.py> [add_result](line 100) - Add Result = cb72109e-8791-43ca-a22e-36664f0e0e38 / True / sce_05_15_1 / 
+11/04/2022 04:34:50 PM <test_aPDR_SFT_scenario_05_15.py> [initial](line 73) - 
+[Done] Teardown
+11/04/2022 04:34:50 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 41) - 
+[Start] Init driver session
+11/04/2022 04:34:51 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 47) - 
+[Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+11/04/2022 04:35:00 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 61) - 
+[Done] Driver created!
+11/04/2022 04:35:03 PM <test_aPDR_SFT_scenario_05_16.py> [test_sce_05_16_16](line 90) - 
+[Start] sce_05_16_16
+11/04/2022 04:35:05 PM <base_page.py> [h_get_element](line 504) - [No found (1.44)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+11/04/2022 04:35:06 PM <base_page.py> [h_is_exist](line 539) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+11/04/2022 04:35:07 PM <base_page.py> [h_get_element](line 504) - [No found (0.84)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+11/04/2022 04:35:07 PM <base_page.py> [h_get_element](line 504) - [No found (0.83)] ('accessibility id', '[AID]IAP_Back')
+11/04/2022 04:35:08 PM <base_page.py> [h_is_exist](line 539) - [No found (0.82)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+11/04/2022 04:35:09 PM <base_page.py> [h_get_element](line 504) - [No found (0.85)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/later')
+11/04/2022 04:35:10 PM <main_page.py> [enter_launcher](line 101) - [Done] Enter Launcher
+11/04/2022 04:35:14 PM <main_page.py> [enter_timeline](line 118) - [Done] Enter Timeline Done
+11/04/2022 04:35:16 PM <edit.py> [enter_intro](line 1379) - [Done] Enter Intro
+11/04/2022 04:35:17 PM <base_page.py> [h_is_exist](line 539) - [No found (1.08)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading_progress')
+11/04/2022 04:35:24 PM <base_page.py> [h_is_exist](line 539) - [No found (2.53)] ('class name', 'android.widget.ProgressBar')
+11/04/2022 04:35:27 PM <base_page.py> [h_is_exist](line 539) - [No found (2.56)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/loading')
+11/04/2022 04:35:27 PM <edit.py> [customize](line 1544) - [Done] Enter intro designer
+11/04/2022 04:35:31 PM <edit.py> [share_template](line 1580) - [Done] Share Template
+11/04/2022 04:35:32 PM <report.py> [add_result](line 100) - Add Result = d6cd4a33-715a-4eae-ad88-271e44b91482 / True / sce_05_16_16 / 
+11/04/2022 04:35:32 PM <test_aPDR_SFT_scenario_05_16.py> [initial](line 79) - 
+[Done] Teardown
+11/04/2022 04:35:33 PM <report.py> [export](line 213) - compare base checklist not exist, skip making compare list...

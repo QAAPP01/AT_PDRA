@@ -1,0 +1,1 @@
+{'title': 'aPDR_SFT', 'date': '2023-08-14', 'time': '18:55:36', 'server': 'HAUSENQA-NB', 'os': 'Android', 'device': 'samsung SM-A5360', 'version': '12.4.1.1220100_P', 'pass': 419, 'fail': 61, 'na': 28, 'skip': 1886, 'duration': '1:57:18'}

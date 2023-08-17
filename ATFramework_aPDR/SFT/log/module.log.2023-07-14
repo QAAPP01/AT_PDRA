@@ -1,0 +1,147 @@
+07/14/2023 03:12:33 PM <conftest.py> [report_initial](line 34) - report_init, udid=auto
+07/14/2023 03:12:33 PM <conftest.py> [report_initial](line 36) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000214CA4F2A10>
+07/14/2023 03:12:44 PM <conftest.py> [driver](line 103) - 
+[Done] Driver created!
+07/14/2023 03:12:44 PM <test2.py> [initial](line 34) - [Start] Init driver session
+07/14/2023 03:13:11 PM <conftest.py> [report_initial](line 34) - report_init, udid=auto
+07/14/2023 03:13:11 PM <conftest.py> [report_initial](line 36) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000241CD512A40>
+07/14/2023 03:13:22 PM <conftest.py> [driver](line 103) - 
+[Done] Driver created!
+07/14/2023 03:13:22 PM <test2.py> [initial](line 34) - [Start] Init driver session
+07/14/2023 03:23:04 PM <conftest.py> [report_initial](line 34) - report_init, udid=auto
+07/14/2023 03:23:04 PM <conftest.py> [report_initial](line 36) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001E1868B2AA0>
+07/14/2023 03:23:14 PM <conftest.py> [driver](line 103) - 
+[Done] Driver created!
+07/14/2023 03:23:14 PM <test2.py> [initial](line 34) - [Start] Init driver session
+07/14/2023 03:24:50 PM <base_page.py> [h_swipe_element](line 708) - [Error] Message: Unable to perform W3C actions. Check the logcat output for possible error reports and make sure your input actions chain is valid.
+Stacktrace:
+io.appium.uiautomator2.common.exceptions.InvalidElementStateException: Unable to perform W3C actions. Check the logcat output for possible error reports and make sure your input actions chain is valid.
+	at io.appium.uiautomator2.handler.W3CActions.safeHandle(W3CActions.java:87)
+	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
+	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:266)
+	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:260)
+	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:68)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:435)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:293)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:267)
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:250)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:266)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1294)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:911)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:131)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:611)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:552)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:466)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:438)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:140)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:1012)
+
+07/14/2023 03:24:53 PM <base_page.py> [h_swipe_element](line 708) - [Error] Message: Unable to perform W3C actions. Check the logcat output for possible error reports and make sure your input actions chain is valid.
+Stacktrace:
+io.appium.uiautomator2.common.exceptions.InvalidElementStateException: Unable to perform W3C actions. Check the logcat output for possible error reports and make sure your input actions chain is valid.
+	at io.appium.uiautomator2.handler.W3CActions.safeHandle(W3CActions.java:87)
+	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
+	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:266)
+	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:260)
+	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:68)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:435)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:293)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:267)
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:250)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:266)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1294)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:911)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:131)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:611)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:552)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:466)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:438)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:140)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:1012)
+
+07/14/2023 03:24:54 PM <base_page.py> [h_swipe_element](line 708) - [Error] Message: Unable to perform W3C actions. Check the logcat output for possible error reports and make sure your input actions chain is valid.
+Stacktrace:
+io.appium.uiautomator2.common.exceptions.InvalidElementStateException: Unable to perform W3C actions. Check the logcat output for possible error reports and make sure your input actions chain is valid.
+	at io.appium.uiautomator2.handler.W3CActions.safeHandle(W3CActions.java:87)
+	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
+	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:266)
+	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:260)
+	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:68)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:435)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:293)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:267)
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:250)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:266)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1294)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:911)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:131)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:611)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:552)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:466)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:438)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:140)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:1012)
+
+07/14/2023 03:25:36 PM <conftest.py> [report_initial](line 34) - report_init, udid=auto
+07/14/2023 03:25:36 PM <conftest.py> [report_initial](line 36) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000201D3622A70>
+07/14/2023 03:25:46 PM <conftest.py> [driver](line 103) - 
+[Done] Driver created!
+07/14/2023 03:25:46 PM <test2.py> [initial](line 34) - [Start] Init driver session
+07/14/2023 03:26:08 PM <conftest.py> [report_initial](line 34) - report_init, udid=auto
+07/14/2023 03:26:08 PM <conftest.py> [report_initial](line 36) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001D2855C2AA0>
+07/14/2023 03:26:18 PM <conftest.py> [driver](line 103) - 
+[Done] Driver created!
+07/14/2023 03:26:18 PM <test2.py> [initial](line 34) - [Start] Init driver session
+07/14/2023 03:48:42 PM <conftest.py> [report_initial](line 34) - report_init, udid=auto
+07/14/2023 03:48:42 PM <conftest.py> [report_initial](line 36) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x0000015E35842BF0>
+07/14/2023 03:48:53 PM <conftest.py> [driver](line 103) - 
+[Done] Driver created!
+07/14/2023 03:48:53 PM <test2.py> [initial](line 34) - [Start] Init driver session

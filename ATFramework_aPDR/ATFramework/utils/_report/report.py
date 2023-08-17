@@ -281,14 +281,14 @@ class MyReport(object):
                 os.makedirs(self.source_path + "/report/" + self.udid + "_" + self.tr_number, exist_ok=True)
                 self.driver.get_screenshot_as_file(file_full_path)
 
-                time.sleep(5)
-                raw_data = self.driver.stop_recording_screen()
-                video_path = self.output_path + "/[Exception]" + func.__name__ + ".mp4"
-                with open(video_path, "wb") as vd:
-                    vd.write(base64.b64decode(raw_data))
+                # time.sleep(5)
+                # raw_data = self.driver.stop_recording_screen()
+                # video_path = self.output_path + "/[Exception]" + func.__name__ + ".mp4"
+                # with open(video_path, "wb") as vd:
+                #     vd.write(base64.b64decode(raw_data))
 
                 logger("Exception screenshot: %s" % file_full_path)
-                logger("Exception recording: %s" % video_path)
+                # logger("Exception recording: %s" % video_path)
                 logger("Exception: %s" % str(e))
                 raise
         return wrapper

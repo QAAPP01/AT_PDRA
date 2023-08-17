@@ -1,31 +1,21 @@
-import inspect
-import sys, os, glob
-from os.path import dirname
+import pytest, os, inspect, base64, sys, time
 from os import path
-import subprocess
-from pprint import pprint
+
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
+from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.page_factory import PageFactory
+from .conftest import PACKAGE_NAME
+from .conftest import REPORT_INSTANCE
+from .conftest import TEST_MATERIAL_FOLDER
 from ATFramework_aPDR.pages.locator.locator_type import *
 
-from ATFramework_aPDR.pages.page_factory import PageFactory
-from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
-from ATFramework_aPDR.configs import app_config
-from ATFramework_aPDR.configs import driver_config
-from ATFramework_aPDR.ATFramework.utils.log import logger
-import pytest
-import time
-
-from main import deviceName
-from .conftest import REPORT_INSTANCE
-from .conftest import PACKAGE_NAME
-from .conftest import TEST_MATERIAL_FOLDER
-from .conftest import TEST_MATERIAL_FOLDER_01
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
-
-sys.path.insert(0, (dirname(dirname(__file__))))
+sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
+
+test_material_folder = TEST_MATERIAL_FOLDER
 
 class Test_SFT_Scenario_01_04:
     @pytest.fixture(autouse=True)
@@ -35,8 +25,6 @@ class Test_SFT_Scenario_01_04:
 
         self.driver = driver
         self.report = report
-        self.test_material_folder = TEST_MATERIAL_FOLDER
-        self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -51,32 +39,46 @@ class Test_SFT_Scenario_01_04:
         self.is_exist = self.page_main.h_is_exist
 
         self.report.set_driver(driver)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
 
+
+    def stop_recording(self, test_case_name):
+        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
+        recording_data = self.driver.driver.stop_recording_screen()
+        with open(self.video_file_path, 'wb') as video_file:
+            video_file.write(base64.b64decode(recording_data))
+        logger(f'Screen recording saved: {self.video_file_path}')
+
+
     def sce_01_04_01(self):
         uuid = 'c3410853-f64a-49a8-9e82-ac0b2e42dcaf'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
-        self.page_main.enter_launcher()
-        mode_setting = self.page_main.change_UI_mode("portrait")
-        self.driver.driver.orientation = "LANDSCAPE"
-        self.page_main.enter_timeline()
-        orientation = self.driver.driver.orientation
-        self.page_edit.back_to_launcher()
+        try:
+            self.page_main.enter_launcher()
+            mode_setting = self.page_main.change_UI_mode("portrait")
+            self.driver.driver.orientation = "LANDSCAPE"
+            self.page_main.enter_timeline()
+            orientation = self.driver.driver.orientation
+            self.page_edit.back_to_launcher()
 
-        if mode_setting == "portrait" and orientation == "PORTRAIT":
-            result = True
-            fail_log = None
-        else:
-            result = False
-            fail_log = f'\n[Fail] mode_setting = {mode_setting}, orientation = {orientation}'
-            logger(fail_log)
+            if mode_setting == "portrait" and orientation == "PORTRAIT":
+                self.report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'\n[Fail] mode_setting = {mode_setting}, orientation = {orientation}')
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
-        return "PASS" if result else "FAIL"
+        except Exception as err:
+            self.stop_recording(func_name)
+            logger(f'\n{err}')
+            self.report.new_result(uuid, False, fail_log=err)
+
+            return "FAIL"
 
     def sce_01_04_02(self):
         uuid = 'd6381ed1-92fc-45b0-a3e9-46dbbc9e50bb'
@@ -142,14 +144,12 @@ class Test_SFT_Scenario_01_04:
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
 
-    @report.exception_screenshot
-    def test_sce_01_04_01_to_03(self):
-        try:
-            result = {
+    def test_case(self):
+        result = {
                 "sce_01_04_01": self.sce_01_04_01(),
                 "sce_01_04_02": self.sce_01_04_02(),
                 "sce_01_04_03": self.sce_01_04_03()
-            }
-            pprint(result)
-        except Exception as err:
-            logger(f'[Error] {err}')
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")

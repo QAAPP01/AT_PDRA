@@ -1,0 +1,917 @@
+12/16/2022 02:20:07 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 02:20:08 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000195C60EC2B0>
+12/16/2022 02:20:08 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 02:20:08 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 02:20:21 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 02:20:24 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 02:20:26 PM <base_page.py> [h_get_element](line 520) - [No found (0.98)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 02:20:34 PM <base_page.py> [h_is_exist](line 554) - [No found (1.4)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 02:20:35 PM <base_page.py> [h_get_element](line 520) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 02:20:36 PM <base_page.py> [h_get_element](line 520) - [No found (0.69)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 02:20:36 PM <base_page.py> [h_is_exist](line 554) - [No found (0.7)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 02:20:36 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 02:20:38 PM <base_page.py> [h_get_element](line 520) - [No found (1.25)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 02:20:44 PM <base_page.py> [h_is_exist](line 554) - [No found (5.63)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/label')
+12/16/2022 02:20:44 PM <edit.py> [click_tool](line 95) - 
+[Fail] Cannot find tool menu
+12/16/2022 02:20:44 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 646) - [Error] Pip.Text.text_layout() missing 1 required positional argument: 'self'
+12/16/2022 02:20:44 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 02:21:15 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 02:21:15 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001B5B1EDC490>
+12/16/2022 02:21:15 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 02:21:15 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 02:21:23 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 02:21:27 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 02:21:28 PM <base_page.py> [h_get_element](line 520) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 02:21:36 PM <base_page.py> [h_is_exist](line 554) - [No found (1.33)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 02:21:37 PM <base_page.py> [h_get_element](line 520) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 02:21:38 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 02:21:39 PM <base_page.py> [h_is_exist](line 554) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 02:21:39 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 02:21:41 PM <base_page.py> [h_get_element](line 520) - [No found (1.25)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 02:21:46 PM <base_page.py> [h_is_exist](line 554) - [No found (5.48)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/label')
+12/16/2022 02:21:46 PM <edit.py> [click_tool](line 95) - 
+[Fail] Cannot find tool menu
+12/16/2022 02:21:46 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 646) - [Error] Pip.Text.text_layout() missing 1 required positional argument: 'self'
+12/16/2022 02:21:46 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 02:23:49 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 02:23:50 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002CB860EC460>
+12/16/2022 02:23:50 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 02:23:50 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 02:23:58 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 02:24:02 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 02:24:03 PM <base_page.py> [h_get_element](line 520) - [No found (0.87)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 02:24:12 PM <base_page.py> [h_is_exist](line 554) - [No found (1.32)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 02:24:12 PM <base_page.py> [h_get_element](line 520) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 02:24:13 PM <base_page.py> [h_get_element](line 520) - [No found (0.73)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 02:24:14 PM <base_page.py> [h_is_exist](line 554) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 02:24:14 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 02:24:19 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 02:24:20 PM <base_page.py> [h_get_element](line 520) - [No found (0.83)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 02:24:21 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 646) - [Error] Pip.Text.text_layout() missing 1 required positional argument: 'self'
+12/16/2022 02:24:21 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 02:24:52 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 02:24:52 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002426ACBC2B0>
+12/16/2022 02:24:52 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 02:24:52 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 02:25:00 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 02:25:04 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 02:25:05 PM <base_page.py> [h_get_element](line 520) - [No found (0.89)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 02:25:08 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 02:25:23 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 02:25:23 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001906926EBF0>
+12/16/2022 02:25:23 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 02:25:23 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 02:25:31 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 02:25:35 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 02:25:36 PM <base_page.py> [h_get_element](line 520) - [No found (0.93)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 02:25:44 PM <base_page.py> [h_is_exist](line 554) - [No found (1.4)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 02:25:45 PM <base_page.py> [h_get_element](line 520) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 02:25:46 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 02:25:46 PM <base_page.py> [h_is_exist](line 554) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 02:25:47 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 02:25:51 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 02:25:53 PM <base_page.py> [h_get_element](line 520) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 02:25:59 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 02:27:31 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 02:27:32 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001E09755C5E0>
+12/16/2022 02:27:32 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 02:27:32 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 02:27:36 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 62) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+12/16/2022 02:27:45 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 02:27:48 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 02:27:49 PM <base_page.py> [h_get_element](line 520) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 02:27:58 PM <base_page.py> [h_is_exist](line 554) - [No found (1.47)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 02:27:58 PM <base_page.py> [h_get_element](line 520) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 02:27:59 PM <base_page.py> [h_get_element](line 520) - [No found (0.68)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 02:28:00 PM <base_page.py> [h_is_exist](line 554) - [No found (0.63)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 02:28:00 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 02:28:05 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 02:28:06 PM <base_page.py> [h_get_element](line 520) - [No found (1.06)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 02:28:16 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 02:48:30 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 02:48:30 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001EC6106C400>
+12/16/2022 02:48:30 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 02:48:30 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 02:48:35 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 62) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+12/16/2022 02:48:43 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 02:48:47 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 02:48:48 PM <base_page.py> [h_get_element](line 520) - [No found (0.96)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 02:48:56 PM <base_page.py> [h_is_exist](line 554) - [No found (1.33)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 02:48:57 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 02:48:58 PM <base_page.py> [h_get_element](line 520) - [No found (0.7)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 02:48:59 PM <base_page.py> [h_is_exist](line 554) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 02:48:59 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 02:49:04 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 02:49:05 PM <base_page.py> [h_get_element](line 520) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 02:49:12 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 02:49:49 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 03:03:40 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 03:03:40 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002726C31C670>
+12/16/2022 03:03:41 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 03:03:41 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 03:03:51 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 03:03:54 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 03:03:55 PM <base_page.py> [h_get_element](line 520) - [No found (0.93)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 03:04:04 PM <base_page.py> [h_is_exist](line 554) - [No found (1.26)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 03:04:04 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 03:04:05 PM <base_page.py> [h_get_element](line 520) - [No found (0.7)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 03:04:06 PM <base_page.py> [h_is_exist](line 554) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 03:04:06 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 03:04:11 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 03:04:12 PM <base_page.py> [h_get_element](line 520) - [No found (1.04)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 03:04:19 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 03:04:19 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 03:04:20 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / False / sce_02_31_01_to_22 / Fail Log is not set. 
+12/16/2022 03:04:21 PM <report.py> [add_result](line 113) - Fail screenshot = 1_sce_02_31_01_to_22.png
+12/16/2022 03:04:28 PM <report.py> [add_result](line 141) - [Fail] ID = f3e277f2-67f0-4da8-80fe-02bb72857123 , Screenshot = True , fail number = 1
+12/16/2022 03:10:36 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 03:10:45 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 03:10:45 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x0000020514C1D420>
+12/16/2022 03:10:45 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 03:10:46 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 03:10:55 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 03:10:58 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 03:11:00 PM <base_page.py> [h_get_element](line 520) - [No found (0.97)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 03:11:08 PM <base_page.py> [h_is_exist](line 554) - [No found (1.1)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 03:11:09 PM <base_page.py> [h_get_element](line 520) - [No found (0.67)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 03:11:10 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 03:11:10 PM <base_page.py> [h_is_exist](line 554) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 03:11:11 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 03:11:16 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 03:11:17 PM <base_page.py> [h_get_element](line 520) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 03:11:23 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 03:11:23 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 03:11:24 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 113) - 
+[Fail] favorite_message = No favorites yet.
+Long press a font to add.
+12/16/2022 03:11:25 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / False / sce_02_31_01_to_22 / Fail Log is not set. 
+12/16/2022 03:11:25 PM <report.py> [add_result](line 113) - Fail screenshot = 1_sce_02_31_01_to_22.png
+12/16/2022 03:11:32 PM <report.py> [add_result](line 141) - [Fail] ID = f3e277f2-67f0-4da8-80fe-02bb72857123 , Screenshot = True , fail number = 1
+12/16/2022 03:11:32 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 03:11:32 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:11:32 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 164) - 
+[Start] sce_01_01_03
+12/16/2022 03:11:38 PM <base_page.py> [h_get_element](line 520) - [No found (5.45)] ('accessibility id', '[AID]Setting_About')
+12/16/2022 03:11:43 PM <base_page.py> [h_get_element](line 520) - [No found (5.01)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/settings_default_image_duration')
+12/16/2022 03:11:49 PM <base_page.py> [h_get_element](line 520) - [No found (5.96)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/durationText')
+12/16/2022 03:11:49 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 508) - [Error] 'bool' object has no attribute 'text'
+12/16/2022 03:11:49 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 03:14:48 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 03:14:48 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002277317D660>
+12/16/2022 03:14:48 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 03:14:48 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 03:14:57 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 03:15:00 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 03:15:01 PM <base_page.py> [h_get_element](line 520) - [No found (0.95)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 03:15:10 PM <base_page.py> [h_is_exist](line 554) - [No found (1.41)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 03:15:10 PM <base_page.py> [h_get_element](line 520) - [No found (0.7)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 03:15:11 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 03:15:12 PM <base_page.py> [h_is_exist](line 554) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 03:15:12 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 03:15:17 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 03:15:18 PM <base_page.py> [h_get_element](line 520) - [No found (1.04)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 03:15:25 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 03:15:25 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 03:15:26 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:15:26 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 03:15:27 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:15:27 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 03:34:05 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 03:34:05 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001EC85F6D690>
+12/16/2022 03:34:05 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 03:34:05 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 03:34:13 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 03:34:17 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 03:34:18 PM <base_page.py> [h_get_element](line 520) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 03:34:26 PM <base_page.py> [h_is_exist](line 554) - [No found (1.11)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 03:34:27 PM <base_page.py> [h_get_element](line 520) - [No found (1.17)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 03:34:28 PM <base_page.py> [h_get_element](line 520) - [No found (0.73)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 03:34:29 PM <base_page.py> [h_is_exist](line 554) - [No found (0.67)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 03:34:29 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 03:34:34 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 03:34:34 PM <base_page.py> [h_get_element](line 520) - [No found (0.8)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 03:34:41 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 03:34:41 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 03:34:42 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:34:43 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 03:34:43 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:34:43 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 134) - 
+[Start] sce_02_31_04
+12/16/2022 03:34:44 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:34:44 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 03:41:05 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 03:41:05 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001EA66B1DF30>
+12/16/2022 03:41:05 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 03:41:05 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 03:41:13 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 03:41:17 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 03:41:18 PM <base_page.py> [h_get_element](line 520) - [No found (0.87)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 03:41:26 PM <base_page.py> [h_is_exist](line 554) - [No found (1.13)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 03:41:27 PM <base_page.py> [h_get_element](line 520) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 03:41:28 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 03:41:29 PM <base_page.py> [h_is_exist](line 554) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 03:41:29 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 03:41:34 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 03:41:35 PM <base_page.py> [h_get_element](line 520) - [No found (0.92)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 03:41:41 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 03:41:41 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 03:41:42 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:41:42 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 03:41:43 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:41:43 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 134) - 
+[Start] sce_02_31_04
+12/16/2022 03:41:44 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:41:44 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 160) - 
+[Start] sce_02_31_05
+12/16/2022 03:41:45 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:41:45 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 170) - 
+[Start] sce_02_31_06
+12/16/2022 03:41:47 PM <base_page.py> [h_is_exist](line 554) - [No found (2.24)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 03:41:47 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 182) - [Error] Pip.Text.font_category() missing 1 required positional argument: 'self'
+12/16/2022 03:41:47 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 03:42:43 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 03:42:44 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001392984D5A0>
+12/16/2022 03:42:44 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 03:42:44 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 03:42:52 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 03:42:56 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 03:42:57 PM <base_page.py> [h_get_element](line 520) - [No found (0.9)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 03:43:05 PM <base_page.py> [h_is_exist](line 554) - [No found (1.15)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 03:43:06 PM <base_page.py> [h_get_element](line 520) - [No found (0.95)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 03:43:07 PM <base_page.py> [h_get_element](line 520) - [No found (0.65)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 03:43:07 PM <base_page.py> [h_is_exist](line 554) - [No found (0.75)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 03:43:07 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 03:43:12 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 03:43:13 PM <base_page.py> [h_get_element](line 520) - [No found (0.98)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 03:43:21 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 03:43:21 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 03:43:22 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:43:22 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 03:43:22 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:43:23 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 134) - 
+[Start] sce_02_31_04
+12/16/2022 03:43:23 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:43:23 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 160) - 
+[Start] sce_02_31_05
+12/16/2022 03:43:24 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:43:24 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 170) - 
+[Start] sce_02_31_06
+12/16/2022 03:43:27 PM <base_page.py> [h_is_exist](line 554) - [No found (2.24)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 03:43:27 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 182) - [Error] Message: org.eclipse.wst.xml.xpath2.processor.XPathParserException: CUP parser error: Parser error: line 1 col 47: ]
+Stacktrace:
+io.appium.uiautomator2.common.exceptions.InvalidSelectorException: org.eclipse.wst.xml.xpath2.processor.XPathParserException: CUP parser error: Parser error: line 1 col 47: ]
+	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodes(AccessibilityNodeInfoDumper.java:213)
+	at io.appium.uiautomator2.utils.ElementLocationHelpers.getXPathNodeMatch(ElementLocationHelpers.java:119)
+	at io.appium.uiautomator2.handler.FindElement.findElement(FindElement.java:88)
+	at io.appium.uiautomator2.handler.FindElement.safeHandle(FindElement.java:67)
+	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
+	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:266)
+	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:260)
+	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:68)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:435)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:293)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:267)
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:250)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:266)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1294)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:911)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:131)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:611)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:552)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:466)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:438)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:140)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:1012)
+Caused by: org.eclipse.wst.xml.xpath2.processor.XPathParserException: CUP parser error: Parser error: line 1 col 47: ]
+	at org.eclipse.wst.xml.xpath2.processor.internal.InternalXPathParser.parse(InternalXPathParser.java:67)
+	at org.eclipse.wst.xml.xpath2.processor.JFlexCupParser.parse(JFlexCupParser.java:33)
+	at org.eclipse.wst.xml.xpath2.processor.Engine.parseExpression(Engine.java:17)
+	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodes(AccessibilityNodeInfoDumper.java:211)
+	... 37 more
+Caused by: org.eclipse.wst.xml.xpath2.processor.internal.CupError
+	at org.eclipse.wst.xml.xpath2.processor.internal.XPathCup.report_error(XPathCup.java:3238)
+	at java_cup.runtime.lr_parser.syntax_error(lr_parser.java:396)
+	at java_cup.runtime.lr_parser.parse(lr_parser.java:595)
+	at org.eclipse.wst.xml.xpath2.processor.internal.InternalXPathParser.parse(InternalXPathParser.java:47)
+	... 40 more
+
+12/16/2022 03:43:27 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 03:44:21 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 03:44:21 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001AD4E57D570>
+12/16/2022 03:44:21 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 03:44:21 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 03:44:29 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 03:44:33 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 03:44:34 PM <base_page.py> [h_get_element](line 520) - [No found (0.96)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 03:44:42 PM <base_page.py> [h_is_exist](line 554) - [No found (1.37)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 03:44:43 PM <base_page.py> [h_get_element](line 520) - [No found (0.78)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 03:44:44 PM <base_page.py> [h_get_element](line 520) - [No found (0.7)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 03:44:45 PM <base_page.py> [h_is_exist](line 554) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 03:44:45 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 03:44:50 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 03:44:51 PM <base_page.py> [h_get_element](line 520) - [No found (0.94)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 03:44:57 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 03:44:58 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 03:44:59 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:44:59 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 03:44:59 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:45:00 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 134) - 
+[Start] sce_02_31_04
+12/16/2022 03:45:00 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:45:00 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 160) - 
+[Start] sce_02_31_05
+12/16/2022 03:45:01 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 03:45:01 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 170) - 
+[Start] sce_02_31_06
+12/16/2022 03:45:03 PM <base_page.py> [h_is_exist](line 554) - [No found (2.03)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 03:45:03 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 182) - [Error] Message: org.eclipse.wst.xml.xpath2.processor.XPathParserException: CUP parser error: Parser error: line 1 col 47: ]
+Stacktrace:
+io.appium.uiautomator2.common.exceptions.InvalidSelectorException: org.eclipse.wst.xml.xpath2.processor.XPathParserException: CUP parser error: Parser error: line 1 col 47: ]
+	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodes(AccessibilityNodeInfoDumper.java:213)
+	at io.appium.uiautomator2.utils.ElementLocationHelpers.getXPathNodeMatch(ElementLocationHelpers.java:119)
+	at io.appium.uiautomator2.handler.FindElement.findElement(FindElement.java:88)
+	at io.appium.uiautomator2.handler.FindElement.safeHandle(FindElement.java:67)
+	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
+	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:266)
+	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:260)
+	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:68)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:435)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:293)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:267)
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:250)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:266)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:345)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1294)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:366)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:352)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:911)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:131)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:611)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:552)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:466)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:438)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:140)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:1012)
+Caused by: org.eclipse.wst.xml.xpath2.processor.XPathParserException: CUP parser error: Parser error: line 1 col 47: ]
+	at org.eclipse.wst.xml.xpath2.processor.internal.InternalXPathParser.parse(InternalXPathParser.java:67)
+	at org.eclipse.wst.xml.xpath2.processor.JFlexCupParser.parse(JFlexCupParser.java:33)
+	at org.eclipse.wst.xml.xpath2.processor.Engine.parseExpression(Engine.java:17)
+	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodes(AccessibilityNodeInfoDumper.java:211)
+	... 37 more
+Caused by: org.eclipse.wst.xml.xpath2.processor.internal.CupError
+	at org.eclipse.wst.xml.xpath2.processor.internal.XPathCup.report_error(XPathCup.java:3238)
+	at java_cup.runtime.lr_parser.syntax_error(lr_parser.java:396)
+	at java_cup.runtime.lr_parser.parse(lr_parser.java:595)
+	at org.eclipse.wst.xml.xpath2.processor.internal.InternalXPathParser.parse(InternalXPathParser.java:47)
+	... 40 more
+
+12/16/2022 03:45:03 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 04:12:41 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 04:12:41 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002115C40A230>
+12/16/2022 04:12:41 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 04:12:41 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 04:13:00 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 04:13:00 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001F17E2CE380>
+12/16/2022 04:13:00 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 04:13:00 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 04:13:04 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 62) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+12/16/2022 04:13:14 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 04:18:25 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 04:18:37 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 04:18:37 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001DC17EFC520>
+12/16/2022 04:18:37 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 04:18:37 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 04:18:45 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 04:18:49 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 04:18:50 PM <base_page.py> [h_get_element](line 520) - [No found (0.9)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 04:18:59 PM <base_page.py> [h_is_exist](line 554) - [No found (0.93)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 04:18:59 PM <base_page.py> [h_get_element](line 520) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 04:19:00 PM <base_page.py> [h_get_element](line 520) - [No found (0.73)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 04:19:01 PM <base_page.py> [h_is_exist](line 554) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 04:19:01 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 04:19:06 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 04:19:07 PM <base_page.py> [h_get_element](line 520) - [No found (1.03)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 04:19:08 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 182) - [Error] Pip.Text.text_layout() takes from 0 to 1 positional arguments but 2 were given
+12/16/2022 04:19:08 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 04:19:17 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 04:19:17 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x00000211CE9ED6C0>
+12/16/2022 04:19:17 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 04:19:17 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 04:19:25 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 04:19:29 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 04:19:30 PM <base_page.py> [h_get_element](line 520) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 04:19:38 PM <base_page.py> [h_is_exist](line 554) - [No found (1.14)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 04:19:39 PM <base_page.py> [h_get_element](line 520) - [No found (0.68)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 04:19:40 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 04:19:41 PM <base_page.py> [h_is_exist](line 554) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 04:19:41 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 04:19:46 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 04:19:47 PM <base_page.py> [h_get_element](line 520) - [No found (0.97)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 04:19:48 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 182) - [Error] Pip.Text.text_layout() takes from 0 to 1 positional arguments but 2 were given
+12/16/2022 04:19:48 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 04:34:23 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 04:34:23 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001CE5054D570>
+12/16/2022 04:34:23 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 04:34:23 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 04:34:31 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 04:34:35 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 04:34:36 PM <base_page.py> [h_get_element](line 520) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 04:34:44 PM <base_page.py> [h_is_exist](line 554) - [No found (1.41)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 04:34:45 PM <base_page.py> [h_get_element](line 520) - [No found (0.83)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 04:34:46 PM <base_page.py> [h_get_element](line 520) - [No found (0.7)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 04:34:47 PM <base_page.py> [h_is_exist](line 554) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 04:34:47 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 04:34:52 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 04:34:53 PM <base_page.py> [h_get_element](line 520) - [No found (0.88)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 04:34:54 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 182) - [Error] Pip.Text.text_layout() takes from 0 to 1 positional arguments but 2 were given
+12/16/2022 04:34:54 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 04:36:15 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 04:36:15 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002282AEED6C0>
+12/16/2022 04:36:15 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 04:36:15 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 04:36:23 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 04:36:27 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 04:36:28 PM <base_page.py> [h_get_element](line 520) - [No found (1.01)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 04:36:36 PM <base_page.py> [h_is_exist](line 554) - [No found (1.22)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 04:36:37 PM <base_page.py> [h_get_element](line 520) - [No found (0.89)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 04:36:38 PM <base_page.py> [h_get_element](line 520) - [No found (0.7)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 04:36:39 PM <base_page.py> [h_is_exist](line 554) - [No found (0.74)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 04:36:39 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 04:36:44 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 04:36:45 PM <base_page.py> [h_get_element](line 520) - [No found (0.95)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 04:36:52 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 04:36:52 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 04:36:53 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 04:36:53 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 04:36:54 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 04:36:54 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 134) - 
+[Start] sce_02_31_04
+12/16/2022 04:36:55 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 04:36:55 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 160) - 
+[Start] sce_02_31_05
+12/16/2022 04:36:55 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 04:36:56 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 170) - 
+[Start] sce_02_31_06
+12/16/2022 04:36:58 PM <base_page.py> [h_is_exist](line 554) - [No found (2.28)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 04:37:02 PM <report.py> [add_result](line 101) - Add Result = fa86261b-d4c2-4284-aa86-da8ac7a97b9a / True / sce_02_31_01_to_22 / 
+12/16/2022 04:37:02 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 04:37:40 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 04:37:40 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001D5CC80D5D0>
+12/16/2022 04:37:40 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 04:37:40 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 04:37:49 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 04:37:52 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 04:37:53 PM <base_page.py> [h_get_element](line 520) - [No found (1.06)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 04:38:02 PM <base_page.py> [h_is_exist](line 554) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 04:38:02 PM <base_page.py> [h_get_element](line 520) - [No found (0.7)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 04:38:03 PM <base_page.py> [h_get_element](line 520) - [No found (0.7)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 04:38:04 PM <base_page.py> [h_is_exist](line 554) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 04:38:04 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 04:38:09 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 04:38:10 PM <base_page.py> [h_get_element](line 520) - [No found (1.02)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 04:38:16 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 04:38:16 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 04:38:18 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 04:38:18 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 04:38:18 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 04:38:18 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 134) - 
+[Start] sce_02_31_04
+12/16/2022 04:38:19 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 04:38:19 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 161) - 
+[Start] sce_02_31_05
+12/16/2022 04:38:20 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 04:38:20 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 171) - 
+[Start] sce_02_31_06
+12/16/2022 04:38:22 PM <base_page.py> [h_is_exist](line 554) - [No found (2.24)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 04:38:46 PM <report.py> [add_result](line 101) - Add Result = fa86261b-d4c2-4284-aa86-da8ac7a97b9a / True / sce_02_31_01_to_22 / 
+12/16/2022 04:38:46 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 05:26:56 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 05:26:57 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002BE7C3DD630>
+12/16/2022 05:26:57 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 05:26:57 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 05:27:01 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 62) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+12/16/2022 05:27:10 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 05:27:14 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 05:27:15 PM <base_page.py> [h_get_element](line 520) - [No found (1.04)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 05:27:23 PM <base_page.py> [h_is_exist](line 554) - [No found (1.44)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 05:27:24 PM <base_page.py> [h_get_element](line 520) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 05:27:25 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 05:27:25 PM <base_page.py> [h_is_exist](line 554) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 05:27:25 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 05:27:30 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 05:27:32 PM <base_page.py> [h_get_element](line 520) - [No found (1.0)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 05:27:38 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 05:27:38 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 05:27:39 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:27:40 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 05:27:40 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:27:40 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 133) - 
+[Start] sce_02_31_04
+12/16/2022 05:27:41 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:27:41 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 158) - 
+[Start] sce_02_31_05
+12/16/2022 05:27:41 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:27:41 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 167) - 
+[Start] sce_02_31_06
+12/16/2022 05:27:43 PM <base_page.py> [h_is_exist](line 554) - [No found (2.01)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 05:27:44 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 243) - [Error] free variable 'font_categories' referenced before assignment in enclosing scope
+12/16/2022 05:27:44 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 05:32:53 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 05:32:53 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001BEB49AD5D0>
+12/16/2022 05:32:53 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 05:32:53 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 05:32:57 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 62) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+12/16/2022 05:33:07 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 05:33:10 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 05:33:11 PM <base_page.py> [h_get_element](line 520) - [No found (0.91)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 05:33:19 PM <base_page.py> [h_is_exist](line 554) - [No found (1.22)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 05:33:20 PM <base_page.py> [h_get_element](line 520) - [No found (0.66)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 05:33:21 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 05:33:22 PM <base_page.py> [h_is_exist](line 554) - [No found (0.72)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 05:33:22 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 05:33:27 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 05:33:28 PM <base_page.py> [h_get_element](line 520) - [No found (0.92)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 05:33:34 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 05:33:34 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 05:33:35 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:33:35 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 05:33:36 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:33:36 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 133) - 
+[Start] sce_02_31_04
+12/16/2022 05:33:37 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:33:37 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 158) - 
+[Start] sce_02_31_05
+12/16/2022 05:33:38 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:33:38 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 167) - 
+[Start] sce_02_31_06
+12/16/2022 05:33:40 PM <base_page.py> [h_is_exist](line 554) - [No found (2.53)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 05:33:45 PM <report.py> [add_result](line 101) - Add Result = fa86261b-d4c2-4284-aa86-da8ac7a97b9a / True / sce_02_31_01_to_22 / 
+12/16/2022 05:33:45 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 176) - 
+[Start] sce_02_31_09
+12/16/2022 05:33:48 PM <report.py> [add_result](line 101) - Add Result = eb256f5c-a43c-4c49-8c81-da25b09442e7 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:33:48 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 194) - 
+[Start] sce_02_31_07
+12/16/2022 05:33:48 PM <report.py> [add_result](line 101) - Add Result = ab60335c-2f54-47a1-a229-873882325b7c / True / sce_02_31_01_to_22 / 
+12/16/2022 05:33:48 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 203) - 
+[Start] sce_02_31_08
+12/16/2022 05:33:51 PM <base_page.py> [h_is_exist](line 554) - [No found (2.43)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:34:00 PM <base_page.py> [h_is_exist](line 554) - [No found (2.37)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:34:09 PM <base_page.py> [h_is_exist](line 554) - [No found (3.3)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:34:19 PM <base_page.py> [h_is_exist](line 554) - [No found (3.26)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:34:27 PM <base_page.py> [h_is_exist](line 554) - [No found (2.26)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:34:32 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 220) - [Info] Latest font is Source Sans Pro SemiBold
+12/16/2022 05:34:32 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 221) - 
+[Fail] Cannot find the system_font 9.1 launcher Bold final 2
+12/16/2022 05:34:32 PM <report.py> [add_result](line 101) - Add Result = 1a2d0245-9372-4464-bafe-83cc98c44fb5 / False / sce_02_31_01_to_22 / Fail Log is not set. 
+12/16/2022 05:34:32 PM <report.py> [add_result](line 113) - Fail screenshot = 1_sce_02_31_01_to_22.png
+12/16/2022 05:34:41 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 05:34:48 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 05:34:48 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002CB8430D690>
+12/16/2022 05:34:48 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 05:34:48 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 05:34:57 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 05:35:00 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 05:35:01 PM <base_page.py> [h_get_element](line 520) - [No found (0.94)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 05:35:10 PM <base_page.py> [h_is_exist](line 554) - [No found (1.46)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 05:35:11 PM <base_page.py> [h_get_element](line 520) - [No found (0.77)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 05:35:11 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 05:35:12 PM <base_page.py> [h_is_exist](line 554) - [No found (0.7)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 05:35:12 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 05:35:17 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 05:35:18 PM <base_page.py> [h_get_element](line 520) - [No found (1.03)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 05:35:25 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 05:35:25 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 05:35:26 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:35:26 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 05:35:27 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:35:27 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 133) - 
+[Start] sce_02_31_04
+12/16/2022 05:35:28 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:35:28 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 158) - 
+[Start] sce_02_31_05
+12/16/2022 05:35:28 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:35:28 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 167) - 
+[Start] sce_02_31_06
+12/16/2022 05:35:31 PM <base_page.py> [h_is_exist](line 554) - [No found (2.27)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 05:35:35 PM <report.py> [add_result](line 101) - Add Result = fa86261b-d4c2-4284-aa86-da8ac7a97b9a / True / sce_02_31_01_to_22 / 
+12/16/2022 05:35:35 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 176) - 
+[Start] sce_02_31_09
+12/16/2022 05:35:39 PM <report.py> [add_result](line 101) - Add Result = eb256f5c-a43c-4c49-8c81-da25b09442e7 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:35:39 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 194) - 
+[Start] sce_02_31_07
+12/16/2022 05:35:39 PM <report.py> [add_result](line 101) - Add Result = ab60335c-2f54-47a1-a229-873882325b7c / True / sce_02_31_01_to_22 / 
+12/16/2022 05:35:39 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 203) - 
+[Start] sce_02_31_08
+12/16/2022 05:35:42 PM <base_page.py> [h_is_exist](line 554) - [No found (2.58)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:35:48 PM <base_page.py> [h_is_exist](line 554) - [No found (2.19)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:35:54 PM <base_page.py> [h_is_exist](line 554) - [No found (2.17)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:36:00 PM <base_page.py> [h_is_exist](line 554) - [No found (2.12)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:36:06 PM <base_page.py> [h_is_exist](line 554) - [No found (2.14)] ('xpath', '//*[contains(@text,"9.1 launcher Bold final 2")]')
+12/16/2022 05:36:10 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 220) - [Info] Latest font is Source Sans Pro SemiBold
+12/16/2022 05:36:10 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 221) - 
+[Fail] Cannot find the system_font 9.1 launcher Bold final 2
+12/16/2022 05:36:10 PM <report.py> [add_result](line 101) - Add Result = 1a2d0245-9372-4464-bafe-83cc98c44fb5 / False / sce_02_31_01_to_22 / Fail Log is not set. 
+12/16/2022 05:36:10 PM <report.py> [add_result](line 113) - Fail screenshot = 1_sce_02_31_01_to_22.png
+12/16/2022 05:36:18 PM <report.py> [add_result](line 141) - [Fail] ID = 1a2d0245-9372-4464-bafe-83cc98c44fb5 , Screenshot = True , fail number = 1
+12/16/2022 05:36:18 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 05:36:53 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 05:36:53 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002BA1E7CD5D0>
+12/16/2022 05:36:53 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 05:36:53 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 05:37:08 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 05:37:08 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x0000021D50E6D630>
+12/16/2022 05:37:08 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 05:37:08 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 05:37:13 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 62) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+12/16/2022 05:37:22 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 05:37:26 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 05:37:27 PM <base_page.py> [h_get_element](line 520) - [No found (0.97)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 05:37:35 PM <base_page.py> [h_is_exist](line 554) - [No found (0.98)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 05:37:36 PM <base_page.py> [h_get_element](line 520) - [No found (1.21)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 05:37:37 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 05:37:38 PM <base_page.py> [h_is_exist](line 554) - [No found (0.73)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 05:37:38 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 05:37:42 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 05:37:44 PM <base_page.py> [h_get_element](line 520) - [No found (1.35)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 05:37:50 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 05:37:50 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 05:37:51 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:37:51 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 05:37:52 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:37:52 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 133) - 
+[Start] sce_02_31_04
+12/16/2022 05:37:52 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:37:53 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 158) - 
+[Start] sce_02_31_05
+12/16/2022 05:37:53 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:37:53 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 167) - 
+[Start] sce_02_31_06
+12/16/2022 05:37:56 PM <base_page.py> [h_is_exist](line 554) - [No found (3.03)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 05:38:01 PM <report.py> [add_result](line 101) - Add Result = fa86261b-d4c2-4284-aa86-da8ac7a97b9a / True / sce_02_31_01_to_22 / 
+12/16/2022 05:38:01 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 176) - 
+[Start] sce_02_31_09
+12/16/2022 05:38:04 PM <report.py> [add_result](line 101) - Add Result = eb256f5c-a43c-4c49-8c81-da25b09442e7 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:38:04 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 194) - 
+[Start] sce_02_31_07
+12/16/2022 05:38:04 PM <report.py> [add_result](line 101) - Add Result = ab60335c-2f54-47a1-a229-873882325b7c / True / sce_02_31_01_to_22 / 
+12/16/2022 05:38:04 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 203) - 
+[Start] sce_02_31_08
+12/16/2022 05:38:05 PM <report.py> [add_result](line 101) - Add Result = 1a2d0245-9372-4464-bafe-83cc98c44fb5 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:38:05 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 05:38:44 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 05:38:44 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x0000021F2F7FE080>
+12/16/2022 05:38:44 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 05:38:44 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 05:38:53 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 05:38:56 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 88) - 
+[Start] sce_02_31_01
+12/16/2022 05:38:57 PM <base_page.py> [h_get_element](line 520) - [No found (0.88)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 05:39:06 PM <base_page.py> [h_is_exist](line 554) - [No found (1.37)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 05:39:07 PM <base_page.py> [h_get_element](line 520) - [No found (0.89)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 05:39:07 PM <base_page.py> [h_get_element](line 520) - [No found (0.69)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 05:39:08 PM <base_page.py> [h_is_exist](line 554) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 05:39:08 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 05:39:13 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 05:39:14 PM <base_page.py> [h_get_element](line 520) - [No found (0.88)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 05:39:20 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 05:39:20 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 105) - 
+[Start] sce_02_31_02
+12/16/2022 05:39:22 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:39:22 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 120) - 
+[Start] sce_02_31_03
+12/16/2022 05:39:22 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:39:22 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 133) - 
+[Start] sce_02_31_04
+12/16/2022 05:39:23 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:39:23 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 158) - 
+[Start] sce_02_31_05
+12/16/2022 05:39:23 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:39:23 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 167) - 
+[Start] sce_02_31_06
+12/16/2022 05:39:26 PM <base_page.py> [h_is_exist](line 554) - [No found (2.96)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 05:39:31 PM <report.py> [add_result](line 101) - Add Result = fa86261b-d4c2-4284-aa86-da8ac7a97b9a / True / sce_02_31_01_to_22 / 
+12/16/2022 05:39:31 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 176) - 
+[Start] sce_02_31_09
+12/16/2022 05:39:34 PM <report.py> [add_result](line 101) - Add Result = eb256f5c-a43c-4c49-8c81-da25b09442e7 / True / sce_02_31_01_to_22 / 
+12/16/2022 05:39:34 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 194) - 
+[Start] sce_02_31_07
+12/16/2022 05:39:34 PM <report.py> [add_result](line 101) - Add Result = ab60335c-2f54-47a1-a229-873882325b7c / True / sce_02_31_01_to_22 / 
+12/16/2022 05:39:35 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 203) - 
+[Start] sce_02_31_08
+12/16/2022 05:39:37 PM <base_page.py> [h_is_exist](line 554) - [No found (2.58)] ('xpath', '//*[contains(@text,"123")]')
+12/16/2022 05:39:44 PM <base_page.py> [h_is_exist](line 554) - [No found (2.17)] ('xpath', '//*[contains(@text,"123")]')
+12/16/2022 05:39:51 PM <base_page.py> [h_is_exist](line 554) - [No found (2.12)] ('xpath', '//*[contains(@text,"123")]')
+12/16/2022 05:39:59 PM <base_page.py> [h_is_exist](line 554) - [No found (2.15)] ('xpath', '//*[contains(@text,"123")]')
+12/16/2022 05:40:05 PM <base_page.py> [h_is_exist](line 554) - [No found (2.13)] ('xpath', '//*[contains(@text,"123")]')
+12/16/2022 05:40:10 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 220) - [Info] Latest font is Source Sans Pro SemiBold
+12/16/2022 05:40:10 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 221) - 
+[Fail] Cannot find the system_font 123
+12/16/2022 05:40:10 PM <report.py> [add_result](line 101) - Add Result = 1a2d0245-9372-4464-bafe-83cc98c44fb5 / False / sce_02_31_01_to_22 / Fail Log is not set. 
+12/16/2022 05:40:10 PM <report.py> [add_result](line 113) - Fail screenshot = 1_sce_02_31_01_to_22.png
+12/16/2022 05:40:18 PM <report.py> [add_result](line 141) - [Fail] ID = 1a2d0245-9372-4464-bafe-83cc98c44fb5 , Screenshot = True , fail number = 1
+12/16/2022 05:40:18 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 77) - 
+[Stop] Teardown
+12/16/2022 06:50:12 PM <conftest.py> [report_initial](line 33) - report_init, udid=auto
+12/16/2022 06:50:12 PM <conftest.py> [report_initial](line 35) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x0000027C7A47D5D0>
+12/16/2022 06:50:12 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 37) - [Start] Init driver session
+12/16/2022 06:50:12 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 43) - [Info] caps={'deviceName': 'Android', 'platformName': 'Android', 'automationName': 'UiAutomator2', 'settings[waitForIdleTimeout]': 10, 'newCommandTimeout': 10000, 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'language': 'en', 'locale': 'US', 'autoGrantPermissions': True, 'noReset': True, 'autoLaunch': False, 'noSign': True, 'udid': 'R5CT32Q3WQN', 'systemPort': '8200'}
+12/16/2022 06:50:16 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 62) - Message: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.
+    at getResponseForW3CError (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\errors.js:804:9)
+    at asyncHandler (C:\Program Files\Appium Server GUI\resources\app\node_modules\appium\node_modules\appium-base-driver\lib\protocol\protocol.js:380:37)
+12/16/2022 06:50:26 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 57) - 
+[Done] Driver created!
+12/16/2022 06:50:29 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 91) - 
+[Start] sce_02_31_01
+12/16/2022 06:50:30 PM <base_page.py> [h_get_element](line 520) - [No found (0.88)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/gdpr_accept_button')
+12/16/2022 06:50:38 PM <base_page.py> [h_is_exist](line 554) - [No found (1.39)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/splashWaitingProgress')
+12/16/2022 06:50:39 PM <base_page.py> [h_get_element](line 520) - [No found (0.81)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/cancel_button')
+12/16/2022 06:50:40 PM <base_page.py> [h_get_element](line 520) - [No found (0.71)] ('accessibility id', '[AID]IAP_Back')
+12/16/2022 06:50:41 PM <base_page.py> [h_is_exist](line 554) - [No found (0.71)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/header_pdr_premium')
+12/16/2022 06:50:41 PM <main_page.py> [enter_launcher](line 109) - [Done] Enter Launcher
+12/16/2022 06:50:46 PM <main_page.py> [enter_timeline](line 127) - [Done] Enter Timeline Done
+12/16/2022 06:50:47 PM <base_page.py> [h_get_element](line 520) - [No found (0.9)] ('id', 'com.cyberlink.powerdirector.DRA140225_01:id/btn_session_back_icon')
+12/16/2022 06:50:53 PM <report.py> [add_result](line 101) - Add Result = d842fce8-5196-462a-8855-18f2f8b781ae / True / sce_02_31_01_to_22 / 
+12/16/2022 06:50:53 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 108) - 
+[Start] sce_02_31_02
+12/16/2022 06:50:54 PM <report.py> [add_result](line 101) - Add Result = f3e277f2-67f0-4da8-80fe-02bb72857123 / True / sce_02_31_01_to_22 / 
+12/16/2022 06:50:54 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 123) - 
+[Start] sce_02_31_03
+12/16/2022 06:50:55 PM <report.py> [add_result](line 101) - Add Result = 46f626d9-bc0d-4260-b9c5-78dd09f76901 / True / sce_02_31_01_to_22 / 
+12/16/2022 06:50:55 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 136) - 
+[Start] sce_02_31_04
+12/16/2022 06:50:55 PM <report.py> [add_result](line 101) - Add Result = e193799e-09d7-4ad1-8845-895fbca2d298 / True / sce_02_31_01_to_22 / 
+12/16/2022 06:50:55 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 161) - 
+[Start] sce_02_31_05
+12/16/2022 06:50:56 PM <report.py> [add_result](line 101) - Add Result = 43012949-2010-439b-959d-f98515235ec2 / True / sce_02_31_01_to_22 / 
+12/16/2022 06:50:56 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 170) - 
+[Start] sce_02_31_06
+12/16/2022 06:50:59 PM <base_page.py> [h_is_exist](line 554) - [No found (2.96)] ('xpath', '//*[contains(@text,"Monospace")]')
+12/16/2022 06:51:03 PM <report.py> [add_result](line 101) - Add Result = fa86261b-d4c2-4284-aa86-da8ac7a97b9a / True / sce_02_31_01_to_22 / 
+12/16/2022 06:51:03 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 179) - 
+[Start] sce_02_31_09
+12/16/2022 06:51:06 PM <report.py> [add_result](line 101) - Add Result = eb256f5c-a43c-4c49-8c81-da25b09442e7 / True / sce_02_31_01_to_22 / 
+12/16/2022 06:51:06 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 197) - 
+[Start] sce_02_31_07
+12/16/2022 06:51:06 PM <report.py> [add_result](line 101) - Add Result = ab60335c-2f54-47a1-a229-873882325b7c / True / sce_02_31_01_to_22 / 
+12/16/2022 06:51:06 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 206) - 
+[Start] sce_02_31_08
+12/16/2022 06:51:07 PM <report.py> [add_result](line 101) - Add Result = 1a2d0245-9372-4464-bafe-83cc98c44fb5 / True / sce_02_31_01_to_22 / 
+12/16/2022 06:51:07 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 244) - 
+[Start] sce_02_31_10
+12/16/2022 06:51:14 PM <base_page.py> [h_get_element](line 520) - [No found (5.28)] ('xpath', '(//*[contains(@resource-id,"material_text_item_text")])[1]')
+12/16/2022 06:51:14 PM <test_aPDR_SFT_Scenario_02_31.py> [test_sce_02_31_01_to_22](line 260) - [Error] 'bool' object has no attribute 'text'
+12/16/2022 06:51:14 PM <test_aPDR_SFT_Scenario_02_31.py> [initial](line 80) - 
+[Stop] Teardown
