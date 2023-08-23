@@ -32,7 +32,7 @@ class MyReport(object):
         self.replace_bft = self.read("rep_bft.rep")
         self.replace_bft2 = self.read("rep_bft2.rep")
 
-        self.bft = self.read_custom("SFT_Portrait.html")
+        self.bft = self.read_custom("SFT.html")
         if os.path.isfile(self.compare_orig):
             self.bft_compare = self.read_custom("SFT_compare.html")
         else:
@@ -71,7 +71,7 @@ class MyReport(object):
         self.base_path = os.path.dirname(__file__)
         self.sub_folder = self.source_path + "/check_list/"
         # report path
-        self.compare_orig = self.sub_folder+ "SFT_compare_Portrait.html"
+        self.compare_orig = self.sub_folder+ "SFT_compare.html"
         self.compare_base = self.sub_folder + "/SFT_Report_compare_base_" + self.previous_tr_number + ".html"
         self.output_path = self.source_path + "/report/" + self.udid + "_" + self.tr_number
         self.output_file = self.output_path +"/SFT_Report.html"

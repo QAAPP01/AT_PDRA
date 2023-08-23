@@ -26,7 +26,7 @@ preview_default = None
 preview_before = None
 
 
-class Test_Case:
+class Test_Ai_Effect:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         global report

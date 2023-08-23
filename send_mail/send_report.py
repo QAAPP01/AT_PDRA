@@ -72,6 +72,7 @@ def auto_create_qr(param_dict, att_list):
     file_dict = {}
     for i in range(len(att_list)):
         file_dict[f"upload_files_{i+1}"] = os.path.join(dst_dir, att_list[i])
+    param_dict["browser"] = "edge"
     param_dict["qr_dict"].update(file_dict)
     qr_operation.create_qr(param_dict)
 

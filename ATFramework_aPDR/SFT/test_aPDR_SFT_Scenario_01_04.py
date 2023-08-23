@@ -43,6 +43,7 @@ class Test_SFT_Scenario_01_04:
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
+        driver.driver.orientation = "PORTRAIT"
 
 
     def stop_recording(self, test_case_name):
@@ -67,7 +68,8 @@ class Test_SFT_Scenario_01_04:
             orientation = self.driver.driver.orientation
             self.page_edit.back_to_launcher()
 
-            if mode_setting == "portrait" and orientation == "PORTRAIT":
+            # if mode_setting == "portrait" and orientation == "PORTRAIT":
+            if 0:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -153,3 +155,13 @@ class Test_SFT_Scenario_01_04:
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
+
+    def test_case1(self):
+        result = {
+                "sce_01_04_01": self.sce_01_04_01(),
+
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
+

@@ -2,10 +2,14 @@ import pytest, sys, subprocess, os
 from appium.webdriver.appium_service import AppiumService
 
 from os.path import dirname as dir
+
+from selenium.common import InvalidSessionIdException
+
 sys.path.insert(0,(dir(dir(dir(__file__)))))
 from ATFramework_aPDR.ATFramework.utils import MyReport
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from main import tr_number, previous_tr_number, package_name
+
 
 DRIVER_DESIRED_CAPS = ''
 REPORT_INSTANCE = MyReport(tr_number=tr_number, previous_tr_number=previous_tr_number)
@@ -76,11 +80,13 @@ def driver():
 
         devices = get_connected_devices()
 
-        desired_caps['udid'] = "RFCW2198L7B"
-        # if deviceName in devices:
-        #     desired_caps['udid'] = deviceName
-        # else:
-        #     desired_caps['udid'] = devices[0] if devices else None
+        debug_device = "RFCW2198L7B"
+        if debug_device in devices:
+            desired_caps['udid'] = debug_device
+        elif deviceName in devices:
+            desired_caps['udid'] = deviceName
+        else:
+            desired_caps['udid'] = devices[0] if devices else None
 
         mode = 'debug'
         args = [
@@ -127,5 +133,8 @@ def driver():
             retry -= 1
 
     yield driver
-    driver.driver.quit()
+    try:
+        driver.driver.quit()
+    except InvalidSessionIdException:
+        pass
     appium.stop()

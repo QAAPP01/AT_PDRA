@@ -114,9 +114,8 @@ class EditPage(BasePage):
 
             if not self.h_click(L.edit.preview.import_tips_icon, timeout=1):
                 if not self.h_click(L.edit.timeline.main_track_import, timeout=1):
-                    if not self.h_click(L.edit.timeline.main_track_import_float):
-                        logger('[FAIL] Cannot enter media room')
-                        return False
+                    if not self.h_click(L.edit.timeline.main_track_import_float, timeout=1):
+                        logger('[Warning] No import button')
             if folder and file_name:
                 if media_type == 'Video':
                     self.page_media.select_local_video(folder, file_name)

@@ -62,8 +62,7 @@ class Test_SFT_Scenario_01_05:
         self.page_main.enter_launcher()
         self.page_main.enter_timeline(skip_media=False)
         self.click(L.import_media.media_library.btn_preview())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        self.page_media.waiting_loading()
 
         if self.is_exist(L.import_media.media_library.Video.display_preview):
             result = True
@@ -83,8 +82,7 @@ class Test_SFT_Scenario_01_05:
         self.report.start_uuid(uuid)
 
         self.long_press(L.import_media.media_library.media())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        self.page_media.waiting_loading()
 
         if self.is_exist(L.import_media.media_library.Video.display_preview):
             result = True
@@ -140,8 +138,7 @@ class Test_SFT_Scenario_01_05:
 
         self.page_media.select_video_library("getty")
         self.click(L.import_media.media_library.btn_preview())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        self.page_media.waiting_loading()
 
         if self.is_exist(L.import_media.media_library.Video.display_preview):
             self.driver.driver.back()
@@ -161,8 +158,7 @@ class Test_SFT_Scenario_01_05:
 
         self.page_media.select_video_library("getty")
         self.long_press(L.import_media.media_library.media())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        self.page_media.waiting_loading()
 
         if self.is_exist(L.import_media.media_library.Video.display_preview):
             self.driver.driver.back()
@@ -272,8 +268,7 @@ class Test_SFT_Scenario_01_05:
 
         self.page_media.select_video_library("pexels")
         self.click(L.import_media.media_library.btn_preview())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        self.page_media.waiting_loading()
 
         if self.is_exist(id("videoDisplay")):
             self.driver.driver.back()
@@ -293,8 +288,7 @@ class Test_SFT_Scenario_01_05:
 
         self.page_media.select_video_library("pexels")
         self.long_press(L.import_media.media_library.media())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        self.page_media.waiting_loading()
 
         if self.is_exist(id("videoDisplay")):
             result = True
@@ -331,8 +325,7 @@ class Test_SFT_Scenario_01_05:
 
         self.page_media.select_video_library("pixabay")
         self.click(L.import_media.media_library.btn_preview())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        self.page_media.waiting_loading()
 
         if self.is_exist(L.import_media.media_library.Video.display_preview):
             self.driver.driver.back()
@@ -352,8 +345,7 @@ class Test_SFT_Scenario_01_05:
 
         self.page_media.select_video_library("pixabay")
         self.long_press(L.import_media.media_library.media())
-        while self.is_exist(L.import_media.media_library.loading_circle, 1):
-            time.sleep(1)
+        self.page_media.waiting_loading()
 
         if self.is_exist(L.import_media.media_library.Video.display_preview):
             self.driver.driver.back()

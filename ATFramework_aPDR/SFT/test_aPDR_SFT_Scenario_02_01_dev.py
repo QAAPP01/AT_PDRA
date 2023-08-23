@@ -1,29 +1,21 @@
-import inspect
-import sys
-import time
+import pytest, os, inspect, base64, sys, time
 from os import path
-from os.path import dirname
 
-import pytest
-
-from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.configs import app_config
-from ATFramework_aPDR.configs import driver_config
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from main import deviceName
 from .conftest import PACKAGE_NAME
 from .conftest import REPORT_INSTANCE
 from .conftest import TEST_MATERIAL_FOLDER
-from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
-sys.path.insert(0, (dirname(dirname(__file__))))
+sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
+
+test_material_folder = TEST_MATERIAL_FOLDER
 
 file_video = 'video.mp4'
 
@@ -36,8 +28,7 @@ class Test_SFT_Scenario_02_01:
 
         self.driver = driver
         self.report = report
-        self.test_material_folder = TEST_MATERIAL_FOLDER
-        self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
+
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -52,22 +43,25 @@ class Test_SFT_Scenario_02_01:
         self.is_exist = self.page_main.h_is_exist
 
         self.report.set_driver(driver)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
+        driver.driver.orientation = "PORTRAIT"
+
+    def stop_recording(self, test_case_name):
+        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
+        recording_data = self.driver.driver.stop_recording_screen()
+        with open(self.video_file_path, 'wb') as video_file:
+            video_file.write(base64.b64decode(recording_data))
+        logger(f'Screen recording saved: {self.video_file_path}')
 
     def sce_2_1_1(self):
         uuid = '923cc0c9-f6d8-4f65-8076-f1b585d5b1a3'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        import datetime
-        dt = datetime.datetime.today()
-        global default_project_name
-        default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
-        self.page_main.enter_launcher()
-
-        if self.page_main.enter_timeline(default_project_name):
+        if self.page_main.enter_timeline():
             result = True
             fail_log = None
         else:
@@ -82,7 +76,7 @@ class Test_SFT_Scenario_02_01:
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_edit.add_master_media('Video', self.test_material_folder, file_video)
+        self.page_edit.add_master_media('Video', test_material_folder, file_video)
         self.click(L.edit.timeline.master_clip)
         global pic_default_video
         pic_default_video = self.page_main.get_preview_pic()
@@ -694,7 +688,7 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.add_master_media('video', self.test_material_folder, file_video)
+            self.page_edit.add_master_media('video', test_material_folder, file_video)
             if self.page_edit.click_sub_tool('Reverse'):
                 result = True
                 fail_log = None
@@ -712,7 +706,7 @@ class Test_SFT_Scenario_02_01:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', self.test_material_folder, file_video)
+            self.page_edit.add_master_media('video', test_material_folder, file_video)
 
             return "FAIL"
 
@@ -938,7 +932,7 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.add_master_media('video', self.test_material_folder, 'video.mp4')
+            self.page_edit.add_master_media('video', test_material_folder, 'video.mp4')
             self.click(L.edit.timeline.master_video('video.mp4'))
             self.page_edit.click_sub_tool("Adjustment")
             self.page_edit.click_sub_option_tool("Brightness")
@@ -1779,7 +1773,7 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             self.click(L.edit.sub_tool_menu.back)
-            self.page_edit.add_master_media('video', self.test_material_folder, 'video.mp4')
+            self.page_edit.add_master_media('video', test_material_folder, 'video.mp4')
             self.click(L.edit.timeline.master_video('video.mp4'))
             global pic_no_skin
             pic_no_skin = self.page_main.get_preview_pic()
@@ -2076,12 +2070,15 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     def sce_2_1_104(self):
-        try:
-            uuid = '9876425c-07fa-4251-aac2-043efba6099e'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '9876425c-07fa-4251-aac2-043efba6099e'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
 
-            self.page_edit.add_master_media("photo", self.test_material_folder, "photo.jpg")
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_edit.add_master_media('photo', test_material_folder, "photo.jpg")
             self.click(L.edit.timeline.master_photo("photo.jpg"))
             global pic_no_skin
             pic_no_skin = self.page_main.get_preview_pic()
@@ -2407,7 +2404,8 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.add_master_media("photo", self.test_material_folder, "9_16.jpg")
+
+            self.page_edit.add_master_media("photo", test_material_folder, "9_16.jpg")
             self.click(L.edit.timeline.master_photo("9_16.jpg"))
             self.page_edit.click_sub_tool("Fit & Fill")
             global pic_orignal
@@ -2833,7 +2831,7 @@ class Test_SFT_Scenario_02_01:
     #         logger(f"\n[Start] {inspect.stack()[0][3]}")
     #         self.report.start_uuid(uuid)
     #
-    #         self.page_edit.add_master_media('photo', self.test_material_folder, 'photo.jpg')
+    #         self.page_edit.add_master_media('photo', test_material_folder, 'photo.jpg')
     #         self.click(L.edit.timeline.master_clip)
     #         self.page_edit.click_sub_tool("Adjustment")
     #         self.page_edit.click_sub_option_tool("Sharpness")
@@ -2898,7 +2896,7 @@ class Test_SFT_Scenario_02_01:
             self.page_main.enter_timeline(skip_media=False)
             global file_photo
             file_photo = 'photo.jpg'
-            self.page_media.select_local_photo(self.test_material_folder, file_photo)
+            self.page_media.select_local_photo(test_material_folder, file_photo)
             self.click(L.edit.timeline.master_clip)
 
             if self.page_edit.is_sub_tool_exist("Split"):
@@ -3174,7 +3172,7 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_tool("Audio")
             self.click(find_string("Music"))
             self.click(L.import_media.music_library.local)
-            self.click(find_string(self.test_material_folder))
+            self.click(find_string(test_material_folder))
 
             global file_music
             file_music = self.element(L.import_media.music_library.file_name).text
@@ -3388,6 +3386,9 @@ class Test_SFT_Scenario_02_01:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
+            import datetime
+            dt = datetime.datetime.today()
+            default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
 
             if self.page_main.enter_timeline(default_project_name):
                 result = True
@@ -3500,7 +3501,13 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_100": self.sce_2_1_100(),
                   "sce_2_1_102": self.sce_2_1_102(),
 
-                  # Photo
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
+
+    def test_case_2(self):
+        result = {# Photo
                   "sce_2_1_104": self.sce_2_1_104(),
                   "sce_2_1_107": self.sce_2_1_107(),
                   "sce_2_1_105": self.sce_2_1_105(),
@@ -3534,12 +3541,13 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_132": self.sce_2_1_132(),
                   "sce_2_1_133": self.sce_2_1_133(),
                   "sce_2_1_135": self.sce_2_1_135(),
+
                   }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
 
-    def test_case_2(self):
+    def test_case_3(self):
         result = {"sce_2_1_5": self.sce_2_1_5(),
                   "sce_2_1_6": self.sce_2_1_6(),
                   "sce_2_1_7": self.sce_2_1_7(),
@@ -3559,7 +3567,7 @@ class Test_SFT_Scenario_02_01:
                 print(f"[{value}] {key}")
 
 
-    def test_case_3(self):
+    def test_case_4(self):
         result = {
                   # Music
                   "sce_2_1_8": self.sce_2_1_8(),

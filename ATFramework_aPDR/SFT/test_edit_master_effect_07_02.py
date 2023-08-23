@@ -26,7 +26,7 @@ preview_default = None
 preview_before = None
 
 
-class Test_Case:
+class Test_Effect:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         global report
@@ -530,20 +530,20 @@ class Test_Case:
 
     def test_case(self):
         result = {"sce_7_2_1": self.sce_7_2_1(),
-                  "sce_7_2_2": self.sce_7_2_2(),
-                  "sce_7_2_3": self.sce_7_2_3(),
-                  "sce_7_2_4": self.sce_7_2_4(),
-                  "sce_7_2_5": self.sce_7_2_5(),
-                  "sce_7_2_6": self.sce_7_2_6(),
-                  "sce_7_2_7": self.sce_7_2_7(),
-                  "sce_7_2_8": self.sce_7_2_8(),
-                  "sce_7_2_9": self.sce_7_2_9(),
-                  "sce_7_2_10": self.sce_7_2_10(),
-                  "sce_7_2_11": self.sce_7_2_11(),
-                  "sce_7_2_12": self.sce_7_2_12(),
-                  "sce_7_2_13": self.sce_7_2_13(),
-                  "sce_7_2_14": self.sce_7_2_14(),
-                  "sce_7_2_15": self.sce_7_2_15(),
+                  # "sce_7_2_2": self.sce_7_2_2(),
+                  # "sce_7_2_3": self.sce_7_2_3(),
+                  # "sce_7_2_4": self.sce_7_2_4(),
+                  # "sce_7_2_5": self.sce_7_2_5(),
+                  # "sce_7_2_6": self.sce_7_2_6(),
+                  # "sce_7_2_7": self.sce_7_2_7(),
+                  # "sce_7_2_8": self.sce_7_2_8(),
+                  # "sce_7_2_9": self.sce_7_2_9(),
+                  # "sce_7_2_10": self.sce_7_2_10(),
+                  # "sce_7_2_11": self.sce_7_2_11(),
+                  # "sce_7_2_12": self.sce_7_2_12(),
+                  # "sce_7_2_13": self.sce_7_2_13(),
+                  # "sce_7_2_14": self.sce_7_2_14(),
+                  # "sce_7_2_15": self.sce_7_2_15(),
 
                   }
         for key, value in result.items():

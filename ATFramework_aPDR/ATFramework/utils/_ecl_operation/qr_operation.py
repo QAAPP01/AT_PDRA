@@ -5,10 +5,10 @@ import datetime
 import base64
 
 from selenium.webdriver import Chrome, Edge
-from selenium.webdriver import ChromeOptions, EdgeOptions
+from selenium.webdriver import EdgeOptions#, ChromeOptions
 from selenium.webdriver.support.ui import Select
 import chromedriver_autoinstaller
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+# from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 from .password import Authorization
 
@@ -71,9 +71,9 @@ class Qr_Operation():
             self.user_name = passwd_list[0]
             self.password = passwd_list[1]
             # initial browser
-            self.driver = Edge() if para_dict["browser"] == 'edge' else Chrome()
+            self.driver = Edge() #if para_dict["browser"] == 'edge' else Chrome()
             self.driver.implicitly_wait(1)
-            self.options = EdgeOptions if para_dict["browser"] == 'edge' else ChromeOptions()
+            self.options = EdgeOptions # if para_dict["browser"] == 'edge' else ChromeOptions()
             self.options.add_experimental_option("excludeSwitches", ['enable-automation', 'ignore-certificate-errors', 'enable-logging'])  # 新版本關閉“chrome正受到自動測試軟件的控製”信息
             self.options.add_argument("--no-first-run")
             self.options.add_argument('--disable-gpu')
@@ -85,7 +85,7 @@ class Qr_Operation():
             logger(err_msg)
             self.err_msg = err_msg
 
-    def set_webdriver(self, browser='chrome'):
+    def set_webdriver(self, browser='edge'):
         driver_path = os.path.join(self.webdriver_download_path, f'{browser}_driver')
         os.makedirs(driver_path, exist_ok=True)
         return chromedriver_autoinstaller.install(False, driver_path)
@@ -298,7 +298,7 @@ def create_qr(para_dict):
 
 if __name__ == '__main__':
     print('Start QR Creation')
-    para_dict = {'browser': 'chrome',
+    para_dict = {'browser': 'edge',
                  'tr_no': 'TR221116-028',
                  'qr_dict': {'short_description': 'AutoTest Report 111',
                              'build_day': datetime.date.today().strftime('%m%d'),

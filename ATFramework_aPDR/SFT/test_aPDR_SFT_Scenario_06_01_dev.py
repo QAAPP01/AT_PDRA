@@ -1,47 +1,41 @@
-import inspect
-import sys
-import time
+import pytest, inspect, sys, time
 from os import path
-from os.path import dirname
 
-import pytest
-
-from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.configs import app_config
-from ATFramework_aPDR.configs import driver_config
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from main import deviceName
 from .conftest import PACKAGE_NAME
 from .conftest import REPORT_INSTANCE
 from .conftest import TEST_MATERIAL_FOLDER
-from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
-sys.path.insert(0, (dirname(dirname(__file__))))
+sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
 report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
 
-file_video = 'video.mp4'
-file_photo = 'photo.jpg'
+test_material_folder = TEST_MATERIAL_FOLDER
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
+
+# global
 
 
 class Test_SFT_Scenario_06_01:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")
+
         self.driver = driver
-        self.report = report
-        self.test_material_folder = TEST_MATERIAL_FOLDER
-        self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
-        self.page_ai_effect = PageFactory().get_page_object("ai_effect", self.driver)
+        self.page_edit = PageFactory().get_page_object("edit", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
+        self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -49,27 +43,28 @@ class Test_SFT_Scenario_06_01:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        report.set_driver(driver)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
+
 
     def sce_6_1_1(self):
         uuid = 'c706815e-c49f-45c4-a1d4-e8e3db931827'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_main.enter_launcher()
             self.click(L.main.ai_effect.ai_effect_entry)
 
             if self.element(L.main.ai_effect.library_title).text == "AI Effect":
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 fail_log = f'[Fail] Cannot find the title "AI Effect": {self.element(L.main.ai_effect.library_title).text}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -80,17 +75,17 @@ class Test_SFT_Scenario_06_01:
         uuid = '3e59087b-3f6b-4d75-a71d-0cccc3c9747e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.back)
 
             if self.click(L.main.ai_effect.ai_effect_entry):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 fail_log = '\n[Fail] Cannot find ai_effect_entry'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -102,19 +97,19 @@ class Test_SFT_Scenario_06_01:
         uuid = 'ccdef567-1991-4961-a961-c514123529ee'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             templates = self.elements(id("ai_template_card_view"))
 
             if len(templates) > 3:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Template number < 4'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -128,17 +123,17 @@ class Test_SFT_Scenario_06_01:
         uuid = 'b747078b-bde0-4244-82c9-dec13eb6eef7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             if self.is_exist(L.main.ai_effect.template()):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find template'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -152,7 +147,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '9f39bb41-13ab-438d-ae69-cb1468f913f8'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.template())
@@ -163,13 +158,13 @@ class Test_SFT_Scenario_06_01:
             clip_number = self.element(xpath(clip_locator)).text
 
             if self.is_exist(L.main.ai_effect.try_now):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find try_now'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
 
             self.click(L.main.ai_effect.back)
 
@@ -178,7 +173,7 @@ class Test_SFT_Scenario_06_01:
                 _func_name = inspect.stack()[0][3]
                 logger(f"\n[Start] {_func_name}")
                 _case_id = _func_name.split("sce_")[1]
-                self.report.start_uuid(_uuid)
+                report.start_uuid(_uuid)
 
                 try:
                     library_duration = self.element(L.main.ai_effect.template_duration()).text
@@ -193,11 +188,11 @@ class Test_SFT_Scenario_06_01:
                     global result_sce_6_2_4
                     result_sce_6_2_4 = _result
 
-                    self.report.new_result(_uuid, _result, fail_log=_fail_log)
+                    report.new_result(_uuid, _result, fail_log=_fail_log)
                     return "PASS" if _result else "FAIL"
                 except Exception as _err:
                     logger(f"[Error] {_err}")
-                    self.report.new_result(_uuid, False, fail_log="ERROR")
+                    report.new_result(_uuid, False, fail_log="ERROR")
                     return "FAIL"
 
             def sce_6_2_5():
@@ -205,7 +200,7 @@ class Test_SFT_Scenario_06_01:
                 _func_name = inspect.stack()[0][3]
                 logger(f"\n[Start] {_func_name}")
                 _case_id = _func_name.split("sce_")[1]
-                self.report.start_uuid(_uuid)
+                report.start_uuid(_uuid)
 
                 try:
                     library_clip_number = self.element(L.main.ai_effect.template_clip_number()).text
@@ -220,11 +215,11 @@ class Test_SFT_Scenario_06_01:
                     global result_sce_6_2_5
                     result_sce_6_2_5 = _result
 
-                    self.report.new_result(_uuid, _result, fail_log=_fail_log)
+                    report.new_result(_uuid, _result, fail_log=_fail_log)
                     return "PASS" if _result else "FAIL"
                 except Exception as _err:
                     logger(f"[Error] {_err}")
-                    self.report.new_result(_uuid, False, fail_log="ERROR")
+                    report.new_result(_uuid, False, fail_log="ERROR")
                     return "FAIL"
 
             sce_6_2_4()
@@ -245,7 +240,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '2313a0da-9631-49c7-a276-80a658e3966a'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.back)
@@ -253,13 +248,13 @@ class Test_SFT_Scenario_06_01:
             templates = self.elements(id("ai_template_card_view"))
 
             if len(templates) > 3:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Template number < 4'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -273,7 +268,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '1b83d97e-8046-4fa3-8c69-be36ec49ee3c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.template())
@@ -285,13 +280,13 @@ class Test_SFT_Scenario_06_01:
                     break
 
             if self.is_exist(L.main.ai_effect.premium):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find premium_icon'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -305,17 +300,17 @@ class Test_SFT_Scenario_06_01:
         uuid = 'd7f0515a-7ce4-4a92-9e35-51e2331065d9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             if self.is_exist(L.main.ai_effect.full_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find full screen preview'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -329,7 +324,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'bee11837-3711-4071-bf77-48f09135787c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.back)
@@ -344,13 +339,13 @@ class Test_SFT_Scenario_06_01:
                     break
 
             if not page_before == self.element(L.main.ai_effect.full_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Preview is no change'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -364,17 +359,17 @@ class Test_SFT_Scenario_06_01:
         uuid = 'aee4de37-54cb-4a7b-a547-aaae2f6f6b61'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             if result_sce_6_2_4 and result_sce_6_2_5:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Duration: {result_sce_6_2_4}, Clip: {result_sce_6_2_5}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -388,19 +383,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '52a8372a-401d-426e-be15-b7bc1ddbf3f7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.try_now)
 
             if self.is_exist(L.main.ai_effect.media_library):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Cannot find media_library'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -414,19 +409,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '5974cd43-3dbe-419e-8406-07b89c4990f4'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.back)
 
             if self.is_exist(L.main.ai_effect.try_now):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Cannot find try_now'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -440,7 +435,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '06054245-4a09-4b65-86d1-435dc32b0292'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.try_now)
@@ -448,13 +443,13 @@ class Test_SFT_Scenario_06_01:
             toast = self.element(L.main.ai_effect.toast).text
 
             if toast == toast_default:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Toast incorrect: {toast}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -468,7 +463,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '1c1ca59a-306a-491b-9aa8-403dba30906c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -483,13 +478,13 @@ class Test_SFT_Scenario_06_01:
             file_name_order = sorted(files_name, reverse=True)
 
             if file_name_order == files_name:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -503,7 +498,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'e2cadaca-6237-4a4f-acb6-d56142c12a35'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -518,13 +513,13 @@ class Test_SFT_Scenario_06_01:
             file_name_order = sorted(files_name)
 
             if file_name_order == files_name:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -538,7 +533,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '1cfe4a37-eb49-47a1-a872-927d77349328'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
@@ -550,13 +545,13 @@ class Test_SFT_Scenario_06_01:
 
             if self.is_exist(L.import_media.media_library.Video.display_preview):
                 self.driver.driver.back()
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] id "display_preview" is not exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -570,14 +565,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'aea9aa01-7db5-4de8-a29f-150a80c47727'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.Video.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -585,7 +580,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -599,7 +594,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'da4e5d16-6cdc-42d5-b4e0-8c6856b00dd0'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             file_name = "mp4.mp4"
@@ -608,13 +603,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -632,7 +627,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '27f41d5f-29af-4ce2-a93d-b98a7a53171f'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -647,13 +642,13 @@ class Test_SFT_Scenario_06_01:
                 raise Exception('import timeout')
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -671,7 +666,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '46a4a213-155f-4bf4-9f49-e7971e50c069'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -686,13 +681,13 @@ class Test_SFT_Scenario_06_01:
                 raise Exception('import timeout')
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -710,7 +705,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '0e5091f5-caf5-489b-9a76-2bdc5eac8483'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -725,13 +720,13 @@ class Test_SFT_Scenario_06_01:
                 raise Exception('import timeout')
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -745,10 +740,10 @@ class Test_SFT_Scenario_06_01:
         uuid = 'e7bde95b-875f-465e-ab3c-fa97b21c2641'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -759,10 +754,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '1b367024-715d-465c-a03b-2a7231eff70b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -773,10 +768,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '678e883f-7d47-4550-814a-5fa5445525b3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -787,10 +782,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '705a77b8-de7e-48ae-bd56-7f1d7dee2108'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -801,10 +796,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '8fe1d6d1-1668-417f-be33-52e0376bf427'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -819,7 +814,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'add59eeb-d4b9-4f4e-8a38-9e392418be25'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -840,13 +835,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -860,7 +855,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'fa875287-e015-43e6-9464-07aa4af79c9d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_main.text_search(L.import_media.media_library.search, "search")
@@ -869,13 +864,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -889,14 +884,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'f9a25aa8-79b9-4fdd-a1b8-75df98ca28ba'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.Video.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -904,7 +899,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -918,14 +913,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'a2c237ce-9be0-41ed-9f33-fb5928f64129'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.Video.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -933,7 +928,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -947,7 +942,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '4f4c6732-a1eb-4224-aab8-ab3b35be08c7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.media())
@@ -957,13 +952,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -981,7 +976,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '03ade2c2-26f5-4f35-b8cf-6f6902681b23'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -1002,13 +997,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1022,7 +1017,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '36006f64-f596-4c1a-806b-5888b492cea5'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_main.text_search(L.import_media.media_library.search, "search")
@@ -1031,13 +1026,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1051,14 +1046,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'a631b422-8278-4405-be17-19a36bdf1169'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.Video.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -1066,7 +1061,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1080,14 +1075,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '0645bdec-80e8-4cb5-bc71-f20f45506f49'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.video.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -1095,7 +1090,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1109,7 +1104,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '41f8a14e-13e8-4e62-a70d-fb00a6f89879'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.media())
@@ -1123,13 +1118,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1146,20 +1141,20 @@ class Test_SFT_Scenario_06_01:
         uuid = '0a798223-d396-4e8a-83ac-b5b0274c6c18'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
             self.page_ai_effect.enter_free_template_media_picker(skip_enter_template_library=True)
 
             if not self.page_media.select_video_library("giphy"):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Can find giphy'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1176,7 +1171,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'a501cdc4-5a93-4600-9fb7-f53fdf072d88'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.back)
@@ -1197,13 +1192,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1223,7 +1218,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '9eb5e76d-3a03-41b0-a1ea-75ada04053b6'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_main.text_search(L.import_media.media_library.search, "search")
@@ -1232,13 +1227,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1257,14 +1252,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'cac9790b-db7a-41bf-87fd-8b5712ed2f6f'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
             timeout = self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.video.videoDisplay) and timeout:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             elif not timeout:
                 result = False
@@ -1275,7 +1270,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1295,14 +1290,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '9cb0f207-62b7-4895-a05c-3efd4534f346'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.video.videoDisplay):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -1310,7 +1305,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1329,7 +1324,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '1c32f806-a485-4fc3-aeeb-0d9d48d4df28'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.media())
@@ -1339,13 +1334,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1363,7 +1358,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '92c0bded-6eb1-4c63-99d3-1c165cded40c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -1384,13 +1379,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1409,7 +1404,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'c8de0ffb-9fd9-4a88-a8c5-d452bd2a2681'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_main.text_search(L.import_media.media_library.search, "search")
@@ -1418,13 +1413,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1443,14 +1438,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'eeee5f1d-b66b-4960-bb95-123f4704f20c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
             timeout = self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.Video.display_preview) and timeout:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             elif not timeout:
                 result = False
@@ -1461,7 +1456,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1480,14 +1475,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '7c96446d-1b2e-4bc5-b2d2-a45f628f9be8'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             waiting = self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.video.display_preview) and waiting:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             elif not waiting:
                 result = False
@@ -1498,7 +1493,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1517,7 +1512,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'c106a7ca-8477-4cd7-8e28-257f901908d3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.media())
@@ -1527,13 +1522,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1551,7 +1546,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'bb17a360-fce3-444f-976c-9e0022ce648b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -1570,13 +1565,13 @@ class Test_SFT_Scenario_06_01:
             file_name_order = sorted(files_name, reverse=True)
 
             if file_name_order == files_name:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1594,7 +1589,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'e2848afa-8649-4064-8649-db1da9d1dec4'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -1609,13 +1604,13 @@ class Test_SFT_Scenario_06_01:
             file_name_order = sorted(files_name)
 
             if file_name_order == files_name:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1629,7 +1624,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'e571055b-e737-4284-9b5c-cc698238afa1'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             file_name = "jpg.jpg"
@@ -1638,13 +1633,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1662,7 +1657,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'bdb051bd-5092-4e9e-9430-1dee5a391f4f'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -1677,13 +1672,13 @@ class Test_SFT_Scenario_06_01:
                 raise Exception('import timeout')
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1701,7 +1696,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'a4302371-48b7-4cac-86c2-7a85889d793b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -1716,13 +1711,13 @@ class Test_SFT_Scenario_06_01:
                 raise Exception('import timeout')
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1740,14 +1735,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '7f2aeaf7-62d2-4348-b7a5-b4c377cb3ea6'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
             self.page_ai_effect.enter_free_template_media_picker(skip_enter_template_library=True)
 
             if not self.is_exist(L.import_media.media_library.color_board):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -1755,7 +1750,7 @@ class Test_SFT_Scenario_06_01:
 
             self.click(L.main.ai_effect.back)
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1773,10 +1768,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '47039469-aa7c-4628-bd2a-03729c325a41'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -1787,10 +1782,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '70dd1f07-5aea-403a-9029-9419f42d4edc'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -1801,10 +1796,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '0591683c-e463-4e99-88ef-3a74cce46e17'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -1815,10 +1810,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '37c652fe-f97f-451f-a0e3-63d53e859ac3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -1829,10 +1824,10 @@ class Test_SFT_Scenario_06_01:
         uuid = '41c0c860-9e5a-4545-ad54-57fea2dbf769'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
+            report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
             logger(f'\n{err}')
@@ -1843,7 +1838,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'fa743ffe-22c0-485a-adfb-2975d16b5537'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.main.ai_effect.try_now)
@@ -1864,13 +1859,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1884,7 +1879,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '041fcba0-af79-439f-9378-009fc9e08c9f'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_main.text_search(L.import_media.media_library.search, "search")
@@ -1893,13 +1888,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1913,14 +1908,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'f7e26440-d1b1-4704-b76e-88117bf520ba'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.photo.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -1928,7 +1923,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1942,14 +1937,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'c2ad3af3-00a1-4e6e-8d0c-4cacb75e98b5'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.photo.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -1957,7 +1952,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -1971,7 +1966,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'a11cb1b4-cd8d-4f2f-8c28-7a4a7cae5aed'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.media())
@@ -1981,13 +1976,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2005,7 +2000,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'afa2ced7-bdb2-4054-982c-99c3a06fb899'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -2027,13 +2022,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2047,7 +2042,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '7718ae03-38e7-4989-8861-9ecc98bd6b23'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_main.text_search(L.import_media.media_library.search, "search")
@@ -2056,13 +2051,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2076,14 +2071,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '4d1a50ad-1226-41fd-9695-9bfd0e531b1d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.photo.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -2091,7 +2086,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2105,14 +2100,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'ee83ed66-bb25-4843-aad0-545fe8c5d624'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.photo.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -2120,7 +2115,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2134,7 +2129,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'ebe7c158-bf56-4984-9646-d3e5e59dbb26'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.media())
@@ -2147,13 +2142,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2171,7 +2166,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '0597ea98-5cae-4b2a-8714-8289bb624ca2'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -2181,7 +2176,7 @@ class Test_SFT_Scenario_06_01:
             self.click(L.import_media.media_library.pexels_link)
 
             if self.is_exist(find_string("pexels.com")):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -2189,7 +2184,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2203,7 +2198,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'c9683ebd-c159-4c88-9a96-3cdcf4a637e4'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             pic_src = self.page_main.h_full_screenshot()
@@ -2213,13 +2208,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2233,14 +2228,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '9df4e187-e974-4c26-ba04-fa308832c0a9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.photo.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -2248,7 +2243,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2262,14 +2257,14 @@ class Test_SFT_Scenario_06_01:
         uuid = 'e964df3f-8d0a-4eac-b898-49be83ac472c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.photo.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -2277,7 +2272,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2291,7 +2286,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '5f904d0e-7fb8-48b2-9eed-18806a334f2b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.media())
@@ -2301,13 +2296,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2325,7 +2320,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '83c6529e-f81b-4f31-a726-82f5cb4b3df5'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -2335,7 +2330,7 @@ class Test_SFT_Scenario_06_01:
             self.click(L.import_media.media_library.pixabay_link)
 
             if self.is_exist(find_string("pixabay.com")):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -2343,7 +2338,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2362,7 +2357,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'ffe5e33c-17cd-4856-b6f1-18898714f950'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             pic_src = self.page_main.h_full_screenshot()
@@ -2372,13 +2367,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2397,14 +2392,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '50ebb786-fa6b-4ac7-9f12-34feb0b6a0fe'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.photo.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -2412,7 +2407,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2431,14 +2426,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '68727700-ba6e-4be4-a988-386898963aba'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
             if self.is_exist(L.import_media.media_library.photo.display_preview):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -2446,7 +2441,7 @@ class Test_SFT_Scenario_06_01:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2465,7 +2460,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '57850b35-b48c-4a3f-affc-1e87a89763c7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.media())
@@ -2475,13 +2470,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2499,7 +2494,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'f683a635-e229-4ce7-8fee-3f34ff839c7a'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -2516,7 +2511,7 @@ class Test_SFT_Scenario_06_01:
             import_timeout = self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce) and import_timeout:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             elif not import_timeout:
                 result = False
@@ -2525,7 +2520,7 @@ class Test_SFT_Scenario_06_01:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2543,7 +2538,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '6b4b4ae3-2d24-4914-aebe-688bb2424c75'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -2558,7 +2553,7 @@ class Test_SFT_Scenario_06_01:
             import_timeout = self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce) and import_timeout:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             elif not import_timeout:
                 result = False
@@ -2567,7 +2562,7 @@ class Test_SFT_Scenario_06_01:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2585,7 +2580,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '19a47ca2-91a4-40cb-a7ed-481baa667804'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -2600,13 +2595,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2624,7 +2619,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '4bcad19b-ad8b-48c8-a2bb-1ba5c9ec4be6'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library()
@@ -2639,13 +2634,13 @@ class Test_SFT_Scenario_06_01:
             self.page_media.waiting_download()
 
             if self.is_exist(L.main.ai_effect.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2663,20 +2658,20 @@ class Test_SFT_Scenario_06_01:
         uuid = 'e424e887-0930-4d95-b868-aa69a8d9371f'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.play_btn)
             playing_time = self.element(L.ai_effect.editor.playing_time).text
 
             if playing_time != "00:00":
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] playing time is not increase: {playing_time}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2693,7 +2688,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '2be47a53-4aa2-4337-8415-d54d12f9e7a6'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.leave_editor_to_library(reenter=True, clip=2)
@@ -2703,13 +2698,13 @@ class Test_SFT_Scenario_06_01:
             selected_num = len(self.elements(L.import_media.media_library.media_order(0)))
 
             if selected_num == 2:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] media order number incorrect: {selected_num}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2726,17 +2721,17 @@ class Test_SFT_Scenario_06_01:
         uuid = '07286423-8bf8-4644-a21a-d2e7d07b15f9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             if self.element(L.import_media.media_library.next).get_attribute("enabled") == "true":
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] "Next" button is not clickable'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2756,19 +2751,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '5f7ad02b-21bd-49bd-9981-4bdf351b12ff'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.next)
 
             if self.is_exist(L.import_media.media_library.downloading):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] downloading bar is not exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2789,19 +2784,19 @@ class Test_SFT_Scenario_06_01:
         uuid = 'eaaadb38-b1d0-4554-9c21-2352d30cd212'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.cancel)
 
             if self.is_exist(L.import_media.media_library.next):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] "Next" button is not exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2834,14 +2829,14 @@ class Test_SFT_Scenario_06_01:
         uuid = '6cbfa1ad-7017-4fba-83da-ce0d89d04513'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.next)
             import_timeout = self.page_media.waiting_download()
 
             if self.page_ai_effect.leave_editor_to_library() and import_timeout:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             elif not import_timeout:
                 result = False
@@ -2850,7 +2845,7 @@ class Test_SFT_Scenario_06_01:
                 result = False
                 fail_log = f'\n[Fail] back to library fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2868,20 +2863,20 @@ class Test_SFT_Scenario_06_01:
         uuid = '6c2a7cab-5d78-418b-abd4-b35f9d53aad3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.page_ai_effect.enter_editor(skip_enter_template_library=True)
             time.sleep(2)
 
             if self.element(L.ai_effect.editor.playing_time).text != "00:00":
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Playing time = "00:00"'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2898,19 +2893,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '485634cf-42c7-4821-998c-7cd85c29d18e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.replace_all)
 
             if self.is_exist(L.import_media.media_library.next):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] No "Next" button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2927,7 +2922,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '2b98fc6b-6ce5-45d0-9362-89b7f3c2ce68'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.back)
@@ -2935,13 +2930,13 @@ class Test_SFT_Scenario_06_01:
             volume = self.element(L.ai_effect.editor.volume.slider_text).text
 
             if volume == "100":
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Volume not 100: {volume}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2959,7 +2954,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'eb0b0f9b-30bb-446f-b2fa-9ee61e81475a'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.volume.play_btn)
@@ -2976,7 +2971,7 @@ class Test_SFT_Scenario_06_01:
                 result = False
                 fail_log = f'\n[Fail] Play btn is not disappear tapped'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -2994,19 +2989,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '3994d2ce-a9a4-4ab4-a917-b655ef53e227'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.volume.cancel)
 
             if self.is_exist(L.ai_effect.editor.volume_entry):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] No volume entry'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3024,7 +3019,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '12304abd-5541-48f7-9d50-1489c5460bd1'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.volume_entry)
@@ -3032,13 +3027,13 @@ class Test_SFT_Scenario_06_01:
             self.click(L.ai_effect.editor.volume.apply)
 
             if self.is_exist(L.ai_effect.editor.volume_entry):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] No volume entry'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3056,7 +3051,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '3a6192b7-3212-441e-8f7e-eb1b97563169'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             playing_time = self.element(L.ai_effect.editor.playing_time).text
@@ -3065,13 +3060,13 @@ class Test_SFT_Scenario_06_01:
             self.click(L.ai_effect.editor.play_btn)
 
             if self.element(L.ai_effect.editor.playing_time).text != playing_time:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Playing time no change'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3090,7 +3085,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '59c63a35-fbec-4df1-8745-a42cb81c9f40'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.driver.drag_slider_from_center_to_right(L.ai_effect.editor.playing_bar)
@@ -3099,13 +3094,13 @@ class Test_SFT_Scenario_06_01:
             preview_after = self.page_main.get_picture(L.ai_effect.editor.preview)
 
             if not HCompareImg(preview_after, preview_before).full_compare_result():
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Images are the same after dragged slider'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3122,7 +3117,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'e9988c06-7a3c-49cd-955b-4ba45e5fa138'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             if not self.is_exist(L.ai_effect.editor.edit):
@@ -3132,13 +3127,13 @@ class Test_SFT_Scenario_06_01:
                 raise Exception('[Error] Click "Replace" fail')
 
             if not self.is_exist(L.import_media.media_library.next):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Exist "Next" button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3157,7 +3152,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '77d3f699-a355-484a-a7f7-3a4f26362519'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.import_media.media_library.back)
@@ -3176,13 +3171,13 @@ class Test_SFT_Scenario_06_01:
             pic_tgt = self.page_main.get_picture(L.ai_effect.editor.preview)
 
             if HCompareImg(pic_tgt, pic_src).full_compare() >= 0.95:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Similarity < 0.95'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3199,7 +3194,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '7747da3f-31f6-4c19-8eae-a9fc1bf052b3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             if not self.is_exist(L.ai_effect.editor.edit):
@@ -3227,7 +3222,7 @@ class Test_SFT_Scenario_06_01:
             self.driver.drag_slider_from_left_to_right()
             self.click(L.ai_effect.editor.volume.apply)
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3244,19 +3239,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '2776fd95-8f2d-4019-99c9-4217435a9171'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.export)
 
             if self.is_exist(L.ai_effect.editor.produce.produce):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] No produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3274,19 +3269,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '74673b45-4847-48f8-b55e-2395b40dd80d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.produce.back)
 
             if not self.is_exist(L.ai_effect.editor.produce.back):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Back button is still exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3303,20 +3298,20 @@ class Test_SFT_Scenario_06_01:
         uuid = '6f5aca48-62ff-49be-a11e-0569569e8116'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.export)
             self.driver.drag_element(L.ai_effect.editor.produce.resolution_bar, L.ai_effect.editor.produce.resolution_1)
 
             if self.element(L.ai_effect.editor.produce.resolution_bar).text == "0.0":
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Back button is still exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3334,19 +3329,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '4fe8c038-5eac-41a3-8cfa-d6d4b973ebe1'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.driver.drag_element(L.ai_effect.editor.produce.resolution_bar, L.ai_effect.editor.produce.resolution_2)
 
             if self.element(L.ai_effect.editor.produce.resolution_bar).text == "1.0":
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Back button is still exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3364,19 +3359,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '52b6104e-32de-4807-971c-9d37ad05737d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.driver.drag_element(L.ai_effect.editor.produce.resolution_bar, L.ai_effect.editor.produce.resolution_3)
 
             if self.element(L.ai_effect.editor.produce.resolution_bar).text == "2.0":
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] Back button is still exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3394,13 +3389,13 @@ class Test_SFT_Scenario_06_01:
         uuid = '1fb7010d-3f70-46a1-97d8-b7af71614290'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.driver.drag_element(L.ai_effect.editor.produce.resolution_bar, L.ai_effect.editor.produce.resolution_4)
 
             if self.is_exist(L.produce.iap_back):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
@@ -3408,7 +3403,7 @@ class Test_SFT_Scenario_06_01:
 
             self.click(L.produce.iap_back)
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3426,19 +3421,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '855995da-c1ed-455f-b4bc-0932fee039d4'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.produce.produce)
 
             if self.is_exist(L.ai_effect.producing.progress_bar):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] No progress bar'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3457,20 +3452,20 @@ class Test_SFT_Scenario_06_01:
         uuid = '4167881a-77ab-42c0-b923-9922bf7f2656'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.producing.cancel)
             self.click(L.ai_effect.producing.cancel_ok)
 
             if self.is_exist(L.ai_effect.editor.export):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] No export button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3494,19 +3489,19 @@ class Test_SFT_Scenario_06_01:
         uuid = '1f876e02-b413-4a06-9147-e8c9f3535988'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.produce.produced_back)
 
             if self.is_exist(L.ai_effect.editor.export):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] No export button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3523,7 +3518,7 @@ class Test_SFT_Scenario_06_01:
         uuid = '60f0b428-a199-432a-a07a-4cf49e43aa38'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.click(L.ai_effect.editor.export)
@@ -3538,13 +3533,13 @@ class Test_SFT_Scenario_06_01:
             current_pack = self.driver.driver.current_package
 
             if current_pack != pdr_package:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] current_package is still pdr: {current_pack}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3568,7 +3563,7 @@ class Test_SFT_Scenario_06_01:
         uuid = 'edde24ab-5aa4-49c9-b9ea-b68018b17148'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.driver.driver.activate_app(pdr_package)
@@ -3577,13 +3572,13 @@ class Test_SFT_Scenario_06_01:
             current_pack = self.driver.driver.current_package
 
             if current_pack != pdr_package:
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] current_package is still pdr: {current_pack}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:
@@ -3608,20 +3603,20 @@ class Test_SFT_Scenario_06_01:
         uuid = '3d8d3218-05f2-4306-8187-82b87155a3bb'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
             self.driver.driver.back()
             self.click(L.ai_effect.producing.done)
 
             if self.is_exist(L.ai_effect.template.template()):
-                self.report.new_result(uuid, True)
+                report.new_result(uuid, True)
                 return "PASS"
             else:
                 result = False
                 fail_log = f'\n[Fail] No template'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            report.new_result(uuid, result, fail_log=fail_log)
             if result:
                 return "PASS"
             else:

@@ -39,7 +39,17 @@ def logger(*msg,function=None,file_name=None,write_to_file=True,line=True):
     else:
         line = inspect.stack()[2].frame.f_lineno
         name = os.path.basename(inspect.stack()[2].filename)
-    cformat_pattern = "\033[92m%(asctime)s \033[97;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m %(message)s".format(name,function,line)
+
+    myMsg = [str(x) for x in msg]
+
+    if ["Error"] in myMsg or ["Fail"] in myMsg:
+        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[91;1;5m %(message)s".format(name,function,line)
+    elif ["Warning"] in myMsg:
+        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[93m %(message)s".format(name,function,line)
+    else:
+        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[97m %(message)s".format(name,function,line)
+
+
     format_pattern = "%(asctime)s <{}> [{}](line {}) - %(message)s".format(name,function,line)
     formatter = logging.Formatter(fmt=format_pattern,datefmt="%m/%d/%Y %I:%M:%S %p")
     cformatter = logging.Formatter(fmt=cformat_pattern,datefmt="%m/%d/%Y %I:%M:%S %p")
@@ -61,8 +71,7 @@ def logger(*msg,function=None,file_name=None,write_to_file=True,line=True):
         dbw.setLevel(logging.DEBUG)
         dbw.setFormatter(formatter)
         _logger.addHandler(dbw)
-    
-    myMsg = [str(x) for x in msg]
+
     _logger.debug(str(*myMsg))
     ft_rotating.close()
     
