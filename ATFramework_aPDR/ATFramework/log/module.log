@@ -127,3 +127,8 @@ Backtrace:
 08/23/2023 10:24:03 AM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
 08/23/2023 10:24:05 AM <qr_operation.py> [__init__](line 85) - Exception occurs. Incorrect format of parameter or missing keys. ErrorLog=ChromiumOptions.add_experimental_option() missing 1 required positional argument: 'value'
 08/23/2023 10:24:31 AM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0452721'}
+08/23/2023 08:13:54 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+08/23/2023 08:13:54 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+08/23/2023 08:13:54 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+08/23/2023 08:13:56 PM <qr_operation.py> [__init__](line 85) - Exception occurs. Incorrect format of parameter or missing keys. ErrorLog=ChromiumOptions.add_experimental_option() missing 1 required positional argument: 'value'
+08/23/2023 08:14:22 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0452761'}
