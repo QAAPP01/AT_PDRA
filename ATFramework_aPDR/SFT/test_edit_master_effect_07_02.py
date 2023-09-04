@@ -1,4 +1,4 @@
-import pytest, inspect, sys, time
+import pytest, os, inspect, base64, sys, time
 from os import path
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
@@ -48,9 +48,17 @@ class Test_Effect:
         self.is_exist = self.page_main.h_is_exist
 
         self.report.set_driver(driver)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
+        
+    def stop_recording(self, test_case_name):
+        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
+        recording_data = self.driver.driver.stop_recording_screen()
+        with open(self.video_file_path, 'wb') as video_file:
+            video_file.write(base64.b64decode(recording_data))
+        logger(f'Screen recording saved: {self.video_file_path}')
 
     def sce_7_2_1(self):
         uuid = '5934f484-9410-45e9-b636-5b23e9c99ff6'
@@ -72,6 +80,7 @@ class Test_Effect:
                 raise Exception('[Fail] Cannot find the effect')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -104,6 +113,7 @@ class Test_Effect:
                 raise Exception("[FAIL] Effect is not selected")
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -136,6 +146,7 @@ class Test_Effect:
                 raise Exception("[FAIL] Images diff")
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -173,6 +184,7 @@ class Test_Effect:
             return "PASS"
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -204,6 +216,7 @@ class Test_Effect:
                 raise Exception('[Fail] Favorite category is not empty')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -224,13 +237,14 @@ class Test_Effect:
         self.report.start_uuid(uuid)
 
         try:
-            if self.page_edit.click_category("Style", L.edit.master.effect.category(0)):
+            if self.page_edit.click_category("Texture", L.edit.master.effect.category(0)):
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot enter "Style"')
+                raise Exception('[Fail] Cannot enter "Texture"')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -241,7 +255,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
 
             return "FAIL"
 
@@ -261,6 +275,7 @@ class Test_Effect:
                 raise Exception('[Fail] Cannot find "Solarize"')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -271,7 +286,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
             self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
 
             return "FAIL"
@@ -296,6 +311,7 @@ class Test_Effect:
                 raise Exception(f'[Fail] Default value incorrect: {size_text}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -306,7 +322,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
             self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
@@ -329,6 +345,7 @@ class Test_Effect:
                 raise Exception(f'[Fail] Max value incorrect: {size_text}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -339,7 +356,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
             self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
@@ -361,6 +378,7 @@ class Test_Effect:
                 raise Exception('[Fail] Preview has no changed')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -371,7 +389,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
             self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
@@ -394,6 +412,7 @@ class Test_Effect:
                 raise Exception(f'[Fail] min value incorrect: {size_text}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -404,7 +423,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
             self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
@@ -426,6 +445,7 @@ class Test_Effect:
                 raise Exception('[Fail] Preview has no changed')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -436,7 +456,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
             self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
@@ -459,6 +479,7 @@ class Test_Effect:
                 raise Exception(f'[Fail] Value is not the default(120): {size_text}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -469,7 +490,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
             self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
 
@@ -491,6 +512,7 @@ class Test_Effect:
                 raise Exception('[Fail] Cannot find the effect')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -501,7 +523,7 @@ class Test_Effect:
             self.page_edit.add_master_media('photo', file_name=photo_9_16)
             self.click(L.edit.master.clip())
             self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Style", L.edit.master.effect.category(0))
+            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
             self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
 
             return "FAIL"
@@ -523,6 +545,7 @@ class Test_Effect:
                 raise Exception('[Fail] Preview has no changed')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -544,7 +567,6 @@ class Test_Effect:
                   "sce_7_2_13": self.sce_7_2_13(),
                   "sce_7_2_14": self.sce_7_2_14(),
                   "sce_7_2_15": self.sce_7_2_15(),
-
                   }
         for key, value in result.items():
             if value != "PASS":

@@ -1,4 +1,4 @@
-import pytest, inspect, sys, time
+import pytest, os, inspect, base64, sys, time
 from os import path
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
@@ -48,9 +48,17 @@ class Test_Ai_Effect:
         self.is_exist = self.page_main.h_is_exist
 
         self.report.set_driver(driver)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
+
+    def stop_recording(self, test_case_name):
+        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
+        recording_data = self.driver.driver.stop_recording_screen()
+        with open(self.video_file_path, 'wb') as video_file:
+            video_file.write(base64.b64decode(recording_data))
+        logger(f'Screen recording saved: {self.video_file_path}')
 
     def sce_7_1_1(self):
         uuid = '7713342c-d600-43b7-9fe8-1675a2124c7b'
@@ -71,6 +79,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Cannot find the effect')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -102,6 +111,7 @@ class Test_Ai_Effect:
                 raise Exception("[FAIL] Effect is not selected")
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -133,6 +143,7 @@ class Test_Ai_Effect:
                 raise Exception("[FAIL] Images diff")
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -161,6 +172,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Cannot find the effect')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -197,6 +209,7 @@ class Test_Ai_Effect:
             return "PASS"
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -228,6 +241,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Favorite category is not empty')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -255,6 +269,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Cannot enter "Body Effect"')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -285,6 +300,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Cannot find "Contour 2"')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -322,6 +338,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Preview has no changed')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -361,6 +378,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Preview has no changed')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -387,13 +405,14 @@ class Test_Ai_Effect:
             size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
             size_text = self.element(size_text).text
 
-            if size_text == '5':
+            if size_text == '6':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default value incorrect: {size_text}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -429,6 +448,7 @@ class Test_Ai_Effect:
                 raise Exception(f'[Fail] Max value incorrect: {size_text}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -442,6 +462,7 @@ class Test_Ai_Effect:
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
+            self.driver.drag_slider_to_max(L.edit.master.ai_effect.slider(1))
 
             return "FAIL"
 
@@ -461,6 +482,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Preview has no changed')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -488,13 +510,14 @@ class Test_Ai_Effect:
             size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
             size_text = self.element(size_text).text
 
-            if size_text == '0':
+            if size_text == '1':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
                 raise Exception(f'[Fail] min value incorrect: {size_text}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -508,6 +531,7 @@ class Test_Ai_Effect:
             self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0))
             self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
             self.click(L.edit.master.ai_effect.edit)
+            self.driver.drag_slider_to_min(L.edit.master.ai_effect.slider(1))
 
             return "FAIL"
 
@@ -527,6 +551,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Preview has no changed')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -554,13 +579,14 @@ class Test_Ai_Effect:
             size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
             size_text = self.element(size_text).text
 
-            if size_text == '5':
+            if size_text == '6':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value is not the default(5): {size_text}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -593,6 +619,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Cannot find the effect')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 
@@ -625,6 +652,7 @@ class Test_Ai_Effect:
                 raise Exception('[Fail] Preview has no changed')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             self.report.new_result(uuid, False, fail_log=err)
 

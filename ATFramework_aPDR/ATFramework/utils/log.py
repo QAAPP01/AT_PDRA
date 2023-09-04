@@ -42,13 +42,12 @@ def logger(*msg,function=None,file_name=None,write_to_file=True,line=True):
 
     myMsg = [str(x) for x in msg]
 
-    if ["Error"] in myMsg or ["Fail"] in myMsg:
-        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[91;1;5m %(message)s".format(name,function,line)
-    elif ["Warning"] in myMsg:
-        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[93m %(message)s".format(name,function,line)
+    if "error" in myMsg[0].lower() or "fail" in myMsg[0].lower():
+        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[91;1;5m %(message)s".format(name, function, line)
+    elif "warning" in myMsg[0].lower():
+        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[93m %(message)s".format(name, function, line)
     else:
-        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[97m %(message)s".format(name,function,line)
-
+        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[97m %(message)s".format(name, function, line)
 
     format_pattern = "%(asctime)s <{}> [{}](line {}) - %(message)s".format(name,function,line)
     formatter = logging.Formatter(fmt=format_pattern,datefmt="%m/%d/%Y %I:%M:%S %p")

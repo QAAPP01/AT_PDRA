@@ -39,7 +39,7 @@ class Test_SFT_Scenario_01_04:
         self.is_exist = self.page_main.h_is_exist
 
         self.report.set_driver(driver)
-        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
@@ -68,8 +68,7 @@ class Test_SFT_Scenario_01_04:
             orientation = self.driver.driver.orientation
             self.page_edit.back_to_launcher()
 
-            # if mode_setting == "portrait" and orientation == "PORTRAIT":
-            if 0:
+            if mode_setting == "portrait" and orientation == "PORTRAIT":
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:

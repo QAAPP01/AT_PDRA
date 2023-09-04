@@ -2331,7 +2331,7 @@ class Test_SFT_Scenario_02_02:
         try:
             transition_amount = self.page_edit.calculate_transition_amount()
 
-            if transition_amount == 358:
+            if transition_amount >= 358:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:

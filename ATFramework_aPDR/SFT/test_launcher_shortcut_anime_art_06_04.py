@@ -1,4 +1,4 @@
-import pytest, inspect, sys, time
+import pytest, os, inspect, base64, sys, time
 from os import path
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
@@ -24,7 +24,7 @@ photo_16_9 = 'photo_16_9.jpg'
 # global
 
 
-class Test_SFT_Scenario_06_01:
+class Test_Anime_Art:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")
@@ -44,12 +44,20 @@ class Test_SFT_Scenario_06_01:
         self.is_exist = self.page_main.h_is_exist
 
         report.set_driver(driver)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
+        
+    def stop_recording(self, test_case_name):
+        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
+        recording_data = self.driver.driver.stop_recording_screen()
+        with open(self.video_file_path, 'wb') as video_file:
+            video_file.write(base64.b64decode(recording_data))
+        logger(f'Screen recording saved: {self.video_file_path}')
 
 
-    def sce_6_1_1(self):
+    def sce_6_4_1(self):
         uuid = 'c706815e-c49f-45c4-a1d4-e8e3db931827'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -57,39 +65,109 @@ class Test_SFT_Scenario_06_01:
 
         try:
             self.page_main.enter_launcher()
-            self.click(L.main.ai_effect.ai_effect_entry)
+            if not self.click(find_string('Anime Art')):
+                raise Exception('Click "Anime Art" fail')
+            title = self.element(L.main.shortcut.anime_art.title).text
 
-            if self.element(L.main.ai_effect.library_title).text == "AI Effect":
+            if title == "AI Anime Art":
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = f'[Fail] Cannot find the title "AI Effect": {self.element(L.main.ai_effect.library_title).text}'
-                report.new_result(uuid, False, fail_log=fail_log)
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Title incorrect: {title}')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.click(find_string('Anime Art'))
+
             return "FAIL"
 
-    def sce_6_2_1(self):
+    def sce_6_4_2(self):
+        uuid = '02ebb35f-967b-4afb-9ef1-cc85810eeef7'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            if not self.click(L.main.shortcut.back_demo):
+                raise Exception('Click "Back" fail')
+
+            if self.is_exist(L.main.new_project):
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] No found Launcher')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            logger(f'\n{err}')
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+
+            return "FAIL"
+
+    def sce_6_4_3(self):
+        uuid = 'e6ec3ac7-09f3-4bfc-8799-0a78746845ad'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(find_string('Anime Art'))
+            if not self.click(L.main.shortcut.try_it):
+                raise Exception('Click "Try it now" fail')
+
+            if self.is_exist(L.main.shortcut.anime_art.template(0)):
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] No found template')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            logger(f'\n{err}')
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.click(find_string('Anime Art'))
+            self.click(L.main.shortcut.try_it)
+
+            return "FAIL"
+
+    def sce_6_4_4(self):
         uuid = '3e59087b-3f6b-4d75-a71d-0cccc3c9747e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(L.main.ai_effect.back)
+            if not self.click(L.main.shortcut.anime_art.back):
+                raise Exception('Click "Back" fail')
 
-            if self.click(L.main.ai_effect.ai_effect_entry):
+            if self.is_exist(L.main.new_project):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '\n[Fail] Cannot find ai_effect_entry'
-                report.new_result(uuid, False, fail_log=fail_log)
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] No found Launcher')
 
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
 
             return "FAIL"
 
@@ -115,6 +193,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -139,6 +218,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -232,6 +312,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -260,6 +341,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -292,6 +374,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -316,6 +399,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -351,6 +435,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -375,6 +460,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -401,11 +487,12 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
 
-    def sce_6_4_1(self):
+    def sce_6_4_144(self):
         uuid = '5974cd43-3dbe-419e-8406-07b89c4990f4'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -427,11 +514,12 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
 
-    def sce_6_4_2(self):
+    def sce_6_4_23434(self):
         uuid = '06054245-4a09-4b65-86d1-435dc32b0292'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -455,79 +543,80 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
 
-    def sce_6_4_3(self):
-        uuid = '1c1ca59a-306a-491b-9aa8-403dba30906c'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.by_name)
-            self.click(L.import_media.sort_menu.descending)
-            self.driver.driver.back()
-
-            files_name = []
-            files = self.elements(L.import_media.media_library.file_name(0))
-            for i in files:
-                files_name.append(i.text)
-            file_name_order = sorted(files_name, reverse=True)
-
-            if file_name_order == files_name:
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                result = False
-                fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
-
-            report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(f'\n{err}')
-
-            return "FAIL"
-
-    def sce_6_4_4(self):
-        uuid = 'e2cadaca-6237-4a4f-acb6-d56142c12a35'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.by_name)
-            self.click(L.import_media.sort_menu.ascending)
-            self.driver.driver.back()
-
-            files_name = []
-            files = self.elements(L.import_media.media_library.file_name(0))
-            for i in files:
-                files_name.append(i.text)
-            file_name_order = sorted(files_name)
-
-            if file_name_order == files_name:
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                result = False
-                fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
-
-            report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(f'\n{err}')
-
-            return "FAIL"
+    # def sce_6_4_3(self):
+    #     uuid = '1c1ca59a-306a-491b-9aa8-403dba30906c'
+    #     func_name = inspect.stack()[0][3]
+    #     logger(f"\n[Start] {func_name}")
+    #     report.start_uuid(uuid)
+    #
+    #     try:
+    #         self.click(L.import_media.sort_menu.sort_button)
+    #         self.click(L.import_media.sort_menu.by_name)
+    #         self.click(L.import_media.sort_menu.descending)
+    #         self.driver.driver.back()
+    #
+    #         files_name = []
+    #         files = self.elements(L.import_media.media_library.file_name(0))
+    #         for i in files:
+    #             files_name.append(i.text)
+    #         file_name_order = sorted(files_name, reverse=True)
+    #
+    #         if file_name_order == files_name:
+    #             report.new_result(uuid, True)
+    #             return "PASS"
+    #         else:
+    #             result = False
+    #             fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
+    #
+    #         report.new_result(uuid, result, fail_log=fail_log)
+    #         if result:
+    #             return "PASS"
+    #         else:
+    #             raise Exception(fail_log)
+    #     except Exception as err:
+    #         logger(f'\n{err}')
+    #
+    #         return "FAIL"
+    #
+    # def sce_6_4_4(self):
+    #     uuid = 'e2cadaca-6237-4a4f-acb6-d56142c12a35'
+    #     func_name = inspect.stack()[0][3]
+    #     logger(f"\n[Start] {func_name}")
+    #     report.start_uuid(uuid)
+    #
+    #     try:
+    #         self.click(L.import_media.sort_menu.sort_button)
+    #         self.click(L.import_media.sort_menu.by_name)
+    #         self.click(L.import_media.sort_menu.ascending)
+    #         self.driver.driver.back()
+    #
+    #         files_name = []
+    #         files = self.elements(L.import_media.media_library.file_name(0))
+    #         for i in files:
+    #             files_name.append(i.text)
+    #         file_name_order = sorted(files_name)
+    #
+    #         if file_name_order == files_name:
+    #             report.new_result(uuid, True)
+    #             return "PASS"
+    #         else:
+    #             result = False
+    #             fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
+    #
+    #         report.new_result(uuid, result, fail_log=fail_log)
+    #         if result:
+    #             return "PASS"
+    #         else:
+    #             raise Exception(fail_log)
+    #     except Exception as err:
+    #         logger(f'\n{err}')
+    #
+    #         return "FAIL"
 
     def sce_6_4_5(self):
         uuid = '1cfe4a37-eb49-47a1-a872-927d77349328'
@@ -557,6 +646,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -586,6 +676,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -615,6 +706,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -654,6 +746,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -693,6 +786,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -732,6 +826,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -746,6 +841,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -760,6 +856,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -774,6 +871,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             return "FAIL"
@@ -788,6 +886,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -802,6 +901,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -847,6 +947,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -876,6 +977,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -905,6 +1007,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -934,6 +1037,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -964,6 +1068,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1009,6 +1114,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1038,6 +1144,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1067,6 +1174,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1096,6 +1204,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1130,6 +1239,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -1160,6 +1270,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -1204,6 +1315,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
 
@@ -1239,6 +1351,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1276,6 +1389,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
 
@@ -1311,6 +1425,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1346,6 +1461,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1391,6 +1507,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1425,6 +1542,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1462,6 +1580,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1499,6 +1618,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1534,6 +1654,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1577,6 +1698,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1616,6 +1738,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1645,6 +1768,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1684,6 +1808,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1723,6 +1848,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1756,6 +1882,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -1774,6 +1901,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1788,6 +1916,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1802,6 +1931,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1816,6 +1946,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1830,6 +1961,7 @@ class Test_SFT_Scenario_06_01:
             report.new_result(uuid, None, 'N/A', 'Stock is hidden')
             return 'N/A'
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1871,6 +2003,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1900,6 +2033,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1929,6 +2063,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1958,6 +2093,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -1988,6 +2124,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2034,6 +2171,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -2063,6 +2201,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -2092,6 +2231,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -2121,6 +2261,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -2154,6 +2295,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2190,6 +2332,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -2220,6 +2363,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -2249,6 +2393,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -2278,6 +2423,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
@@ -2308,6 +2454,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2344,6 +2491,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2379,6 +2527,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2413,6 +2562,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2447,6 +2597,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2482,6 +2633,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2526,6 +2678,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2568,6 +2721,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -2607,6 +2761,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2646,6 +2801,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2677,6 +2833,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2710,6 +2867,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2737,6 +2895,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2769,6 +2928,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2802,6 +2962,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2851,6 +3012,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2882,6 +3044,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2911,6 +3074,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2942,6 +3106,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -2977,6 +3142,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3007,6 +3173,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3039,6 +3206,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3072,6 +3240,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3106,6 +3275,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3139,6 +3309,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3183,6 +3354,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3228,6 +3400,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3257,6 +3430,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3287,6 +3461,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3317,6 +3492,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3347,6 +3523,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3377,6 +3554,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3409,6 +3587,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3439,6 +3618,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3471,6 +3651,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3507,6 +3688,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3545,6 +3727,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             self.driver.driver.close_app()
@@ -3584,6 +3767,7 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
 
             self.driver.driver.close_app()
@@ -3622,125 +3806,129 @@ class Test_SFT_Scenario_06_01:
             else:
                 raise Exception(fail_log)
         except Exception as err:
+            self.stop_recording(func_name)
             logger(f'\n{err}')
             
             return "FAIL"
 
     @report.exception_screenshot
     def test_case(self):
-        result = {"sce_6_1_1": self.sce_6_1_1(),
-                  "sce_6_2_1": self.sce_6_2_1(),
-                  "sce_6_2_2": self.sce_6_2_2(),
-                  "sce_6_2_3": self.sce_6_2_3(),
-                  # "sce_6_2_4" is in sce_6_2_6,
-                  # "sce_6_2_5" is in sce_6_2_6,
-                  "sce_6_2_6": self.sce_6_2_6(),
-                  "sce_6_3_1": self.sce_6_3_1(),
-                  "sce_6_3_2": self.sce_6_3_2(),
-                  "sce_6_3_3": self.sce_6_3_3(),
-                  "sce_6_3_4": self.sce_6_3_4(),
-                  "sce_6_3_5": self.sce_6_3_5(),
-                  "sce_6_3_6": self.sce_6_3_6(),
-                  "sce_6_4_1": self.sce_6_4_1(),
+        result = {"sce_6_4_1": self.sce_6_4_1(),
                   "sce_6_4_2": self.sce_6_4_2(),
                   "sce_6_4_3": self.sce_6_4_3(),
                   "sce_6_4_4": self.sce_6_4_4(),
-                  "sce_6_4_5": self.sce_6_4_5(),
-                  "sce_6_4_6": self.sce_6_4_6(),
-                  "sce_6_4_7": self.sce_6_4_7(),
-                  "sce_6_4_8": self.sce_6_4_8(),
-                  "sce_6_4_9": self.sce_6_4_9(),
-                  "sce_6_4_10": self.sce_6_4_10(),
-                  "sce_6_4_11": self.sce_6_4_11(),
-                  "sce_6_4_12": self.sce_6_4_12(),
-                  "sce_6_4_13": self.sce_6_4_13(),
-                  "sce_6_4_14": self.sce_6_4_14(),
-                  "sce_6_4_15": self.sce_6_4_15(),
-                  "sce_6_4_16": self.sce_6_4_16(),
-                  "sce_6_4_17": self.sce_6_4_17(),
-                  "sce_6_4_18": self.sce_6_4_18(),
-                  "sce_6_4_19": self.sce_6_4_19(),
-                  "sce_6_4_20": self.sce_6_4_20(),
-                  "sce_6_4_21": self.sce_6_4_21(),
-                  "sce_6_4_22": self.sce_6_4_22(),
-                  "sce_6_4_23": self.sce_6_4_23(),
-                  "sce_6_4_24": self.sce_6_4_24(),
-                  "sce_6_4_25": self.sce_6_4_25(),
-                  "sce_6_4_26": self.sce_6_4_26(),
-                  "sce_6_4_27": self.sce_6_4_27(),
-                  "sce_6_4_28": self.sce_6_4_28(),
-                  "sce_6_4_29": self.sce_6_4_29(),
-                  "sce_6_4_30": self.sce_6_4_30(),
-                  "sce_6_4_31": self.sce_6_4_31(),
-                  "sce_6_4_32": self.sce_6_4_32(),
-                  "sce_6_4_33": self.sce_6_4_33(),
-                  "sce_6_4_34": self.sce_6_4_34(),
-                  "sce_6_4_35": self.sce_6_4_35(),
-                  "sce_6_4_36": self.sce_6_4_36(),
-                  "sce_6_4_37": self.sce_6_4_37(),
-                  "sce_6_4_38": self.sce_6_4_38(),
-                  "sce_6_4_39": self.sce_6_4_39(),
-                  "sce_6_4_40": self.sce_6_4_40(),
-                  "sce_6_4_41": self.sce_6_4_41(),
-                  "sce_6_4_42": self.sce_6_4_42(),
-                  "sce_6_4_43": self.sce_6_4_43(),
-                  "sce_6_4_44": self.sce_6_4_44(),
-                  "sce_6_4_45": self.sce_6_4_45(),
-                  "sce_6_4_46": self.sce_6_4_46(),
-                  "sce_6_4_47": self.sce_6_4_47(),
-                  "sce_6_4_48": self.sce_6_4_48(),
-                  "sce_6_4_49": self.sce_6_4_49(),
-                  "sce_6_4_50": self.sce_6_4_50(),
-                  "sce_6_4_51": self.sce_6_4_51(),
-                  "sce_6_4_52": self.sce_6_4_52(),
-                  "sce_6_4_53": self.sce_6_4_53(),
-                  "sce_6_4_54": self.sce_6_4_54(),
-                  "sce_6_4_55": self.sce_6_4_55(),
-                  "sce_6_4_56": self.sce_6_4_56(),
-                  "sce_6_4_57": self.sce_6_4_57(),
-                  "sce_6_4_58": self.sce_6_4_58(),
-                  "sce_6_4_59": self.sce_6_4_59(),
-                  "sce_6_4_60": self.sce_6_4_60(),
-                  "sce_6_4_61": self.sce_6_4_61(),
-                  "sce_6_4_62": self.sce_6_4_62(),
-                  "sce_6_4_63": self.sce_6_4_63(),
-                  "sce_6_4_64": self.sce_6_4_64(),
-                  "sce_6_4_65": self.sce_6_4_65(),
-                  "sce_6_4_66": self.sce_6_4_66(),
-                  "sce_6_4_67": self.sce_6_4_67(),
-                  "sce_6_4_68": self.sce_6_4_68(),
-                  "sce_6_4_69": self.sce_6_4_69(),
-                  "sce_6_4_70": self.sce_6_4_70(),
-                  "sce_6_4_71": self.sce_6_4_71(),
-                  "sce_6_4_72": self.sce_6_4_72(),
-                  "sce_6_4_73": self.sce_6_4_73(),
-                  "sce_6_4_74": self.sce_6_4_74(),
-                  "sce_6_5_1": self.sce_6_5_1(),
-                  "sce_6_5_2": self.sce_6_5_2(),
-                  "sce_6_6_1": self.sce_6_6_1(),
-                  "sce_6_6_2": self.sce_6_6_2(),
-                  "sce_6_6_3": self.sce_6_6_3(),
-                  "sce_6_6_4": self.sce_6_6_4(),
-                  "sce_6_6_5": self.sce_6_6_5(),
-                  "sce_6_6_6": self.sce_6_6_6(),
-                  "sce_6_6_7": self.sce_6_6_7(),
-                  "sce_6_6_8": self.sce_6_6_8(),
-                  "sce_6_6_9": self.sce_6_6_9(),
-                  "sce_6_6_10": self.sce_6_6_10(),
-                  "sce_6_6_11": self.sce_6_6_11(),
-                  "sce_6_6_12": self.sce_6_6_12(),
-                  "sce_6_6_13": self.sce_6_6_13(),
-                  "sce_6_7_1": self.sce_6_7_1(),
-                  "sce_6_7_2": self.sce_6_7_2(),
-                  "sce_6_7_3": self.sce_6_7_3(),
-                  "sce_6_7_4": self.sce_6_7_4(),
-                  "sce_6_7_5": self.sce_6_7_5(),
-                  "sce_6_7_6": self.sce_6_7_6(),
-                  "sce_6_7_7": self.sce_6_7_7(),
-                  "sce_6_8_1": self.sce_6_8_1(),
-                  "sce_6_8_2": self.sce_6_8_2(),
-                  "sce_6_8_3": self.sce_6_8_3(),
-                  "sce_6_8_4": self.sce_6_8_4(),
+                  # "sce_6_2_1": self.sce_6_2_1(),
+                  # "sce_6_2_2": self.sce_6_2_2(),
+                  # "sce_6_2_3": self.sce_6_2_3(),
+                  # # "sce_6_2_4" is in sce_6_2_6,
+                  # # "sce_6_2_5" is in sce_6_2_6,
+                  # "sce_6_2_6": self.sce_6_2_6(),
+                  # "sce_6_3_1": self.sce_6_3_1(),
+                  # "sce_6_3_2": self.sce_6_3_2(),
+                  # "sce_6_3_3": self.sce_6_3_3(),
+                  # "sce_6_3_4": self.sce_6_3_4(),
+                  # "sce_6_3_5": self.sce_6_3_5(),
+                  # "sce_6_3_6": self.sce_6_3_6(),
+                  # "sce_6_4_1": self.sce_6_4_1(),
+
+                  # "sce_6_4_3": self.sce_6_4_3(),
+                  # "sce_6_4_4": self.sce_6_4_4(),
+                  # "sce_6_4_5": self.sce_6_4_5(),
+                  # "sce_6_4_6": self.sce_6_4_6(),
+                  # "sce_6_4_7": self.sce_6_4_7(),
+                  # "sce_6_4_8": self.sce_6_4_8(),
+                  # "sce_6_4_9": self.sce_6_4_9(),
+                  # "sce_6_4_10": self.sce_6_4_10(),
+                  # "sce_6_4_11": self.sce_6_4_11(),
+                  # "sce_6_4_12": self.sce_6_4_12(),
+                  # "sce_6_4_13": self.sce_6_4_13(),
+                  # "sce_6_4_14": self.sce_6_4_14(),
+                  # "sce_6_4_15": self.sce_6_4_15(),
+                  # "sce_6_4_16": self.sce_6_4_16(),
+                  # "sce_6_4_17": self.sce_6_4_17(),
+                  # "sce_6_4_18": self.sce_6_4_18(),
+                  # "sce_6_4_19": self.sce_6_4_19(),
+                  # "sce_6_4_20": self.sce_6_4_20(),
+                  # "sce_6_4_21": self.sce_6_4_21(),
+                  # "sce_6_4_22": self.sce_6_4_22(),
+                  # "sce_6_4_23": self.sce_6_4_23(),
+                  # "sce_6_4_24": self.sce_6_4_24(),
+                  # "sce_6_4_25": self.sce_6_4_25(),
+                  # "sce_6_4_26": self.sce_6_4_26(),
+                  # "sce_6_4_27": self.sce_6_4_27(),
+                  # "sce_6_4_28": self.sce_6_4_28(),
+                  # "sce_6_4_29": self.sce_6_4_29(),
+                  # "sce_6_4_30": self.sce_6_4_30(),
+                  # "sce_6_4_31": self.sce_6_4_31(),
+                  # "sce_6_4_32": self.sce_6_4_32(),
+                  # "sce_6_4_33": self.sce_6_4_33(),
+                  # "sce_6_4_34": self.sce_6_4_34(),
+                  # "sce_6_4_35": self.sce_6_4_35(),
+                  # "sce_6_4_36": self.sce_6_4_36(),
+                  # "sce_6_4_37": self.sce_6_4_37(),
+                  # "sce_6_4_38": self.sce_6_4_38(),
+                  # "sce_6_4_39": self.sce_6_4_39(),
+                  # "sce_6_4_40": self.sce_6_4_40(),
+                  # "sce_6_4_41": self.sce_6_4_41(),
+                  # "sce_6_4_42": self.sce_6_4_42(),
+                  # "sce_6_4_43": self.sce_6_4_43(),
+                  # "sce_6_4_44": self.sce_6_4_44(),
+                  # "sce_6_4_45": self.sce_6_4_45(),
+                  # "sce_6_4_46": self.sce_6_4_46(),
+                  # "sce_6_4_47": self.sce_6_4_47(),
+                  # "sce_6_4_48": self.sce_6_4_48(),
+                  # "sce_6_4_49": self.sce_6_4_49(),
+                  # "sce_6_4_50": self.sce_6_4_50(),
+                  # "sce_6_4_51": self.sce_6_4_51(),
+                  # "sce_6_4_52": self.sce_6_4_52(),
+                  # "sce_6_4_53": self.sce_6_4_53(),
+                  # "sce_6_4_54": self.sce_6_4_54(),
+                  # "sce_6_4_55": self.sce_6_4_55(),
+                  # "sce_6_4_56": self.sce_6_4_56(),
+                  # "sce_6_4_57": self.sce_6_4_57(),
+                  # "sce_6_4_58": self.sce_6_4_58(),
+                  # "sce_6_4_59": self.sce_6_4_59(),
+                  # "sce_6_4_60": self.sce_6_4_60(),
+                  # "sce_6_4_61": self.sce_6_4_61(),
+                  # "sce_6_4_62": self.sce_6_4_62(),
+                  # "sce_6_4_63": self.sce_6_4_63(),
+                  # "sce_6_4_64": self.sce_6_4_64(),
+                  # "sce_6_4_65": self.sce_6_4_65(),
+                  # "sce_6_4_66": self.sce_6_4_66(),
+                  # "sce_6_4_67": self.sce_6_4_67(),
+                  # "sce_6_4_68": self.sce_6_4_68(),
+                  # "sce_6_4_69": self.sce_6_4_69(),
+                  # "sce_6_4_70": self.sce_6_4_70(),
+                  # "sce_6_4_71": self.sce_6_4_71(),
+                  # "sce_6_4_72": self.sce_6_4_72(),
+                  # "sce_6_4_73": self.sce_6_4_73(),
+                  # "sce_6_4_74": self.sce_6_4_74(),
+                  # "sce_6_5_1": self.sce_6_5_1(),
+                  # "sce_6_5_2": self.sce_6_5_2(),
+                  # "sce_6_6_1": self.sce_6_6_1(),
+                  # "sce_6_6_2": self.sce_6_6_2(),
+                  # "sce_6_6_3": self.sce_6_6_3(),
+                  # "sce_6_6_4": self.sce_6_6_4(),
+                  # "sce_6_6_5": self.sce_6_6_5(),
+                  # "sce_6_6_6": self.sce_6_6_6(),
+                  # "sce_6_6_7": self.sce_6_6_7(),
+                  # "sce_6_6_8": self.sce_6_6_8(),
+                  # "sce_6_6_9": self.sce_6_6_9(),
+                  # "sce_6_6_10": self.sce_6_6_10(),
+                  # "sce_6_6_11": self.sce_6_6_11(),
+                  # "sce_6_6_12": self.sce_6_6_12(),
+                  # "sce_6_6_13": self.sce_6_6_13(),
+                  # "sce_6_7_1": self.sce_6_7_1(),
+                  # "sce_6_7_2": self.sce_6_7_2(),
+                  # "sce_6_7_3": self.sce_6_7_3(),
+                  # "sce_6_7_4": self.sce_6_7_4(),
+                  # "sce_6_7_5": self.sce_6_7_5(),
+                  # "sce_6_7_6": self.sce_6_7_6(),
+                  # "sce_6_7_7": self.sce_6_7_7(),
+                  # "sce_6_8_1": self.sce_6_8_1(),
+                  # "sce_6_8_2": self.sce_6_8_2(),
+                  # "sce_6_8_3": self.sce_6_8_3(),
+                  # "sce_6_8_4": self.sce_6_8_4(),
                   }
         for key, value in result.items():
             if value != "PASS":

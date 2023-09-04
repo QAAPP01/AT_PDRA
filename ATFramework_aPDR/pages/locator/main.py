@@ -1,7 +1,21 @@
 from .locator_type import *
-
+new_project = id('layout_new_project')
 class Main:
     new_project = id('layout_new_project')
+
+class Shortcut:
+    back_demo = id('iv_back')
+    try_it = id('tv_try_it_now')
+    class anime_art:
+        title = id('tv_title')
+        back = id("top_toolbar_back")
+        @staticmethod
+        def template(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"ai_template_card_view")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"ai_template_card_view")]')
+
 
 class Permission:
     gdpr_accept = id("gdpr_accept_button")
@@ -224,7 +238,9 @@ class Premium():
     pdr_premium = id("header_pdr_premium")
 
 #=======================================
-class Interface():
+class Interface:
+    new_project = new_project
+    shortcut = Shortcut
     permission = Permission()
     project = Project()
     project_info = Project_Info()
