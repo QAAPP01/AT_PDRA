@@ -103,6 +103,7 @@ class Test_Ai_Effect:
             preview_default = self.page_main.get_preview_pic()
             self.click(L.edit.master.ai_effect.effect(1))
             self.click(L.edit.try_before_buy.try_it_first, 1)
+            self.page_media.waiting_download()
 
             if self.element(id('itemMask')).get_attribute("selected") == "true":
                 self.report.new_result(uuid, True)
