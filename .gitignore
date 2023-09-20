@@ -3,3 +3,6 @@
 *.mkv
 *.mov
 *.3gp
+/ATFramework_aPDR/ATFramework/log/
+/ATFramework_aPDR/SFT/report/
+/ATFramework_aPDR/SFT/log/

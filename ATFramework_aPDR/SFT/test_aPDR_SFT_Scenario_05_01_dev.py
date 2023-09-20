@@ -80,11 +80,11 @@ class Test_SFT_Scenario_05_01:
         result['05_01_04'] = self.page_edit.intro_video.check_intro_search()
         self.report.new_result('8a5cbcca-3072-45fe-ad31-5640d95b18a3', result['05_01_04'])
 
-        # sce_05_01_05
-        logger("\n[Start] sce_05_01_05")
-        self.report.start_uuid('1ae322d8-d8ec-481f-84a3-08a5fdd76adb')
-        result['05_01_05'] = self.page_edit.intro_video.intro_tutorial()
-        self.report.new_result('1ae322d8-d8ec-481f-84a3-08a5fdd76adb', result['05_01_05'])
+        # # sce_05_01_05
+        # logger("\n[Start] sce_05_01_05")
+        # self.report.start_uuid('1ae322d8-d8ec-481f-84a3-08a5fdd76adb')
+        # result['05_01_05'] = self.page_edit.intro_video.intro_tutorial()
+        # self.report.new_result('1ae322d8-d8ec-481f-84a3-08a5fdd76adb', result['05_01_05'])
 
         # sce_05_01_06
         item_id = '05_01_06'

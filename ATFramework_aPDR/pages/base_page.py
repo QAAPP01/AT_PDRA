@@ -102,13 +102,14 @@ class BasePage(BasePage):
         logger(path_save)
         return path_save
 
-    def get_preview_pic(self):
+    def get_preview_pic(self, locator=L.edit.preview.preview):
         time.sleep(1)
-        element = self.h_get_element(L.edit.preview.preview)
-        while not element.get_attribute('displayed') == 'true':
-            time.sleep(2)
-            element = self.h_get_element(L.edit.preview.preview)
-        return self.get_picture(L.edit.preview.preview)
+        element = self.h_get_element(locator)
+        for i in range(60):
+            if not element.get_attribute('displayed') == 'true':
+                time.sleep(2)
+                element = self.h_get_element(locator)
+        return self.get_picture(locator)
     def get_library_pic(self):
         elem = self.el(L.import_media.library_gridview.library_rooms)
         logger("elem = %s" % str(elem.rect) )

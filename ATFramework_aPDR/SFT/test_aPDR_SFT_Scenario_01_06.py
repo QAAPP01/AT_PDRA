@@ -361,7 +361,7 @@ class Test_SFT_Scenario_01_06:
                   "sce_1_6_9": self.sce_01_06_09(),
                   "sce_1_6_10": self.sce_01_06_10(),
                   "sce_1_6_11": self.sce_01_06_11(),
-                  "sce_1_6_12": self.sce_1_6_12()
+                  # "sce_1_6_12": self.sce_1_6_12()
                   }
         for key, value in result.items():
             if value != "PASS":

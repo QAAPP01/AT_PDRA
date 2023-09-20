@@ -5,6 +5,8 @@ from os.path import dirname
 from .log import logger, qa_log
 from functools import reduce
 from PIL import Image
+from skimage import io
+from skimage.metrics import structural_similarity as ssim
 
 
 
@@ -336,4 +338,57 @@ class HCompareImg(object):
             return True if self.keypoint_compare() > 0.97 else False
         except Exception as err:
             logger(f'[Error] {err}')
+
+    def crop_compare(self, ratio: tuple):
+        try:
+            image_1 = cv2.imread(self.image_1_path)
+            image_2 = cv2.imread(self.image_2_path)
+            logger(f'Image1 resolution: {image_1.shape}  (file: {self.image_1_path})')
+            logger(f'Image2 resolution: {image_2.shape}  (file: {self.image_2_path})')
+
+            height_1, width_1, _ = image_1.shape
+            height_2, width_2, _ = image_2.shape
+
+            # Calculate cropping dimensions for image_1
+            if height_1 / width_1 != ratio[1] / ratio[0]:
+                new_height = int(width_1 * ratio[1] / ratio[0])
+                y_start_1 = (height_1 - new_height) // 2
+                crop_width_1 = width_1
+                crop_height_1 = new_height
+            else:
+                y_start_1 = 0
+                crop_width_1 = width_1
+                crop_height_1 = height_1
+
+            # Crop image_1
+            cropped_image_1 = image_1[y_start_1:y_start_1 + crop_height_1, 0:crop_width_1]
+
+            # Calculate cropping dimensions for image_2
+            if height_2 / width_2 != ratio[1] / ratio[0]:
+                new_height = int(width_2 * ratio[1] / ratio[0])
+                y_start_2 = (height_2 - new_height) // 2
+                crop_width_2 = width_2
+                crop_height_2 = new_height
+            else:
+                y_start_2 = 0
+                crop_width_2 = width_2
+                crop_height_2 = height_2
+
+            # Crop image_2
+            cropped_image_2 = image_2[y_start_2:y_start_2 + crop_height_2, 0:crop_width_2]
+
+            # Resize the larger image to match the size of the smaller image, if necessary
+            if cropped_image_1.size > cropped_image_2.size:
+                cropped_image_1 = cv2.resize(cropped_image_1, (crop_width_2, crop_height_2))
+                logger(r)
+            elif cropped_image_2.size > cropped_image_1.size:
+                cropped_image_2 = cv2.resize(cropped_image_2, (crop_width_1, crop_height_1))
+
+            # Calculate SSIM between the two cropped and resized images
+            ssim_score = ssim(cropped_image_1, cropped_image_2, multichannel=True)
+
+            return ssim_score
+        except Exception as err:
+            logger(f'[Error] {err}')
+            return False
 

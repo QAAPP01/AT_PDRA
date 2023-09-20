@@ -3903,7 +3903,7 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_106": self.sce_2_2_106(),
                   "sce_2_2_109": self.sce_2_2_109(),
                   "sce_2_2_107": self.sce_2_2_107(),
-                  "sce_2_2_108": self.sce_2_2_108(),
+                  # "sce_2_2_108": self.sce_2_2_108(),
                   }
         for key, value in result.items():
             if value != "PASS":

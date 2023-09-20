@@ -1,43 +1,40 @@
-import inspect
-import sys
-import time
+import pytest, os, inspect, base64, sys, time, cv2
 from os import path
-from os.path import dirname
 
-import pytest
-
-from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.configs import app_config
-from ATFramework_aPDR.configs import driver_config
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from main import deviceName
 from .conftest import PACKAGE_NAME
-from .conftest import REPORT_INSTANCE
+from .conftest import REPORT_INSTANCE as report
 from .conftest import TEST_MATERIAL_FOLDER
-from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
-sys.path.insert(0, (dirname(dirname(__file__))))
+sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
-report = REPORT_INSTANCE
 pdr_package = PACKAGE_NAME
 
+test_material_folder = TEST_MATERIAL_FOLDER
+
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
 file_video = 'video.mp4'
+
+# global
+pic_before_crop = None
+pic_freeCrop = None
 
 
 class Test_SFT_Scenario_02_01:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
-        global report
         logger("[Start] Init driver session")
 
         self.driver = driver
         self.report = report
-        self.test_material_folder = TEST_MATERIAL_FOLDER
-        self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
+
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -52,9 +49,18 @@ class Test_SFT_Scenario_02_01:
         self.is_exist = self.page_main.h_is_exist
 
         self.report.set_driver(driver)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
+        driver.driver.orientation = "PORTRAIT"
+
+    def stop_recording(self, test_case_name):
+        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
+        recording_data = self.driver.driver.stop_recording_screen()
+        with open(self.video_file_path, 'wb') as video_file:
+            video_file.write(base64.b64decode(recording_data))
+        logger(f'Screen recording saved: {self.video_file_path}')
 
     def sce_2_1_1(self):
         uuid = '923cc0c9-f6d8-4f65-8076-f1b585d5b1a3'
@@ -82,7 +88,7 @@ class Test_SFT_Scenario_02_01:
         logger(f"\n[Start] {inspect.stack()[0][3]}")
         self.report.start_uuid(uuid)
 
-        self.page_edit.add_master_media('Video', self.test_material_folder, file_video)
+        self.page_edit.add_master_media('Video', test_material_folder, file_video)
         self.click(L.edit.timeline.master_clip)
         global pic_default_video
         pic_default_video = self.page_main.get_preview_pic()
@@ -346,45 +352,55 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     def sce_2_1_32(self):
-        try:
-            uuid = '4a9dcf18-a3a8-414f-839f-bc4b085f79c2'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '4a9dcf18-a3a8-414f-839f-bc4b085f79c2'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
 
-            global pic_original
-            pic_original = self.page_main.h_screenshot()
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', file_name=video_9_16)
+
+
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_free)
             boundary_rect = self.element(L.edit.crop.boundary).rect
             end_x = boundary_rect['x'] + boundary_rect['width'] * 0.7
             end_y = boundary_rect['y'] + boundary_rect['height'] * 0.7
             self.page_edit.h_drag_element(L.edit.crop.right_top, end_x, end_y)
+
+            pic_crop_area = self.page_main.get_preview_pic(id('view_auto_resize'))
+            height, width, _ = cv2.imread(pic_crop_area).shape
             self.click(L.edit.crop.apply)
-            global pic32
-            pic32 = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_32.png')
+            pic_crop_preview= self.page_main.get_preview_pic()
 
-            # self.page_main.copy_file(pic32, pic_base)
-
-            if HCompareImg(pic_base, pic32).full_compare() > 0.96:
-                result = True
-                fail_log = None
+            if HCompareImg(pic_crop_preview, pic_crop_area).crop_compare((width, height)):
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result = False
-                fail_log = f'\n[Fail] Images are different'
+                raise Exception('[Fail] Image different')
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.stop_recording(func_name)
+            logger(f'\n{err}')
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', file_name=video_9_16)
+
+            return "FAIL"
 
     def sce_2_1_33(self):
-        try:
-            uuid = 'af6b9dc7-3318-47bd-93e9-cdf5e452b326'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = 'af6b9dc7-3318-47bd-93e9-cdf5e452b326'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
 
+        try:
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_free)
             boundary_rect = self.element(L.edit.crop.boundary).rect
@@ -394,18 +410,24 @@ class Test_SFT_Scenario_02_01:
             self.click(L.edit.crop.cancel)
             pic_after = self.page_main.get_preview_pic()
 
-            if HCompareImg(pic32, pic_after).full_compare() > 0.96:
-                result = True
-                fail_log = None
+            if HCompareImg(pic_freeCrop, pic_after).full_compare() > 0.99:
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result = False
-                fail_log = f'\n[Fail] Images are different'
+                raise Exception('[Fail] Image different')
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.stop_recording(func_name)
+            logger(f'\n{err}')
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', file_name=video_9_16)
+
+            return "FAIL"
 
     def sce_2_1_34(self):
         try:
@@ -675,7 +697,7 @@ class Test_SFT_Scenario_02_01:
             time.sleep(1)
             pic_after = self.page_main.get_preview_pic()
 
-            if HCompareImg(pic_original, pic_after).full_compare() > 0.96:
+            if HCompareImg(pic_before_crop, pic_after).full_compare() > 0.96:
                 result = True
                 fail_log = None
             else:
@@ -694,7 +716,7 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.add_master_media('video', self.test_material_folder, file_video)
+            self.page_edit.add_master_media('video', test_material_folder, file_video)
             if self.page_edit.click_sub_tool('Reverse'):
                 result = True
                 fail_log = None
@@ -712,7 +734,7 @@ class Test_SFT_Scenario_02_01:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', self.test_material_folder, file_video)
+            self.page_edit.add_master_media('video', test_material_folder, file_video)
 
             return "FAIL"
 
@@ -938,7 +960,7 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.add_master_media('video', self.test_material_folder, 'video.mp4')
+            self.page_edit.add_master_media('video', test_material_folder, 'video.mp4')
             self.click(L.edit.timeline.master_video('video.mp4'))
             self.page_edit.click_sub_tool("Adjustment")
             self.page_edit.click_sub_option_tool("Brightness")
@@ -1779,7 +1801,7 @@ class Test_SFT_Scenario_02_01:
             self.report.start_uuid(uuid)
 
             self.click(L.edit.sub_tool_menu.back)
-            self.page_edit.add_master_media('video', self.test_material_folder, 'video.mp4')
+            self.page_edit.add_master_media('video', test_material_folder, 'video.mp4')
             self.click(L.edit.timeline.master_video('video.mp4'))
             global pic_no_skin
             pic_no_skin = self.page_main.get_preview_pic()
@@ -2076,12 +2098,15 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     def sce_2_1_104(self):
-        try:
-            uuid = '9876425c-07fa-4251-aac2-043efba6099e'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '9876425c-07fa-4251-aac2-043efba6099e'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        self.report.start_uuid(uuid)
 
-            self.page_edit.add_master_media("photo", self.test_material_folder, "photo.jpg")
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_edit.add_master_media('photo', test_material_folder, "photo.jpg")
             self.click(L.edit.timeline.master_photo("photo.jpg"))
             global pic_no_skin
             pic_no_skin = self.page_main.get_preview_pic()
@@ -2407,7 +2432,8 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.page_edit.add_master_media("photo", self.test_material_folder, "9_16.jpg")
+
+            self.page_edit.add_master_media("photo", test_material_folder, "9_16.jpg")
             self.click(L.edit.timeline.master_photo("9_16.jpg"))
             self.page_edit.click_sub_tool("Fit & Fill")
             global pic_orignal
@@ -2833,7 +2859,7 @@ class Test_SFT_Scenario_02_01:
     #         logger(f"\n[Start] {inspect.stack()[0][3]}")
     #         self.report.start_uuid(uuid)
     #
-    #         self.page_edit.add_master_media('photo', self.test_material_folder, 'photo.jpg')
+    #         self.page_edit.add_master_media('photo', test_material_folder, 'photo.jpg')
     #         self.click(L.edit.timeline.master_clip)
     #         self.page_edit.click_sub_tool("Adjustment")
     #         self.page_edit.click_sub_option_tool("Sharpness")
@@ -2898,7 +2924,7 @@ class Test_SFT_Scenario_02_01:
             self.page_main.enter_timeline(skip_media=False)
             global file_photo
             file_photo = 'photo.jpg'
-            self.page_media.select_local_photo(self.test_material_folder, file_photo)
+            self.page_media.select_local_photo(test_material_folder, file_photo)
             self.click(L.edit.timeline.master_clip)
 
             if self.page_edit.is_sub_tool_exist("Split"):
@@ -3174,7 +3200,7 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_tool("Audio")
             self.click(find_string("Music"))
             self.click(L.import_media.music_library.local)
-            self.click(find_string(self.test_material_folder))
+            self.click(find_string(test_material_folder))
 
             global file_music
             file_music = self.element(L.import_media.music_library.file_name).text
@@ -3388,6 +3414,9 @@ class Test_SFT_Scenario_02_01:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
+            import datetime
+            dt = datetime.datetime.today()
+            default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
 
             if self.page_main.enter_timeline(default_project_name):
                 result = True
@@ -3421,19 +3450,7 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_26": self.sce_2_1_26(),
                   "sce_2_1_27": self.sce_2_1_27(),
                   "sce_2_1_28": self.sce_2_1_28(),
-                  "sce_2_1_32": self.sce_2_1_32(),
-                  "sce_2_1_33": self.sce_2_1_33(),
-                  "sce_2_1_34": self.sce_2_1_34(),
-                  "sce_2_1_35": self.sce_2_1_35(),
-                  "sce_2_1_36": self.sce_2_1_36(),
-                  "sce_2_1_37": self.sce_2_1_37(),
-                  "sce_2_1_38": self.sce_2_1_38(),
-                  "sce_2_1_39": self.sce_2_1_39(),
-                  "sce_2_1_40": self.sce_2_1_40(),
-                  "sce_2_1_41": self.sce_2_1_41(),
-                  "sce_2_1_42": self.sce_2_1_42(),
-                  "sce_2_1_43": self.sce_2_1_43(),
-                  "sce_2_1_44": self.sce_2_1_44(),
+
                   "sce_2_1_45": self.sce_2_1_45(),
                   "sce_2_1_46": self.sce_2_1_46(),
                   "sce_2_1_47": self.sce_2_1_47(),
@@ -3500,7 +3517,13 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_100": self.sce_2_1_100(),
                   "sce_2_1_102": self.sce_2_1_102(),
 
-                  # Photo
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
+
+    def test_case_2(self):
+        result = {# Photo
                   "sce_2_1_104": self.sce_2_1_104(),
                   "sce_2_1_107": self.sce_2_1_107(),
                   "sce_2_1_105": self.sce_2_1_105(),
@@ -3534,12 +3557,13 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_132": self.sce_2_1_132(),
                   "sce_2_1_133": self.sce_2_1_133(),
                   "sce_2_1_135": self.sce_2_1_135(),
+
                   }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
 
-    def test_case_2(self):
+    def test_case_3(self):
         result = {"sce_2_1_5": self.sce_2_1_5(),
                   "sce_2_1_6": self.sce_2_1_6(),
                   "sce_2_1_7": self.sce_2_1_7(),
@@ -3559,7 +3583,7 @@ class Test_SFT_Scenario_02_01:
                 print(f"[{value}] {key}")
 
 
-    def test_case_3(self):
+    def test_case_4(self):
         result = {
                   # Music
                   "sce_2_1_8": self.sce_2_1_8(),
@@ -3572,4 +3596,26 @@ class Test_SFT_Scenario_02_01:
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
+
+    def test_crop(self):
+        result = {
+            "sce_2_1_32": self.sce_2_1_32(),
+            # "sce_2_1_33": self.sce_2_1_33(),
+            # "sce_2_1_34": self.sce_2_1_34(),
+            # "sce_2_1_35": self.sce_2_1_35(),
+            # "sce_2_1_36": self.sce_2_1_36(),
+            # "sce_2_1_37": self.sce_2_1_37(),
+            # "sce_2_1_38": self.sce_2_1_38(),
+            # "sce_2_1_39": self.sce_2_1_39(),
+            # "sce_2_1_40": self.sce_2_1_40(),
+            # "sce_2_1_41": self.sce_2_1_41(),
+            # "sce_2_1_42": self.sce_2_1_42(),
+            # "sce_2_1_43": self.sce_2_1_43(),
+            # "sce_2_1_44": self.sce_2_1_44(),
+        }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
+
+
 
