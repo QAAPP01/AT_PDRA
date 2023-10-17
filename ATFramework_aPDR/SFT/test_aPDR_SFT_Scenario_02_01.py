@@ -58,8 +58,10 @@ class Test_SFT_Scenario_02_01:
 
     def sce_2_1_1(self):
         uuid = '923cc0c9-f6d8-4f65-8076-f1b585d5b1a3'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
 
         import datetime
         dt = datetime.datetime.today()
@@ -235,6 +237,7 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
+            self.click(id('transition_hint'), 2)
             # by pass bug
             self.page_main.swipe_element(L.edit.timeline.timeline_ruler, 'left', 1)
             self.page_main.swipe_element(L.edit.timeline.timeline_ruler, 'right', 100)
@@ -361,13 +364,10 @@ class Test_SFT_Scenario_02_01:
             end_y = boundary_rect['y'] + boundary_rect['height'] * 0.7
             self.page_edit.h_drag_element(L.edit.crop.right_top, end_x, end_y)
             self.click(L.edit.crop.apply)
-            global pic32
-            pic32 = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_32.png')
+            global pic_32
+            pic_32 = self.page_main.get_preview_pic()
 
-            # self.page_main.copy_file(pic32, pic_base)
-
-            if not HCompareImg(pic32, pic_original).full_compare() == 1:
+            if not HCompareImg(pic_32, pic_original).full_compare() == 1:
                 result = True
                 fail_log = None
             else:
@@ -393,9 +393,10 @@ class Test_SFT_Scenario_02_01:
             end_y = boundary_rect['y'] + boundary_rect['height'] * 0.7
             self.page_edit.h_drag_element(L.edit.crop.right_top, end_x, end_y)
             self.click(L.edit.crop.cancel)
-            pic_after = self.page_main.get_preview_pic()
+            global pic_33
+            pic_33 = self.page_main.get_preview_pic()
 
-            if HCompareImg(pic32, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_32, pic_33).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -417,12 +418,10 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_9_16)
             self.click(L.edit.crop.apply)
-            pic_after = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_34.png')
+            global pic_34
+            pic_34 = self.page_main.get_preview_pic()
 
-            # self.page_main.copy_file(pic_after, pic_base)
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_33, pic_34).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -444,12 +443,10 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_1_1)
             self.click(L.edit.crop.apply)
-            pic_after = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_35.png')
+            global pic_35
+            pic_35 = self.page_main.get_preview_pic()
 
-            # self.page_main.copy_file(pic_after, pic_base)
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_34, pic_35).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -471,12 +468,10 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_4_5)
             self.click(L.edit.crop.apply)
-            pic_after = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_36.png')
+            global pic_36
+            pic_36 = self.page_main.get_preview_pic()
 
-            # self.page_main.copy_file(pic_after, pic_base)
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_35, pic_36).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -498,9 +493,10 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_16_9)
             self.click(L.edit.crop.apply)
-            pic_after = self.page_main.get_preview_pic()
+            global pic_37
+            pic_37 = self.page_main.get_preview_pic()
 
-            if not HCompareImg(pic_default_video, pic_after).full_compare() == 1:
+            if not HCompareImg(pic_36, pic_37).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -522,12 +518,10 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_4_3)
             self.click(L.edit.crop.apply)
-            pic_after = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_38.png')
+            global pic_38
+            pic_38 = self.page_main.get_preview_pic()
 
-            # self.page_main.copy_file(pic_after, pic_base)
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_37, pic_38).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -550,9 +544,10 @@ class Test_SFT_Scenario_02_01:
             self.page_main.h_swipe_element(L.edit.crop.btn_1_1, L.edit.crop.btn_4_3, 1)
             self.click(L.edit.crop.btn_original)
             self.click(L.edit.crop.apply)
-            pic_after = self.page_main.get_preview_pic()
+            global pic_39
+            pic_39 = self.page_main.get_preview_pic()
 
-            if not HCompareImg(pic_default_video, pic_after).full_compare() == 1:
+            if not HCompareImg(pic_38, pic_39).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -575,12 +570,10 @@ class Test_SFT_Scenario_02_01:
             self.page_main.h_swipe_element(L.edit.crop.btn_4_5, L.edit.crop.btn_free, 1)
             self.click(L.edit.crop.btn_3_4)
             self.click(L.edit.crop.apply)
-            pic_after = self.page_main.get_preview_pic()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_40.png')
+            global pic_40
+            pic_40 = self.page_main.get_preview_pic()
 
-            # self.page_main.copy_file(pic_after, pic_base)
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.96:
+            if not HCompareImg(pic_39, pic_40).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -602,9 +595,10 @@ class Test_SFT_Scenario_02_01:
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_21_9)
             self.click(L.edit.crop.apply)
-            pic_after = self.page_main.get_preview_pic()
+            global pic_41
+            pic_41 = self.page_main.get_preview_pic()
 
-            if not HCompareImg(pic_default_video, pic_after).full_compare() == 1:
+            if not HCompareImg(pic_40, pic_41).full_compare_result():
                 result = True
                 fail_log = None
             else:

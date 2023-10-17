@@ -342,11 +342,14 @@ class Test_SFT_Scenario_01_01:
             return "Error"
 
     def sce_1_1_12(self):
-        try:
-            uuid = '465d472f-f1b4-4993-ac3e-d93cd988efd7'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '465d472f-f1b4-4993-ac3e-d93cd988efd7'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
 
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
             self.page_edit.click_tool("Audio")
             self.page_main.h_click(find_string("Music"))
             self.page_main.h_click(L.import_media.music_library.local)
@@ -1178,14 +1181,13 @@ class Test_SFT_Scenario_01_01:
         self.report.start_uuid(uuid)
 
         self.page_edit.back_to_launcher()
-        first_project_name = self.element(L.main.project.project_name()).text
 
-        if first_project_name == project_name:
+        if self.page_main.enter_timeline(project_name):
             result = True
             fail_log = None
         else:
             result = False
-            fail_log = f'\n[Fail] first_project_name is {first_project_name}'
+            fail_log = f'\n[Fail] Can not enter {project_name}'
 
         self.report.new_result(uuid, result, fail_log=fail_log)
         return "PASS" if result else "FAIL"
@@ -1203,6 +1205,13 @@ class Test_SFT_Scenario_01_01:
             "sce_1_1_9": self.sce_1_1_9(),
             "sce_1_1_11": self.sce_1_1_11(),
             "sce_1_1_10": self.sce_1_1_10(),
+        }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
+
+    def test_music(self):
+        result = {
             "sce_1_1_12": self.sce_1_1_12(),
             "sce_1_1_13": self.sce_1_1_13(),
             "sce_1_1_14": self.sce_1_1_14(),

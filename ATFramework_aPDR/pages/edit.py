@@ -153,6 +153,9 @@ class EditPage(BasePage):
                         logger('[Warning] Did not assign folder or file name')
                         self.click(L.import_media.media_library.media())
 
+                    if self.element(id('cl_shadow')):
+                        self.click(id('cl_shadow'))
+
                     if self.is_exist(L.edit.timeline.pip.clip_thumbnail):
                         return True
                     else:
