@@ -18,9 +18,9 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = "TR231013-027"
-previous_tr_number = "TR231012-042"  # Please update build version info manually
-sr_number = 'DRA230607-01'  # Please update build version info manually if didn't use auto download
+tr_number = "TR231019-005"
+previous_tr_number = "TR231013-027"  # Please update build version info manually
+sr_number = 'DRA231012-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
 # deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device

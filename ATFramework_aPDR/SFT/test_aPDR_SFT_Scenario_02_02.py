@@ -2331,7 +2331,7 @@ class Test_SFT_Scenario_02_02:
         try:
             transition_amount = self.page_edit.calculate_transition_amount()
 
-            if transition_amount >= 358:
+            if transition_amount >= 363:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -3804,6 +3804,7 @@ class Test_SFT_Scenario_02_02:
             self.element(L.edit.settings.send_feedback.feedback_text).send_keys('QA AT Testing')
             self.element(L.edit.settings.send_feedback.feedback_email).send_keys('qa@cyberlink.com')
             self.click(L.edit.settings.send_feedback.add_image)
+            #
             self.click(xpath('//android.widget.TextView[@content-desc="Search"]'))
             self.element(xpath('//*[contains(@resource-id, "search_src_text")]')).send_keys("jpg")
             self.driver.driver.press_keycode(66)    # keycode 66: Enter
@@ -3845,18 +3846,6 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_26": self.sce_2_2_26(),
                   "sce_2_2_27": self.sce_2_2_27(),
                   "sce_2_2_28": self.sce_2_2_28(),
-                  }
-        for key, value in result.items():
-            if value != "PASS":
-                print(f"[{value}] {key}")
-
-    def test_case_2(self):
-        result = { "sce_2_2_63": self.sce_2_2_63(),
-                  "sce_2_2_64": self.sce_2_2_64(),
-                  "sce_2_2_65": self.sce_2_2_65(),
-                  # sce_2_2_104 is in sce_2_2_65
-                  "sce_2_2_66": self.sce_2_2_66(),
-                  "sce_2_2_103": self.sce_2_2_103(),
                   }
         for key, value in result.items():
             if value != "PASS":

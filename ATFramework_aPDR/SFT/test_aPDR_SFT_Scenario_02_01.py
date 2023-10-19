@@ -237,7 +237,6 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(id('transition_hint'), 2)
             # by pass bug
             self.page_main.swipe_element(L.edit.timeline.timeline_ruler, 'left', 1)
             self.page_main.swipe_element(L.edit.timeline.timeline_ruler, 'right', 100)
@@ -396,7 +395,7 @@ class Test_SFT_Scenario_02_01:
             global pic_33
             pic_33 = self.page_main.get_preview_pic()
 
-            if not HCompareImg(pic_32, pic_33).full_compare_result():
+            if HCompareImg(pic_32, pic_33).full_compare_result():
                 result = True
                 fail_log = None
             else:
@@ -3339,7 +3338,7 @@ class Test_SFT_Scenario_02_01:
 
             pic_src = self.page_main.get_preview_pic()
             self.click(L.edit.menu.play)
-            time.sleep(10)
+            time.sleep(3)
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:

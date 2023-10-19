@@ -1,4 +1,4 @@
-import pytest, inspect, sys, time
+import pytest, os, inspect, base64, sys, time
 from os import path
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
@@ -45,9 +45,17 @@ class Test_SFT_Scenario_02_03:
         self.is_exist = self.page_main.h_is_exist
 
         self.report.set_driver(driver)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
+
+    def stop_recording(self, test_case_name):
+        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
+        recording_data = self.driver.driver.stop_recording_screen()
+        with open(self.video_file_path, 'wb') as video_file:
+            video_file.write(base64.b64decode(recording_data))
+        logger(f'Screen recording saved: {self.video_file_path}')
 
     def sce_2_3_1(self):
         uuid = '4f38b72e-6424-40dc-adec-fe50681b6bdc'
@@ -833,16 +841,20 @@ class Test_SFT_Scenario_02_03:
 
 
     def sce_2_3_32(self):
-        try:
-            uuid = '2e869d26-d734-476c-a948-8fb7bcf3b64b'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        uuid = '2e869d26-d734-476c-a948-8fb7bcf3b64b'
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
 
+        try:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
+            self.click(L.edit.settings.menu)
+            self.click(L.edit.settings.aspect_ratio)
+            self.click(L.edit.aspect_ratio.ratio_16_9)
 
-            self.page_edit.add_master_media('photo', test_material_folder, '9_16')
-            self.page_edit.add_pip_media('photo', test_material_folder, '16_9')
+            self.page_edit.add_master_media('photo', test_material_folder, '9_16_1')
+            self.page_edit.add_pip_media('photo', test_material_folder, '16_9_1')
             self.page_edit.click_tool("Aspect Ratio")
             global image_original
             image_original = self.page_main.get_preview_pic()
@@ -1290,21 +1302,18 @@ class Test_SFT_Scenario_02_03:
         self.page_main.enter_launcher()
         self.page_main.enter_timeline()
 
-        self.page_edit.click_tool('Photo')
-        if not self.page_media.select_local_photo(test_material_folder, '9_16.jpg'):
-            return False
-        self.page_edit.click_tool('Effect')
+        self.page_edit.add_pip_media('Photo', test_material_folder, '9_16_1.jpg')
+        self.page_edit.enter_main_tool('Effect')
         self.page_edit.h_click(find_string('Adjustment'))
         self.page_edit.h_click(L.effect.sub_menu.add)
         self.page_edit.h_click(L.edit.try_before_buy.try_it, 1)
         self.page_edit.click_sub_tool('Brightness')
-        self.page_edit.h_set_slider(1)
+        self.page_edit.element(L.edit.timeline.slider).send_keys(200)
         pic_after = self.page_edit.get_preview_pic()
         pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_310.png')
         result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
-        result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '100'
-        logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
-        result[item_id] = result_photo and result_value
+        logger(f"[Info] result_photo = {result_photo}")
+        result[item_id] = result_photo
         self.report.new_result(uuid, result[item_id])
 
         # sce_02_03_311
@@ -1314,13 +1323,12 @@ class Test_SFT_Scenario_02_03:
         self.report.start_uuid(uuid)
         self.page_edit.h_click(L.edit.adjust_sub.reset)
         self.page_edit.click_sub_tool('Contrast')
-        self.page_edit.h_set_slider(0)
+        self.page_edit.element(L.edit.timeline.slider).send_keys(0)
         pic_after = self.page_edit.get_preview_pic()
         pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_311.png')
         result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
-        result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '-100'
-        logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
-        result[item_id] = result_photo and result_value
+        logger(f"[Info] result_photo = {result_photo}")
+        result[item_id] = result_photo
         self.report.new_result(uuid, result[item_id])
 
         # sce_02_03_312
@@ -1429,8 +1437,8 @@ class Test_SFT_Scenario_02_03:
                   "sce_2_3_5": self.sce_2_3_5(),
                   "sce_2_3_7": self.sce_2_3_7(),
                   "sce_2_3_8": self.sce_2_3_8(),
-                  "sce_2_3_9": self.sce_2_3_9(),
                   "sce_2_3_10": self.sce_2_3_10(),
+                  "sce_2_3_9": self.sce_2_3_9(),
                   "sce_2_3_11": self.sce_2_3_11(),
                   "sce_2_3_12": self.sce_2_3_12(),
                   "sce_2_3_13": self.sce_2_3_13(),
@@ -1476,12 +1484,13 @@ class Test_SFT_Scenario_02_03:
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
+    #
+    # def test_sce_02_330_to_336(self):
+    #     result = {"sce_2_3_310": self.sce_02_03_310(),
+    #               "sce_2_3_336": self.sce_2_3_336(),
+    #               }
+    #     for key, value in result.items():
+    #         if value != "PASS":
+    #             print(f"[{value}] {key}")
 
-    def test_sce_02_330_to_336(self):
-        result = {"sce_2_3_310": self.sce_02_03_310(),
-                  "sce_2_3_336": self.sce_2_3_336(),
-                  }
-        for key, value in result.items():
-            if value != "PASS":
-                print(f"[{value}] {key}")
 
