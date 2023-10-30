@@ -1163,6 +1163,31 @@ class Intro_Video:
     intro_master_clip = id("item_view_thumbnail_host")
 
 
+class Effect:
+    add = id('library_unit_add')
+
+    class filter:
+        apply = id('btn_ok')
+        none = id('btn_none')
+        cancel = id('btn_cancel')
+        compare = id('btn_compare')
+        edit = id('itemEdit')
+        slider = id('adjustable_parameter_seek_bar')
+
+        @staticmethod
+        def item(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemThumb")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemThumb")]')
+
+        @staticmethod
+        def item_name(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+
 class Interface:
     converting = Converting
     timeline = Timeline
@@ -1185,6 +1210,7 @@ class Interface:
     crop = Crop()
     duration = Duration()
     edit_sub = Edit_sub()
+    effect = Effect
     effect_sub = Effect_Sub()
     fade = Fade()
     fit_and_fill = Fit_And_Fill()

@@ -2,6 +2,7 @@ import inspect
 import sys, time
 import os
 import shutil
+import traceback
 
 import cv2
 from appium.webdriver.common.touch_action import TouchAction
@@ -66,6 +67,8 @@ class EditPage(BasePage):
         self.border_and_shadow = Border_and_Shadow(self.driver)
         self.intro_video = Intro_Video(self.driver)
 
+    def try_it_first(self, timeout=1):
+        self.click(find_string('Try it First'), timeout)
 
     def click_category(self, name, locator):
         last = ""
@@ -316,6 +319,34 @@ class EditPage(BasePage):
             logger(f'{inspect.stack()[0][3]} {err}')
             return False
 
+    def scroll_playhead(self, x_offset: int, speed=15):
+        """
+        # Function: scroll_playhead
+        # Description: Scroll the playhead to with delta_x
+        # Parameters:
+            :param x_offset: Moving distance of x-coordinate
+                            - positive: swipe to the left
+                            - negative: swipe to the right
+            :param speed: 1 is fastest (slower is more accurate)
+        # Return: None
+        # Note: length of x to trigger swiping is 25
+        # Author: Hausen
+        """
+        try:
+            if speed < 1:
+                speed = 1
+            playhead = self.element(L.edit.timeline.playhead)
+            x_split = x_offset // speed
+
+            actions = ActionChains(self.driver.driver)
+            actions.move_to_element(playhead)
+            for times in range(speed):
+                actions.move_by_offset(-x_split, 0)
+            actions.perform()
+            return True
+        except Exception:
+            traceback.print_exc()
+            return False
 
 
     def preview_ratio(self):
@@ -399,7 +430,7 @@ class EditPage(BasePage):
             logger(f'[Error] {err}')
             return False
 
-    def enter_main_tool(self, name, timeout=0.2):
+    def enter_main_tool(self, name, timeout=0.2, search_times = 100):
         try:
             for i in range(4):
                 if self.h_click(L.edit.sub_tool.back, timeout=0.1):
@@ -410,18 +441,34 @@ class EditPage(BasePage):
                 logger("\n[Fail] Cannot find tool menu")
                 return False
             else:
-                while 1:
-                    if not self.h_is_exist(find_string(name), timeout):
-                        tool = self.h_get_elements(E.timeline.tool)
-                        last = tool[len(tool) - 1].text
-                        self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=3)
-                        tool = self.h_get_elements(E.timeline.tool)
-                        if tool[len(tool) - 1].text == last:
-                            logger(f'[Not exist] Tool "{name}" is not exist')
-                            return False
+                locator = ('xpath', f'//*[contains(@resource-id, "label") and @text="{name}"]')
+                tools = self.h_get_elements(E.timeline.tool)
+                last = tools[-1].text
+                for i in range(search_times):
+                    if not self.h_is_exist(locator, timeout):
+                        self.h_swipe_element(tools[-1], tools[0], speed=3)
+                        tools = self.h_get_elements(E.timeline.tool)
+                        new_last = tools[-1].text
+                        if new_last == last:
+                            first = tools[0].text
+                            for j in range(search_times):
+                                if not self.h_is_exist(locator, timeout):
+                                    self.h_swipe_element(tools[0], tools[-1], speed=3)
+                                    tools = self.h_get_elements(E.timeline.tool)
+                                    new_first = tools[0].text
+                                    if new_first == first:
+                                        logger(f'[Not exist] Tool "{name}" is not exist')
+                                        return False
+                                    else:
+                                        first = new_first
+                                else:
+                                    break
+                            break
+                        else:
+                            last = new_last
                     else:
                         break
-            return self.click(find_string(name))
+            return self.click(locator)
 
         except Exception as err:
             logger(f'[Error] {err}')
