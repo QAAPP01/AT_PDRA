@@ -75,8 +75,8 @@ class Test_Overlay_Filter:
         logger(f'Screen recording saved: {self.video_file_path}')
 
     def sce_9_1_1(self):
-        uuid = self.uuid[0]
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
@@ -84,23 +84,19 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            # self.page_edit.enter_main_tool('Effect')
-            # self.click(find_string('Filter'))
-            # self.click(L.edit.effect.add)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Filter'))
+            self.click(L.edit.fx_layer.add)
 
-            if 1:
-            # if self.is_exist(L.edit.effect.filter.item()):
+            if self.is_exist(L.edit.fx_layer.filter.item()):
                 report.new_result(uuid, True)
-
-                self.click(L.edit.effect.filter.cancel)
-
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the Filter')
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -108,19 +104,23 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Filter'))
+            self.click(L.edit.fx_layer.add)
 
             return "FAIL"
 
     def sce_9_1_2(self):
-        uuid = self.uuid[1]
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
+            self.click(L.edit.fx_layer.filter.cancel)
             self.page_edit.enter_main_tool('Filter')
 
-            if self.is_exist(L.edit.effect.filter.item()):
+            if self.is_exist(L.edit.fx_layer.filter.item()):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -128,7 +128,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -136,26 +136,28 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
 
             return "FAIL"
 
     def sce_9_1_3(self):
-        uuid = self.uuid[2]
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
             self.preview_original = self.page_main.get_preview_pic()
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
             self.preview_apply = self.page_main.get_preview_pic()
-            self.click(L.edit.effect.filter.edit)
+            self.click(L.edit.fx_layer.filter.edit)
 
-            if self.is_exist(L.edit.effect.filter.slider):
+            if self.is_exist(L.edit.fx_layer.filter.slider):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -163,7 +165,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -171,13 +173,15 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
             self.preview_original = self.page_main.get_preview_pic()
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.edit)
+            self.click(L.edit.fx_layer.filter.edit)
 
             return "FAIL"
 
@@ -188,7 +192,7 @@ class Test_Overlay_Filter:
         report.start_uuid(uuid)
 
         try:
-            value = self.element(L.edit.effect.filter.slider).text
+            value = self.element(L.edit.fx_layer.filter.slider).text
 
             if value == '100.0':
                 report.new_result(uuid, True)
@@ -198,7 +202,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -206,12 +210,14 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.edit)
+            self.click(L.edit.fx_layer.filter.edit)
 
             return "FAIL"
 
@@ -222,8 +228,8 @@ class Test_Overlay_Filter:
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.effect.filter.slider)
-            value = self.element(L.edit.effect.filter.slider).text
+            self.driver.drag_slider_to_min(L.edit.fx_layer.filter.slider)
+            value = self.element(L.edit.fx_layer.filter.slider).text
 
             if value == '0.0':
                 report.new_result(uuid, True)
@@ -233,7 +239,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -241,13 +247,15 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.edit)
-            self.driver.drag_slider_to_min(L.edit.effect.filter.slider)
+            self.click(L.edit.fx_layer.filter.edit)
+            self.driver.drag_slider_to_min(L.edit.fx_layer.filter.slider)
 
             return "FAIL"
 
@@ -271,7 +279,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -279,13 +287,15 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.edit)
-            self.driver.drag_slider_to_min(L.edit.effect.filter.slider)
+            self.click(L.edit.fx_layer.filter.edit)
+            self.driver.drag_slider_to_min(L.edit.fx_layer.filter.slider)
             self.preview_apply = self.page_main.get_preview_pic()
 
             return "FAIL"
@@ -297,8 +307,8 @@ class Test_Overlay_Filter:
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.effect.filter.slider)
-            value = self.element(L.edit.effect.filter.slider).text
+            self.driver.drag_slider_to_max(L.edit.fx_layer.filter.slider)
+            value = self.element(L.edit.fx_layer.filter.slider).text
             if value == '100.0':
                 report.new_result(uuid, True)
                 return "PASS"
@@ -307,7 +317,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -315,13 +325,15 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.edit)
-            self.driver.drag_slider_to_max(L.edit.effect.filter.slider)
+            self.click(L.edit.fx_layer.filter.edit)
+            self.driver.drag_slider_to_max(L.edit.fx_layer.filter.slider)
 
             return "FAIL"
 
@@ -345,7 +357,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -353,13 +365,15 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.edit)
-            self.driver.drag_slider_to_max(L.edit.effect.filter.slider)
+            self.click(L.edit.fx_layer.filter.edit)
+            self.driver.drag_slider_to_max(L.edit.fx_layer.filter.slider)
             self.preview_apply = self.page_main.get_preview_pic()
 
     def sce_9_1_9(self):
@@ -408,7 +422,7 @@ class Test_Overlay_Filter:
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.effect.filter.compare)
+            self.click(L.edit.fx_layer.filter.compare)
             preview = self.page_main.get_preview_pic()
 
             if HCompareImg(preview, self.preview_apply).full_compare_result():
@@ -420,7 +434,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -428,10 +442,12 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
 
     def sce_9_1_11(self):
@@ -441,7 +457,7 @@ class Test_Overlay_Filter:
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.effect.filter.cancel)
+            self.click(L.edit.fx_layer.filter.cancel)
             preview = self.page_main.get_preview_pic()
 
             if HCompareImg(preview, self.preview_original).full_compare_result():
@@ -453,7 +469,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -461,23 +477,25 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.cancel)
+            self.click(L.edit.fx_layer.filter.cancel)
 
     def sce_9_1_12(self):
         func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name[-2:])-1]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(find_string('Filter'))
+            self.click(L.edit.fx_layer.filter.tool_menu_filter)
 
-            if self.is_exist(L.edit.effect.filter.item()):
+            if self.is_exist(L.edit.fx_layer.filter.item()):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -485,7 +503,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -493,20 +511,20 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
+            self.click(L.edit.fx_layer.add)
 
     def sce_9_1_13(self):
         func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name[-2:])-1]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.apply)
+            self.click(L.edit.fx_layer.filter.apply)
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare_result():
@@ -517,7 +535,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -525,23 +543,25 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.item())
             self.page_edit.try_it_first()
-            self.click(L.edit.effect.filter.apply)
+            self.click(L.edit.fx_layer.filter.apply)
 
     def sce_9_1_14(self):
         func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name[-2:])-1]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(find_string('Filter'))
-            self.click(L.edit.effect.filter.none)
-            self.click(L.edit.effect.filter.apply)
+            self.click(L.edit.fx_layer.filter.tool_menu_filter)
+            self.click(L.edit.fx_layer.filter.none)
+            self.click(L.edit.fx_layer.filter.apply)
             preview = self.page_main.get_preview_pic()
 
             if HCompareImg(preview, self.preview_original).full_compare_result():
@@ -552,7 +572,7 @@ class Test_Overlay_Filter:
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
@@ -560,135 +580,151 @@ class Test_Overlay_Filter:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('Effect')
+            self.page_edit.enter_main_tool('FX Layer')
             self.click(find_string('Filter'))
-            self.click(L.edit.effect.add)
-            self.click(L.edit.effect.filter.item())
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.none)
+            self.click(L.edit.fx_layer.filter.apply)
+
+    def sce_9_1_15(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.sub_tool.back)
+
+            filter_layer = self.element(L.edit.fx_layer.filter.clip()).rect
+            playhead = self.element(L.edit.timeline.playhead).rect
+            x = filter_layer['x'] + filter_layer['width'] - playhead['x']
+            y = playhead['y'] + playhead['height']/2
+            self.driver.driver.swipe(playhead['x'], y, x, y, 5000)
+
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Filter'))
+            self.click(L.edit.fx_layer.add)
+
+            self.click(L.edit.fx_layer.filter.item(3))
             self.page_edit.try_it_first()
+            self.click(L.edit.fx_layer.filter.apply_to_all)
+            self.click(L.edit.fx_layer.filter.apply)
 
-            return "FAIL"
+            self.click(L.edit.fx_layer.filter.clip(1))
+            self.click(L.edit.fx_layer.filter.tool_menu_filter)
 
-    def sce_7_2_12(self):
-        uuid = '6ba32eb7-728c-4868-8831-c22cf170352b'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            preview_after = self.page_main.get_preview_pic()
-
-            if HCompareImg(preview_after, preview_before).full_compare() < 1:
+            if self.element(L.edit.fx_layer.filter.item_name(3)).get_attribute('selected') == 'true':
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Preview has no changed')
+                raise Exception(f'[Fail] Highlight incorrect')
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('photo', file_name=photo_9_16)
-            self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
-            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
-            self.click(L.edit.master.ai_effect.edit)
+            self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Filter'))
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.click(L.edit.sub_tool.back)
+            filter_layer = self.element(L.edit.fx_layer.filter.clip()).rect
+            playhead = self.element(L.edit.timeline.playhead).rect
+            x = filter_layer['x'] + filter_layer['width'] - playhead['x']
+            y = playhead['y'] + playhead['height'] / 2
+            self.driver.driver.swipe(playhead['x'], y, x, y, 5000)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Filter'))
+            self.click(L.edit.fx_layer.add)
 
-            return "FAIL"
-
-    def sce_7_2_13(self):
-        uuid = 'cfee92ca-96aa-4b3a-b6b3-acf267d197bb'
+    def sce_9_1_16(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.master.effect.reset)
-            size_text = self.element(L.edit.master.effect.value()).text
+            self.click(L.edit.fx_layer.filter.cancel)
 
-            if size_text == '120':
+            clip = self.element(L.edit.fx_layer.filter.clip(2))
+            clip.click()
+            start_x = clip.rect['x'] + clip.rect['width']/2
+            end_x = self.element(L.edit.timeline.playhead).rect['x']
+            y = clip.rect['y']
+            self.driver.driver.swipe(start_x, y, end_x, y, 2500)
+
+            self.click(L.edit.fx_layer.filter.tool_menu_split)
+
+            if len(self.elements(L.edit.fx_layer.filter.clip(0))) == 4:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value is not the default(120): {size_text}')
+                raise Exception(f'[Fail] Clip num incorrect')
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('photo', file_name=photo_9_16)
-            self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
-            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
-            self.click(L.edit.master.ai_effect.edit)
+            self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Filter'))
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.sub_tool.back)
+            filter_layer = self.element(L.edit.fx_layer.filter.clip()).rect
+            playhead = self.element(L.edit.timeline.playhead).rect
+            x = filter_layer['x'] + filter_layer['width'] - playhead['x']
+            y = playhead['y'] + playhead['height'] / 2
+            self.driver.driver.swipe(playhead['x'], y, x, y, 5000)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Filter'))
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.enter_main_tool('Filter')
+            self.click(L.edit.fx_layer.filter.cancel)
+            clip = self.element(L.edit.fx_layer.filter.clip(2))
+            clip.click()
+            start_x = clip.rect['x'] + clip.rect['width'] / 2
+            end_x = self.element(L.edit.timeline.playhead).rect['x']
+            y = clip.rect['y']
+            self.driver.driver.swipe(start_x, y, end_x, y, 2500)
+            self.click(L.edit.fx_layer.filter.tool_menu_split)
 
-            return "FAIL"
-
-    def sce_7_2_14(self):
-        uuid = '28afbbfa-bf9e-49cc-9036-b878869456c8'
+    def sce_9_1_17(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.master.effect.back)
+            self.click(L.edit.fx_layer.filter.tool_menu_duplicate)
 
-            if self.is_exist(L.edit.master.effect.effect()):
+            if len(self.elements(L.edit.fx_layer.filter.clip(0))) == 5:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot find the effect')
+                raise Exception(f'[Fail] Clip num incorrect')
 
         except Exception as err:
             self.stop_recording(func_name)
-            logger(f'\n{err}')
+            traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.add_master_media('photo', file_name=photo_9_16)
-            self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool('Effect', exclusive='AI Effect')
-            self.page_edit.click_category("Texture", L.edit.master.effect.category(0))
-            self.page_edit.click_effect("Solarize", L.edit.master.effect.effect_name(0))
 
-            return "FAIL"
-
-    def sce_7_2_15(self):
-        uuid = '57de526e-0748-46d3-aa15-1e6d9f2af112'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.click(L.edit.master.effect.ok)
-            preview_after = self.page_main.get_preview_pic()
-
-            if HCompareImg(preview_after, preview_default).full_compare() < 1:
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception('[Fail] Preview has no changed')
-
-        except Exception as err:
-            self.stop_recording(func_name)
-            logger(f'\n{err}')
-            report.new_result(uuid, False, fail_log=err)
-
-            return "FAIL"
 
     def test_case(self):
         result = {"sce_9_1_1": self.sce_9_1_1(),
@@ -705,6 +741,9 @@ class Test_Overlay_Filter:
                   "sce_9_1_12": self.sce_9_1_12(),
                   "sce_9_1_13": self.sce_9_1_13(),
                   "sce_9_1_14": self.sce_9_1_14(),
+                  "sce_9_1_15": self.sce_9_1_15(),
+                  "sce_9_1_16": self.sce_9_1_16(),
+                  "sce_9_1_17": self.sce_9_1_17(),
                   }
         for key, value in result.items():
             if value != "PASS":

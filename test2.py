@@ -1,15 +1,27 @@
 import os
+import traceback
 
+from appium.webdriver.appium_service import AppiumService
 from appium import webdriver
+
 from selenium.webdriver import ActionChains
+from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 
-# from ATFramework_aPDR.pages.locator import locator as L
-# from ATFramework_aPDR.pages.locator.locator_type import *
+from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.locator.locator_type import *
 
-# 創建WebDriver實例，連接至Appium Server
+args = [
+    "--address", "127.0.0.1",
+    "--port", "4725",
+    "--base-path", '/wd/hub'
+]
+
+# appium = AppiumService()
+# appium.start(args=args)
+
 desired_caps = {
     'platformName': 'Android',
     'automationName': 'UiAutomator2',
@@ -17,9 +29,9 @@ desired_caps = {
     "appPackage": "com.cyberlink.powerdirector.DRA140225_01",
     "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
     'autoGrantPermissions': False,
-    "noReset": False,
-    "autoLaunch": True,
-    'udid': 'RFCW2198L7B'
+    "noReset": True,
+    "autoLaunch": False,
+    'udid': 'R5CW31G76ST'
 }
 driver = webdriver.Remote('http://localhost:4725/wd/hub', desired_caps)
 
@@ -83,13 +95,46 @@ def h_set_slider_value(percentage, slider_draggable_offset=664/762):
     h_tap(x, y)
     return True
 
+def scroll_playhead(x_offset: int, speed=None):
+    """
+    # Function: scroll_playhead
+    # Description: Scroll the playhead to with x_offset
+    # Parameters:
+        :param x_offset: Moving distance of x-coordinate
+                        - positive: swipe to the left
+                        - negative: swipe to the right
+        :param speed: 1 is fastest (slower is more accurate)
+    # Return: None
+    # Note: length of x to trigger swiping is 25
+    # Author: Hausen
+    """
+    try:
+        playhead = driver.find_element(*L.edit.timeline.playhead)
+        if speed is None:
+            speed = x_offset // 30
+        x_split = x_offset / speed
+        y = playhead.rect['y'] + playhead.rect['height']/2
 
-is_audio_playing = driver.execute_script(
-    'const ctx = context;'
-    'const am = ctx.getSystemService(ctx.AUDIO_SERVICE); '
-    'return am.isMusicActive();')
+        touch_action = TouchAction(driver)
+        touch_action.press(playhead)
+        for times in range(speed):
+            x_offset -= x_split
+            touch_action.move_to(x=x_offset, y=y)
+        touch_action.release().perform()
+        return True
+    except Exception:
+        traceback.print_exc()
+        return False
 
-print(is_audio_playing)
 
-# # 關閉WebDriver連線
+playhead = driver.find_element(*L.edit.timeline.playhead).rect
+x_start = playhead['x']
+y = playhead['y']
+x_end = x_start - 500
+
+driver.swipe(x_start, y, x_end, y, 10000)
+
+
+
+
 # driver.quit()

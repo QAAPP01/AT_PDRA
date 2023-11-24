@@ -21,11 +21,11 @@ from .test_aPDR_SFT_Scenario_05_15_dev import Test_SFT_Scenario_05_15
 from .test_aPDR_SFT_Scenario_05_16_dev import Test_SFT_Scenario_05_16
 
 
-from .test_launcher_shortcut_anime_art_06_04 import Test_Anime_Art
+from .test_shortcut_anime_art_06_04 import Test_Anime_Art
 from .test_edit_master_ai_effect_07_01 import Test_Ai_Effect
 from .test_edit_master_effect_07_02 import Test_Effect
 from .test_edit_overlay_filter_09_01 import Test_Overlay_Filter
-
+from .test_edit_overlay_videoFx_09_02 import Test_Overlay_VideoFx
 
 
 from .zz_end_test import TestEnd

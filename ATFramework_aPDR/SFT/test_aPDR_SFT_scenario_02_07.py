@@ -85,7 +85,7 @@ class Test_SFT_Scenario_02_07:
                                page_edit.check_preview_aspect_ratio(project_title))
         
         self.report.start_uuid('a3966abc-292f-4adf-afd9-556c68555f8b')   
-        page_edit.el(L.edit.menu.effect).click()
+        page_edit.el(L.edit.menu.fx_layer).click()
         page_edit.el(L.edit.effect_sub.video).click()
         page_media.select_media_by_text(self.test_material_folder_01)
         page_media.select_media_by_text(media_list[0])

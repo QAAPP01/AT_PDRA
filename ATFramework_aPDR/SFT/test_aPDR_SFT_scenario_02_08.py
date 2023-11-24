@@ -83,7 +83,7 @@ class Test_SFT_Scenario_02_08:
        
         # Apply free In effect
         self.report.start_uuid('c3ba23bb-93f9-4297-8ba4-ba4f94ad4d6e')   
-        page_edit.el(L.edit.menu.effect).click()
+        page_edit.el(L.edit.menu.fx_layer).click()
         # page_media.select_media_by_text('Default')
         page_media.select_media_by_order(1)
         page_media.el(L.import_media.library_gridview.add).click()
@@ -217,7 +217,7 @@ class Test_SFT_Scenario_02_08:
         
         # Apply backdrop
         self.report.start_uuid('2f788797-8d3b-4ec0-9e55-5ed201d7f118')   
-        page_edit.el(L.edit.menu.effect).click()
+        page_edit.el(L.edit.menu.fx_layer).click()
         # page_media.select_media_by_text('Default')
         page_media.select_media_by_order(1)
         page_media.el(L.import_media.library_gridview.add).click()
@@ -392,7 +392,7 @@ class Test_SFT_Scenario_02_08:
         self.report.start_uuid('6f15d2cb-72a3-4f67-8389-f4d33678f080')   
         self.report.start_uuid('bc8e7cc2-a02f-4777-b8cb-1052d3ba62a7')   
         self.report.start_uuid('288e70f6-f9ea-4c10-8502-2cc482e0d955')   
-        page_edit.el(L.edit.menu.effect).click()
+        page_edit.el(L.edit.menu.fx_layer).click()
         # page_media.select_media_by_text('Default')
         page_media.select_media_by_order(1)
         page_media.el(L.import_media.library_gridview.add).click()
@@ -448,7 +448,7 @@ class Test_SFT_Scenario_02_08:
         time.sleep(2)
         page_edit.el(L.edit.menu.delete).click()
         time.sleep(2)
-        page_edit.el(L.edit.menu.effect).click()
+        page_edit.el(L.edit.menu.fx_layer).click()
         # page_media.select_media_by_text('Default')
         page_media.select_media_by_order(1)
         page_media.el(L.import_media.library_gridview.add).click()
@@ -533,7 +533,7 @@ class Test_SFT_Scenario_02_08:
         self.report.start_uuid('a1e85062-b9ed-4986-a775-a27939876e41')
         page_edit.timeline_select_media('mp4.mp4', 'Video')
         page_edit.el(L.edit.menu.delete).click()
-        page_edit.el(L.edit.menu.effect).click()
+        page_edit.el(L.edit.menu.fx_layer).click()
         page_media.select_title_category('Expressive Titles')
         page_media.search_template_by_image('mgt_premium')
         time.sleep(5)
@@ -545,7 +545,7 @@ class Test_SFT_Scenario_02_08:
         self.report.new_result('a1e85062-b9ed-4986-a775-a27939876e41', result)
 
         self.report.start_uuid('9f3aa52b-e2e6-4261-9223-9fb6f834e0da')
-        page_edit.el(L.edit.menu.effect).click()
+        page_edit.el(L.edit.menu.fx_layer).click()
         page_media.select_title_category('Expressive Titles')
         page_media.search_template_by_image('mgt_free')
         page_media.el(L.import_media.library_gridview.add).click()
@@ -751,7 +751,7 @@ class Test_SFT_Scenario_02_08:
         # Color Palette
         self.report.start_uuid('b17bd9f2-920e-4537-b1fc-895f525c3477')
         page_edit.click(L.edit.menu.delete)
-        page_edit.el(L.edit.menu.effect).click()
+        page_edit.el(L.edit.menu.fx_layer).click()
         page_media.select_title_category('Expressive Titles')
         page_media.search_template_by_image('mgt_premium')
         page_media.el(L.import_media.library_gridview.add).click()

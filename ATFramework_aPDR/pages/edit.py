@@ -96,7 +96,7 @@ class EditPage(BasePage):
                 return True
             else:
                 category_list_amount = len(category_list)
-                self.h_swipe_element(category_list[-1], category_list[(3 - category_list_amount % 4)], 2)
+                self.h_swipe_element(category_list[-1], category_list[(3 - category_list_amount % 4)], 4)
                 category_list = self.elements(locator)
                 new_last = category_list[-1].text
                 if new_last == last:
@@ -319,34 +319,36 @@ class EditPage(BasePage):
             logger(f'{inspect.stack()[0][3]} {err}')
             return False
 
-    def scroll_playhead(self, x_offset: int, speed=15):
-        """
-        # Function: scroll_playhead
-        # Description: Scroll the playhead to with delta_x
-        # Parameters:
-            :param x_offset: Moving distance of x-coordinate
-                            - positive: swipe to the left
-                            - negative: swipe to the right
-            :param speed: 1 is fastest (slower is more accurate)
-        # Return: None
-        # Note: length of x to trigger swiping is 25
-        # Author: Hausen
-        """
-        try:
-            if speed < 1:
-                speed = 1
-            playhead = self.element(L.edit.timeline.playhead)
-            x_split = x_offset // speed
-
-            actions = ActionChains(self.driver.driver)
-            actions.move_to_element(playhead)
-            for times in range(speed):
-                actions.move_by_offset(-x_split, 0)
-            actions.perform()
-            return True
-        except Exception:
-            traceback.print_exc()
-            return False
+    # def scroll_playhead(self, x_offset: int, speed=15):
+    #     """
+    #     # Function: scroll_playhead
+    #     # Description: Scroll the playhead to with x_offset
+    #     # Parameters:
+    #         :param x_offset: Moving distance of x-coordinate
+    #                         - positive: swipe to the left
+    #                         - negative: swipe to the right
+    #         :param speed: 1 is fastest (slower is more accurate)
+    #     # Return: None
+    #     # Note: length of x to trigger swiping is 25
+    #     # Author: Hausen
+    #     """
+    #     try:
+    #         if speed < 1:
+    #             speed = 1
+    #         playhead = self.element(L.edit.timeline.playhead)
+    #         x_split = x_offset // speed
+    #
+    #         actions = ActionChains(self.driver.driver)
+    #         actions.move_to_element(playhead)
+    #         for times in range(speed):
+    #             actions.move_by_offset(-x_split, 0)
+    #             x_offset -= x_split
+    #             print(x_offset)
+    #         actions.perform()
+    #         return True
+    #     except Exception:
+    #         traceback.print_exc()
+    #         return False
 
 
     def preview_ratio(self):

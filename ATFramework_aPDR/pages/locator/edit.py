@@ -2,17 +2,20 @@ from .locator_type import *
 
 toast = xpath('/hierarchy/android.widget.Toast[1]')
 
+
 class Master:
 
     @staticmethod
     def sub_tool(name):
         return xpath(f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
+
     @staticmethod
     def clip(index=1):
         if index:
             return xpath(f'(//*[contains(@resource-id,"item_view_border")])[{index}]')
         else:
             return xpath(f'//*[contains(@resource-id,"item_view_border")]')
+
     class ai_effect:
         edit = id('itemEdit')
         cancel = id('btn_cancel')
@@ -23,45 +26,43 @@ class Master:
         reset = id('btn_reset')
         back = id('btn_back')
 
-
-
         @staticmethod
-        def category(index:int=1):
+        def category(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"library_category_tab_text")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"library_category_tab_text")]')
 
         @staticmethod
-        def effect(index:int=1):
+        def effect(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"top_area")]')
 
         @staticmethod
-        def effect_name(index:int=1):
+        def effect_name(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemName")]')
 
         @staticmethod
-        def favorite_icon(index:int=1):
+        def favorite_icon(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemFavorite")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemFavorite")]')
 
         @staticmethod
-        def color_preset(index:int=1):
+        def color_preset(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"color_image_view")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"color_image_view")]')
 
         @staticmethod
-        def slider(index:int=1):
+        def slider(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"seekbar")])[{index}]')
             else:
@@ -77,45 +78,43 @@ class Master:
         reset = id('btn_reset')
         back = id('btn_back')
 
-
-
         @staticmethod
-        def category(index:int=1):
+        def category(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"library_category_tab_text")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"library_category_tab_text")]')
 
         @staticmethod
-        def effect(index:int=1):
+        def effect(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"top_area")]')
 
         @staticmethod
-        def effect_name(index:int=1):
+        def effect_name(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemName")]')
 
         @staticmethod
-        def favorite_icon(index:int=1):
+        def favorite_icon(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemFavorite")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemFavorite")]')
 
         @staticmethod
-        def color_preset(index:int=1):
+        def color_preset(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"color_image_view")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"color_image_view")]')
 
         @staticmethod
-        def slider(index:int=1):
+        def slider(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"seekbar")])[{index}]')
             else:
@@ -132,6 +131,8 @@ class Master:
 class Converting:
     ok = aid('[AID]ConfirmDialog_OK')
     progress_bar = id('progress_bar')
+
+
 class Timeline:
     timeline_area = id('container_of_tracks')
     slider = id("adjustable_parameter_seek_bar")
@@ -142,8 +143,7 @@ class Timeline:
     option_label = id("option_label")
     item_view_border = id("item_view_border")
     master_clip = id("item_view_border")
-    effect_1st = (
-    "xpath", "(//android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout)[2]")
+    effect_1st = ("xpath", "(//android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout)[2]")
 
     clip_photo = ("xpath", '//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLinePhoto_")]')
     clip_title = id("item_view_title")
@@ -225,7 +225,6 @@ class Timeline:
         trim_indicator = id('btn_trim_indicator')
         editing_keyframe = id('item_view_editing_keyframes')
 
-
         @staticmethod
         def master_clip(index=1):
             if index:
@@ -266,16 +265,17 @@ class Timeline:
     master_track = MasterTrack
     pip = Pip
 
+
 class MainTool:
     class sticker:
         library = id('actual_view')
+
         @staticmethod
         def item(index=1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"cms_sticker_library_item")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"cms_sticker_library_item")]')
-
 
         class ai_sticker:
             title = id('tv_title')
@@ -315,19 +315,20 @@ class SubTool:
         param_area = id('param_edit_area')
         reset = id('btn_reset')
 
-
         @staticmethod
         def effect(index=1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"containerView")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"containerView")]')
+
         @staticmethod
         def effect_name(index=1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemName")]')
+
         @staticmethod
         def param_value(index=1):
             if index:
@@ -364,7 +365,6 @@ class SubTool:
                 return xpath(f'(//*[contains(@resource-id,"filter_border")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"filter_border")]')
-
 
     class PanZoom:
         class Custom:
@@ -406,7 +406,6 @@ class Menu:
     full_screen = id('btn_fullScreen')
 
 
-
 class SubToolMenu:
     back = id('btn_session_back')
     reset = id('btn_reset')
@@ -419,10 +418,12 @@ class SubMenu_Timeline_Setting():
     tips = aid("[AID]Setting_Helo")
     tutorials = aid("[AID]Setting_Help_Videos")
 
+
 class Text:
     text_clip_text = id('item_view_title')
     text_preview = id('resizeable_title_view')
     add = id('library_unit_add')
+
     @staticmethod
     def category_name(index=1):
         if index:
@@ -655,7 +656,6 @@ class Preview:
     import_tips_icon = id('import_tips_icon')
 
 
-
 class Pip:
 
     @staticmethod
@@ -791,7 +791,6 @@ class Pip:
         font_filter_5 = xpath(f'(//*[contains(@resource-id,"selection_btn")])[5]')
         font_filter_back = id("filter_back_button")
 
-
     class ColorPicker():
         page = id('customize_color_area')
         slider_hue = id('text_edit_primary_color_pick_vertical')
@@ -813,6 +812,7 @@ class AspectRatio:
     ratio_1_1 = id("layout_ratio_1_1")
     ratio_21_9 = id("layout_ratio_21_9")
     ratio_4_5 = id("layout_ratio_4_5")
+
 
 class Transition():
     # duration_text = id('durationText')
@@ -923,7 +923,6 @@ class Settings:
     aspect_ratio = aid("[AID]Setting_Ratio")
     preference = aid('[AID]Setting_About')
 
-
     class DefaultImageDuration:
         default_image_duration = id("settings_default_image_duration")
         slider = aid("[AID]Transition_Seekbar")
@@ -1024,7 +1023,6 @@ class Fit_And_Fill():
     blur_text = id('adjustTextNow')
 
 
-
 class Background:
     btn_background = id('btn_background')
     btn_none = id('btn_none')
@@ -1052,6 +1050,7 @@ class Background:
             return xpath(f'//*[contains(@resource-id,"pattern_layout")]')
         else:
             return xpath(f'(//*[contains(@resource-id,"pattern_layout")])[{index}]')
+
 
 class Replace():
     btn_replace_anyway = id('replace_text_view')
@@ -1163,16 +1162,20 @@ class Intro_Video:
     intro_master_clip = id("item_view_thumbnail_host")
 
 
-class Effect:
+class FxLayer:
     add = id('library_unit_add')
 
     class filter:
-        apply = id('btn_ok')
-        none = id('btn_none')
         cancel = id('btn_cancel')
+        none = id('btn_none')
+        apply = id('btn_ok')
+        apply_to_all = id('btn_floating_apply_all')
         compare = id('btn_compare')
         edit = id('itemEdit')
         slider = id('adjustable_parameter_seek_bar')
+        tool_menu_filter = xpath(f'//*[contains(@resource-id,"tool_entry_label") and @text="Filter"]')
+        tool_menu_split = xpath(f'//*[contains(@resource-id,"tool_entry_label") and @text="Split"]')
+        tool_menu_duplicate = xpath(f'//*[contains(@resource-id,"tool_entry_label") and @text="Duplicate"]')
 
         @staticmethod
         def item(index=1):
@@ -1187,6 +1190,68 @@ class Effect:
                 return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+        @staticmethod
+        def clip(index=1):
+            if index:
+                return xpath(
+                    f'(//*[contains(@resource-id, "tracks_container_of_not_main")]//*[contains(@resource-id, "item_view_thumbnail_host")])[{index}]')
+            else:
+                return xpath(
+                    f'//*[contains(@resource-id, "tracks_container_of_not_main")]//*[contains(@resource-id, "item_view_thumbnail_host")]')
+
+    class videoFx:
+        cancel = id('btn_cancel')
+        none = id('btn_none')
+        apply = id('btn_ok')
+        apply_to_all = id('btn_floating_apply_all')
+        compare = id('btn_compare')
+        edit = id('itemEdit')
+        back = id('btn_back')
+        reset = id('btn_reset')
+        tool_menu_filter = xpath(f'//*[contains(@resource-id,"tool_entry_label") and @text="Filter"]')
+        tool_menu_split = xpath(f'//*[contains(@resource-id,"tool_entry_label") and @text="Split"]')
+        tool_menu_duplicate = xpath(f'//*[contains(@resource-id,"tool_entry_label") and @text="Duplicate"]')
+
+        @staticmethod
+        def item(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemThumb")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemThumb")]')
+
+        @staticmethod
+        def item_name(arg=1):
+            if type(arg) == int:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{arg}]')
+            elif type(arg) == str:
+                return xpath(f'//*[contains(@resource-id,"itemName") and @text="{arg}"]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+        @staticmethod
+        def clip(index=1):
+            if index:
+                return xpath(
+                    f'(//*[contains(@resource-id, "tracks_container_of_not_main")]//*[contains(@resource-id, "item_view_thumbnail_host")])[{index}]')
+            else:
+                return xpath(
+                    f'//*[contains(@resource-id, "tracks_container_of_not_main")]//*[contains(@resource-id, "item_view_thumbnail_host")]')
+
+        @staticmethod
+        def slider(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"seekbar")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"seekbar")]')
+
+        @staticmethod
+        def value(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"value")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"value")]')
+
 
 class Interface:
     converting = Converting
@@ -1210,7 +1275,7 @@ class Interface:
     crop = Crop()
     duration = Duration()
     edit_sub = Edit_sub()
-    effect = Effect
+    fx_layer = FxLayer
     effect_sub = Effect_Sub()
     fade = Fade()
     fit_and_fill = Fit_And_Fill()
