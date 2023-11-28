@@ -1214,6 +1214,14 @@ class FxLayer:
         tool_menu_duplicate = xpath(f'//*[contains(@resource-id,"tool_entry_label") and @text="Duplicate"]')
 
         @staticmethod
+        def category(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"library_category_tab_text")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"library_category_tab_text")]')
+
+
+        @staticmethod
         def item(index=1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemThumb")])[{index}]')
