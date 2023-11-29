@@ -813,6 +813,190 @@ class Test_Overlay_VideoFx:
 
             return "FAIL"
 
+    def sce_9_2_20(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.fx_layer.videoFx.value(2)).text
+
+            if value == '50':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Video Effect'))
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.click_category('Blur', L.edit.fx_layer.videoFx.category(0))
+            self.page_edit.click_effect("Vague", L.edit.fx_layer.videoFx.item_name(0))
+            self.page_edit.try_it_first()
+            self.click(L.edit.fx_layer.videoFx.edit)
+
+            return "FAIL"
+
+    def sce_9_2_21(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.fx_layer.videoFx.slider(2))
+            value = self.element(L.edit.fx_layer.videoFx.value(2)).text
+
+            if value == '0':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Video Effect'))
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.click_category('Blur', L.edit.fx_layer.videoFx.category(0))
+            self.page_edit.click_effect("Vague", L.edit.fx_layer.videoFx.item_name(0))
+            self.page_edit.try_it_first()
+            self.click(L.edit.fx_layer.videoFx.edit)
+            self.driver.drag_slider_to_min(L.edit.fx_layer.videoFx.slider(2))
+
+            return "FAIL"
+
+    def sce_9_2_22(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            preview = self.page_main.get_preview_pic()
+
+            if not HCompareImg(preview, self.preview_original).full_compare() == 1:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Preview no change')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Video Effect'))
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.click_category('Blur', L.edit.fx_layer.videoFx.category(0))
+            self.page_edit.click_effect("Vague", L.edit.fx_layer.videoFx.item_name(0))
+            self.page_edit.try_it_first()
+            self.click(L.edit.fx_layer.videoFx.edit)
+
+            return "FAIL"
+
+    def sce_9_2_23(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.fx_layer.videoFx.slider(2))
+            value = self.element(L.edit.fx_layer.videoFx.value(2)).text
+
+            if value == '100':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Video Effect'))
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.click_category('Blur', L.edit.fx_layer.videoFx.category(0))
+            self.page_edit.click_effect("Vague", L.edit.fx_layer.videoFx.item_name(0))
+            self.page_edit.try_it_first()
+            self.click(L.edit.fx_layer.videoFx.edit)
+            self.driver.drag_slider_to_max(L.edit.fx_layer.videoFx.slider(2))
+
+            return "FAIL"
+
+    def sce_9_2_24(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            preview = self.page_main.get_preview_pic()
+
+            if not HCompareImg(preview, self.preview_original).full_compare() == 1:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Preview no change')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
+            self.page_edit.enter_main_tool('FX Layer')
+            self.click(find_string('Video Effect'))
+            self.click(L.edit.fx_layer.add)
+            self.click(L.edit.fx_layer.filter.cancel)
+            self.page_edit.click_category('Blur', L.edit.fx_layer.videoFx.category(0))
+            self.page_edit.click_effect("Vague", L.edit.fx_layer.videoFx.item_name(0))
+            self.page_edit.try_it_first()
+            self.click(L.edit.fx_layer.videoFx.edit)
+
+            return "FAIL"
+
     def test_case(self):
         result = {"sce_9_2_1": self.sce_9_2_1(),
                   "sce_9_2_2": self.sce_9_2_2(),
@@ -833,6 +1017,12 @@ class Test_Overlay_VideoFx:
                   "sce_9_2_17": self.sce_9_2_17(),
                   "sce_9_2_18": self.sce_9_2_18(),
                   "sce_9_2_19": self.sce_9_2_19(),
+                  "sce_9_2_20": self.sce_9_2_20(),
+                  "sce_9_2_21": self.sce_9_2_21(),
+                  "sce_9_2_22": self.sce_9_2_22(),
+                  "sce_9_2_23": self.sce_9_2_23(),
+                  "sce_9_2_24": self.sce_9_2_24(),
+
                   }
         for key, value in result.items():
             if value != "PASS":
