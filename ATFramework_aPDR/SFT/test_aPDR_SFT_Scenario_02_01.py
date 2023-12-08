@@ -1,3 +1,5 @@
+import traceback
+
 import pytest, os, inspect, base64, sys, time
 from os import path
 
@@ -2982,28 +2984,29 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     def sce_2_1_15(self):
-        try:
-            uuid = '1a05c9a6-66b7-4703-9f22-6172a920c201'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        func_name = inspect.stack()[0][3]
+        uuid = '1a05c9a6-66b7-4703-9f22-6172a920c201'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
 
-            time.sleep(5)
+        try:
+            self.page_edit.timeline_swipe('left', 50)
             pic_after = self.page_main.h_screenshot()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_15.png')
 
-            global result_15
             if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
-                result_15 = True
-                fail_log = None
+                self.result_15 = True
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result_15 = False
-                fail_log = f'\n[Fail] Images are different'
+                raise Exception(f'[Fail] Images are different')
 
-            self.report.new_result(uuid, result_15, fail_log=fail_log)
-            return "PASS" if result_15 else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.result_15 = False
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            return "FAIL"
 
     def sce_2_1_16(self):
         try:
@@ -3011,7 +3014,7 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            if result_15:
+            if self.result_15:
                 result = True
                 fail_log = None
             else:
