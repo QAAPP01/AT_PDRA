@@ -543,7 +543,7 @@ class EditPage(BasePage):
         if not self.h_is_exist(L.edit.timeline.option_label, 1):
             logger("[Info] Cannot find sub option tool menu")
             return False
-        locator = ('xpath', '//*[contains(@resource-id,"option_label") and contains(@text,"'+name+'")]')
+        locator = ('xpath', f'//*[contains(@resource-id,"option_label") and @text="{name}"]')
         while 1:
             if not self.h_is_exist(locator, timeout=timeout):
                 tool = self.h_get_elements(E.timeline.option_label)
@@ -591,7 +591,7 @@ class EditPage(BasePage):
 
     def timeline_swipe(self, direction, distance):
         logger(f"start timeline_swipe to {direction} with {distance}")
-        self.swipe_element(L.edit.timeline.playhead_timecode, direction, distance)
+        self.swipe_element(L.edit.timeline.playhead_timecode_ruler, direction, distance)
         time.sleep(1)
 
     def timeline_get_photo_width(self, file_name):

@@ -21,6 +21,11 @@ test_material_folder = TEST_MATERIAL_FOLDER
 
 file_video = 'video.mp4'
 
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
+
 
 class Test_SFT_Scenario_02_01:
     @pytest.fixture(autouse=True)
@@ -48,6 +53,7 @@ class Test_SFT_Scenario_02_01:
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
         driver.driver.launch_app()
         yield
+        self.driver.driver.stop_recording_screen()
         driver.driver.close_app()
         driver.driver.orientation = "PORTRAIT"
 
@@ -57,6 +63,7 @@ class Test_SFT_Scenario_02_01:
         with open(self.video_file_path, 'wb') as video_file:
             video_file.write(base64.b64decode(recording_data))
         logger(f'Screen recording saved: {self.video_file_path}')
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
 
     def sce_2_1_1(self):
         uuid = '923cc0c9-f6d8-4f65-8076-f1b585d5b1a3'
@@ -928,845 +935,1095 @@ class Test_SFT_Scenario_02_01:
         self.report.add_result('32448a26-3bea-41ef-b1c4-352715ee44d6', None, 'N/A', 'merge to sce_2.33')    # 2.1.61, merge to sce_2.33
         return "N/A"
 
+# Adjustment
     def sce_2_1_64(self):
-        try:
-            uuid = '4017ecaf-4099-45c4-bdff-2fb9633d42c4'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+        func_name = inspect.stack()[0][3]
+        uuid = '4017ecaf-4099-45c4-bdff-2fb9633d42c4'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
 
-            self.page_edit.add_master_media('video', test_material_folder, 'video.mp4')
-            self.click(L.edit.timeline.master_video('video.mp4'))
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
             self.page_edit.click_sub_tool("Adjustment")
             self.page_edit.click_sub_option_tool("Brightness")
-            value = self.element(L.edit.timeline.slider_value).text
-
-            result_value = value == "0"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_64.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_62(self):
-        try:
-            uuid = '94c02d7d-3fc6-479a-969e-c9aee5cc4ca1'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) > 0:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_66(self):
-        try:
-            uuid = '5be6d9f5-cf81-4408-80a7-2aca089389cb'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            self.adjustment_original = self.page_main.get_preview_pic()
 
             value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "100"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_66.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_63(self):
-        try:
-            uuid = '206d5ec5-53fc-439e-8277-6fc407bdd26e'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) < 0:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_65(self):
-        try:
-            uuid = '56bfcf3c-ebc3-4c44-b278-2f99a5ac017e'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "-100"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_65.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_69(self):
-        try:
-            uuid = '176f1faa-cf8d-47e7-aa9d-15f975a5abae'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            self.page_edit.click_sub_option_tool("Contrast")
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "0"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_69.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_67(self):
-        try:
-            uuid = '120dc857-7115-4dff-aa89-9a4c87cac13c'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) > 0:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_71(self):
-        try:
-            uuid = '8ceae3f4-e25a-4420-8e9e-036efe2c32ad'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "100"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_71.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_68(self):
-        try:
-            uuid = 'a4434695-07e6-4013-92d3-a776e99ce42a'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) < 0:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_70(self):
-        try:
-            uuid = '6e38e549-1176-4c7c-b247-dfb73b34c98e'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "-100"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_70.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_74(self):
-        try:
-            uuid = '563a3999-87e2-4b02-8256-ea1c0c42e6a8'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            self.page_edit.click_sub_option_tool("Saturation")
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "100"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_74.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_72(self):
-        try:
-            uuid = 'd8fe2c0e-f903-4c34-9f3b-dc4b1165c19e'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) > 100:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_76(self):
-        try:
-            uuid = '7156957f-4dca-496f-a4c6-65e674753603'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "200"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_76.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_73(self):
-        try:
-            uuid = '0523771e-346a-4477-80ef-b7c2d2c4f46d'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) < 100:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_75(self):
-        try:
-            uuid = '4641b18f-3f95-431a-85a3-8d68bd6afc22'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "0"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_75.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_79(self):
-        try:
-            uuid = '8d509724-ad94-41ba-8add-ca7a0c018aae'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            self.page_edit.click_sub_option_tool("Hue")
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "100"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_79.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_77(self):
-        try:
-            uuid = 'eb384538-b939-4445-b12c-4c2038c9a51d'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) > 100:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_81(self):
-        try:
-            uuid = 'e1e887e6-8cba-4c26-9de3-ee1ad93c0599'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "200"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_81.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_78(self):
-        try:
-            uuid = 'c7701799-6d27-4126-8ab9-f158d6ca49ac'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) < 100:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_80(self):
-        try:
-            uuid = '55d52fc1-4867-408c-aa91-0240796084f0'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "0"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_80.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_84(self):
-        try:
-            uuid = 'ae478e12-9e67-42d0-9052-1cf63f3394ca'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            self.page_edit.click_sub_option_tool("Temp")
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "50"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_84.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_82(self):
-        try:
-            uuid = 'cb5ef2e5-c9c4-422e-8a53-a1e0a67c717e'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) > 50:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_86(self):
-        try:
-            uuid = '0a4208a2-2d52-4964-9df4-23c29aba3f2a'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "100"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_86.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_83(self):
-        try:
-            uuid = 'c01e1811-16c2-447c-980d-cbe12e197e1c'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) < 50:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_85(self):
-        try:
-            uuid = 'ed5d6e4a-eeb7-47af-936f-ae7c2ff8ef95'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "0"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_85.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_89(self):
-        try:
-            uuid = '7ef47ca5-1eaf-4202-bb35-b576ea881f21'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            self.page_edit.click_sub_option_tool("Tint")
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "50"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_89.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_87(self):
-        try:
-            uuid = '8a325e3f-f985-4bae-91da-c58266a6d4dc'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) > 50:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_91(self):
-        try:
-            uuid = '1637dd88-bb2a-40c0-ab03-c854f9681e58'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "100"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_91.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_88(self):
-        try:
-            uuid = '2049e934-49b4-4f49-b4b2-5c5b2bbfa708'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
-            value = self.element(L.edit.timeline.slider_value).text
-
-            if int(value) < 50:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_90(self):
-        try:
-            uuid = 'cb672a5c-543a-4d03-b81c-0a1a9f56070a'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            value = self.element(L.edit.timeline.slider_value).text
-            result_value = value == "0"
-
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_90.png')
-
-            result_preview = True if HCompareImg(pic_tgt, pic_src).full_compare() > 0.96 else False
-
-            if result_value and result_preview:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
-    def sce_2_1_55(self):
-        try:
-            uuid = '66247e49-e3aa-4b77-929e-33b67fff2f63'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            self.click(L.edit.timeline.reset)
-            self.page_edit.click_sub_option_tool("Sharpness")
-            value = self.element(L.edit.timeline.slider_value).text
-
-            global pic_no_sharpness
-            pic_no_sharpness = self.page_main.get_preview_pic()
 
             if value == "0":
-                result = True
-                fail_log = None
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result = False
-                fail_log = f'\n[Fail] value incorrect: {value}'
+                raise Exception(f'[Fail] Default incorrect: {value}')
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
 
-    def sce_2_1_56(self):
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Brightness")
+            self.adjustment_original = self.page_main.get_preview_pic()
+
+            return "FAIL"
+
+    def sce_2_1_62(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '94c02d7d-3fc6-479a-969e-c9aee5cc4ca1'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
         try:
-            uuid = '8ac1816f-4cf6-4c48-95b7-6f770176cf73'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
 
-            rect = self.element(L.edit.timeline.slider).rect
-            end_x = rect["x"] + rect["width"]
-            self.page_main.h_swipe_element_to_location(L.edit.timeline.slider_value, end_x)
+            if int(value) > 0:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Brightness")
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_66(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '5be6d9f5-cf81-4408-80a7-2aca089389cb'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "100"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Brightness")
+
+            return "FAIL"
+
+    def sce_2_1_63(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '206d5ec5-53fc-439e-8277-6fc407bdd26e'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 0:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Brightness")
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_65(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '56bfcf3c-ebc3-4c44-b278-2f99a5ac017e'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "-100"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+
+            return "FAIL"
+
+    def sce_2_1_69(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '176f1faa-cf8d-47e7-aa9d-15f975a5abae'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.page_edit.click_sub_option_tool("Contrast")
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "0":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Default incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Contrast")
+            self.adjustment_original = self.page_main.get_preview_pic()
+
+            return "FAIL"
+
+    def sce_2_1_67(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '120dc857-7115-4dff-aa89-9a4c87cac13c'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 0:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Contrast")
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_71(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '8ceae3f4-e25a-4420-8e9e-036efe2c32ad'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "100"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Contrast")
+
+            return "FAIL"
+
+    def sce_2_1_68(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'a4434695-07e6-4013-92d3-a776e99ce42a'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 0:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Contrast")
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_70(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '6e38e549-1176-4c7c-b247-dfb73b34c98e'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "-100"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+
+            return "FAIL"
+
+    def sce_2_1_74(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '563a3999-87e2-4b02-8256-ea1c0c42e6a8'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.page_edit.click_sub_option_tool("Saturation")
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "100":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Default incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Saturation")
+            self.adjustment_original = self.page_main.get_preview_pic()
+
+            return "FAIL"
+
+    def sce_2_1_72(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'd8fe2c0e-f903-4c34-9f3b-dc4b1165c19e'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 100:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Saturation")
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_76(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '7156957f-4dca-496f-a4c6-65e674753603'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "200"
 
-            pic_tgt = self.page_main.get_preview_pic()
-            pic_src = pic_no_sharpness
-
-            result_preview = True if not HCompareImg(pic_tgt, pic_src).full_compare() == 1 else False
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                result = True
-                fail_log = None
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result = False
-                fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Saturation")
+
+            return "FAIL"
+
+    def sce_2_1_73(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '0523771e-346a-4477-80ef-b7c2d2c4f46d'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 100:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Saturation")
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_75(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '4641b18f-3f95-431a-85a3-8d68bd6afc22'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "0"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+
+            return "FAIL"
+
+    def sce_2_1_79(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '8d509724-ad94-41ba-8add-ca7a0c018aae'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.page_edit.click_sub_option_tool("Hue")
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "100":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Default incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Hue")
+            self.adjustment_original = self.page_main.get_preview_pic()
+
+            return "FAIL"
+
+    def sce_2_1_77(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'eb384538-b939-4445-b12c-4c2038c9a51d'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 100:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Hue")
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_81(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'e1e887e6-8cba-4c26-9de3-ee1ad93c0599'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "200"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Hue")
+
+            return "FAIL"
+
+    def sce_2_1_78(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'c7701799-6d27-4126-8ab9-f158d6ca49ac'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 100:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Hue")
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_80(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '55d52fc1-4867-408c-aa91-0240796084f0'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "0"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+
+            return "FAIL"
+
+    def sce_2_1_84(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'ae478e12-9e67-42d0-9052-1cf63f3394ca'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.page_edit.click_sub_option_tool("Temp")
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "50":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Default incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Temp")
+            self.adjustment_original = self.page_main.get_preview_pic()
+
+            return "FAIL"
+
+    def sce_2_1_82(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'cb5ef2e5-c9c4-422e-8a53-a1e0a67c717e'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 50:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Temp")
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_86(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '0a4208a2-2d52-4964-9df4-23c29aba3f2a'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "100"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Temp")
+
+            return "FAIL"
+
+    def sce_2_1_83(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'c01e1811-16c2-447c-980d-cbe12e197e1c'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 50:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Temp")
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_85(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'ed5d6e4a-eeb7-47af-936f-ae7c2ff8ef95'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "0"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+
+            return "FAIL"
+
+    def sce_2_1_89(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '7ef47ca5-1eaf-4202-bb35-b576ea881f21'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.page_edit.click_sub_option_tool("Tint")
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "50":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Default incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Tint")
+            self.adjustment_original = self.page_main.get_preview_pic()
+
+            return "FAIL"
+
+    def sce_2_1_87(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '8a325e3f-f985-4bae-91da-c58266a6d4dc'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) > 50:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Tint")
+            self.driver.drag_slider_to_max(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_91(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '1637dd88-bb2a-40c0-ab03-c854f9681e58'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "100"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Tint")
+
+            return "FAIL"
+
+    def sce_2_1_88(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '2049e934-49b4-4f49-b4b2-5c5b2bbfa708'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if int(value) < 50:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Tint")
+            self.driver.drag_slider_to_min(L.edit.timeline.slider)
+
+            return "FAIL"
+
+    def sce_2_1_90(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'cb672a5c-543a-4d03-b81c-0a1a9f56070a'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "0"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+
+            return "FAIL"
+
+    def sce_2_1_55(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '66247e49-e3aa-4b77-929e-33b67fff2f63'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.page_edit.click_sub_option_tool("Sharpness")
+
+            value = self.element(L.edit.timeline.slider_value).text
+
+            if value == "0":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Default incorrect: {value}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Sharpness")
+            self.adjustment_original = self.page_main.get_preview_pic()
+
+            return "FAIL"
+
+    def sce_2_1_56(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '8ac1816f-4cf6-4c48-95b7-6f770176cf73'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            value = self.element(L.edit.timeline.slider_value).text
+            result_value = value == "200"
+
+            preview = self.page_main.get_preview_pic()
+            result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
+
+            if result_value and result_preview:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_9_16)
+            self.click(L.edit.timeline.master_video(video_9_16))
+            self.page_edit.click_sub_tool("Adjustment")
+            self.page_edit.click_sub_option_tool("Sharpness")
+
+            return "FAIL"
 
     def sce_2_1_92(self):
         try:
@@ -3450,8 +3707,13 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_52": self.sce_2_1_52(),
 
                   "sce_2_1_skip": self.sce_2_1_skip(),
+                  }
+        for key, value in result.items():
+            if value != "PASS":
+                print(f"[{value}] {key}")
 
-                  "sce_2_1_64": self.sce_2_1_64(),
+    def test_case_5(self):
+        result = {"sce_2_1_64": self.sce_2_1_64(),
                   "sce_2_1_62": self.sce_2_1_62(),
                   "sce_2_1_66": self.sce_2_1_66(),
                   "sce_2_1_63": self.sce_2_1_63(),
@@ -3463,17 +3725,17 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_68": self.sce_2_1_68(),
                   "sce_2_1_70": self.sce_2_1_70(),
 
-                  "sce_2_1_79": self.sce_2_1_79(),
-                  "sce_2_1_77": self.sce_2_1_77(),
-                  "sce_2_1_81": self.sce_2_1_81(),
-                  "sce_2_1_78": self.sce_2_1_78(),
-                  "sce_2_1_80": self.sce_2_1_80(),
-
                   "sce_2_1_74": self.sce_2_1_74(),
                   "sce_2_1_72": self.sce_2_1_72(),
                   "sce_2_1_76": self.sce_2_1_76(),
                   "sce_2_1_73": self.sce_2_1_73(),
                   "sce_2_1_75": self.sce_2_1_75(),
+
+                  "sce_2_1_79": self.sce_2_1_79(),
+                  "sce_2_1_77": self.sce_2_1_77(),
+                  "sce_2_1_81": self.sce_2_1_81(),
+                  "sce_2_1_78": self.sce_2_1_78(),
+                  "sce_2_1_80": self.sce_2_1_80(),
 
                   "sce_2_1_84": self.sce_2_1_84(),
                   "sce_2_1_82": self.sce_2_1_82(),

@@ -154,7 +154,7 @@ class Timeline:
     track = ("xpath", '//*[contains(@resource-id,"track_content")]')
     skin_smoothener = id("skin_smooth_effect")
     playhead_timecode = id('timeline_playhead_label')
-    # playhead_timecode = id('timeline_ruler')
+    playhead_timecode_ruler = id('timeline_ruler')
     track_content = id('track_content')
     item_view_title = id('item_view_title')
     timecode = id("timeline_playhead_label")
