@@ -94,7 +94,7 @@ class Test_Anime_Art:
         report.start_uuid(uuid)
 
         try:
-            if not self.click(L.main.shortcut.back_demo):
+            if not self.click(L.main.shortcut.demo_back):
                 raise Exception('Click "Back" fail')
 
             if self.is_exist(L.main.new_project):
@@ -122,7 +122,7 @@ class Test_Anime_Art:
 
         try:
             self.click(find_string('Anime Art'))
-            if not self.click(L.main.shortcut.try_it):
+            if not self.click(L.main.shortcut.try_it_now):
                 raise Exception('Click "Try it now" fail')
 
             if self.is_exist(L.main.shortcut.anime_art.template(0)):
@@ -140,7 +140,7 @@ class Test_Anime_Art:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.click(find_string('Anime Art'))
-            self.click(L.main.shortcut.try_it)
+            self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 

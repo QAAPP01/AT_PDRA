@@ -1,11 +1,153 @@
 from .locator_type import *
 new_project = id('layout_new_project')
+
+
 class Main:
     new_project = id('layout_new_project')
 
+
 class Shortcut:
-    back_demo = id('iv_back')
-    try_it = id('tv_try_it_now')
+    demo_back = id('iv_back')
+    try_it_now = id('tv_try_it_now')
+    btn_continue = id('tv_continue')
+    close = id('iv_close')
+    editor_back = id('iv_close')
+
+    @staticmethod
+    def shortcut_name(param=1):
+        if type(param) == str:
+            return xpath(f'//*[contains(@resource-id,"tv_name") and @text="{param}"]')
+        elif param:
+            return xpath(f'(//*[contains(@resource-id,"tv_name")])[{param}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"tv_name")]')
+
+    class body_effect:
+        edit = id('itemEdit')
+        cancel = id('btn_cancel')
+        ok = id('btn_ok')
+        dropper = id('dropper_button')
+        color_picker = id('color_dropper_straw_view')
+        apply = id('btn_apply_icon')
+        reset = id('btn_reset')
+        back = id('btn_back')
+
+        @staticmethod
+        def category(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"library_category_tab_text")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"library_category_tab_text")]')
+
+        @staticmethod
+        def effect(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"top_area")]')
+
+        @staticmethod
+        def effect_name(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+        @staticmethod
+        def favorite_icon(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemFavorite")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemFavorite")]')
+
+        @staticmethod
+        def color_preset(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"color_image_view")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"color_image_view")]')
+
+        @staticmethod
+        def slider(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"seekbar")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"seekbar")]')
+
+        @staticmethod
+        def value(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"value")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"value")]')
+
+    class video_effect:
+        edit = id('itemEdit')
+        cancel = id('btn_cancel')
+        ok = id('btn_ok')
+        dropper = id('dropper_button')
+        color_picker = id('color_dropper_straw_view')
+        apply = id('btn_apply_icon')
+        reset = id('btn_reset')
+        back = id('btn_back')
+
+        @staticmethod
+        def category(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"library_category_tab_text")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"library_category_tab_text")]')
+
+        @staticmethod
+        def effect(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"top_area")]')
+
+        @staticmethod
+        def effect_name(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+        @staticmethod
+        def favorite_icon(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemFavorite")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemFavorite")]')
+
+        @staticmethod
+        def color_preset(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"color_image_view")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"color_image_view")]')
+
+        @staticmethod
+        def slider(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"seekbar")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"seekbar")]')
+
+        @staticmethod
+        def value(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"value")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"value")]')
+
+    class cutout:
+        @staticmethod
+        def color(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"color")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"color")]')
+
     class anime_art:
         title = id('tv_title')
         back = id("top_toolbar_back")
@@ -15,6 +157,10 @@ class Shortcut:
                 return xpath(f'(//*[contains(@resource-id,"ai_template_card_view")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"ai_template_card_view")]')
+
+
+
+
 
 
 class Permission:

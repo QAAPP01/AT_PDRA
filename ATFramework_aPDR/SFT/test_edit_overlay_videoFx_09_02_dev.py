@@ -101,6 +101,7 @@ class Test_Overlay_VideoFx:
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
+        self.driver.driver.stop_recording_screen()
         driver.driver.close_app()
 
     def stop_recording(self, test_case_name):
@@ -109,6 +110,7 @@ class Test_Overlay_VideoFx:
         with open(self.video_file_path, 'wb') as video_file:
             video_file.write(base64.b64decode(recording_data))
         logger(f'Screen recording saved: {self.video_file_path}')
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
 
     def sce_9_2_1(self):
         func_name = inspect.stack()[0][3]

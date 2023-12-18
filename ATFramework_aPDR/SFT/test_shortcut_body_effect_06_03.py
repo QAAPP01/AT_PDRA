@@ -225,6 +225,7 @@ class Test_Shortcut_Body_Effect:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
+            self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 
@@ -261,6 +262,7 @@ class Test_Shortcut_Body_Effect:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
+            self.click(L.main.shortcut.try_it_now)
             self.click(L.import_media.media_library.btn_preview())
             self.click(L.import_media.media_library.trim_next)
 
@@ -290,6 +292,7 @@ class Test_Shortcut_Body_Effect:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
+            self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 
@@ -301,6 +304,12 @@ class Test_Shortcut_Body_Effect:
 
         try:
             self.page_media.select_local_video(test_material_folder,video_9_16)
+
+            for wait in range(60):
+                if self.is_exist(find_string('Cancel')):
+                    time.sleep(1)
+                else:
+                    break
 
             if self.is_exist(L.main.shortcut.body_effect.effect(0)):
                 report.new_result(uuid, True)
@@ -317,6 +326,7 @@ class Test_Shortcut_Body_Effect:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
+            self.click(L.main.shortcut.try_it_now)
             self.page_media.select_video_library(video_9_16)
 
             return "FAIL"

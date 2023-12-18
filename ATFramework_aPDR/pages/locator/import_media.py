@@ -2,6 +2,8 @@ from .locator_type import *
 
 class MediaLibrary:
     back = id("top_toolbar_back")
+    trim_back = id('iv_close')
+    trim_next = id('tv_ok')
     back_landscape = id("library_menu_back")
     video_entry = id("video_switch")
     photo_entry = id("photo_switch")
@@ -47,6 +49,8 @@ class MediaLibrary:
     pexels_link = id("pexelsWebsiteBtn")
     pixabay_link = id("pixabayWebsiteBtn")
     sort_button = id("sort_button")
+    left_indicator = id("left_indicator")
+    right_indicator = id('right_indicator')
 
 
     @staticmethod
