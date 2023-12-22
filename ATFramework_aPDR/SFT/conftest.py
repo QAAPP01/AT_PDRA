@@ -8,11 +8,11 @@ from selenium.common import InvalidSessionIdException
 sys.path.insert(0,(dir(dir(dir(__file__)))))
 from ATFramework_aPDR.ATFramework.utils import MyReport
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from main import tr_number, previous_tr_number, package_name
+from main import package_name
 
 
 DRIVER_DESIRED_CAPS = ''
-REPORT_INSTANCE = MyReport(tr_number=tr_number, previous_tr_number=previous_tr_number)
+REPORT_INSTANCE = MyReport()
 DEFAULT_BROWSER = 'com.android.chrome'
 platform_type = 'Android'
 PACKAGE_NAME = package_name

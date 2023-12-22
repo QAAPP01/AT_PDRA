@@ -26,7 +26,7 @@ except:
     print(os.path.dirname(SCRIPT_DIR))
     from log import logger
 
-debug_mode = False
+debug_mode = True
 
 # ==================================================================================================================
 # Class: Ecl_Operation
@@ -105,6 +105,9 @@ class Ecl_Operation():
             self.mail_list = ''
             if 'mail_list' in para_dict.keys():
                 self.mail_list = para_dict['mail_list']
+            self.is_md5_check = True
+            if 'is_md5_check' in para_dict.keys():
+                self.is_md5_check = para_dict['is_md5_check']
             self.dest_path = para_dict['dest_path']
             # self.cookies = browser_cookie3.chrome(domain_name='.cyberlink.com')
             self.cookies = self.create_chrome_cookie()
@@ -287,7 +290,7 @@ class Ecl_Operation():
 
     def retrieve_tr_info(self):
         try:
-            dict_result = {'sr_no': '', 'tr_no': '', 'ver_type': '', 'build': '', 'prog_path': ''}
+            dict_result = {'sr_no': '', 'tr_no': '', 'ver_type': '', 'build': '', 'prog_path': '', 'short_description': '', 'project': ''}
             dict_result['tr_no'] = self.tr_no
             if self.tr_no != '':
                 url = f'https://ecl.cyberlink.com/TR/TRHandle/HandleMainTR.asp?IsFromMail=true&TRCode={self.tr_no}'
@@ -323,6 +326,22 @@ class Ecl_Operation():
                 tail = 'Due Date:'
                 result = self._get_tr_info(cleantext, head, tail)
                 dict_result['sr_no'] = result[0].strip()
+                # TR Info. - Short Description.
+                try:
+                    head = 'Short Description'
+                    tail = 'Detailed information'
+                    result = self._get_tr_info(cleantext, head, tail)
+                    dict_result['short_description'] = result[0].strip()
+                except:
+                    pass
+                # TR Info. - Project
+                try:
+                    head = 'Project:'
+                    tail = 'TR Code:'
+                    result = self._get_tr_info(cleantext, head, tail)
+                    dict_result['project'] = result[0].strip()
+                except:
+                    pass
         except Exception as e:
             err_msg = f'[retrieve_tr_info]Exception Occurs. ErrroLog={e}, Please check the if can reach TR page correctly.'
             logger(err_msg)
@@ -475,17 +494,24 @@ class Ecl_Operation():
         return bool(int(value))
 
     def query_sr_by_ecl_service(self): # return json object of sr/tr information
-        # Query SR/TR list by http request
-        prod_name = self.prod_name
-        prod_ver = self.prod_ver
-        prod_ver_type = self.prod_ver_type
-        r = requests.get(
-            f'https://ecl.cyberlink.com/WebService/BusinessService/ProductDevelopment/SR/SRService.asmx/QuerySRByProductName?ProdName={prod_name}&ProdVer={prod_ver}&ProdVerType={prod_ver_type}',
-            auth=(self.user_name, self.password))
-        result = r.text.split('org/">')
-        result = result[1].replace('</string>', '')
-        # parse json
-        ojson = json.loads(result)
+        query_content = ''
+        try:
+            # Query SR/TR list by http request
+            prod_name = self.prod_name
+            prod_ver = self.prod_ver
+            prod_ver_type = self.prod_ver_type
+            r = requests.get(
+                f'https://ecl.cyberlink.com/WebService/BusinessService/ProductDevelopment/SR/SRService.asmx/QuerySRByProductName?ProdName={prod_name}&ProdVer={prod_ver}&ProdVerType={prod_ver_type}',
+                auth=(self.user_name, self.password))
+            query_content = r.text
+            result = r.text.split('org/">')
+            result = result[1].replace('</string>', '')
+            # parse json
+            ojson = json.loads(result)
+        except Exception as e:
+            logger(f'Excpetion occurs. Error={e}')
+            logger(f'Query Result={query_content}')
+            raise Exception('Please check do you have permission to access this page.')
         return ojson
 
     def get_sr_list(self, obj_json, sr_keyword='', sub_sr_list=None): # get the sr list from SR DB
@@ -837,7 +863,10 @@ class Ecl_Operation():
                 os.rmdir(mount_local_folder)
 
             # do the MD5 check
-            result = self._md5_check_folder(dest_path)
+            if self.is_md5_check:
+                result = self._md5_check_folder(dest_path)
+            else:
+                result = True
             if not result:
                 self.err_msg = '[download_tr_build] MD5 check fail.'
                 logger(f'{self.err_msg}')
@@ -934,7 +963,8 @@ def get_latest_build(para_dict):
 
 
 def get_latest_tr_build(para_dict):
-    dict_result = {'result': True, 'error_log': '', 'ver_type': '', 'build': '', 'sr_no': '', 'tr_no': ''}
+    dict_result = {'result': True, 'error_log': '', 'ver_type': '', 'build': '', 'sr_no': '', 'tr_no': '',
+                   'project': '', 'short_description': '', 'prog_path': ''}
     oecl = ''
     try:
         # Initial object
@@ -1110,6 +1140,9 @@ def get_latest_tr_build(para_dict):
         dict_result['build'] = dict_tr_info['build']
         dict_result['sr_no'] = dict_tr_info['sr_no']
         dict_result['tr_no'] = dict_tr_info['tr_no']
+        dict_result['project'] = dict_tr_info['project']
+        dict_result['short_description'] = dict_tr_info['short_description']
+        dict_result['prog_path'] = dict_tr_info['prog_path']
         logger(f'{dict_tr_info=}')
         if debug_mode:
             if oecl.tr_no:
@@ -1118,7 +1151,7 @@ def get_latest_tr_build(para_dict):
 
         # Download TR Build to Destination
         src_path = dict_tr_info['prog_path']
-        if 'CLT-QASERVER' not in src_path: # Currently, only support download from CLT-QASERVER
+        if 'CLT-QASERVER' not in (src_path).upper(): # Currently, only support download from CLT-QASERVER
             if debug_mode: print(f'[download_build_by_tr] {src_path=} is not supported')
             dict_result['result'] = False
             dict_result['error_log'] = f'[download_build_by_tr] {src_path=} is not supported'

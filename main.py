@@ -18,9 +18,9 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 
 # [TR Setting]
-tr_number = "TR231208-045"
-previous_tr_number = "TR231207-068"  # Please update build version info manually
-sr_number = 'DRA231012-01'  # Please update build version info manually if didn't use auto download
+tr_number = "TR231220-025"
+previous_tr_number = "TR231208-045"  # Please update build version info manually
+sr_number = 'DRA231115-01'  # Please update build version info manually if didn't use auto download
 
 # [Device Setting]
 # deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device
@@ -161,7 +161,7 @@ if __name__ == '__main__':
     # run test
     for device_idx in range(parallel_device_count):
         deviceid_list.append(device_udid[device_idx])
-        cmd = ("%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx))
+        cmd = ["%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
         p = Process(target=__run_test, args=cmd)
         p.start()
         procs.append(p)

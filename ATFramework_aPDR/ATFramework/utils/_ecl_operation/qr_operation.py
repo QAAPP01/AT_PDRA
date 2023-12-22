@@ -243,8 +243,8 @@ class Qr_Operation():
     def qr_operation(self):
         try:
             self.user_name = self.user_name.replace('clt\\', '')
-            url_authorize = f'https://{self.user_name}:{self.password}@ecl.cyberlink.com/TR/TRHandle/HandleMainTR.asp?IsFromMail=true&TRCode={self.tr_no}'
-            url_tr = f'https://ecl.cyberlink.com/TR/TRHandle/HandleMainTR.asp?IsFromMail=true&TRCode={self.tr_no}'
+            url_authorize = f'https://{self.user_name}:{self.password}@ecl.cyberlink.com/TR/TRHandle/HandleMainTR.asp?TRCode={self.tr_no}'
+            url_tr = f'https://ecl.cyberlink.com/TR/TRHandle/HandleMainTR.asp?TRCode={self.tr_no}'
             self.driver.get(url_authorize)
             self.driver.add_cookie(self.cookies)
             time.sleep(1)
@@ -268,10 +268,10 @@ class Qr_Operation():
             if self.qr_dict.get('upload_files_3'):
                 self.input_file(3, self.qr_dict['upload_files_3'])
             print(f'Save Report') if debug_mode else self.click_btn_save()
-            time.sleep(30) if debug_mode else time.sleep(10)
+            time.sleep(20) if debug_mode else time.sleep(5)
             # self.driver.switch_to.window(main_page)
             # self.refresh_webpage()
-            qr_link = self.get_qr_link(from_qr=True)
+            qr_link = self.get_qr_link(from_qr=True) if not debug_mode else url_tr
             return qr_link
         except Exception as e:
             self.err_msg = e

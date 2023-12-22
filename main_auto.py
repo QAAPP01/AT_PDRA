@@ -1,11 +1,13 @@
 import platform
 import os
+import shutil
+import subprocess
 import sys
-# import device_caps_android
-# import device_caps_ios
+
 from multiprocessing import Process
 import time
 
+from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
 from send_mail.send_report import send_report
 
 # from ATFramework_aPDR.ATFramework.utils._ecl_operation.ecl_operation import Ecl_Operation
@@ -15,43 +17,45 @@ from send_mail.send_report import send_report
 # Support Parallel Test on Local Mode (Windows/Android)
 
 # [Configuration]
-# -----------------------------------------------------------
-# device_uudi - it's a list to specified the device uuid for testing, if no, program will arrange device(s)
-#               automatically
+# ======================================================================================================================
+# device_uudi - A list of the device uuid for testing, if no, program will arrange device(s) automatically
 # parallel_device_count - the device number for parallel testing (default: 1)
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
-# device_udid = ['ENU7N15B06006012'] # Samsung S6, S7:9886274c4131324644, Oppo:a886a7e6 P6: ENU7N15B09000259, 6P black: ENU7N15B06006012
-# device_udid = ['ENU7N15B09000259'] # Samsung S6, S7:9886274c4131324644, Oppo:a886a7e6 P6: ENU7N15B09000259, 6P black: ENU7N15B06006012
-device_udid = ['CB512E8ND9']  # Sony XZP
+deviceName = "R5CT32Q3WQN"
+device_udid = [deviceName]  # A54
 system_port_default = 8200  # for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
 test_case_folder_name = 'SFT'
 test_case_main_file = 'main.py'
-platform_type_windows = 'Windows'
-platform_type = platform_type_windows
 report_list = []
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
-package_version = '10.3.0'  # Please update build version info manually if didn't use auto download
-package_build_number = '117684'  # Please update build version info manually if didn't use auto download
 
-# auto download paramenters
-sr_number = 'DRA220601-01'  # Please update build version info manually if didn't use auto download
-auto_download = False
-# auto_download = True
-tr_number = 'TR220711-018'
-previous_tr_number = 'TR220629-011'  # Please update build version info manually
 
-# mail report
+# [Auto Download parameters]
+# auto_download = False
+auto_download = True
+
+sr_number = ''                      # Auto test
+# sr_number = 'DRA231130-01'          # Please update build version info manually if didn't use auto download
+# package_version = '13.1.0'        # Please update build version info manually if didn't use auto download
+# package_build_number = '1224180'  # Please update build version info manually if didn't use auto download
+
+# tr_number = 'TR231218-017'
+tr_number = ''                      # Auto test
+# previous_tr_number = 'TR231208-045'  # Please update build version info manually
+
+# [Report Mail Setting]
+send = True
 title_project = 'aPDR'
-receiver_list = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com",
-                 "Nicklous_Chen@cyberlink.com"]
-# receiver_list = ["angol_huang@cyberlink.com"]
+receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
+# receiver = ['hausen_lin@cyberlink.com']
 
 script_version = 'Testing'
 # script_version = 'Debug'
-# -----------------------------------------------------------
+
+# ======================================================================================================================
 
 platform_type = platform.system()
 print('Current OS:', platform_type)
@@ -80,15 +84,15 @@ print('test_case_path=', test_case_path)
 
 # execute
 def __run_test(udid, system_port):
-    cmd = 'pytest -s "%s" --color=yes --udid=%s --systemPort=%s' % (
+    start = 'pytest -s "%s" --color=yes --udid=%s --systemPort=%s' % (
     os.path.normpath(os.path.join(test_case_path, 'main.py')), udid, system_port)
-    print(cmd)
+    print(start)
     print('start to run test ---')
     try:
         os.system('color')
     except:
         pass
-    stdout = os.popen(cmd).read()
+    stdout = os.popen(start).read()
     print(stdout)
     report_list.append(os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name,
                                                      'report/%s/%s' % (udid + '_' + tr_number, 'SFT_Report.html'))))
@@ -103,42 +107,92 @@ if __name__ == '__main__':
         print("Please update Python to 3.7 +")
         sys.exit("Incorrect Python version.")
 
-    # auto download lasted build
-    # if auto_download == True:
+    # [auto download lasted build]
+    if auto_download == True:
 
-    # delete exist files in app folder
-    # for filename in os.listdir(app_path):
-    #     file_path = os.path.join(app_path, filename)
-    #     try:
-    #         if os.path.isfile(file_path) or os.path.islink(file_path):
-    #             os.unlink(file_path)
-    #         elif os.path.isdir(file_path):
-    #             shutil.rmtree(file_path)
-    #         print('delete exist files in app folder...')
-    #     except Exception as e:
-    #         print('Failed to delete %s. Reason: %s' % (file_path, e))
-    #
-    # para_dict = {   'prod_name': 'PowerDirector Mobile for Android',
-    #                 'sr_no': sr_number,
-    #                 'tr_no': tr_number,
-    #                 'prog_path_sub': '',
-    #                 'dest_path': app_path,
-    #                 'mail_list': receiver_list,
-    #                 'is_md5_check': False}
-    # dict_result = ecl_operation.get_latest_build(para_dict)
-    # print(f'{dict_result=}')
-    # version_numbers = dict_result['build'].split('.')
-    # package_version = version_numbers[0] + '.' + version_numbers[1] + '.' + version_numbers[2]
-    # package_build_number = version_numbers [3]
-    # print (f'package_version = {package_version}, package_build_number = {package_build_number}')
-    #
-    # fileExt = r".apk"
-    # new_name = os.path.join(app_path, 'PowerDirector.apk')
-    # for filename in os.listdir(app_path):
-    #     if filename.endswith(fileExt):
-    #         file_path = os.path.join(app_path, filename)
-    #         os.rename(file_path, new_name)
-    #         print('rename downloaded apk...')
+        # delete exist files in app folder
+        for filename in os.listdir(app_path):
+            file_path = os.path.join(app_path, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+                print('delete exist files in app folder...')
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+        para_dict = {   'prod_name': 'PowerDirector Mobile for Android',
+                        'sr_no': sr_number,
+                        'tr_no': tr_number,
+                        'prog_path_sub': '',
+                        'dest_path': app_path,
+                        'mail_list': receiver,
+                        'is_md5_check': False}
+        dict_result = ecl_operation.get_latest_build(para_dict)
+        print(f'{dict_result=}')
+        if not dict_result['build']:
+            print(dict_result['error_log'])
+            sys.exit(0)
+
+        else:
+            version_numbers = dict_result['build'].split('.')
+            package_version = version_numbers[0] + '.' + version_numbers[1] + '.' + version_numbers[2]
+            package_build_number = version_numbers [3]
+            print(f'package_version = {package_version}, package_build_number = {package_build_number}')
+
+        # Rename apk
+        fileExt = r".apk"
+        new_name = os.path.join(app_path, 'PowerDirector.apk')
+        for filename in os.listdir(app_path):
+            if filename.endswith(fileExt):
+                file_path = os.path.join(app_path, filename)
+                os.rename(file_path, new_name)
+                print('rename downloaded apk...')
+                break
+
+        # Install apk
+        def install_apk(_apk_path, device_id=None):
+            # 如果指定了設備ID，則添加“-s”選項
+            adb_command = ["adb"]
+            if device_id:
+                adb_command.extend(["-s", device_id])
+
+            # 添加安裝APK的命令
+            adb_command.extend(["install", "-r", _apk_path])
+
+            # 使用subprocess運行adb命令
+            process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output, error = process.communicate()
+
+            # 檢查是否發生錯誤
+            if process.returncode == 0:
+                print(f"APK 安裝成功：{output.decode()}")
+            else:
+                print(f"APK 安裝失敗：{error.decode()}")
+
+
+        def uninstall_apk(_package_name, device_id=None):
+            # 如果指定了設備ID，則添加“-s”選項
+            adb_command = ["adb"]
+            if device_id:
+                adb_command.extend(["-s", device_id])
+
+            # 添加解除安裝APK的命令
+            adb_command.extend(["uninstall", _package_name])
+
+            # 使用subprocess運行adb命令
+            process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output, error = process.communicate()
+
+            # 檢查是否發生錯誤
+            if process.returncode == 0:
+                print(f"APK 解除安裝成功：{output.decode()}")
+            else:
+                print(f"APK 解除安裝失敗：{error.decode()}")
+
+        uninstall_apk(package_name, deviceName)
+        install_apk(new_name, deviceName)
 
     # run test
     for device_idx in range(parallel_device_count):
@@ -153,7 +207,8 @@ if __name__ == '__main__':
         p.join()
     print('test complete.')
 
-    # mail result
-    send_report(title_project, deviceid_list, test_case_path, receiver_list, sr_number, tr_number, previous_tr_number,
-                package_version, package_build_number, script_version)
-    print('send report complete.')
+    # [mail result]
+    if send:
+        send_report(title_project, deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number,
+                    package_version, package_build_number, script_version)
+        print('send report complete.')
