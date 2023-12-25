@@ -136,6 +136,7 @@ if __name__ == '__main__':
             sys.exit(0)
 
         else:
+            previous_tr_number = dict_result['prev_tr_no']
             version_numbers = dict_result['build'].split('.')
             package_version = version_numbers[0] + '.' + version_numbers[1] + '.' + version_numbers[2]
             package_build_number = version_numbers [3]

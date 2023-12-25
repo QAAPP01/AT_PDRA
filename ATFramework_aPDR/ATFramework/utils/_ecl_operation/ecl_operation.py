@@ -26,7 +26,7 @@ except:
     print(os.path.dirname(SCRIPT_DIR))
     from log import logger
 
-debug_mode = True
+debug_mode = False
 
 # ==================================================================================================================
 # Class: Ecl_Operation
@@ -95,6 +95,8 @@ class Ecl_Operation():
             self.tr_no = ''
             if 'tr_no' in para_dict.keys():
                 self.tr_no = para_dict['tr_no']
+            if 'prev_tr_no' in para_dict.keys():
+                self.prev_tr_no = para_dict['prev_tr_no']
             self.work_dir = os.path.dirname(__file__)
             if 'work_dir' in para_dict.keys() and para_dict['work_dir']:
                 self.work_dir = para_dict['work_dir']
@@ -123,6 +125,7 @@ class Ecl_Operation():
             err_msg = f'Exception occurs. Incorrect format of parameter or missing keys. ErrorLog={e}'
             logger(err_msg)
             self.err_msg = err_msg
+
 
     def create_chrome_cookie(self):
         eclid_value = self.read_eclid_file()
@@ -492,6 +495,37 @@ class Ecl_Operation():
         except Exception as e:
             return False
         return bool(int(value))
+
+    def get_latest_tr_no(self):
+        try:
+            # 建立 db_file_path
+            db_file_path = os.path.normpath(os.path.join(self.work_dir, self.tr_db_file))
+
+            # 如果檔案不存在，返回 None
+            if not os.path.isfile(db_file_path):
+                print(f"DB file not found at {db_file_path}")
+                return None
+
+            # 建立 ConfigParser
+            tr_db = ConfigParser()
+            tr_db.optionxform = str  # 讓 key 區分大小寫
+            tr_db.read(db_file_path)
+
+            # 找到最新的 tr_no
+            latest_tr_no = None
+            for section in tr_db.sections():
+                options = tr_db.options(section)
+                if options:
+                    latest_tr_no = max(options, key=lambda x: x if x.isdigit() else 0)
+
+            if latest_tr_no is None:
+                latest_tr_no = self.tr_no
+            return latest_tr_no
+
+        except Exception as e:
+            err_msg = f'[get_latest_tr_no] Exception occurs. ErrorLog={e}'
+            print(err_msg)
+            raise Exception
 
     def query_sr_by_ecl_service(self): # return json object of sr/tr information
         query_content = ''
@@ -963,7 +997,7 @@ def get_latest_build(para_dict):
 
 
 def get_latest_tr_build(para_dict):
-    dict_result = {'result': True, 'error_log': '', 'ver_type': '', 'build': '', 'sr_no': '', 'tr_no': '',
+    dict_result = {'result': True, 'error_log': '', 'ver_type': '', 'build': '', 'sr_no': '', 'tr_no': '', 'prev_tr_no': '',
                    'project': '', 'short_description': '', 'prog_path': ''}
     oecl = ''
     try:
@@ -1143,6 +1177,7 @@ def get_latest_tr_build(para_dict):
         dict_result['project'] = dict_tr_info['project']
         dict_result['short_description'] = dict_tr_info['short_description']
         dict_result['prog_path'] = dict_tr_info['prog_path']
+        dict_result['prev_tr_no'] = oecl.get_latest_tr_no()
         logger(f'{dict_tr_info=}')
         if debug_mode:
             if oecl.tr_no:
