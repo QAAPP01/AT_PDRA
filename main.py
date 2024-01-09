@@ -1,13 +1,17 @@
 import platform
 import os
-import sys
-from glob import glob
+import shutil
 import subprocess
+import sys
 
-from ATFramework_aPDR.ATFramework.utils.log import logger
 from multiprocessing import Process
+import time
 
+from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
 from send_mail.send_report import send_report
+
+# from ATFramework_aPDR.ATFramework.utils._ecl_operation.ecl_operation import Ecl_Operation
+# import ecl_operation
 
 # Local Mode Program
 # Support Parallel Test on Local Mode (Windows/Android)
@@ -16,41 +20,37 @@ from send_mail.send_report import send_report
 # ======================================================================================================================
 # device_uudi - A list of the device uuid for testing, if no, program will arrange device(s) automatically
 # parallel_device_count - the device number for parallel testing (default: 1)
+# project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
-# [TR Setting]
-tr_number = "TR231220-025"
-previous_tr_number = "TR231208-045"  # Please update build version info manually
-sr_number = 'DRA231115-01'  # Please update build version info manually if didn't use auto download
-
-# [Device Setting]
-# deviceName = os.popen("adb devices").read().strip().split('\n')[1].split('\t')[0]  # Auto query connected device
 deviceName = "R5CT32Q3WQN"
-# deviceName = "RFCW2198L7B"
-device_udid = [deviceName]
+device_udid = [deviceName]  # A54
 system_port_default = 8200  # for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
 test_case_folder_name = 'SFT'
 test_case_main_file = 'main.py'
 report_list = []
-
-# [Auto Download The Newest Build]
-auto_download = False
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
-try:
-    package_version = os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
-except IndexError:
-    package_version = os.popen(f'adb shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
-try:
-    package_build_number = os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
-except IndexError:
-    package_build_number = os.popen(f'adb shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
+
+
+# [Auto Download parameters]
+# auto_download = False
+auto_download = False
+
+
+sr_number = 'DRA231130-01'        # Please update build version info manually if didn't use auto download
+tr_number = 'TR231218-017'
+previous_tr_number = 'TR231208-045'  # Please update build version info manually
+package_version = '13.1.0'        # Please update build version info manually if didn't use auto download
+package_build_number = '1224180'  # Please update build version info manually if didn't use auto download
+
 
 # [Report Mail Setting]
 send = True
 title_project = 'aPDR'
 receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
 # receiver = ['hausen_lin@cyberlink.com']
+
 script_version = 'Testing'
 # script_version = 'Debug'
 
@@ -58,6 +58,21 @@ script_version = 'Testing'
 
 platform_type = platform.system()
 print('Current OS:', platform_type)
+
+# get connected devices udid
+# if device_udid == []:
+#     if platform_type == platform_type_windows:
+#         obj_device = device_caps_android.DeviceCapability()
+#         device_udid = obj_device.query_connected_device_list()
+#     else:
+#         obj_device = device_caps_ios.DeviceCapability()
+#         device_udid = obj_device.query_connected_device_list()
+#
+# print('device=', device_udid)
+
+# execute test
+# def run_test(udid, system_port):
+
 
 # generate path - test case, report
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -85,78 +100,118 @@ def __run_test(udid, system_port):
 if __name__ == '__main__':
     procs = []
     deviceid_list = []
-    package_version = \
-    os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[
-        1]
-    package_build_number = \
-    os.popen(f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[
-        1].split(' ')[0]
-
-    if auto_download:
-        path = r'\\clt-qaserver\Testing\_RD_Build\PowerDirector_Android\PowerDirector*\PowerDirector*.apk'
-        latest = 0
-        for file in glob(path):
-            string = file.split("\\")[7].split("-")[2].split(".apk")[0].split(".")
-            apk_build = string[3]
-            if int(apk_build) > latest:
-                install = file
-                latest = int(apk_build)
-        if latest:
-            logger(f'[Info] Newest Build {latest}')
-            try:
-                your_build = int(
-                    os.popen(
-                        f'adb -s {deviceName} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split(
-                        '=')[
-                        1].split(' ')[0])
-            except IndexError:
-                your_build = 0
-            if latest > your_build:
-                if your_build:
-                    if not subprocess.call(['adb', '-s', deviceName, 'shell', 'pm', 'uninstall', package_name],
-                                           stdout=subprocess.DEVNULL,
-                                           stderr=subprocess.STDOUT):
-                        logger(f'[Info] Remove old build {your_build}')
-                    else:
-                        logger(f'[Info] Remove Fail')
-                if not subprocess.call(['adb', '-s', deviceName, 'install', install], stdout=subprocess.DEVNULL,
-                                       stderr=subprocess.STDOUT):
-                    logger(f"[Info] Installed success!")
-                else:
-                    logger(f"[Info] Installed fail!")
-
-                # Copy file
-                build_path = f'storage/emulated/0/Build/PDR/'
-                no_dir = subprocess.call(['adb', '-s', deviceName, 'shell', 'ls', build_path],
-                                         stdout=subprocess.DEVNULL,
-                                         stderr=subprocess.STDOUT)
-                if no_dir:
-                    subprocess.call(['adb', '-s', deviceName, 'shell', 'mkdir', build_path])
-
-                apk_name = install.split("\\")
-                apk_name = apk_name[len(apk_name) - 1]
-                no_apk = subprocess.call(['adb', '-s', deviceName, 'shell', 'ls', os.path.join(build_path, apk_name)],
-                                         stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-
-                if no_apk:
-                    print('Start copying file...')
-                    copy = subprocess.call(['adb', '-s', deviceName, 'push', install, build_path])
-                    if not copy:
-                        print(f'Copy apk to {build_path} completed！')
-                    else:
-                        print(f'Copy apk to {build_path} failed！')
-
-            else:
-                logger(f'[Info] Your build is newest {your_build}')
-        else:
-            logger('[Info] Cannot find apk from server')
-
-
 
     # check version
     if sys.version_info < (3, 7):
         print("Please update Python to 3.7 +")
         sys.exit("Incorrect Python version.")
+
+    # [auto download lasted build]
+    if auto_download == True:
+        sr_number = ''
+        tr_number = ''
+        previous_tr_number = ''
+        package_version = ''
+        package_build_number = ''
+
+        # delete exist files in app folder
+        for filename in os.listdir(app_path):
+            file_path = os.path.join(app_path, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+                print('delete exist files in app folder...')
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+        para_dict = {   'prod_name': 'PowerDirector Mobile for Android',
+                        'sr_no': sr_number,
+                        'tr_no': tr_number,
+                        'prog_path_sub': '',
+                        'dest_path': app_path,
+                        'mail_list': receiver,
+                        'is_md5_check': False}
+        dict_result = ecl_operation.get_latest_build(para_dict)
+        print(f'{dict_result=}')
+        if not dict_result['build']:
+            print(dict_result['error_log'])
+            sys.exit(0)
+
+        else:
+            # [log tr info]
+            tr_number = dict_result['tr_no']
+            previous_tr_number = dict_result['prev_tr_no']
+
+            version_numbers = dict_result['build'].split('.')
+            package_version = version_numbers[0] + '.' + version_numbers[1] + '.' + version_numbers[2]
+            package_build_number = version_numbers [3]
+            print(f'package_version = {package_version}, package_build_number = {package_build_number}')
+
+            with open('tr_info', 'w+') as file:
+                file.write(f'tr_number={tr_number}\n')
+                file.write(f'previous_tr_number={previous_tr_number}\n')
+                file.write(f'package_version={package_version}\n')
+                file.write(f'package_build_number={package_build_number}\n')
+
+        # Rename apk
+        fileExt = r".apk"
+        new_name = os.path.join(app_path, 'PowerDirector.apk')
+        for filename in os.listdir(app_path):
+            if filename.endswith(fileExt):
+                file_path = os.path.join(app_path, filename)
+                os.rename(file_path, new_name)
+                print('rename downloaded apk...')
+                break
+
+        # Install apk
+        def install_apk(_apk_path, device_id=None):
+            # 檢查目標資料夾是否存在，如果不存在，則創建它
+            target_folder = os.path.dirname(_apk_path)
+            if not os.path.exists(target_folder):
+                os.makedirs(target_folder)
+
+            # 如果指定了設備ID，則添加“-s”選項
+            adb_command = ["adb"]
+            if device_id:
+                adb_command.extend(["-s", device_id])
+
+            # 添加安裝APK的命令
+            adb_command.extend(["install", "-r", _apk_path])
+
+            # 使用subprocess運行adb命令
+            process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output, error = process.communicate()
+
+            # 檢查是否發生錯誤
+            if process.returncode == 0:
+                print(f"APK 安裝成功：{output.decode()}")
+            else:
+                print(f"APK 安裝失敗：{error.decode()}")
+
+
+        def uninstall_apk(_package_name, device_id=None):
+            # 如果指定了設備ID，則添加“-s”選項
+            adb_command = ["adb"]
+            if device_id:
+                adb_command.extend(["-s", device_id])
+
+            # 添加解除安裝APK的命令
+            adb_command.extend(["uninstall", _package_name])
+
+            # 使用subprocess運行adb命令
+            process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output, error = process.communicate()
+
+            # 檢查是否發生錯誤
+            if process.returncode == 0:
+                print(f"APK 解除安裝成功：{output.decode()}")
+            else:
+                print(f"APK 解除安裝失敗：{error.decode()}")
+
+        uninstall_apk(package_name, deviceName)
+        install_apk(new_name, deviceName)
 
     # run test
     for device_idx in range(parallel_device_count):
@@ -171,7 +226,7 @@ if __name__ == '__main__':
         p.join()
     print('test complete.')
 
-    # mail result
+    # [mail result]
     if send:
         send_report(title_project, deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number,
                     package_version, package_build_number, script_version)
