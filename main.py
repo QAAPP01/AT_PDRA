@@ -10,7 +10,6 @@ import time
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
 from send_mail.send_report import send_report
 
-# from ATFramework_aPDR.ATFramework.utils._ecl_operation.ecl_operation import Ecl_Operation
 # import ecl_operation
 
 # Local Mode Program
@@ -33,16 +32,12 @@ report_list = []
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 
-# [Auto Download parameters]
-# auto_download = False
+### [Auto Download parameters]  ###
+# auto_download = True
 auto_download = False
 
-
-sr_number = 'DRA231130-01'        # Please update build version info manually if didn't use auto download
-tr_number = 'TR231218-017'
-previous_tr_number = 'TR231208-045'  # Please update build version info manually
-package_version = '13.1.0'        # Please update build version info manually if didn't use auto download
-package_build_number = '1224180'  # Please update build version info manually if didn't use auto download
+sr_number = 'DRA231130-01'  # for manual
+tr_number = 'TR240109-011'  # for manual
 
 
 # [Report Mail Setting]
@@ -106,25 +101,71 @@ if __name__ == '__main__':
         print("Please update Python to 3.7 +")
         sys.exit("Incorrect Python version.")
 
+    def rename_apk(name="PowerDirector.apk"):
+        fileExt = r".apk"
+        new_name = os.path.join(app_path, name)
+        for filename in os.listdir(app_path):
+            if filename.endswith(fileExt):
+                file_path = os.path.join(app_path, filename)
+                os.rename(file_path, new_name)
+                print('rename apk success!')
+                return new_name
+        return False
+
+    # Install apk
+    def install_apk(_apk_path, device_id=None):
+        # 檢查目標資料夾是否存在，如果不存在，則創建它
+        target_folder = os.path.dirname(_apk_path)
+        if not os.path.exists(target_folder):
+            os.makedirs(target_folder)
+
+        # 如果指定了設備ID，則添加“-s”選項
+        adb_command = ["adb"]
+        if device_id:
+            adb_command.extend(["-s", device_id])
+
+        # 添加安裝APK的命令
+        adb_command.extend(["install", "-r", _apk_path])
+
+        # 使用subprocess運行adb命令
+        process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+
+        # 檢查是否發生錯誤
+        if process.returncode == 0:
+            print(f"APK 安裝成功：{output.decode()}")
+        else:
+            print(f"APK 安裝失敗：{error.decode()}")
+
+
+    def uninstall_apk(_package_name, device_id=None):
+        # 如果指定了設備ID，則添加“-s”選項
+        adb_command = ["adb"]
+        if device_id:
+            adb_command.extend(["-s", device_id])
+
+        # 添加解除安裝APK的命令
+        adb_command.extend(["uninstall", _package_name])
+
+        # 使用subprocess運行adb命令
+        process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+
+        # 檢查是否發生錯誤
+        if process.returncode == 0:
+            print(f"APK 解除安裝成功：{output.decode()}")
+        else:
+            print(f"APK 解除安裝失敗：{error.decode()}")
+
+
+
     # [auto download lasted build]
-    if auto_download == True:
+    if auto_download:
         sr_number = ''
         tr_number = ''
         previous_tr_number = ''
         package_version = ''
         package_build_number = ''
-
-        # delete exist files in app folder
-        for filename in os.listdir(app_path):
-            file_path = os.path.join(app_path, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-                print('delete exist files in app folder...')
-            except Exception as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
 
         para_dict = {   'prod_name': 'PowerDirector Mobile for Android',
                         'sr_no': sr_number,
@@ -149,71 +190,44 @@ if __name__ == '__main__':
             package_build_number = version_numbers [3]
             print(f'package_version = {package_version}, package_build_number = {package_build_number}')
 
-            with open('tr_info', 'w+') as file:
-                file.write(f'tr_number={tr_number}\n')
-                file.write(f'previous_tr_number={previous_tr_number}\n')
-                file.write(f'package_version={package_version}\n')
-                file.write(f'package_build_number={package_build_number}\n')
-
-        # Rename apk
-        fileExt = r".apk"
-        new_name = os.path.join(app_path, 'PowerDirector.apk')
-        for filename in os.listdir(app_path):
-            if filename.endswith(fileExt):
-                file_path = os.path.join(app_path, filename)
-                os.rename(file_path, new_name)
-                print('rename downloaded apk...')
-                break
-
-        # Install apk
-        def install_apk(_apk_path, device_id=None):
-            # 檢查目標資料夾是否存在，如果不存在，則創建它
-            target_folder = os.path.dirname(_apk_path)
-            if not os.path.exists(target_folder):
-                os.makedirs(target_folder)
-
-            # 如果指定了設備ID，則添加“-s”選項
-            adb_command = ["adb"]
-            if device_id:
-                adb_command.extend(["-s", device_id])
-
-            # 添加安裝APK的命令
-            adb_command.extend(["install", "-r", _apk_path])
-
-            # 使用subprocess運行adb命令
-            process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output, error = process.communicate()
-
-            # 檢查是否發生錯誤
-            if process.returncode == 0:
-                print(f"APK 安裝成功：{output.decode()}")
-            else:
-                print(f"APK 安裝失敗：{error.decode()}")
-
-
-        def uninstall_apk(_package_name, device_id=None):
-            # 如果指定了設備ID，則添加“-s”選項
-            adb_command = ["adb"]
-            if device_id:
-                adb_command.extend(["-s", device_id])
-
-            # 添加解除安裝APK的命令
-            adb_command.extend(["uninstall", _package_name])
-
-            # 使用subprocess運行adb命令
-            process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output, error = process.communicate()
-
-            # 檢查是否發生錯誤
-            if process.returncode == 0:
-                print(f"APK 解除安裝成功：{output.decode()}")
-            else:
-                print(f"APK 解除安裝失敗：{error.decode()}")
-
+        apk = rename_apk()
         uninstall_apk(package_name, deviceName)
-        install_apk(new_name, deviceName)
+        install_apk(apk, deviceName)
+
+    else:
+        # Manual
+        previous_tr_number = ecl_operation.manual_get_prev_tr()
+        ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
+
+        test_apk_from_appPath = True
+        if test_apk_from_appPath:
+            apk = rename_apk()
+            if apk:
+                uninstall_apk(package_name, deviceName)
+                install_apk(apk, deviceName)
+            else:
+                print(f'Please put the apk file into {app_path}, or disable "test_apk_from_appPath"')
+                exit(1)
+
+        def get_package_version(package_name, device_name):
+            try:
+                version = os.popen(f'adb -s {device_name} shell dumpsys package {package_name} | findstr  versionName').read().strip().split('=')[1]
+                build = os.popen(f'adb -s {device_name} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split('=')[1].split(' ')[0]
+                return version, build
+            except Exception as e:
+                print(f"Error: {e}")
+                return "", ""
+
+        package_version, package_build_number = get_package_version(package_name, deviceName)
+
+    with open('tr_info', 'w+') as file:
+        file.write(f'tr_number={tr_number}\n')
+        file.write(f'previous_tr_number={previous_tr_number}\n')
+        file.write(f'package_version={package_version}\n')
+        file.write(f'package_build_number={package_build_number}\n')
 
     # run test
+    print(f'Test Info: TR = {tr_number}, Prev_TR = {previous_tr_number}, Build = '+ package_version + package_build_number)
     for device_idx in range(parallel_device_count):
         deviceid_list.append(device_udid[device_idx])
         cmd = ["%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
@@ -228,6 +242,21 @@ if __name__ == '__main__':
 
     # [mail result]
     if send:
-        send_report(title_project, deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number,
-                    package_version, package_build_number, script_version)
+        send_report(title_project, deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version)
         print('send report complete.')
+
+
+    def delete_apk(app_path):
+        # delete exist files in app folder
+        for filename in os.listdir(app_path):
+            file_path = os.path.join(app_path, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+                print('delete exist files in app folder...')
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+    delete_apk(app_path)

@@ -1,67 +1,39 @@
-12/22/2023 06:28:23 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 06:28:23 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 06:28:24 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:28:25 PM <ecl_operation.py> [get_latest_tr_build](line 1146) - dict_tr_info={'sr_no': 'DRA231115-01', 'tr_no': 'TR231221-067', 'ver_type': 'PowerDirector Mobile for Android: Deluxe', 'build': '13.0.1.1224210', 'prog_path': '\\\\clt-qaserver\\Testing\\_RD_Build\\PowerDirector_Android\\PowerDirector-DRA140225_01-13.0.1.1224210', 'short_description': '13.0.1.1224210 (Deluxe) for CyberLink 9L+RUS+IDN+PTB+THA+HIN+MAY (Deluxe)', 'project': 'Generic v13.0'}
-12/22/2023 06:28:25 PM <ecl_operation.py> [download_tr_build](line 818) - download_tr_build - Start
-12/22/2023 06:33:28 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 06:33:28 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 06:33:28 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:33:28 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231221-067 already exists in DB. Skip it.
-12/22/2023 06:33:28 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:33:28 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231218-017 already exists in DB. Skip it.
-12/22/2023 06:35:30 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 06:35:30 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 06:35:31 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:35:31 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231221-067 already exists in DB. Skip it.
-12/22/2023 06:35:31 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:35:31 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231218-017 already exists in DB. Skip it.
-12/22/2023 06:37:46 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 06:37:46 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 06:37:46 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:37:47 PM <ecl_operation.py> [get_latest_tr_build](line 1146) - dict_tr_info={'sr_no': 'DRA231115-01', 'tr_no': 'TR231221-067', 'ver_type': 'PowerDirector Mobile for Android: Deluxe', 'build': '13.0.1.1224210', 'prog_path': '\\\\clt-qaserver\\Testing\\_RD_Build\\PowerDirector_Android\\PowerDirector-DRA140225_01-13.0.1.1224210', 'short_description': '13.0.1.1224210 (Deluxe) for CyberLink 9L+RUS+IDN+PTB+THA+HIN+MAY (Deluxe)', 'project': 'Generic v13.0'}
-12/22/2023 06:37:47 PM <ecl_operation.py> [download_tr_build](line 818) - download_tr_build - Start
-12/22/2023 06:40:29 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 06:40:29 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 06:40:30 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:40:30 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231221-067 already exists in DB. Skip it.
-12/22/2023 06:40:30 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:40:30 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231218-017 already exists in DB. Skip it.
-12/22/2023 06:44:09 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 06:44:09 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 06:44:09 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:44:09 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231221-067 already exists in DB. Skip it.
-12/22/2023 06:44:09 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:44:09 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231218-017 already exists in DB. Skip it.
-12/22/2023 06:47:29 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 06:47:29 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 06:47:29 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:47:29 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231221-067 already exists in DB. Skip it.
-12/22/2023 06:47:29 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 06:47:29 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231218-017 already exists in DB. Skip it.
-12/22/2023 08:14:43 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 08:14:43 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 08:14:43 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 08:14:44 PM <ecl_operation.py> [get_latest_tr_build](line 1146) - dict_tr_info={'sr_no': 'DRA231115-01', 'tr_no': 'TR231221-067', 'ver_type': 'PowerDirector Mobile for Android: Deluxe', 'build': '13.0.1.1224210', 'prog_path': '\\\\clt-qaserver\\Testing\\_RD_Build\\PowerDirector_Android\\PowerDirector-DRA140225_01-13.0.1.1224210', 'short_description': '13.0.1.1224210 (Deluxe) for CyberLink 9L+RUS+IDN+PTB+THA+HIN+MAY (Deluxe)', 'project': 'Generic v13.0'}
-12/22/2023 08:14:44 PM <ecl_operation.py> [download_tr_build](line 818) - download_tr_build - Start
-12/22/2023 08:16:36 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 08:16:36 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 08:16:37 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 08:16:37 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231221-067 already exists in DB. Skip it.
-12/22/2023 08:16:37 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 08:16:37 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231218-017 already exists in DB. Skip it.
-12/22/2023 08:18:07 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 08:18:07 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 08:18:08 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 08:18:08 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231221-067 already exists in DB. Skip it.
-12/22/2023 08:18:08 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 08:18:08 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231218-017 already exists in DB. Skip it.
-12/22/2023 08:18:28 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 08:18:28 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 08:18:28 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 08:18:28 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231221-067 already exists in DB. Skip it.
-12/22/2023 08:18:28 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 08:18:28 PM <ecl_operation.py> [get_latest_tr_build](line 1009) - TR=TR231218-017 already exists in DB. Skip it.
-12/22/2023 08:18:36 PM <ecl_operation.py> [read_eclid_file](line 149) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-12/22/2023 08:18:36 PM <ecl_operation.py> [read_eclid_file](line 181) - read eclid file successfully
-12/22/2023 08:18:36 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 484) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
-12/22/2023 08:18:37 PM <ecl_operation.py> [get_latest_tr_build](line 1146) - dict_tr_info={'sr_no': 'DRA231115-01', 'tr_no': 'TR231221-067', 'ver_type': 'PowerDirector Mobile for Android: Deluxe', 'build': '13.0.1.1224210', 'prog_path': '\\\\clt-qaserver\\Testing\\_RD_Build\\PowerDirector_Android\\PowerDirector-DRA140225_01-13.0.1.1224210', 'short_description': '13.0.1.1224210 (Deluxe) for CyberLink 9L+RUS+IDN+PTB+THA+HIN+MAY (Deluxe)', 'project': 'Generic v13.0'}
+01/09/2024 08:47:15 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/09/2024 08:47:15 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+01/09/2024 08:47:15 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+01/09/2024 08:47:15 PM <qr_operation.py> [__init__](line 85) - Exception occurs. Incorrect format of parameter or missing keys. ErrorLog=Message: 'msedgedriver' executable needs to be in PATH. Please download from https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+
+01/09/2024 08:47:15 PM <qr_operation.py> [qr_operation](line 278) - Exception occurs. ErrorLog='Qr_Operation' object has no attribute 'driver'
+01/09/2024 08:47:15 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': False, 'error_log': AttributeError("'Qr_Operation' object has no attribute 'driver'"), 'qr_link': None}
+01/10/2024 03:31:16 PM <ecl_operation.py> [__init__](line 126) - Exception occurs. Incorrect format of parameter or missing keys. ErrorLog='dest_path'
+01/10/2024 03:39:38 PM <ecl_operation.py> [__init__](line 126) - Exception occurs. Incorrect format of parameter or missing keys. ErrorLog='NoneType' object has no attribute 'keys'
+01/10/2024 03:42:26 PM <ecl_operation.py> [read_eclid_file](line 152) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 03:42:26 PM <ecl_operation.py> [read_eclid_file](line 184) - read eclid file successfully
+01/10/2024 03:42:26 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 487) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
+01/10/2024 03:42:27 PM <ecl_operation.py> [get_latest_tr_build](line 1188) - dict_tr_info={'sr_no': 'DRA231130-01', 'tr_no': 'TR240109-011', 'ver_type': 'PowerDirector Mobile for Android: Deluxe', 'build': '13.1.0.1225090', 'prog_path': 'https://drive.google.com/drive/folders/1gzSIBG2r6IgMsjy4gaVvxlDO0iAzuAay?usp=drive_link', 'short_description': '13.1.0.1225090 (Deluxe) for CyberLink 9L+RUS+IDN+PTB+THA+HIN+MAY (Deluxe)', 'project': 'Generic v13.1'}
+01/10/2024 03:45:49 PM <ecl_operation.py> [read_eclid_file](line 152) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 03:45:49 PM <ecl_operation.py> [read_eclid_file](line 184) - read eclid file successfully
+01/10/2024 03:45:49 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 487) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
+01/10/2024 03:45:49 PM <ecl_operation.py> [get_latest_tr_build](line 1188) - dict_tr_info={'sr_no': 'DRA231130-01', 'tr_no': 'TR240109-011', 'ver_type': 'PowerDirector Mobile for Android: Deluxe', 'build': '13.1.0.1225090', 'prog_path': 'https://drive.google.com/drive/folders/1gzSIBG2r6IgMsjy4gaVvxlDO0iAzuAay?usp=drive_link', 'short_description': '13.1.0.1225090 (Deluxe) for CyberLink 9L+RUS+IDN+PTB+THA+HIN+MAY (Deluxe)', 'project': 'Generic v13.1'}
+01/10/2024 03:49:55 PM <ecl_operation.py> [__init__](line 126) - Exception occurs. Incorrect format of parameter or missing keys. ErrorLog='NoneType' object has no attribute 'keys'
+01/10/2024 03:52:30 PM <ecl_operation.py> [__init__](line 126) - Exception occurs. Incorrect format of parameter or missing keys. ErrorLog='dest_path'
+01/10/2024 03:55:07 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 03:55:07 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+01/10/2024 03:55:07 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 03:55:07 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+01/10/2024 03:56:50 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 03:56:50 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+01/10/2024 03:56:50 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 03:56:50 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+01/10/2024 04:00:32 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 04:00:32 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+01/10/2024 04:00:32 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 04:00:32 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+01/10/2024 04:01:10 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 04:01:10 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+01/10/2024 04:01:10 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 04:01:10 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+01/10/2024 05:43:24 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+01/10/2024 05:43:24 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
+01/10/2024 05:43:24 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
+01/10/2024 05:43:46 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0461361'}

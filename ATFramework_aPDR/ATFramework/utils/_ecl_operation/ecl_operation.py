@@ -110,7 +110,8 @@ class Ecl_Operation():
             self.is_md5_check = True
             if 'is_md5_check' in para_dict.keys():
                 self.is_md5_check = para_dict['is_md5_check']
-            self.dest_path = para_dict['dest_path']
+            if 'dest_path' in para_dict.keys():
+                self.dest_path = para_dict['dest_path']
             # self.cookies = browser_cookie3.chrome(domain_name='.cyberlink.com')
             self.cookies = self.create_chrome_cookie()
             self.password_file = 'password'
@@ -496,7 +497,7 @@ class Ecl_Operation():
             return False
         return bool(int(value))
 
-    def get_latest_tr_no(self):
+    def get_previous_tr_no(self):
         try:
             # 建立 db_file_path
             db_file_path = os.path.normpath(os.path.join(self.work_dir, self.tr_db_file))
@@ -513,13 +514,20 @@ class Ecl_Operation():
 
             # 找到最新的 tr_no
             latest_tr_no = None
+            max_number = 0
+
             for section in tr_db.sections():
                 options = tr_db.options(section)
-                if options:
-                    latest_tr_no = max(options, key=lambda x: x if x.isdigit() else 0)
+                for tr_option in options:
+                    parts = tr_option.split('TR')[1].split('-')
+                    number_part = int(parts[0] + parts[1])
+                    if number_part > max_number:
+                        max_number = number_part
+                        latest_tr_no = tr_option
 
-            if latest_tr_no is None:
+            if latest_tr_no is None or max_number == 0:
                 latest_tr_no = self.tr_no
+
             return latest_tr_no
 
         except Exception as e:
@@ -1177,7 +1185,7 @@ def get_latest_tr_build(para_dict):
         dict_result['project'] = dict_tr_info['project']
         dict_result['short_description'] = dict_tr_info['short_description']
         dict_result['prog_path'] = dict_tr_info['prog_path']
-        dict_result['prev_tr_no'] = oecl.get_latest_tr_no()
+        dict_result['prev_tr_no'] = oecl.get_previous_tr_no()
         logger(f'{dict_tr_info=}')
         if debug_mode:
             if oecl.tr_no:
@@ -1312,6 +1320,21 @@ def dump_sr_db(para_dict):
         print(f'Exception occurs. Error={e}')
         raise Exception
     return True
+
+
+def manual_get_prev_tr(para_dict=None):
+    if para_dict is None:
+        para_dict = {}
+    oecl = Ecl_Operation(para_dict)
+    return oecl.get_previous_tr_no()
+
+
+def manual_add_tr_to_db(sr, tr, para_dict=None):
+    if para_dict is None:
+        para_dict = {}
+    oecl = Ecl_Operation(para_dict)
+    return oecl.add_tr_to_db(sr, tr)
+
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:

@@ -559,7 +559,7 @@ class BasePage(BasePage):
     def element(self, locator, timeout=5):
         start = time.time()
         try:
-            if type(locator) == tuple:  # convert from tuple to WebElement
+            if type(locator) == tuple:
                 element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
                 # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
                 return element

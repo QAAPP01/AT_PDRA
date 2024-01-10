@@ -1,6 +1,12 @@
 import os
-from main import package_version, package_build_number
 
+with open('tr_info', 'r') as file:
+    for line in file:
+        key, value = line.strip().split('=')
+        if key == 'package_version':
+            package_version = value
+        elif key == 'package_build_number':
+            package_build_number = value
 
 
 class TestInit:

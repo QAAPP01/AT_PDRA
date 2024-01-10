@@ -1,3 +1,5 @@
+import traceback
+
 import pytest, sys, subprocess, os
 from appium.webdriver.appium_service import AppiumService
 
@@ -8,8 +10,20 @@ from selenium.common import InvalidSessionIdException
 sys.path.insert(0,(dir(dir(dir(__file__)))))
 from ATFramework_aPDR.ATFramework.utils import MyReport
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from main import tr_number, previous_tr_number, package_name
+from main import package_name
 
+try:
+    with open('tr_info', 'r') as file:
+        for line in file:
+            key, value = line.strip().split('=')
+            if key == 'tr_number':
+                tr_number = value
+            elif key == 'previous_tr_number':
+                previous_tr_number = value
+except Exception:
+    traceback.print_exc()
+    tr_number = ''
+    previous_tr_number = ''
 
 DRIVER_DESIRED_CAPS = ''
 REPORT_INSTANCE = MyReport(tr_number=tr_number, previous_tr_number=previous_tr_number)

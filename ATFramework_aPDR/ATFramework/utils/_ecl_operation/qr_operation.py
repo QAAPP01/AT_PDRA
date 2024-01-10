@@ -73,12 +73,13 @@ class Qr_Operation():
             # initial browser
             self.driver = Edge() #if para_dict["browser"] == 'edge' else Chrome()
             self.driver.implicitly_wait(1)
-            self.options = EdgeOptions # if para_dict["browser"] == 'edge' else ChromeOptions()
+            self.options = EdgeOptions() # if para_dict["browser"] == 'edge' else ChromeOptions()
             self.options.add_experimental_option("excludeSwitches", ['enable-automation', 'ignore-certificate-errors', 'enable-logging'])  # 新版本關閉“chrome正受到自動測試軟件的控製”信息
             self.options.add_argument("--no-first-run")
             self.options.add_argument('--disable-gpu')
             self.options.add_argument('--no-sandbox')
             self.options.add_argument('--allow-insecure-localhost')
+            self.options.add_argument('--headless')     # 不顯示實際瀏覽器窗口
             self.options.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
         except Exception as e:
             err_msg = f'Exception occurs. Incorrect format of parameter or missing keys. ErrorLog={e}'
