@@ -2,6 +2,9 @@ import os, cv2, math, time, numpy
 import shutil
 from os.path import exists
 from os.path import dirname
+
+import numpy as np
+
 from .log import logger, qa_log
 from functools import reduce
 from PIL import Image
@@ -392,3 +395,14 @@ class HCompareImg(object):
             logger(f'[Error] {err}')
             return False
 
+    def rtol_compare(self, rtol=1e-8):
+        image_1 = cv2.imread(self.image_1_path)
+        image_2 = cv2.imread(self.image_2_path)
+        result = np.allclose(image_1, image_2, rtol=rtol)
+
+        if result:
+            logger("Images compare pass")
+            return True
+        else:
+            logger(f"Images compare fail: rtol > {rtol}")
+            return False

@@ -1980,12 +1980,10 @@ class EditPage(BasePage):
             raise Exception
 
     def check_bottom_edit_menu_item_apply_status(self, name):
-        logger(f'start check_edit_menu_item_is_applied = {name}')
         try:
             elm = self.el(L.edit.edit_sub.bottom_edit_menu)
-            item = elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]/..')
-            apply_icon = item.find_elements_by_xpath(
-                "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
+            item = elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]/..')
+            apply_icon = item.find_element('xpath', "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
             # logger(f'apply_icon = {apply_icon}')
             if apply_icon != []:
                 logger('Found applied icon!')
@@ -1994,7 +1992,7 @@ class EditPage(BasePage):
                 logger('Applied icon not found.')
                 return False
         except Exception:
-            logger("exception occurs")
+            traceback.print_exc()
             raise Exception
 
     def get_facilitate_usage_position(self):

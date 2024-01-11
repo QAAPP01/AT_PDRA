@@ -1,12 +1,11 @@
+import traceback
+
 from main import deviceName
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 
-import inspect
-import sys
-import time
+import pytest, os, inspect, base64, sys, time
 from os.path import dirname
 
-import pytest
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
@@ -38,7 +37,6 @@ clip_width = ""
 class Test_SFT_Scenario_01_03:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
-        global report
         logger("[Start] Init driver session")
 
         self.driver = driver
@@ -56,10 +54,20 @@ class Test_SFT_Scenario_01_03:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        report.set_driver(driver)
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
+        self.driver.driver.stop_recording_screen()
         driver.driver.close_app()
+
+    def stop_recording(self, test_case_name):
+        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
+        recording_data = self.driver.driver.stop_recording_screen()
+        with open(self.video_file_path, 'wb') as video_file:
+            video_file.write(base64.b64decode(recording_data))
+        logger(f'Screen recording saved: {self.video_file_path}')
+        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
 
     def sce_01_03_01(self):
         uuid = 'c023139e-c9cc-4328-8712-3ee02658fbaa'
@@ -526,33 +534,44 @@ class Test_SFT_Scenario_01_03:
         return "PASS" if result else "FAIL"
 
     def sce_01_03_22(self):
+        func_name = inspect.stack()[0][3]
         uuid = 'ea56db50-2b0d-48d9-9feb-f91203f6a31e'
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
 
-        self.page_edit.click_tool("Audio")
-        self.page_main.h_click(find_string("Music"))
-        self.page_main.h_click(L.import_media.music_library.local)
-        self.page_main.h_click(find_string(test_material_folder))
-        global files_list
-        files = self.page_main.h_get_elements(L.import_media.music_library.file_name)
-        for i in files:
-            files_list.append(i.text)
+        try:
+            self.page_edit.click_tool("Audio")
+            self.page_main.h_click(find_string("Music"))
+            self.page_main.h_click(L.import_media.music_library.local)
+            self.page_main.h_click(find_string(test_material_folder))
+            global files_list
+            files = self.page_main.h_get_elements(L.import_media.music_library.file_name)
+            for i in files:
+                files_list.append(i.text)
 
-        add = self.page_main.h_get_elements(L.import_media.music_library.add)
-        file_name = 'm4a.m4a'
-        index = files_list.index(file_name)
-        self.page_main.h_click(add[index])
-        locator = aid(f"[AID]TimeLineAudio_{file_name}")
+            add = self.page_main.h_get_elements(L.import_media.music_library.add)
+            file_name = 'm4a.m4a'
+            index = files_list.index(file_name)
+            self.page_main.h_click(add[index])
+            locator = aid(f"[AID]TimeLineAudio_{file_name}")
 
-        if self.page_main.h_is_exist(locator):
-            result = True
-        else:
-            result = False
-            logger(f'\n[Fail] Cannot find "{file_name}" on master track')
+            if self.page_main.h_is_exist(locator):
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'\n[Fail] Cannot find "{file_name}" on master track')
 
-        self.report.new_result(uuid, result)
-        return "PASS" if result else "FAIL"
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(project_name)
+
+            return "FAIL"
 
     def sce_01_03_23(self):
         uuid = '9ee4f99d-b3ec-4274-90fb-b71567c64b9b'

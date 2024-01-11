@@ -12,6 +12,9 @@ from ATFramework_aPDR.ATFramework.utils import MyReport
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from main import package_name
 
+test_mode = 0
+tr_number = ''
+previous_tr_number = ''
 try:
     with open('tr_info', 'r') as file:
         for line in file:
@@ -20,10 +23,13 @@ try:
                 tr_number = value
             elif key == 'previous_tr_number':
                 previous_tr_number = value
+
+except FileNotFoundError:
+    test_mode = 1
+
 except Exception:
     traceback.print_exc()
-    tr_number = ''
-    previous_tr_number = ''
+
 
 DRIVER_DESIRED_CAPS = ''
 REPORT_INSTANCE = MyReport(tr_number=tr_number, previous_tr_number=previous_tr_number)
@@ -83,25 +89,10 @@ def driver():
     desired_caps.update(app_config.cap)
     desired_caps.update(DRIVER_DESIRED_CAPS)
 
-    if 'udid' not in desired_caps:
-
-        def get_connected_devices():
-            adb_devices_command = "adb devices"
-            result = subprocess.run(adb_devices_command, shell=True, capture_output=True, text=True)
-            devices_output = result.stdout.strip().split("\n")[1:]
-            devices = [line.split("\t")[0] for line in devices_output if line.endswith("\tdevice")]
-            return devices
-
-        devices = get_connected_devices()
-
-        # debug_device = "RFCW2198L7B"
-        # if debug_device in devices:
-        #     desired_caps['udid'] = debug_device
-        if deviceName in devices:
-            desired_caps['udid'] = deviceName
-        else:
-            desired_caps['udid'] = devices[0] if devices else None
-
+    if test_mode:
+        logger('**** Debug Mode ****')
+        # desired_caps['udid'] = 'R5CW31G76ST'
+        desired_caps['udid'] = 'R5CT32Q3WQN'
         mode = 'debug'
         args = [
             "--address", "127.0.0.1",
@@ -111,14 +102,15 @@ def driver():
 
         cap = {
             # "udid": "",
-            # "language": "ja",
-            # "locale": "JP",
+            # "language": "en",
+            # "locale": "US",
             # 'autoGrantPermissions': True,
             # "noReset": True,
             # "autoLaunch": False,
         }
         desired_caps.update(cap)
     else:
+        logger('**** Testing Mode ****')
         mode = 'local'
         args = [
             "--address", "127.0.0.1",
@@ -147,8 +139,9 @@ def driver():
             retry -= 1
 
     yield driver
-    try:
-        driver.driver.quit()
-    except InvalidSessionIdException:
-        pass
+    if not test_mode:
+        try:
+            driver.driver.quit()
+        except InvalidSessionIdException:
+            pass
     appium.stop()

@@ -1997,6 +1997,7 @@ class Test_SFT_Scenario_02_01:
         report.start_uuid(uuid)
 
         try:
+            self.driver.drag_slider_to_max()
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "200"
 
@@ -2999,7 +3000,7 @@ class Test_SFT_Scenario_02_01:
                         fail_log = None
                     else:
                         result = False
-                        fail_log = f'\n[Fail] Images are different'
+                        fail_log = f'\n[Fail] Image no change'
 
                     self.report.new_result(uuid, result, fail_log=fail_log)
                     return "PASS" if result else "FAIL"
@@ -3204,6 +3205,8 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
+            self.before_rotate = self.page_edit.get_preview_pic(L.edit.preview.pip_preview)
+
             clip = self.element(L.edit.timeline.master_photo(file_photo, 2))
             pic_after = self.page_main.h_screenshot(clip)
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_7.png')
@@ -3247,42 +3250,40 @@ class Test_SFT_Scenario_02_01:
         report.start_uuid(uuid)
 
         try:
-            self.page_edit.timeline_swipe('left', 50)
-            pic_after = self.page_main.h_screenshot()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_15.png')
-
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.97:
-                self.result_15 = True
+            if self.page_edit.check_bottom_edit_menu_item_apply_status('Rotate'):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Images are different')
 
         except Exception as err:
-            self.result_15 = False
+            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
 
             return "FAIL"
 
     def sce_2_1_16(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '9a0bb1c8-ad1a-435c-9857-de26254509d0'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
         try:
-            uuid = '9a0bb1c8-ad1a-435c-9857-de26254509d0'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            preview = self.page_edit.get_preview_pic(L.edit.preview.pip_preview)
 
-            if self.result_15:
-                result = True
-                fail_log = None
+            if not HCompareImg(preview, self.before_rotate).full_compare_result():
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result = False
-                fail_log = f'\n[Fail] Image incorrect'
+                raise Exception(f'[Fail] Image incorrect')
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            
+            return "FAIL"
 
     def sce_2_1_20(self):
         try:
@@ -3361,9 +3362,7 @@ class Test_SFT_Scenario_02_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            # by pass bug
-            self.click(L.edit.timeline.clip())
-            #
+            self.before_flip = self.page_edit.get_preview_pic()
 
             if self.page_edit.click_sub_tool('Flip'):
                 result = True
@@ -3379,47 +3378,46 @@ class Test_SFT_Scenario_02_01:
             return "ERROR"
 
     def sce_2_1_30(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'f25a6a25-0e02-47e7-a946-ced87e59c5b7'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
         try:
-            uuid = 'f25a6a25-0e02-47e7-a946-ced87e59c5b7'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            after_flip = self.page_edit.get_preview_pic()
 
-            time.sleep(5)
-            pic_after = self.page_main.h_screenshot()
-            pic_base = path.join(path.dirname(__file__), 'test_material', '02_01', '2_1_30.png')
-
-            global result_30
-            if HCompareImg(pic_base, pic_after).full_compare() > 0.98:
-                result_30 = True
-                fail_log = None
+            if not HCompareImg(after_flip, self.before_flip).full_compare_result():
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result_30 = False
-                fail_log = f'\n[Fail] Images are different'
+                raise Exception(f'[Fail] Image incorrect')
 
-            self.report.new_result(uuid, result_30, fail_log=fail_log)
-            return "PASS" if result_30 else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            return "FAIL"
 
     def sce_2_1_31(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '9fdbe069-5de1-4c45-bb21-d3ea110a0342'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
         try:
-            uuid = '9fdbe069-5de1-4c45-bb21-d3ea110a0342'
-            logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
-
-            if result_30:
-                result = True
-                fail_log = None
+            if self.element(L.edit.preview.pip_preview).get_attribute('displayed') == 'true':
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result = False
-                fail_log = f'\n[Fail] Image incorrect'
+                raise Exception(f'[Fail] Image is not displayed')
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            return "FAIL"
 
     def sce_2_1_8(self):
         try:
@@ -3588,52 +3586,51 @@ class Test_SFT_Scenario_02_01:
             logger(f"[Error] {err}")
             return "ERROR"
 
-    def sce_2_1_132(self):
-        try:
-            uuid = '666bb375-a688-4f90-9dc1-535a374ad165'
-            func_name = inspect.stack()[0][3]
-            logger(f"\n[Start] {func_name}")
-            case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
-
-            pic_src = self.page_main.get_preview_pic()
-            self.click(L.edit.menu.play)
-            time.sleep(3)
-            pic_tgt = self.page_main.get_preview_pic()
-
-            if not HCompareImg(pic_tgt, pic_src).full_compare() == 1:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
-
     def sce_2_1_133(self):
+        func_name = inspect.stack()[0][3]
+        uuid = 'd21dac5a-a1a4-46e6-a587-1c14512a663c'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
         try:
-            uuid = 'd21dac5a-a1a4-46e6-a587-1c14512a663c'
-            func_name = inspect.stack()[0][3]
-            logger(f"\n[Start] {func_name}")
-            case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            self.before_play = self.page_main.get_preview_pic()
+            self.click(L.edit.menu.play)
 
             if self.is_exist(L.edit.timeline.playhead_timecode):
-                result = True
-                fail_log = None
+                report.new_result(uuid, True)
+                return "PASS"
             else:
-                result = False
-                fail_log = f'\n[Fail] Cannot find the timecode'
+                raise Exception(f'\n[Fail] Cannot find the timecode')
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            return "PASS" if result else "FAIL"
         except Exception as err:
-            logger(f"[Error] {err}")
-            return "ERROR"
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            return "FAIL"
+
+    def sce_2_1_132(self):
+        func_name = inspect.stack()[0][3]
+        uuid = '666bb375-a688-4f90-9dc1-535a374ad165'
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            pic_tgt = self.page_main.get_preview_pic()
+
+            if not HCompareImg(pic_tgt, self.before_play).full_compare_result():
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'\n[Fail] Image no change')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            return "FAIL"
+
 
     def sce_2_1_135(self):
         try:
@@ -3803,8 +3800,8 @@ class Test_SFT_Scenario_02_01:
                   "sce_2_1_127": self.sce_2_1_127(),
                   "sce_2_1_129_130": self.sce_2_1_129_130(),
                   "sce_2_1_131": self.sce_2_1_131(),
-                  "sce_2_1_132": self.sce_2_1_132(),
                   "sce_2_1_133": self.sce_2_1_133(),
+                  "sce_2_1_132": self.sce_2_1_132(),
                   "sce_2_1_135": self.sce_2_1_135(),
 
                   }

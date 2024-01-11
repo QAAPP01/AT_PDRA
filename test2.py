@@ -19,8 +19,8 @@ args = [
     "--base-path", '/wd/hub'
 ]
 
-# appium = AppiumService()
-# appium.start(args=args)
+appium = AppiumService()
+appium.start(args=args)
 
 desired_caps = {
     'platformName': 'Android',
