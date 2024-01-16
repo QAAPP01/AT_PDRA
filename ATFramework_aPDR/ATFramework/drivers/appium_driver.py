@@ -1,3 +1,6 @@
+import traceback
+
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, InvalidSelectorException, TimeoutException
@@ -1033,3 +1036,35 @@ class AppiumU2Driver(Borg, BaseDriver):
             return True
         except Exception as err:
             raise Exception(err)
+
+    # ==================================================================================================================
+    # Function: click_and_hold_and_screenshot
+    # Description: click_and_hold_and_screenshot
+    # Note: click_and_hold_and_screenshot
+    # Author: Hausen
+    # ==================================================================================================================
+    def click_and_hold_and_screenshot(self, button, preview=None):
+        path = os.getenv('temp', os.path.dirname(__file__))
+        file_save = "%s/%s.png" % (path, uuid.uuid4())
+        path_save = os.path.abspath(file_save)
+
+        if preview:
+            try:
+                action_chains = ActionChains(self.driver)
+                element = self.driver.find_element(*button)
+                action_chains.click_and_hold(element).perform()
+
+                screenshot_area = self.driver.find_element(*preview)
+                screenshot_area.screenshot(file_save)
+
+                action_chains = ActionChains(self.driver)
+                action_chains.click(element).perform()
+
+            except Exception:
+                traceback.print_exc()
+                return False
+        else:
+            self.driver.save_screenshot(file_save)
+        logger(f'screenshot saved: {path_save}')
+
+        return path_save

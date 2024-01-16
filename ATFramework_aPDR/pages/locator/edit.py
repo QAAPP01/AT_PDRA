@@ -358,13 +358,20 @@ class SubTool:
         edit = id('itemEdit')
 
     class filter:
+        edit = id('itemEdit')
+        cancel = id('btn_cancel')
+        apply = id('btn_ok')
+        slider = id("adjustable_parameter_seek_bar")
+        compare = id("btn_compare")
+        none = id('btn_none')
+        apply_to_all = id('btn_floating_apply_all')
 
         @staticmethod
-        def filter_border(index=1):
+        def item(index=1):
             if index:
-                return xpath(f'(//*[contains(@resource-id,"filter_border")])[{index}]')
+                return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
             else:
-                return xpath(f'//*[contains(@resource-id,"filter_border")]')
+                return xpath(f'//*[contains(@resource-id,"top_area")]')
 
     class PanZoom:
         class Custom:

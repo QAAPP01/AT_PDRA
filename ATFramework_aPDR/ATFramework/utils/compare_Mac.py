@@ -395,14 +395,20 @@ class HCompareImg(object):
             logger(f'[Error] {err}')
             return False
 
-    def rtol_compare(self, rtol=1e-8):
-        image_1 = cv2.imread(self.image_1_path)
-        image_2 = cv2.imread(self.image_2_path)
-        result = np.allclose(image_1, image_2, rtol=rtol)
+    def ssim_compare(self, threshold=0.98):
+        image_1 = cv2.imread(self.image_1_path, cv2.IMREAD_GRAYSCALE)
+        image_2 = cv2.imread(self.image_2_path, cv2.IMREAD_GRAYSCALE)
+        logger(f'Image 1: {self.image_1_path}')
+        logger(f'Image 2: {self.image_2_path}')
 
-        if result:
+        ssim_index, _ = ssim(image_1, image_2, full=True)
+        # euclidean_distance = np.linalg.norm(image_1 - image_2)
+        logger(f"ssim_index = {ssim_index}")
+        # logger(f'euclidean_distance = {euclidean_distance}')
+
+        if ssim_index > threshold:
             logger("Images compare pass")
             return True
         else:
-            logger(f"Images compare fail: rtol > {rtol}")
+            logger(f"Images compare diff")
             return False

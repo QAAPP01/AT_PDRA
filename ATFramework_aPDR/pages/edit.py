@@ -276,6 +276,26 @@ class EditPage(BasePage):
         except Exception as err:
             raise Exception(f'[Error] {err}')
 
+    def scroll_playhead(self, delta_x=None):
+        """
+            :param delta_x: <0 -> left
+                            >0 -> right
+        """
+        try:
+            if delta_x:
+                if delta_x > 0:
+                    if delta_x < 25:
+                        delta_x = 25
+                    self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'right', delta_x)
+                else:
+                    if delta_x > -25:
+                        delta_x = -25
+                    self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'left', abs(delta_x))
+
+            return True
+        except Exception as err:
+            raise Exception(f'[Error] {err}')
+
     def trigger_default_pan_zoom_effect(self, enable=True):
         # Start from timeline editor page
         try:

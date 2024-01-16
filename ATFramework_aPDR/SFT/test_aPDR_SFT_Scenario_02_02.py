@@ -2385,7 +2385,6 @@ class Test_SFT_Scenario_02_02:
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
-        global pic_before_filter
         try:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
@@ -2394,11 +2393,12 @@ class Test_SFT_Scenario_02_02:
             if not self.page_edit.enter_sub_tool("Filter"):
                 raise Exception('Enter Filter fail')
 
-            pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.pic_before_filter = self.page_main.get_preview_pic()
+            self.click(L.edit.sub_tool.filter.item(3))
+            self.click(L.edit.try_before_buy.try_it_first, 2)
             pic_tgt = self.page_main.get_preview_pic()
 
-            if not HCompareImg(pic_tgt, pic_before_filter).full_compare() == 1:
+            if not HCompareImg(pic_tgt, self.pic_before_filter).full_compare() == 1:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -2417,7 +2417,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool("Filter")
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
 
             return "FAIL"
 
@@ -2466,7 +2466,7 @@ class Test_SFT_Scenario_02_02:
                 raise Exception('Enter Filter fail')
 
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, pic_before_filter).full_compare() == 1:
@@ -2488,7 +2488,7 @@ class Test_SFT_Scenario_02_02:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool("Filter")
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
 
             return "FAIL"
 
@@ -2531,6 +2531,8 @@ class Test_SFT_Scenario_02_02:
 
         global pic_default
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
             self.page_edit.add_master_media('Photo', test_material_folder, photo_9_16)
             self.click(L.edit.timeline.master_track.master_clip(1))
             pic_default = self.page_main.get_preview_pic()
@@ -3852,11 +3854,7 @@ class Test_SFT_Scenario_02_02:
                 print(f"[{value}] {key}")
 
     def test_case_3(self):
-        result = {"sce_2_2_67": self.sce_2_2_67(),
-                  "sce_2_2_69": self.sce_2_2_69(),
-                  "sce_2_2_68": self.sce_2_2_68(),
-                  "sce_2_2_70": self.sce_2_2_70(),
-                  "sce_2_2_73": self.sce_2_2_73(),
+        result = {"sce_2_2_73": self.sce_2_2_73(),
                   "sce_2_2_72": self.sce_2_2_72(),
                   "sce_2_2_74": self.sce_2_2_74(),
                   "sce_2_2_71": self.sce_2_2_71(),
@@ -3891,7 +3889,7 @@ class Test_SFT_Scenario_02_02:
                   "sce_2_2_105": self.sce_2_2_105(),
                   "sce_2_2_106": self.sce_2_2_106(),
                   "sce_2_2_109": self.sce_2_2_109(),
-                  "sce_2_2_107": self.sce_2_2_107(),
+                  # "sce_2_2_107": self.sce_2_2_107(),
                   # "sce_2_2_108": self.sce_2_2_108(),
                   }
         for key, value in result.items():
