@@ -144,6 +144,11 @@ class MediaLibrary:
     photo = Photo
 
 
+class trim_before_edit:
+    left = id('in_time_indicator')
+    right = id('out_time_indicator')
+
+
 class Library_listview():
     # frame = id("library_listview")
     back = id("top_toolbar_back")
@@ -383,3 +388,4 @@ class Interface:
     transition_list = Transition_List()
     device_limit = Device_limit()
     gettyimages_premium = GettyImages_Premium()
+    trim_before_edit = trim_before_edit

@@ -109,9 +109,9 @@ class Test_Shortcut_Body_Effect:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
 
@@ -136,9 +136,9 @@ class Test_Shortcut_Body_Effect:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
 
             return "FAIL"
@@ -163,9 +163,9 @@ class Test_Shortcut_Body_Effect:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
             self.click(L.main.shortcut.try_it_now)
@@ -191,9 +191,9 @@ class Test_Shortcut_Body_Effect:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
 
             return "FAIL"
@@ -220,9 +220,9 @@ class Test_Shortcut_Body_Effect:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
             self.click(L.main.shortcut.try_it_now)
@@ -237,15 +237,10 @@ class Test_Shortcut_Body_Effect:
 
         try:
             self.click(L.import_media.media_library.btn_preview())
-            self.driver.swipe_element(L.import_media.media_library.left_indicator, 'right', 50)
-            self.driver.swipe_element(L.import_media.media_library.right_indicator, 'left', 50)
+            self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
+            self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
             self.click(L.import_media.media_library.trim_next)
-
-            for wait in range(60):
-                if self.is_exist(find_string('Cancel')):
-                    time.sleep(2)
-                else:
-                    break
+            self.page_media.waiting()
 
             if self.is_exist(L.main.shortcut.body_effect.effect(0)):
                 report.new_result(uuid, True)
@@ -257,14 +252,15 @@ class Test_Shortcut_Body_Effect:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
             self.click(L.main.shortcut.try_it_now)
             self.click(L.import_media.media_library.btn_preview())
             self.click(L.import_media.media_library.trim_next)
+            self.page_media.waiting()
 
             return "FAIL"
 
@@ -287,9 +283,9 @@ class Test_Shortcut_Body_Effect:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
             self.click(L.main.shortcut.try_it_now)
@@ -304,12 +300,7 @@ class Test_Shortcut_Body_Effect:
 
         try:
             self.page_media.select_local_video(test_material_folder,video_9_16)
-
-            for wait in range(60):
-                if self.is_exist(find_string('Cancel')):
-                    time.sleep(1)
-                else:
-                    break
+            self.page_media.waiting()
 
             if self.is_exist(L.main.shortcut.body_effect.effect(0)):
                 report.new_result(uuid, True)
@@ -321,13 +312,109 @@ class Test_Shortcut_Body_Effect:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Body Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_video_library(video_9_16)
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.waiting()
+
+            return "FAIL"
+
+    def sce_6_3_9(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.main.shortcut.play)
+            time.sleep(3)
+            self.timecode_play = self.element(L.main.shortcut.timecode).text
+
+            if self.timecode_play != "00:00":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Body Effect')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.waiting()
+
+            return "FAIL"
+
+    def sce_6_3_10(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.main.shortcut.play)
+            timecode_play = self.element(L.main.shortcut.timecode).text
+
+            if timecode_play != self.timecode_play:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Body Effect')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.waiting()
+
+            return "FAIL"
+
+    def sce_6_3_11(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+            timecode_play = self.element(L.main.shortcut.timecode).text
+
+            if timecode_play == '00:00':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Body Effect')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.waiting()
 
             return "FAIL"
 
@@ -3596,7 +3683,7 @@ class Test_Shortcut_Body_Effect:
             return "FAIL"
 
     @report.exception_screenshot
-    def test_sce_6_1_1_to_135(self):
+    def test_case(self):
         result = {"sce_6_3_1": self.sce_6_3_1(),
                   "sce_6_3_2": self.sce_6_3_2(),
                   "sce_6_3_3": self.sce_6_3_3(),
@@ -3605,6 +3692,9 @@ class Test_Shortcut_Body_Effect:
                   "sce_6_3_6": self.sce_6_3_6(),
                   "sce_6_3_7": self.sce_6_3_7(),
                   "sce_6_3_8": self.sce_6_3_8(),
+                  "sce_6_3_9": self.sce_6_3_9(),
+                  "sce_6_3_10": self.sce_6_3_10(),
+                  "sce_6_3_11": self.sce_6_3_11(),
                   }
         for key, value in result.items():
             if value != "PASS":

@@ -2,7 +2,6 @@ import traceback
 
 import pytest, os, inspect, base64, sys, time
 from os import path
-from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver import ActionChains
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
@@ -21,7 +20,7 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
-class Test_Shortcut_Cutout:
+class Test_Class:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")

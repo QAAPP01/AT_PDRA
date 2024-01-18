@@ -10,6 +10,9 @@ import time
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
 from send_mail.send_report import send_report
 
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
 # import ecl_operation
 
 # Local Mode Program
@@ -33,8 +36,8 @@ package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 
 ### [Auto Download parameters]  ###
-# auto_download = True
-auto_download = False
+auto_download = True
+# auto_download = False
 
 sr_number = 'DRA231130-01'  # for manual
 tr_number = 'TR240109-011'  # for manual
@@ -157,8 +160,6 @@ if __name__ == '__main__':
         else:
             print(f"APK 解除安裝失敗：{error.decode()}")
 
-
-
     # [auto download lasted build]
     if auto_download:
         sr_number = ''
@@ -206,7 +207,7 @@ if __name__ == '__main__':
                 uninstall_apk(package_name, deviceName)
                 install_apk(apk, deviceName)
             else:
-                print(f'Please put the apk file into {app_path}, or disable "test_apk_from_appPath"')
+                print(f'\n**** Please put the apk file into {app_path}, or disable "test_apk_from_appPath"')
                 exit(1)
 
         def get_package_version(package_name, device_name):

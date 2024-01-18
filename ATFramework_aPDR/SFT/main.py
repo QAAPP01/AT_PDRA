@@ -32,9 +32,13 @@ from .test_shortcut_mosaic_06_09 import Test_Shortcut_Mosaic
 from .test_shortcut_filter_06_10 import Test_Shortcut_Filter
 from .test_shortcut_ai_art_06_11 import Test_Shortcut_AI_Art
 from .test_shortcut_ai_scene_06_12 import Test_Shortcut_AI_Scene
+from .test_shortcut_text_to_image_06_13 import Test_Shortcut_Text_to_Image
+from .test_shortcut_auto_caption_06_14 import Test_Shortcut_Auto_Caption
+from .test_shortcut_voice_changer_06_15 import Test_Class
 
 from .test_edit_master_ai_effect_07_01 import Test_Ai_Effect
 from .test_edit_master_effect_07_02 import Test_Effect
+from .test_edit_pip_filter_07_07 import Test_Class
 from .test_edit_overlay_filter_09_01 import Test_Overlay_Filter
 from .test_edit_overlay_videoFx_09_02 import Test_Overlay_VideoFx
 

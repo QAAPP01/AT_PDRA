@@ -2106,10 +2106,8 @@ class EditPage(BasePage):
     def waiting(self, timeout=60):
         for i in range(timeout):
             if self.is_exist(find_string("Cancel"), 1):
-                logger("Cancel")
                 continue
             else:
-                logger("NO Cancel")
                 return True
         logger("[Warning] loading timeout")
         return False

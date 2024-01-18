@@ -289,15 +289,10 @@ class Test_Shortcut_Mosaic:
 
         try:
             self.click(L.import_media.media_library.btn_preview())
-            self.driver.swipe_element(L.import_media.media_library.left_indicator, 'right', 50)
-            self.driver.swipe_element(L.import_media.media_library.right_indicator, 'left', 50)
+            self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
+            self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
             self.click(L.import_media.media_library.trim_next)
-
-            for wait in range(60):
-                if self.is_exist(find_string('Cancel')):
-                    time.sleep(2)
-                else:
-                    break
+            self.page_media.waiting()
 
             if self.is_exist(find_string('Export')):
                 report.new_result(uuid, True)
@@ -309,14 +304,15 @@ class Test_Shortcut_Mosaic:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Mosaic')
             self.click(L.main.shortcut.try_it_now)
             self.click(L.import_media.media_library.btn_preview())
             self.click(L.import_media.media_library.trim_next)
+            self.page_media.waiting()
 
             return "FAIL"
 
@@ -339,9 +335,9 @@ class Test_Shortcut_Mosaic:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Mosaic')
             self.click(L.main.shortcut.try_it_now)
@@ -356,12 +352,7 @@ class Test_Shortcut_Mosaic:
 
         try:
             self.page_media.select_local_video(test_material_folder, video_9_16)
-
-            for wait in range(60):
-                if self.is_exist(find_string('Cancel')):
-                    time.sleep(2)
-                else:
-                    break
+            self.page_media.waiting()
 
             if self.is_exist(find_string('Export')):
                 report.new_result(uuid, True)
@@ -373,13 +364,14 @@ class Test_Shortcut_Mosaic:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Mosaic')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
 
             return "FAIL"
 

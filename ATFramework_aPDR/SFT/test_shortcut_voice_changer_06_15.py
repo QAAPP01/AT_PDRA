@@ -20,7 +20,7 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
-class Test_Shortcut_Auto_Caption:
+class Test_Class:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")
@@ -88,7 +88,7 @@ class Test_Shortcut_Auto_Caption:
         logger(f'Screen recording saved: {self.video_file_path}')
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
 
-    def sce_6_14_1(self):
+    def sce_6_15_1(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -96,9 +96,9 @@ class Test_Shortcut_Auto_Caption:
 
         try:
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
 
-            if self.is_exist(find_string('Auto Caption')):
+            if self.is_exist(find_string('Voice Changer')):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -108,15 +108,15 @@ class Test_Shortcut_Auto_Caption:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
 
             return "FAIL"
 
-    def sce_6_14_2(self):
+    def sce_6_15_2(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -135,21 +135,21 @@ class Test_Shortcut_Auto_Caption:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
 
             return "FAIL"
 
-    def sce_6_14_3(self):
+    def sce_6_15_3(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
             self.click(L.main.shortcut.try_it_now)
 
             if self.is_exist(find_string('Add Media')):
@@ -162,16 +162,16 @@ class Test_Shortcut_Auto_Caption:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
             self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 
-    def sce_6_14_4(self):
+    def sce_6_15_4(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -190,21 +190,21 @@ class Test_Shortcut_Auto_Caption:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
 
             return "FAIL"
 
-    def sce_6_14_5(self):
+    def sce_6_15_6(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
             self.click(L.main.shortcut.try_it_now)
             self.click(L.import_media.media_library.btn_preview())
             self.click(L.import_media.media_library.trim_back)
@@ -219,16 +219,16 @@ class Test_Shortcut_Auto_Caption:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
             self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
-        
-    def sce_6_14_6(self):
+
+    def sce_6_15_7(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -236,38 +236,34 @@ class Test_Shortcut_Auto_Caption:
 
         try:
             self.click(L.import_media.media_library.btn_preview())
-            self.driver.swipe_element(L.import_media.media_library.left_indicator, 'right', 50)
-            self.driver.swipe_element(L.import_media.media_library.right_indicator, 'left', 50)
+            self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
+            self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
             self.click(L.import_media.media_library.trim_next)
-
-            for wait in range(60):
-                if self.is_exist(find_string('Cancel')):
-                    time.sleep(2)
-                else:
-                    break
+            self.page_media.waiting()
 
             if self.is_exist(find_string('Export')):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot enter Auto Captions')
+                raise Exception('[Fail] Cannot enter Voice Changer')
 
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
             self.click(L.main.shortcut.try_it_now)
             self.click(L.import_media.media_library.btn_preview())
             self.click(L.import_media.media_library.trim_next)
+            self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_14_7(self):
+    def sce_6_15_8(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -286,16 +282,16 @@ class Test_Shortcut_Auto_Caption:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
             self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
-        
-    def sce_6_14_8(self):
+
+    def sce_6_15_9(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -303,6 +299,7 @@ class Test_Shortcut_Auto_Caption:
 
         try:
             self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
 
             for wait in range(60):
                 if self.is_exist(find_string('Cancel')):
@@ -314,32 +311,131 @@ class Test_Shortcut_Auto_Caption:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot enter Auto Captions')
+                raise Exception('[Fail] Cannot enter Voice Changer')
 
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_main.enter_shortcut('AI Voice Changer')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
+
+            return "FAIL"
+
+    def sce_6_15_10(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.main.shortcut.play)
+            time.sleep(3)
+            self.timecode_play = self.element(L.main.shortcut.timecode).text
+
+            if self.timecode_play != "00:00":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('AI Voice Changer')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
+
+            return "FAIL"
+
+    def sce_6_15_11(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.main.shortcut.play)
+            timecode_play = self.element(L.main.shortcut.timecode).text
+
+            if timecode_play != self.timecode_play:
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('AI Voice Changer')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
+
+            return "FAIL"
+
+    def sce_6_15_12(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+            timecode_play = self.element(L.main.shortcut.timecode).text
+
+            if timecode_play == '00:00':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('AI Voice Changer')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
 
             return "FAIL"
 
     @report.exception_screenshot
     def test_case(self):
-        result = {"sce_6_14_1": self.sce_6_14_1(),
-                  "sce_6_14_2": self.sce_6_14_2(),
-                  "sce_6_14_3": self.sce_6_14_3(),
-                  "sce_6_14_4": self.sce_6_14_4(),
-                  "sce_6_14_5": self.sce_6_14_5(),
-                  "sce_6_14_6": self.sce_6_14_6(),
-                  "sce_6_14_7": self.sce_6_14_7(),
-                  "sce_6_14_8": self.sce_6_14_8(),
+        result = {"sce_6_15_1": self.sce_6_15_1(),
+                  "sce_6_15_2": self.sce_6_15_2(),
+                  "sce_6_15_3": self.sce_6_15_3(),
+                  "sce_6_15_4": self.sce_6_15_4(),
+                  # "sce_6_15_5": self.sce_6_15_5(),
+                  "sce_6_15_6": self.sce_6_15_6(),
+                  "sce_6_15_7": self.sce_6_15_7(),
+                  "sce_6_15_8": self.sce_6_15_8(),
+                  "sce_6_15_9": self.sce_6_15_9(),
+                  "sce_6_15_10": self.sce_6_15_10(),
+                  "sce_6_15_11": self.sce_6_15_11(),
+                  "sce_6_15_12": self.sce_6_15_12(),
                   }
         for key, value in result.items():
             if value != "PASS":

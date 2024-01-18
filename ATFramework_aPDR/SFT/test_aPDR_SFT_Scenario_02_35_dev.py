@@ -2315,7 +2315,7 @@ class Test_SFT_Scenario_02_35:
                 raise Exception('Enter Filter fail')
 
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, pic_before_filter).full_compare() == 1:
@@ -2337,7 +2337,7 @@ class Test_SFT_Scenario_02_35:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool("Filter")
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
 
             return "FAIL"
 
@@ -2386,7 +2386,7 @@ class Test_SFT_Scenario_02_35:
                 raise Exception('Enter Filter fail')
 
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, pic_before_filter).full_compare() == 1:
@@ -2408,7 +2408,7 @@ class Test_SFT_Scenario_02_35:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool("Filter")
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
 
             return "FAIL"
 

@@ -219,8 +219,10 @@ class Test_Shortcut_Stabilizer:
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Stabilizer')
+            self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 
@@ -232,15 +234,10 @@ class Test_Shortcut_Stabilizer:
 
         try:
             self.click(L.import_media.media_library.btn_preview())
-            self.driver.swipe_element(L.import_media.media_library.left_indicator, 'right', 50)
-            self.driver.swipe_element(L.import_media.media_library.right_indicator, 'left', 50)
+            self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
+            self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
             self.click(L.import_media.media_library.trim_next)
-
-            for wait in range(60):
-                if self.is_exist(find_string('Cancel')):
-                    time.sleep(2)
-                else:
-                    break
+            self.page_media.waiting()
 
             if self.is_exist(find_string('Stabilizer')):
                 report.new_result(uuid, True)
@@ -255,8 +252,10 @@ class Test_Shortcut_Stabilizer:
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Stabilizer')
+            self.click(L.main.shortcut.try_it_now)
             self.click(L.import_media.media_library.btn_preview())
             self.click(L.import_media.media_library.trim_next)
 
@@ -286,6 +285,7 @@ class Test_Shortcut_Stabilizer:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Stabilizer')
+            self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 
@@ -296,7 +296,8 @@ class Test_Shortcut_Stabilizer:
         report.start_uuid(uuid)
 
         try:
-            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
 
             if self.is_exist(find_string('Stabilizer')):
                 report.new_result(uuid, True)
@@ -311,96 +312,109 @@ class Test_Shortcut_Stabilizer:
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
+
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Stabilizer')
-            self.page_media.select_video_library(video_9_16)
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_3_1(self):
-        uuid = '2313a0da-9631-49c7-a276-80a658e3966a'
+    def sce_6_2_9(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.click(L.main.ai_effect.back)
+            self.click(L.main.shortcut.play)
+            time.sleep(3)
+            self.timecode_play = self.element(L.main.shortcut.timecode).text
 
-            templates = self.elements(id("ai_template_card_view"))
-
-            if len(templates) > 3:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Template number < 4'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if self.timecode_play != "00:00":
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
+
         except Exception as err:
-            logger(err)
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Stabilizer')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_3_2(self):
-        uuid = '1b83d97e-8046-4fa3-8c69-be36ec49ee3c'
+    def sce_6_2_10(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.click(L.main.ai_effect.template())
+            self.click(L.main.shortcut.play)
+            timecode_play = self.element(L.main.shortcut.timecode).text
 
-            while not self.is_exist(L.main.ai_effect.premium, 1):
-                page_before = self.element(L.main.ai_effect.full_preview)
-                self.driver.swipe_up()
-                if page_before == self.element(L.main.ai_effect.full_preview):
-                    break
-
-            if self.is_exist(L.main.ai_effect.premium):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find premium_icon'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if timecode_play != self.timecode_play:
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+
         except Exception as err:
-            logger(err)
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Stabilizer')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_3_3(self):
-        uuid = 'd7f0515a-7ce4-4a92-9e35-51e2331065d9'
+    def sce_6_2_11(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            if self.is_exist(L.main.ai_effect.full_preview):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find full screen preview'
+            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+            timecode_play = self.element(L.main.shortcut.timecode).text
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if timecode_play == '00:00':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+
         except Exception as err:
-            logger(err)
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Stabilizer')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.page_media.waiting()
 
             return "FAIL"
 
@@ -3756,7 +3770,7 @@ class Test_Shortcut_Stabilizer:
             return "FAIL"
 
     @report.exception_screenshot
-    def test_sce_6_1_1_to_135(self):
+    def test_case(self):
         result = {"sce_6_2_1": self.sce_6_2_1(),
                   "sce_6_2_2": self.sce_6_2_2(),
                   "sce_6_2_3": self.sce_6_2_3(),
@@ -3765,6 +3779,9 @@ class Test_Shortcut_Stabilizer:
                   "sce_6_2_6": self.sce_6_2_6(),
                   "sce_6_2_7": self.sce_6_2_7(),
                   "sce_6_2_8": self.sce_6_2_8(),
+                  "sce_6_2_9": self.sce_6_2_9(),
+                  "sce_6_2_10": self.sce_6_2_10(),
+                  "sce_6_2_11": self.sce_6_2_11(),
                   }
         for key, value in result.items():
             if value != "PASS":

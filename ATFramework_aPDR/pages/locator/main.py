@@ -12,6 +12,9 @@ class Shortcut:
     btn_continue = id('tv_continue')
     close = id('iv_close')
     editor_back = id('iv_close')
+    play = id('btn_play')
+    timecode = id('playing_time')
+    playback_slider = id('seekbar')
 
     @staticmethod
     def shortcut_name(param=1):

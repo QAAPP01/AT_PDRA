@@ -160,6 +160,15 @@ class MediaPage(BasePage):
         except Exception as err:
             logger(f'\n[Error] {err}')
 
+    def waiting(self, timeout=60):
+        for i in range(timeout):
+            if self.h_is_exist(find_string('Cancel'), 1):
+                continue
+            else:
+                return True
+        logger("[Warning] waiting timeout")
+        return False
+
     def waiting_download(self):
         for i in range(60):
             if self.h_is_exist(L.import_media.media_library.downloading, 1):

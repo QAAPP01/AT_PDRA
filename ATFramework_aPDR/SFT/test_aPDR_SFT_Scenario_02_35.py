@@ -22,6 +22,8 @@ video_16_9 = 'video_16_9.mp4'
 photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
+default_prompt = "English description only\n(Example: cute cat, hand-drawn, 2D, Flat background)"
+
 
 class Test_SFT_Scenario_02_35:
     @pytest.fixture(autouse=True)
@@ -48,8 +50,8 @@ class Test_SFT_Scenario_02_35:
         yield
         driver.driver.close_app()
 
-    def sce_2_2_1(self):
-        uuid = '4979f807-43ed-48ae-b85f-9a28b2ab989a'
+    def sce_2_35_1(self):
+        uuid = '81350160-05b8-4fa1-ac6d-cde4bb662ef4'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
@@ -73,26 +75,11 @@ class Test_SFT_Scenario_02_35:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
 
-            return "FAIL"
-
-    def sce_2_2_2(self):
-        uuid = '7713342c-d600-43b7-9fe8-1675a2124c7b'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
-
-        try:
-            if not self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16):
-                raise Exception('Add media fail')
-
-            if not self.page_edit.enter_main_tool('AI Effect'):
-                raise Exception('Enter AI Effect fail')
-
-            if self.is_exist(find_string('None')):
+            if self.page_edit.sticker.ai_sticker.enter_ai_sticker():
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '[Fail] Cannot find "None"'
+                fail_log = '[Fail] Enter AI Sticker fail'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
@@ -103,23 +90,24 @@ class Test_SFT_Scenario_02_35:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('AI Effect')
+            self.page_edit.sticker.ai_sticker.enter_ai_sticker()
 
             return "FAIL"
 
-    def sce_2_2_3(self):
-        uuid = 'e8286094-ffe5-4cca-8dd5-4a29e66f1b15'
+    def sce_2_35_2(self):
+        uuid = '046bbb9d-cb11-4db6-b710-22dbe9f23dce'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            if self.is_exist(L.edit.timeline.master_track.trim_indicator):
+            text = self.element(L.edit.main_tool.sticker.ai_sticker.prompt_entry).text
+
+            if text == default_prompt:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '[Fail] No master clip is selected'
+                fail_log = f'[Fail] Default text incorrect: {text}'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
@@ -130,29 +118,28 @@ class Test_SFT_Scenario_02_35:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('AI Effect')
+            self.page_edit.sticker.ai_sticker.enter_ai_sticker()
 
             return "FAIL"
 
-    def sce_2_2_4(self):
-        uuid = '283f410f-a8aa-4ff7-aa9f-b60221586e8d'
+    def sce_2_35_3(self):
+        uuid = '135b5f8e-f5b9-4831-83fb-f7bd3b30b82d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            if not self.page_edit.tap_blank_space():
-                raise Exception('Tap blank space fail')
-            self.click(L.edit.timeline.master_track.master_clip())
-            if not self.page_edit.enter_sub_tool('AI Effect'):
-                raise Exception('Enter AI Effect fail')
+            total = self.element(L.edit.main_tool.sticker.ai_sticker.count_total).text.split("/")[1]
+            total = int(total)
+            text = 'x' * (total + 1)
+            self.element(L.edit.main_tool.sticker.ai_sticker.prompt_entry).send_keys(text)
+            count = self.element(L.edit.main_tool.sticker.ai_sticker.count).text
 
-            if self.is_exist(L.edit.sub_tool.ai_effect.effect(0)):
+            if int(count) == total + 1:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '[Fail] No master clip is selected'
+                fail_log = f'[Fail] Count incorrect: {count}'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
@@ -163,19 +150,19 @@ class Test_SFT_Scenario_02_35:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('AI Effect')
+            self.page_edit.sticker.ai_sticker.enter_ai_sticker()
+            self.element(L.edit.main_tool.sticker.ai_sticker.prompt_entry).send_keys('x'*801)
 
             return "FAIL"
 
-    def sce_2_2_5(self):
-        uuid = 'b235c57c-2f0e-41af-94b7-559ef7848880'
+    def sce_2_35_4(self):
+        uuid = '612fea65-4627-4cbe-badf-dd325058d0e9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            if self.element(L.edit.sub_tool.ai_effect.none_highlight).get_attribute('selected') == 'true':
+            if self.element(L.edit.main_tool.sticker.ai_sticker.gen_btn).get_attribute('enabled') == 'false':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -2369,7 +2356,7 @@ class Test_SFT_Scenario_02_35:
                 raise Exception('Enter Filter fail')
 
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, pic_before_filter).full_compare() == 1:
@@ -2391,7 +2378,7 @@ class Test_SFT_Scenario_02_35:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool("Filter")
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
 
             return "FAIL"
 
@@ -2440,7 +2427,7 @@ class Test_SFT_Scenario_02_35:
                 raise Exception('Enter Filter fail')
 
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, pic_before_filter).full_compare() == 1:
@@ -2462,7 +2449,7 @@ class Test_SFT_Scenario_02_35:
             self.click(L.edit.timeline.master_track.master_clip(1))
             self.page_edit.enter_sub_tool("Filter")
             pic_before_filter = self.page_main.get_preview_pic()
-            self.click(L.edit.sub_tool.filter.filter_border(3))
+            self.click(L.edit.sub_tool.filter.item(3))
 
             return "FAIL"
 

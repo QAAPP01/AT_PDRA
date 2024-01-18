@@ -65,11 +65,11 @@ class Test_Anime_Art:
 
         try:
             self.page_main.enter_launcher()
-            if not self.click(find_string('Anime Art')):
-                raise Exception('Click "Anime Art" fail')
+            if not self.click(find_string('Anime Template')):
+                raise Exception('Click "Anime Template" fail')
             title = self.element(L.main.shortcut.anime_art.title).text
 
-            if title == "AI Anime Art":
+            if title == "AI Anime Template":
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -121,7 +121,7 @@ class Test_Anime_Art:
         report.start_uuid(uuid)
 
         try:
-            self.click(find_string('Anime Art'))
+            self.click(find_string('Anime Template'))
             if not self.click(L.main.shortcut.try_it_now):
                 raise Exception('Click "Try it now" fail')
 

@@ -540,7 +540,7 @@ class Test_SFT_Scenario_01_03:
         report.start_uuid(uuid)
 
         try:
-            self.page_edit.click_tool("Audio")
+            self.page_edit.enter_main_tool("Audio")
             self.page_main.h_click(find_string("Music"))
             self.page_main.h_click(L.import_media.music_library.local)
             self.page_main.h_click(find_string(test_material_folder))
