@@ -152,7 +152,9 @@ def send_report(title_project, udid_list, test_case_path, receiver_list, sr_numb
                            'test_result_details': f'Pass: {summary_dict["pass"]}\nFail: {summary_dict["fail"]}\nSkip: {summary_dict["skip"]}\nN/A: {summary_dict["na"]}\nTotal time: {summary_dict["duration"]}',
                           }
                }
-    auto_create_qr(tr_dict, opts['attachment'])
+    auto_report = True
+    if auto_report:
+        auto_create_qr(tr_dict, opts['attachment'])
     # remove attachment files
     remove_attachment_file(opts['attachment'])
     print('compelte')

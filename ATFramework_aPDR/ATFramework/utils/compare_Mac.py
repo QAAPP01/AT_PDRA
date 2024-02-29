@@ -1,5 +1,6 @@
 import os, cv2, math, time, numpy
 import shutil
+import traceback
 from os.path import exists
 from os.path import dirname
 
@@ -396,19 +397,58 @@ class HCompareImg(object):
             return False
 
     def ssim_compare(self, threshold=0.98):
-        image_1 = cv2.imread(self.image_1_path, cv2.IMREAD_GRAYSCALE)
-        image_2 = cv2.imread(self.image_2_path, cv2.IMREAD_GRAYSCALE)
-        logger(f'Image 1: {self.image_1_path}')
-        logger(f'Image 2: {self.image_2_path}')
+        try:
+            # 主要比較亮度、對比度和結構三個方面，特別是結構比較
 
-        ssim_index, _ = ssim(image_1, image_2, full=True)
-        # euclidean_distance = np.linalg.norm(image_1 - image_2)
-        logger(f"ssim_index = {ssim_index}")
-        # logger(f'euclidean_distance = {euclidean_distance}')
+            image_1 = cv2.imread(self.image_1_path, cv2.IMREAD_GRAYSCALE)
+            image_2 = cv2.imread(self.image_2_path, cv2.IMREAD_GRAYSCALE)
+            logger(f'Image 1: {self.image_1_path}')
+            logger(f'Image 2: {self.image_2_path}')
 
-        if ssim_index > threshold:
-            logger("Images compare pass")
-            return True
-        else:
-            logger(f"Images compare diff")
-            return False
+            ssim_index, _ = ssim(image_1, image_2, full=True)
+            # euclidean_distance = np.linalg.norm(image_1 - image_2)
+            logger(f"ssim_index = {ssim_index}")
+            # logger(f'euclidean_distance = {euclidean_distance}')
+
+            if ssim_index > threshold:
+                logger("Images compare pass")
+                return True
+            else:
+                logger(f"Images compare diff")
+                return False
+        except:
+            traceback.print_exc()
+
+    def histogram_compare(self, threshold=0.95):
+        try:
+            # 比較色彩值的分佈情況，主要用色相(H)、飽和度(S)和亮度(V)的比較 (對應 calcHist 的 channels [0, 1, 2], 也可以只比較其中幾項，如[0, 1])
+
+            image_1 = cv2.imread(self.image_1_path, cv2.IMREAD_COLOR)
+            image_2 = cv2.imread(self.image_2_path, cv2.IMREAD_COLOR)
+            logger(f'Image 1: {self.image_1_path}')
+            logger(f'Image 2: {self.image_2_path}')
+
+            # 轉換圖片為HSV色彩空間
+            hsv_image1 = cv2.cvtColor(image_1, cv2.COLOR_BGR2HSV)
+            hsv_image2 = cv2.cvtColor(image_2, cv2.COLOR_BGR2HSV)
+
+            # 計算直方圖
+            hist_image1 = cv2.calcHist([hsv_image1], [0, 1, 2], None, [180, 256, 256], [0, 180, 0, 256, 0, 256])
+            hist_image2 = cv2.calcHist([hsv_image2], [0, 1, 2], None, [180, 256, 256], [0, 180, 0, 256, 0, 256])
+
+            # 正規化直方圖
+            cv2.normalize(hist_image1, hist_image1, 0, 1, cv2.NORM_MINMAX)
+            cv2.normalize(hist_image2, hist_image2, 0, 1, cv2.NORM_MINMAX)
+
+            # 計算直方圖相似性
+            correlation = cv2.compareHist(hist_image1, hist_image2, cv2.HISTCMP_CORREL)
+            logger(f"correlation = {correlation}")
+
+            if correlation >= threshold:
+                logger("Images compare pass")
+                return True
+            else:
+                logger(f"Images compare diff")
+                return False
+        except:
+            traceback.print_exc()

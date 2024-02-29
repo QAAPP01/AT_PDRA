@@ -25,6 +25,15 @@ class Shortcut:
         else:
             return xpath(f'//*[contains(@resource-id,"tv_name")]')
 
+    class hsl:
+        red = id('view_red')
+        hue_slider = id('seek_bar_hue')
+        hue_value = id('tv_hue')
+        saturation_slider = id('seek_bar_saturation')
+        saturation_value = id('tv_saturation')
+        luminance_slider = id('seek_bar_luminance')
+        luminance_value = id('tv_luminance')
+
     class body_effect:
         edit = id('itemEdit')
         cancel = id('btn_cancel')

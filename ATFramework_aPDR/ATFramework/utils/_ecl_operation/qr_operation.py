@@ -71,8 +71,6 @@ class Qr_Operation():
             self.user_name = passwd_list[0]
             self.password = passwd_list[1]
             # initial browser
-            self.driver = Edge() #if para_dict["browser"] == 'edge' else Chrome()
-            self.driver.implicitly_wait(1)
             self.options = EdgeOptions() # if para_dict["browser"] == 'edge' else ChromeOptions()
             self.options.add_experimental_option("excludeSwitches", ['enable-automation', 'ignore-certificate-errors', 'enable-logging'])  # 新版本關閉“chrome正受到自動測試軟件的控製”信息
             self.options.add_argument("--no-first-run")
@@ -81,6 +79,8 @@ class Qr_Operation():
             self.options.add_argument('--allow-insecure-localhost')
             self.options.add_argument('--headless')     # 不顯示實際瀏覽器窗口
             self.options.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
+            self.driver = Edge(options=self.options) #if para_dict["browser"] == 'edge' else Chrome()
+            self.driver.implicitly_wait(1)
         except Exception as e:
             err_msg = f'Exception occurs. Incorrect format of parameter or missing keys. ErrorLog={e}'
             logger(err_msg)

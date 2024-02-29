@@ -764,6 +764,48 @@ class Ecl_Operation():
                 break
         return rd_build_no
 
+    def get_untested_valid_tr_by_sr(self, ojson, sr_num):
+        # get TR list
+        self.tr_no = '' # reset tr_no as empty
+        amount_sr = len(ojson["SRForm"])
+        index_target = -1
+        if amount_sr > 0:
+            for index in range(amount_sr):
+                if sr_num == ojson['SRForm'][index]['SRF_no']:
+                    index_target = index
+                    break
+            if index_target == -1:
+                err_msg = f'[get_latest_valid_tr_by_sr] No SR_Num is matched.'
+                print(err_msg)
+                self.err_msg = err_msg
+                return False
+            ojson_tr_list = ojson['SRForm'][index_target]['TRList']
+        else:
+            err_msg = f'[get_latest_valid_tr_by_sr] NO SR List is found.'
+            print(err_msg)
+            self.err_msg = err_msg
+            return False
+        # get latest valid TR
+        if len(ojson_tr_list) > 0:
+            for item_tr in ojson_tr_list:  # list tr from end
+                if 'Assigned' in item_tr['Status'] or 'NewCreated' in item_tr['Status']:
+                    if 'Cancel' not in item_tr['Status'] and 'Rejected' not in item_tr['Status']:
+                        # check if TR already exists in SR DB
+                        if self.check_if_tr_exists_in_db(item_tr['TRCode'], sr_num):
+                            logger(f'TR={item_tr["TRCode"]} already exists in DB. Skip it.')
+                            continue
+                        self.tr_no = item_tr['TRCode']
+                        break
+            if self.tr_no == '':
+                self.err_msg = f'[get_latest_valid_tr_by_sr] No valid TR is found in SR={sr_num}'
+                return False
+        else:
+            err_msg = f'[get_latest_valid_tr_by_sr] NO TR List is found. SR_No={sr_num}'
+            if debug_mode: print(err_msg)
+            self.err_msg = err_msg
+            return False
+        return True
+
     def get_last_valid_tr_by_sr(self, ojson, sr_num):
         # get TR list
         self.tr_no = '' # reset tr_no as empty
@@ -998,6 +1040,215 @@ class Ecl_Operation():
 #         dict_result['error_log'] = oecl.err_msg
 #         oecl._send_email()
 #     return dict_result
+
+
+def get_untested_build(para_dict):
+    dict_result = {'result': True, 'error_log': '', 'ver_type': '', 'build': '', 'sr_no': '', 'tr_no': '',
+                   'prev_tr_no': '',
+                   'project': '', 'short_description': '', 'prog_path': ''}
+    oecl = ''
+    try:
+        # Initial object
+        oecl = Ecl_Operation(para_dict)
+        if debug_mode: print(f'user_name={oecl.user_name}, password={oecl.password}')
+        # Query SR DB by eCL service (w/ Product Name ONLY)
+        prod_ver = oecl.prod_ver
+        prod_ver_type = oecl.prod_ver_type
+        oecl.prod_ver = ''
+        oecl.prod_ver_type = ''
+        obj_json_sr_db = oecl.query_sr_by_ecl_service()  # query sr db from ecl services
+        oecl.prod_ver = prod_ver
+        oecl.prod_ver_type = prod_ver_type
+        sub_sr_list = oecl.get_sub_sr_list(obj_json_sr_db)
+        sr_list = oecl.get_sr_list(obj_json_sr_db, oecl.filter_sr_keyword, sub_sr_list)
+        if debug_mode: print(f'SR_Amount={len(obj_json_sr_db["SRForm"])}')
+        if debug_mode: print(f'Total SR={len(sr_list)}')
+        if debug_mode: print(f'Total SubSR={len(sub_sr_list)}')
+
+        if oecl.sr_no == '' and oecl.tr_no == '':
+            # filter by Prod_Ver, Prod_Ver_Type, Custom Name
+            sr_list = oecl.filter_sr_list_by_prod_ver(obj_json_sr_db, sr_list)
+            if debug_mode: print(f'[By Prod_Ver] Amount={len(sr_list)}, SR_List={sr_list}')
+
+            sr_list = oecl.filter_sr_list_by_prod_ver_type(obj_json_sr_db, sr_list)
+            if debug_mode: print(f'[By Prod_Ver_Type] Amount={len(sr_list)}, SR_List={sr_list}')
+
+            sr_list = oecl.filter_sr_list_by_custom_name(obj_json_sr_db, sr_list)
+            if debug_mode: print(f'[By Custom Name] Amount={len(sr_list)}, SR_List={sr_list}')
+
+            # query last valid tr by sr (Sub-SR support - Not yet.)
+            for curr_sr in sr_list:
+                if debug_mode: print(f'Curr Master SR={curr_sr}')
+                # query mode - Master SR ONLY
+                if oecl.query_mode == 0:
+                    if debug_mode: print(f'Query_Mode - Master SR ONLY')
+                    if oecl.get_untested_valid_tr_by_sr(obj_json_sr_db, curr_sr):
+                        if debug_mode: print(f'New TR={oecl.tr_no} is Found.')
+                        dict_result['sr_no'] = curr_sr
+                        dict_result['tr_no'] = oecl.tr_no
+                        break
+                # query mode - Sub-SR ONLY
+                elif oecl.query_mode == 1:
+                    if debug_mode: print(f'Query_Mode - Sub-SR ONLY')
+                    sub_sr_list = oecl.get_sub_sr_list_by_master_sr(obj_json_sr_db, curr_sr)
+                    if debug_mode: print(f'{sub_sr_list=}')
+                    is_found = False
+                    for sub_sr in sub_sr_list:
+                        if debug_mode: print(f'Curr Sub-SR={sub_sr["sub_sr"]}')
+                        if oecl.get_last_valid_tr_by_sub_sr(sub_sr):
+                            if debug_mode: print(f'New TR={oecl.tr_no} is Found.')
+                            # check if TR already exists in SR DB
+                            if oecl.check_if_tr_exists_in_db(oecl.tr_no, sub_sr['sub_sr']):
+                                if debug_mode: print(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                                logger(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                                continue
+                            is_found = True
+                            dict_result['sr_no'] = sub_sr['sub_sr']
+                            dict_result['tr_no'] = oecl.tr_no
+                            break
+                    if is_found:
+                        break
+                # query mode - Master+Sub-SR
+                else:
+                    if debug_mode: print(f'Query_Mode - Master+Sub SR')
+                    is_found = False
+                    if oecl.get_last_valid_tr_by_sr(obj_json_sr_db, curr_sr):
+                        if debug_mode: print(f'New TR={oecl.tr_no} is Found.')
+                        # check if TR already exists in SR DB
+                        if oecl.check_if_tr_exists_in_db(oecl.tr_no, curr_sr):
+                            if debug_mode: print(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                            logger(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                        else:
+                            is_found = True
+                            dict_result['sr_no'] = curr_sr
+                            dict_result['tr_no'] = oecl.tr_no
+
+                    if is_found:
+                        break
+                    else:
+                        sub_sr_list = oecl.get_sub_sr_list_by_master_sr(obj_json_sr_db, curr_sr)
+                        if sub_sr_list:
+                            for sub_sr in sub_sr_list:
+                                if debug_mode: print(f'Curr Sub-SR={sub_sr["sub_sr"]}')
+                                if oecl.get_last_valid_tr_by_sub_sr(sub_sr):
+                                    if debug_mode: print(f'New TR={oecl.tr_no} is Found.')
+                                    # check if TR already exists in SR DB
+                                    if oecl.check_if_tr_exists_in_db(oecl.tr_no, sub_sr['sub_sr']):
+                                        if debug_mode: print(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                                        logger(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                                        continue
+                                    is_found = True
+                                    dict_result['sr_no'] = sub_sr['sub_sr']
+                                    dict_result['tr_no'] = oecl.tr_no
+                                    break
+                            if is_found:
+                                break
+
+            if dict_result['tr_no'] == '':  # query no new valid tr from sr
+                dict_result['result'] = False
+                dict_result['error_log'] = 'No new valid TR is found.'
+                return dict_result
+        else:
+            # Query last valid TR by specified SR/ Sub-SR
+            if oecl.tr_no == '':
+                if oecl.sr_no != '':
+                    # Specified SR is Master SR
+                    if debug_mode: print(f'{sr_list=}')
+                    is_found = False
+                    if oecl.sr_no in sr_list:
+                        if debug_mode: print(f'{oecl.sr_no} > Master SR')
+                        if oecl.get_last_valid_tr_by_sr(obj_json_sr_db, oecl.sr_no):
+                            if debug_mode: print(f'New TR={oecl.tr_no} is Found.')
+                            # check if TR already exists in SR DB
+                            if oecl.check_if_tr_exists_in_db(oecl.tr_no, oecl.sr_no):
+                                if debug_mode: print(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                                logger(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                                dict_result['result'] = False
+                                dict_result['error_log'] = 'No new valid TR is found.'
+                                dict_result['sr_no'] = oecl.sr_no
+                                return dict_result  # query no valid tr from sr
+                            dict_result['sr_no'] = oecl.sr_no
+                            dict_result['tr_no'] = oecl.tr_no
+                            is_found = True
+                        else:  # there is no valid TR in specified SR
+                            dict_result['result'] = False
+                            dict_result['error_log'] = 'No valid TR is found.'
+                            dict_result['sr_no'] = oecl.sr_no
+                            return dict_result  # query no valid tr from sr
+
+                    # Specified SR is Sub-SR
+                    if not is_found:
+                        for master_sr in sr_list:
+                            sub_sr_list = oecl.get_sub_sr_list_by_master_sr(obj_json_sr_db, master_sr)
+                            for sub_sr in sub_sr_list:
+                                if oecl.sr_no == sub_sr['sub_sr']:
+                                    if debug_mode: print(f'{oecl.sr_no} > Sub-SR')
+                                    is_found = True
+                                    if oecl.get_last_valid_tr_by_sub_sr(sub_sr):
+                                        if debug_mode: print(f'New TR={oecl.tr_no} is Found.')
+                                        # check if TR already exists in SR DB
+                                        if oecl.check_if_tr_exists_in_db(oecl.tr_no, oecl.sr_no):
+                                            if debug_mode: print(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                                            logger(f'TR={oecl.tr_no} already exists in DB. Skip it.')
+                                            dict_result['result'] = False
+                                            dict_result['error_log'] = 'No new valid TR is found.'
+                                            dict_result['sr_no'] = oecl.sr_no
+                                            return dict_result  # query no valid tr from sr
+                                        dict_result['sr_no'] = oecl.sr_no
+                                        dict_result['tr_no'] = oecl.tr_no
+                                        break
+                                    else:  # there is no valid TR in specified SR
+                                        dict_result['result'] = False
+                                        dict_result['error_log'] = 'No valid TR is found.'
+                                        dict_result['sr_no'] = oecl.sr_no
+                                        return dict_result  # query no valid tr from sr
+                            if is_found:
+                                break
+                    if not is_found:  # the specified SR is not in current sr list
+                        dict_result['result'] = False
+                        dict_result['error_log'] = 'Invalid SR (not in current list)'
+                        dict_result['sr_no'] = oecl.sr_no
+                        return dict_result
+
+        # Retrieve TR Info.
+        dict_tr_info = oecl.retrieve_tr_info()
+        dict_result['ver_type'] = dict_tr_info['ver_type']
+        dict_result['build'] = dict_tr_info['build']
+        dict_result['sr_no'] = dict_tr_info['sr_no']
+        dict_result['tr_no'] = dict_tr_info['tr_no']
+        dict_result['project'] = dict_tr_info['project']
+        dict_result['short_description'] = dict_tr_info['short_description']
+        dict_result['prog_path'] = dict_tr_info['prog_path']
+        dict_result['prev_tr_no'] = oecl.get_previous_tr_no()
+        logger(f'{dict_tr_info=}')
+        if debug_mode:
+            if oecl.tr_no:
+                oecl.add_tr_to_db(dict_result['sr_no'], dict_result['tr_no'])
+            return dict_result
+
+        # Download TR Build to Destination
+        src_path = dict_tr_info['prog_path']
+        if 'CLT-QASERVER' not in (src_path).upper():  # Currently, only support download from CLT-QASERVER
+            if debug_mode: print(f'[download_build_by_tr] {src_path=} is not supported')
+            dict_result['result'] = False
+            dict_result['error_log'] = f'[download_build_by_tr] {src_path=} is not supported'
+            return dict_result
+        if oecl.program_path_subfolder != '':
+            src_path += '\\' + oecl.program_path_subfolder
+        retry = 0
+        result_download = False
+        while retry < 3:
+            if oecl.download_tr_build(src_path, oecl.dest_path):
+                result_download = True
+                break
+            retry += 1
+        if not result_download:
+            raise Exception
+    except Exception as e:
+        logger(f'Exception occurs. ErrorLog={e}')
+        dict_result['result'] = False
+        dict_result['error_log'] = oecl.err_msg
+    return dict_result
 
 
 def get_latest_build(para_dict):

@@ -35,16 +35,16 @@ report_list = []
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 
-### [Auto Download parameters]  ###
+### [Control]  ###
 auto_download = True
-# auto_download = False
+send = True
+test_apk_from_appPath = True
 
-sr_number = 'DRA231130-01'  # for manual
-tr_number = 'TR240109-011'  # for manual
+sr_number = 'DRA240110-04'  # for manual
+tr_number = 'TR240207-034'  # for manual
 
 
 # [Report Mail Setting]
-send = True
 title_project = 'aPDR'
 receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
 # receiver = ['hausen_lin@cyberlink.com']
@@ -117,6 +117,10 @@ if __name__ == '__main__':
 
     # Install apk
     def install_apk(_apk_path, device_id=None):
+        if not os.path.exists(_apk_path):
+            print("APK is not downloaded")
+            exit(1)
+
         # 檢查目標資料夾是否存在，如果不存在，則創建它
         target_folder = os.path.dirname(_apk_path)
         if not os.path.exists(target_folder):
@@ -139,6 +143,8 @@ if __name__ == '__main__':
             print(f"APK 安裝成功：{output.decode()}")
         else:
             print(f"APK 安裝失敗：{error.decode()}")
+            exit(1)
+
 
 
     def uninstall_apk(_package_name, device_id=None):
@@ -175,7 +181,7 @@ if __name__ == '__main__':
                         'dest_path': app_path,
                         'mail_list': receiver,
                         'is_md5_check': False}
-        dict_result = ecl_operation.get_latest_build(para_dict)
+        dict_result = ecl_operation.get_untested_build(para_dict)
         print(f'{dict_result=}')
         if not dict_result['build']:
             print(dict_result['error_log'])
@@ -183,6 +189,7 @@ if __name__ == '__main__':
 
         else:
             # [log tr info]
+            sr_number = dict_result['sr_no']
             tr_number = dict_result['tr_no']
             previous_tr_number = dict_result['prev_tr_no']
 
@@ -198,9 +205,7 @@ if __name__ == '__main__':
     else:
         # Manual
         previous_tr_number = ecl_operation.manual_get_prev_tr()
-        ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
 
-        test_apk_from_appPath = True
         if test_apk_from_appPath:
             apk = rename_apk()
             if apk:
@@ -228,7 +233,7 @@ if __name__ == '__main__':
         file.write(f'package_build_number={package_build_number}\n')
 
     # run test
-    print(f'Test Info: TR = {tr_number}, Prev_TR = {previous_tr_number}, Build = '+ package_version + package_build_number)
+    print(f'Test Info: TR = {tr_number}, Prev_TR = {previous_tr_number}, Build = {package_version}.{package_build_number}')
     for device_idx in range(parallel_device_count):
         deviceid_list.append(device_udid[device_idx])
         cmd = ["%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
@@ -240,6 +245,7 @@ if __name__ == '__main__':
     for p in procs:
         p.join()
     print('test complete.')
+    ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
 
     # [mail result]
     if send:

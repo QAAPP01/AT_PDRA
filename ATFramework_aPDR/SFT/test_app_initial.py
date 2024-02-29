@@ -32,6 +32,7 @@ def test_app_init(driver):
         page_main.h_click(("xpath", '(//*[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/source_image_view"])[1]'))
         page_main.h_click(("xpath", '(//*[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/source_image_view"])[2]'))
         page_main.h_click(L.import_media.media_library.apply)
+        page_main.click(('id', 'tv_continue'), 2)
 
         if not page_edit.preference.trigger_fileName(enable=True):
             raise Exception('trigger_fileName fail')

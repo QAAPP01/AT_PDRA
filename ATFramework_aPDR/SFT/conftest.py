@@ -12,7 +12,7 @@ from ATFramework_aPDR.ATFramework.utils import MyReport
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from main import package_name
 
-test_mode = 0
+debug_mode = 0
 tr_number = ''
 previous_tr_number = ''
 try:
@@ -25,7 +25,7 @@ try:
                 previous_tr_number = value
 
 except FileNotFoundError:
-    test_mode = 1
+    debug_mode = 1
 
 except Exception:
     traceback.print_exc()
@@ -89,7 +89,7 @@ def driver():
     desired_caps.update(app_config.cap)
     desired_caps.update(DRIVER_DESIRED_CAPS)
 
-    if test_mode:
+    if debug_mode:
         logger('**** Debug Mode ****')
         # desired_caps['udid'] = 'R5CW31G76ST'
         desired_caps['udid'] = 'R5CT32Q3WQN'
@@ -139,7 +139,7 @@ def driver():
             retry -= 1
 
     yield driver
-    if not test_mode:
+    if not debug_mode:
         try:
             driver.driver.quit()
         except InvalidSessionIdException:
