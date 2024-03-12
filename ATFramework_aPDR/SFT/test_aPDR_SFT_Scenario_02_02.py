@@ -3895,3 +3895,18 @@ class Test_SFT_Scenario_02_02:
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
+
+    def test_na_case(self):
+        uuid = [
+            '255f3e69-7e80-4d64-ad07-b99646558dae',
+            '01576a37-c1e2-4ff0-8663-74387b5036ed',
+            '11b755de-eaa4-4232-afe5-d09b6cca72f6',
+            '185dee12-1fe5-4fe1-a0a9-941d643e1212',
+            '6fbc941d-12c6-40ef-b1cd-000b035ee8b1',
+            '225633cb-308a-4aaa-9ff6-fc1582084b5b'
+        ]
+
+        for case in uuid:
+            report.start_uuid(case)
+            report.new_result(case, None, fail_log="case modified")
+

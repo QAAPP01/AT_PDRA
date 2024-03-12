@@ -2341,7 +2341,7 @@ class Test_SFT_Scenario_02_35:
             return "FAIL"
 
     def sce_2_2_67(self):
-        uuid = '255f3e69-7e80-4d64-ad07-b99646558dae'
+        uuid = ''
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
@@ -3874,11 +3874,7 @@ class Test_SFT_Scenario_02_35:
                 print(f"[{value}] {key}")
 
     def test_case_4(self):
-        result = {"sce_2_2_67": self.sce_2_2_67(),
-                  "sce_2_2_69": self.sce_2_2_69(),
-                  "sce_2_2_68": self.sce_2_2_68(),
-                  "sce_2_2_70": self.sce_2_2_70(),
-                  "sce_2_2_73": self.sce_2_2_73(),
+        result = {
                   "sce_2_2_72": self.sce_2_2_72(),
                   "sce_2_2_74": self.sce_2_2_74(),
                   "sce_2_2_71": self.sce_2_2_71(),

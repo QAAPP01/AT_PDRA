@@ -2300,7 +2300,7 @@ class Test_SFT_Scenario_02_35:
             return "FAIL"
 
     def sce_2_35_67(self):
-        uuid = '255f3e69-7e80-4d64-ad07-b99646558dae'
+        uuid = ''
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)

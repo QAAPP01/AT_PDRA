@@ -150,6 +150,7 @@ class MainPage(BasePage):
                 self.h_click(L.import_media.media_library.back)
                 if self.h_is_exist(L.edit.preview.movie_view, 1):
                     logger('[Done] Enter Timeline Done')
+
                     return True
                 else:
                     logger('\n[Fail] Enter Timeline Fail')
@@ -157,14 +158,17 @@ class MainPage(BasePage):
             else:
                 if self.h_is_exist(L.edit.preview.movie_view, 2):
                     logger('[Done] Enter Timeline Done')
+
                     return True
                 else:
                     if self.h_is_exist(L.import_media.media_library.media(0)):
                         logger('[Done] Enter Timeline Done')
+
                         return True
                     else:
                         logger('\n[Fail] Enter Timeline Fail')
                         return False
+
         except Exception as err:
             logger(f"[Error] {err}")
             return False

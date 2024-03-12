@@ -26,39 +26,46 @@ class Test_Shortcut_HSL:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.uuid = ["4fee0ef7-fc78-4b5a-98c6-7fdda1e630d3",
-                     "521825f5-3ea1-4749-98ff-a3c911836823",
-                     "0c5539d3-0d78-402f-8bc3-fcf5af74fc9e",
-                     "d6d36056-7a06-4f64-b5ab-0f1bb734e208",
-                     "fc0db595-9bce-4cb0-9a74-ddbc58010698",
-                     "882eaae1-df07-40b3-a4d8-726c89ef4646",
-                     "d2bc5847-2a54-48fa-b1e2-373d3d44d0bd",
-                     "3c7c09d2-c7da-4151-8870-05e8f8421d3c",
-                     "87b13181-338e-4430-82b0-36d02bbe0373",
-                     "bf32f49c-fce7-49f9-8fcf-9f07417ce7ad",
-                     "ae603cf7-62f8-4e80-8b95-97e22966089e",
-                     "767ddcf0-af92-4fdf-9027-ba4c07e17251",
-                     "9e65386a-5a63-444f-b7a7-44f4e4265067",
-                     "0915e550-da9a-4a72-bd5f-5f696c501fe2",
-                     "35e5b4a4-8409-4577-9458-3662527b1d4a",
-                     "8489da3b-2e45-42e1-8803-a33ddbe51f2f",
-                     "9466ff04-9d8c-4e36-9ceb-15df1841d89a",
-                     "38deaa44-85c3-461e-b0b5-3a10833c4c72",
-                     "87ce49a5-004b-4a6e-b317-abbda5270f43",
-                     "2fb7926f-0cd6-4a63-b395-4f8026dacd62",
-                     "d801c163-8589-4855-a843-817342c8b3c8",
-                     "8ef8a360-4569-43cb-8ad6-3a311b2b43ec",
-                     "33ed4f34-c2c7-4a85-a5b3-d91a6c12b319",
-                     "fe5ac190-2f78-4b0a-b8c4-68b3aadbbaa3",
-                     "d932f0ba-5ec0-4f7f-9311-07687031a8b1",
-                     "a0248dff-b5b8-44e5-8b3e-7698cad05db3",
-                     "b1785692-7f69-4c8b-89df-e6eced38a316",
-                     "790000ec-e49f-4326-8717-b2eb1638a434",
-                     "d3a13504-11b6-4361-83e3-46ad64192b4a",
-                     "ea2fe0b6-dd36-403b-b52e-cc01e37060da",
-                     "965f4648-c935-40eb-bfd7-ca8d17a6da43",
-                     "a38b13ce-ba64-4a58-85e2-e4d8d78c1fb0",
-                     ]
+        self.uuid = [
+            '4fee0ef7-fc78-4b5a-98c6-7fdda1e630d3',
+            '521825f5-3ea1-4749-98ff-a3c911836823',
+            '0c5539d3-0d78-402f-8bc3-fcf5af74fc9e',
+            'd6d36056-7a06-4f64-b5ab-0f1bb734e208',
+            'fc0db595-9bce-4cb0-9a74-ddbc58010698',
+            '882eaae1-df07-40b3-a4d8-726c89ef4646',
+            'd2bc5847-2a54-48fa-b1e2-373d3d44d0bd',
+            '3c7c09d2-c7da-4151-8870-05e8f8421d3c',
+            '87b13181-338e-4430-82b0-36d02bbe0373',
+            'bf32f49c-fce7-49f9-8fcf-9f07417ce7ad',
+            'ae603cf7-62f8-4e80-8b95-97e22966089e',
+            'bd1a2cdf-d534-4fd9-8cc0-eff63afc5b98',
+            '767ddcf0-af92-4fdf-9027-ba4c07e17251',
+            '0915e550-da9a-4a72-bd5f-5f696c501fe2',
+            'a81bac13-7d33-4e63-b6e6-e718164a3768',
+            '9e65386a-5a63-444f-b7a7-44f4e4265067',
+            '0a0d97ba-ab43-4356-bb06-21686e54345d',
+            '35e5b4a4-8409-4577-9458-3662527b1d4a',
+            '9466ff04-9d8c-4e36-9ceb-15df1841d89a',
+            '97784a57-0eb0-4156-959d-b8721fc64816',
+            '8489da3b-2e45-42e1-8803-a33ddbe51f2f',
+            'f131bc46-b881-4d3f-a714-54c461337138',
+            '38deaa44-85c3-461e-b0b5-3a10833c4c72',
+            '2fb7926f-0cd6-4a63-b395-4f8026dacd62',
+            '619edce2-f1b3-45b0-9c7f-80a864a6c46a',
+            '87ce49a5-004b-4a6e-b317-abbda5270f43',
+            '72ae969f-d7a1-4cfb-a247-6960a90f3e76',
+            '8ef8a360-4569-43cb-8ad6-3a311b2b43ec',
+            '33ed4f34-c2c7-4a85-a5b3-d91a6c12b319',
+            'fe5ac190-2f78-4b0a-b8c4-68b3aadbbaa3',
+            'd932f0ba-5ec0-4f7f-9311-07687031a8b1',
+            'a0248dff-b5b8-44e5-8b3e-7698cad05db3',
+            'b1785692-7f69-4c8b-89df-e6eced38a316',
+            '790000ec-e49f-4326-8717-b2eb1638a434',
+            'd3a13504-11b6-4361-83e3-46ad64192b4a',
+            'ea2fe0b6-dd36-403b-b52e-cc01e37060da',
+            '965f4648-c935-40eb-bfd7-ca8d17a6da43',
+            'a38b13ce-ba64-4a58-85e2-e4d8d78c1fb0'
+        ]
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -354,7 +361,6 @@ class Test_Shortcut_HSL:
             self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
-
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -364,1255 +370,489 @@ class Test_Shortcut_HSL:
 
             return "FAIL"
 
-    def sce_6_3_4(self):
-        uuid = 'bee11837-3711-4071-bf77-48f09135787c'
+    def sce_6_1_12(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.click(L.main.ai_effect.back)
-            self.click(L.main.ai_effect.template())
-            page_before = self.element(L.main.ai_effect.full_preview)
+            if self.element(L.main.shortcut.hsl.red).get_attribute('selected') == 'true':
+                raise Exception('Red is already selected, please change the color')
+            self.click(L.main.shortcut.hsl.red)
 
-            # swipe up to free template for export test and 1 clip required
-            while self.is_exist(L.main.ai_effect.premium, 1) or self.element(
-                    L.main.ai_effect.template_clip_number()).text != "1 clip":
-                page_before = self.element(L.main.ai_effect.full_preview)
-                self.driver.swipe_up()
-                if page_before == self.element(L.main.ai_effect.full_preview):
-                    break
-
-            if not page_before == self.element(L.main.ai_effect.full_preview):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Preview is no change'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if self.element(L.main.shortcut.hsl.red).get_attribute('selected') == 'true':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Color is not changed')
+
         except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_3_5(self):
-        uuid = 'aee4de37-54cb-4a7b-a547-aaae2f6f6b61'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            if result_sce_6_2_4 and result_sce_6_2_5:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] Duration: {result_sce_6_2_4}, Clip: {result_sce_6_2_5}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_3_6(self):
-        uuid = '52a8372a-401d-426e-be15-b7bc1ddbf3f7'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.main.ai_effect.try_now)
-
-            if self.is_exist(L.main.ai_effect.media_library):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] Cannot find media_library'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_1(self):
-        uuid = '5974cd43-3dbe-419e-8406-07b89c4990f4'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.main.ai_effect.back)
-
-            if self.is_exist(L.main.ai_effect.try_now):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] Cannot find try_now'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_2(self):
-        uuid = '06054245-4a09-4b65-86d1-435dc32b0292'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.main.ai_effect.try_now)
-            toast_default = "Recommend choosing images/videos with clear view of face."
-            toast = self.element(L.main.ai_effect.toast).text
-
-            if toast == toast_default:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] Toast incorrect: {toast}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_3(self):
-        uuid = '1c1ca59a-306a-491b-9aa8-403dba30906c'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.by_name)
-            self.click(L.import_media.sort_menu.descending)
-            self.driver.driver.back()
-
-            files_name = []
-            files = self.elements(L.import_media.media_library.file_name(0))
-            for i in files:
-                files_name.append(i.text)
-            file_name_order = sorted(files_name, reverse=True)
-
-            if file_name_order == files_name:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_4(self):
-        uuid = 'e2cadaca-6237-4a4f-acb6-d56142c12a35'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.by_name)
-            self.click(L.import_media.sort_menu.ascending)
-            self.driver.driver.back()
-
-            files_name = []
-            files = self.elements(L.import_media.media_library.file_name(0))
-            for i in files:
-                files_name.append(i.text)
-            file_name_order = sorted(files_name)
-
-            if file_name_order == files_name:
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_5(self):
-        uuid = '1cfe4a37-eb49-47a1-a872-927d77349328'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.media_library.btn_preview())
-            for i in range(60):
-                if self.is_exist(L.import_media.media_library.loading_circle, 1):
-                    time.sleep(1)
-                else:
-                    break
-
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
-                self.driver.driver.back()
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_6(self):
-        uuid = 'aea9aa01-7db5-4de8-a29f-150a80c47727'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.long_press(L.import_media.media_library.media())
-            self.page_media.waiting_loading()
-
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_7(self):
-        uuid = 'da4e5d16-6cdc-42d5-b4e0-8c6856b00dd0'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            file_name = "mp4.mp4"
-            self.page_media.select_local_video(self.test_material_folder, file_name)
-            self.click(L.import_media.media_library.next)
-            self.page_media.waiting_download()
-
-            if self.is_exist(L.main.ai_effect.produce):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find produce button'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_editor()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder,video_9_16)
 
             return "FAIL"
 
-    def sce_6_4_8(self):
-        uuid = '27f41d5f-29af-4ce2-a93d-b98a7a53171f'
+    def sce_6_1_13(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.page_ai_effect.leave_editor_to_library(reenter=True)
+            value = self.element(L.main.shortcut.hsl.hue_value).text
 
-            file_name = "mkv.mkv"
-            self.page_media.select_local_video(self.test_material_folder, file_name)
-            self.click(L.import_media.media_library.next)
-
-            while self.is_exist(L.main.ai_effect.downloading):
-                continue
-
-            if self.is_exist(L.main.ai_effect.produce):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find produce button'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '0':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Value incorrect: {value}')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_editor()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder,video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
-    def sce_6_4_9(self):
-        uuid = '46a4a213-155f-4bf4-9f49-e7971e50c069'
+    def sce_6_1_14(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.page_ai_effect.leave_editor_to_library(reenter=True)
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_min(L.main.shortcut.hsl.hue_slider)
+            value = self.element(L.main.shortcut.hsl.hue_value).text
 
-            file_name = "slow_motion.mp4"
-            self.page_media.select_local_video(self.test_material_folder, file_name)
-            self.click(L.import_media.media_library.next)
-
-            while self.is_exist(L.main.ai_effect.downloading):
-                continue
-
-            if self.is_exist(L.main.ai_effect.produce):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find produce button'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '-50':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Value incorrect: {value}')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_editor()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_min(L.main.shortcut.hsl.hue_slider)
 
             return "FAIL"
 
-    def sce_6_4_10(self):
-        uuid = '0e5091f5-caf5-489b-9a76-2bdc5eac8483'
+    def sce_6_1_15(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.page_ai_effect.leave_editor_to_library(reenter=True)
+            after = self.page_edit.get_preview_pic()
 
-            file_name = "4k.mp4"
-            self.page_media.select_local_video(self.test_material_folder, file_name)
-            self.click(L.import_media.media_library.next)
-
-            while self.is_exist(L.main.ai_effect.downloading):
-                continue
-
-            if self.is_exist(L.main.ai_effect.produce):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find produce button'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if not HCompareImg(after, self.original).histogram_compare():
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Preview no change')
+
         except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_11(self):
-        uuid = 'e7bde95b-875f-465e-ab3c-fa97b21c2641'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
-            return 'N/A'
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_12(self):
-        uuid = '1b367024-715d-465c-a03b-2a7231eff70b'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
-            return 'N/A'
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_13(self):
-        uuid = '678e883f-7d47-4550-814a-5fa5445525b3'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
-            return 'N/A'
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_14(self):
-        uuid = '705a77b8-de7e-48ae-bd56-7f1d7dee2108'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
-            return 'N/A'
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_15(self):
-        uuid = '8fe1d6d1-1668-417f-be33-52e0376bf427'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.report.new_result(uuid, None, 'N/A', 'Stock is hidden')
-            return 'N/A'
-        except Exception as err:
-            logger(err)
-
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_editor()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
-    def sce_6_4_16(self):
-        uuid = 'add59eeb-d4b9-4f4e-8a38-9e392418be25'
+    def sce_6_1_16(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.page_ai_effect.leave_editor_to_library(reenter=True)
+            self.driver.drag_slider_to_max(L.main.shortcut.hsl.hue_slider)
+            value = self.element(L.main.shortcut.hsl.hue_value).text
 
-            self.page_media.select_video_library("getty")
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.newest)
-            self.driver.driver.back()
-            self.page_media.waiting_loading()
-            time.sleep(2)
-            global pic_src
-            pic_src = self.page_main.h_full_screenshot()
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.best_match)
-            self.driver.driver.back()
-            time.sleep(2)
-            pic_tgt = self.page_main.h_full_screenshot()
-
-            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '50':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Value incorrect: {value}')
+
         except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_17(self):
-        uuid = 'fa875287-e015-43e6-9464-07aa4af79c9d'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
-            self.page_media.waiting_loading()
-            time.sleep(2)
-            pic_tgt = self.page_main.h_full_screenshot()
-
-            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_18(self):
-        uuid = 'f9a25aa8-79b9-4fdd-a1b8-75df98ca28ba'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.media_library.btn_preview())
-            self.page_media.waiting_loading()
-
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_19(self):
-        uuid = 'a2c237ce-9be0-41ed-9f33-fb5928f64129'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.long_press(L.import_media.media_library.media())
-            self.page_media.waiting_loading()
-
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_20(self):
-        uuid = '4f4c6732-a1eb-4224-aab8-ab3b35be08c7'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.media_library.media())
-            self.click(L.edit.try_before_buy.try_it)
-            self.page_media.waiting_download()
-            self.click(L.import_media.media_library.next)
-            self.page_media.waiting_download()
-
-            if self.is_exist(L.main.ai_effect.produce):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find produce button'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_editor()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_max(L.main.shortcut.hsl.hue_slider)
 
             return "FAIL"
 
-    def sce_6_4_21(self):
-        uuid = '03ade2c2-26f5-4f35-b8cf-6f6902681b23'
+    def sce_6_1_17(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.page_ai_effect.leave_editor_to_library(reenter=True)
+            after = self.page_edit.get_preview_pic()
 
-            self.page_media.select_video_library("getty_pro")
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.newest)
-            self.driver.driver.back()
-            self.page_media.waiting_loading()
-            time.sleep(2)
-            global pic_src
-            pic_src = self.page_main.h_full_screenshot()
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.random)
-            self.driver.driver.back()
-            time.sleep(2)
-            pic_tgt = self.page_main.h_full_screenshot()
-
-            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if not HCompareImg(after, self.original).histogram_compare():
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
+                raise Exception(f'[Fail] Preview no change')
+
         except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_22(self):
-        uuid = '36006f64-f596-4c1a-806b-5888b492cea5'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
-            self.page_media.waiting_loading()
-            time.sleep(2)
-            pic_tgt = self.page_main.h_full_screenshot()
-
-            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_23(self):
-        uuid = 'a631b422-8278-4405-be17-19a36bdf1169'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.media_library.btn_preview())
-            self.page_media.waiting_loading()
-
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_24(self):
-        uuid = '0645bdec-80e8-4cb5-bc71-f20f45506f49'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.long_press(L.import_media.media_library.media())
-            self.page_media.waiting_loading()
-
-            if self.is_exist(L.import_media.media_library.video.display_preview):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            return "FAIL"
-
-    def sce_6_4_25(self):
-        uuid = '41f8a14e-13e8-4e62-a70d-fb00a6f89879'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.import_media.media_library.media())
-            self.page_media.waiting_download()
-            self.click(L.import_media.gettyimages_premium.buy_dialog.btn_buy)
-            self.click(find_string("1-tap buy"), 10)
-            self.click(find_string("Not now"))
-            self.click(L.import_media.media_library.media(), 10)
-            self.click(L.import_media.media_library.next)
-
-            self.page_media.waiting_download()
-
-            if self.is_exist(L.main.ai_effect.produce):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find produce button'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_editor()
-            return "FAIL"
 
-    def sce_6_4_26(self):
-        uuid = '0a798223-d396-4e8a-83ac-b5b0274c6c18'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.page_ai_effect.leave_editor_to_library()
-            self.page_ai_effect.enter_free_template_media_picker(skip_enter_template_library=True)
-
-            if not self.page_media.select_video_library("giphy"):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Can find giphy'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            return "FAIL"
-
-    def sce_6_4_27(self):
-        uuid = 'a501cdc4-5a93-4600-9fb7-f53fdf072d88'
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
-
-        try:
-            self.click(L.main.ai_effect.back)
-            self.click(L.main.ai_effect.try_now)
-
-            self.page_media.select_video_library("pexels")
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.by_vertical)
-            self.driver.driver.back()
-            self.page_media.waiting_loading()
-            global pic_src
-            time.sleep(2)
-            pic_src = self.page_main.h_full_screenshot()
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.by_all_orientation)
-            self.driver.driver.back()
-            time.sleep(2)
-            pic_tgt = self.page_main.h_full_screenshot()
-
-            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
-                return "PASS"
-            else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            self.page_media.select_video_library("pexels")
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
-    def sce_6_4_28(self):
-        uuid = '9eb5e76d-3a03-41b0-a1ea-75ada04053b6'
+    def sce_6_1_18(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
-            self.page_media.waiting_loading()
-            time.sleep(2)
-            pic_tgt = self.page_main.h_full_screenshot()
+            value = self.element(L.main.shortcut.hsl.saturation_value).text
 
-            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '0':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Value incorrect: {value}')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            self.page_media.select_video_library("pexels")
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
-    def sce_6_4_29(self):
-        uuid = 'cac9790b-db7a-41bf-87fd-8b5712ed2f6f'
+    def sce_6_1_19(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.click(L.import_media.media_library.btn_preview())
-            timeout = self.page_media.waiting_loading()
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_min(L.main.shortcut.hsl.saturation_slider)
+            value = self.element(L.main.shortcut.hsl.saturation_value).text
 
-            if self.is_exist(L.import_media.media_library.video.videoDisplay) and timeout:
-                result = True
-                fail_log = None
-            elif not timeout:
-                result = False
-                fail_log = '\n[Fail] Media loading timeout'
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '-50':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Value incorrect: {value}')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            self.page_media.select_video_library("pexels")
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_min(L.main.shortcut.hsl.saturation_slider)
 
             return "FAIL"
 
-    def sce_6_4_30(self):
-        uuid = '9cb0f207-62b7-4895-a05c-3efd4534f346'
+    def sce_6_1_20(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.long_press(L.import_media.media_library.media())
-            self.page_media.waiting_loading()
+            after = self.page_edit.get_preview_pic()
 
-            if self.is_exist(L.import_media.media_library.video.videoDisplay):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if not HCompareImg(after, self.original).histogram_compare():
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Preview no change')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            self.page_media.select_video_library("pexels")
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
-    def sce_6_4_31(self):
-        uuid = '1c32f806-a485-4fc3-aeeb-0d9d48d4df28'
+    def sce_6_1_21(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.click(L.import_media.media_library.media())
-            self.click(L.edit.try_before_buy.try_it)
-            self.page_media.waiting_download()
-            self.click(L.import_media.media_library.next)
-            self.page_media.waiting_download()
+            self.driver.drag_slider_to_max(L.main.shortcut.hsl.saturation_slider)
+            value = self.element(L.main.shortcut.hsl.saturation_value).text
 
-            if self.is_exist(L.main.ai_effect.produce):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find produce button'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '50':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Value incorrect: {value}')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_editor()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_max(L.main.shortcut.hsl.saturation_slider)
 
             return "FAIL"
 
-    def sce_6_4_32(self):
-        uuid = '92c0bded-6eb1-4c63-99d3-1c165cded40c'
+    def sce_6_1_22(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.page_ai_effect.leave_editor_to_library()
-            self.page_ai_effect.enter_free_template_media_picker(skip_enter_template_library=True)
+            after = self.page_edit.get_preview_pic()
 
-            self.page_media.select_video_library("pixabay")
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.newest)
-            self.driver.driver.back()
-            self.page_media.waiting_loading()
-            global pic_src
-            time.sleep(2)
-            pic_src = self.page_main.h_full_screenshot()
-            self.click(L.import_media.sort_menu.sort_button)
-            self.click(L.import_media.sort_menu.best_match)
-            self.driver.driver.back()
-            time.sleep(2)
-            pic_tgt = self.page_main.h_full_screenshot()
-
-            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if not HCompareImg(after, self.original).histogram_compare():
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Preview no change')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            self.page_media.select_video_library("pixabay")
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
-    def sce_6_4_33(self):
-        uuid = 'c8de0ffb-9fd9-4a88-a8c5-d452bd2a2681'
+    def sce_6_1_23(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
-            self.page_media.waiting_loading()
-            time.sleep(2)
-            pic_tgt = self.page_main.h_full_screenshot()
+            value = self.element(L.main.shortcut.hsl.luminance_value).text
 
-            if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Images are the same'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '0':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Value incorrect: {value}')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            self.page_media.select_video_library("pixabay")
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
-    def sce_6_4_34(self):
-        uuid = 'eeee5f1d-b66b-4960-bb95-123f4704f20c'
+    def sce_6_1_24(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.click(L.import_media.media_library.btn_preview())
-            timeout = self.page_media.waiting_loading()
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_min(L.main.shortcut.hsl.luminance_slider)
+            value = self.element(L.main.shortcut.hsl.luminance_value).text
 
-            if self.is_exist(L.import_media.media_library.Video.display_preview) and timeout:
-                result = True
-                fail_log = None
-            elif not timeout:
-                result = False
-                fail_log = '\n[Fail] Media loading timeout'
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '-50':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Value incorrect: {value}')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            self.page_media.select_video_library("pixabay")
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_min(L.main.shortcut.hsl.luminance_slider)
 
             return "FAIL"
 
-    def sce_6_4_35(self):
-        uuid = '7c96446d-1b2e-4bc5-b2d2-a45f628f9be8'
+    def sce_6_1_25(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.long_press(L.import_media.media_library.media())
-            waiting = self.page_media.waiting_loading()
+            after = self.page_edit.get_preview_pic()
 
-            if self.is_exist(L.import_media.media_library.video.display_preview) and waiting:
-                result = True
-                fail_log = None
-            elif not waiting:
-                result = False
-                fail_log = '\n[Fail] Media loading timeout'
-            else:
-                result = False
-                fail_log = '\n[Fail] id "display_preview" is not exist'
-
-            self.driver.driver.back()
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if not HCompareImg(after, self.original).histogram_compare():
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Preview no change')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_free_template_media_picker()
-            self.page_media.select_video_library("pixabay")
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
-    def sce_6_4_36(self):
-        uuid = 'c106a7ca-8477-4cd7-8e28-257f901908d3'
+    def sce_6_1_26(self):
         func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        report.start_uuid(uuid)
 
         try:
-            self.click(L.import_media.media_library.media())
-            self.click(L.edit.try_before_buy.try_it)
-            self.page_media.waiting_download()
-            self.click(L.import_media.media_library.next)
-            self.page_media.waiting_download()
+            self.driver.drag_slider_to_max(L.main.shortcut.hsl.luminance_slider)
+            value = self.element(L.main.shortcut.hsl.saturation_value).text
 
-            if self.is_exist(L.main.ai_effect.produce):
-                result = True
-                fail_log = None
-            else:
-                result = False
-                fail_log = '\n[Fail] Cannot find produce button'
-
-            self.report.new_result(uuid, result, fail_log=fail_log)
-            if result:
+            if value == '50':
+                report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(fail_log)
-        except Exception as err:
-            logger(err)
+                raise Exception(f'[Fail] Value incorrect: {value}')
 
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.page_ai_effect.enter_editor()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
+            self.original = self.page_edit.get_preview_pic()
+            self.driver.drag_slider_to_max(L.main.shortcut.hsl.luminance_slider)
+
+            return "FAIL"
+
+    def sce_6_1_27(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            after = self.page_edit.get_preview_pic()
+
+            if not HCompareImg(after, self.original).histogram_compare():
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Preview no change')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.click(L.main.shortcut.hsl.red)
 
             return "FAIL"
 
@@ -3728,6 +2968,22 @@ class Test_Shortcut_HSL:
                   "sce_6_1_9": self.sce_6_1_9(),
                   "sce_6_1_10": self.sce_6_1_10(),
                   "sce_6_1_11": self.sce_6_1_11(),
+                  "sce_6_1_12": self.sce_6_1_12(),
+                  "sce_6_1_13": self.sce_6_1_13(),
+                  "sce_6_1_14": self.sce_6_1_14(),
+                  "sce_6_1_15": self.sce_6_1_15(),
+                  "sce_6_1_16": self.sce_6_1_16(),
+                  "sce_6_1_17": self.sce_6_1_17(),
+                  "sce_6_1_18": self.sce_6_1_18(),
+                  "sce_6_1_19": self.sce_6_1_19(),
+                  "sce_6_1_20": self.sce_6_1_20(),
+                  "sce_6_1_21": self.sce_6_1_21(),
+                  "sce_6_1_22": self.sce_6_1_22(),
+                  "sce_6_1_23": self.sce_6_1_23(),
+                  "sce_6_1_24": self.sce_6_1_24(),
+                  "sce_6_1_25": self.sce_6_1_25(),
+                  "sce_6_1_26": self.sce_6_1_26(),
+                  "sce_6_1_27": self.sce_6_1_27(),
                   }
         for key, value in result.items():
             if value != "PASS":

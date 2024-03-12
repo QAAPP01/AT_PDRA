@@ -22,6 +22,8 @@ def test_app_init(driver):
         page_main.h_click(L.main.permission.file_ok)
         page_main.h_click(L.main.permission.photo_allow)
         page_main.click(('id', 'top_toolbar_back'))
+        page_main.click(('id', 'set_default'))
+        page_main.click(('id', 'tv_continue'))
         page_main.h_click(("id", "tv_hint"), 2)
 
         if not page_main.h_click(L.edit.preview.import_tips_icon, timeout=1):
@@ -32,7 +34,6 @@ def test_app_init(driver):
         page_main.h_click(("xpath", '(//*[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/source_image_view"])[1]'))
         page_main.h_click(("xpath", '(//*[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/source_image_view"])[2]'))
         page_main.h_click(L.import_media.media_library.apply)
-        page_main.click(('id', 'tv_continue'), 2)
 
         if not page_edit.preference.trigger_fileName(enable=True):
             raise Exception('trigger_fileName fail')

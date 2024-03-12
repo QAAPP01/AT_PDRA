@@ -11,19 +11,18 @@ from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
 from .test_aPDR_SFT_Scenario_02_01 import Test_SFT_Scenario_02_01
 from .test_aPDR_SFT_Scenario_02_02 import Test_SFT_Scenario_02_02
 from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03
-from .test_aPDR_SFT_Scenario_02_31_dev import Test_SFT_Scenario_02_31
-from .test_aPDR_SFT_Scenario_04_12_dev import Test_SFT_Scenario_04_12
+
 from .test_aPDR_SFT_Scenario_05_01_dev import Test_SFT_Scenario_05_01
 from .test_aPDR_SFT_Scenario_05_03_dev import Test_SFT_Scenario_05_03
-from .test_aPDR_SFT_Scenario_05_08_dev import Test_SFT_Scenario_05_08
-from .test_aPDR_SFT_Scenario_05_11_dev import Test_SFT_Scenario_05_11
+
+
 from .test_aPDR_SFT_Scenario_05_15_dev import Test_SFT_Scenario_05_15
 from .test_aPDR_SFT_Scenario_05_16_dev import Test_SFT_Scenario_05_16
 
 from .test_shortcut_HSL_06_01 import Test_Shortcut_HSL
 from .test_shortcut_stabilizer_06_02 import Test_Shortcut_Stabilizer
 from .test_shortcut_body_effect_06_03 import Test_Shortcut_Body_Effect
-from .test_shortcut_anime_art_06_04 import Test_Anime_Art
+# from .test_shortcut_anime_art_06_04 import Test_Anime_Art
 from .test_shortcut_cutout_06_05 import Test_Shortcut_Cutout
 from .test_shortcut_video_effect_06_06 import Test_Shortcut_Video_Effect
 from .test_shortcut_crop_06_07 import Test_Shortcut_Crop
@@ -39,6 +38,7 @@ from .test_shortcut_voice_changer_06_15 import Test_Class
 from .test_edit_master_ai_effect_07_01 import Test_Ai_Effect
 from .test_edit_master_effect_07_02 import Test_Effect
 from .test_edit_pip_filter_07_07 import Test_Class
+from .test_edit_master_voice_changer_07_09 import Test_Class
 from .test_edit_overlay_filter_09_01 import Test_Overlay_Filter
 from .test_edit_overlay_videoFx_09_02 import Test_Overlay_VideoFx
 

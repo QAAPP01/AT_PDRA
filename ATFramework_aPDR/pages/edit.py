@@ -126,6 +126,7 @@ class EditPage(BasePage):
                     self.page_media.select_local_photo(folder, file_name)
             else:
                 logger('[Warning] Did not assign folder or file name')
+            self.click(L.edit.menu.use_original, 1)
             return True
 
         except Exception as err:
@@ -536,7 +537,6 @@ class EditPage(BasePage):
                 break
         return self.h_click(locator)
 
-
     def click_sub_tool(self, name, timeout=0.2, exclusive=None):
         if not self.h_is_exist(L.edit.timeline.sub_tool, 2):
             logger("[Info] Cannot find sub tool menu")
@@ -557,7 +557,7 @@ class EditPage(BasePage):
                     return False
             else:
                 break
-        return self.h_click(locator)
+        return self.click(locator)
 
     def click_sub_option_tool(self, name, timeout=0.1):
         if not self.h_is_exist(L.edit.timeline.option_label, 1):
@@ -608,6 +608,34 @@ class EditPage(BasePage):
                 else:
                     break
         return True
+
+    def click_audio_tool(self, locator, timeout=0.2):
+        tool_xpath = xpath('//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout')
+        for i in range(60):
+            if not self.click(locator, timeout):
+                tool = self.elements(tool_xpath)
+                last = tool[-1].find_element(*xpath('//android.widget.TextView')).text
+                self.h_swipe_element(tool[-1], tool[1], 4)
+                tool = self.elements(tool_xpath)
+                new_last = tool[-1].find_element(*xpath('//android.widget.TextView')).text
+                if new_last == last:
+                    for j in range(60):
+                        if not self.click(locator, timeout):
+                            last = tool[1].find_element(*xpath('//android.widget.TextView')).text
+                            self.h_swipe_element(tool[1], tool[-1], 4)
+                            tool = self.elements(tool_xpath)
+                            new_last = tool[1].find_element(*xpath('//android.widget.TextView')).text
+                            if new_last == last:
+                                logger(f'Cannot find {locator}')
+                                return False
+                        else:
+                            return True
+                    logger("Swipe over the set times, please increase the times setting")
+                    return False
+            else:
+                return True
+        logger("Swipe over the set times, please increase the times setting")
+
 
     def timeline_swipe(self, direction, distance):
         logger(f"start timeline_swipe to {direction} with {distance}")

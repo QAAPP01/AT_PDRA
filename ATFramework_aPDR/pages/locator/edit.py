@@ -127,6 +127,32 @@ class Master:
             else:
                 return xpath(f'//*[contains(@resource-id,"value")]')
 
+class ai_audio_tool:
+    tool_back = id('btn_session_back')
+    title = id('fragment_title')
+    ok = id('btn_ok')
+    cancel = id('btn_cancel')
+    audio_tool_menu = id('audio_tool_page')
+    ai_voice_changer = id('btn_ai_voice_changer')
+    unlock = id('unlock_btn')
+    apply = id('apply_btn')
+    voice_changer_is_applied = id('icon_ai_voice_changer_has_apply')
+    effect = aid('Effect')
+    professional = aid('Professional')
+    filter = id('filter_btn')
+    filter_close = id('back_btn')
+    filter_save = id('save_btn')
+    filter_reset = id('reset_btn')
+    voice_changer_on_off = id('voice_changer_btn')
+    remove = id('btn_remove_audio')
+
+    @staticmethod
+    def voice(index: int = 1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"iv_selected")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"iv_selected")]')
+
 
 class Converting:
     ok = aid('[AID]ConfirmDialog_OK')
@@ -411,6 +437,7 @@ class Menu:
     home = id('btn_home')
     btn_apply_all = id('btn_apply_all')
     full_screen = id('btn_fullScreen')
+    use_original = aid('[AID]ConfirmDialog_Cancel')
 
 
 class SubToolMenu:
@@ -1325,3 +1352,4 @@ class Interface:
     try_before_buy = Try_Before_Buy
     tutorial_bubble = Tutorial_Bubble()
     master = Master
+    ai_audio_tool = ai_audio_tool
