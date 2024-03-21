@@ -467,7 +467,7 @@ class Test_Class:
 
             self.click(L.edit.ai_audio_tool.voice_changer_on_off)
 
-            if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected'):
+            if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false':
                 report.new_result(uuid, True)
                 return "PASS"
             else:

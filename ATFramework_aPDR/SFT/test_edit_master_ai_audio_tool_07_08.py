@@ -41,6 +41,8 @@ class Test_Class:
             "ec8dfbcf-fb9a-4c53-abca-0abd182f2482",
             "cd05e561-e069-40b3-81d1-a9cc4a2def95",
             "811a6299-0eb8-4c03-8036-394a0527cefc",
+            "b244215c-fd35-40b3-951e-55b935261e9a",
+            "0d02707d-224a-48cd-918b-6bcbff51c8a3",
             "e95e9712-3980-444e-baad-8ee43b4c780a",
             "e022aa69-b15c-4b0d-adae-7a5a1891019d",
             "3076c274-bf5a-4120-8811-58344116680c",
@@ -50,6 +52,8 @@ class Test_Class:
             "42b58fb4-e9b0-4cc0-ba3b-95dedc1f4cf8",
             "9def28a4-588b-4d8e-ac86-e3e665b5e570",
             "c6c35988-70ef-4ee7-8e22-5c5ed1d4a951",
+            "9084c8a0-146b-43e6-9256-fe3fe5378b40",
+            "721d9f68-9c8e-40d8-9f76-6f42abb5f93a",
             "a1eaecbb-6ac8-4c25-870a-883034fe1cdd",
             "a1d1db89-963d-43b7-95cb-bd09a7e045c0"
         ]
@@ -425,8 +429,67 @@ class Test_Class:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', test_material_folder, video_speech)
             self.page_edit.enter_main_tool('AI Audio \nTool')
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
+            self.page_edit.waiting()
+            self.click(L.edit.ai_audio_tool.ok)
 
     def sce_7_8_13(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] Audio tool preview is OFF')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_speech)
+            self.page_edit.enter_main_tool('AI Audio \nTool')
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
+            self.page_edit.waiting()
+            self.click(L.edit.ai_audio_tool.ok)
+
+    def sce_7_8_14(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.ai_audio_tool.voice_changer_on_off)
+
+            if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] Turn off Audio tool fail')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_speech)
+            self.page_edit.enter_main_tool('AI Audio \nTool')
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
+            self.page_edit.waiting()
+            self.click(L.edit.ai_audio_tool.ok)
+
+    def sce_7_8_15(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -454,7 +517,7 @@ class Test_Class:
             self.page_edit.add_master_media('video', test_material_folder, video_speech)
             self.page_edit.enter_main_tool('AI Audio \nTool')
 
-    def sce_7_8_14(self):
+    def sce_7_8_16(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -487,7 +550,7 @@ class Test_Class:
 
             return "FAIL"
 
-    def sce_7_8_15(self):
+    def sce_7_8_17(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -514,7 +577,7 @@ class Test_Class:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
-    def sce_7_8_16(self):
+    def sce_7_8_18(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -542,7 +605,7 @@ class Test_Class:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
-    def sce_7_8_17(self):
+    def sce_7_8_19(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -570,7 +633,7 @@ class Test_Class:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
-    def sce_7_8_18(self):
+    def sce_7_8_20(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -597,7 +660,7 @@ class Test_Class:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
-    def sce_7_8_19(self):
+    def sce_7_8_21(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -625,7 +688,7 @@ class Test_Class:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
-    def sce_7_8_20(self):
+    def sce_7_8_22(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -654,7 +717,7 @@ class Test_Class:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
-    def sce_7_8_21(self):
+    def sce_7_8_23(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -679,8 +742,67 @@ class Test_Class:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', test_material_folder, video_speech)
             self.page_edit.enter_main_tool('AI Audio \nTool')
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
+            self.page_edit.waiting()
+            self.click(L.edit.ai_audio_tool.ok)
 
-    def sce_7_8_22(self):
+    def sce_7_8_24(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] Audio tool preview is OFF')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_speech)
+            self.page_edit.enter_main_tool('AI Audio \nTool')
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
+            self.page_edit.waiting()
+            self.click(L.edit.ai_audio_tool.ok)
+
+    def sce_7_8_25(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.ai_audio_tool.voice_changer_on_off)
+
+            if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] Turn off Audio tool fail')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_speech)
+            self.page_edit.enter_main_tool('AI Audio \nTool')
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
+            self.page_edit.waiting()
+            self.click(L.edit.ai_audio_tool.ok)
+
+    def sce_7_8_26(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -708,7 +830,7 @@ class Test_Class:
             self.page_edit.add_master_media('video', test_material_folder, video_speech)
             self.page_edit.enter_main_tool('AI Audio \nTool')
 
-    def sce_7_8_23(self):
+    def sce_7_8_27(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -753,6 +875,10 @@ class Test_Class:
                   "sce_7_8_21": self.sce_7_8_21(),
                   "sce_7_8_22": self.sce_7_8_22(),
                   "sce_7_8_23": self.sce_7_8_23(),
+                  "sce_7_8_24": self.sce_7_8_24(),
+                  "sce_7_8_25": self.sce_7_8_25(),
+                  "sce_7_8_26": self.sce_7_8_26(),
+                  "sce_7_8_27": self.sce_7_8_27(),
                   }
         for key, value in result.items():
             if value != "PASS":
