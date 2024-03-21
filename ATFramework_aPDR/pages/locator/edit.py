@@ -134,9 +134,15 @@ class ai_audio_tool:
     cancel = id('btn_cancel')
     audio_tool_menu = id('audio_tool_page')
     ai_voice_changer = id('btn_ai_voice_changer')
+    speech_enhance = id('btn_speech_enhance')
+    audio_denoise = id('btn_audio_denoise')
+    info = id('info_icon')
     unlock = id('unlock_btn')
     apply = id('apply_btn')
+    remove = id('btn_remove')
     voice_changer_is_applied = id('icon_ai_voice_changer_has_apply')
+    speech_enhance_is_applied = id('icon_speech_enhance_has_apply')
+    audio_denoise_is_applied = id('icon_audio_denoise_has_apply')
     effect = aid('Effect')
     professional = aid('Professional')
     filter = id('filter_btn')
@@ -144,7 +150,9 @@ class ai_audio_tool:
     filter_save = id('save_btn')
     filter_reset = id('reset_btn')
     voice_changer_on_off = id('voice_changer_btn')
-    remove = id('btn_remove_audio')
+
+    strength_slider = id("strength_seekbar")
+    compensation_slider = id("compensation_seekbar")
 
     @staticmethod
     def voice(index: int = 1):
@@ -152,6 +160,17 @@ class ai_audio_tool:
             return xpath(f'(//*[contains(@resource-id,"iv_selected")])[{index}]')
         else:
             return xpath(f'//*[contains(@resource-id,"iv_selected")]')
+
+    @staticmethod
+    def slider(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"strength_seekbar")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"strength_seekbar")]')
+
+    class voice_changer:
+        remove = id('btn_remove_audio')
+
 
 
 class Converting:
@@ -426,7 +445,7 @@ class Menu:
     effect = aid("[AID]TimeLine_Layer")
     fx = aid("[AID]TimeLine_Fx")
     settings = id('btn_setting')
-    produce = aid("[AID]TimeLine_Save")
+    produce = id('btn_save_menu')
     timeline_setting = aid("[AID]TimeLine_Setting")
     undo = id("btn_undo")
     play = aid("[AID]TimeLine_Play")
@@ -918,6 +937,7 @@ class Subscription():
 class Try_Before_Buy:
     remove = aid('[AID]Upgrade_No')
     free_trial = aid('[AID]Subscribe_Unlock_All')
+    premium_tag = id('premium_features_used_bubble')
     premium_features_used_bubble = id('premium_features_used_bubble')
     btn_tryit = id('btnTryIt')
     btn_subtounlock = id('unlock_content_view')

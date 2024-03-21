@@ -18,6 +18,7 @@ video_9_16 = 'video_9_16.mp4'
 video_16_9 = 'video_16_9.mp4'
 photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
+video_speech = 'speech_noise_1.mp4'
 
 
 class Test_Class:
@@ -27,38 +28,29 @@ class Test_Class:
 
         self.driver = driver
         self.uuid = [
-            "993f8ed2-e092-43fc-94d4-28cc240da66d",
-            "1864064b-afa3-44fd-aa14-b28b2c0971c2",
-            "ffc58b53-a852-4de8-beb5-4ef2442cc4f4",
-            "3d47a314-780a-49ee-9a04-be4e204050f2",
-            "a93bbcb8-b820-4521-ae16-331ef6401441",
-            "32162938-21f3-4dda-8a92-6c7d377ab3bc",
-            "df0e9df2-fda9-4e59-a354-a9ce70be426f",
-            "4b86903b-12ba-4802-ac3e-4d157824a877",
-            "38e8ff77-7d79-41f7-82e8-f72612cc3646",
-            "121ff0bc-32e9-4bfe-9032-bf328df9a631",
-            "c33ae730-9913-40e6-bf6a-1f05ea40d192",
-            "918e4fde-6d14-4cad-9ed1-34c69d4f1e88",
-            "d35f058c-aaf5-460f-8206-42bbc32b72df",
-            "f334c9c5-3f6d-493a-867d-d6d8b2960026",
-            "3c599597-9993-4971-9990-8193eb5d76b5",
-            "db3756ec-e113-4851-8f28-610cea7b5ed8",
-            "51d359c8-ce87-420f-a656-7ba51eadcdb7",
-            "896533e3-ac74-4599-a296-4ed381149939",
-            "281b6119-9a6c-49eb-948d-3bd73d43fce8",
-            "1368df97-43b7-4d91-9216-00a4a8d75ff3",
-            "d80f4c54-d0cc-46aa-8bb2-32f9ff2ddf1e",
-            "a93c9287-1de6-44e7-91bd-d8c75732097b",
-            "b4792c4e-e97b-419d-b75b-125e11a9c128",
-            "ae394810-4479-4f13-a3b3-5759c84bd6e4",
-            "41bf8229-7b58-4f8e-aa3c-73c34011b8c2",
-            "b34788b2-cd7f-438c-b938-8d4231b915ef",
-            "8cdc6364-798d-41db-b70b-9c76d699fb7f",
-            "f61e6a98-d295-4821-b631-922b3f8cc583",
-            "68db002c-b530-420b-99f6-4d3672eba45a",
-            "5d20f7b0-cf29-4252-87c2-56c33d1aacab",
-            "b8693b38-ce9a-44d7-90f2-03336b08faa9",
-            "4ae989ae-58d1-46ec-80e2-f1409e903b5e"
+            "c720aa67-9e59-4ad6-aca2-9c868c0e2a4f",
+            "646db8fb-4c86-47f2-94d3-b89ef50ddd7f",
+            "be41d1df-2d5a-42ba-8ffd-8459dfeeabb3",
+            "b279f39e-dd0b-4c45-a79e-1160e8b01872",
+            "4d592499-3399-4df5-9f4c-56f6fd602f73",
+            "a5da34b1-6a3d-42c7-b958-5927f99441d6",
+            "2a354d7b-cf82-4ba7-b167-8aa3cb25451a",
+            "6870d4ee-f5ab-484d-ae66-170701377bfe",
+            "868e8ce5-b019-4c3d-9b70-fe810ef90868",
+            "65659aba-c082-4d6c-9db3-52e1b0b88074",
+            "1461d36a-31e0-45cf-a65b-b0a7c88f7051",
+            "a1261cc3-5f2c-44ff-90e9-4a2e03182b9a",
+            "36626cc0-67c7-4e20-9fea-d421dc2d0482",
+            "da076c8e-7abf-485f-866c-50f32eba6894",
+            "dc1c4d77-5eb1-4996-8602-f90158f6b2ac",
+            "844d906d-a145-468a-996b-b5fb4c7188ac",
+            "e4ff5939-1681-48b5-a5cd-d9676d8e5742",
+            "505edb40-ead8-480c-87e9-5ad3d8beb599",
+            "1884fe7e-2bb7-481a-9373-0ce9cd3667a3",
+            "fc9fad7d-6528-4fdd-8145-9b01689bdc04",
+            "60cf9246-fd36-4149-93cb-7911f69485c1",
+            "eb76c3b4-8dcf-43b0-a47e-0915b6f9c8ca",
+            "03866171-2d99-410f-8dcf-50d5de194f47"
         ]
 
         # shortcut
@@ -96,7 +88,7 @@ class Test_Class:
 
         try:
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
 
             if self.is_exist(find_string('Voice Changer')):
                 report.new_result(uuid, True)
@@ -112,7 +104,7 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
 
             return "FAIL"
 
@@ -149,7 +141,36 @@ class Test_Class:
         report.start_uuid(uuid)
 
         try:
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
+            before = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
+            self.click(L.main.shortcut.voice_changer.mute)
+            after = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
+
+            if not HCompareImg(before, after).ssim_compare():
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] Mute button no change')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('AI Voice\nChanger')
+
+            return "FAIL"
+
+    def sce_6_15_4(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
             self.click(L.main.shortcut.try_it_now)
 
             if self.is_exist(find_string('Add Media')):
@@ -166,12 +187,12 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 
-    def sce_6_15_4(self):
+    def sce_6_15_5(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -184,7 +205,7 @@ class Test_Class:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot return launcher')
+                raise Exception('[Fail] Return launcher fail')
 
         except Exception as err:
             self.stop_recording(func_name)
@@ -204,16 +225,18 @@ class Test_Class:
         report.start_uuid(uuid)
 
         try:
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
-            self.click(L.import_media.media_library.btn_preview())
-            self.click(L.import_media.media_library.trim_back)
+            self.page_media.select_local_video(test_material_folder, video_16_9)
 
-            if self.is_exist(find_string('Add Media')):
+            if self.is_exist(find_string('No sound detected')):
                 report.new_result(uuid, True)
+
+                self.click(id('btn_ok'))
+
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot enter media picker')
+                raise Exception('[Fail] No found "No sound detected" dialog')
 
         except Exception as err:
             self.stop_recording(func_name)
@@ -223,7 +246,7 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
@@ -235,7 +258,36 @@ class Test_Class:
         report.start_uuid(uuid)
 
         try:
-            self.click(L.import_media.media_library.btn_preview())
+            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
+            self.click(L.import_media.media_library.trim_back)
+
+            if self.is_exist(find_string('Add Media')):
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Tap preview "{video_speech}" fail')
+
+        except Exception as err:
+            self.stop_recording(func_name)
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('AI Voice\nChanger')
+            self.click(L.main.shortcut.try_it_now)
+
+            return "FAIL"
+
+    def sce_6_15_8(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
             self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
             self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
             self.click(L.import_media.media_library.trim_next)
@@ -255,15 +307,15 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
-            self.click(L.import_media.media_library.btn_preview())
+            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
             self.click(L.import_media.media_library.trim_next)
             self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_15_8(self):
+    def sce_6_15_9(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -286,26 +338,20 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 
-    def sce_6_15_9(self):
+    def sce_6_15_10(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.select_local_video(test_material_folder, video_speech)
             self.page_media.waiting()
-
-            for wait in range(60):
-                if self.is_exist(find_string('Cancel')):
-                    time.sleep(2)
-                else:
-                    break
 
             if self.is_exist(find_string('Export')):
                 report.new_result(uuid, True)
@@ -321,14 +367,14 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.select_local_video(test_material_folder, video_speech)
             self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_15_10(self):
+    def sce_6_15_11(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -353,14 +399,14 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.select_local_video(test_material_folder, video_speech)
             self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_15_11(self):
+    def sce_6_15_12(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -384,14 +430,14 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.select_local_video(test_material_folder, video_speech)
             self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_15_12(self):
+    def sce_6_15_13(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -415,9 +461,9 @@ class Test_Class:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Voice Changer')
+            self.page_main.enter_shortcut('AI Voice\nChanger')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.select_local_video(test_material_folder, video_speech)
             self.page_media.waiting()
 
             return "FAIL"
@@ -428,7 +474,7 @@ class Test_Class:
                   "sce_6_15_2": self.sce_6_15_2(),
                   "sce_6_15_3": self.sce_6_15_3(),
                   "sce_6_15_4": self.sce_6_15_4(),
-                  # "sce_6_15_5": self.sce_6_15_5(),
+                  "sce_6_15_5": self.sce_6_15_5(),
                   "sce_6_15_6": self.sce_6_15_6(),
                   "sce_6_15_7": self.sce_6_15_7(),
                   "sce_6_15_8": self.sce_6_15_8(),
@@ -436,6 +482,7 @@ class Test_Class:
                   "sce_6_15_10": self.sce_6_15_10(),
                   "sce_6_15_11": self.sce_6_15_11(),
                   "sce_6_15_12": self.sce_6_15_12(),
+                  "sce_6_15_13": self.sce_6_15_13(),
                   }
         for key, value in result.items():
             if value != "PASS":

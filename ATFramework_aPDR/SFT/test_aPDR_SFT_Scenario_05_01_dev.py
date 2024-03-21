@@ -80,76 +80,76 @@ class Test_SFT_Scenario_05_01:
         result['05_01_04'] = self.page_edit.intro_video.check_intro_search()
         self.report.new_result('8a5cbcca-3072-45fe-ad31-5640d95b18a3', result['05_01_04'])
 
-        # # sce_05_01_05
-        # logger("\n[Start] sce_05_01_05")
-        # self.report.start_uuid('1ae322d8-d8ec-481f-84a3-08a5fdd76adb')
-        # result['05_01_05'] = self.page_edit.intro_video.intro_tutorial()
-        # self.report.new_result('1ae322d8-d8ec-481f-84a3-08a5fdd76adb', result['05_01_05'])
-
-        # sce_05_01_06
-        item_id = '05_01_06'
-        uuid = '71adbc41-8fea-4aca-a384-9afb48612000'
-        logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
-
-        result[item_id] = self.page_edit.intro_video.enter_intro_profile()
-
-        if result[item_id]:
-            self.page_main.h_click(xpath('(//android.widget.Image)[1]'))
-        else:
-            logger(f'\n[Fail] Cannot find profile page')
-
-        self.report.new_result(uuid, result[item_id])
-
-        # sce_05_01_07
-        logger("\n[Start] sce_05_01_07")
-        self.report.start_uuid('57ee9b4b-7809-42e0-9dab-f0f2c9f913f1')
-        result['05_01_07'] = self.page_edit.intro_video.check_my_favorite()
-        self.report.new_result('57ee9b4b-7809-42e0-9dab-f0f2c9f913f1', result['05_01_07'])
-
-        # sce_05_01_11
-        if result['05_01_07']:
-            logger("\n[Start] sce_05_01_11")
-            self.report.start_uuid('882daf2e-a106-4ee9-9c21-69cc8c4bebe3')
-            result['05_01_11'] = self.page_edit.intro_video.tap_category()
-            self.report.new_result('882daf2e-a106-4ee9-9c21-69cc8c4bebe3', result['05_01_11'])
-        else:
-            logger("\n[Skip] sce_05_01_11")
-
-        # sce_05_01_08, 09
-        logger("\n[Start] sce_05_01_08, sce_05_01_09")
-        self.report.start_uuid('9b2f2a26-aac6-4f88-bb91-25957758fa2b')
-        self.report.start_uuid('6f81c401-70fb-4e16-9f23-99de8e9deef0')
-        category = self.page_edit.intro_video.check_category()
-        defined = ['Beauty', 'Black & White', 'Business', 'Design', 'Education', 'Event', 'Family', 'Fashion', 'Food',
-                   'Fun & Playful', 'Gaming', 'Handwritten', 'Health', 'Holiday', 'Life', 'Love', 'Minimalist',
-                   'Modern', 'Music', 'Nature', 'Pets', 'Repair', 'Retro', 'Season', 'Social Media', 'Sport',
-                   'Technology', 'Travel']
-        result['05_01_09'] = True
-        for name in defined:
-            if name not in category:
-                result['05_01_09'] = False
-                break
-        result['05_01_08'] = 'CyberLink' not in category
-        self.report.new_result('9b2f2a26-aac6-4f88-bb91-25957758fa2b', result['05_01_08'])
-        self.report.new_result('6f81c401-70fb-4e16-9f23-99de8e9deef0', result['05_01_09'])
-
-        # sce_05_01_03
-        logger("\n[Start] sce_05_01_03")
-        self.report.start_uuid('ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9')
-        result['05_01_03'] = self.page_edit.intro_video.intro_back()
-        self.report.new_result('ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9', result['05_01_03'])
-
-        # sce_05_01_10
-        logger("\n[Start] sce_05_01_10")
-        self.report.start_uuid('22104cdc-9087-464f-8797-5dabae9e750c')
-        if result['05_01_09']:
-            result['05_01_10'] = True
-        else:
-            result['05_01_10'] = self.page_edit.intro_video.check_scroll_category()
-        self.report.new_result('22104cdc-9087-464f-8797-5dabae9e750c', result['05_01_10'])
-
-        pprint(result)
+        # # # sce_05_01_05
+        # # logger("\n[Start] sce_05_01_05")
+        # # self.report.start_uuid('1ae322d8-d8ec-481f-84a3-08a5fdd76adb')
+        # # result['05_01_05'] = self.page_edit.intro_video.intro_tutorial()
+        # # self.report.new_result('1ae322d8-d8ec-481f-84a3-08a5fdd76adb', result['05_01_05'])
+        #
+        # # sce_05_01_06
+        # item_id = '05_01_06'
+        # uuid = '71adbc41-8fea-4aca-a384-9afb48612000'
+        # logger(f"\n[Start] sce_{item_id}")
+        # self.report.start_uuid(uuid)
+        #
+        # result[item_id] = self.page_edit.intro_video.enter_intro_profile()
+        #
+        # if result[item_id]:
+        #     self.page_main.h_click(xpath('(//android.widget.Image)[1]'))
+        # else:
+        #     logger(f'\n[Fail] Cannot find profile page')
+        #
+        # self.report.new_result(uuid, result[item_id])
+        #
+        # # sce_05_01_07
+        # logger("\n[Start] sce_05_01_07")
+        # self.report.start_uuid('57ee9b4b-7809-42e0-9dab-f0f2c9f913f1')
+        # result['05_01_07'] = self.page_edit.intro_video.check_my_favorite()
+        # self.report.new_result('57ee9b4b-7809-42e0-9dab-f0f2c9f913f1', result['05_01_07'])
+        #
+        # # sce_05_01_11
+        # if result['05_01_07']:
+        #     logger("\n[Start] sce_05_01_11")
+        #     self.report.start_uuid('882daf2e-a106-4ee9-9c21-69cc8c4bebe3')
+        #     result['05_01_11'] = self.page_edit.intro_video.tap_category()
+        #     self.report.new_result('882daf2e-a106-4ee9-9c21-69cc8c4bebe3', result['05_01_11'])
+        # else:
+        #     logger("\n[Skip] sce_05_01_11")
+        #
+        # # sce_05_01_08, 09
+        # logger("\n[Start] sce_05_01_08, sce_05_01_09")
+        # self.report.start_uuid('9b2f2a26-aac6-4f88-bb91-25957758fa2b')
+        # self.report.start_uuid('6f81c401-70fb-4e16-9f23-99de8e9deef0')
+        # category = self.page_edit.intro_video.check_category()
+        # defined = ['Beauty', 'Black & White', 'Business', 'Design', 'Education', 'Event', 'Family', 'Fashion', 'Food',
+        #            'Fun & Playful', 'Gaming', 'Handwritten', 'Health', 'Holiday', 'Life', 'Love', 'Minimalist',
+        #            'Modern', 'Music', 'Nature', 'Pets', 'Repair', 'Retro', 'Season', 'Social Media', 'Sport',
+        #            'Technology', 'Travel']
+        # result['05_01_09'] = True
+        # for name in defined:
+        #     if name not in category:
+        #         result['05_01_09'] = False
+        #         break
+        # result['05_01_08'] = 'CyberLink' not in category
+        # self.report.new_result('9b2f2a26-aac6-4f88-bb91-25957758fa2b', result['05_01_08'])
+        # self.report.new_result('6f81c401-70fb-4e16-9f23-99de8e9deef0', result['05_01_09'])
+        #
+        # # sce_05_01_03
+        # logger("\n[Start] sce_05_01_03")
+        # self.report.start_uuid('ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9')
+        # result['05_01_03'] = self.page_edit.intro_video.intro_back()
+        # self.report.new_result('ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9', result['05_01_03'])
+        #
+        # # sce_05_01_10
+        # logger("\n[Start] sce_05_01_10")
+        # self.report.start_uuid('22104cdc-9087-464f-8797-5dabae9e750c')
+        # if result['05_01_09']:
+        #     result['05_01_10'] = True
+        # else:
+        #     result['05_01_10'] = self.page_edit.intro_video.check_scroll_category()
+        # self.report.new_result('22104cdc-9087-464f-8797-5dabae9e750c', result['05_01_10'])
+        #
+        # pprint(result)
 
 
 

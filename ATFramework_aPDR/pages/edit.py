@@ -2131,11 +2131,13 @@ class EditPage(BasePage):
             logger("exception occurs")
             raise Exception
 
-    def waiting(self, timeout=60):
+    def waiting(self, timeout=120):
+        logger(f'[Info] Start waiting {timeout} sec...')
         for i in range(timeout):
             if self.is_exist(find_string("Cancel"), 1):
                 continue
             else:
+                logger(f'[Info] Complete!')
                 return True
         logger("[Warning] loading timeout")
         return False

@@ -64,6 +64,7 @@ class MainPage(BasePage):
                 for i in range(60):
                     current_activity = self.driver.driver.current_activity
                     if current_activity == opening_activity:
+                        time.sleep(1)
                         self.h_click(L.main.tutorials.close_open_tutorial)
                         self.h_click(L.main.premium.iap_back)
                         logger("[Done] Enter Launcher")

@@ -7,7 +7,9 @@ class Main:
 
 
 class Shortcut:
+    demo_title = id('tv_title')
     demo_back = id('iv_back')
+    demo_mute = id('btn_mute')
     try_it_now = id('tv_try_it_now')
     btn_continue = id('tv_continue')
     close = id('iv_close')
@@ -15,6 +17,8 @@ class Shortcut:
     play = id('btn_play')
     timecode = id('playing_time')
     playback_slider = id('seekbar')
+    export = id('tv_ok')
+    full_editor = id('tv_full_editor')
 
     @staticmethod
     def shortcut_name(param=1):
@@ -170,8 +174,28 @@ class Shortcut:
             else:
                 return xpath(f'//*[contains(@resource-id,"ai_template_card_view")]')
 
+    class voice_changer:
+        mute = id('btn_mute')
 
+    class audio_tool:
+        info = id('info_icon')
 
+        strength_slider = id("strength_seekbar")
+        compensation_slider = id("compensation_seekbar")
+        @staticmethod
+        def slider(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"strength_seekbar")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"strength_seekbar")]')
+
+    class tempo_effect:
+        @staticmethod
+        def premium_item(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemPremium")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemPremium")]')
 
 
 
@@ -332,6 +356,7 @@ class Subscribe:
     subscribe = xpath('//android.widget.Button[@text="Subscribe"]')
     highlight = id('highlight')
     complete = (None,)
+    premium_tag = id('premium_features_used_bubble')
 
 
 
