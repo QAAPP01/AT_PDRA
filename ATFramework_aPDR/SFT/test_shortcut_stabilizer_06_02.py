@@ -650,7 +650,7 @@ class Test_Shortcut_Stabilizer:
                 else:
                     break
 
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
+            if self.is_exist(L.import_media.media_library.video.display_preview):
                 self.driver.driver.back()
                 result = True
                 fail_log = None
@@ -679,7 +679,7 @@ class Test_Shortcut_Stabilizer:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
+            if self.is_exist(L.import_media.media_library.video.display_preview):
                 result = True
                 fail_log = None
             else:
@@ -1003,7 +1003,7 @@ class Test_Shortcut_Stabilizer:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
+            if self.is_exist(L.import_media.media_library.video.display_preview):
                 result = True
                 fail_log = None
             else:
@@ -1033,7 +1033,7 @@ class Test_Shortcut_Stabilizer:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
+            if self.is_exist(L.import_media.media_library.video.display_preview):
                 result = True
                 fail_log = None
             else:
@@ -1169,7 +1169,7 @@ class Test_Shortcut_Stabilizer:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.Video.display_preview):
+            if self.is_exist(L.import_media.media_library.video.display_preview):
                 result = True
                 fail_log = None
             else:
@@ -1570,7 +1570,7 @@ class Test_Shortcut_Stabilizer:
             self.click(L.import_media.media_library.btn_preview())
             timeout = self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.Video.display_preview) and timeout:
+            if self.is_exist(L.import_media.media_library.video.display_preview) and timeout:
                 result = True
                 fail_log = None
             elif not timeout:

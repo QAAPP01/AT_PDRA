@@ -41,7 +41,9 @@ class Test_Class:
             "999c2308-9404-4e9a-8613-f81487c39c19",
             "42d07e0b-5592-4d7b-9f78-f076629b5408",
             "d9948d01-c808-4ee6-9502-1e0dd1352465",
-            "fafc1e10-71dc-4992-8b6f-09b090197208"
+            "3c20c1e5-9483-4d3f-98e3-e2f705b8fa96",
+            "fafc1e10-71dc-4992-8b6f-09b090197208",
+            "1fc3dfdd-8548-481e-8bba-97d04dd0715d"
         ]
 
         # shortcut
@@ -62,14 +64,6 @@ class Test_Class:
         yield
         self.driver.driver.stop_recording_screen()
         driver.driver.close_app()
-
-    def stop_recording(self, test_case_name):
-        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
-        recording_data = self.driver.driver.stop_recording_screen()
-        with open(self.video_file_path, 'wb') as video_file:
-            video_file.write(base64.b64decode(recording_data))
-        logger(f'Screen recording saved: {self.video_file_path}')
-        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
 
     def sce_7_9_4(self):
         func_name = inspect.stack()[0][3]
@@ -92,7 +86,6 @@ class Test_Class:
                 raise Exception('[Fail] Entry is not disabled')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -124,7 +117,6 @@ class Test_Class:
                 raise Exception('[Fail] Cannot enter the page')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -154,7 +146,6 @@ class Test_Class:
                 raise Exception('[Fail] No found "AI Voice Changer" tool')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -183,7 +174,6 @@ class Test_Class:
                 raise Exception('[Fail] No found clip tools')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -213,7 +203,6 @@ class Test_Class:
                 raise Exception('[Fail] Cannot enter the page')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -246,7 +235,6 @@ class Test_Class:
                 raise Exception('[Fail] Click IAP back fail')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -284,7 +272,6 @@ class Test_Class:
                 raise Exception('[Fail] Voice Changer is not applied')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -317,7 +304,6 @@ class Test_Class:
                 raise Exception('[Fail] Voice Changer is not applied')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -353,7 +339,6 @@ class Test_Class:
                 raise Exception('[Fail] Filter is still exist')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -393,7 +378,6 @@ class Test_Class:
                 raise Exception('[Fail] Apply filter fail')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -426,7 +410,7 @@ class Test_Class:
         try:
             self.click(L.edit.ai_audio_tool.filter)
             self.click(L.edit.ai_audio_tool.filter_reset)
-            option = self.element(xpath('//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup'))
+            option = self.element(L.edit.ai_audio_tool.voice_changer.filter_option(0))
             self.click(L.edit.ai_audio_tool.filter_save)
 
             if option.get_attribute('selected') == 'false':
@@ -436,7 +420,6 @@ class Test_Class:
                 raise Exception('[Fail] Reset filter fail')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -453,7 +436,6 @@ class Test_Class:
             self.click(L.edit.try_before_buy.try_it_first, 1)
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.ai_voice_changer)
 
     def sce_7_9_12(self):
         func_name = inspect.stack()[0][3]
@@ -462,9 +444,37 @@ class Test_Class:
         report.start_uuid(uuid)
 
         try:
-            if not self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true':
+            if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
                 raise Exception('[Fail] Voice changer preview is OFF')
 
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_speech)
+            self.page_edit.enter_main_tool('AI Audio \nTool')
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.ai_voice_changer)
+            self.click(L.edit.ai_audio_tool.professional)
+            self.click(L.edit.ai_audio_tool.voice())
+            self.click(L.edit.ai_audio_tool.apply)
+            self.click(L.edit.try_before_buy.try_it_first, 1)
+            self.page_edit.waiting()
+            self.click(L.edit.ai_audio_tool.ok)
+
+    def sce_7_9_13(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
             self.click(L.edit.ai_audio_tool.voice_changer_on_off)
 
             if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false':
@@ -474,7 +484,6 @@ class Test_Class:
                 raise Exception('[Fail] Turn off voice changer preview fail')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
@@ -491,20 +500,14 @@ class Test_Class:
             self.click(L.edit.try_before_buy.try_it_first, 1)
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.ai_voice_changer)
 
-    def sce_7_9_13(self):
+    def sce_7_9_14(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.ai_audio_tool.voice_changer.remove)
-            self.click(L.edit.ai_audio_tool.cancel)
-            if not self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied):
-                raise Exception('[Fail] Cancel change fail')
-
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.ai_voice_changer)
             self.click(L.edit.ai_audio_tool.voice_changer.remove)
             self.click(L.edit.ai_audio_tool.ok)
@@ -516,10 +519,37 @@ class Test_Class:
                 raise Exception('[Fail] Remove voice changer fail')
 
         except Exception as err:
-            self.stop_recording(func_name)
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.add_master_media('video', test_material_folder, video_speech)
+            self.page_edit.enter_main_tool('AI Audio \nTool')
+
+    def sce_7_9_15(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.ai_voice_changer)
+            self.page_edit.waiting()
+            self.click(L.edit.ai_audio_tool.ok)
+            self.click(L.edit.menu.produce)
+
+            if self.click(L.main.subscribe.back_btn):
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] Click IAP Back fail')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
 
     @report.exception_screenshot
     def test_case(self):
@@ -536,6 +566,8 @@ class Test_Class:
                   "sce_7_9_11": self.sce_7_9_11(),
                   "sce_7_9_12": self.sce_7_9_12(),
                   "sce_7_9_13": self.sce_7_9_13(),
+                  "sce_7_9_14": self.sce_7_9_14(),
+                  "sce_7_9_15": self.sce_7_9_15(),
                   }
         for key, value in result.items():
             if value != "PASS":

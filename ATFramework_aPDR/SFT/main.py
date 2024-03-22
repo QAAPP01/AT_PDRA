@@ -8,11 +8,12 @@ from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
 from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
 from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
 from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
+from .test_import_master_text_to_image_01_07 import Test_Class
 from .test_aPDR_SFT_Scenario_02_01 import Test_SFT_Scenario_02_01
 from .test_aPDR_SFT_Scenario_02_02 import Test_SFT_Scenario_02_02
 from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03
 
-from .test_aPDR_SFT_Scenario_05_01_dev import Test_SFT_Scenario_05_01
+from .test_edit_intro_05_01 import Test_Class
 from .test_aPDR_SFT_Scenario_05_03_dev import Test_SFT_Scenario_05_03
 
 

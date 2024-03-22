@@ -701,11 +701,11 @@ class Test_SFT_Scenario_01_02:
         self.report.start_uuid(uuid)
 
         self.page_edit.add_master_media()
-        self.click(L.import_media.media_library.Video.video_capture)
-        self.click(L.import_media.media_library.Video.start_recording)
+        self.click(L.import_media.media_library.video.video_capture)
+        self.click(L.import_media.media_library.video.start_recording)
         time.sleep(1)
-        self.click(L.import_media.media_library.Video.stop_recording)
-        self.click(L.import_media.media_library.Video.camera_ok)
+        self.click(L.import_media.media_library.video.stop_recording)
+        self.click(L.import_media.media_library.video.camera_ok)
         capture_video_name = "{:04}{:02}{:02}_".format(dt.year, dt.month, dt.day)
         capture_1st_video = self.element(L.import_media.media_library.file_name(index=1)).text
 

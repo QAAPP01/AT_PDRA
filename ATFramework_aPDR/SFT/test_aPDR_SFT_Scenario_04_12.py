@@ -138,7 +138,7 @@ class Test_SFT_Scenario_04_12:
             self.page_media.waiting_loading()
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
-            rect = self.element(L.import_media.media_library.Video.display_preview).rect
+            rect = self.element(L.import_media.media_library.video.display_preview).rect
 
             if rect["height"] < rect["width"]:
                 self.driver.driver.back()
@@ -167,7 +167,7 @@ class Test_SFT_Scenario_04_12:
             self.page_media.waiting_loading()
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
-            rect = self.element(L.import_media.media_library.Video.display_preview).rect
+            rect = self.element(L.import_media.media_library.video.display_preview).rect
 
             if rect["height"] == rect["width"]:
                 self.driver.driver.back()

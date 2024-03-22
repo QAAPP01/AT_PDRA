@@ -29,33 +29,33 @@ class Test_Class:
 
         self.driver = driver
         self.uuid = [
-            "8b925085-4b38-4a37-8014-cfad110723f7",
-            "f65c9fc9-4dd5-4524-b44b-19996ac0ce39",
-            "964d05bd-66f8-4a82-9b37-a8bb6c59f3a3",
-            "1b8a2560-13e7-45b8-86d7-8827bd77a95d",
-            "b57ce391-1ff5-4de7-b2d3-2a6ac32291a5",
-            "abdf46c8-f3ef-48fb-bdd7-d086f40d5c11",
-            "31268592-c7d0-453a-8a75-36f7e7205bc8",
-            "051dc239-bd7f-41b1-b1a3-ae1ba97a5b60",
-            "2f1bac70-dae4-48d8-95f2-37c0071984e8",
-            "ec8dfbcf-fb9a-4c53-abca-0abd182f2482",
-            "cd05e561-e069-40b3-81d1-a9cc4a2def95",
-            "811a6299-0eb8-4c03-8036-394a0527cefc",
-            "b244215c-fd35-40b3-951e-55b935261e9a",
-            "0d02707d-224a-48cd-918b-6bcbff51c8a3",
-            "e95e9712-3980-444e-baad-8ee43b4c780a",
-            "e022aa69-b15c-4b0d-adae-7a5a1891019d",
-            "3076c274-bf5a-4120-8811-58344116680c",
-            "53ffe99a-9cb2-49ec-895c-3002b78e6c4a",
-            "c096ebc3-e466-40aa-91b5-5cef388a3fcc",
-            "dac4fd4a-53b2-421b-bb82-ff5031687a19",
-            "42b58fb4-e9b0-4cc0-ba3b-95dedc1f4cf8",
-            "9def28a4-588b-4d8e-ac86-e3e665b5e570",
-            "c6c35988-70ef-4ee7-8e22-5c5ed1d4a951",
-            "9084c8a0-146b-43e6-9256-fe3fe5378b40",
-            "721d9f68-9c8e-40d8-9f76-6f42abb5f93a",
-            "a1eaecbb-6ac8-4c25-870a-883034fe1cdd",
-            "a1d1db89-963d-43b7-95cb-bd09a7e045c0"
+            "d0bafbda-e361-4cbf-af80-9da541351a27",
+            "a110aba2-999a-4d58-85bb-cdb217d5d2e7",
+            "ecd0fd71-aee2-40a0-a69b-52f55ebd7ed9",
+            "8a5cbcca-3072-45fe-ad31-5640d95b18a3",
+            "1ae322d8-d8ec-481f-84a3-08a5fdd76adb",
+            "71adbc41-8fea-4aca-a384-9afb48612000",
+            "57ee9b4b-7809-42e0-9dab-f0f2c9f913f1",
+            "9b2f2a26-aac6-4f88-bb91-25957758fa2b",
+            "6f81c401-70fb-4e16-9f23-99de8e9deef0",
+            "22104cdc-9087-464f-8797-5dabae9e750c",
+            "882daf2e-a106-4ee9-9c21-69cc8c4bebe3",
+            "988899b1-6436-4a64-b099-412d4766faaf",
+            "2e7e5627-366e-40c1-81eb-9999b7661489",
+            "26f607a5-31d8-4571-ad1d-fc936eb1749e",
+            "3123ca89-836a-4541-8fb6-0db417be9a90",
+            "fe999c5b-bbc1-4556-b5e6-33e858999b12",
+            "d7560472-7d45-4a5c-8516-518d8c252591",
+            "0ba3da30-a81b-4be4-b03b-d09707cfe999",
+            "96c700ac-30b1-4e6a-94a7-4cf2eb853ff6",
+            "c9a510ed-4a78-4a59-8e21-c1ca04cc5654",
+            "0c368338-5336-48d8-ace0-e079a443975d",
+            "a7d61b7b-7451-47f7-9c67-a06dc808cf31",
+            "c03b70df-baa5-410a-b6fc-9541ace65513",
+            "800eed03-6214-43fd-97ea-74eec6bb35ac",
+            "b0249545-24d4-422d-b355-0ae89a367ea6",
+            "2f6b8baa-cf9d-4a8c-8854-769b03d08874",
+            "81e1f96b-1bec-46e5-8ca8-abebef06a217"
         ]
 
         # shortcut
@@ -77,7 +77,7 @@ class Test_Class:
         self.driver.driver.stop_recording_screen()
         driver.driver.close_app()
 
-    def sce_7_8_3(self):
+    def sce_5_1_1(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -86,16 +86,12 @@ class Test_Class:
         try:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_16_9)
-            self.click(L.edit.master.clip())
 
-            locator = id('tool_entry_label')[1]
-            entry = self.element(xpath(f'//*[@resource-id="{locator}" and @text="AI Audio \nTool"]/../..'))
-            if entry.get_attribute('enabled') == 'false':
+            if self.page_edit.intro_video.enter_intro():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Entry is not disabled')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -105,29 +101,22 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_16_9)
-            self.click(L.edit.master.clip())
+            self.page_edit.intro_video.enter_intro()
 
             return "FAIL"
 
-    def sce_7_8_1(self):
+    def sce_5_1_2(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.menu.delete)
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.page_edit.enter_main_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
-
-            if self.element(L.edit.ai_audio_tool.title).text == 'Speech Enhance':
+            if self.page_edit.intro_video.check_intro_caption():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot enter the page')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -137,28 +126,22 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.page_edit.enter_main_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
 
             return "FAIL"
 
-    def sce_7_8_2(self):
+    def sce_5_1_3(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.ai_audio_tool.cancel)
-            self.click(L.edit.ai_audio_tool.tool_back)
-
-            if self.is_exist(id('tool_entry_icon')):
+            if self.page_edit.intro_video.intro_back():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] No found clip tools')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -168,27 +151,22 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.click(L.edit.master.clip())
+            self.page_edit.intro_video.enter_intro()
 
             return "FAIL"
 
-    def sce_7_8_4(self):
+    def sce_5_1_4(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
-
-            if self.element(L.edit.ai_audio_tool.title).text == 'Speech Enhance':
+            if self.page_edit.intro_video.check_intro_search():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot enter the page')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -198,28 +176,30 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
 
             return "FAIL"
 
-    def sce_7_8_5(self):
+    def sce_5_1_5(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.ai_audio_tool.info)
-            
-            if self.click(find_string('Try it now')):
+            self.click(L.edit.intro_video.top_toolbar_tutorial)
+
+            if self.is_exist(xpath('//*[@content-desc="PowerDirector Video Editor - CyberLink"]')):
                 report.new_result(uuid, True)
+
+                time.sleep(1)
+                self.driver.driver.back()
+                time.sleep(1)
+                self.driver.driver.back()
+
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Click "Try it now" fail')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -229,27 +209,25 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.click(L.edit.master.clip())
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
 
             return "FAIL"
 
-    def sce_7_8_6(self):
+    def sce_5_1_6(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            slider = self.element(L.edit.ai_audio_tool.strength_slider).text
-            if slider == '50.0':
+            if self.page_edit.intro_video.enter_intro_profile():
                 report.new_result(uuid, True)
+
+                self.page_main.h_click(xpath('(//android.widget.Image)[1]'))
+
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -259,25 +237,22 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.page_edit.enter_main_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
 
-    def sce_7_8_7(self):
+            return "FAIL"
+
+    def sce_5_1_7(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.ai_audio_tool.strength_slider)
-            slider = self.element(L.edit.ai_audio_tool.strength_slider).text
-            if slider == '0.0':
+            if self.page_edit.intro_video.check_my_favorite():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -287,25 +262,24 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.page_edit.enter_main_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
 
-    def sce_7_8_8(self):
+            return "FAIL"
+
+    def sce_5_1_8(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.ai_audio_tool.strength_slider)
-            slider = self.element(L.edit.ai_audio_tool.strength_slider).text
-            if slider == '100.0':
+            self.category = self.page_edit.intro_video.check_category()
+
+            if 'CyberLink' not in self.category:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -315,24 +289,32 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.page_edit.enter_main_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
 
-    def sce_7_8_9(self):
+            return "FAIL"
+
+    def sce_5_1_9(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
-            if slider == '50.0':
+            defined = ['Beauty', 'Black & White', 'Business', 'Design', 'Education', 'Event', 'Family', 'Fashion', 'Food', 'Fun & Playful', 'Gaming', 'Handwritten', 'Health', 'Holiday', 'Life', 'Love', 'Minimalist', 'Modern', 'Music', 'Nature', 'Pets', 'Repair', 'Retro', 'Season', 'Social Media', 'Sport', 'Technology', 'Travel']
+            miss = False
+            for element in defined:
+                if element not in self.category:
+                    miss = element
+                    break
+
+            if not miss:
                 report.new_result(uuid, True)
+
+                self.result_5_1_9 = True
+
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception(f'[Fail] No found {miss}')
 
         except Exception as err:
             traceback.print_exc()
@@ -342,25 +324,22 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.page_edit.enter_main_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
 
-    def sce_7_8_10(self):
+            return "FAIL"
+
+    def sce_5_1_10(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.edit.ai_audio_tool.compensation_slider)
-            slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
-            if slider == '0.0':
+            if self.result_5_1_9:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -370,26 +349,22 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.page_edit.enter_main_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
 
-    def sce_7_8_11(self):
+            return "FAIL"
+
+    def sce_5_1_11(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.edit.ai_audio_tool.compensation_slider)
-            slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
-            if slider == '100.0':
+            if self.page_edit.intro_video.tap_category():
                 report.new_result(uuid, True)
-
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception('[Fail] Enter Intro fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -399,10 +374,9 @@ class Test_Class:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media('video', test_material_folder, video_speech)
-            self.page_edit.enter_main_tool('AI Audio \nTool')
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
-            self.page_edit.waiting()
+            self.page_edit.intro_video.enter_intro()
+
+            return "FAIL"
 
     def sce_7_8_12(self):
         func_name = inspect.stack()[0][3]
@@ -855,33 +829,17 @@ class Test_Class:
 
     @report.exception_screenshot
     def test_case(self):
-        result = {"sce_7_8_3": self.sce_7_8_3(),
-                  "sce_7_8_1": self.sce_7_8_1(),
-                  "sce_7_8_2": self.sce_7_8_2(),
-                  "sce_7_8_4": self.sce_7_8_4(),
-                  "sce_7_8_5": self.sce_7_8_5(),
-                  "sce_7_8_6": self.sce_7_8_6(),
-                  "sce_7_8_7": self.sce_7_8_7(),
-                  "sce_7_8_8": self.sce_7_8_8(),
-                  "sce_7_8_9": self.sce_7_8_9(),
-                  "sce_7_8_10": self.sce_7_8_10(),
-                  "sce_7_8_11": self.sce_7_8_11(),
-                  "sce_7_8_12": self.sce_7_8_12(),
-                  "sce_7_8_13": self.sce_7_8_13(),
-                  "sce_7_8_14": self.sce_7_8_14(),
-                  "sce_7_8_15": self.sce_7_8_15(),
-                  "sce_7_8_16": self.sce_7_8_16(),
-                  "sce_7_8_17": self.sce_7_8_17(),
-                  "sce_7_8_18": self.sce_7_8_18(),
-                  "sce_7_8_19": self.sce_7_8_19(),
-                  "sce_7_8_20": self.sce_7_8_20(),
-                  "sce_7_8_21": self.sce_7_8_21(),
-                  "sce_7_8_22": self.sce_7_8_22(),
-                  "sce_7_8_23": self.sce_7_8_23(),
-                  "sce_7_8_24": self.sce_7_8_24(),
-                  "sce_7_8_25": self.sce_7_8_25(),
-                  "sce_7_8_26": self.sce_7_8_26(),
-                  "sce_7_8_27": self.sce_7_8_27(),
+        result = {"sce_5_1_1": self.sce_5_1_1(),
+                  "sce_5_1_2": self.sce_5_1_2(),
+                  "sce_5_1_4": self.sce_5_1_4(),
+                  "sce_5_1_5": self.sce_5_1_5(),
+                  "sce_5_1_6": self.sce_5_1_6(),
+                  "sce_5_1_7": self.sce_5_1_7(),
+                  "sce_5_1_11": self.sce_5_1_11(),
+                  "sce_5_1_8": self.sce_5_1_8(),
+                  "sce_5_1_9": self.sce_5_1_9(),
+                  "sce_5_1_3": self.sce_5_1_3(),
+                  "sce_5_1_10": self.sce_5_1_10(),
                   }
         for key, value in result.items():
             if value != "PASS":

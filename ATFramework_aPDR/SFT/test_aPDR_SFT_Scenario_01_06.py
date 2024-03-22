@@ -105,7 +105,7 @@ class Test_SFT_Scenario_01_06:
             self.click(L.import_media.media_library.btn_preview())
             self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.Photo.display_preview):
+            if self.is_exist(L.import_media.media_library.photo.display_preview):
 
                 self.driver.driver.back()
 
@@ -133,7 +133,7 @@ class Test_SFT_Scenario_01_06:
             self.long_press(L.import_media.media_library.media())
             self.page_media.waiting_loading()
 
-            if self.is_exist(L.import_media.media_library.Photo.display_preview):
+            if self.is_exist(L.import_media.media_library.photo.display_preview):
 
                 self.driver.driver.back()
 
