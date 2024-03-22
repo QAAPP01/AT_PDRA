@@ -53,6 +53,7 @@ class MediaLibrary:
     right_indicator = id('right_indicator')
 
 
+
     @staticmethod
     def media(index=1):
         if index == 0:
@@ -114,7 +115,7 @@ class MediaLibrary:
         else:
             return xpath(f'(//*[contains(@resource-id,"library_unit_background")])[{index}]')
 
-    class Video:
+    class video:
         video_capture = id('btn_camera')
         start_recording = aid("Start recording")  # SS A53
         stop_recording = aid("Stop recording")  # SS A53
@@ -128,7 +129,7 @@ class MediaLibrary:
         display_preview = id('playerView')
         videoDisplay = id("videoDisplay")
 
-    class Photo:
+    class photo:
         photo_capture = id('btn_camera')
         take_picture = aid("Take picture")  # SS A53
         camera_ok = aid("OK")  # SS A53
@@ -139,9 +140,18 @@ class MediaLibrary:
         pixabay = id('pickerPixabay')
         display_preview = id('imageDisplay')
 
-
-    video = Video
-    photo = Photo
+    class tti:
+        entry = id('tti_switch')
+        title = id('tv_title')
+        close = id('iv_close')
+        prompt = id("tv_prompt")
+        done = id("tv_done")
+        clear = id('tv_clear')
+        recommend = id('tv_tag')
+        input_box = id('et_prompt')
+        exceed_hint = id("tv_blocked_hint_exceeds_limit")
+        sensitive = id('tv_blocked_hint_violation')
+        generate = id('btn_generate')
 
 
 class trim_before_edit:

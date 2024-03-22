@@ -1,3 +1,5 @@
+import inspect
+import time
 import traceback
 
 from selenium.webdriver import ActionChains
@@ -1068,3 +1070,25 @@ class AppiumU2Driver(Borg, BaseDriver):
         logger(f'screenshot saved: {path_save}')
 
         return path_save
+
+    # ==================================================================================================================
+    # Function: double_tap_element
+    # Description: double_tap_element
+    # Parameters: locator(tuple), (opt) interval=0.2
+    # Return: True/False
+    # Note: n/a
+    # Author: Hausen
+    # ==================================================================================================================
+    def double_tap_element(self, locator):
+        try:
+            actions = TouchAction(self.driver)
+            element = self.get_element(locator)
+            actions.tap(element)
+            actions.tap(element)
+            actions.perform()
+            time.sleep(0.5)
+            return True
+
+        except Exception:
+            traceback.print_exc()
+            return False

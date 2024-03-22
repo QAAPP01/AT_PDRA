@@ -21,7 +21,7 @@ photo_16_9 = 'photo_16_9.jpg'
 video_speech = 'speech_noise_1.mp4'
 
 
-class Test_Class:
+class Test_Audio_Tool:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")

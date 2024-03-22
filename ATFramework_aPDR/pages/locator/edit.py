@@ -171,6 +171,13 @@ class ai_audio_tool:
     class voice_changer:
         remove = id('btn_remove_audio')
 
+        @staticmethod
+        def filter_option(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"bg_selected")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"bg_selected")]')
+
 
 
 class Converting:

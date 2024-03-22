@@ -1,19 +1,19 @@
 from .aa_init_test import TestInit
-
-
 from .test_app_initial import test_app_init
+
+
 from .test_aPDR_SFT_Scenario_01_01 import Test_SFT_Scenario_01_01
 from .test_aPDR_SFT_Scenario_01_02 import Test_SFT_Scenario_01_02
 from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
 from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
 from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
 from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
-from .test_import_master_text_to_image_01_07 import Test_Class
+from .test_import_master_text_to_image_01_07 import Test_Import_Master_TTI
 from .test_aPDR_SFT_Scenario_02_01 import Test_SFT_Scenario_02_01
 from .test_aPDR_SFT_Scenario_02_02 import Test_SFT_Scenario_02_02
 from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03
 
-from .test_edit_intro_05_01 import Test_Class
+from .test_edit_intro_05_01 import Test_Edit_Intro
 from .test_aPDR_SFT_Scenario_05_03_dev import Test_SFT_Scenario_05_03
 
 
@@ -34,14 +34,15 @@ from .test_shortcut_ai_art_06_11 import Test_Shortcut_AI_Art
 from .test_shortcut_ai_scene_06_12 import Test_Shortcut_AI_Scene
 from .test_shortcut_text_to_image_06_13 import Test_Shortcut_Text_to_Image
 from .test_shortcut_auto_caption_06_14 import Test_Shortcut_Auto_Caption
-from .test_shortcut_voice_changer_06_15 import Test_Class
-from .test_shortcut_audio_tool_06_19 import Test_Class
+from .test_shortcut_voice_changer_06_15 import Test_Shortcut_Voice_Changer
+from .test_shortcut_audio_tool_06_19 import Test_Audio_Tool
+from .test_shortcut_tempo_effect_06_21 import Test_Tempo_Effect
 
 from .test_edit_master_ai_effect_07_01 import Test_Ai_Effect
 from .test_edit_master_effect_07_02 import Test_Effect
-from .test_edit_pip_filter_07_07 import Test_Class
-from .test_edit_master_ai_audio_tool_07_08 import Test_Class
-from .test_edit_master_voice_changer_07_09 import Test_Class
+from .test_edit_master_filter_07_07 import Test_Edit_Master_Filter
+from .test_edit_master_ai_audio_tool_07_08 import Test_Edit_Master_Audio_Tool
+from .test_edit_master_voice_changer_07_09 import Test_Edit_Master_Voice_Changer
 from .test_edit_overlay_filter_09_01 import Test_Overlay_Filter
 from .test_edit_overlay_videoFx_09_02 import Test_Overlay_VideoFx
 

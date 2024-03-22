@@ -21,7 +21,7 @@ photo_16_9 = 'photo_16_9.jpg'
 video_speech = 'speech_noise_1.mp4'
 
 
-class Test_Class:
+class Test_Tempo_Effect:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")
@@ -994,24 +994,20 @@ class Test_Class:
 
     @report.exception_screenshot
     def test_case(self):
-        result = {"sce_6_19_1": self.sce_6_19_1(),
-                  "sce_6_19_2": self.sce_6_19_2(),
-                  "sce_6_19_3": self.sce_6_19_3(),
-                  "sce_6_19_4": self.sce_6_19_4(),
-                  "sce_6_19_6": self.sce_6_19_6(),
-                  "sce_6_19_7": self.sce_6_19_7(),
-                  "sce_6_19_8": self.sce_6_19_8(),
-                  "sce_6_19_9": self.sce_6_19_9(),
-                  "sce_6_19_10": self.sce_6_19_10(),
-                  "sce_6_19_11": self.sce_6_19_11(),
-                  "sce_6_19_12": self.sce_6_19_12(),
-                  "sce_6_19_13": self.sce_6_19_13(),
-                  "sce_6_19_14": self.sce_6_19_14(),
-                  # "sce_6_19_5": self.sce_6_19_5(),
-
-                  "sce_6_19_29": self.sce_6_19_29(),
-                  "sce_6_19_30": self.sce_6_19_30(),
-                  "sce_6_19_31": self.sce_6_19_31(),
+        result = {"sce_6_21_1": self.sce_6_21_1(),
+                  "sce_6_21_2": self.sce_6_21_2(),
+                  "sce_6_21_3": self.sce_6_21_3(),
+                  "sce_6_21_4": self.sce_6_21_4(),
+                  "sce_6_21_5": self.sce_6_21_5(),
+                  "sce_6_21_6": self.sce_6_21_6(),
+                  "sce_6_21_7": self.sce_6_21_7(),
+                  "sce_6_21_8": self.sce_6_21_8(),
+                  "sce_6_21_9": self.sce_6_21_9(),
+                  "sce_6_21_10": self.sce_6_21_10(),
+                  "sce_6_21_11": self.sce_6_21_11(),
+                  "sce_6_21_12": self.sce_6_21_12(),
+                  "sce_6_21_13": self.sce_6_21_13(),
+                  "sce_6_21_14": self.sce_6_21_14(),
                   }
         for key, value in result.items():
             if value != "PASS":

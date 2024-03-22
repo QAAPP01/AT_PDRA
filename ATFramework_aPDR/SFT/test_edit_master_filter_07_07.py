@@ -20,7 +20,7 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
-class Test_Class:
+class Test_Edit_Master_Filter:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")

@@ -22,7 +22,7 @@ video_speech = 'speech_noise_1.mp4'
 video_20min = '20min.mp4'
 
 
-class Test_Class:
+class Test_Edit_Intro:
     @pytest.fixture(autouse=True)
     def initial(self, driver): 
         logger("[Start] Init driver session")

@@ -2230,8 +2230,8 @@ class Preference(BasePage):
         try:
             self.click(L.edit.settings.menu)
             self.click(L.edit.settings.preference)
-            while not self.is_exist(L.timeline_settings.preference.display_file_name_switch):
-                if self.is_exist(xpath('//*[contains(@text,"Enable All Default Tips")]')):
+            while not self.is_exist(L.timeline_settings.preference.display_file_name_switch, 1):
+                if self.is_exist(xpath('//*[contains(@text,"Enable All Default Tips")]'), 1):
                     raise Exception('No found display_file_name_switch')
                 else:
                     self.driver.swipe_up()
@@ -3691,9 +3691,9 @@ class Intro_Video(BasePage):
             if self.h_is_exist(L.main.cse.login_page, 2):
                 account = 'hausen.cyberlink+at@gmail.com'
                 pw = '123456'
-                self.h_get_element(L.main.cse.email_field, 60).send_keys(account)
-                self.h_get_element(L.main.cse.password_field).send_keys(pw)
-                self.h_click(L.main.cse.btn_login)
+                self.h_get_element(xpath('(//android.widget.EditText)[1]'), 60).send_keys(account)
+                self.h_get_element(xpath('(//android.widget.EditText)[2]')).send_keys(pw)
+                self.h_click(aid("Sign in"))
                 if self.h_is_exist(L.main.cse.incorrect, 1):
                     logger("\n[Fail] Account or password incorrect")
                     self.h_click(L.main.cse.login_back)
