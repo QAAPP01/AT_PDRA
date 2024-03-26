@@ -133,7 +133,7 @@ def send_report(title_project, udid_list, test_case_path, receiver_list, sr_numb
             na_count += int(summary_dict['na'])
             mail_body += summary_report_add_row(summary_dict['title'], summary_dict['date'], summary_dict['time'], summary_dict['server'], summary_dict['os'], summary_dict['device'], summary_dict['version'], summary_dict['pass'], summary_dict['fail'], summary_dict['na'], summary_dict['skip'], summary_dict['duration'])
         else:
-            summary_dict = []
+            return False
     mail_body += summary_report_tail() + html_report_tail
     if fail_count > 0:
         result = '[FAIL]'

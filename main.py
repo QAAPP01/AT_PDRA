@@ -147,23 +147,26 @@ def auto_run():
                 return False
 
         def uninstall_apk(_package_name, device_id=None):
-            # 如果指定了設備ID，則添加“-s”選項
-            adb_command = ["adb"]
-            if device_id:
-                adb_command.extend(["-s", device_id])
+            try:
+                # 如果指定了設備ID，則添加“-s”選項
+                adb_command = ["adb"]
+                if device_id:
+                    adb_command.extend(["-s", device_id])
 
-            # 添加解除安裝APK的命令
-            adb_command.extend(["uninstall", _package_name])
+                # 添加解除安裝APK的命令
+                adb_command.extend(["uninstall", _package_name])
 
-            # 使用subprocess運行adb命令
-            process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output, error = process.communicate()
+                # 使用subprocess運行adb命令
+                process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                output, error = process.communicate()
 
-            # 檢查是否發生錯誤
-            if process.returncode == 0:
-                print(f"APK 解除安裝成功：{output.decode()}")
-            else:
-                print(f"APK 解除安裝失敗：{error.decode()}")
+                # 檢查是否發生錯誤
+                if process.returncode == 0:
+                    print(f"APK 解除安裝成功：{output.decode()}")
+                else:
+                    raise Exception(error.decode())
+            except Exception as err:
+                print(f"APK 解除安裝失敗：{err}")
 
         # [auto download lasted build]
         if auto_download:
@@ -250,7 +253,7 @@ def auto_run():
         for p in procs:
             p.join()
         print('test complete.')
-        ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
+
 
         # [mail result]
         if send:
@@ -270,7 +273,7 @@ def auto_run():
                     print('delete exist files in app folder...')
                 except Exception as e:
                     print('Failed to delete %s. Reason: %s' % (file_path, e))
-
+        ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
         delete_apk(app_path)
 
         print("\n ======== Auto Test Finish ========")
