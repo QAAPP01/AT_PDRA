@@ -58,21 +58,6 @@ class Test_SFT_Scenario_02_35:
 
         try:
             self.page_main.enter_launcher()
-
-            if self.page_main.enter_timeline():
-                self.report.new_result(uuid, True)
-                return "PASS"
-            else:
-                fail_log = '[Fail] Cannot find timeline canvas'
-                self.report.new_result(uuid, False, fail_log=fail_log)
-                raise Exception(fail_log)
-
-        except Exception as err:
-            logger(f'\n{err}')
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_main.enter_launcher()
             self.page_main.enter_timeline()
 
             if self.page_edit.sticker.ai_sticker.enter_ai_sticker():
@@ -166,7 +151,7 @@ class Test_SFT_Scenario_02_35:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '[Fail] None is not selected'
+                fail_log = f'[Fail] Generate btn is not disabled'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
@@ -177,31 +162,28 @@ class Test_SFT_Scenario_02_35:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('AI Effect')
+            self.page_edit.sticker.ai_sticker.enter_ai_sticker()
+            self.element(L.edit.main_tool.sticker.ai_sticker.prompt_entry).send_keys('x'*801)
 
             return "FAIL"
 
-    def sce_2_2_6(self):
-        uuid = '09586d72-f271-4863-9e7e-36416d682706'
+    def sce_2_35_5(self):
+        uuid = '7387191c-7e85-4ef5-adff-6c81366c0ecf'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            index = 1
-            if not self.click(L.edit.sub_tool.ai_effect.effect(index)):
-                raise Exception('Click effect fail')
-            self.click(L.edit.try_before_buy.try_it, 2)
+            self.click(L.edit.main_tool.sticker.ai_sticker.clear)
+            text = self.element(L.edit.main_tool.sticker.ai_sticker.prompt_entry).text
 
-            if self.element(L.edit.sub_tool.ai_effect.effect_name(index)).get_attribute('selected') == 'true':
+            if text == default_prompt:
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '[Fail] Effect is not selected'
+                fail_log = f'[Fail] Text is not cleared: {text}'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
-
         except Exception as err:
             logger(f'\n{err}')
 
@@ -209,27 +191,22 @@ class Test_SFT_Scenario_02_35:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('AI Effect')
-            self.click(L.edit.sub_tool.ai_effect.effect(1))
+            self.page_edit.sticker.ai_sticker.enter_ai_sticker()
 
             return "FAIL"
 
-    def sce_2_2_7(self):
-        uuid = 'fcebcfb5-f2b5-41d7-91d8-70425154ba2c'
+    def sce_2_35_6(self):
+        uuid = 'efb60ced-e009-46de-bda0-a85455a48051'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            if not self.click(L.edit.sub_tool.ai_effect.edit):
-                raise Exception('Click editing icon fail')
-
-            if self.is_exist(L.edit.sub_tool.ai_effect.param_area):
+            if self.element(L.edit.main_tool.sticker.ai_sticker.clear).get_attribute('enabled') == 'false':
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '[Fail] Cannot find param_area'
+                fail_log = f'[Fail] Clear btn is not disabled'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
@@ -240,40 +217,25 @@ class Test_SFT_Scenario_02_35:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('AI Effect')
-            self.click(L.edit.sub_tool.ai_effect.effect(1))
-            self.click(L.edit.sub_tool.ai_effect.edit)
+            self.page_edit.sticker.ai_sticker.enter_ai_sticker()
 
             return "FAIL"
 
-    def sce_2_2_8(self):
-        uuid = '8f6911a6-f3ab-4d48-8626-08287afb95af'
+    def sce_2_35_7(self):
+        uuid = '94160082-befc-48fb-b346-1e8a269becfa'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         self.report.start_uuid(uuid)
 
         try:
-            param_num = len(self.elements(L.edit.sub_tool.ai_effect.param_value(0)))
-            param_flag = 0
-            global default_value
-            for i in range(param_num):
-                if self.element(L.edit.sub_tool.ai_effect.param_value(i + 1)).text == "":
-                    continue
-                else:
-                    param_flag = 1
-                    default_value = (i + 1, self.element(L.edit.sub_tool.ai_effect.param_value(i + 1)).text)
-                    self.click(L.edit.sub_tool.ai_effect.param_value(i + 1))
-                    self.driver.drag_slider_from_left_to_right()
-                    break
-            if not param_flag:
-                raise Exception('No parameter can edit in this effect')
+            selected_xpath = xpath('//*[contains(@id,"view_is_selected")]/../*[contains(@id,"tv_name")]')
+            selected_style = self.element(selected_xpath).text
 
-            if self.element(L.edit.sub_tool.slider_value).text != default_value[1]:
+            if selected_style == "None":
                 self.report.new_result(uuid, True)
                 return "PASS"
             else:
-                fail_log = '[Fail] Param value no change'
+                fail_log = f'[Fail] selected_style is not "None": {selected_style}'
                 self.report.new_result(uuid, False, fail_log=fail_log)
                 raise Exception(fail_log)
 
@@ -284,14 +246,11 @@ class Test_SFT_Scenario_02_35:
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.add_master_media("Photo", test_material_folder, photo_9_16)
-            self.page_edit.enter_main_tool('AI Effect')
-            self.click(L.edit.sub_tool.ai_effect.effect(1))
-            self.click(L.edit.sub_tool.ai_effect.edit)
+            self.page_edit.sticker.ai_sticker.enter_ai_sticker()
 
             return "FAIL"
 
-    def sce_2_2_9(self):
+    def sce_2_35_9(self):
         uuid = 'b1842e2f-85e1-4733-b66a-e9e9a2709f43'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -323,7 +282,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_10(self):
+    def sce_2_35_10(self):
         uuid = 'aa3241e2-63f4-4e06-b722-d3c751c0aefe'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -355,7 +314,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_11(self):
+    def sce_2_35_11(self):
         uuid = '9bd61e1e-f41a-4e72-8c8e-0060a3c86afe'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -378,7 +337,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_14(self):
+    def sce_2_35_14(self):
         uuid = '7eb3f4d4-b6a0-464c-a046-3859f69557b5'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -421,7 +380,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_12(self):
+    def sce_2_35_12(self):
         uuid = '6adefecd-8cbd-4164-aa84-9dd4bd06577e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -461,7 +420,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_13(self):
+    def sce_2_35_13(self):
         uuid = 'd49362dd-6d87-4c27-8d5f-785749caeef2'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -501,7 +460,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_15(self):
+    def sce_2_35_15(self):
         uuid = '4411db3a-3fdc-461c-930f-793ab72b45a2'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -545,7 +504,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_16(self):
+    def sce_2_35_16(self):
         uuid = '80556c5f-b177-455d-bade-d46c0fa34195'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -579,7 +538,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_17(self):
+    def sce_2_35_17(self):
         uuid = 'adc2ccca-482d-4eb7-ac83-5bf5d4de19b7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -612,7 +571,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_19(self):
+    def sce_2_35_19(self):
         uuid = '1b938b47-d9e3-43db-bc7f-93deba4de02f'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -645,7 +604,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_18(self):
+    def sce_2_35_18(self):
         uuid = '2fd0c8b8-59d5-4986-ad84-405637852a86'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -677,7 +636,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_20(self):
+    def sce_2_35_20(self):
         uuid = '4a4ad790-5b78-4831-a156-315877f42bb8'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -732,7 +691,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_21(self):
+    def sce_2_35_21(self):
         uuid = '5a6815e0-1ac5-48b2-a582-567ebace8f71'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -763,7 +722,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_22(self):
+    def sce_2_35_22(self):
         uuid = '415d116b-389c-44f0-bd08-d3ea14ea04de'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -807,7 +766,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_23(self):
+    def sce_2_35_23(self):
         uuid = '60936593-4d5b-4117-9626-a262d693e59e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -841,7 +800,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_24(self):
+    def sce_2_35_24(self):
         uuid = '88b811ec-fcb6-45f3-9480-27a7a68b9cdc'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -874,7 +833,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_25(self):
+    def sce_2_35_25(self):
         uuid = '822282fc-0374-4534-90d5-902de4e2de66'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -907,7 +866,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_26(self):
+    def sce_2_35_26(self):
         uuid = '720154f9-f1e7-4e07-b01a-1b0fe8bcd216'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -916,7 +875,7 @@ class Test_SFT_Scenario_02_35:
         self.report.new_result(uuid, None, 'N/A', log)
         return 'N/A'
 
-    def sce_2_2_27(self):
+    def sce_2_35_27(self):
         uuid = 'af2a4980-71b7-4181-a105-e978b380bb99'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -925,7 +884,7 @@ class Test_SFT_Scenario_02_35:
         self.report.new_result(uuid, None, 'N/A', log)
         return 'N/A'
 
-    def sce_2_2_28(self):
+    def sce_2_35_28(self):
         uuid = '343072ee-7556-45fe-bc52-2a8889eed30c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -934,7 +893,7 @@ class Test_SFT_Scenario_02_35:
         self.report.new_result(uuid, None, 'N/A', log)
         return 'N/A'
 
-    def sce_2_2_31(self):
+    def sce_2_35_31(self):
         uuid = '6cb4e483-d200-4a12-9ae1-14abc04f6d28'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -980,7 +939,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_30(self):
+    def sce_2_35_30(self):
         uuid = 'fe5e2f0d-ee84-43b7-9bba-1a27df66d71e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1015,7 +974,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_32(self):
+    def sce_2_35_32(self):
         uuid = '7cd0f6de-d928-4319-97f5-c2cb2e66ff7c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1048,7 +1007,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_29(self):
+    def sce_2_35_29(self):
         uuid = '4260b495-a0f0-4ccb-81fc-d816bfd627c6'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1083,7 +1042,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_33(self):
+    def sce_2_35_33(self):
         uuid = 'b3da4cba-cbe8-49c6-8d1f-5df90e7bef60'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1116,7 +1075,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_34(self):
+    def sce_2_35_34(self):
         uuid = 'ab490a99-98de-4070-9442-608fe225c520'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1151,7 +1110,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_35(self):
+    def sce_2_35_35(self):
         uuid = '094cff54-681b-43f6-9bdd-300857c70370'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1185,7 +1144,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_36(self):
+    def sce_2_35_36(self):
         uuid = '00a7f2e5-8f0c-467c-a7ae-c4c718ba985b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1219,7 +1178,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_39(self):
+    def sce_2_35_39(self):
         uuid = '05fbc53e-aa2e-46ee-9942-3ac55343435d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1263,7 +1222,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_38(self):
+    def sce_2_35_38(self):
         uuid = 'ef7c6f67-9c99-4092-93e3-cbc71daa8a32'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1298,7 +1257,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_40(self):
+    def sce_2_35_40(self):
         uuid = '88eb60c0-199b-4009-aa12-b0a22b961669'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1331,7 +1290,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_37(self):
+    def sce_2_35_37(self):
         uuid = 'ea4aa246-1530-4d35-a9fc-9c1e9a0104f1'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1366,7 +1325,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_41(self):
+    def sce_2_35_41(self):
         uuid = '524be4d9-98b2-4db8-903f-278778410326'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1399,7 +1358,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_42(self):
+    def sce_2_35_42(self):
         uuid = 'f1061dea-2e58-4764-93dd-9c0b11a61066'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1434,7 +1393,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_43(self):
+    def sce_2_35_43(self):
         uuid = '756a3f0f-2f9e-4923-805b-76a0c9ea1ae3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1468,7 +1427,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_44(self):
+    def sce_2_35_44(self):
         uuid = '07fc3b8d-eac6-4f29-980f-683fd687ab85'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1502,7 +1461,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_45(self):
+    def sce_2_35_45(self):
         uuid = '5d72248a-f7fd-4a3f-a1c6-0ad31155c63f'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1537,7 +1496,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_46(self):
+    def sce_2_35_46(self):
         uuid = '6ba7a9de-597a-4c79-abf8-699dcf9a0986'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1571,7 +1530,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_47(self):
+    def sce_2_35_47(self):
         uuid = '2d933688-36c3-4b35-8ca8-d016b17dd005'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1605,7 +1564,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_50(self):
+    def sce_2_35_50(self):
         uuid = '1e96519a-d4e2-46e4-b954-f15bee0992cf'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1649,7 +1608,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_49(self):
+    def sce_2_35_49(self):
         uuid = '338277ce-767a-4948-b34b-88d0e66186a3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1684,7 +1643,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_51(self):
+    def sce_2_35_51(self):
         uuid = 'b64a4b32-804d-45bf-a049-7e79d36e35fb'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1717,7 +1676,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_48(self):
+    def sce_2_35_48(self):
         uuid = 'ef54fa97-ccf7-4f9e-a0cc-78ef011ba1d2'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1752,7 +1711,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_52(self):
+    def sce_2_35_52(self):
         uuid = '57cd0f6de-d928-4319-97f5-c2cb2e66ff7c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1785,7 +1744,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_53(self):
+    def sce_2_35_53(self):
         uuid = '0a65b372-42de-4762-a678-d2f2b6951660'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1819,7 +1778,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_54(self):
+    def sce_2_35_54(self):
         uuid = '561c6461-f8c4-49dd-89a2-7347d4a0d65b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1851,7 +1810,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_55(self):
+    def sce_2_35_55(self):
         uuid = '77ed7370-d1b1-4c36-8159-02eaee850020'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1893,7 +1852,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_56(self):
+    def sce_2_35_56(self):
         uuid = '071e7446-914c-4fce-ac7f-e6628bfc5408'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1926,7 +1885,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_57(self):
+    def sce_2_35_57(self):
         uuid = '1e3925fc-6203-458a-9932-b07ead0fa797'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1966,7 +1925,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_58(self):
+    def sce_2_35_58(self):
         uuid = '114a8820-25cb-45a4-9208-735db7a3690e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -1999,7 +1958,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_59(self):
+    def sce_2_35_59(self):
         uuid = '5bc0675a-4b90-431c-98b1-37f79bb27f2a'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2039,7 +1998,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_60(self):
+    def sce_2_35_60(self):
         uuid = '4df5c28e-3226-4f2b-8ac7-e1d3193bb76b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2072,7 +2031,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_61(self):
+    def sce_2_35_61(self):
         uuid = 'a0c6ea80-8f40-48ce-a82e-5e21813b6aa6'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2136,7 +2095,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_62(self):
+    def sce_2_35_62(self):
         uuid = '0a20ef94-bb4d-4ff9-8cf6-12f2b5b03a57'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2169,7 +2128,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_63(self):
+    def sce_2_35_63(self):
         uuid = '31974a6e-b202-4b5e-b343-673a1abb8066'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2204,7 +2163,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_64(self):
+    def sce_2_35_64(self):
         uuid = '404da069-4c4b-4198-a492-745ebeb9dbc9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2241,7 +2200,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_65(self):
+    def sce_2_35_65(self):
         uuid = '44a68076-a6b5-4e57-9fbe-27051750eae8'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2254,7 +2213,7 @@ class Test_SFT_Scenario_02_35:
             if self.element(none_border).get_attribute("selected") == 'true':
                 self.report.new_result(uuid, True)
 
-                # sce_2_2_104
+                # sce_2_35_104
                 self.report.start_uuid('d4a10596-a73a-4395-91b4-74a6e72dee7a')
                 self.report.new_result('d4a10596-a73a-4395-91b4-74a6e72dee7a', True)
 
@@ -2263,7 +2222,7 @@ class Test_SFT_Scenario_02_35:
                 fail_log = f'[Fail] 2nd transition None is not selected'
                 self.report.new_result(uuid, False, fail_log=fail_log)
 
-                # sce_2_2_104
+                # sce_2_35_104
                 self.report.start_uuid('d4a10596-a73a-4395-91b4-74a6e72dee7a')
                 self.report.new_result('d4a10596-a73a-4395-91b4-74a6e72dee7a', False)
 
@@ -2283,7 +2242,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_66(self):
+    def sce_2_35_66(self):
         uuid = '5aec562c-3df2-43a7-8099-2f0944997568'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2315,7 +2274,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_103(self):
+    def sce_2_35_103(self):
         uuid = '49437a84-cd81-4f47-8b2a-51e1b0ff0e73'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2340,7 +2299,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_67(self):
+    def sce_2_35_67(self):
         uuid = ''
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2382,7 +2341,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_69(self):
+    def sce_2_35_69(self):
         uuid = '11b755de-eaa4-4232-afe5-d09b6cca72f6'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2413,7 +2372,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_68(self):
+    def sce_2_35_68(self):
         uuid = '01576a37-c1e2-4ff0-8663-74387b5036ed'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2453,7 +2412,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_70(self):
+    def sce_2_35_70(self):
         uuid = '185dee12-1fe5-4fe1-a0a9-941d643e1212'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2484,7 +2443,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_73(self):
+    def sce_2_35_73(self):
         uuid = '845d4a9d-6ec5-468d-8421-35cabc94d3f9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2530,7 +2489,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_72(self):
+    def sce_2_35_72(self):
         uuid = '3a8cde6e-6b62-42c4-89c5-fe4ae98647b8'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2563,7 +2522,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_74(self):
+    def sce_2_35_74(self):
         uuid = '2ea6ab9e-71e4-48bd-ba43-b9cd2654efaf'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2600,7 +2559,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_71(self):
+    def sce_2_35_71(self):
         uuid = '7808a09b-9f46-43b2-8e53-fde4bd1d05ff'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2633,7 +2592,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_75(self):
+    def sce_2_35_75(self):
         uuid = '8dc75ff8-4ef9-4fdd-9dbd-c113c112b494'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2671,7 +2630,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_78(self):
+    def sce_2_35_78(self):
         uuid = 'b8aedb47-bb52-43b9-8712-4cf7ded8a7cf'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2710,7 +2669,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_77(self):
+    def sce_2_35_77(self):
         uuid = '3160506b-92e6-4796-b463-461306d7cf68'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2743,7 +2702,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_79(self):
+    def sce_2_35_79(self):
         uuid = '35fa5496-30c2-4666-84d0-218fefa4e7ac'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2780,7 +2739,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_76(self):
+    def sce_2_35_76(self):
         uuid = '89e31121-4472-4f2f-ac47-47691b592cc9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2813,7 +2772,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_80(self):
+    def sce_2_35_80(self):
         uuid = '3bd8f601-e5c1-45c4-a7ce-5bce38299731'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2851,7 +2810,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_83(self):
+    def sce_2_35_83(self):
         uuid = 'e378c5c1-7131-42b2-ad7d-2d26bbe72a92'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2890,7 +2849,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_82(self):
+    def sce_2_35_82(self):
         uuid = '0f159765-14b8-4a19-ae01-df132ecf41d9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2923,7 +2882,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_84(self):
+    def sce_2_35_84(self):
         uuid = 'fbd555b1-57a7-43a5-a3b0-ca17d8ca41f4'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2960,7 +2919,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_81(self):
+    def sce_2_35_81(self):
         uuid = '7cc32cf8-d2e7-41a4-8d54-a79dde6b35a0'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -2993,7 +2952,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_85(self):
+    def sce_2_35_85(self):
         uuid = '822f8f26-eab7-446d-af29-d7c65701e43c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3031,7 +2990,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_88(self):
+    def sce_2_35_88(self):
         uuid = '3be58560-ae77-40d9-b011-ff2d047f41dd'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3070,7 +3029,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_87(self):
+    def sce_2_35_87(self):
         uuid = 'ab7dc707-ef82-45fb-928c-f95721b0f36d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3103,7 +3062,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_89(self):
+    def sce_2_35_89(self):
         uuid = '95c831a3-e9c6-4544-95fc-db8175aad502'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3140,7 +3099,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_86(self):
+    def sce_2_35_86(self):
         uuid = 'c8ba369d-782a-40fc-ba3f-34f06f7299e7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3173,7 +3132,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_90(self):
+    def sce_2_35_90(self):
         uuid = 'e06c1f1b-579e-40c0-9a30-11a115f220db'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3211,7 +3170,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_93(self):
+    def sce_2_35_93(self):
         uuid = '10d8d88d-aeac-4214-a5a5-511ff25e6ae0'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3250,7 +3209,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_92(self):
+    def sce_2_35_92(self):
         uuid = 'ab862a41-58ad-44a2-8087-b264278abbec'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3283,7 +3242,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_94(self):
+    def sce_2_35_94(self):
         uuid = 'bc052e63-4c9f-4694-b4f0-638c8a3c11e3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3320,7 +3279,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_91(self):
+    def sce_2_35_91(self):
         uuid = 'd5b5d9f5-3eef-42e2-bc06-a2a1abe8dee7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3353,7 +3312,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_95(self):
+    def sce_2_35_95(self):
         uuid = '62b5c254-4771-4b6a-9b48-8ef2027c460b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3391,7 +3350,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_98(self):
+    def sce_2_35_98(self):
         uuid = '91d4fcee-d1fe-4bc6-93db-59a4d9236741'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3430,7 +3389,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_97(self):
+    def sce_2_35_97(self):
         uuid = '01f76d4e-1bb2-4308-9330-69b6444f4d58'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3463,7 +3422,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_99(self):
+    def sce_2_35_99(self):
         uuid = 'e1275432-69eb-4980-87e7-9b4a6448bd7c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3500,7 +3459,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_96(self):
+    def sce_2_35_96(self):
         uuid = 'b3aba4f2-aa2e-4328-9fe9-8a96a1ab9cb2'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3533,7 +3492,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_100(self):
+    def sce_2_35_100(self):
         uuid = '0487a29e-b1db-4037-a4b9-49925706a128'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3571,7 +3530,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_101(self):
+    def sce_2_35_101(self):
         uuid = 'f35c33a1-962c-475e-9f7f-0e18eed3e262'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3610,7 +3569,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_102(self):
+    def sce_2_35_102(self):
         uuid = '2f335a6a-e6b2-488b-9d0d-45de1be19d36'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3638,7 +3597,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_105(self):
+    def sce_2_35_105(self):
         uuid = '5bd41804-74f8-4e9b-bff4-246537c0af45'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3666,7 +3625,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_106(self):
+    def sce_2_35_106(self):
         uuid = '3f81b17b-7ec0-463a-9423-acd1c8fad3ea'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3695,7 +3654,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_109(self):
+    def sce_2_35_109(self):
         uuid = '1a3be899-15fd-4058-bc84-7e3a26dd7cad'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3723,7 +3682,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_107(self):
+    def sce_2_35_107(self):
         uuid = '6fbc941d-12c6-40ef-b1cd-000b035ee8b1'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3755,7 +3714,7 @@ class Test_SFT_Scenario_02_35:
 
             return "FAIL"
 
-    def sce_2_2_108(self):
+    def sce_2_35_108(self):
         uuid = '225633cb-308a-4aaa-9ff6-fc1582084b5b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -3788,129 +3747,133 @@ class Test_SFT_Scenario_02_35:
 
 
     def test_case_1(self):
-        result = {"sce_2_2_1": self.sce_2_2_1(),
-                  "sce_2_2_2": self.sce_2_2_2(),
-                  "sce_2_2_3": self.sce_2_2_3(),
-                  "sce_2_2_4": self.sce_2_2_4(),
-                  "sce_2_2_5": self.sce_2_2_5(),
-                  "sce_2_2_6": self.sce_2_2_6(),
-                  "sce_2_2_7": self.sce_2_2_7(),
-                  "sce_2_2_8": self.sce_2_2_8(),
-                  "sce_2_2_9": self.sce_2_2_9(),
-                  "sce_2_2_10": self.sce_2_2_10(),
-                  "sce_2_2_11": self.sce_2_2_11(),
+        result = {"sce_2_35_1": self.sce_2_35_1(),
+                  "sce_2_35_2": self.sce_2_35_2(),
+                  "sce_2_35_3": self.sce_2_35_3(),
+                  "sce_2_35_4": self.sce_2_35_4(),
+                  "sce_2_35_5": self.sce_2_35_5(),
+                  "sce_2_35_6": self.sce_2_35_6(),
+                  "sce_2_35_7": self.sce_2_35_7(),
+                  # "sce_2_35_8": self.sce_2_35_8(),
+                  # "sce_2_35_9": self.sce_2_35_9(),
+                  # "sce_2_35_10": self.sce_2_35_10(),
+                  # "sce_2_35_11": self.sce_2_35_11(),
                   }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
 
     def test_case_2(self):
-        result = {"sce_2_2_14": self.sce_2_2_14(),
-                  "sce_2_2_12": self.sce_2_2_12(),
-                  "sce_2_2_13": self.sce_2_2_13(),
-                  "sce_2_2_15": self.sce_2_2_15(),
-                  "sce_2_2_16": self.sce_2_2_16(),
-                  "sce_2_2_17": self.sce_2_2_17(),
-                  "sce_2_2_19": self.sce_2_2_19(),
-                  "sce_2_2_18": self.sce_2_2_18(),
-                  "sce_2_2_20": self.sce_2_2_20(),
-                  "sce_2_2_21": self.sce_2_2_21(),
-                  "sce_2_2_22": self.sce_2_2_22(),
-                  "sce_2_2_23": self.sce_2_2_23(),
-                  "sce_2_2_24": self.sce_2_2_24(),
-                  "sce_2_2_25": self.sce_2_2_25(),
-                  "sce_2_2_26": self.sce_2_2_26(),
-                  "sce_2_2_27": self.sce_2_2_27(),
-                  "sce_2_2_28": self.sce_2_2_28(),
+        result = {"sce_2_35_14": self.sce_2_35_14(),
+                  "sce_2_35_12": self.sce_2_35_12(),
+                  "sce_2_35_13": self.sce_2_35_13(),
+                  "sce_2_35_15": self.sce_2_35_15(),
+                  "sce_2_35_16": self.sce_2_35_16(),
+                  "sce_2_35_17": self.sce_2_35_17(),
+                  "sce_2_35_19": self.sce_2_35_19(),
+                  "sce_2_35_18": self.sce_2_35_18(),
+                  "sce_2_35_20": self.sce_2_35_20(),
+                  "sce_2_35_21": self.sce_2_35_21(),
+                  "sce_2_35_22": self.sce_2_35_22(),
+                  "sce_2_35_23": self.sce_2_35_23(),
+                  "sce_2_35_24": self.sce_2_35_24(),
+                  "sce_2_35_25": self.sce_2_35_25(),
+                  "sce_2_35_26": self.sce_2_35_26(),
+                  "sce_2_35_27": self.sce_2_35_27(),
+                  "sce_2_35_28": self.sce_2_35_28(),
                   }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
 
     def test_case_3(self):
-        result = {"sce_2_2_31": self.sce_2_2_31(),
-                  "sce_2_2_30": self.sce_2_2_30(),
-                  "sce_2_2_32": self.sce_2_2_32(),
-                  "sce_2_2_29": self.sce_2_2_29(),
-                  "sce_2_2_33": self.sce_2_2_33(),
-                  "sce_2_2_34": self.sce_2_2_34(),
-                  "sce_2_2_35": self.sce_2_2_35(),
-                  "sce_2_2_36": self.sce_2_2_36(),
-                  "sce_2_2_39": self.sce_2_2_39(),
-                  "sce_2_2_38": self.sce_2_2_38(),
-                  "sce_2_2_40": self.sce_2_2_40(),
-                  "sce_2_2_37": self.sce_2_2_37(),
-                  "sce_2_2_41": self.sce_2_2_41(),
-                  "sce_2_2_42": self.sce_2_2_42(),
-                  "sce_2_2_43": self.sce_2_2_43(),
-                  "sce_2_2_44": self.sce_2_2_44(),
-                  "sce_2_2_45": self.sce_2_2_45(),
-                  "sce_2_2_46": self.sce_2_2_46(),
-                  "sce_2_2_47": self.sce_2_2_47(),
-                  "sce_2_2_50": self.sce_2_2_50(),
-                  "sce_2_2_49": self.sce_2_2_49(),
-                  "sce_2_2_51": self.sce_2_2_51(),
-                  "sce_2_2_48": self.sce_2_2_48(),
-                  "sce_2_2_52": self.sce_2_2_52(),
-                  "sce_2_2_53": self.sce_2_2_53(),
-                  "sce_2_2_54": self.sce_2_2_54(),
-                  "sce_2_2_55": self.sce_2_2_55(),
-                  "sce_2_2_56": self.sce_2_2_56(),
-                  "sce_2_2_57": self.sce_2_2_57(),
-                  "sce_2_2_58": self.sce_2_2_58(),
-                  "sce_2_2_59": self.sce_2_2_59(),
-                  "sce_2_2_60": self.sce_2_2_60(),
-                  "sce_2_2_61": self.sce_2_2_61(),
-                  "sce_2_2_62": self.sce_2_2_62(),
-                  "sce_2_2_63": self.sce_2_2_63(),
-                  "sce_2_2_64": self.sce_2_2_64(),
-                  "sce_2_2_65": self.sce_2_2_65(),
-                  # sce_2_2_104 is in sce_2_2_65
-                  "sce_2_2_66": self.sce_2_2_66(),
-                  "sce_2_2_103": self.sce_2_2_103(),
+        result = {"sce_2_35_31": self.sce_2_35_31(),
+                  "sce_2_35_30": self.sce_2_35_30(),
+                  "sce_2_35_32": self.sce_2_35_32(),
+                  "sce_2_35_29": self.sce_2_35_29(),
+                  "sce_2_35_33": self.sce_2_35_33(),
+                  "sce_2_35_34": self.sce_2_35_34(),
+                  "sce_2_35_35": self.sce_2_35_35(),
+                  "sce_2_35_36": self.sce_2_35_36(),
+                  "sce_2_35_39": self.sce_2_35_39(),
+                  "sce_2_35_38": self.sce_2_35_38(),
+                  "sce_2_35_40": self.sce_2_35_40(),
+                  "sce_2_35_37": self.sce_2_35_37(),
+                  "sce_2_35_41": self.sce_2_35_41(),
+                  "sce_2_35_42": self.sce_2_35_42(),
+                  "sce_2_35_43": self.sce_2_35_43(),
+                  "sce_2_35_44": self.sce_2_35_44(),
+                  "sce_2_35_45": self.sce_2_35_45(),
+                  "sce_2_35_46": self.sce_2_35_46(),
+                  "sce_2_35_47": self.sce_2_35_47(),
+                  "sce_2_35_50": self.sce_2_35_50(),
+                  "sce_2_35_49": self.sce_2_35_49(),
+                  "sce_2_35_51": self.sce_2_35_51(),
+                  "sce_2_35_48": self.sce_2_35_48(),
+                  "sce_2_35_52": self.sce_2_35_52(),
+                  "sce_2_35_53": self.sce_2_35_53(),
+                  "sce_2_35_54": self.sce_2_35_54(),
+                  "sce_2_35_55": self.sce_2_35_55(),
+                  "sce_2_35_56": self.sce_2_35_56(),
+                  "sce_2_35_57": self.sce_2_35_57(),
+                  "sce_2_35_58": self.sce_2_35_58(),
+                  "sce_2_35_59": self.sce_2_35_59(),
+                  "sce_2_35_60": self.sce_2_35_60(),
+                  "sce_2_35_61": self.sce_2_35_61(),
+                  "sce_2_35_62": self.sce_2_35_62(),
+                  "sce_2_35_63": self.sce_2_35_63(),
+                  "sce_2_35_64": self.sce_2_35_64(),
+                  "sce_2_35_65": self.sce_2_35_65(),
+                  # sce_2_35_104 is in sce_2_35_65
+                  "sce_2_35_66": self.sce_2_35_66(),
+                  "sce_2_35_103": self.sce_2_35_103(),
                   }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
 
     def test_case_4(self):
-        result = {
-                  "sce_2_2_72": self.sce_2_2_72(),
-                  "sce_2_2_74": self.sce_2_2_74(),
-                  "sce_2_2_71": self.sce_2_2_71(),
-                  "sce_2_2_75": self.sce_2_2_75(),
-                  "sce_2_2_78": self.sce_2_2_78(),
-                  "sce_2_2_77": self.sce_2_2_77(),
-                  "sce_2_2_79": self.sce_2_2_79(),
-                  "sce_2_2_76": self.sce_2_2_76(),
-                  "sce_2_2_80": self.sce_2_2_80(),
-                  "sce_2_2_83": self.sce_2_2_83(),
-                  "sce_2_2_82": self.sce_2_2_82(),
-                  "sce_2_2_84": self.sce_2_2_84(),
-                  "sce_2_2_81": self.sce_2_2_81(),
-                  "sce_2_2_85": self.sce_2_2_85(),
-                  "sce_2_2_88": self.sce_2_2_88(),
-                  "sce_2_2_87": self.sce_2_2_87(),
-                  "sce_2_2_89": self.sce_2_2_89(),
-                  "sce_2_2_86": self.sce_2_2_86(),
-                  "sce_2_2_90": self.sce_2_2_90(),
-                  "sce_2_2_93": self.sce_2_2_93(),
-                  "sce_2_2_92": self.sce_2_2_92(),
-                  "sce_2_2_94": self.sce_2_2_94(),
-                  "sce_2_2_91": self.sce_2_2_91(),
-                  "sce_2_2_95": self.sce_2_2_95(),
-                  "sce_2_2_98": self.sce_2_2_98(),
-                  "sce_2_2_97": self.sce_2_2_97(),
-                  "sce_2_2_99": self.sce_2_2_99(),
-                  "sce_2_2_96": self.sce_2_2_96(),
-                  "sce_2_2_100": self.sce_2_2_100(),
-                  "sce_2_2_101": self.sce_2_2_101(),
-                  "sce_2_2_102": self.sce_2_2_102(),
-                  "sce_2_2_105": self.sce_2_2_105(),
-                  "sce_2_2_106": self.sce_2_2_106(),
-                  "sce_2_2_109": self.sce_2_2_109(),
-                  "sce_2_2_107": self.sce_2_2_107(),
-                  "sce_2_2_108": self.sce_2_2_108(),
+        result = {"sce_2_35_67": self.sce_2_35_67(),
+                  "sce_2_35_69": self.sce_2_35_69(),
+                  "sce_2_35_68": self.sce_2_35_68(),
+                  "sce_2_35_70": self.sce_2_35_70(),
+                  "sce_2_35_73": self.sce_2_35_73(),
+                  "sce_2_35_72": self.sce_2_35_72(),
+                  "sce_2_35_74": self.sce_2_35_74(),
+                  "sce_2_35_71": self.sce_2_35_71(),
+                  "sce_2_35_75": self.sce_2_35_75(),
+                  "sce_2_35_78": self.sce_2_35_78(),
+                  "sce_2_35_77": self.sce_2_35_77(),
+                  "sce_2_35_79": self.sce_2_35_79(),
+                  "sce_2_35_76": self.sce_2_35_76(),
+                  "sce_2_35_80": self.sce_2_35_80(),
+                  "sce_2_35_83": self.sce_2_35_83(),
+                  "sce_2_35_82": self.sce_2_35_82(),
+                  "sce_2_35_84": self.sce_2_35_84(),
+                  "sce_2_35_81": self.sce_2_35_81(),
+                  "sce_2_35_85": self.sce_2_35_85(),
+                  "sce_2_35_88": self.sce_2_35_88(),
+                  "sce_2_35_87": self.sce_2_35_87(),
+                  "sce_2_35_89": self.sce_2_35_89(),
+                  "sce_2_35_86": self.sce_2_35_86(),
+                  "sce_2_35_90": self.sce_2_35_90(),
+                  "sce_2_35_93": self.sce_2_35_93(),
+                  "sce_2_35_92": self.sce_2_35_92(),
+                  "sce_2_35_94": self.sce_2_35_94(),
+                  "sce_2_35_91": self.sce_2_35_91(),
+                  "sce_2_35_95": self.sce_2_35_95(),
+                  "sce_2_35_98": self.sce_2_35_98(),
+                  "sce_2_35_97": self.sce_2_35_97(),
+                  "sce_2_35_99": self.sce_2_35_99(),
+                  "sce_2_35_96": self.sce_2_35_96(),
+                  "sce_2_35_100": self.sce_2_35_100(),
+                  "sce_2_35_101": self.sce_2_35_101(),
+                  "sce_2_35_102": self.sce_2_35_102(),
+                  "sce_2_35_105": self.sce_2_35_105(),
+                  "sce_2_35_106": self.sce_2_35_106(),
+                  "sce_2_35_109": self.sce_2_35_109(),
+                  "sce_2_35_107": self.sce_2_35_107(),
+                  "sce_2_35_108": self.sce_2_35_108(),
                   }
         for key, value in result.items():
             if value != "PASS":

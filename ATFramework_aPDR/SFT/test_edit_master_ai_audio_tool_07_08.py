@@ -264,6 +264,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.page_edit.waiting()
 
+            return "FAIL"
+
     def sce_7_8_7(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -291,6 +293,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.page_edit.waiting()
+
+            return "FAIL"
 
     def sce_7_8_8(self):
         func_name = inspect.stack()[0][3]
@@ -320,6 +324,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.page_edit.waiting()
 
+            return "FAIL"
+
     def sce_7_8_9(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -346,6 +352,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.page_edit.waiting()
+
+            return "FAIL"
 
     def sce_7_8_10(self):
         func_name = inspect.stack()[0][3]
@@ -374,6 +382,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.page_edit.waiting()
+
+            return "FAIL"
 
     def sce_7_8_11(self):
         func_name = inspect.stack()[0][3]
@@ -404,6 +414,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.page_edit.waiting()
 
+            return "FAIL"
+
     def sce_7_8_12(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -433,6 +445,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
 
+            return "FAIL"
+
     def sce_7_8_13(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -459,6 +473,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
+
+            return "FAIL"
 
     def sce_7_8_14(self):
         func_name = inspect.stack()[0][3]
@@ -489,6 +505,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
 
+            return "FAIL"
+
     def sce_7_8_15(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -516,6 +534,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_main.enter_timeline()
             self.page_edit.add_master_media('video', test_material_folder, video_speech)
             self.page_edit.enter_main_tool('AI Audio \nTool')
+
+            return "FAIL"
 
     def sce_7_8_16(self):
         func_name = inspect.stack()[0][3]
@@ -577,6 +597,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
+            return "FAIL"
+
     def sce_7_8_18(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -604,6 +626,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
+
+            return "FAIL"
 
     def sce_7_8_19(self):
         func_name = inspect.stack()[0][3]
@@ -633,6 +657,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
+            return "FAIL"
+
     def sce_7_8_20(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -659,6 +685,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
+
+            return "FAIL"
 
     def sce_7_8_21(self):
         func_name = inspect.stack()[0][3]
@@ -687,6 +715,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
+
+            return "FAIL"
 
     def sce_7_8_22(self):
         func_name = inspect.stack()[0][3]
@@ -717,6 +747,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
 
+            return "FAIL"
+
     def sce_7_8_23(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -746,6 +778,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
 
+            return "FAIL"
+
     def sce_7_8_24(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -772,6 +806,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
+
+            return "FAIL"
 
     def sce_7_8_25(self):
         func_name = inspect.stack()[0][3]
@@ -802,6 +838,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
 
+            return "FAIL"
+
     def sce_7_8_26(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -830,6 +868,8 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.add_master_media('video', test_material_folder, video_speech)
             self.page_edit.enter_main_tool('AI Audio \nTool')
 
+            return "FAIL"
+
     def sce_7_8_27(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -852,6 +892,8 @@ class Test_Edit_Master_Audio_Tool:
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
+
+            return "FAIL"
 
     @report.exception_screenshot
     def test_case(self):

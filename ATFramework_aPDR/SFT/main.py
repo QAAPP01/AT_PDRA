@@ -9,21 +9,26 @@ from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
 from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
 from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
 from .test_import_master_text_to_image_01_07 import Test_Import_Master_TTI
+
 from .test_aPDR_SFT_Scenario_02_01 import Test_SFT_Scenario_02_01
 from .test_aPDR_SFT_Scenario_02_02 import Test_SFT_Scenario_02_02
 from .test_aPDR_SFT_Scenario_02_03 import Test_SFT_Scenario_02_03
+from .test_aPDR_SFT_Scenario_02_31 import Test_SFT_Scenario_02_31
+from .test_aPDR_SFT_Scenario_02_35 import Test_SFT_Scenario_02_35
+
+from .test_aPDR_SFT_Scenario_04_12 import Test_SFT_Scenario_04_12
 
 from .test_edit_intro_05_01 import Test_Edit_Intro
 from .test_aPDR_SFT_Scenario_05_03_dev import Test_SFT_Scenario_05_03
-
-
-from .test_aPDR_SFT_Scenario_05_15_dev import Test_SFT_Scenario_05_15
-from .test_aPDR_SFT_Scenario_05_16_dev import Test_SFT_Scenario_05_16
+from .test_aPDR_SFT_Scenario_05_08 import Test_SFT_Scenario_05_08
+from .test_aPDR_SFT_Scenario_05_11 import Test_SFT_Scenario_05_11
+from .test_aPDR_SFT_Scenario_05_15 import Test_SFT_Scenario_05_15
+from .test_aPDR_SFT_Scenario_05_16 import Test_SFT_Scenario_05_16
 
 from .test_shortcut_HSL_06_01 import Test_Shortcut_HSL
 from .test_shortcut_stabilizer_06_02 import Test_Shortcut_Stabilizer
 from .test_shortcut_body_effect_06_03 import Test_Shortcut_Body_Effect
-# from .test_shortcut_anime_art_06_04 import Test_Anime_Art
+from .test_shortcut_anime_art_06_04 import Test_Anime_Art
 from .test_shortcut_cutout_06_05 import Test_Shortcut_Cutout
 from .test_shortcut_video_effect_06_06 import Test_Shortcut_Video_Effect
 from .test_shortcut_crop_06_07 import Test_Shortcut_Crop

@@ -56,7 +56,6 @@ class Test_Anime_Art:
             video_file.write(base64.b64decode(recording_data))
         logger(f'Screen recording saved: {self.video_file_path}')
 
-
     def sce_6_4_1(self):
         uuid = 'c706815e-c49f-45c4-a1d4-e8e3db931827'
         func_name = inspect.stack()[0][3]

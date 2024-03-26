@@ -10,6 +10,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 
 def test_app_init(driver):
     try:
+        logger("[Start] APP Init")
         driver.driver.reset()
         time.sleep(1)
         driver.driver.launch_app()
