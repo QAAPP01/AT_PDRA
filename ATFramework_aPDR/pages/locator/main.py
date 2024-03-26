@@ -197,6 +197,22 @@ class Shortcut:
             else:
                 return xpath(f'//*[contains(@resource-id,"itemPremium")]')
 
+    class tti:
+        entry = id('tti_switch')
+        title = id('tv_title')
+        close = id('iv_close')
+        prompt = id("tv_prompt")
+        done = id("tv_done")
+        clear = id('tv_clear')
+        recommend = id('tv_tag')
+        input_box = id('et_prompt')
+        exceed_hint = id("tv_blocked_hint_exceeds_limit")
+        sensitive = id('tv_blocked_hint_violation')
+        generate = id('btn_generate')
+        remove_watermark = id('remove_watermark')
+        overwrite_cancel = aid('[AID]ConfirmDialog_Cancel')
+        overwrite_ok = aid('[AID]ConfirmDialog_OK')
+
 
 
 class Permission:

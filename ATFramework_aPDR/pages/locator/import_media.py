@@ -152,6 +152,10 @@ class MediaLibrary:
         exceed_hint = id("tv_blocked_hint_exceeds_limit")
         sensitive = id('tv_blocked_hint_violation')
         generate = id('btn_generate')
+        remove_watermark = id('remove_watermark')
+        overwrite_cancel = aid('[AID]ConfirmDialog_Cancel')
+        overwrite_ok = aid('[AID]ConfirmDialog_OK')
+
 
 
 class trim_before_edit:
