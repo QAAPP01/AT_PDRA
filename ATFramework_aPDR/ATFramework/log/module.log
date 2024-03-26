@@ -37,3 +37,27 @@
 01/10/2024 05:43:24 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
 01/10/2024 05:43:24 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
 01/10/2024 05:43:46 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0461361'}
+03/26/2024 05:04:44 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+03/26/2024 05:04:44 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+03/26/2024 05:04:44 PM <ecl_operation.py> [query_sr_by_ecl_service](line 554) - Excpetion occurs. Error=list index out of range
+03/26/2024 05:04:44 PM <ecl_operation.py> [query_sr_by_ecl_service](line 555) - Query Result=You do not have permission to view this directory or page.
+03/26/2024 05:04:44 PM <ecl_operation.py> [get_untested_build](line 1248) - Exception occurs. ErrorLog=Please check do you have permission to access this page.
+03/26/2024 05:22:03 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+03/26/2024 05:22:03 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+03/26/2024 05:22:03 PM <ecl_operation.py> [query_sr_by_ecl_service](line 554) - Excpetion occurs. Error=list index out of range
+03/26/2024 05:22:03 PM <ecl_operation.py> [query_sr_by_ecl_service](line 555) - Query Result=You do not have permission to view this directory or page.
+03/26/2024 05:22:03 PM <ecl_operation.py> [get_untested_build](line 1248) - Exception occurs. ErrorLog=Please check do you have permission to access this page.
+03/26/2024 05:22:03 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+03/26/2024 05:22:03 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+03/26/2024 05:22:03 PM <ecl_operation.py> [query_sr_by_ecl_service](line 554) - Excpetion occurs. Error=list index out of range
+03/26/2024 05:22:03 PM <ecl_operation.py> [query_sr_by_ecl_service](line 555) - Query Result=You do not have permission to view this directory or page.
+03/26/2024 05:22:03 PM <ecl_operation.py> [get_untested_build](line 1248) - Exception occurs. ErrorLog=Please check do you have permission to access this page.
+03/26/2024 05:24:03 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+03/26/2024 05:24:03 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+03/26/2024 05:24:03 PM <ecl_operation.py> [query_sr_by_ecl_service](line 554) - Excpetion occurs. Error=list index out of range
+03/26/2024 05:24:03 PM <ecl_operation.py> [query_sr_by_ecl_service](line 555) - Query Result=You do not have permission to view this directory or page.
+03/26/2024 05:24:03 PM <ecl_operation.py> [get_untested_build](line 1248) - Exception occurs. ErrorLog=Please check do you have permission to access this page.
+03/26/2024 05:26:51 PM <ecl_operation.py> [read_eclid_file](line 153) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
+03/26/2024 05:26:51 PM <ecl_operation.py> [read_eclid_file](line 185) - read eclid file successfully
+03/26/2024 05:26:51 PM <ecl_operation.py> [check_if_tr_exists_in_db](line 488) - tr_db file=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\tr_db
+03/26/2024 05:26:51 PM <ecl_operation.py> [get_untested_valid_tr_by_sr](line 795) - TR=TR240325-017 already exists in DB. Skip it.
