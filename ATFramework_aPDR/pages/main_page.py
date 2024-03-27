@@ -1,37 +1,201 @@
-import sys, time
-from pages.base_page import BasePage
-from ATFramework.utils.extra import element_exist_click
-from ATFramework.utils.log import logger 
+import sys, time, os
+import traceback
+from telnetlib import EC
+
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.wait import WebDriverWait
+
+from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
+from ATFramework_aPDR.ATFramework.utils.log import logger
 import subprocess
 from pathlib import Path
 from appium.webdriver.common.touch_action import TouchAction
-
-from .locator.locator import main as L
+from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator import edit as E
 from .locator.locator import import_media as I
 from .locator.locator_type import *
-from SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 
 pdr_package = PACKAGE_NAME
 
+
 class MainPage(BasePage):
 
-    def __init__(self,*args,**kwargs):
-        BasePage.__init__(self,*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        BasePage.__init__(self, *args, **kwargs)
 
     def initial(self):
         logger("Waiting for permission_file_ok")
-        print("driver = " , self.driver)
-        element_exist_click(self.driver,L.permission.file_ok,2)
+        print("driver = ", self.driver)
+        element_exist_click(self.driver, L.main.permission.file_ok, 2)
         logger("Waiting for permission_photo_allow")
-        element_exist_click(self.driver,L.permission.photo_allow,2)
-        
+        element_exist_click(self.driver, L.main.permission.photo_allow, 2)
+
+    def subscribe(self):
+        self.click(L.main.subscribe.entry)
+        if self.is_exist(find_string("You've unlocked these premium features and content"), 1):
+            self.click(L.main.subscribe.back_btn)
+            return True
+        else:
+            self.click(L.main.subscribe.iap_monthly)
+            self.click(L.main.subscribe.continue_btn)
+            self.click(('class name', 'android.widget.Button'))
+            self.click(find_string('Not now'), 5)
+            return self.is_exist(L.main.new_project, 10)
+
+    def enter_launcher(self):
+        try:
+            # 1st Launch
+            if self.click(L.main.permission.gdpr_accept, timeout=1):
+                if self.h_is_not_exist(L.main.permission.loading_bar, 120):
+                    time.sleep(1)
+                    self.click(L.main.premium.iap_back)
+                    logger('Enter Launcher Done')
+                    return True
+                else:
+                    logger('Enter Launcher Fail')
+                    return False
+            # 2nd Launch
+            else:
+                if self.h_is_not_exist(L.main.permission.loading_bar, 120):
+                    time.sleep(1)
+                    opening_activity = "com.cyberlink.powerdirector.tutorial.OpenIntroActivity"
+                    current_activity = self.driver.driver.current_activity
+                    if current_activity == opening_activity:
+                        time.sleep(1)
+                        self.h_click(L.main.tutorials.close_open_tutorial)
+                        self.h_click(L.main.premium.iap_back)
+                        logger('Enter Launcher Done')
+                        return True
+                    else:
+                        time.sleep(1)
+                        # Churn Recovery
+                        if self.h_is_exist(L.main.premium.pdr_premium, 1):
+                            self.driver.driver.back()
+                            logger('Enter Launcher Done')
+                            return True
+                        else:
+                            # IAP
+                            self.click(L.main.premium.iap_back, 1)
+                            logger('Enter Launcher Done')
+                            return True
+        except Exception:
+            traceback.print_exc()
+            return False
+
+    def enter_shortcut(self, name):
+        self.click(xpath('//*[@text="More"]'))
+        if not self.is_exist(L.main.shortcut.shortcut_name(name), 1):
+            logger(f'[Fail] Cannot find the shortcut "{name}"')
+            return False
+        self.click(L.main.shortcut.shortcut_name(name))
+        return True
+
+    def shortcut_produce(self):
+        try:
+            self.click(L.main.shortcut.export)
+            self.click(L.main.shortcut.produce)
+            for i in range(120):
+                if self.is_exist(L.main.shortcut.produce_progress_bar, 1):
+                    time.sleep(1)
+                else:
+                    break
+            if self.is_exist(L.main.shortcut.produce_full_editor):
+                return True
+            else:
+                logger("Produce uncompleted")
+                return False
+        except:
+            traceback.print_exc()
+            return False
+
+    def change_UI_mode(self, mode):
+        try:
+            mode = mode.lower()
+            if mode not in ["portrait", "landscape", "auto-rotate"]:
+                raise ValueError
+            self.h_click(L.main.menu.menu)
+            self.h_click(L.main.menu.preference)
+            current_mode = self.h_get_element(L.timeline_settings.preference.current_UI_mode_text).text.lower()
+            if current_mode != mode:
+                self.h_click(L.timeline_settings.preference.current_UI_mode_text)
+                self.h_click(L.timeline_settings.preference.UI_mode(mode))
+                self.h_click(L.timeline_settings.preference.back)
+                current_mode = self.h_get_element(L.timeline_settings.preference.current_UI_mode_text).text.lower()
+            self.h_click(L.timeline_settings.preference.back)
+            self.h_click(L.main.menu.back)
+            return current_mode
+
+        except ValueError:
+            logger('[Error] UI mode input is incorrect')
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+    def enter_timeline(self, project_name=None, skip_media=True):
+        def enter_exist_project():
+            if self.click(find_string(project_name), 2):
+                logger(f'[Info] Enter project: {project_name}')
+                return True
+            else:
+                project_displayed = self.h_get_elements(L.main.project.project_name(0))
+                for retry in range(30):
+                    last = project_displayed[-1].text
+                    self.h_swipe_element(project_displayed[-1], project_displayed[0], 3)
+                    if self.click(find_string(project_name), 2):
+                        logger(f'[Info] Enter project: {project_name}')
+                        return True
+                    else:
+                        project_displayed = self.h_get_elements(L.main.project.project_name(0))
+                        if project_displayed[-1].text == last:
+                            logger(f'[Warning] Cannot find the project: {project_name}')
+                            logger(f'[Info] New a project')
+                            self.click(L.main.project.new_project, 2)
+                            return False
+                logger(f'[Warning] Reach the maximum setting for search project')
+                logger(f'[Info] New a project')
+                self.click(L.main.project.new_project, 2)
+                return False
+
+        try:
+            if project_name:
+                self.click(L.main.project.entry)
+                enter_exist_project()
+            else:
+                self.h_click(L.main.project.new_project, 2)
+            if skip_media:
+                self.h_click(L.import_media.media_library.back)
+                if self.h_is_exist(L.edit.preview.movie_view, 1):
+                    logger('[Done] Enter Timeline Done')
+
+                    return True
+                else:
+                    logger('\n[Fail] Enter Timeline Fail')
+                    return False
+            else:
+                if self.h_is_exist(L.edit.preview.movie_view, 2):
+                    logger('[Done] Enter Timeline Done')
+
+                    return True
+                else:
+                    if self.h_is_exist(L.import_media.media_library.media(0)):
+                        logger('[Done] Enter Timeline Done')
+
+                        return True
+                    else:
+                        logger('\n[Fail] Enter Timeline Fail')
+                        return False
+
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
     def project_click_empty(self):
         # self.click_element(self._project_empty)
         self.click_element(L.project.empty)
-        return self.wait_until_element_exist(L.project.name,10)
+        return self.wait_until_element_exist(L.project.name, 10)
 
-    def project_click_created(self,index):
+    def project_click_created(self, index):
         self.get_elements(L.project_created)[index].click()
         return self.wait_until_element_not_exist(L.project.new)
 
@@ -67,25 +231,38 @@ class MainPage(BasePage):
             raise Exception
         return True
 
-    def project_select_with_correct_setting(self,name,duration=None):
+    def project_select_with_correct_setting(self, name, duration=None):
         logger("start select project: %s " % name)
         self.select_existed_project_by_title(name)
         time.sleep(2)
         result = self.el(L.project_info.project_title).text == name
         if duration:
             result &= self.el(L.project_info.duration).text == duration
-        if not result: raise # wrong projects?
+        if not result: raise  # wrong projects?
         self.el(L.project_info.btn_edit_project).click()
         return result
 
-    def project_set_name(self,name):
-        logger ("start >> project_set_name <<")
-        self.set_text(L.project.name,name,True)
-        
+    def project_set_name(self, name):
+        # logger("start >> project_set_name <<")
+        # self.h_get_element(L.main.project.name).send_keys(name)
+        pass
+
+    def project_set_ratio(self, ratio='16_9'):
+        if ratio == '9_16':
+            self.h_click(L.main.project.ratio_9_16)
+        elif ratio == '1_1':
+            self.h_click(L.main.project.ratio_1_1)
+        elif ratio == '21_9':
+            self.h_click(L.main.project.ratio_21_9)
+        elif ratio == '4_5':
+            self.h_click(L.main.project.ratio_4_5)
+        else:
+            self.h_click(L.main.project.ratio_16_9)
+
     def project_set_16_9(self):
-        logger ("start >> project_set_16_9 <<")
+        logger("start >> project_set_16_9 <<")
         self.tap_element(L.setting.ratio_16_9)
-        
+
     def project_set_9_16(self):
         logger("start >> project_set_9_16 <<")
         self.tap_element(L.setting.ratio_9_16)
@@ -95,19 +272,19 @@ class MainPage(BasePage):
         self.tap_element(L.setting.ratio_1_1)
 
     def project_click_ok(self):
-        logger ("start >> project_click_ok <<")
+        logger("start >> project_click_ok <<")
         self.tap_element(L.setting.ok)
-    
+
     def project_set_to_landscape_mode(self, dont_ask=True):
-        logger ("start >> project_set_to_landscape_mode <<")
+        logger("start >> project_set_to_landscape_mode <<")
         if dont_ask == True:
             self.tap_element(L.project.dont_ask_mode)
         self.tap_element(L.project.landscape_mode)
         time.sleep(3)
         self.tap_element(L.project.btn_ok)
-    
+
     def project_set_to_portrait_mode(self, dont_ask=True):
-        logger ("start >> project_set_to_portrait_mode <<")
+        logger("start >> project_set_to_portrait_mode <<")
         if dont_ask == True:
             self.tap_element(L.project.dont_ask_mode)
         self.tap_element(L.project.portrait_mode)
@@ -122,49 +299,52 @@ class MainPage(BasePage):
 
     def project_check_default_project_name(self):
         import datetime
-        logger("start >> get_default_project_name <<")
+        # logger("start >> get_default_project_name <<")
         dt = datetime.datetime.today()
-        project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
-        logger("project name:{}".format(project_name))
-        project_name_default = self.get_text(L.project.name).decode("utf-8")
-        if project_name_default is None: return False
-        logger("project name_default:{}".format(project_name_default))
-        if project_name_default != project_name: return False
-        return True
-    
-    def project_create_new(self,ratio = "16:9",type="video"):
+        project_name_default = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
+        project_name = self.get_text(L.main.project.name).decode("utf-8")
+        if project_name != project_name_default:
+            logger(f'[Info] Project Name: {project_name}')
+            logger(f'[Info] Default Project Name: {project_name_default}')
+            logger('\n[Fail] Project Name incorrect')
+            return False
+        else:
+            logger(f'[Pass] Project Name: {project_name}')
+            return True
+
+    def project_create_new(self, ratio="16:9", type="video"):
         from pages.page_factory import PageFactory
         from .locator.locator import import_media as L_media
         import_media = PageFactory().get_page_object("import_media", self.driver)
         edit = PageFactory().get_page_object("edit", self.driver)
-        
+
         for retry in range(3):
-                if self.is_exist(L.project.new, 30):
-                    logger("new project button exists")
-                    break
-                else:
-                    logger("L.project.new does not exist, try relaunch app")
-                    self._terminate_app(pdr_package)
-                    self.driver.driver.activate_app(pdr_package)
-                    time.sleep(5)
-                    
+            if self.is_exist(L.project.new, 30):
+                logger("new project button exists")
+                break
+            else:
+                logger("L.project.new does not exist, try relaunch app")
+                self._terminate_app(pdr_package)
+                self.driver.driver.activate_app(pdr_package)
+                time.sleep(5)
+
         if not self.is_exist(L.project.new):
             logger('Not found New Project button')
             retry = 0
-            while (retry < 4) :            
+            while (retry < 4):
                 if self.is_exist(L.project.new, 3):
                     logger("Found New Project button")
                     break
                 else:
                     logger("try to swipe up")
                     edit.swipe_element(L.project.new_launcher_scroll, "down", 200)
-                    retry += 1           
+                    retry += 1
         elem = self.is_exist(L.project.empty)
         time.sleep(2)
-        if elem:    # No created project case
+        if elem:  # No created project case
             logger("No created project is found")
             self.exist(L.project.empty).click()
-        else:       # With created project case
+        else:  # With created project case
             logger("Found created project")
             self.click(L.project.new_existed_created)
         if ratio == "9:16":
@@ -172,17 +352,17 @@ class MainPage(BasePage):
         else:
             self.click(L.setting.ratio_16_9)
         if type.lower() == "photo":
-            logger("Select Photo: %s" % str(L_media.menu.photo_library))
-            import_media.click(L_media.menu.photo_library)
+            logger("Select Photo: %s" % str(L_media.menu.photo_entry))
+            import_media.click(L_media.menu.photo_entry)
             import_media.select_media_by_text("00PDRa_Testing_Material")
-            #import_media.select_media_by_text("jpg.jpg")
+            # import_media.select_media_by_text("jpg.jpg")
             import_media.select_media_by_order(2)
             import_media.click(L_media.library_gridview.add)
             photo = self.el(E.timeline.clip_photo)
             photo.click()
-            edit.adjust_clip_length(E.timeline.clip_photo,"end","right", 500)
+            edit.adjust_clip_length(E.timeline.clip_photo, "end", "right", 500)
             photo.click()
-            edit.swipe_element(E.timeline.clip_photo,"right",photo.rect['width'])
+            edit.swipe_element(E.timeline.clip_photo, "right", photo.rect['width'])
         elif type.lower() == "audio":
             logger("Select Audio : %s" % str(L_media.menu.music_library))
             import_media.click(L_media.menu.music_library)
@@ -197,7 +377,7 @@ class MainPage(BasePage):
             while True:
                 clip_name = self.el(E.timeline.item_view_title).text
                 analyzing = "%" in clip_name
-                logger("clip name / analyzing= %s / %s" % (clip_name , str(analyzing)) )
+                logger("clip name / analyzing= %s / %s" % (clip_name, str(analyzing)))
                 if not analyzing: break
                 time.sleep(5)
                 time_elapsed = time.time() - analyzing_timer
@@ -207,16 +387,26 @@ class MainPage(BasePage):
             self.driver.driver.back()
         else:
             import_media.select_media_by_text("00PDRa_Testing_Material")
-            if ratio == "16:9":     # select different clip to force execute stabilizer & reverser
-                #import_media.select_media_by_text("slow_motion.mp4")
+            if ratio == "16:9":  # select different clip to force execute stabilizer & reverser
+                # import_media.select_media_by_text("slow_motion.mp4")
                 import_media.select_media_by_order(3)
             else:
-                #import_media.select_media_by_text("mp4.mp4")
+                # import_media.select_media_by_text("mp4.mp4")
                 import_media.select_media_by_order(1)
             import_media.click(L_media.library_gridview.add)
-            
+
+    # Menu
+    def enable_file_name(self):
+        self.h_click(L.main.menu.menu)
+        self.h_click(L.main.menu.preference)
+        while not self.h_is_exist(L.main.menu.display_file_name_switch, 1):
+            elements = self.h_get_elements(('xpath', '//android.widget.LinearLayout'))
+            self.h_swipe_element(elements[len(elements) - 1], elements[0])
+        if self.h_get_element(L.main.menu.display_file_name_switch).get_attribute('checked') == 'false':
+            self.h_click(L.main.menu.display_file_name_switch)
+
     def new_launcher_enter_tutorials(self):
-        logger("start >>new_launcher_enter_tutorials<<")        
+        logger("start >>new_launcher_enter_tutorials<<")
         # find tutorials & scroll up  max 4 times
         for retry in range(3):
             if self.is_exist(L.project.new, 30):
@@ -227,8 +417,8 @@ class MainPage(BasePage):
                 self._terminate_app(pdr_package)
                 self.driver.driver.activate_app(pdr_package)
                 time.sleep(5)
-                
-        for retry in range(4):           
+
+        for retry in range(4):
             if self.is_exist(L.project.tutorials, 3):
                 logger("Found tutorials entry")
                 self.click(L.project.tutorials)
@@ -237,11 +427,11 @@ class MainPage(BasePage):
             else:
                 logger("swipe up")
                 self.driver.swipe_up()
-                retry += 1        
-        return False    
-        
+                retry += 1
+        return False
+
     def new_launcher_enter_produced_video(self):
-        logger("start >>new_launcher_enter_produced_video<<")        
+        logger("start >>new_launcher_enter_produced_video<<")
         # find tutorials & scroll up  max 4 times
         for retry in range(3):
             if self.is_exist(L.project.new, 30):
@@ -252,7 +442,7 @@ class MainPage(BasePage):
                 self._terminate_app(pdr_package)
                 self.driver.driver.activate_app(pdr_package)
                 time.sleep(5)
-        for retry in range(4):            
+        for retry in range(4):
             if self.is_exist(L.project.btn_produced_videos, 3):
                 logger("Found entry")
                 self.click(L.project.btn_produced_videos)
@@ -260,16 +450,16 @@ class MainPage(BasePage):
             else:
                 logger("swipe up")
                 self.driver.swipe_up()
-                retry += 1        
+                retry += 1
         return False
 
-    def click_tutorials(self,name):
+    def click_tutorials(self, name):
         logger("[%s] " % name)
-        
+
         # find tutorials & scroll left  max 3 times
         retry = 0
-        while (retry < 3) :
-            locator = ('xpath','//*[contains(@text,"' + name + '")]')
+        while (retry < 3):
+            locator = ('xpath', '//*[contains(@text,"' + name + '")]')
             if self.is_exist(locator, 3):
                 logger("Found [%s]" % name)
                 break
@@ -277,21 +467,20 @@ class MainPage(BasePage):
                 logger("swipe left")
                 self.driver.swipe_left()
                 retry += 1
-        
-        
+
         self.click(find_string(name))
         if name == "Frequently asked questions":
             logger("#Browser case#")
             el = self.el_find_string('cyberlink.com/faq')
             self.driver.driver.back()
             return True if el else False
-        
+
         logger("#Youtube case#")
         time.sleep(4)
         youtube_view = self.el(L.tutorials.youtube_view)
         result_youtube = True if youtube_view else False
         self.driver.driver.back()
-        
+
         result_no_network = False
         try:
             self.driver.driver.set_network_connection(4)
@@ -311,7 +500,7 @@ class MainPage(BasePage):
         time.sleep(3)
         self.driver.driver.back()
         time.sleep(1)
-        return result_youtube , result_no_network
+        return result_youtube, result_no_network
 
     def check_existed_project_by_title(self, title):
         logger("start >> check_existed_project_by_title <<")
@@ -348,37 +537,38 @@ class MainPage(BasePage):
             raise Exception
         return True
 
-    def reset_project_list(self, device_udid, package, project_name): #project_name=16_9, 9_16, 1_1
+    def reset_project_list(self, device_udid, package, project_name, under_android_11=False):  # project_name=16_9, 9_16, 1_1
         logger("start >> reset_project_list <<")
         try:
             self.driver.stop_app(package)
             logger("stop app <<")
-            if device_udid == '8B5Y0TSU9':
-                #remove project folder
-                command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects"'
-                subprocess.call(command)
-                #mkdir project folder
-                command = f'adb -s {device_udid} shell mkdir "storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects"'
-                subprocess.call(command)
-                #push project file
-                list_file = ['.projlist', f'{project_name}.pdrproj']
-                for file in list_file:
-                    file_path = f"{Path(__file__).parent.parent.absolute()}\\SFT\\projects\\{project_name}\\{file}"
-                    command = f'adb -s {device_udid} push "{file_path}" "/storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects/"'
-                    print(command)
-                    subprocess.call(command)
-            else:
-                #remove project folder
+            if under_android_11:
+                # remove project folder
                 command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/PowerDirector/projects"'
                 subprocess.call(command)
-                #mkdir project folder
+                # mkdir project folder
                 command = f'adb -s {device_udid} shell mkdir "storage/emulated/0/PowerDirector/projects"'
                 subprocess.call(command)
-                #push project file
+                # push project file
                 list_file = ['.projlist', f'{project_name}.pdrproj']
                 for file in list_file:
                     file_path = f"{Path(__file__).parent.parent.absolute()}\\SFT\\projects\\{project_name}\\{file}"
                     command = f'adb -s {device_udid} push "{file_path}" "/storage/emulated/0/PowerDirector/projects/"'
+                    print(command)
+                    subprocess.call(command)
+
+            else:
+                # remove project folder
+                command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects"'
+                subprocess.call(command)
+                # mkdir project folder
+                command = f'adb -s {device_udid} shell mkdir "storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects"'
+                subprocess.call(command)
+                # push project file
+                list_file = ['.projlist', f'{project_name}.pdrproj']
+                for file in list_file:
+                    file_path = f"{Path(__file__).parent.parent.absolute()}\\SFT\\projects\\{project_name}\\{file}"
+                    command = f'adb -s {device_udid} push "{file_path}" "/storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects/"'
                     print(command)
                     subprocess.call(command)
         except Exception:
@@ -386,19 +576,59 @@ class MainPage(BasePage):
         logger("re-start app <<")
         self.driver.start_app(package)
         return True
-    
+
+    def add_project_list(self, device_udid, package, project_name):  # project_name=16_9, 9_16, 1_1
+        logger("start >> reset_project_list <<")
+        try:
+            self.driver.stop_app(package)
+            logger("stop app <<")
+
+            # pull .projlist
+            device_path = 'storage/emulated/0/Android/data/com.cyberlink.powerdirector.DRA140225_01/files/projects/'
+            temp_folder = os.getenv('temp', os.path.dirname(__file__))
+            command = f'adb -s {device_udid} pull {device_path}.projlist {temp_folder}'
+            subprocess.call(command)
+
+            temp_projlist = os.path.join(temp_folder, ".projlist")
+            projlist_file = open(temp_projlist, mode='r')
+            projlist = projlist_file.read()[:-3]
+            projlist_file.close()
+
+            file_path = f'{Path(__file__).parent.parent.absolute()}\\SFT\\projects\\{project_name}'
+            old_projlist_file = open(os.path.join(file_path, ".projlist"), mode='r')
+            old_projlist = "," + old_projlist_file.read()[9:]
+            old_projlist_file.close()
+
+            new_projlist = projlist + old_projlist
+            projlist_file = open(temp_projlist, mode='w')
+            projlist_file.write(new_projlist)
+            projlist_file.close()
+
+            # push project file
+            command = f'adb -s {device_udid} push {temp_projlist} {device_path}'
+            subprocess.call(command)
+
+            command = f'adb -s {device_udid} push {os.path.join(file_path, project_name+".pdrproj")} {device_path}'
+            subprocess.call(command)
+
+        except Exception:
+            raise Exception
+        logger("re-start app <<")
+        self.driver.start_app(package)
+        return True
+
     def put_voiceover_file(self, device_udid, package):
         logger("start >> put_voiceover_file <<")
         try:
             self.driver.stop_app(package)
             logger("stop app <<")
-            #remove voiceover folder
+            # remove voiceover folder
             command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/Music/Recorded_Voices"'
             subprocess.call(command)
-            #mkdir voiceover folder
+            # mkdir voiceover folder
             command = f'adb -s {device_udid} shell mkdir "storage/emulated/0/Music/Recorded_Voices"'
             subprocess.call(command)
-            #push voiceover file
+            # push voiceover file
             file_path = f"{Path(__file__).parent.parent.absolute()}\\SFT\\template\\Recorded_Voices\\VoiceOver.wav"
             command = f'adb -s {device_udid} push "{file_path}" "/storage/emulated/0/Music/Recorded_Voices/"'
             print(command)
@@ -414,10 +644,10 @@ class MainPage(BasePage):
         try:
             self.driver.stop_app(package)
             logger("stop app <<")
-            #remove video_templates folder
+            # remove video_templates folder
             command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/PowerDirector/VideoTemplate"'
             subprocess.call(command)
-            #mkdir project folder
+            # mkdir project folder
             command = f'adb -s {device_udid} shell mkdir "storage/emulated/0/PowerDirector/VideoTemplate"'
             subprocess.call(command)
         except Exception:
@@ -438,15 +668,15 @@ class MainPage(BasePage):
         self.driver.start_app(package)
         return True
 
-    def project_reload(self,project_name):
+    def project_reload(self, project_name):
         logger("Load project: %s" % project_name)
         if not self._terminate_app(self.package_name): return False
         self.clean_projects()
         self.copy_project(project_name)
         self.driver.driver.activate_app(self.package_name)
-        self.is_exist(L.project.txt_project_title,8)
+        self.is_exist(L.project.txt_project_title, 8)
 
-    def relaunch_app(self,package):
+    def relaunch_app(self, package):
         logger('Relaunch app')
         self._terminate_app(package)
         time.sleep(5)
@@ -465,13 +695,13 @@ class MainPage(BasePage):
             for repeat in range(5):
                 if self.is_exist(L.project.exit_toast):
                     logger("exit_toast pop, tap back again to exit")
-                    self.driver.driver.back()                   
+                    self.driver.driver.back()
                     is_complete = 1
-                    
+
                     break
                 elif self.is_exist(L.project.btn_exit):
                     self.el(L.project.btn_exit).click()
-                    is_complete = 1                 
+                    is_complete = 1
                     is_complete = 1
                     break
                 self.driver.driver.back()
@@ -496,36 +726,6 @@ class MainPage(BasePage):
         logger("leave app complete")
         return True
 
-    def subscribe(self,type=0):
-        subscribe_list = [
-        L.subscribe.one_month,
-        L.subscribe.three_month,
-        L.subscribe.one_year,
-        ]
-        shopping_cart = self.exist(L.project.shopping_cart) 
-        if not shopping_cart:
-            logger('[WARNING] Can not found shopping cart. Subscribed already?')
-            return
-        shopping_cart.click()
-        time.sleep(1)
-        self.click(subscribe_list[type])
-        self.click(L.subscribe.continue_btn)
-        for retry in range(5):
-            if self.is_exist(L.subscribe.subscribe):
-                logger("Click subscribe button")
-                self.click(L.subscribe.subscribe)
-                if self.exist(L.project.new,15):
-                    logger("Subscribe success")
-                    break
-            else:
-                logger('Subscribe button not exist')
-                self.click(L.subscribe.continue_btn)
-                time.sleep(5)
-        if self.exist(L.project.new,15):
-            logger("Subscribe success")
-        else:
-            raise Exception("Subscribe fail")
-
     def back_main(self):
         logger("back main page")
         retry = 5
@@ -542,27 +742,28 @@ class MainPage(BasePage):
         else:
             logger("out of retry,relaunch directly")
             self.relaunch_app(PACKAGE_NAME)
+
     # def search_contact(self, text):
-        # self.set_text(self.txt_search, text)
-        # return self.get_text(self.txt_search) == text
+    # self.set_text(self.txt_search, text)
+    # return self.get_text(self.txt_search) == text
 
     # def open_contact(self, _locator):
-        # self.click_element(locator)
-        # return self.wait_until_element_not_exist(_locator)
+    # self.click_element(locator)
+    # return self.wait_until_element_not_exist(_locator)
 
     # def click_chat(self):
-        # self.click_element(self.btn_chat)
+    # self.click_element(self.btn_chat)
 
     # def chat_via_context(self):
-        # self.long_press_element(self.item_one)
-        # self.tap_element(self.menu_chat)
+    # self.long_press_element(self.item_one)
+    # self.tap_element(self.menu_chat)
 
     def check_open_tutorial(self):
         logger("start check_open_tutorial")
         if self.exist(L.tutorials.open_tutorial, 15):
             logger("Open tutorial is exist.")
             retry = 0
-            while not(self.is_exist(L.tutorials.close_open_tutorial)):
+            while not (self.is_exist(L.tutorials.close_open_tutorial)):
                 self.driver.swipe_left()
                 self.driver.swipe_left()
                 retry = retry + 1
@@ -578,17 +779,17 @@ class MainPage(BasePage):
             return False
 
     def enter_settings_from_main(self):
-        logger('start enter_settings_from_main')
+        # logger('start enter_settings_from_main')
         try:
-            if self.is_exist(L.project.new_launcher_scroll):
+            if self.is_exist(L.main.project.new_launcher_scroll):
                 for swipe_time in range(5):
                     self.driver.swipe_up()
-                    if self.is_exist(L.project.btn_settings):
+                    if self.is_exist(L.main.project.btn_settings):
                         break
                     time.sleep(1)
-                self.el(L.project.btn_settings).click()
+                self.el(L.main.project.btn_settings).click()
                 time.sleep(5)
-                if self.is_exist(L.cse.account_entry):
+                if self.is_exist(L.main.cse.account_entry):
                     logger('Enter Settings page success!')
                     return True
                 else:
@@ -796,7 +997,6 @@ class MainPage(BasePage):
             logger('exception occurs')
             raise Exception
 
-
     def check_gamification_reward_content(self, text):
         logger(f"start check_gamification_reward_content")
         try:
@@ -808,8 +1008,8 @@ class MainPage(BasePage):
                 return False
         except Exception:
             logger('exception occurs')
-            raise Exception    
-    
+            raise Exception
+
     def check_gamification_claim_countdown(self):
         logger(f"start check_gamification_claim_countdown")
         try:
@@ -858,24 +1058,24 @@ class MainPage(BasePage):
         logger(f"start check_premium_label")
         self.el(L.premium.btn_premium).click()
         time.sleep(5)
-        elm = self.el(L.premium.dialog_title)  
+        elm = self.el(L.premium.dialog_title)
         if str(elm.text) == 'Premium':
             logger(f'Found title: {elm.text}')
             self.el(L.premium.iap_back).click()
             return True
         logger(f"Didn't found title")
         return False
-    
+
     def check_video_overlay_limit_message(self):
         logger(f"start check_video_overlay_limit_message")
-        elm = self.el(L.premium.message)  
+        elm = self.el(L.premium.message)
         if str(elm.text) == "No more videos can be added to the overlay track at the current time because you've reached your device’s allowed limit (2).":
             logger(f'Found message: {elm.text}')
             self.el(L.premium.btn_remind_ok).click()
             return True
         logger(f"Didn't found message")
         return False
-    
+
     def check_iap_feature_items(self, name):
         logger("start check_iap_feature_items")
         try:
@@ -887,7 +1087,8 @@ class MainPage(BasePage):
                 self.swipe_element(L.subscribe.feature_list, 'right', 300)
                 self.swipe_element(L.subscribe.feature_list, 'right', 300)
             while caption_list_count != caption_list_count_prev:
-                logger(f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
+                logger(
+                    f"Count Start - caption_list_count={caption_list_count}, caption_list_count_prev={caption_list_count_prev}")
                 if caption_list_count_prev != -1:
                     self.swipe_element(L.subscribe.feature_list, 'left', 300)
                     self.swipe_element(L.subscribe.feature_list, 'left', 300)
@@ -936,7 +1137,7 @@ class MainPage(BasePage):
             parent = elm.find_element_by_xpath('//android.widget.ImageView[contains(@resource-id,"highlight")]/..')
             item = parent.find_element_by_xpath('//android.widget.TextView[contains(@resource-id,"text_view")]')
             string = item.text
-            string = string.replace('\r', ' ').replace('\n', ' ')   # Replace linebreak with space
+            string = string.replace('\r', ' ').replace('\n', ' ')  # Replace linebreak with space
             logger(f'item text = {string}')
             if string == name:
                 logger('Highlighted item name matched!')
@@ -955,8 +1156,8 @@ class MainPage(BasePage):
                 logger('Ads not exist.')
                 return False
             elm = self.el(L.project.ads)
-            x = int(elm.rect['x'] + elm.rect['width']*0.8)
-            y = int(elm.rect['y'] - elm.rect['height']*0.1)
+            x = int(elm.rect['x'] + elm.rect['width'] * 0.8)
+            y = int(elm.rect['y'] - elm.rect['height'] * 0.1)
             logger(f"touch x={x}, y={y}")
             actions = TouchAction(self.driver.driver)
             actions.press(x=x, y=y).release().perform()
@@ -969,16 +1170,16 @@ class MainPage(BasePage):
         except Exception:
             logger("exception occurs")
             raise Exception
-            
+
     def set_device_date(self, device_udid, package):
         logger("start >> set_device_date <<")
         try:
             self.driver.stop_app(package)
             logger("stop app <<")
-            #remove video_templates folder
+            # remove video_templates folder
             command = f'adb -s {device_udid} shell rm -r "storage/emulated/0/PowerDirector/VideoTemplate"'
             subprocess.call(command)
-            #mkdir project folder
+            # mkdir project folder
             command = f'adb -s {device_udid} shell mkdir "storage/emulated/0/PowerDirector/VideoTemplate"'
             subprocess.call(command)
         except Exception:

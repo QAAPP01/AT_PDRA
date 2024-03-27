@@ -1,1 +1,12 @@
-/ATFramework_aPDR/app/PowerDirector.apk
+*.apk
+*.mp4
+*.mkv
+*.mov
+*.3gp
+/.idea
+/ATFramework_aPDR/ATFramework/log/
+/ATFramework_aPDR/SFT/report/
+/ATFramework_aPDR/SFT/log/
+/ATFramework_aPDR/app/
+/ATFramework_aPDR/ATFramework/utils/_ecl_operation/log/
+/ATFramework_aPDR/ATFramework/utils/log/module.log

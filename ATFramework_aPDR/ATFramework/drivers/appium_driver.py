@@ -1,3 +1,8 @@
+import inspect
+import time
+import traceback
+
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, InvalidSelectorException, TimeoutException
@@ -7,12 +12,13 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 import math
-import configs.driver_config as DriverConfig
-import configs.app_config as AppConfig
+import ATFramework_aPDR.configs.driver_config as DriverConfig
+import ATFramework_aPDR.configs.app_config as AppConfig
 import os
 import uuid
 
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.locator import locator as L
 
 try:
     import cv2
@@ -45,8 +51,11 @@ class AppiumU2Driver(Borg, BaseDriver):
     
     # Driver Functions
     def __init__(self,DriverConfig, AppConfig, mode="local", desired_caps={}):
-        url_remote = "http://{}:4723/wd/hub".format(DriverConfig.ip_local_appium)
-        if mode == 'grid':
+        if mode == "local":
+            url_remote = "http://{}:4723/wd/hub".format(DriverConfig.ip_local_appium)
+        elif mode == "debug":
+            url_remote = "http://{}:4725/wd/hub".format(DriverConfig.ip_local_appium)
+        elif mode == 'grid':
             url_remote = "http://{}:4444/wd/hub".format(DriverConfig.ip_grid_hub)
             print('url_remote-', url_remote)
 
@@ -78,8 +87,8 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.driver.quit()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # App Management Functions
     # ==================================================================================================================
@@ -93,8 +102,8 @@ class AppiumU2Driver(Borg, BaseDriver):
     def install_app(self, apk_path, package):
         try:
             self.driver.install_app(apk_path)
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
         return self.driver.is_app_installed(package)
 
@@ -109,8 +118,8 @@ class AppiumU2Driver(Borg, BaseDriver):
     def remove_app(self, package):
         try:
             self.driver.remove_app(package)
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
         return not self.driver.is_app_installed(package)
 
@@ -193,8 +202,8 @@ class AppiumU2Driver(Borg, BaseDriver):
     def background_app(self, package):
         try:
             self.driver.close_app()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
         return 2 <= self.driver.query_app_state(package) <= 3
 
@@ -211,8 +220,8 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.driver.reset()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # Orientation Control Functions
     # ==================================================================================================================
@@ -226,8 +235,8 @@ class AppiumU2Driver(Borg, BaseDriver):
     def get_orientation(self):
         try:
             return self.driver.orientation()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: set_orientation
@@ -280,8 +289,8 @@ class AppiumU2Driver(Borg, BaseDriver):
             # logger("set new implicitly_wait: %s" % time )
             self.driver._implicitly_wait(time)
             return time
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: open_notification
@@ -295,8 +304,8 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.driver.open_notifications()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: put_file
@@ -312,8 +321,8 @@ class AppiumU2Driver(Borg, BaseDriver):
                 data = str(selected_file.read())
             self.driver.push_file(path, data.encode('base64'))
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: get_file
@@ -327,8 +336,8 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.driver.pull_file(path)
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # Element Operation Functions
     # ==================================================================================================================
@@ -421,8 +430,25 @@ class AppiumU2Driver(Borg, BaseDriver):
         try:
             self.get_element(locator).click()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
+
+    # ==================================================================================================================
+    # Function: tap_coordinate
+    # Description: Tap the x, y coordinate
+    # Parameters: x, y
+    # Return: True/False
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def tap_coordinate(self, x, y):
+        try:
+            actions = TouchAction(self.driver)
+            actions.tap(x=x, y=y)
+            actions.perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: tap_element
@@ -438,8 +464,8 @@ class AppiumU2Driver(Borg, BaseDriver):
             actions.tap(self.get_element(locator))
             actions.perform()
             return True
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
 
     # ==================================================================================================================
     # Function: long_press_element
@@ -833,11 +859,11 @@ class AppiumU2Driver(Borg, BaseDriver):
             x = int(size['width'] * 0.5) + int(x_shift)
             y = int(size['height'] * 0.5) + int(y_shift)
             TouchAction(self.driver).tap(None, x, y, 1).perform()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
         return True
         
-    def save_pic(self,elem=None,last=False,file=None,offset=None):
+    def save_pic(self,elem=None,last=False,file=None, offset=None):
         '''
             # Function: save_pic
             # Description: save_pic
@@ -865,7 +891,6 @@ class AppiumU2Driver(Borg, BaseDriver):
                 rect[key] += offset[key]
         if last:
             rect = last_rect
-        logger(f"Save rect={rect}")
         last_rect = rect
         im = cv2.imread(path_full)
         im_crop = im[rect['y'] : rect['y']+rect['height'],rect['x']:rect['x']+rect['width']]
@@ -922,17 +947,45 @@ class AppiumU2Driver(Borg, BaseDriver):
         
         zoom.add(act1,act2)
         zoom.perform()
-        
+
+    def drag_slider_to_left(self):
+        try:
+            slider = L.edit.sub_tool.slider
+            slider_value = L.edit.sub_tool.slider_value
+            slider_rect = self.driver.find_element(slider[0],slider[1]).rect
+            slider_value_rect = self.driver.find_element(slider_value[0],slider_value[1]).rect
+            x_start = slider_value_rect['x'] + slider_value_rect['width'] // 2
+            x_end = x_start - slider_rect['width'] // 4
+            y_center = slider_rect['y'] + slider_rect['height'] // 2
+            TouchAction(self.driver).press(x=x_start, y=y_center, pressure=1).wait(500).move_to(x=x_end, y=y_center).release().perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+    def drag_slider_to_right(self):
+        try:
+            slider = L.edit.sub_tool.slider
+            slider_value = L.edit.sub_tool.slider_value
+            slider_rect = self.driver.find_element(slider[0],slider[1]).rect
+            slider_value_rect = self.driver.find_element(slider_value[0],slider_value[1]).rect
+            x_start = slider_value_rect['x'] + slider_value_rect['width'] // 2
+            x_end = x_start + slider_rect['width'] // 4
+            y_center = slider_rect['y'] + slider_rect['height'] // 2
+            TouchAction(self.driver).press(x=x_start, y=y_center, pressure=1).wait(500).move_to(x=x_end, y=y_center).release().perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+
     def drag_slider_from_center_to_left(self, locator):
         try:
-            print(f'drag_slider_from_center_to_left - locator={locator}')
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             x_center = slider_rect['x'] + int(slider_rect['width'] / 2)
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
-            TouchAction(self.driver).press(None, x_center, y_center, 1).wait(2000).move_to(None, x_center - int(
+            TouchAction(self.driver).press(None, x_center, y_center, 1).wait(500).move_to(None, x_center - int(
                 slider_rect['width'] / 4), y_center).release().perform()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
         return True
 
     def drag_slider_from_center_to_right(self, locator):
@@ -940,8 +993,102 @@ class AppiumU2Driver(Borg, BaseDriver):
             slider_rect = self.driver.find_element(locator[0],locator[1]).rect
             x_center = slider_rect['x'] + int(slider_rect['width'] / 2)
             y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
-            TouchAction(self.driver).press(None, x_center, y_center, 1).wait(2000).move_to(None, x_center + int(
+            TouchAction(self.driver).press(None, x_center, y_center, 1).wait(500).move_to(None, x_center + int(
                 slider_rect['width'] / 4), y_center).release().perform()
-        except Exception:
-            raise Exception
+        except Exception as err:
+            raise Exception(err)
         return True
+
+    def drag_slider_from_left_to_right(self, locator=L.edit.sub_tool.slider):
+        try:
+            slider_rect = self.driver.find_element(locator[0],locator[1]).rect
+            y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
+            TouchAction(self.driver).press(None, slider_rect['x'], y_center, 1).wait(500).move_to(None, slider_rect['x'] + int(
+                slider_rect['width']), y_center).release().perform()
+        except Exception as err:
+            raise Exception(err)
+        return True
+
+    def drag_slider_to_max(self, locator=L.edit.sub_tool.slider):
+        try:
+            if type(locator) == tuple:
+                slider = self.driver.find_element(locator[0],locator[1])
+            else:
+                slider = locator
+            slider_rect = slider.rect
+            y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
+            start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
+            end_x = slider_rect['x'] + int(slider_rect['width'])
+            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(500).move_to(x=end_x, y=y_center).release().perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+    def drag_slider_to_min(self, locator=L.edit.sub_tool.slider):
+        try:
+            if type(locator) == tuple:
+                slider = self.driver.find_element(locator[0],locator[1])
+            else:
+                slider = locator
+            slider_rect = slider.rect
+            y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
+            start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
+            end_x = slider_rect['x']
+            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(500).move_to(x=end_x, y=y_center).release().perform()
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+    # ==================================================================================================================
+    # Function: click_and_hold_and_screenshot
+    # Description: click_and_hold_and_screenshot
+    # Note: click_and_hold_and_screenshot
+    # Author: Hausen
+    # ==================================================================================================================
+    def click_and_hold_and_screenshot(self, button, preview=None):
+        path = os.getenv('temp', os.path.dirname(__file__))
+        file_save = "%s/%s.png" % (path, uuid.uuid4())
+        path_save = os.path.abspath(file_save)
+
+        if preview:
+            try:
+                action_chains = ActionChains(self.driver)
+                element = self.driver.find_element(*button)
+                action_chains.click_and_hold(element).perform()
+
+                screenshot_area = self.driver.find_element(*preview)
+                screenshot_area.screenshot(file_save)
+
+                action_chains = ActionChains(self.driver)
+                action_chains.click(element).perform()
+
+            except Exception:
+                traceback.print_exc()
+                return False
+        else:
+            self.driver.save_screenshot(file_save)
+        logger(f'screenshot saved: {path_save}')
+
+        return path_save
+
+    # ==================================================================================================================
+    # Function: double_tap_element
+    # Description: double_tap_element
+    # Parameters: locator(tuple), (opt) interval=0.2
+    # Return: True/False
+    # Note: n/a
+    # Author: Hausen
+    # ==================================================================================================================
+    def double_tap_element(self, locator):
+        try:
+            actions = TouchAction(self.driver)
+            element = self.get_element(locator)
+            actions.tap(element)
+            actions.tap(element)
+            actions.perform()
+            time.sleep(0.5)
+            return True
+
+        except Exception:
+            traceback.print_exc()
+            return False

@@ -1,18 +1,32 @@
 # dummy module
+import shutil
 import time, os
+import traceback
+import uuid
+
 import cv2
 from os.path import dirname
+
+from selenium.common import TimeoutException
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
+from appium.webdriver.common.touch_action import TouchAction
+
+from PIL import Image
+
 from .ad import Ad
-from ATFramework.pages.base_page import *
+from ATFramework_aPDR.ATFramework.pages.base_page import *
 from .locator import locator as L
 from .locator.locator_type import *
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.log import logger
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from SFT.conftest import PACKAGE_NAME
-from ATFramework.utils.compare_Mac import CompareImage
-from ATFramework.utils.compare import *
-from SFT.conftest import TEST_MATERIAL_FOLDER_01
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.ATFramework.utils.compare import *
+from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER_01
 
 class BasePage(BasePage):
     def __init__(self,*args,**kwargs):
@@ -26,21 +40,78 @@ class BasePage(BasePage):
         self.udid = self.driver.driver.desired_capabilities['deviceUDID']
         self.package_name = self.app_package
         # logger("PackageName = %s" % PACKAGE_NAME)
-    def click(self,element,*args):
-        retry = 3
-        while retry:
-            try:
-                logger(f"click {element}")
-                self.el(element).click()
-                break
-            except:
-                retry -= 1
-                logger(f'[WARNING] Can not click the element. Retry: {retry}')
-    def get_preview_pic(self):
-        elem = self.el(L.edit.preview.movie_view)
-        logger("elem = %s" % str(elem.rect) )
-        result = self.driver.save_pic(elem)
-        return result
+
+    def click(self, locator, timeout=5):
+        try:
+            element = self.element(locator, timeout)
+            if element:
+                element.click()
+                logger(f"[Click] {locator}")
+                return True
+        except Exception:
+            traceback.print_exc()
+        return False
+
+    def h_screenshot(self, locator=L.edit.preview.preview, crop=None):
+        try:
+            path = os.getenv('temp', os.path.dirname(__file__))
+            file_save = "%s/%s.png" % (path, uuid.uuid4())
+
+            element = self.h_get_element(locator)
+            element.screenshot(file_save)
+
+            if crop:
+                rect = element.rect
+                rect.update({"x": 0, "y": 0})
+
+                with Image.open(file_save) as im:
+                    for key in crop.keys():
+                        rect.update({key: crop[key]})
+
+                    im_crop = im.crop((rect['x'], rect['y'], rect['x'] + rect['width'], rect['y'] + rect['height']))
+                    im_crop.save(file_save)
+
+            path_save = os.path.abspath(file_save)
+            logger(path_save)
+            return path_save
+
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def h_full_screenshot(self):
+        try:
+            path = os.getenv('temp', os.path.dirname(__file__))
+            file_save = "%s/%s.png" % (path, uuid.uuid4())
+
+            screenshot = self.driver.driver.get_screenshot_as_png()
+            with open(file_save, 'wb') as f:
+                f.write(screenshot)
+
+            path_save = os.path.abspath(file_save)
+            logger(path_save)
+            return path_save
+
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def get_picture(self, locator):
+        path = os.getenv('temp', os.path.dirname(__file__))
+        file_save = "%s/%s.png" % (path, uuid.uuid4())
+        self.h_get_element(locator).screenshot(file_save)
+        path_save = os.path.abspath(file_save)
+        logger(path_save)
+        return path_save
+
+    def get_preview_pic(self, locator=L.edit.preview.preview):
+        time.sleep(1)
+        element = self.h_get_element(locator)
+        for i in range(60):
+            if not element.get_attribute('displayed') == 'true':
+                time.sleep(2)
+                element = self.h_get_element(locator)
+        return self.get_picture(locator)
     def get_library_pic(self):
         elem = self.el(L.import_media.library_gridview.library_rooms)
         logger("elem = %s" % str(elem.rect) )
@@ -69,31 +140,15 @@ class BasePage(BasePage):
             elem.click()
             return elem
         return None
-    def is_exist(self,locator,timeout=5):
-        logger("start is_exist")
-        retry = 3
-        while retry:
-            try:
-                implicitly = self.driver.driver.implicitly_wait()
-                self.driver.driver.implicitly_wait(0.1)
-                wait = WebDriverWait(self.driver.driver, timeout)
-                break
-            except Exception as e:
-                logger(f"exception={e}")
-                retry -= 1
-                time.sleep(1)
-        timer_start = time.time()
-        result = False
-        while time.time() - timer_start < timeout:
-            try:
-                elem = wait.until(EC.presence_of_element_located(locator), "Locator still not exist: " + str(locator))
-                result = True
-                logger(f"[is_exist] {locator} found:" + str(time.time() - timer_start))
-                break
-            except:
-                logger(f"[is_exist] {locator} Not found:" + str(time.time() - timer_start))
-        self.driver.driver.implicitly_wait(implicitly)
-        return result
+    def is_exist(self, locator, timeout=3):
+        start = time.time()
+        try:
+            WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            # logger(f"[Found ({round(time.time()-start, 2)})] {locator}")
+            return True
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
         
     def is_not_exist(self,locator,timeout=5):
         logger("start is_not_exist")
@@ -424,14 +479,15 @@ class BasePage(BasePage):
             logger('get elements fail')
             return False
         return True
-    def timeline_check_media(self, file_name, type='Video', timeout=30): # type=Video/ Photo/ Music
+
+    def timeline_check_media(self, file_name, type='video', timeout=30): # type=Video/ Photo/ Music
         logger("start >> timeline_check_media <<")
         logger(f"input - {file_name}")
         # noinspection PyBroadException
         try:
-            if type == 'Video' or type == 'Photo':
+            if type == 'video' or type == 'photo':
                 logger(f"media_aid=[AID]TimeLine{type}_{file_name}")
-                self.get_element(aid(f'[AID]TimeLine{type}_{file_name}'))
+                return self.h_is_exist(aid(f'[AID]TimeLine{type}_{file_name}'))
             else:
                 for retry in range(timeout):
                     list_element = self.els(L.edit.timeline.clip_title)
@@ -479,3 +535,343 @@ class BasePage(BasePage):
         except Exception:
             logger("Exception occurs")
             raise Exception
+
+    # ==================================================================================================================
+    # Function: h_get_element
+    # Description: Get element with locator
+    # Parameters: locator
+    # Return: Located element of type WebElement
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+
+    def h_get_element(self, locator, timeout=5):
+        start = time.time()
+        try:
+            if type(locator) == tuple:  # convert from tuple to WebElement
+                element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+                # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
+                return element
+            else:
+                return locator
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
+
+    def element(self, locator, timeout=5):
+        start = time.time()
+        try:
+            if type(locator) == tuple:
+                element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+                # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
+                return element
+            else:
+                return locator
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
+
+    # ==================================================================================================================
+    # Function: h_get_elements
+    # Description: Get elements with non-unique locator
+    # Parameters: locator
+    # Return: Located elements of type WebElement
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_get_elements(self, locator, timeout=5):
+        try:
+            WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            elements = self.driver.driver.find_elements(locator[0], locator[1])
+            return elements
+        except TimeoutException:
+            logger(f"[Info] Cannot find {locator}")
+            return False
+
+    def elements(self, locator, timeout=5):
+        try:
+            WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            elements = self.driver.driver.find_elements(locator[0], locator[1])
+            return elements
+        except TimeoutException:
+            logger(f"[Info] Cannot find {locator}")
+            return False
+
+    def h_click(self, locator, timeout=5):
+        try:
+            element = self.h_get_element(locator, timeout)
+            if not element:
+                return False
+            else:
+                element.click()
+                logger(f"[Click] {locator}")
+                return True
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+    def h_is_exist(self, locator, timeout=3):
+        start = time.time()
+        try:
+            # logger(locator)
+            WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+            logger(f"[Found ({round(time.time()-start, 2)})] {locator}")
+            return True
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
+
+    def h_is_not_exist(self, locator, timeout=3):
+        start = time.time()
+        try:
+            WebDriverWait(self.driver.driver, timeout).until_not(EC.presence_of_element_located(locator))
+            return True
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
+
+    def h_is_child_id_exist(self, parent, child, timeout=3):
+        start = time.time()
+        try:
+            elem_parent = self.h_get_element(parent)
+            if not elem_parent:
+                logger(f"[No found parent element({round(time.time() - start, 2)})] {parent}")
+                return False
+            else:
+                WebDriverWait(elem_parent, timeout).until(EC.presence_of_element_located(child))
+            return True
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {child}")
+            return False
+
+    # ==================================================================================================================
+    # Function: h_tap
+    # Description: Tap location
+    # Parameters: x axis, y axis
+    # Return: N/A
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_tap(self, x, y):
+        actions = ActionChains(self.driver.driver)
+        actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+        actions.w3c_actions.pointer_action.move_to_location(x, y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
+
+    # ==================================================================================================================
+    # Function: h_long_press
+    # Description: Long press element
+    # Parameters: element or locator
+    # Return: N/A
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_long_press(self, locator, duration=1):
+        try:
+            element_rect = self.h_get_element(locator).rect
+            x = element_rect["x"] + element_rect['width'] / 2
+            y = element_rect["y"] + element_rect['height'] / 2
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(x, y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pause(duration)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+    # ==================================================================================================================
+    # Function: h_swipe_element
+    # Description: Swipe from element_B to element_A
+    # Parameters: locator or WebElement (returned from find_element), speed (1 is fastest)
+    # Return: True/False
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_swipe_element(self, element_b, element_a, speed=10):
+        element_b = self.h_get_element(element_b)
+        element_a = self.h_get_element(element_a)
+        try:
+            if speed < 1:
+                speed = 1
+            element_b_rect = element_b.rect
+            start_x = element_b_rect['x']
+            start_y = element_b_rect['y']
+            element_a_rect = element_a.rect
+            end_x = element_a_rect['x']
+            end_y = element_a_rect['y']
+
+            x_offset = (start_x - end_x) / speed
+            y_offset = (start_y - end_y) / speed
+
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+
+            for i in range(speed):
+                start_x = int(start_x - x_offset)
+                start_y = int(start_y - y_offset)
+                actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def h_swipe_location(self, start_x, start_y, end_x, end_y, speed=10, duration=0):
+        """
+        # Function: h_swipe_location
+        # Description: Swipe from location to location
+        # Parameters: start_x: x-coordinate at which to start
+        #             start_y: y-coordinate at which to start
+        #             end_x: x-coordinate at which to stop
+        #             end_y: y-coordinate at which to stop
+        #             speed: 1 is fastest
+        #             duration: Waiting time to take the swipe, in ms.
+        #             x_offset: offset of x-coordinate to away from the edge
+        # Return: None
+        # Note: N/A
+        # Author: Hausen
+        """
+        try:
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            # TODO: speed
+
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pause(duration / 1000)
+            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.pause(duration / 1000)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return self  # type: ignore
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def h_swipe_element_to_location(self, locator, end_x, end_y=None, speed=2, duration=0):
+        """
+        # Function: h_swipe_element_to_location
+        # Description: Swipe element to location
+        # Parameters:
+            :param locator: element going to swipe
+            :param end_x: x-coordinate at which to stop
+            :param end_y: y-coordinate at which to stop
+            :param speed: 1 is fastest
+            :param duration: Waiting time to take the swipe, in s.
+        # Return: Boolean
+        # Note: N/A
+        # Author: Hausen
+        """
+        try:
+            element = self.h_get_element(locator)
+            element_rect = element.rect
+            start_x = element_rect['x'] + element_rect['width'] / 2
+            start_y = element_rect['y'] + element_rect['height'] / 2
+            if end_y is None:
+                end_y = start_y
+
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pause(duration)
+            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.pause(duration)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def h_swipe_playhead(self, x: int, speed=15):
+        """
+        # Function: h_swipe_playhead
+        # Description: Swipe the playhead to location
+        # Parameters:
+            :param x: x-coordinate of destination
+            :param speed: speed: 1 is fastest
+        # Return: None
+        # Note: length of x to trigger swiping is 25
+        # Author: Hausen
+        """
+        try:
+            if speed < 1:
+                speed = 1
+            playhead = self.h_get_element(L.edit.timeline.playhead).rect
+            playhead_x = playhead["x"]+playhead["width"]//2
+            ruler = self.h_get_element(L.edit.timeline.timeline_ruler).rect
+            y = ruler["y"]+ruler["height"]//2
+            temp_x = x
+
+            x_split = (x - playhead_x) // speed
+
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver,
+                                                mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(x, y).pointer_down()
+
+            for i in range(speed):
+                temp_x = int(temp_x - x_split)
+                actions.w3c_actions.pointer_action.move_to_location(temp_x, y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    # ==================================================================================================================
+    # Function: h_drag_element
+    # Description: Drag element
+    # Parameters: locator
+    # Return: Boolean
+    # Note: N/A
+    # Author: Hausen
+    # ==================================================================================================================
+    def h_drag_element(self, locator, end_x, end_y):
+        try:
+            element_rect = self.h_get_element(locator).rect
+            start_x = element_rect['x'] + element_rect['width'] // 2
+            start_y = element_rect['y'] + element_rect['height'] // 2
+            actions = ActionChains(self.driver.driver)
+            actions.w3c_actions = ActionBuilder(self.driver.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.move_to_location((start_x + end_x)//2, (start_y + end_y)//2)
+            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+
+    def copy_file(self, source_file, dest):
+        """
+        # Function: copy_database_file
+        # Description: Copy file
+        # Parameters:
+            :param source_file
+            :param dest: destination
+        # Returns: bool
+
+        """
+        try:
+            tgt_folder = os.path.dirname(dest)
+            if not os.path.exists(tgt_folder):
+                os.makedirs(tgt_folder)
+            shutil.copy(source_file, dest)
+            return True
+        except Exception as err:
+            logger(f'\n[Error]{err}')
+            return False
+
+

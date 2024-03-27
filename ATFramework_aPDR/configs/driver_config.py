@@ -5,11 +5,15 @@ ip_grid_hub = 'localhost'
 android_emulator = {
     'platformName': 'android',
     'automationName': 'Uiautomator2',
-    'deviceName': 'Android Emulator'
+    'deviceName': 'Android Emulator',
+    "language": "en",
+    "locale": "US",
 }
 
 android_device = {
     'platformName': 'android',
     'automationName': 'UiAutomator2',
-    'deviceName': 'SamsungS6'
+    'deviceName': 'Android',
+    "language": "en",
+    "locale": "US",
 }

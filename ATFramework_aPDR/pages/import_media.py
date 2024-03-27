@@ -1,16 +1,18 @@
 import sys,time
-from pages.base_page import BasePage
-from ATFramework.utils.extra import element_exist_click
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
+from ATFramework_aPDR.ATFramework.utils.log import logger
 import random
 from appium.webdriver.common.touch_action import TouchAction
-from ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 from pathlib import Path
 
-from .locator.locator import import_media as L
+from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator import edit as E
 
-from SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
+from .locator.locator_type import find_string, aid, id, xpath
+from ATFramework_aPDR.pages.page_factory import PageFactory
 
 google_drive_account = 'clt.qaat@gmail.com'
 
@@ -21,7 +23,288 @@ class MediaPage(BasePage):
         self.el = lambda id: self.driver.driver.find_element(id[0], id[1])
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
         self.udid = self.driver.driver.desired_capabilities['deviceUDID']
-        
+
+    def sort_date_descend(self, timeout=60):
+        try:
+            self.click(L.import_media.media_library.sort_button)
+            self.click(L.import_media.sort_menu.by_date)
+            self.click(L.import_media.sort_menu.descending)
+            self.driver.driver.back()
+            if self.waiting_loading(timeout):
+                return True
+            else:
+                return False
+        except Exception as err:
+            logger(f'[Error] {err}')
+
+    def select_local_folder(self, folder):
+        try:
+            if not self.element(L.import_media.video_library.folder_name(1)).text == folder:
+                self.click(L.import_media.video_library.select_folder)
+                while not self.click(find_string(folder)):
+                    folders = self.elements(L.import_media.video_library.folder_name(0))
+                    last_folder = folders[-1].text
+                    self.h_swipe_element(folders[-1], folders[1], speed=3)
+                    folders = self.elements(L.import_media.video_library.folder_name(0))
+                    if folders[-1].text == last_folder:
+                        raise Exception(f'No found folder: {folder}')
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+    def select_local_file(self, media_type, folder, file_name):
+        try:
+            media_type = media_type[0].upper() + media_type[1:].lower()
+            if media_type not in ['Video', 'Photo']:
+                media_type = 'Video'
+                logger('[Warning] Did not assign media type')
+            if media_type == 'Video':
+                if not self.switch_to_video_library():
+                    raise Exception('Click video library fail')
+            elif media_type == 'Photo':
+                if not self.switch_to_photo_library():
+                    raise Exception('Click photo library fail')
+            if not self.select_local_folder(folder):
+                raise Exception('Open folder fail')
+            if not self.select_media_by_text(file_name):
+                raise Exception('Select file fail')
+            return True
+        except Exception as err:
+            raise Exception(err)
+            return False
+
+    def select_local_video(self, folder, file_name):
+        try:
+            if not self.switch_to_video_library():
+                logger('Click video library fail')
+            if not self.select_local_folder(folder):
+                logger('Open folder fail')
+            if not self.select_media_by_text(file_name):
+                raise Exception('Select file fail')
+            return True
+        except Exception as err:
+            logger(err)
+            return False
+
+
+    def select_local_photo(self, folder, file_name):
+        try:
+            if not self.switch_to_photo_library():
+                raise Exception('Click photo library fail')
+            if not self.select_local_folder(folder):
+                raise Exception('Open folder fail')
+            if not self.select_media_by_text(file_name):
+                raise Exception('Select file fail')
+            return True
+        except Exception as err:
+            raise Exception(err)
+
+    def select_video_library(self, stock_name):
+        stock = [
+            "shutterstock",
+            "getty",
+            "getty_pro",
+            "giphy",
+            "pexels",
+            "pixabay",
+            "google_drive",
+        ]
+        try:
+            if stock_name not in stock:
+                logger(f'[Fail] Invalid stock name: {stock_name}')
+                return False
+
+            self.click(L.import_media.video_library.video_entry, 2)
+            tab = ('xpath', '//android.widget.LinearLayout/android.view.ViewGroup')
+            if not self.click(L.import_media.media_library.stock(stock_name), 1):
+                for retry in range(60):
+                    if not self.is_exist(L.import_media.video_library.local_folder, 1):
+                        tabs = self.elements(tab)
+                        self.h_swipe_element(tabs[0], tabs[-1], 3)
+                        if self.click(L.import_media.media_library.stock(stock_name), 1):
+                            return True
+                    else:
+                        break
+            end = ""
+            for retry in range(60):
+                if not self.click(L.import_media.media_library.stock(stock_name), 1):
+                    tabs = self.elements(tab)
+                    last = tabs[-1].get_attribute("resource-id")
+                    if last == end:
+                        logger(f'[Fail] Stock {stock_name} is not found')
+                        return False
+                    else:
+                        end = last
+                        self.h_swipe_element(tabs[-1], tabs[0], 3)
+                else:
+                    return True
+            else:
+                raise Exception("out of retry")
+        except Exception as err:
+            logger(f'\n[Error] {err}')
+            return False
+
+    def select_photo_library(self, stock_name):
+        stock = [
+            "shutterstock",
+            "getty",
+            "getty_pro",
+            "giphy",
+            "pexels",
+            "pixabay",
+            "google_drive",
+        ]
+        try:
+            if stock_name not in stock:
+                logger(f'[Fail] Invalid stock name: {stock_name}')
+                return False
+
+            self.click(L.import_media.media_library.photo_entry, 2)
+            tab = ('xpath', '//android.widget.LinearLayout/android.view.ViewGroup')
+            if not self.click(L.import_media.media_library.stock(stock_name), 1):
+                for retry in range(60):
+                    if not self.is_exist(L.import_media.video_library.local_folder, 1):
+                        tabs = self.elements(tab)
+                        self.h_swipe_element(tabs[0], tabs[-1], 3)
+                        if self.click(L.import_media.media_library.stock(stock_name), 1):
+                            return True
+                    else:
+                        break
+            end = ""
+            for retry in range(60):
+                if not self.click(L.import_media.media_library.stock(stock_name), 1):
+                    tabs = self.elements(tab)
+                    last = tabs[-1].get_attribute("resource-id")
+                    if last == end:
+                        logger(f'[Fail] Stock {stock_name} is not found')
+                        return False
+                    else:
+                        end = last
+                        self.h_swipe_element(tabs[-1], tabs[0], 3)
+                else:
+                    return True
+            else:
+                raise Exception("out of retry")
+        except Exception as err:
+            logger(f'\n[Error] {err}')
+            return False
+
+    def select_media_by_text(self, file_name, retry=10, speed=7):
+        for i in range(retry):
+            clips = self.elements(L.import_media.media_library.file_name(0))
+            if any(clip.get_attribute('text') == file_name for clip in clips):
+                self.click(find_string(file_name))
+                self.h_click(L.import_media.media_library.apply, timeout=0.5)
+                return True
+            self.h_swipe_element(clips[-1], clips[0], speed)
+        logger(f'[Fail] Cannot find "{file_name}" within {retry} times')
+        return False
+
+    def find_local_file(self, file_name, speed=7, retry=10):
+        for i in range(retry):
+            clips = self.elements(L.import_media.media_library.file_name(0))
+            if any(clip.get_attribute('text') == file_name for clip in clips):
+                return True
+            self.h_swipe_element(clips[-1], clips[0], speed)
+        logger(f'[Fail] Cannot find "{file_name}" within {retry} times')
+        return False
+
+    def text_search(self, text, locator=L.import_media.media_library.search):
+        try:
+            element = self.element(locator)
+            element.click()
+            element.send_keys(text)
+            self.driver.driver.press_keycode(66)
+
+            if self.h_is_not_exist(L.import_media.media_library.waiting_cursor, 10):
+                return True
+            else:
+                raise Exception("Search timeout")
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def wait_media_change(self, old_element, locator=L.import_media.media_library.media(), timeout=10):
+        for i in range(timeout):
+            if self.element(locator) != old_element:
+                break
+            time.sleep(1)
+        else:
+            logger("Loading timeout")
+            return False
+
+    def subscribe_getty_pro(self):
+        if self.click(L.import_media.media_library.getty_iap_monthly, 2):
+            self.click(L.import_media.media_library.getty_iap_continue)
+            self.click(('class name', 'android.widget.Button'))
+            self.click(find_string('Not now'), 1)
+            if self.is_not_exist(aid('Google Play'), 30):
+                if self.is_exist(L.import_media.media_library.media(), 10):
+                    return True
+                else:
+                    raise Exception("Doesn't return to media picker")
+            else:
+                raise Exception("Subscribe timeout")
+        else:
+            return False
+
+
+    def scroll_to_top(self):
+        for i in range(60):
+            clip = self.elements(L.import_media.media_library.media(0))
+            self.h_swipe_element(clip[0], clip[-1], 1)
+            new_clip = self.elements(L.import_media.media_library.media(0))
+            if new_clip[0] == clip[0]:
+                return True
+        else:
+            raise Exception("Scroll to top timeout")
+
+    def select_music_library(self, stock):
+        try:
+            end = ""
+            if not self.is_exist(stock):
+                while not self.h_click(stock, 1):
+                    tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.widget.RelativeLayout'))
+                    last = tabs[-1].get_attribute("resource-id")
+                    if last == end:
+                        logger(f'[Fail] No stock: {stock}')
+                        return False
+                    else:
+                        end = last
+                        self.h_swipe_element(tabs[-1], tabs[0], 5)
+                return True
+            else:
+                if self.element(stock).get_attribute('selected') == 'false':
+                    self.h_click(stock, 1)
+                return True
+        except Exception as err:
+            logger(f'\n[Error] {err}')
+
+    def waiting(self, timeout=60):
+        for i in range(timeout):
+            if self.h_is_exist(find_string('Cancel'), 1):
+                continue
+            else:
+                return True
+        logger("[Warning] waiting timeout")
+        return False
+
+    def waiting_download(self):
+        time.sleep(0.5)
+        if self.h_is_not_exist(L.import_media.media_library.loading_text, 90):
+            return True
+        else:
+            logger("[Warning] downloading timeout")
+            return False
+
+    def waiting_loading(self, timeout=60):
+        time.sleep(0.5)
+        if self.h_is_not_exist(L.import_media.media_library.loading_text, 90):
+            return True
+        else:
+            logger("[Warning] loading timeout")
+            return False
+
     def import_last_folder(self):
         logger ("start >> import_last_folder <<")
         # self.click_element(self._project_empty)
@@ -29,35 +312,37 @@ class MediaPage(BasePage):
         return self.wait_until_element_exist(L.library_gridview.first,10)
 
     def import_first_file(self):
-        logger ("start >> import_first_file <<")
-        self.click_element(L.library_gridview.first)
-        self.click_element(L.library_gridview.add)
-        result = self.wait_until_element_exist(L.timeline.clip,3)
-        time.sleep(1)
+        # logger ("start >> import_first_file <<")
+        self.h_click(L.library_gridview.first)
+        self.h_click(L.library_gridview.add)
+        self.h_click(L.library_gridview.apply, 1)
+        result = self.h_is_exist(L.timeline.clip, 5)
         return result
 
-    def select_media_by_text(self,name, timeout=10):
-        logger("start >> select_media_by_text<<")
-        logger(f"input - {name}")
-        try:
-            self.is_exist(L.library_gridview.frame, timeout)
-            frame = self.el(L.library_gridview.frame)
-            locator = ("xpath", f'//*[contains(@text,"{name}")]')
-            for retry in range(20):
-                if not self.is_exist(locator):
-                    self.driver.swipe_element(L.library_gridview.frame, 'left', 300)
-                else:
-                    self.driver.swipe_element(L.library_gridview.frame, 'left', 100)
-                    break
-            element = frame.find_element_by_xpath(f'//*[contains(@text,"{name}")]')
-            if element.text != name:
-                logger(f"locate incorrect element - {name}")
-                raise Exception
-            element.click()
-        except Exception:
-            logger(f"Fail to locate element - {name}")
-            raise Exception
-        return True    
+    def click_audio_tab(self, tab):
+        """
+        Click audio tab
+        :param tab: local, meta, mixtape, cl
+        :return: Boolean of success or not
+        """
+        tabs = {
+            'local': id('tab_music_local'),
+            'meta': id('tab_meta_sound'),
+            'mixtape': id('tab_mix_tape_sound_clip'),
+            'cl': id('tab_bgm_sound_clip'),
+        }
+        if tab not in tabs:
+            logger(f'[Fail] Invalid tab: {tab}')
+            return False
+        if self.click(tabs[tab], 1):
+            logger(f'Clicked {tab}')
+            return True
+        else:
+            logger(f'[Fail] Click {tab}')
+            return False
+
+
+
         
     def get_music_name(self, index, timeout=10):
         logger("start >> get_music_name<<")
@@ -222,24 +507,23 @@ class MediaPage(BasePage):
         btn_add = element.find_element_by_xpath("//android.widget.ImageView[contains(@resource-id,'library_unit_add')]")
         btn_add.click()
 
-    def click(self, element, *args):
-        self.el(element).click()
-
     def switch_to_video_library(self):
-        logger("start >> switch_to_video_library <<")
-        time.sleep(10)
-        self.tap_element(L.menu.video_library)    
-        
+        try:
+            return True if self.h_click(L.import_media.video_library.video_entry) else False
+        except Exception as err:
+            raise Exception(err)
+    def switch_to_photo_library(self):
+        try:
+            return True if self.h_click(L.import_media.photo_library.photo_entry) else False
+        except Exception as err:
+            raise Exception(err)
+
     def switch_to_pip_video_library(self):
         logger("start >> switch_to_pip_video_library <<")
         time.sleep(10)
         self.tap_element(L.menu.pip_video_library)
 
-    def switch_to_photo_library(self):
-        logger("start >> switch_to_photo_library <<")
-        time.sleep(10)
-        self.tap_element(L.menu.photo_library)
-    
+
     def switch_to_title_library(self):
         logger("start >> switch_to_title_library <<")
         time.sleep(10)
@@ -750,7 +1034,7 @@ class MediaPage(BasePage):
 
     def _in_google_driver(self,timeout = 5):
         # if self.is_not_exist(L.library_gridview.refresh,timeout):
-        if self.is_exist(L.menu.video_library, timeout):
+        if self.is_exist(L.menu.video_entry, timeout):
             logger('this is not google driver folder')
             return False
         return True

@@ -92,7 +92,7 @@ class Test_SFT_Scenario_02_12:
         page_edit.click(L.edit.menu.play)
         time.sleep(2)
         pic_base = page_edit.get_preview_pic()
-        page_edit.click(L.edit.menu.effect)
+        page_edit.click(L.edit.menu.fx_layer)
         time.sleep(5)
         page_media.switch_to_effect_layer_library()
         time.sleep(5)
@@ -299,7 +299,7 @@ class Test_SFT_Scenario_02_12:
         # Enter Effect Layer
         self.report.start_uuid('9a69264f-b7f1-4c47-b50e-6d66d4959bb8')
         self.report.start_uuid('30d17f86-86d4-4ef1-861c-fae1959fa3a0')
-        page_edit.click(L.edit.menu.effect)
+        page_edit.click(L.edit.menu.fx_layer)
         time.sleep(5)
         page_media.switch_to_sticker_library()
         time.sleep(5)
@@ -322,7 +322,7 @@ class Test_SFT_Scenario_02_12:
         self.report.new_result('9b138660-c8ce-40ee-a44b-17eb79306f26', result)
 
         self.report.start_uuid('d684f15f-3fa9-4337-a5b9-35e0a0c7e3a4')
-        page_edit.click(L.edit.menu.effect)
+        page_edit.click(L.edit.menu.fx_layer)
         time.sleep(5)
         page_media.switch_to_sticker_library()
         time.sleep(5)

@@ -244,7 +244,7 @@ class Test_SFT_Scenario_02_11:
         # Enter Overlay library
         self.report.start_uuid('53a794b9-9645-40df-a078-5d49dac45708')
         self.report.start_uuid('d10771dd-58ee-4080-ae5f-47101195cba7')
-        page_media.click(L.edit.menu.effect)
+        page_media.click(L.edit.menu.fx_layer)
         page_media.switch_to_overlay_library()
         result = page_media.is_exist(L.import_media.library_gridview.template_library_category_list)
         self.report.new_result('53a794b9-9645-40df-a078-5d49dac45708', result)

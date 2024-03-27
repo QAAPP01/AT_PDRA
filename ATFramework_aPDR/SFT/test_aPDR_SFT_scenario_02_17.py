@@ -314,7 +314,7 @@ class Test_SFT_Scenario_02_17:
         time.sleep(5)
         page_media.back()
         time.sleep(5)
-        page_media.click(L.edit.menu.effect)
+        page_media.click(L.edit.menu.fx_layer)
         time.sleep(5)
         page_media.select_title_category('Speech Bubbles')
         time.sleep(3)

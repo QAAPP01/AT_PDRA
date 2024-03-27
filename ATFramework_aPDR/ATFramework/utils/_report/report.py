@@ -1,3 +1,4 @@
+import base64
 import os
 import subprocess
 import re
@@ -107,11 +108,19 @@ class MyReport(object):
         if result == False and self.driver and fail_screenshot: # only screenshot if result == false and has self.driver (set_driver())
             os.makedirs(self.source_path + "/report/" + self.udid + "_" + self.tr_number, exist_ok=True)
             self.pic_index += 1
-            file_name = "%s_%s.png" % (str(self.pic_index),name)
-            log = "%s / %s" % ( file_name, log)
+            file_name = "%s_%s.png" % (str(self.pic_index), name)
+            log = "%s / %s" % (file_name, log)
             logger(f'Fail screenshot = {file_name}')
             file_path = "%s/%s" % (self.output_path, file_name)
             self.driver.get_screenshot_as_file(file_path)
+
+            time.sleep(5)
+            raw_data = self.driver.stop_recording_screen()
+            video_name = "%s_%s.mp4" % (str(self.pic_index), name)
+            video_path = "%s/%s" % (self.output_path, video_name)
+            with open(video_path, "wb") as vd:
+                vd.write(base64.b64decode(raw_data))
+
         # print ("args=", id,result, name, log)
         myPass = '<span id="myPass">Pass</span>'
         myFail = '<span id="myFail">Fail</span>'
@@ -263,14 +272,23 @@ class MyReport(object):
         }
         sendMail(opts)
 
-    def exception_screenshot(self,func):
+    def exception_screenshot(self, func):
         def wrapper(*aug):
             try:
                 return func(*aug)
             except Exception as e:
                 file_full_path = self.output_path + "/[Exception]" + func.__name__ + ".png"
+                video_path = self.output_path + "/[Exception]" + func.__name__ + ".mp4"
                 os.makedirs(self.source_path + "/report/" + self.udid + "_" + self.tr_number, exist_ok=True)
                 self.driver.get_screenshot_as_file(file_full_path)
+
+                recording_data = self.driver.stop_recording_screen()
+                with open(video_path, 'wb') as video_file:
+                    video_file.write(base64.b64decode(recording_data))
+                logger(f'Screen recording saved: {video_path}')
+
+                self.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
+
                 logger("Exception screenshot: %s" % file_full_path)
                 logger("Exception: %s" % str(e))
                 raise

@@ -1,8 +1,9 @@
-
 from .sendemail import send_mail
 import os
 import shutil
+import datetime
 from ATFramework_aPDR.ATFramework.utils._google_api.google_api import GoogleApi
+from ATFramework_aPDR.ATFramework.utils._ecl_operation import qr_operation
 
 def summary_report_header():
     summary_report_header = '<div class=WordSection1>'
@@ -66,6 +67,16 @@ def copy_rename(old_file_name, new_file_name, test_case_path, device_id):
     return True
 
 
+def auto_create_qr(param_dict, att_list):
+    dst_dir = os.path.dirname(__file__)
+    file_dict = {}
+    for i in range(len(att_list)):
+        file_dict[f"upload_files_{i+1}"] = os.path.join(dst_dir, att_list[i])
+    param_dict["browser"] = "edge"
+    param_dict["qr_dict"].update(file_dict)
+    qr_operation.create_qr(param_dict)
+
+
 def remove_attachment_file(att_list):
     dst_dir = os.path.dirname(__file__)
     for f in att_list:
@@ -86,14 +97,14 @@ def read_summary_to_dict(proj_path, device_id):
     return d
 
 
-def send_report(title_project, udid_list, test_case_path, receiver_list, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version):
+def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version):
 
     fail_count = 0
     pass_count = 0
     na_count = 0
     result = '[PASS]'
 
-    opts = {'account': 'cyberlinkqamc@gmail.com', 'password': 'sngpwhxirguwlvhn',
+    opts = {'account': 'cltest.qaapp1@gmail.com', 'password': 'izjysnzxhygofgns',
     # opts = {'account': 'cyberlinkqamc@gmail.com', 'password': 'qamc-1234',
     # opts = {'account': 'cltqaappatreport@gmail.com', 'password': 'cyberlinkqa',
             'to': '', 'subject': '',
@@ -121,7 +132,8 @@ def send_report(title_project, udid_list, test_case_path, receiver_list, sr_numb
             fail_count += int(summary_dict['fail'])
             na_count += int(summary_dict['na'])
             mail_body += summary_report_add_row(summary_dict['title'], summary_dict['date'], summary_dict['time'], summary_dict['server'], summary_dict['os'], summary_dict['device'], summary_dict['version'], summary_dict['pass'], summary_dict['fail'], summary_dict['na'], summary_dict['skip'], summary_dict['duration'])
-
+        else:
+            return False
     mail_body += summary_report_tail() + html_report_tail
     if fail_count > 0:
         result = '[FAIL]'
@@ -132,6 +144,18 @@ def send_report(title_project, udid_list, test_case_path, receiver_list, sr_numb
     opts['to'] = receiver_list
     opts['html'] = mail_body
     send_mail(opts)
+
+    tr_dict = {"browser": "Edge",
+               "tr_no": tr_number,
+               "qr_dict": {'short_description': opts['subject'],
+                           'build_day': datetime.date.today().strftime('%m%d'),
+                           'test_result': f'{test_result_title} - {result} [PASS: {summary_dict["pass"]}, FAIL: {summary_dict["fail"]}]',
+                           'test_result_details': f'Pass: {summary_dict["pass"]}\nFail: {summary_dict["fail"]}\nSkip: {summary_dict["skip"]}\nN/A: {summary_dict["na"]}\nTotal time: {summary_dict["duration"]}',
+                          }
+               }
+    auto_report = True
+    if auto_report:
+        auto_create_qr(tr_dict, opts['attachment'])
     # remove attachment files
     remove_attachment_file(opts['attachment'])
     print('compelte')

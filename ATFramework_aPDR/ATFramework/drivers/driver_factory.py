@@ -4,10 +4,11 @@ get_mobile_driver_object() returns the appropriate mobile driver object.
 get_web_driver_object() returns the appropriate web driver object.
 Add elif clauses as and when you implement new drivers.
 """
+import subprocess
 
 from selenium import webdriver
-from ATFramework.drivers.appium_driver import AppiumU2Driver
-from ATFramework.drivers.xcuitest_driver import AppiumXCUITestDriver
+from ATFramework_aPDR.ATFramework.drivers.appium_driver import AppiumU2Driver
+from ATFramework_aPDR.ATFramework.drivers.xcuitest_driver import AppiumXCUITestDriver
 # from appium_driver import AppiumU2Driver
 # from drivers.appium_driver import AppiumXCUITestDriver
 # from drivers.atx_driver import ATXU2Driver

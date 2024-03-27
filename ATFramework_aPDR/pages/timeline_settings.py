@@ -1,8 +1,9 @@
 import sys,time
-from pages.base_page import BasePage
-from ATFramework.utils.extra import element_exist_click
-from ATFramework.utils.log import logger
-from ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.pages.page_factory import PageFactory
+from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
+from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 from appium.webdriver.common.touch_action import TouchAction
 
 from .locator import locator as L
@@ -14,6 +15,42 @@ class TimelineSettingsPage(BasePage):
 
     def __init__(self, *args, **kwargs):
         BasePage.__init__(self, *args, **kwargs)
+        self.test_material_folder = '00PDRa_Testing_Material'
+        self.page_media = PageFactory().get_page_object("import_media", self.driver)
+
+    def check_setting(self, locator):
+        max_swipe_time = 20
+        last = L.timeline_settings.preference.reset_all_tips
+        try:
+            for i in range(max_swipe_time):
+                if not self.is_exist(locator, 1):
+                    if self.is_exist(last, 1):
+                        break
+                    else:
+                        self.driver.swipe_element(L.timeline_settings.preference.scroll_view, 'up')
+                else:
+                    return True if self.element(locator).get_attribute('checked') == 'true' else False
+            raise Exception(f'No found "{locator}"')
+        except Exception as err:
+            raise Exception(f'[Error] {err}')
+
+    def click_setting(self, locator):
+        max_swipe_time = 20
+        last = L.timeline_settings.preference.reset_all_tips
+        try:
+            for i in range(max_swipe_time):
+                if not self.click(locator, 1):
+                    if self.is_exist(last, 1):
+                        break
+                    else:
+                        self.driver.swipe_element(L.timeline_settings.preference.scroll_view, 'up')
+                else:
+                    return True
+            raise Exception(f'No found "{locator}"')
+        except Exception as err:
+            raise Exception(f'[Error] {err}')
+
+
 
     def enter_advanced_page(self):
         logger("start >> enter_advanced_page <<")
@@ -49,6 +86,16 @@ class TimelineSettingsPage(BasePage):
             raise Exception
         return True
 
+    def h_setting_duration(self, percentage, offset=0.055):  # percentage: 0~1  ex: 0.5
+        slider = self.h_get_element(L.edit.settings.DefaultImageDuration.slider).rect
+        width = slider["width"]
+        offset_width = width - 2 * width * offset
+        start_x = slider["x"] + width * offset
+        y = slider["y"] + slider["height"] / 2
+        end_x = start_x + percentage * offset_width
+        self.h_tap(end_x, y)
+        return True
+
     def set_default_image_duration(self, expect_duration='5.0'):
         logger("start >> set_default_image_duration <<")
         logger(f"expect_duration={expect_duration}")
@@ -72,35 +119,7 @@ class TimelineSettingsPage(BasePage):
             raise Exception
         return True
 
-    def check_settings_default_image_duration(self, value): #0.5/ 5/ 10.0/...
-        logger("start >> check_settings_default_image_duration <<")
-        logger(f'expect value={value}')
-        try:
-            self.enter_advanced_page()
-            txt_duration = self.el(L.timeline_settings.settings.default_image_duration_value).get_attribute('text')
-            if txt_duration != f'{value}  Second(s)':
-                logger(f"Fail to verify duration as {value}, current duration is {txt_duration}")
-                self.driver.driver.back()
-                return False
-            self.driver.driver.back()
-        except Exception:
-            logger("Exception occurs")
-            return False
-        return True
 
-    def get_settings_default_image_duration(self):
-        logger("start >> get_settings_default_image_duration <<")
-        try:
-            self.enter_advanced_page()
-            txt_duration = self.el(L.timeline_settings.settings.default_image_duration_value).get_attribute('text')
-            txt_duration = txt_duration.replace(' Second(s)', '')
-            txt_duration = txt_duration.strip()
-            logger(f"default_image_duration={txt_duration}")
-            self.driver.driver.back()
-        except Exception:
-            logger("Exception occurs")
-            return False
-        return txt_duration
 
     def set_default_transition_duration(self, expect_duration='2.0'):
         logger("start >> set_default_transition_duration <<")
@@ -289,7 +308,7 @@ class TimelineSettingsPage(BasePage):
     def get_selected_ui_mode(self):
         logger("start >> get_selected_ui_mode <<")
         try:
-            txt_mode = self.el(L.timeline_settings.settings.settings_current_edit_mode_text).get_attribute('text')
+            txt_mode = self.el(L.timeline_settings.settings.current_UI_mode_text).get_attribute('text')
             logger(f"get_selected_ui_mode={txt_mode}")
         except Exception:
             logger("Exception occurs")

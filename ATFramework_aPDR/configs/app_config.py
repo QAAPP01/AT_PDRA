@@ -1,7 +1,38 @@
-from SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 import os
 root_path = os.path.dirname(os.path.dirname(__file__))
 
+cap = {
+    "deviceName": "Android",
+    "platformName": "Android",
+    "automationName": "UiAutomator2",
+    "settings[waitForIdleTimeout]": 10,
+    "newCommandTimeout": 10000,
+    "appPackage": "com.cyberlink.powerdirector.DRA140225_01",
+    "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
+    "language": "en",
+    "locale": "US",
+    # 'autoGrantPermissions': True,
+    "noReset": True,
+    "autoLaunch": False,
+    'noSign': True
+}
+
+init_cap = {
+    "deviceName": "Android",
+    "platformName": "Android",
+    "automationName": "UiAutomator2",
+    "settings[waitForIdleTimeout]": 10,
+    "newCommandTimeout": 10000,
+    "appPackage": "com.cyberlink.powerdirector.DRA140225_01",
+    "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
+    "language": "en",
+    "locale": "US",
+    # 'autoGrantPermissions': True,
+    "noReset": False,
+    "autoLaunch": True,
+    'noSign': True
+}
 
 prod_cap = {
     "platformName": "Android",
@@ -67,6 +98,21 @@ native_settings_cap = {
     'appPackage': 'com.android.settings'
 }
 
+debug = {
+    "deviceName": "Android",
+    "platformName": "Android",
+    "automationName": "UiAutomator2",
+    "settings[waitForIdleTimeout]": 10,
+    "newCommandTimeout": 10000,
+    "appPackage": "com.cyberlink.powerdirector.DRA140225_01",
+    "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
+    "language": "en",
+    "locale": "US",
+    'autoGrantPermissions': True,
+    "noReset": True,
+    "autoLaunch": False,
+    'noSign': True
+}
 
 # for install app cap  ,master session: safari(TBD)
 native_cap = {

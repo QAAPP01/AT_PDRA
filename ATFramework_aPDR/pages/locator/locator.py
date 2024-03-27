@@ -6,5 +6,5 @@ from .edit import Interface as edit
 from .import_media import Interface as import_media
 from .timeline_settings import Interface as timeline_settings
 from .produce import Interface as produce
-
+from .ai_effect import Interface as ai_effect
 from .ad import Ad as ad

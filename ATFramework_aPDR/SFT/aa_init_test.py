@@ -1,8 +1,15 @@
-from configs import driver_config
-import subprocess
-import pytest
+import os
 
-class TestInit():
+with open('tr_info', 'r') as file:
+    for line in file:
+        key, value = line.strip().split('=')
+        if key == 'package_version':
+            package_version = value
+        elif key == 'package_build_number':
+            package_build_number = value
+
+
+class TestInit:
 
     def setup_class(cls):
         from .conftest import DRIVER_DESIRED_CAPS
@@ -12,23 +19,14 @@ class TestInit():
         cls.report = REPORT_INSTANCE
 
     def test_report_init(self):
-        from configs import driver_config
         from .conftest import DRIVER_DESIRED_CAPS
         print('Start to init. report')
         self.report.add_ovinfo("title", "aPDR_SFT")
         self.report.add_ovinfo("os", "Android")
-        self.report.add_ovinfo("device", DRIVER_DESIRED_CAPS['udid'])
-        #self.report.add_ovinfo("version", driver_config.android_device_general['platformVersion'])
-        self.report.add_ovinfo("version", '9')
-        self.report.add_ovinfo("duration", 'auto-fill')
 
-    #@pytest.mark.skip
-    def test_build_init(self):
-        from .conftest import DRIVER_DESIRED_CAPS
-        print('[test_build_init] Start to remove aPDR related project/Movies files')
-        list_folder = ['storage/emulated/0/Movies/cyberlink/PowerDirector', 'storage/emulated/0/PowerDirector']
-        for folder in list_folder:
-            command = f'adb -s {DRIVER_DESIRED_CAPS["udid"]} shell rm -r {folder}'
-            print(command)
-            subprocess.call(command)
-        print('[test_build_init] Done')
+        device_brand = os.popen(f"adb -s {DRIVER_DESIRED_CAPS['udid']} shell getprop ro.product.brand").read().strip()
+        device_model = os.popen(f"adb -s {DRIVER_DESIRED_CAPS['udid']} shell getprop ro.product.model").read().strip()
+
+        self.report.add_ovinfo("device", f"{device_brand} {device_model}")
+        self.report.add_ovinfo("version", f'{package_version}.{package_build_number}_Portrait')
+        self.report.add_ovinfo("duration", 'auto-fill')

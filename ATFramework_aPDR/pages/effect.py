@@ -1,10 +1,10 @@
 import sys,time
-from pages.base_page import BasePage
-from ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.ATFramework.utils.log import logger
 #import unittest
 from appium.webdriver.common.touch_action import TouchAction
 
-from SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 from .locator.locator_type import *
 from .locator import locator as L
 
