@@ -5,10 +5,10 @@ import datetime
 import base64
 
 from selenium.webdriver import Chrome, Edge
-from selenium.webdriver import EdgeOptions#, ChromeOptions
+from selenium.webdriver import EdgeOptions, ChromeOptions
 from selenium.webdriver.support.ui import Select
 import chromedriver_autoinstaller
-# from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 from .password import Authorization
 
@@ -60,7 +60,7 @@ class Qr_Operation():
                 self.work_dir = para_dict['work_dir']
             if debug_mode: print(f'Init - work_dir={self.work_dir}')
             self.webdriver_download_path = os.path.dirname(os.path.dirname(__file__))
-            self.webdriver = self.set_webdriver(para_dict['browser'])
+            # self.webdriver = self.set_webdriver(para_dict['browser'])
             self.cookies = {'domain': '.cyberlink.com', 'httpOnly': True, 'name': 'ECLID', 'path': '/', 'secure': True,
                             'value': self.read_eclid_file()}
             self.password_file = 'password'
@@ -71,7 +71,7 @@ class Qr_Operation():
             self.user_name = passwd_list[0]
             self.password = passwd_list[1]
             # initial browser
-            self.options = EdgeOptions() # if para_dict["browser"] == 'edge' else ChromeOptions()
+            self.options = EdgeOptions()    # if para_dict["browser"] == 'edge' else ChromeOptions()
             self.options.add_experimental_option("excludeSwitches", ['enable-automation', 'ignore-certificate-errors', 'enable-logging'])  # 新版本關閉“chrome正受到自動測試軟件的控製”信息
             self.options.add_argument("--no-first-run")
             self.options.add_argument('--disable-gpu')
@@ -79,7 +79,7 @@ class Qr_Operation():
             self.options.add_argument('--allow-insecure-localhost')
             self.options.add_argument('--headless')     # 不顯示實際瀏覽器窗口
             self.options.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
-            self.driver = Edge(options=self.options) #if para_dict["browser"] == 'edge' else Chrome()
+            self.driver = Edge(executable_path=EdgeChromiumDriverManager().install(), options=self.options) #if para_dict["browser"] == 'edge' else Chrome()
             self.driver.implicitly_wait(1)
         except Exception as e:
             err_msg = f'Exception occurs. Incorrect format of parameter or missing keys. ErrorLog={e}'

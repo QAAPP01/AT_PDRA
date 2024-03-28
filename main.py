@@ -23,7 +23,8 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
-deviceName = "R5CT32Q3WQN"
+# deviceName = "R5CT32Q3WQN"
+deviceName = "R5CW31G76ST"
 device_udid = [deviceName]  # A54
 system_port_default = 8200  # for Android
 parallel_device_count = 1
