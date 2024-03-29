@@ -122,7 +122,6 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
 
             if self.element(L.edit.ai_audio_tool.title).text == 'Speech Enhance':
                 report.new_result(uuid, True)
@@ -142,7 +141,6 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
 
             return "FAIL"
 
@@ -153,7 +151,8 @@ class Test_Edit_Master_Audio_Tool:
         report.start_uuid(uuid)
 
         try:
-            self.click(L.edit.ai_audio_tool.cancel)
+            time.sleep(15)
+            self.click(L.edit.ai_audio_tool.ok)
             self.click(L.edit.ai_audio_tool.tool_back)
 
             if self.is_exist(id('tool_entry_icon')):
@@ -185,7 +184,6 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_sub_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
 
             if self.element(L.edit.ai_audio_tool.title).text == 'Speech Enhance':
                 report.new_result(uuid, True)
@@ -206,7 +204,6 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_sub_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
 
             return "FAIL"
 
@@ -217,6 +214,7 @@ class Test_Edit_Master_Audio_Tool:
         report.start_uuid(uuid)
 
         try:
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.info)
             
             if self.click(find_string('Try it now')):
@@ -238,7 +236,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_sub_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -250,7 +248,7 @@ class Test_Edit_Master_Audio_Tool:
 
         try:
             slider = self.element(L.edit.ai_audio_tool.strength_slider).text
-            if slider == '50.0':
+            if slider == '80.0':
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -268,7 +266,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -299,7 +297,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -330,7 +328,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -342,7 +340,7 @@ class Test_Edit_Master_Audio_Tool:
 
         try:
             slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
-            if slider == '50.0':
+            if slider == '20.0':
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -360,7 +358,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -391,7 +389,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -423,7 +421,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -454,7 +452,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.ok)
 
             return "FAIL"
@@ -466,6 +464,8 @@ class Test_Edit_Master_Audio_Tool:
         report.start_uuid(uuid)
 
         try:
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
+
             if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true':
                 report.new_result(uuid, True)
                 return "PASS"
@@ -484,8 +484,9 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.ok)
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
 
             return "FAIL"
 
@@ -516,7 +517,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.ok)
 
             return "FAIL"
@@ -528,7 +529,6 @@ class Test_Edit_Master_Audio_Tool:
         report.start_uuid(uuid)
 
         try:
-            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             self.click(L.edit.ai_audio_tool.remove)
             self.click(L.edit.ai_audio_tool.ok)
 
@@ -560,7 +560,7 @@ class Test_Edit_Master_Audio_Tool:
         try:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.info)
 
             if self.click(find_string('Try it now')):
@@ -582,7 +582,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.click_sub_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -594,7 +594,7 @@ class Test_Edit_Master_Audio_Tool:
 
         try:
             slider = self.element(L.edit.ai_audio_tool.strength_slider).text
-            if slider == '50.0':
+            if slider == '80.0':
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -612,7 +612,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -643,7 +643,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -674,7 +674,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -686,7 +686,7 @@ class Test_Edit_Master_Audio_Tool:
 
         try:
             slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
-            if slider == '50.0':
+            if slider == '20.0':
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -704,7 +704,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -735,7 +735,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -767,7 +767,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
 
             return "FAIL"
 
@@ -798,7 +798,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.ok)
 
             return "FAIL"
@@ -810,6 +810,8 @@ class Test_Edit_Master_Audio_Tool:
         report.start_uuid(uuid)
 
         try:
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
+
             if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true':
                 report.new_result(uuid, True)
                 return "PASS"
@@ -828,8 +830,9 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.ok)
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
 
             return "FAIL"
 
@@ -860,7 +863,7 @@ class Test_Edit_Master_Audio_Tool:
             self.page_edit.enter_main_tool('AI Audio \nTool')
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.ok)
 
             return "FAIL"
@@ -904,11 +907,13 @@ class Test_Edit_Master_Audio_Tool:
         try:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.click(L.edit.try_before_buy.try_it_first, 1)
-            self.page_edit.waiting()
+            time.sleep(15)
             self.click(L.edit.ai_audio_tool.ok)
+            self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
+            time.sleep(15)
             self.click(L.edit.menu.produce)
 
-            if self.click(L.main.subscribe.back_btn):
+            if self.is_exist(L.main.subscribe.premium_list):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -925,31 +930,31 @@ class Test_Edit_Master_Audio_Tool:
     def test_case(self):
         result = {"sce_7_8_3": self.sce_7_8_3(),
                   "sce_7_8_1": self.sce_7_8_1(),
-                  # "sce_7_8_2": self.sce_7_8_2(),
-                  # "sce_7_8_4": self.sce_7_8_4(),
-                  # "sce_7_8_5": self.sce_7_8_5(),
-                  # "sce_7_8_6": self.sce_7_8_6(),
-                  # "sce_7_8_7": self.sce_7_8_7(),
-                  # "sce_7_8_8": self.sce_7_8_8(),
-                  # "sce_7_8_9": self.sce_7_8_9(),
-                  # "sce_7_8_10": self.sce_7_8_10(),
-                  # "sce_7_8_11": self.sce_7_8_11(),
-                  # "sce_7_8_12": self.sce_7_8_12(),
-                  # "sce_7_8_13": self.sce_7_8_13(),
-                  # "sce_7_8_14": self.sce_7_8_14(),
-                  # "sce_7_8_15": self.sce_7_8_15(),
-                  # "sce_7_8_16": self.sce_7_8_16(),
-                  # "sce_7_8_17": self.sce_7_8_17(),
-                  # "sce_7_8_18": self.sce_7_8_18(),
-                  # "sce_7_8_19": self.sce_7_8_19(),
-                  # "sce_7_8_20": self.sce_7_8_20(),
-                  # "sce_7_8_21": self.sce_7_8_21(),
-                  # "sce_7_8_22": self.sce_7_8_22(),
-                  # "sce_7_8_23": self.sce_7_8_23(),
-                  # "sce_7_8_24": self.sce_7_8_24(),
-                  # "sce_7_8_25": self.sce_7_8_25(),
-                  # "sce_7_8_26": self.sce_7_8_26(),
-                  # "sce_7_8_27": self.sce_7_8_27(),
+                  "sce_7_8_2": self.sce_7_8_2(),
+                  "sce_7_8_4": self.sce_7_8_4(),
+                  "sce_7_8_5": self.sce_7_8_5(),
+                  "sce_7_8_6": self.sce_7_8_6(),
+                  "sce_7_8_7": self.sce_7_8_7(),
+                  "sce_7_8_8": self.sce_7_8_8(),
+                  "sce_7_8_9": self.sce_7_8_9(),
+                  "sce_7_8_10": self.sce_7_8_10(),
+                  "sce_7_8_11": self.sce_7_8_11(),
+                  "sce_7_8_12": self.sce_7_8_12(),
+                  "sce_7_8_13": self.sce_7_8_13(),
+                  "sce_7_8_14": self.sce_7_8_14(),
+                  "sce_7_8_15": self.sce_7_8_15(),
+                  "sce_7_8_16": self.sce_7_8_16(),
+                  "sce_7_8_17": self.sce_7_8_17(),
+                  "sce_7_8_18": self.sce_7_8_18(),
+                  "sce_7_8_19": self.sce_7_8_19(),
+                  "sce_7_8_20": self.sce_7_8_20(),
+                  "sce_7_8_21": self.sce_7_8_21(),
+                  "sce_7_8_22": self.sce_7_8_22(),
+                  "sce_7_8_23": self.sce_7_8_23(),
+                  "sce_7_8_24": self.sce_7_8_24(),
+                  "sce_7_8_25": self.sce_7_8_25(),
+                  "sce_7_8_26": self.sce_7_8_26(),
+                  "sce_7_8_27": self.sce_7_8_27(),
                   }
         for key, value in result.items():
             if value != "PASS":

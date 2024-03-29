@@ -506,7 +506,7 @@ class Test_Audio_Tool:
 
         try:
             slider = self.element(L.main.shortcut.audio_tool.strength_slider).text
-            if slider == '50.0':
+            if slider == '80.0':
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -595,7 +595,7 @@ class Test_Audio_Tool:
 
         try:
             slider = self.element(L.main.shortcut.audio_tool.compensation_slider).text
-            if slider == '50.0':
+            if slider == '20.0':
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -745,7 +745,7 @@ class Test_Audio_Tool:
 
         try:
             slider = self.element(L.main.shortcut.audio_tool.strength_slider).text
-            if slider == '50.0':
+            if slider == '80.0':
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -834,7 +834,7 @@ class Test_Audio_Tool:
 
         try:
             slider = self.element(L.main.shortcut.audio_tool.compensation_slider).text
-            if slider == '50.0':
+            if slider == '20.0':
                 report.new_result(uuid, True)
                 return "PASS"
             else:

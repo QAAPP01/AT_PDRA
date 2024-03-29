@@ -23,9 +23,9 @@ from send_mail.send_report import send_report
 # parallel_device_count - the device number for parallel testing (default: 1)
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
-# deviceName = "R5CT32Q3WQN"
-deviceName = "R5CW31G76ST"
-device_udid = [deviceName]  # A54
+deviceName = "R5CT32Q3WQN"
+# deviceName = "R5CW31G76ST"
+device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
@@ -185,7 +185,7 @@ def auto_run():
                          'mail_list': receiver,
                          'is_md5_check': False}
             dict_result = ecl_operation.get_untested_build(para_dict)
-            print(f'{dict_result=}')
+            print(f'{dict_result}')
             if not dict_result['build']:
                 print(dict_result['error_log'])
                 break
@@ -278,6 +278,7 @@ def auto_run():
         delete_apk(app_path)
 
         print("\n ======== Auto Test Finish ========")
+        print_next_run_time()
 
 
 def print_next_run_time():
@@ -286,8 +287,6 @@ def print_next_run_time():
 
 
 if __name__ == '__main__':
-    auto_run()
-
     schedule.every().monday.at("09:00").do(auto_run)
     schedule.every().monday.at("12:00").do(auto_run)
     schedule.every().monday.at("15:00").do(auto_run)
@@ -313,7 +312,14 @@ if __name__ == '__main__':
     schedule.every().friday.at("15:00").do(auto_run)
     schedule.every().friday.at("18:00").do(auto_run)
 
+    auto_run()
+
+    current_minute = int(time.strftime("%M"))
+    seconds_to_sleep = (15 - (current_minute % 15)) * 60
+
+    # Initial sleep
+    time.sleep(seconds_to_sleep)
+
     while True:
         schedule.run_pending()
-        print_next_run_time()
-        time.sleep(600)
+        time.sleep(900)

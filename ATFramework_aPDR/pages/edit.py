@@ -2133,6 +2133,7 @@ class EditPage(BasePage):
 
     def waiting(self, timeout=120):
         logger(f'[Info] Start waiting {timeout} sec...')
+        time.sleep(1)
         for i in range(timeout):
             if self.is_exist(find_string("Cancel"), 1):
                 continue
