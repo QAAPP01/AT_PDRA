@@ -3,6 +3,7 @@ import os
 import shutil
 import subprocess
 import sys
+import datetime
 
 from multiprocessing import Process
 import schedule
@@ -287,6 +288,8 @@ def print_next_run_time():
 
 
 if __name__ == '__main__':
+    auto_run()
+
     schedule.every().monday.at("09:00").do(auto_run)
     schedule.every().monday.at("12:00").do(auto_run)
     schedule.every().monday.at("15:00").do(auto_run)
@@ -312,14 +315,9 @@ if __name__ == '__main__':
     schedule.every().friday.at("15:00").do(auto_run)
     schedule.every().friday.at("18:00").do(auto_run)
 
-    auto_run()
-
-    current_minute = int(time.strftime("%M"))
-    seconds_to_sleep = (15 - (current_minute % 15)) * 60
-
-    # Initial sleep
-    time.sleep(seconds_to_sleep)
-
     while True:
         schedule.run_pending()
-        time.sleep(900)
+        sleep = int(schedule.idle_seconds())
+        time_delta = datetime.timedelta(seconds=sleep)
+        print(f"Sleeping for {time_delta} until the next scheduled run...")
+        time.sleep(sleep)

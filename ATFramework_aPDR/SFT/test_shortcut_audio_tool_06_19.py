@@ -477,11 +477,11 @@ class Test_Audio_Tool:
         try:
             self.click(L.main.shortcut.audio_tool.info)
 
-            if self.click(find_string('Try it now')):
+            if self.click(find_string('Try It Now')):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Click "Try it now" fail')
+                raise Exception(f'[Fail] Click "Try It Now" fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -716,11 +716,11 @@ class Test_Audio_Tool:
             self.page_media.waiting()
             self.click(L.main.shortcut.audio_tool.info)
 
-            if self.click(find_string('Try it now')):
+            if self.click(find_string('Try It Now')):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Click "Try it now" fail')
+                raise Exception(f'[Fail] Click "Try It Now" fail')
 
         except Exception as err:
             traceback.print_exc()

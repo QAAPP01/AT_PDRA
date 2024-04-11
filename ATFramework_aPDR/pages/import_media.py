@@ -76,14 +76,16 @@ class MediaPage(BasePage):
     def select_local_video(self, folder, file_name):
         try:
             if not self.switch_to_video_library():
-                raise Exception('Click video library fail')
+                logger('Click video library fail')
             if not self.select_local_folder(folder):
-                raise Exception('Open folder fail')
+                logger('Open folder fail')
             if not self.select_media_by_text(file_name):
                 raise Exception('Select file fail')
             return True
         except Exception as err:
-            raise Exception(err)
+            logger(err)
+            return False
+
 
     def select_local_photo(self, folder, file_name):
         try:
@@ -138,6 +140,26 @@ class MediaPage(BasePage):
             return True
         except Exception as err:
             logger(f'\n[Error] {err}')
+
+    def select_media_by_text(self, file_name, retry=10, speed=7):
+        for i in range(retry):
+            clips = self.elements(L.import_media.media_library.file_name(0))
+            if any(clip.get_attribute('text') == file_name for clip in clips):
+                self.click(find_string(file_name))
+                self.h_click(L.import_media.media_library.apply, timeout=0.5)
+                return True
+            self.h_swipe_element(clips[-1], clips[0], speed)
+        logger(f'[Fail] Cannot find "{file_name}" within {retry} times')
+        return False
+
+    def find_local_file(self, file_name, speed=7, retry=10):
+        for i in range(retry):
+            clips = self.elements(L.import_media.media_library.file_name(0))
+            if any(clip.get_attribute('text') == file_name for clip in clips):
+                return True
+            self.h_swipe_element(clips[-1], clips[0], speed)
+        logger(f'[Fail] Cannot find "{file_name}" within {retry} times')
+        return False
 
     def select_music_library(self, stock):
         try:
@@ -201,26 +223,7 @@ class MediaPage(BasePage):
         result = self.h_is_exist(L.timeline.clip, 5)
         return result
 
-    def select_media_by_text(self, name):
-        try:
-            if not self.h_is_exist(find_string(name), 0.5):
-                clips = self.elements(L.import_media.media_library.file_name(0))
-                last = clips[-1].get_attribute('text')
-                while not self.h_is_exist(find_string(name), 0.5):
-                    self.h_swipe_element(clips[-1], clips[0], speed=8)
-                    clips = self.elements(L.import_media.media_library.file_name(0))
-                    last_temp = clips[-1].get_attribute('text')
-                    if last_temp == last:
-                        raise Exception('File not found')
-                    else:
-                        last = last_temp
 
-            self.click(find_string(name))
-            self.h_click(L.import_media.media_library.apply, timeout=0.5)
-            return True
-        except Exception as err:
-            logger(f"[Error] {err}")
-            raise Exception(err)
         
     def get_music_name(self, index, timeout=10):
         logger("start >> get_music_name<<")

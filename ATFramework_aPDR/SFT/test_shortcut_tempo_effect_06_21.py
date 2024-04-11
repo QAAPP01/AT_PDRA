@@ -33,7 +33,6 @@ class Test_Tempo_Effect:
             "d1129fb8-8787-4f21-8977-2a635e6f36b1",
             "9a1bab74-3288-4479-89e4-10afd4b363ba",
             "0b29db18-4449-4542-89b6-2290c5bdf0af",
-            "6a1f4f60-8b63-4715-b20d-fb2bc38d4816",
             "ec96edb3-2661-4289-bc1d-0f1f7fde76d5",
             "49680802-f61b-4261-98c0-ade94f0c56c9",
             "c97a1527-856a-424e-ad6f-7fb95e8c62a7",
@@ -43,27 +42,15 @@ class Test_Tempo_Effect:
             "9f058b03-f2bf-431f-9264-685778b2a21a",
             "9606b8a7-0c4f-4c6f-b721-534c605cb428",
             "4bbbe64a-00aa-43c3-8baa-dba274e195f1",
+            "a8c9dd09-a7cb-4328-a547-ea20f10c2a9e",
             "b7af9a5e-4c47-4385-aea5-fee220109256",
             "07a93302-832e-4147-89da-3769a6b003c9",
-            "9c76ba28-7b29-4d02-9cbe-bf2d4f16f8db",
-            "465e3ba4-c8dc-4ea8-9cc4-34d20dc4bff9",
             "3fa99d21-773f-45ec-9b31-75f79d676ac4",
-            "92911834-3c4a-4a42-a6f2-86fcbd2edbdf",
-            "4d32c30a-6e8e-4aab-959c-fc7f8b0688f5",
             "ba2383dd-3375-43f1-aa4d-f526596babdf",
-            "0e807767-04f7-469b-8cd8-ad28d05f5129",
-            "17c59fa9-d631-442a-b4a4-5fa8d1c85aed",
             "0bb4905a-b617-42f3-b78d-c34d745e98c8",
-            "27c8e278-07f9-47cc-b065-75554fe885e0",
-            "1f452f93-8641-41e9-ac63-a22599b8c998",
             "bc54359e-7688-4975-968c-aaf91d1ebb87",
             "904c9910-6258-4a3e-84ed-054c509d105f",
-            "5fa83ecb-6fb7-4ecc-82db-4b789fdb2677",
-            "5463812f-f36d-4008-8c42-3a6f33c4c3bb",
-            "ec1594d6-9391-4333-a54f-d00ee0fa910e",
-            "f0963b6a-f74a-4dcd-9e26-550eab5e8eab",
-            "33eee74d-c031-49af-b370-89d898d02991",
-            "3b473277-8479-4397-91ae-737067524c6f"
+            "5463812f-f36d-4008-8c42-3a6f33c4c3bb"
         ]
 
         # shortcut
@@ -228,16 +215,17 @@ class Test_Tempo_Effect:
         try:
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_16_9)
+            self.page_media.select_local_folder(test_material_folder)
+            self.page_media.find_local_file(video_9_16)
 
-            if self.is_exist(find_string('No sound detected')):
+            self.click(xpath(f'//*[@text="{video_9_16}"]/../*[contains(@resource-id,"btn_preview")]'))
+            self.click(L.import_media.media_library.trim_back)
+
+            if self.is_exist(find_string('Add Media')):
                 report.new_result(uuid, True)
-
-                self.click(id('btn_ok'))
-
                 return "PASS"
             else:
-                raise Exception('[Fail] No found "No sound detected" dialog')
+                raise Exception(f'[Fail] Tap preview "{video_9_16}" fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -248,6 +236,8 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_folder(test_material_folder)
+            self.page_media.find_local_file(video_9_16)
 
             return "FAIL"
 
@@ -258,35 +248,7 @@ class Test_Tempo_Effect:
         report.start_uuid(uuid)
 
         try:
-            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
-            self.click(L.import_media.media_library.trim_back)
-
-            if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Tap preview "{video_speech}" fail')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(L.main.shortcut.try_it_now)
-
-            return "FAIL"
-
-    def sce_6_21_8(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
+            self.click(xpath(f'//*[@text="{video_9_16}"]/../*[contains(@resource-id,"btn_preview")]'))
             self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
             self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
             self.click(L.import_media.media_library.trim_next)
@@ -307,13 +269,14 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
+            self.page_media.find_local_file(video_9_16)
+            self.click(xpath(f'//*[@text="{video_9_16}"]/../*[contains(@resource-id,"btn_preview")]'))
             self.click(L.import_media.media_library.trim_next)
             self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_21_9(self):
+    def sce_6_21_8(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -340,16 +303,15 @@ class Test_Tempo_Effect:
 
             return "FAIL"
 
-    def sce_6_21_10(self):
+    def sce_6_21_9(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_media_by_text(video_9_16)
             self.page_media.waiting()
-            self.click(L.main.shortcut.play)
 
             if self.is_exist(find_string('Export')):
                 report.new_result(uuid, True)
@@ -366,12 +328,12 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_21_11(self):
+    def sce_6_21_10(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -397,12 +359,12 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_21_12(self):
+    def sce_6_21_11(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -427,12 +389,12 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
 
             return "FAIL"
 
-    def sce_6_21_13(self):
+    def sce_6_21_12(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -457,7 +419,36 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
+
+            return "FAIL"
+
+    def sce_6_21_13(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.main.shortcut.tempo_effect.premium_item())
+
+            if self.is_exist(L.edit.try_before_buy.premium_tag):
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] No premium tage')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Tempo Effect')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
 
             return "FAIL"
@@ -469,13 +460,15 @@ class Test_Tempo_Effect:
         report.start_uuid(uuid)
 
         try:
-            self.click(L.main.shortcut.tempo_effect.premium_item())
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+            self.effect_name = self.element(L.main.shortcut.tempo_effect.effect_name(2)).text
+            self.click(L.main.shortcut.tempo_effect.edit)
 
-            if self.click(L.edit.try_before_buy.try_it_first):
+            if self.is_exist(find_string("Adjust")):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Click "Try it first" fail')
+                raise Exception(f'[Fail] Enter edit room fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -486,24 +479,28 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+            self.effect_name = self.element(L.main.shortcut.tempo_effect.effect_name(2)).text
+            self.click(L.main.shortcut.tempo_effect.edit)
 
             return "FAIL"
 
-    def sce_6_19_16(self):
+    def sce_6_21_15(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            slider = self.element(L.main.shortcut.audio_tool.slider(1)).text
-            if slider == '50.0':
+            self.click(L.main.shortcut.tempo_effect.edit_back)
+
+            if not self.is_exist(find_string("Adjust"), 1):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception(f'[Fail] Return effect room fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -514,25 +511,27 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
 
             return "FAIL"
 
-    def sce_6_19_17(self):
+    def sce_6_21_16(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.main.shortcut.audio_tool.slider(1))
-            slider = self.element(L.main.shortcut.audio_tool.slider(1)).text
-            if slider == '0.0':
+            self.click(L.main.shortcut.tempo_effect.edit)
+            self.click(L.main.shortcut.tempo_effect.spinner)
+
+            if self.click(L.main.shortcut.tempo_effect.audio_source(2)):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception(f'[Fail] Select audio source fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -543,25 +542,30 @@ class Test_Tempo_Effect:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+            self.click(L.main.shortcut.tempo_effect.edit)
 
             return "FAIL"
 
-    def sce_6_19_18(self):
+    def sce_6_21_17(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.main.shortcut.audio_tool.slider(1))
-            slider = self.element(L.main.shortcut.audio_tool.slider(1)).text
-            if slider == '100.0':
+            self.driver.drag_slider_to_min(self.element(L.main.shortcut.tempo_effect.slider(2)))
+            min_value = self.element(L.main.shortcut.tempo_effect.slider(2)).text
+            self.driver.drag_slider_to_max(self.element(L.main.shortcut.tempo_effect.slider(2)))
+            max_value = self.element(L.main.shortcut.tempo_effect.slider(2)).text
+
+            if min_value != max_value:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception(f'[Fail] Slider value no changed')
 
         except Exception as err:
             traceback.print_exc()
@@ -571,26 +575,31 @@ class Test_Tempo_Effect:
 
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Speech Enhance'))
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+            self.click(L.main.shortcut.tempo_effect.edit)
 
             return "FAIL"
 
-    def sce_6_19_19(self):
+    def sce_6_21_18(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            slider = self.element(L.main.shortcut.audio_tool.slider(2)).text
-            if slider == '50.0':
+            self.driver.drag_slider_to_min(self.element(L.main.shortcut.tempo_effect.slider(3)))
+            min_value = self.element(L.main.shortcut.tempo_effect.slider(3)).text
+            self.driver.drag_slider_to_max(self.element(L.main.shortcut.tempo_effect.slider(3)))
+            max_value = self.element(L.main.shortcut.tempo_effect.slider(3)).text
+
+            if min_value != max_value:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception(f'[Fail] Slider value no changed')
 
         except Exception as err:
             traceback.print_exc()
@@ -600,27 +609,35 @@ class Test_Tempo_Effect:
 
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Speech Enhance'))
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+            self.click(L.main.shortcut.tempo_effect.edit)
 
             return "FAIL"
 
-    def sce_6_19_20(self):
+    def sce_6_21_19(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_min(L.main.shortcut.audio_tool.slider(2))
-            slider = self.element(L.main.shortcut.audio_tool.slider(2)).text
-            if slider == '0.0':
+            sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
+            self.page_main.h_swipe_element(sliders[2], sliders[0], 3)
+            sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
+            self.default_value = [self.element(sliders[-2]).text, self.element(sliders[-1]).text]
+            self.driver.drag_slider_to_min(sliders[-2])
+            min_value = self.element(sliders[-2]).text
+            self.driver.drag_slider_to_max(sliders[-2])
+            max_value = self.element(sliders[-2]).text
+
+            if min_value != max_value:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception(f'[Fail] Slider value no changed')
 
         except Exception as err:
             traceback.print_exc()
@@ -630,31 +647,37 @@ class Test_Tempo_Effect:
 
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Speech Enhance'))
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+            self.click(L.main.shortcut.tempo_effect.edit)
+            sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
+            self.page_main.h_swipe_element(sliders[2], sliders[0], 3)
+            sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
+            self.default_value = [self.element(sliders[-2]).text, self.element(sliders[-1]).text]
+            self.driver.drag_slider_to_max(sliders[-2])
 
             return "FAIL"
 
-    def sce_6_19_21(self):
+    def sce_6_21_20(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.driver.drag_slider_to_max(L.main.shortcut.audio_tool.slider(2))
-            slider = self.element(L.main.shortcut.audio_tool.slider(2)).text
-            if slider == '100.0':
+            sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
+            self.driver.drag_slider_to_min(sliders[-1])
+            min_value = self.element(sliders[-1]).text
+            self.driver.drag_slider_to_max(sliders[-1])
+            max_value = self.element(sliders[-1]).text
+
+            if min_value != max_value:
                 report.new_result(uuid, True)
-
-                self.click(L.main.shortcut.editor_back)
-                self.click(L.import_media.media_library.back)
-
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
+                raise Exception(f'[Fail] Slider value no changed')
 
         except Exception as err:
             traceback.print_exc()
@@ -663,25 +686,37 @@ class Test_Tempo_Effect:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
+            self.page_main.enter_shortcut('Tempo Effect')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+            self.click(L.main.shortcut.tempo_effect.edit)
+            sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
+            self.page_main.h_swipe_element(sliders[1], sliders[0], 5)
+            sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
+            self.driver.drag_slider_to_max(sliders[-2])
+            self.driver.drag_slider_to_max(sliders[-1])
 
             return "FAIL"
 
-    def sce_6_19_5(self):
+    def sce_6_21_21(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
+            self.click(L.main.shortcut.tempo_effect.reset)
+            sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
+            value_1 = self.element(sliders[-2]).text
+            value_2 = self.element(sliders[-1]).text
 
-            if self.is_exist(find_string('Add Media')):
+            if [value_1, value_2] == self.default_value:
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] Cannot enter media picker')
+                raise Exception(f'[Fail] {value_1}, {value_2} != {self.default_value}')
 
         except Exception as err:
             traceback.print_exc()
@@ -691,285 +726,15 @@ class Test_Tempo_Effect:
 
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
             self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+            self.click(L.main.shortcut.tempo_effect.edit)
 
             return "FAIL"
 
-    def sce_6_19_22(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-            self.click(L.main.shortcut.audio_tool.info)
-
-            if self.click(find_string('Try it now')):
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Click "Try it now" fail')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_23(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            slider = self.element(L.main.shortcut.audio_tool.slider(1)).text
-            if slider == '50.0':
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_24(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.driver.drag_slider_to_min(L.main.shortcut.audio_tool.slider(1))
-            slider = self.element(L.main.shortcut.audio_tool.slider(1)).text
-            if slider == '0.0':
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_25(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.driver.drag_slider_to_max(L.main.shortcut.audio_tool.slider(1))
-            slider = self.element(L.main.shortcut.audio_tool.slider(1)).text
-            if slider == '100.0':
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_26(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            slider = self.element(L.main.shortcut.audio_tool.slider(2)).text
-            if slider == '50.0':
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_27(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.driver.drag_slider_to_min(L.main.shortcut.audio_tool.slider(2))
-            slider = self.element(L.main.shortcut.audio_tool.slider(2)).text
-            if slider == '0.0':
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_28(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.driver.drag_slider_to_max(L.main.shortcut.audio_tool.slider(2))
-            slider = self.element(L.main.shortcut.audio_tool.slider(2)).text
-            if slider == '100.0':
-                report.new_result(uuid, True)
-
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Value incorrect: {slider}')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_29(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.click(L.edit.try_before_buy.premium_tag)
-
-            if self.click(L.main.subscribe.back_btn):
-                report.new_result(uuid, True)
-
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Click IAP Back button fail')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_30(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.click(L.main.shortcut.export)
-
-            if self.click(L.main.subscribe.back_btn):
-                report.new_result(uuid, True)
-
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Click IAP Back button fail')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Tempo Effect')
-            self.click(find_string('Audio Denoise'))
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_31(self):
+    def sce_6_21_22(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -977,13 +742,45 @@ class Test_Tempo_Effect:
 
         try:
             self.click(L.main.shortcut.full_editor)
+            self.page_edit.click_sub_tool("AI Effect")
+            item_name = self.element(xpath('//*[contains(@resource-id,"itemEdit")]/../../*[contains(@resource-id,"itemName")]')).text
 
-            if self.is_exist(L.edit.menu.produce):
+            if item_name == self.effect_name:
                 report.new_result(uuid, True)
-
                 return "PASS"
             else:
-                raise Exception(f'[Fail] No timeline produce button')
+                raise Exception(f'[Fail] {item_name} != {self.effect_name}')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+
+            return "FAIL"
+
+    def sce_6_21_23(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.edit.menu.home)
+            self.page_main.enter_shortcut('Tempo Effect')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_video(test_material_folder, video_9_16)
+            self.page_media.waiting()
+            self.click(L.main.shortcut.tempo_effect.effect(2))
+
+            if self.page_main.shortcut_produce():
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Produce fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -992,23 +789,34 @@ class Test_Tempo_Effect:
 
             return "FAIL"
 
+
     @report.exception_screenshot
     def test_case(self):
-        result = {"sce_6_21_1": self.sce_6_21_1(),
-                  "sce_6_21_2": self.sce_6_21_2(),
-                  "sce_6_21_3": self.sce_6_21_3(),
-                  "sce_6_21_4": self.sce_6_21_4(),
-                  "sce_6_21_5": self.sce_6_21_5(),
-                  "sce_6_21_6": self.sce_6_21_6(),
-                  "sce_6_21_7": self.sce_6_21_7(),
-                  "sce_6_21_8": self.sce_6_21_8(),
-                  "sce_6_21_9": self.sce_6_21_9(),
-                  "sce_6_21_10": self.sce_6_21_10(),
-                  "sce_6_21_11": self.sce_6_21_11(),
-                  "sce_6_21_12": self.sce_6_21_12(),
-                  "sce_6_21_13": self.sce_6_21_13(),
-                  "sce_6_21_14": self.sce_6_21_14(),
-                  }
+        result = {
+            "sce_6_21_1": self.sce_6_21_1(),
+            "sce_6_21_2": self.sce_6_21_2(),
+            "sce_6_21_3": self.sce_6_21_3(),
+            "sce_6_21_4": self.sce_6_21_4(),
+            "sce_6_21_5": self.sce_6_21_5(),
+            "sce_6_21_6": self.sce_6_21_6(),
+            "sce_6_21_7": self.sce_6_21_7(),
+            "sce_6_21_8": self.sce_6_21_8(),
+            "sce_6_21_9": self.sce_6_21_9(),
+            "sce_6_21_10": self.sce_6_21_10(),
+            "sce_6_21_11": self.sce_6_21_11(),
+            "sce_6_21_12": self.sce_6_21_12(),
+            "sce_6_21_13": self.sce_6_21_13(),
+            "sce_6_21_14": self.sce_6_21_14(),
+            "sce_6_21_15": self.sce_6_21_15(),
+            "sce_6_21_16": self.sce_6_21_16(),
+            "sce_6_21_17": self.sce_6_21_17(),
+            "sce_6_21_18": self.sce_6_21_18(),
+            "sce_6_21_19": self.sce_6_21_19(),
+            "sce_6_21_20": self.sce_6_21_20(),
+            "sce_6_21_21": self.sce_6_21_21(),
+            "sce_6_21_22": self.sce_6_21_22(),
+            "sce_6_21_23": self.sce_6_21_23(),
+        }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")

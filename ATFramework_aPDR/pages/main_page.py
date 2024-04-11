@@ -1,4 +1,5 @@
 import sys, time, os
+import traceback
 from telnetlib import EC
 
 from selenium.common.exceptions import TimeoutException
@@ -97,6 +98,24 @@ class MainPage(BasePage):
                 self.h_swipe_element(shortcuts[-2], shortcuts[0], 4)
         logger(f'[Error] Cannot find the shortcut "{name}"')
         return False
+
+    def shortcut_produce(self):
+        try:
+            self.click(L.main.shortcut.export)
+            self.click(L.main.shortcut.produce)
+            for i in range(120):
+                if self.is_exist(L.main.shortcut.produce_progress_bar, 1):
+                    time.sleep(1)
+                else:
+                    break
+            if self.is_exist(L.main.shortcut.produce_full_editor):
+                return True
+            else:
+                logger("Produce uncompleted")
+                return False
+        except:
+            traceback.print_exc()
+            return False
 
     def change_UI_mode(self, mode):
         try:

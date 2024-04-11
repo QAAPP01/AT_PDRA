@@ -217,11 +217,11 @@ class Test_Edit_Master_Audio_Tool:
             time.sleep(15)
             self.click(L.edit.ai_audio_tool.info)
             
-            if self.click(find_string('Try it now')):
+            if self.click(find_string('Try It Now')):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Click "Try it now" fail')
+                raise Exception(f'[Fail] Click "Try It Now" fail')
 
         except Exception as err:
             traceback.print_exc()
@@ -563,11 +563,11 @@ class Test_Edit_Master_Audio_Tool:
             time.sleep(15)
             self.click(L.edit.ai_audio_tool.info)
 
-            if self.click(find_string('Try it now')):
+            if self.click(find_string('Try It Now')):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception(f'[Fail] Click "Try it now" fail')
+                raise Exception(f'[Fail] Click "Try It Now" fail')
 
         except Exception as err:
             traceback.print_exc()

@@ -18,7 +18,10 @@ class Shortcut:
     timecode = id('playing_time')
     playback_slider = id('seekbar')
     export = id('tv_ok')
+    produce = id('btn_produce')
     full_editor = id('tv_full_editor')
+    produce_progress_bar = id('progress_bar')
+    produce_full_editor = id('btn_full_editor')
 
     @staticmethod
     def shortcut_name(param=1):
@@ -190,12 +193,46 @@ class Shortcut:
                 return xpath(f'//*[contains(@resource-id,"strength_seekbar")]')
 
     class tempo_effect:
+        edit = id('itemEdit')
+        edit_back = id('btn_back')
+        spinner = id('spinner')
+        reset = id('btn_reset')
+
+        @staticmethod
+        def effect(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"top_area")]')
+
+        @staticmethod
+        def effect_name(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+
         @staticmethod
         def premium_item(index=1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemPremium")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemPremium")]')
+
+        @staticmethod
+        def audio_source(index=1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"material_title_item_bg")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"material_title_item_bg")]')
+
+        @staticmethod
+        def slider(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"seekbar")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"seekbar")]')
+
 
     class tti:
         entry = id('tti_switch')
