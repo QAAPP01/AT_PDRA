@@ -958,7 +958,7 @@ class Test_Anime_Art:
         report.start_uuid(uuid)
 
         try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
+            self.page_media.text_search("search", L.import_media.media_library.search)
             self.page_media.waiting_loading()
             time.sleep(2)
             pic_tgt = self.page_main.h_full_screenshot()
@@ -1125,7 +1125,7 @@ class Test_Anime_Art:
         report.start_uuid(uuid)
 
         try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
+            self.page_media.text_search("search", L.import_media.media_library.search)
             self.page_media.waiting_loading()
             time.sleep(2)
             pic_tgt = self.page_main.h_full_screenshot()
@@ -1332,7 +1332,7 @@ class Test_Anime_Art:
         report.start_uuid(uuid)
 
         try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
+            self.page_media.text_search("search", L.import_media.media_library.search)
             self.page_media.waiting_loading()
             time.sleep(2)
             pic_tgt = self.page_main.h_full_screenshot()
@@ -1523,7 +1523,7 @@ class Test_Anime_Art:
         report.start_uuid(uuid)
 
         try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
+            self.page_media.text_search("search", L.import_media.media_library.search)
             self.page_media.waiting_loading()
             time.sleep(2)
             pic_tgt = self.page_main.h_full_screenshot()
@@ -2014,7 +2014,7 @@ class Test_Anime_Art:
         report.start_uuid(uuid)
 
         try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
+            self.page_media.text_search("search", L.import_media.media_library.search)
             self.page_media.waiting_loading()
             time.sleep(2)
             pic_tgt = self.page_main.h_full_screenshot()
@@ -2182,7 +2182,7 @@ class Test_Anime_Art:
         report.start_uuid(uuid)
 
         try:
-            self.page_main.text_search(L.import_media.media_library.search, "search")
+            self.page_media.text_search("search", L.import_media.media_library.search)
             self.page_media.waiting_loading()
             time.sleep(2)
             pic_tgt = self.page_main.h_full_screenshot()
@@ -2344,7 +2344,7 @@ class Test_Anime_Art:
 
         try:
             pic_src = self.page_main.h_full_screenshot()
-            self.page_main.text_search(L.import_media.media_library.search, "search")
+            self.page_media.text_search("search", L.import_media.media_library.search)
             self.page_media.waiting_loading()
             time.sleep(2)
             pic_tgt = self.page_main.h_full_screenshot()
@@ -2508,7 +2508,7 @@ class Test_Anime_Art:
 
         try:
             pic_src = self.page_main.h_full_screenshot()
-            self.page_main.text_search(L.import_media.media_library.search, "search")
+            self.page_media.text_search("search", L.import_media.media_library.search)
             self.page_media.waiting_loading()
             time.sleep(2)
             pic_tgt = self.page_main.h_full_screenshot()

@@ -1,4 +1,5 @@
 import sys,time
+from selenium.webdriver.common.keys import Keys
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
 from ATFramework_aPDR.ATFramework.utils.log import logger
@@ -100,8 +101,22 @@ class MediaPage(BasePage):
             raise Exception(err)
 
     def select_video_library(self, stock_name):
+        stock = [
+            "shutterstock",
+            "getty",
+            "getty_pro",
+            "giphy",
+            "pexels",
+            "pixabay",
+            "google_drive",
+        ]
         try:
+            if stock_name not in stock:
+                logger(f'[Fail] Invalid stock name: {stock_name}')
+                return False
+
             self.h_click(L.import_media.video_library.video_entry)
+
             if not self.click(L.import_media.media_library.stock(stock_name), 1):
                 while not self.is_exist(L.import_media.video_library.local_folder):
                     tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
@@ -121,8 +136,22 @@ class MediaPage(BasePage):
             logger(f'\n[Error] {err}')
 
     def select_photo_library(self, stock_name):
+        stock = [
+            "shutterstock",
+            "getty",
+            "getty_pro",
+            "giphy",
+            "pexels",
+            "pixabay",
+            "google_drive",
+        ]
         try:
+            if stock_name not in stock:
+                logger(f'[Fail] Invalid stock name: {stock_name}')
+                return False
+
             self.h_click(L.import_media.media_library.photo_entry)
+
             if not self.click(L.import_media.media_library.stock(stock_name), 1):
                 while not self.is_exist(L.import_media.photo_library.local_folder):
                     tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
@@ -160,6 +189,39 @@ class MediaPage(BasePage):
             self.h_swipe_element(clips[-1], clips[0], speed)
         logger(f'[Fail] Cannot find "{file_name}" within {retry} times')
         return False
+
+    def text_search(self, text, locator=L.import_media.media_library.search):
+        try:
+            element = self.element(locator)
+            element.click()
+            element.send_keys(text)
+            self.driver.driver.press_keycode(66)
+
+            if self.h_is_not_exist(L.import_media.media_library.waiting_cursor, 60):
+                return True
+            else:
+                raise Exception("Search timeout")
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def wait_media_change(self, old_element, locator=L.import_media.media_library.media(), timeout=60):
+        for i in range(timeout):
+            if self.element(locator) != old_element:
+                break
+            time.sleep(1)
+        else:
+            raise Exception("Loading timeout")
+
+    def scroll_to_top(self):
+        for i in range(60):
+            clip = self.elements(L.import_media.media_library.media(0))
+            self.h_swipe_element(clip[0], clip[-1], 1)
+            new_clip = self.elements(L.import_media.media_library.media(0))
+            if new_clip[0] == clip[0]:
+                return True
+        else:
+            raise Exception("Scroll to top timeout")
 
     def select_music_library(self, stock):
         try:

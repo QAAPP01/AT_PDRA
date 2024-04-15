@@ -1,4 +1,0 @@
-06/13/2023 02:56:31 PM <qr_operation.py> [read_eclid_file](line 96) - eclid file path=C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\eclid
-06/13/2023 02:56:31 PM <qr_operation.py> [read_eclid_file](line 109) - read eclid file successfully
-06/13/2023 02:56:31 PM <password.py> [__init__](line 35) - file_credential = C:\Users\hausen_lin\PycharmProjects\PDRA\PDRa_portrait_3118\ATFramework_aPDR\ATFramework\utils\_ecl_operation\credential
-06/13/2023 02:56:59 PM <qr_operation.py> [create_qr](line 295) - dict_result={'result': True, 'error_log': '', 'qr_link': 'https://ecl.cyberlink.com/TR/QRForm/QRFormQuery2.asp?QRCode=QR0449199'}

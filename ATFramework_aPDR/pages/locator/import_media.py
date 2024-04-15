@@ -51,7 +51,7 @@ class MediaLibrary:
     sort_button = id("sort_button")
     left_indicator = id("left_indicator")
     right_indicator = id('right_indicator')
-
+    search_clear = id('searchClear')
 
 
     @staticmethod

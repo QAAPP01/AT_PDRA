@@ -789,7 +789,6 @@ class Test_Tempo_Effect:
 
             return "FAIL"
 
-
     @report.exception_screenshot
     def test_case(self):
         result = {

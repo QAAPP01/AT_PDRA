@@ -616,6 +616,15 @@ class BasePage(BasePage):
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
 
+    def h_is_not_exist(self, locator, timeout=3):
+        start = time.time()
+        try:
+            WebDriverWait(self.driver.driver, timeout).until_not(EC.presence_of_element_located(locator))
+            return True
+        except TimeoutException:
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
+
     def h_is_child_id_exist(self, parent, child, timeout=3):
         start = time.time()
         try:
@@ -833,30 +842,6 @@ class BasePage(BasePage):
             actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
             actions.w3c_actions.pointer_action.release()
             actions.perform()
-            return True
-        except Exception as err:
-            logger(f"[Error] {err}")
-            return False
-
-    # ==================================================================================================================
-    # Function: text_search
-    # Description: send text and send the key "Enter"
-    # Parameters: search locator, text
-    # Return: Boolean
-    # Note: N/A
-    # Author: Hausen
-    # ==================================================================================================================
-    def text_search(self, locator, text):
-        try:
-            element = self.h_get_element(locator)
-            element.click()
-            element.send_keys(text)
-            self.driver.driver.press_keycode(66)
-            for i in range(60):
-                if self.h_is_exist(L.import_media.media_library.waiting_cursor, 1):
-                    time.sleep(1)
-                else:
-                    break
             return True
         except Exception as err:
             logger(f"[Error] {err}")
