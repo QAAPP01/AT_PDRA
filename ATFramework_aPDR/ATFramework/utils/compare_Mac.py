@@ -1,4 +1,5 @@
 import os, cv2, math, time, numpy
+import pprint
 import shutil
 import traceback
 from os.path import exists
@@ -213,7 +214,7 @@ class CompareImage(object):
 
 
 class HCompareImg(object):
-    def __init__(self, image_1_path, image_2_path):
+    def __init__(self, image_1_path, image_2_path=None):
         """
         :param image_1_path
         :param image_2_path
@@ -452,3 +453,10 @@ class HCompareImg(object):
                 return False
         except:
             traceback.print_exc()
+
+    def is_not_black(self):
+        img = cv2.imread(self.image_1_path, cv2.IMREAD_GRAYSCALE)
+        logger(f'Grayscale Value: min = {img.min()}, max = {img.max()}, mean = {img.mean()}')
+        if not np.all(img == 0):
+            return True
+        return False
