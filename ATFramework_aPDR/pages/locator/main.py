@@ -4,6 +4,7 @@ new_project = id('layout_new_project')
 
 class Main:
     new_project = id('layout_new_project')
+    subscribe = id('layout_premium')
 
 
 class Shortcut:
@@ -398,6 +399,7 @@ class Subscribe:
     # one_year = id('free_trial')
     
     # new
+    entry = id('layout_premium')
     iap_monthly = id('iap_radioBtn_monthly')
     iap_yearly = id('iap_radioBtn_yearly')
     continue_btn = id('continueBtn')

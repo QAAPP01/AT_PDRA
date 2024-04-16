@@ -52,7 +52,9 @@ class MediaLibrary:
     left_indicator = id("left_indicator")
     right_indicator = id('right_indicator')
     search_clear = id('searchClear')
-
+    delete_selected = id('pickerStoryboardItemDelete')
+    getty_iap_monthly = id('iap_monthly_layout')
+    getty_iap_continue = id('btn_continue')
 
     @staticmethod
     def media(index=1):

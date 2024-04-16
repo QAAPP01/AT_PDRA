@@ -1,5 +1,4 @@
 import sys,time
-from selenium.webdriver.common.keys import Keys
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
 from ATFramework_aPDR.ATFramework.utils.log import logger
@@ -12,7 +11,7 @@ from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator import edit as E
 
 from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
-from .locator.locator_type import find_string
+from .locator.locator_type import find_string, aid
 from ATFramework_aPDR.pages.page_factory import PageFactory
 
 google_drive_account = 'clt.qaat@gmail.com'
@@ -115,25 +114,35 @@ class MediaPage(BasePage):
                 logger(f'[Fail] Invalid stock name: {stock_name}')
                 return False
 
-            self.h_click(L.import_media.video_library.video_entry)
-
+            self.click(L.import_media.video_library.video_entry)
+            tab = ('xpath', '//android.widget.LinearLayout/android.view.ViewGroup')
             if not self.click(L.import_media.media_library.stock(stock_name), 1):
-                while not self.is_exist(L.import_media.video_library.local_folder):
-                    tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
-                    self.h_swipe_element(tabs[0], tabs[-1], 3)
+                for retry in range(60):
+                    if not self.is_exist(L.import_media.video_library.local_folder):
+                        tabs = self.elements(tab)
+                        self.h_swipe_element(tabs[0], tabs[-1], 3)
+                        if self.click(L.import_media.media_library.stock(stock_name), 1):
+                            return True
+                    else:
+                        break
             end = ""
-            while not self.h_click(L.import_media.media_library.stock(stock_name), 1):
-                tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
-                last = tabs[-1].get_attribute("resource-id")
-                if last == end:
-                    logger(f'[Fail] No stock: {stock_name}')
-                    return False
+            for retry in range(60):
+                if not self.click(L.import_media.media_library.stock(stock_name), 1):
+                    tabs = self.elements(tab)
+                    last = tabs[-1].get_attribute("resource-id")
+                    if last == end:
+                        logger(f'[Fail] Stock {stock_name} is not found')
+                        return False
+                    else:
+                        end = last
+                        self.h_swipe_element(tabs[-1], tabs[0], 3)
                 else:
-                    end = last
-                    self.h_swipe_element(tabs[-1], tabs[0], 3)
-            return True
+                    return True
+            else:
+                raise Exception("out of retry")
         except Exception as err:
             logger(f'\n[Error] {err}')
+            return False
 
     def select_photo_library(self, stock_name):
         stock = [
@@ -213,6 +222,22 @@ class MediaPage(BasePage):
         else:
             raise Exception("Loading timeout")
 
+    def subscribe_getty_pro(self):
+        if self.click(L.import_media.media_library.getty_iap_monthly, 1):
+            self.click(L.import_media.media_library.getty_iap_continue)
+            self.click(('class name', 'android.widget.Button'))
+            self.click(find_string('Not now'), 1)
+            if self.is_not_exist(aid('Google Play'), 30):
+                if self.is_exist(L.import_media.media_library.media(), 10):
+                    return True
+                else:
+                    raise Exception("Doesn't return to media picker")
+            else:
+                raise Exception("Subscribe timeout")
+        else:
+            return False
+
+
     def scroll_to_top(self):
         for i in range(60):
             clip = self.elements(L.import_media.media_library.media(0))
@@ -254,22 +279,18 @@ class MediaPage(BasePage):
         return False
 
     def waiting_download(self):
-        for i in range(60):
-            if self.h_is_exist(L.import_media.media_library.downloading, 1):
-                continue
-            else:
-                return True
-        logger("[Warning] downloading timeout")
-        return False
+        if self.h_is_not_exist(L.import_media.media_library.downloading, 90):
+            return True
+        else:
+            logger("[Warning] downloading timeout")
+            return False
 
     def waiting_loading(self, timeout=60):
-        for i in range(timeout):
-            if self.h_is_exist(L.import_media.media_library.loading_circle, 1):
-                continue
-            else:
-                return True
-        logger("[Warning] loading timeout")
-        return False
+        if self.h_is_not_exist(L.import_media.media_library.loading_circle, 90):
+            return True
+        else:
+            logger("[Warning] loading timeout")
+            return False
 
     def import_last_folder(self):
         logger ("start >> import_last_folder <<")

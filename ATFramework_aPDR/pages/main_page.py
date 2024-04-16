@@ -32,6 +32,18 @@ class MainPage(BasePage):
         logger("Waiting for permission_photo_allow")
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
+    def subscribe(self):
+        self.click(L.main.subscribe.entry)
+        if self.is_exist(find_string("You've unlocked these premium features and content"), 1):
+            self.click(L.main.subscribe.back_btn)
+            return True
+        else:
+            self.click(L.main.subscribe.iap_monthly)
+            self.click(L.main.subscribe.continue_btn)
+            self.click(('class name', 'android.widget.Button'))
+            self.click(find_string('Not now'), 5)
+            return self.is_exist(L.main.new_project, 10)
+
     def enter_launcher(self):
         try:
             # 1st Launch
@@ -728,36 +740,6 @@ class MainPage(BasePage):
             raise Exception
         logger("leave app complete")
         return True
-
-    def subscribe(self, type=0):
-        subscribe_list = [
-            L.subscribe.one_month,
-            L.subscribe.three_month,
-            L.subscribe.one_year,
-        ]
-        shopping_cart = self.exist(L.project.shopping_cart)
-        if not shopping_cart:
-            logger('[WARNING] Can not found shopping cart. Subscribed already?')
-            return
-        shopping_cart.click()
-        time.sleep(1)
-        self.click(subscribe_list[type])
-        self.click(L.subscribe.continue_btn)
-        for retry in range(5):
-            if self.is_exist(L.subscribe.subscribe):
-                logger("Click subscribe button")
-                self.click(L.subscribe.subscribe)
-                if self.exist(L.project.new, 15):
-                    logger("Subscribe success")
-                    break
-            else:
-                logger('Subscribe button not exist')
-                self.click(L.subscribe.continue_btn)
-                time.sleep(5)
-        if self.exist(L.project.new, 15):
-            logger("Subscribe success")
-        else:
-            raise Exception("Subscribe fail")
 
     def back_main(self):
         logger("back main page")

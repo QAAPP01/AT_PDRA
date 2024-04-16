@@ -21,7 +21,7 @@ class TestInit:
     def test_report_init(self):
         from .conftest import DRIVER_DESIRED_CAPS
         print('Start to init. report')
-        self.report.add_ovinfo("title", "aPDR_SFT")
+        self.report.add_ovinfo("title", "aPDR_ServerScan")
         self.report.add_ovinfo("os", "Android")
 
         device_brand = os.popen(f"adb -s {DRIVER_DESIRED_CAPS['udid']} shell getprop ro.product.brand").read().strip()
