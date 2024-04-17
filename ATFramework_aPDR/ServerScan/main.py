@@ -1,7 +1,5 @@
 from .aa_init_test import TestInit
 
-# from .test_aPDR_SFT_Scenario_00_01 import Test_SFT_Scenario_00_01a
-# from .test_aPDR_SFT_Scenario_00_01 import Test_SFT_Scenario_00_01b
-# from .test_aPDR_DLcheck import Test_DLcheck   # 3rd party video download check
+from .test_media_1_1 import Test_Media
 
 from .zz_end_test import TestEnd
