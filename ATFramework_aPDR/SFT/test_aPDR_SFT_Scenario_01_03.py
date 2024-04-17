@@ -94,7 +94,7 @@ class Test_SFT_Scenario_01_03:
         self.report.start_uuid(uuid)
 
         project_ratio = self.page_edit.preview_ratio()
-        if project_ratio == '16_9':
+        if project_ratio == '16:9':
             result = True
         else:
             result = False

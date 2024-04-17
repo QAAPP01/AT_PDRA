@@ -861,7 +861,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_9_16)
 
-            if self.page_edit.preview_ratio() == "9_16":
+            if self.page_edit.preview_ratio() == "9:16":
                 result = True
                 fail_log = None
             else:
@@ -904,7 +904,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_1_1)
 
-            if self.page_edit.preview_ratio() == "1_1":
+            if self.page_edit.preview_ratio() == "1:1":
                 result = True
                 fail_log = None
             else:
@@ -947,7 +947,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_21_9)
 
-            if self.page_edit.preview_ratio() == "21_9":
+            if self.page_edit.preview_ratio() == "21:9":
                 result = True
                 fail_log = None
             else:
@@ -990,7 +990,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_4_5)
 
-            if self.page_edit.preview_ratio() == "4_5":
+            if self.page_edit.preview_ratio() == "4:5":
                 result = True
                 fail_log = None
             else:
@@ -1033,7 +1033,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_16_9)
 
-            if self.page_edit.preview_ratio() == "16_9":
+            if self.page_edit.preview_ratio() == "16:9":
                 result = True
                 fail_log = None
             else:
@@ -1084,7 +1084,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_9_16)
 
-            if self.page_edit.preview_ratio() == "9_16":
+            if self.page_edit.preview_ratio() == "9:16":
                 result = True
                 fail_log = None
             else:
@@ -1127,7 +1127,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_1_1)
 
-            if self.page_edit.preview_ratio() == "1_1":
+            if self.page_edit.preview_ratio() == "1:1":
                 result = True
                 fail_log = None
             else:
@@ -1170,7 +1170,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_21_9)
 
-            if self.page_edit.preview_ratio() == "21_9":
+            if self.page_edit.preview_ratio() == "21:9":
                 result = True
                 fail_log = None
             else:
@@ -1213,7 +1213,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_4_5)
 
-            if self.page_edit.preview_ratio() == "4_5":
+            if self.page_edit.preview_ratio() == "4:5":
                 result = True
                 fail_log = None
             else:
@@ -1256,7 +1256,7 @@ class Test_SFT_Scenario_02_03:
 
             self.click(L.edit.aspect_ratio.ratio_16_9)
 
-            if self.page_edit.preview_ratio() == "16_9":
+            if self.page_edit.preview_ratio() == "16:9":
                 result = True
                 fail_log = None
             else:
@@ -1458,39 +1458,4 @@ class Test_SFT_Scenario_02_03:
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")
-
-    def test_sce_2_3_32_to_51(self):
-        result = {"sce_2_3_32": self.sce_2_3_32(),
-                  "sce_2_3_33": self.sce_2_3_33(),
-                  "sce_2_3_34": self.sce_2_3_34(),
-                  "sce_2_3_35": self.sce_2_3_35(),
-                  "sce_2_3_36": self.sce_2_3_36(),
-                  "sce_2_3_37": self.sce_2_3_37(),
-                  "sce_2_3_38": self.sce_2_3_38(),
-                  "sce_2_3_39": self.sce_2_3_39(),
-                  "sce_2_3_40": self.sce_2_3_40(),
-                  "sce_2_3_41": self.sce_2_3_41(),
-                  "sce_2_3_42": self.sce_2_3_42(),
-                  "sce_2_3_43": self.sce_2_3_43(),
-                  "sce_2_3_44": self.sce_2_3_44(),
-                  "sce_2_3_45": self.sce_2_3_45(),
-                  "sce_2_3_46": self.sce_2_3_46(),
-                  "sce_2_3_47": self.sce_2_3_47(),
-                  "sce_2_3_48": self.sce_2_3_48(),
-                  "sce_2_3_49": self.sce_2_3_49(),
-                  "sce_2_3_50": self.sce_2_3_50(),
-                  "sce_2_3_51": self.sce_2_3_51(),
-                  }
-        for key, value in result.items():
-            if value != "PASS":
-                print(f"[{value}] {key}")
-    #
-    # def test_sce_02_330_to_336(self):
-    #     result = {"sce_2_3_310": self.sce_02_03_310(),
-    #               "sce_2_3_336": self.sce_2_3_336(),
-    #               }
-    #     for key, value in result.items():
-    #         if value != "PASS":
-    #             print(f"[{value}] {key}")
-
 

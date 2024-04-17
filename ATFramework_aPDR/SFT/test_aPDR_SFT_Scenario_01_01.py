@@ -96,7 +96,7 @@ class Test_SFT_Scenario_01_01:
             self.page_main.enter_timeline(project_name)
             project_ratio = self.page_edit.preview_ratio()
 
-            if project_ratio == '16_9':
+            if project_ratio == '16:9':
                 result = True
                 fail_log = None
             else:

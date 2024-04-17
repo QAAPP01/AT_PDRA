@@ -108,7 +108,7 @@ class Test_SFT_Scenario_01_02:
 
         self.click(L.main.project.project_name())
         project_ratio = self.page_edit.preview_ratio()
-        if project_ratio == '9_16':
+        if project_ratio == '9:16':
             result = True
         else:
             result = False

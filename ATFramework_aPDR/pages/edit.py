@@ -381,31 +381,13 @@ class EditPage(BasePage):
         Note: N/A
         Author: Hausen
         """
+        ratio_dict = {1.78: '16:9', 0.56: '9:16', 1: '1:1', 2.37: '21:9', 0.8: '4:5'}
 
-        preview_rect = self.h_get_element(L.edit.preview.preview).rect
-        width = preview_rect['width']
-        height = preview_rect['height']
-        total = width + height
-        if round(width / total, 2) == 0.64:
-            ratio = '16_9'
-        elif round(width / total, 2) == 0.36:
-            ratio = '9_16'
-        elif round(width / total, 2) == 0.5:
-            ratio = '1_1'
-        elif round(width / total, 2) == 0.7:
-            ratio = '21_9'
-        elif round(width / total, 2) == 0.44:
-            ratio = '4_5'
-        else:
-            a = max(width, height)
-            b = min(width, height)
-            while b != 0:
-                t = a % b
-                a = b
-                b = t
-            ratio = '{}_{}'.format(width / a, height / a)
-        logger(f'[Info] Ratio: {ratio}')
-        return ratio
+        preview_rect = self.element(L.edit.preview.preview).rect
+        width, height = preview_rect['width'], preview_rect['height']
+        ratio = width / height
+
+        return ratio_dict.get(round(ratio, 2), f'{width}:{height}')
 
     def click_tool(self, name):
         try:

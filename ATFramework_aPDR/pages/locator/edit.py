@@ -2,6 +2,8 @@ from .locator_type import *
 
 toast = xpath('/hierarchy/android.widget.Toast[1]')
 
+class Toolbar:
+    back = id('iv_back')
 
 class Master:
 
@@ -1380,3 +1382,4 @@ class Interface:
     tutorial_bubble = Tutorial_Bubble()
     master = Master
     ai_audio_tool = ai_audio_tool
+    toolbar = Toolbar
