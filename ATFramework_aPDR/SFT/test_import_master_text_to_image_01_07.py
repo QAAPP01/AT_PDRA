@@ -581,14 +581,7 @@ class Test_Import_Master_TTI:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline(skip_media=False)
             self.click(L.import_media.media_library.tti.entry)
-            self.element(L.import_media.media_library.tti.prompt).click()
-            self.click(L.import_media.media_library.tti.prompt)
-            tags = self.elements(L.import_media.media_library.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.import_media.media_library.tti.done)
             self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
-            self.click(L.import_media.media_library.tti.overwrite_ok)
             self.input = self.element(L.import_media.media_library.tti.prompt).text
 
             return "FAIL"
@@ -602,11 +595,11 @@ class Test_Import_Master_TTI:
         try:
             self.click(L.import_media.media_library.tti.generate)
 
-            if self.is_exist(L.import_media.media_library.tti.remove_watermark):
+            if self.is_exist(L.import_media.media_library.tti.image):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] No found remove watermark')
+                raise Exception('[Fail] No found images')
 
         except Exception as err:
             traceback.print_exc()
@@ -617,34 +610,208 @@ class Test_Import_Master_TTI:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline(skip_media=False)
             self.click(L.import_media.media_library.tti.entry)
-            self.element(L.import_media.media_library.tti.prompt).click()
-            self.click(L.import_media.media_library.tti.prompt)
-            tags = self.elements(L.import_media.media_library.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.import_media.media_library.tti.done)
+            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            self.click(L.import_media.media_library.tti.generate)
 
             return "FAIL"
 
+    def sce_1_7_17(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.import_media.media_library.tti.back)
+            self.click(L.import_media.media_library.tti.cancel)
+
+            if self.is_exist(L.import_media.media_library.tti.image):
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] No found images')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.tti.entry)
+            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            self.click(L.import_media.media_library.tti.generate)
+
+            return "FAIL"
+
+    def sce_1_7_18(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.import_media.media_library.tti.back)
+            self.click(L.import_media.media_library.tti.leave)
+
+            if self.is_exist(L.import_media.media_library.tti.prompt):
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] No found images')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.tti.entry)
+            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+
+            return "FAIL"
+
+    def sce_1_7_19(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.import_media.media_library.tti.generate)
+            if self.element(L.import_media.media_library.tti.select).get_attribute("enabled") == "false":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] "Select" is not disabled')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.tti.entry)
+            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            self.click(L.import_media.media_library.tti.generate)
+
+            return "FAIL"
+
+    def sce_1_7_20(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            if self.element(L.import_media.media_library.tti.generate_more).get_attribute("enabled") == "false":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] "Generate more" is not disabled')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.tti.entry)
+            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            self.click(L.import_media.media_library.tti.generate)
+
+            return "FAIL"
+
+    def sce_1_7_21(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            prompt = self.element(L.import_media.media_library.tti.prompt).text
+
+            if prompt == '"' + self.input + '"':
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception(f'[Fail] Prompt incorrect:{prompt}')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.tti.entry)
+            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            self.click(L.import_media.media_library.tti.generate)
+
+            return "FAIL"
+
+    def sce_1_7_22(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            self.click(L.import_media.media_library.tti.image, 10)
+            if self.element(L.import_media.media_library.tti.generate_more).get_attribute("enabled") == "false":
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] "Generate more" is not disabled')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.tti.entry)
+            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            self.click(L.import_media.media_library.tti.generate)
+
+            return "FAIL"
+
+
     @report.exception_screenshot
     def test_case(self):
-        result = {"sce_1_7_1": self.sce_1_7_1(),
-                  "sce_1_7_2": self.sce_1_7_2(),
-                  "sce_1_7_3": self.sce_1_7_3(),
-                  "sce_1_7_4": self.sce_1_7_4(),
-                  "sce_1_7_5": self.sce_1_7_5(),
-                  "sce_1_7_6": self.sce_1_7_6(),
-                  "sce_1_7_7": self.sce_1_7_7(),
-                  "sce_1_7_8": self.sce_1_7_8(),
-                  "sce_1_7_9": self.sce_1_7_9(),
-                  "sce_1_7_10": self.sce_1_7_10(),
-                  "sce_1_7_11": self.sce_1_7_11(),
-                  "sce_1_7_12": self.sce_1_7_12(),
-                  "sce_1_7_13": self.sce_1_7_13(),
-                  "sce_1_7_14": self.sce_1_7_14(),
-                  "sce_1_7_15": self.sce_1_7_15(),
-                  "sce_1_7_16": self.sce_1_7_16(),
-                  }
+        result = {
+            "sce_1_7_1": self.sce_1_7_1(),
+            "sce_1_7_2": self.sce_1_7_2(),
+            "sce_1_7_3": self.sce_1_7_3(),
+            "sce_1_7_4": self.sce_1_7_4(),
+            "sce_1_7_5": self.sce_1_7_5(),
+            "sce_1_7_6": self.sce_1_7_6(),
+            "sce_1_7_7": self.sce_1_7_7(),
+            "sce_1_7_8": self.sce_1_7_8(),
+            "sce_1_7_9": self.sce_1_7_9(),
+            "sce_1_7_10": self.sce_1_7_10(),
+            "sce_1_7_11": self.sce_1_7_11(),
+            "sce_1_7_12": self.sce_1_7_12(),
+            "sce_1_7_13": self.sce_1_7_13(),
+            "sce_1_7_14": self.sce_1_7_14(),
+            "sce_1_7_15": self.sce_1_7_15(),
+            "sce_1_7_16": self.sce_1_7_16(),
+            "sce_1_7_17": self.sce_1_7_17(),
+            "sce_1_7_18": self.sce_1_7_18(),
+            "sce_1_7_19": self.sce_1_7_19(),
+            "sce_1_7_20": self.sce_1_7_20(),
+            "sce_1_7_21": self.sce_1_7_21(),
+        }
         for key, value in result.items():
             if value != "PASS":
                 print(f"[{value}] {key}")

@@ -91,14 +91,14 @@ class Test_Import_Stock_Filter:
             self.page_main.enter_timeline(skip_media=False)
             self.page_media.select_video_library("getty")
             media = self.element(L.import_media.media_library.media())
-            pic_default = self.page_main.h_full_screenshot()
+            self.pic_default = self.page_main.h_full_screenshot()
 
             self.click(L.import_media.media_library.search)
             self.page_media.text_search("cat")
             self.page_media.wait_media_change(media)
             self.pic_search = self.page_main.h_full_screenshot()
 
-            if not HCompareImg(self.pic_search, pic_default).ssim_compare():
+            if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -114,6 +114,7 @@ class Test_Import_Stock_Filter:
             self.page_main.enter_timeline(skip_media=False)
             self.page_media.select_video_library("getty")
             media = self.element(L.import_media.media_library.media())
+            self.pic_default = self.page_main.h_full_screenshot()
             self.click(L.import_media.media_library.search)
             self.page_media.text_search("cat")
             self.page_media.wait_media_change(media)
@@ -230,15 +231,14 @@ class Test_Import_Stock_Filter:
         report.start_uuid(uuid)
 
         try:
-            media = self.element(L.import_media.media_library.media())
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.best_match)
             self.driver.driver.back()
-            self.page_media.wait_media_change(media)
-            pic_after = self.page_main.h_full_screenshot()
             self.click(L.import_media.media_library.search_clear)
+            time.sleep(1)
+            pic_after = self.page_main.h_full_screenshot()
 
-            if HCompareImg(self.pic_search, pic_after).ssim_compare():
+            if HCompareImg(self.pic_default, pic_after).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -324,14 +324,14 @@ class Test_Import_Stock_Filter:
         try:
             self.page_media.select_video_library("pexels")
             media = self.element(L.import_media.media_library.media())
-            pic_default = self.page_main.h_full_screenshot()
+            self.pic_default = self.page_main.h_full_screenshot()
 
             self.click(L.import_media.media_library.search)
             self.page_media.text_search("cat")
             self.page_media.wait_media_change(media)
             self.pic_search = self.page_main.h_full_screenshot()
 
-            if not HCompareImg(self.pic_search, pic_default).ssim_compare():
+            if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -463,16 +463,14 @@ class Test_Import_Stock_Filter:
         report.start_uuid(uuid)
 
         try:
-            media = self.element(L.import_media.media_library.media())
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_all_orientation)
             self.driver.driver.back()
-            self.page_media.scroll_to_top()
-            self.page_media.wait_media_change(media)
-            pic_after = self.page_main.h_full_screenshot()
             self.click(L.import_media.media_library.search_clear)
+            time.sleep(1)
+            pic_after = self.page_main.h_full_screenshot()
 
-            if HCompareImg(self.pic_search, pic_after).ssim_compare():
+            if HCompareImg(self.pic_default, pic_after).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -498,14 +496,14 @@ class Test_Import_Stock_Filter:
         try:
             self.page_media.select_video_library("pixabay")
             media = self.element(L.import_media.media_library.media())
-            pic_default = self.page_main.h_full_screenshot()
+            self.pic_default = self.page_main.h_full_screenshot()
 
             self.click(L.import_media.media_library.search)
             self.page_media.text_search("cat")
             self.page_media.wait_media_change(media)
             self.pic_search = self.page_main.h_full_screenshot()
 
-            if not HCompareImg(self.pic_search, pic_default).ssim_compare():
+            if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -569,15 +567,14 @@ class Test_Import_Stock_Filter:
         report.start_uuid(uuid)
 
         try:
-            media = self.element(L.import_media.media_library.media())
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.best_match)
             self.driver.driver.back()
-            self.page_media.wait_media_change(media)
-            pic_after = self.page_main.h_full_screenshot()
             self.click(L.import_media.media_library.search_clear)
+            time.sleep(1)
+            pic_after = self.page_main.h_full_screenshot()
 
-            if HCompareImg(self.pic_search, pic_after).ssim_compare():
+            if HCompareImg(self.pic_default, pic_after).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -603,14 +600,14 @@ class Test_Import_Stock_Filter:
         try:
             self.page_media.select_photo_library("getty")
             media = self.element(L.import_media.media_library.media())
-            pic_default = self.page_main.h_full_screenshot()
+            self.pic_default = self.page_main.h_full_screenshot()
 
             self.click(L.import_media.media_library.search)
             self.page_media.text_search("cat")
             self.page_media.wait_media_change(media)
             self.pic_search = self.page_main.h_full_screenshot()
 
-            if not HCompareImg(self.pic_search, pic_default).ssim_compare():
+            if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -1121,14 +1118,14 @@ class Test_Import_Stock_Filter:
         try:
             self.page_media.select_photo_library("pixabay")
             media = self.element(L.import_media.media_library.media())
-            pic_default = self.page_main.h_full_screenshot()
+            self.pic_default = self.page_main.h_full_screenshot()
 
             self.click(L.import_media.media_library.search)
             self.page_media.text_search("cat")
             self.page_media.wait_media_change(media)
             self.pic_search = self.page_main.h_full_screenshot()
 
-            if not HCompareImg(self.pic_search, pic_default).ssim_compare():
+            if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -1192,14 +1189,14 @@ class Test_Import_Stock_Filter:
         report.start_uuid(uuid)
 
         try:
-            media = self.element(L.import_media.media_library.media())
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.best_match)
             self.driver.driver.back()
-            self.page_media.wait_media_change(media)
+            self.click(L.import_media.media_library.search_clear)
+            time.sleep(1)
             pic_after = self.page_main.h_full_screenshot()
 
-            if HCompareImg(self.pic_search, pic_after).ssim_compare():
+            if HCompareImg(self.pic_default, pic_after).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:
@@ -1226,6 +1223,8 @@ class Test_Import_Stock_Filter:
         report.start_uuid(uuid)
 
         try:
+            self.click(L.import_media.media_library.search)
+            self.page_media.text_search("cat")
             media = self.element(L.import_media.media_library.media())
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_vertical)
@@ -1294,15 +1293,14 @@ class Test_Import_Stock_Filter:
         report.start_uuid(uuid)
 
         try:
-            media = self.element(L.import_media.media_library.media())
             self.click(L.import_media.sort_menu.sort_button)
             self.click(L.import_media.sort_menu.by_all_orientation)
             self.driver.driver.back()
-            self.page_media.scroll_to_top()
-            self.page_media.wait_media_change(media)
+            self.click(L.import_media.media_library.search_clear)
+            time.sleep(1)
             pic_after = self.page_main.h_full_screenshot()
 
-            if HCompareImg(self.pic_search, pic_after).ssim_compare():
+            if HCompareImg(self.pic_default, pic_after).ssim_compare():
                 report.new_result(uuid, True)
                 return "PASS"
             else:

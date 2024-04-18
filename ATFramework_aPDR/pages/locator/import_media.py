@@ -157,7 +157,12 @@ class MediaLibrary:
         remove_watermark = id('remove_watermark')
         overwrite_cancel = aid('[AID]ConfirmDialog_Cancel')
         overwrite_ok = aid('[AID]ConfirmDialog_OK')
-
+        image = id('iv_sticker')
+        back = id('iv_close')
+        cancel = id('btn_cancel')
+        leave = id('btn_leave')
+        select = id('tv_select')
+        generate_more = id("btn_show_more")
 
 
 class trim_before_edit:

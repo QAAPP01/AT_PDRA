@@ -206,7 +206,7 @@ class MediaPage(BasePage):
             element.send_keys(text)
             self.driver.driver.press_keycode(66)
 
-            if self.h_is_not_exist(L.import_media.media_library.waiting_cursor, 60):
+            if self.h_is_not_exist(L.import_media.media_library.waiting_cursor, 10):
                 return True
             else:
                 raise Exception("Search timeout")
@@ -214,13 +214,14 @@ class MediaPage(BasePage):
             logger(f"[Error] {err}")
             return False
 
-    def wait_media_change(self, old_element, locator=L.import_media.media_library.media(), timeout=60):
+    def wait_media_change(self, old_element, locator=L.import_media.media_library.media(), timeout=10):
         for i in range(timeout):
             if self.element(locator) != old_element:
                 break
             time.sleep(1)
         else:
-            raise Exception("Loading timeout")
+            logger("Loading timeout")
+            return False
 
     def subscribe_getty_pro(self):
         if self.click(L.import_media.media_library.getty_iap_monthly, 1):

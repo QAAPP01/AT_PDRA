@@ -847,6 +847,7 @@ class BasePage(BasePage):
             logger(f"[Error] {err}")
             return False
 
+
     def copy_file(self, source_file, dest):
         """
         # Function: copy_database_file

@@ -251,6 +251,10 @@ class Shortcut:
         overwrite_cancel = aid('[AID]ConfirmDialog_Cancel')
         overwrite_ok = aid('[AID]ConfirmDialog_OK')
 
+    class photo_enhance:
+        compare_thumb = id('iv_thumb')
+        compare = id('btn_compare')
+
 
 
 class Permission:

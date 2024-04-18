@@ -349,6 +349,7 @@ if __name__ == '__main__':
 
     while True:
         schedule.run_pending()
+        time.sleep(1)
         sleep = int(schedule.idle_seconds())
         time_delta = datetime.timedelta(seconds=sleep)
         print(f"Sleeping for {time_delta} until the next scheduled run...")
