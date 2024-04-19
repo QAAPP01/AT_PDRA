@@ -114,11 +114,11 @@ class MediaPage(BasePage):
                 logger(f'[Fail] Invalid stock name: {stock_name}')
                 return False
 
-            self.click(L.import_media.video_library.video_entry)
+            self.click(L.import_media.video_library.video_entry, 2)
             tab = ('xpath', '//android.widget.LinearLayout/android.view.ViewGroup')
             if not self.click(L.import_media.media_library.stock(stock_name), 1):
                 for retry in range(60):
-                    if not self.is_exist(L.import_media.video_library.local_folder):
+                    if not self.is_exist(L.import_media.video_library.local_folder, 1):
                         tabs = self.elements(tab)
                         self.h_swipe_element(tabs[0], tabs[-1], 3)
                         if self.click(L.import_media.media_library.stock(stock_name), 1):
@@ -159,25 +159,35 @@ class MediaPage(BasePage):
                 logger(f'[Fail] Invalid stock name: {stock_name}')
                 return False
 
-            self.h_click(L.import_media.media_library.photo_entry)
-
+            self.click(L.import_media.media_library.photo_entry, 2)
+            tab = ('xpath', '//android.widget.LinearLayout/android.view.ViewGroup')
             if not self.click(L.import_media.media_library.stock(stock_name), 1):
-                while not self.is_exist(L.import_media.photo_library.local_folder):
-                    tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
-                    self.h_swipe_element(tabs[0], tabs[-1], 3)
+                for retry in range(60):
+                    if not self.is_exist(L.import_media.video_library.local_folder, 1):
+                        tabs = self.elements(tab)
+                        self.h_swipe_element(tabs[0], tabs[-1], 3)
+                        if self.click(L.import_media.media_library.stock(stock_name), 1):
+                            return True
+                    else:
+                        break
             end = ""
-            while not self.h_click(L.import_media.media_library.stock(stock_name), 1):
-                tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
-                last = tabs[-1].get_attribute("resource-id")
-                if last == end:
-                    logger(f'[Fail] Cannot find "{stock_name}"')
-                    return False
+            for retry in range(60):
+                if not self.click(L.import_media.media_library.stock(stock_name), 1):
+                    tabs = self.elements(tab)
+                    last = tabs[-1].get_attribute("resource-id")
+                    if last == end:
+                        logger(f'[Fail] Stock {stock_name} is not found')
+                        return False
+                    else:
+                        end = last
+                        self.h_swipe_element(tabs[-1], tabs[0], 3)
                 else:
-                    end = last
-                    self.h_swipe_element(tabs[-1], tabs[0], 3)
-            return True
+                    return True
+            else:
+                raise Exception("out of retry")
         except Exception as err:
             logger(f'\n[Error] {err}')
+            return False
 
     def select_media_by_text(self, file_name, retry=10, speed=7):
         for i in range(retry):
@@ -224,7 +234,7 @@ class MediaPage(BasePage):
             return False
 
     def subscribe_getty_pro(self):
-        if self.click(L.import_media.media_library.getty_iap_monthly, 1):
+        if self.click(L.import_media.media_library.getty_iap_monthly, 2):
             self.click(L.import_media.media_library.getty_iap_continue)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 1)
@@ -280,14 +290,16 @@ class MediaPage(BasePage):
         return False
 
     def waiting_download(self):
-        if self.h_is_not_exist(L.import_media.media_library.downloading, 90):
+        time.sleep(0.5)
+        if self.h_is_not_exist(L.import_media.media_library.loading_text, 90):
             return True
         else:
             logger("[Warning] downloading timeout")
             return False
 
     def waiting_loading(self, timeout=60):
-        if self.h_is_not_exist(L.import_media.media_library.loading_circle, 90):
+        time.sleep(0.5)
+        if self.h_is_not_exist(L.import_media.media_library.loading_text, 90):
             return True
         else:
             logger("[Warning] loading timeout")

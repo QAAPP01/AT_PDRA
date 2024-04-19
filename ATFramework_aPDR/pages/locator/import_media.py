@@ -39,6 +39,7 @@ class MediaLibrary:
     icon_try_sticker = id('library_unit_lock')
     btn_stock_filter = id('btn_sort_order')
     loading_circle = id('loading') # preview loading
+    loading_text = id('loading_text')
     downloading = id("download_progress_bar")
     cancel = id("cancel_button")
     library_unit_sound_fx_icon = id('library_unit_sound_fx_icon')  # Sound Title

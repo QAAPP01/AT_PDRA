@@ -116,7 +116,7 @@ class Test_Media:
             self.click(L.import_media.media_library.media())
             self.page_media.waiting_download()
 
-            if self.click(L.import_media.media_library.delete_selected):
+            if self.click(L.import_media.media_library.delete_selected, 60):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
