@@ -243,7 +243,7 @@ def auto_run():
 
         # [mail result]
         if send:
-            send_report(title_project, deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number,
+            send_report("SFT Test Result", deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number,
                         package_version, package_build_number, script_version)
             print('send report complete.')
 
@@ -300,7 +300,7 @@ def auto_server_scan():
 
     # [mail result]
     if send:
-        send_report(title_project, deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version)
+        send_report("Server Scan Test Result", deviceid_list, test_case_path, receiver, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version)
         print('send report complete.')
 
     print("\n ======== Server Scan Test Finish ========")

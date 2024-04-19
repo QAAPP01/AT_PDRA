@@ -97,7 +97,7 @@ def read_summary_to_dict(proj_path, device_id):
     return d
 
 
-def send_report(title_project, udid_list, test_case_path, receiver_list, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version):
+def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version):
 
     fail_count = 0
     pass_count = 0
@@ -149,7 +149,7 @@ def send_report(title_project, udid_list, test_case_path, receiver_list, sr_numb
                "tr_no": tr_number,
                "qr_dict": {'short_description': opts['subject'],
                            'build_day': datetime.date.today().strftime('%m%d'),
-                           'test_result': f'AutoTest Report [PASS: {summary_dict["pass"]}, FAIL: {summary_dict["fail"]}]',
+                           'test_result': f'{test_result_title} - {result} [PASS: {summary_dict["pass"]}, FAIL: {summary_dict["fail"]}]',
                            'test_result_details': f'Pass: {summary_dict["pass"]}\nFail: {summary_dict["fail"]}\nSkip: {summary_dict["skip"]}\nN/A: {summary_dict["na"]}\nTotal time: {summary_dict["duration"]}',
                           }
                }
