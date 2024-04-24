@@ -736,7 +736,7 @@ class Test_Import_Master_TTI:
         report.start_uuid(uuid)
 
         try:
-            prompt = self.element(L.import_media.media_library.tti.prompt).text
+            prompt = self.element(L.import_media.media_library.tti.description).text
 
             if prompt == '"' + self.input + '"':
                 report.new_result(uuid, True)
@@ -765,12 +765,12 @@ class Test_Import_Master_TTI:
         report.start_uuid(uuid)
 
         try:
-            self.click(L.import_media.media_library.tti.image, 10)
-            if self.element(L.import_media.media_library.tti.generate_more).get_attribute("enabled") == "false":
+            self.click(L.import_media.media_library.tti.image, 20)
+            if self.is_exist(L.import_media.media_library.tti.large_image):
                 report.new_result(uuid, True)
                 return "PASS"
             else:
-                raise Exception('[Fail] "Generate more" is not disabled')
+                raise Exception('[Fail] Enter large mode failed')
 
         except Exception as err:
             traceback.print_exc()
@@ -783,6 +783,40 @@ class Test_Import_Master_TTI:
             self.click(L.import_media.media_library.tti.entry)
             self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
             self.click(L.import_media.media_library.tti.generate)
+            self.click(L.import_media.media_library.tti.image, 20)
+
+            return "FAIL"
+
+    def sce_1_7_23(self):
+        func_name = inspect.stack()[0][3]
+        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
+        logger(f"\n[Start] {func_name}")
+        report.start_uuid(uuid)
+
+        try:
+            before = self.page_main.get_picture(L.import_media.media_library.tti.large_image)
+            y = self.element(L.import_media.media_library.tti.large_image).rect['y']
+            self.page_main.h_drag_element(L.import_media.media_library.tti.large_image, 0, y)
+            after = self.page_main.get_picture(L.import_media.media_library.tti.large_image)
+
+            if not HCompareImg(before, after).ssim_compare():
+                report.new_result(uuid, True)
+                return "PASS"
+            else:
+                raise Exception('[Fail] Image not changed')
+
+        except Exception as err:
+            traceback.print_exc()
+            report.new_result(uuid, False, fail_log=err)
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.tti.entry)
+            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            self.click(L.import_media.media_library.tti.generate)
+            self.click(L.import_media.media_library.tti.image, 20)
 
             return "FAIL"
 
@@ -811,6 +845,8 @@ class Test_Import_Master_TTI:
             "sce_1_7_19": self.sce_1_7_19(),
             "sce_1_7_20": self.sce_1_7_20(),
             "sce_1_7_21": self.sce_1_7_21(),
+            "sce_1_7_22": self.sce_1_7_22(),
+            "sce_1_7_23": self.sce_1_7_23(),
         }
         for key, value in result.items():
             if value != "PASS":

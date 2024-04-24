@@ -164,7 +164,8 @@ class MediaLibrary:
         leave = id('btn_leave')
         select = id('tv_select')
         generate_more = id("btn_show_more")
-
+        description = xpath('//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.widget.TextView[contains(@resource-id,"tv_prompt")]')
+        large_image = id('displayed_img')
 
 class trim_before_edit:
     left = id('in_time_indicator')

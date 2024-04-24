@@ -318,7 +318,7 @@ def auto_run_all():
 
 
 if __name__ == '__main__':
-    auto_server_scan()
+    auto_run()
 
     schedule.every().monday.at("09:00").do(auto_run)
     schedule.every().monday.at("12:00").do(auto_run)

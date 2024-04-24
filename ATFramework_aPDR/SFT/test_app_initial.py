@@ -25,13 +25,10 @@ def test_app_init(driver):
         page_main.click(('id', 'set_default'))
         page_main.click(('id', 'tv_continue'))
         page_main.h_click(("id", "tv_hint"), 2)
-        for retry in range(60):
-            driver.double_tap_element(('id', 'track_pre_empty_view'))
-            if page_main.is_exist(aid("[AID]TimeLine_PiP"), 1):
-                break
-            else:
-                if retry == 59:
-                    logger("[FAIL] pip is not extended")
+
+        # expand pip track
+        page_main.h_click(L.edit.menu.settings)
+        page_main.h_click(find_string('Expand Track Height'), 2)
 
         if not page_main.h_click(L.edit.preview.import_tips_icon, timeout=1):
             if not page_main.h_click(L.edit.timeline.main_track_import, timeout=1):
@@ -52,8 +49,9 @@ def test_app_init(driver):
 
         page_main.h_click(L.edit.menu.home)
         # Churn Recovery
-        if page_main.h_is_exist(L.main.premium.pdr_premium):
+        if page_main.h_is_exist(L.main.premium.pdr_premium, 2):
             driver.driver.back()
+        page_main.h_click(L.main.project.entry)
         page_main.h_long_press(L.main.project.project_name())
         page_main.h_click(find_string("Delete"))
         page_main.h_click(L.main.project.dialog_ok)

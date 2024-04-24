@@ -18,7 +18,7 @@ from .test_aPDR_SFT_Scenario_02_31 import Test_SFT_Scenario_02_31
 from .test_aPDR_SFT_Scenario_02_35 import Test_SFT_Scenario_02_35
 
 from .test_edit_intro_05_01 import Test_Edit_Intro
-from .test_aPDR_SFT_Scenario_05_03_dev import Test_SFT_Scenario_05_03
+from .test_aPDR_SFT_Scenario_05_03 import Test_SFT_Scenario_05_03
 from .test_aPDR_SFT_Scenario_05_08 import Test_SFT_Scenario_05_08
 from .test_aPDR_SFT_Scenario_05_11 import Test_SFT_Scenario_05_11
 from .test_aPDR_SFT_Scenario_05_15 import Test_SFT_Scenario_05_15
@@ -47,6 +47,7 @@ from .test_edit_master_effect_07_02 import Test_Effect
 from .test_edit_master_filter_07_07 import Test_Edit_Master_Filter
 from .test_edit_master_ai_audio_tool_07_08 import Test_Edit_Master_Audio_Tool
 from .test_edit_master_voice_changer_07_09 import Test_Edit_Master_Voice_Changer
+from .test_edit_master_aspect_ratio_07_10 import Test_Edit_Aspect_Ratio
 from .test_edit_overlay_filter_09_01 import Test_Overlay_Filter
 from .test_edit_overlay_videoFx_09_02 import Test_Overlay_VideoFx
 

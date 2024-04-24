@@ -83,7 +83,7 @@ class MainPage(BasePage):
                         logger("[Done] Enter Launcher")
                         return True
                     elif current_activity == target_activity:
-                        if self.h_is_exist(L.main.tutorials.close_open_tutorial, 0.2):
+                        if self.h_is_exist(L.main.tutorials.close_open_tutorial, 0.5):
                             continue
                         self.h_click(L.main.premium.iap_back, timeout=0.2)
                         # Churn Recovery
@@ -101,6 +101,7 @@ class MainPage(BasePage):
             return False
 
     def enter_shortcut(self, name):
+        self.click(xpath('//*[@text="More"]'))
         for retry in range(60):
             if self.is_exist(L.main.shortcut.shortcut_name(name)):
                 self.click(L.main.shortcut.shortcut_name(name))

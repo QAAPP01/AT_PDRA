@@ -15,7 +15,7 @@ from ATFramework_aPDR.pages.locator.locator_type import *
 sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
 
-class Test_Import_Stock_Filter:
+class Test_Edit_Aspect_Ratio:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")

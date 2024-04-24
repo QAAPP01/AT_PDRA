@@ -266,7 +266,9 @@ class Permission:
 class Created_project():
     edit = aid("[AID]SelectProject_Edit")
 
-class Project():
+
+class Project:
+    entry = id('layout_project')
     created = Created_project()
     empty = aid("[AID]Project_Create")
     select = id('project_item_border')
