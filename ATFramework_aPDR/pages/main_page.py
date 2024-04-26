@@ -85,12 +85,10 @@ class MainPage(BasePage):
                     elif current_activity == target_activity:
                         if self.h_is_exist(L.main.tutorials.close_open_tutorial, 0.5):
                             continue
-                        self.h_click(L.main.premium.iap_back, timeout=0.2)
+                        self.h_click(L.main.premium.iap_back, timeout=0.5)
                         # Churn Recovery
-                        if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.2):
+                        if self.h_is_exist(L.main.premium.pdr_premium, timeout=0.5):
                             self.driver.driver.back()
-                        else:
-                            self.h_click(L.main.gamification.check_in_later, timeout=0.2)
                         logger("[Done] Enter Launcher")
                         return True
                     else:

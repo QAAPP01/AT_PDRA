@@ -268,7 +268,7 @@ class Created_project():
 
 
 class Project:
-    entry = xpath(f'//android.widget.LinearLayout[@resouce-id="{id_package + "layout_project"}"]')
+    entry = xpath('//*[@text="Project"]')
     created = Created_project()
     empty = aid("[AID]Project_Create")
     select = id('project_item_border')
