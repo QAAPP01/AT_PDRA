@@ -529,12 +529,12 @@ class EditPage(BasePage):
             self.click(L.edit.timeline.clip())
 
         locator = xpath(f'//*[@resource-id="{id_package + "tool_entry_label"}" and @text="{name}"]')
-        if not self.is_exist(locator, timeout, 1):
+        if not self.is_exist(locator, timeout):
             tools = self.elements(E.timeline.sub_tool)
             while 1:
                 last = tools[-1].text
                 self.h_swipe_element(tools[-1], tools[0], speed=3)
-                if self.is_exist(locator, timeout, 1):
+                if self.is_exist(locator, timeout):
                     break
                 else:
                     tools = self.elements(E.timeline.sub_tool)

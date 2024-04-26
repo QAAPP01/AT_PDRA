@@ -17,6 +17,7 @@ def test_app_init(driver):
 
         page_main = PageFactory().get_page_object("main_page", driver)
         page_edit = PageFactory().get_page_object("edit", driver)
+        click = page_main.h_click
         page_main.enter_launcher()
         page_main.h_click(L.main.project.new_project, 2)
         page_main.h_click(L.main.permission.file_ok)
@@ -51,6 +52,7 @@ def test_app_init(driver):
         # Churn Recovery
         if page_main.h_is_exist(L.main.premium.pdr_premium, 2):
             driver.driver.back()
+        click(L.main.premium.iap_back, 1)
         page_main.h_click(L.main.project.entry)
         page_main.h_long_press(L.main.project.project_name())
         page_main.h_click(find_string("Delete"))
