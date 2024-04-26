@@ -6,3 +6,4 @@ aid = lambda id: ("accessibility id", id)
 xpath = lambda id: ("xpath", id)
 find_string = lambda id: ("xpath", '//*[contains(@text,"' + id + '")]')
 class_name = lambda id: ("class name", id)
+id_package = PACKAGE_NAME + ":id/"

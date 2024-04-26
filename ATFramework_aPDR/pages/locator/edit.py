@@ -719,13 +719,12 @@ class Preview:
 
 
 class Pip:
-
     @staticmethod
     def clip(index=1):
-        if index == 0:
-            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_host")])[{index}]')
+        if index:
+            return xpath(f'(//*[@resource-id="{id_package + "track_content"}"]/android.widget.RelativeLayout)[{index}]')
         else:
-            return xpath(f'//*[contains(@resource-id,"item_view_thumbnail_host")]')
+            return xpath(f'//*[@resource-id="{id_package + "track_content"}"]/android.widget.RelativeLayout')
 
     @staticmethod
     def clip_audio(file_name=None, index=1):

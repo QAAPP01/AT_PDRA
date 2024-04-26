@@ -632,6 +632,7 @@ class Test_SFT_Scenario_01_03:
         # Churn Recovery
         if self.page_edit.h_is_exist(L.main.premium.pdr_premium):
             self.driver.driver.back()
+        self.click(L.main.project.entry)
         first_project_name = self.page_main.h_get_element(L.main.project.project_name()).text
 
         if first_project_name == project_name:

@@ -76,7 +76,7 @@ class Test_SFT_Scenario_01_02:
             if self.is_exist(L.main.premium.pdr_premium): # Churn Recovery
                 self.driver.driver.back()
             project_name_pattern = r'Project \d{2}-\d{2}\(\d+\)'
-
+            self.click(L.main.project.entry)
             project_name = self.page_main.h_get_element(L.main.project.project_name()).text
 
             if re.match(project_name_pattern, project_name):
@@ -106,6 +106,7 @@ class Test_SFT_Scenario_01_02:
         logger(f"\n[Start] sce_{item_id}")
         report.start_uuid(uuid)
 
+        self.click(L.main.project.entry)
         self.click(L.main.project.project_name())
         project_ratio = self.page_edit.preview_ratio()
         if project_ratio == '9:16':
@@ -808,6 +809,7 @@ class Test_SFT_Scenario_01_02:
         # Churn Recovery
         if self.page_edit.h_is_exist(L.main.premium.pdr_premium):
             self.driver.driver.back()
+        self.click(L.main.project.entry)
         first_project_name = self.page_main.h_get_element(L.main.project.project_name()).text
 
         if first_project_name == project_name:

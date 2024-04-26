@@ -72,6 +72,7 @@ class Test_SFT_Scenario_01_01:
             dt = datetime.datetime.today()
             project_name_default = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
             global project_name
+            self.click(L.main.project.entry)
             project_name = self.element(L.main.project.project_name()).text
 
             if project_name == project_name_default:

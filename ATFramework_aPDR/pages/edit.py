@@ -157,8 +157,7 @@ class EditPage(BasePage):
                         logger('[Warning] Did not assign folder or file name')
                         self.click(L.import_media.media_library.media())
 
-                    if self.element(id('cl_shadow')):
-                        self.click(id('cl_shadow'))
+                    self.click(id('cl_shadow'), 1)
 
                     if self.is_exist(L.edit.timeline.pip.clip_thumbnail):
                         return True
@@ -241,19 +240,20 @@ class EditPage(BasePage):
             return False
 
     def convert_pip_video(self, timeout=60):
-        self.click(L.edit.converting.ok, 2)
-        timeout_flag = True
-        for i in range(timeout):
-            if self.is_exist(L.edit.converting.progress_bar, 1):
-                continue
+        if self.click(L.edit.converting.ok, 2):
+            timeout_flag = True
+            for i in range(timeout):
+                if self.is_exist(L.edit.converting.progress_bar, 1):
+                    continue
+                else:
+                    timeout_flag = False
+                    break
+            if timeout_flag:
+                logger('[Fail] Converting timeout')
+                return False
             else:
-                timeout_flag = False
-                break
-        if timeout_flag:
-            logger('[Fail] Converting timeout')
-            return False
-        else:
-            return True
+                return True
+        return True
 
     def drag_color_picker(self, locator=L.edit.master.ai_effect.color_picker):
         try:
@@ -277,22 +277,25 @@ class EditPage(BasePage):
         except Exception as err:
             raise Exception(f'[Error] {err}')
 
-    def scroll_playhead(self, delta_x=None):
+    def scroll_playhead(self, delta_x=None, speed=10):
         """
-            :param delta_x: <0 -> left
-                            >0 -> right
+        :param delta_x: <0: to left, >0: to right
+        :param speed: 1 is fastest (slower is more accurate)
         """
         try:
+            rect = self.element(L.edit.timeline.timeline_ruler).rect
+            x = rect['x']
+            y = rect['y']
             if delta_x:
                 if delta_x > 0:
                     if delta_x < 25:
                         delta_x = 25
-                    self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'right', delta_x)
                 else:
                     if delta_x > -25:
                         delta_x = -25
-                    self.driver.swipe_element(L.edit.timeline.timeline_ruler, 'left', abs(delta_x))
-
+                self.h_swipe_location(x, y, x + delta_x, y, speed)
+            else:
+                self.h_swipe_location(x, y, x - 100, y, speed)
             return True
         except Exception as err:
             raise Exception(f'[Error] {err}')
@@ -519,27 +522,28 @@ class EditPage(BasePage):
                 break
         return self.h_click(locator)
 
-    def click_sub_tool(self, name, timeout=0.2, exclusive=None):
+    def click_sub_tool(self, name, timeout=0.2):
         if not self.h_is_exist(L.edit.timeline.sub_tool, 2):
-            logger("[Info] Cannot find sub tool menu")
+            logger("[Warning] Cannot find sub tool menu")
             logger("[Info] Select the first clip")
             self.click(L.edit.timeline.clip())
-        if exclusive:
-            locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}") and not(contains(@text,"{exclusive}"))]')
-        else:
-            locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
-        while 1:
-            if not self.h_is_exist(locator, timeout=timeout):
-                tool = self.h_get_elements(E.timeline.sub_tool)
-                last = tool[len(tool) - 1].text
-                self.h_swipe_element(tool[len(tool) - 1], tool[0], speed=4)
-                tool = self.h_get_elements(E.timeline.sub_tool)
-                if tool[len(tool) - 1].text == last:
-                    logger(f'[Not exist] Tool "{name}" is not exist')
-                    return False
-            else:
-                break
+
+        locator = xpath(f'//*[@resource-id="{id_package + "tool_entry_label"}" and @text="{name}"]')
+        if not self.is_exist(locator, timeout):
+            tools = self.elements(E.timeline.sub_tool)
+            while 1:
+                last = tools[-1].text
+                self.h_swipe_element(tools[-1], tools[0], speed=3)
+                if self.is_exist(locator, timeout):
+                    break
+                else:
+                    tools = self.elements(E.timeline.sub_tool)
+                    if tools[-1].text == last:
+                        logger(f'[Warning] Tool "{name}" is not exist')
+                        return False
+
         return self.click(locator)
+
 
     def click_sub_option_tool(self, name, timeout=0.1):
         if not self.h_is_exist(L.edit.timeline.option_label, 1):
