@@ -102,15 +102,11 @@ class MainPage(BasePage):
 
     def enter_shortcut(self, name):
         self.click(xpath('//*[@text="More"]'))
-        for retry in range(60):
-            if self.is_exist(L.main.shortcut.shortcut_name(name)):
-                self.click(L.main.shortcut.shortcut_name(name))
-                return True
-            else:
-                shortcuts = self.elements(L.main.shortcut.shortcut_name(0))
-                self.h_swipe_element(shortcuts[-2], shortcuts[0], 4)
-        logger(f'[Error] Cannot find the shortcut "{name}"')
-        return False
+        if not self.is_exist(L.main.shortcut.shortcut_name(name), 1):
+            logger(f'[Fail] Cannot find the shortcut "{name}"')
+            return False
+        self.click(L.main.shortcut.shortcut_name(name))
+        return True
 
     def shortcut_produce(self):
         try:

@@ -523,18 +523,18 @@ class EditPage(BasePage):
         return self.h_click(locator)
 
     def click_sub_tool(self, name, timeout=0.2):
-        if not self.h_is_exist(L.edit.timeline.sub_tool, 2):
+        if not self.is_exist(L.edit.timeline.sub_tool, 1):
             logger("[Warning] Cannot find sub tool menu")
             logger("[Info] Select the first clip")
             self.click(L.edit.timeline.clip())
 
         locator = xpath(f'//*[@resource-id="{id_package + "tool_entry_label"}" and @text="{name}"]')
-        if not self.is_exist(locator, timeout):
+        if not self.is_exist(locator, timeout, 1):
             tools = self.elements(E.timeline.sub_tool)
             while 1:
                 last = tools[-1].text
                 self.h_swipe_element(tools[-1], tools[0], speed=3)
-                if self.is_exist(locator, timeout):
+                if self.is_exist(locator, timeout, 1):
                     break
                 else:
                     tools = self.elements(E.timeline.sub_tool)
