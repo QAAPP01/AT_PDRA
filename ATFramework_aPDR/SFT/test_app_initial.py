@@ -49,7 +49,7 @@ def test_app_init(driver):
 
         page_main.h_click(L.edit.menu.home)
         # Churn Recovery
-        if page_main.h_is_exist(L.main.premium.pdr_premium, 2):
+        if page_main.h_is_exist(L.main.premium.pdr_premium, 1):
             driver.driver.back()
         page_main.h_click(L.main.project.entry)
         page_main.h_long_press(L.main.project.project_name())
