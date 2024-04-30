@@ -595,6 +595,15 @@ class EditPage(BasePage):
                     break
         return True
 
+    def enter_music_library(self):
+        try:
+            self.click_tool('Audio')
+            self.click(find_string("Music"))
+            return True
+        except Exception:
+            traceback.print_exc()
+            return False
+
     def click_audio_tool(self, locator, timeout=0.2):
         tool_xpath = xpath('//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout')
         for i in range(60):

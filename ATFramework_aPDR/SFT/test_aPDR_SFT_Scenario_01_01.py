@@ -94,7 +94,6 @@ class Test_SFT_Scenario_01_01:
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             self.report.start_uuid(uuid)
 
-            self.click(L.main.project.entry)
             self.page_main.enter_timeline(project_name)
             project_ratio = self.page_edit.preview_ratio()
 
@@ -1183,7 +1182,6 @@ class Test_SFT_Scenario_01_01:
         self.report.start_uuid(uuid)
 
         self.page_edit.back_to_launcher()
-        self.click(L.main.project.entry)
 
         if self.page_main.enter_timeline(project_name):
             result = True

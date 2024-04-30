@@ -11,7 +11,7 @@ from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator import edit as E
 
 from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
-from .locator.locator_type import find_string, aid
+from .locator.locator_type import find_string, aid, id, xpath
 from ATFramework_aPDR.pages.page_factory import PageFactory
 
 google_drive_account = 'clt.qaat@gmail.com'
@@ -318,6 +318,29 @@ class MediaPage(BasePage):
         self.h_click(L.library_gridview.apply, 1)
         result = self.h_is_exist(L.timeline.clip, 5)
         return result
+
+    def click_audio_tab(self, tab):
+        """
+        Click audio tab
+        :param tab: local, meta, mixtape, cl
+        :return: Boolean of success or not
+        """
+        tabs = {
+            'local': id('tab_music_local'),
+            'meta': id('tab_meta_sound'),
+            'mixtape': id('tab_mix_tape_sound_clip'),
+            'cl': id('tab_bgm_sound_clip'),
+        }
+        if tab not in tabs:
+            logger(f'[Fail] Invalid tab: {tab}')
+            return False
+        if self.click(tabs[tab], 1):
+            logger(f'Clicked {tab}')
+            return True
+        else:
+            logger(f'[Fail] Click {tab}')
+            return False
+
 
 
         

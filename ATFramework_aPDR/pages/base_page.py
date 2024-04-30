@@ -1,6 +1,7 @@
 # dummy module
 import shutil
 import time, os
+import traceback
 import uuid
 
 import cv2
@@ -39,16 +40,17 @@ class BasePage(BasePage):
         self.udid = self.driver.driver.desired_capabilities['deviceUDID']
         self.package_name = self.app_package
         # logger("PackageName = %s" % PACKAGE_NAME)
+
     def click(self, locator, timeout=5):
         try:
             element = self.element(locator, timeout)
             if element:
                 element.click()
+                logger(f"[Click] {locator}")
                 return True
-            else:
-                return False
-        except Exception as err:
-            logger(f'[Error] {err}')
+        except Exception:
+            traceback.print_exc()
+        return False
 
     def h_screenshot(self, locator=L.edit.preview.preview, crop=None):
         try:
@@ -602,6 +604,7 @@ class BasePage(BasePage):
                 return False
             else:
                 element.click()
+                logger(f"[Click] {locator}")
                 return True
         except Exception as err:
             logger(f'[Error] {err}')
@@ -611,7 +614,7 @@ class BasePage(BasePage):
         try:
             # logger(locator)
             WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
-            # logger(f"[Found ({round(time.time()-start, 2)})] {locator}")
+            logger(f"[Found ({round(time.time()-start, 2)})] {locator}")
             return True
         except TimeoutException:
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")

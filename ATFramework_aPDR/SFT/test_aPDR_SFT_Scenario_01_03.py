@@ -78,7 +78,6 @@ class Test_SFT_Scenario_01_03:
         project_name = '16_9'
         self.page_main.add_project_list(deviceName, pdr_package, project_name)
         self.page_main.enter_launcher()
-        self.click(L.main.project.entry)
 
         if self.page_main.enter_timeline(project_name):
             result = True
@@ -570,7 +569,6 @@ class Test_SFT_Scenario_01_03:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
-            self.click(L.main.project.entry)
             self.page_main.enter_timeline(project_name)
 
             return "FAIL"

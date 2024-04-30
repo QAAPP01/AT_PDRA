@@ -71,11 +71,11 @@ class Test_SFT_Scenario_02_01:
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
-
         import datetime
         dt = datetime.datetime.today()
+        self.default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
         global default_project_name
-        default_project_name = 'Project {:02d}-{:02d}'.format(dt.month, dt.day)
+        default_project_name = self.default_project_name
         self.page_main.enter_launcher()
 
         if self.page_main.enter_timeline(default_project_name):

@@ -147,30 +147,34 @@ class MainPage(BasePage):
             logger(f'[Error] {err}')
 
     def enter_timeline(self, project_name=None, skip_media=True):
-        def enter_project():
-            last = None
-            for swipe_time in range(100):
+        def enter_exist_project():
+            if self.click(find_string(project_name), 2):
+                logger(f'[Info] Enter project: {project_name}')
+                return True
+            else:
                 project_displayed = self.h_get_elements(L.main.project.project_name(0))
-                if project_displayed[-1].text == last:
-                    logger(f'\n[Warning] Cannot find the project: {project_name}')
-                    logger(f'[Info] New a project')
-                    self.click(L.main.project.new_project, 2)
-                    return True
-                else:
-                    for project in project_displayed:
-                        if project.text == project_name:
-                            if project != project_displayed[0]:
-                                self.h_swipe_element(project, project_displayed[0], 5)
-                            self.click(project)
-                            logger(f'[Info] Enter project: {project_name}')
-                            return True
+                for retry in range(30):
                     last = project_displayed[-1].text
-                    self.h_swipe_element(project_displayed[-1], project_displayed[0], 5)
-            logger(f'\n[Warning] Reach the maximum setting for search project')
+                    self.h_swipe_element(project_displayed[-1], project_displayed[0], 3)
+                    if self.click(find_string(project_name), 2):
+                        logger(f'[Info] Enter project: {project_name}')
+                        return True
+                    else:
+                        project_displayed = self.h_get_elements(L.main.project.project_name(0))
+                        if project_displayed[-1].text == last:
+                            logger(f'[Warning] Cannot find the project: {project_name}')
+                            logger(f'[Info] New a project')
+                            self.click(L.main.project.new_project, 2)
+                            return False
+                logger(f'[Warning] Reach the maximum setting for search project')
+                logger(f'[Info] New a project')
+                self.click(L.main.project.new_project, 2)
+                return False
 
         try:
             if project_name:
-                enter_project()
+                self.click(L.main.project.entry)
+                enter_exist_project()
             else:
                 self.h_click(L.main.project.new_project, 2)
             if skip_media:
