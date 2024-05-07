@@ -289,21 +289,21 @@ class MediaPage(BasePage):
         logger("[Warning] waiting timeout")
         return False
 
-    def waiting_download(self):
-        time.sleep(0.5)
-        if self.h_is_not_exist(L.import_media.media_library.loading_text, 90):
-            return True
-        else:
-            logger("[Warning] downloading timeout")
-            return False
+    def waiting_download(self, timeout=120):
+        if self.h_is_exist(L.import_media.media_library.loading_text, 5):
+            if self.h_is_not_exist(L.import_media.media_library.loading_text):
+                return True
+            else:
+                logger("[Warning] downloading timeout")
+                return False
 
-    def waiting_loading(self, timeout=60):
-        time.sleep(0.5)
-        if self.h_is_not_exist(L.import_media.media_library.loading_text, 90):
-            return True
-        else:
-            logger("[Warning] loading timeout")
-            return False
+    def waiting_loading(self, timeout=120):
+        if self.h_is_exist(L.import_media.media_library.loading_text, 5):
+            if self.h_is_not_exist(L.import_media.media_library.loading_text, timeout):
+                return True
+            else:
+                logger("[Warning] loading timeout")
+                return False
 
     def import_last_folder(self):
         logger ("start >> import_last_folder <<")
@@ -319,10 +319,10 @@ class MediaPage(BasePage):
         result = self.h_is_exist(L.timeline.clip, 5)
         return result
 
-    def click_audio_tab(self, tab):
+    def click_music_tab(self, tab):
         """
-        Click audio tab
-        :param tab: local, meta, mixtape, cl
+        Click music tab
+        :param tab: 'local' or 'meta' or 'mixtape' or 'cl'
         :return: Boolean of success or not
         """
         tabs = {
@@ -334,13 +334,34 @@ class MediaPage(BasePage):
         if tab not in tabs:
             logger(f'[Fail] Invalid tab: {tab}')
             return False
-        if self.click(tabs[tab], 1):
-            logger(f'Clicked {tab}')
-            return True
-        else:
-            logger(f'[Fail] Click {tab}')
-            return False
+        if not self.element(tabs[tab]).get_attribute('selected') == 'true':
+            if self.click(tabs[tab], 1):
+                logger(f'Clicked {tab}')
+                return True
+            else:
+                logger(f"[Fail] Click {tab}")
+                return False
 
+    def click_sfx_tab(self, tab):
+        """
+        Click sound fx tab
+        :param tab: 'meta' or 'cl'
+        :return: Boolean of success or not
+        """
+        tabs = {
+            'meta': id('tab_meta_sound_effect_text'),
+            'cl': id('tab_sound_fx_text'),
+        }
+        if tab not in tabs:
+            logger(f'[Fail] Invalid tab: {tab}')
+            return False
+        if not self.element(tabs[tab]).get_attribute('selected') == 'true':
+            if self.click(tabs[tab], 1):
+                logger(f'Clicked {tab}')
+                return True
+            else:
+                logger(f"[Fail] Click {tab}")
+                return False
 
 
         

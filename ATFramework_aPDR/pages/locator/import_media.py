@@ -325,7 +325,9 @@ class Music_Library:
     stop = id("stop_icon")
     favorite = id("library_unit_favorite")
     download = id("library_unit_download")
+    loading = id('progress_hud_spinnerImageView')
     downloading = id("progress_bar_download")
+    download_cancel = id('library_unit_cancel')
     # back = aid("[AID]Library_Back")
     # back = aid("[AID]TimeLine_Back")
     back = id("action_back")
@@ -339,6 +341,21 @@ class Music_Library:
     filter_genres = id("stock_music_tab_genres")
     filter_moods = aid('[AID]Filter_Moods')
     search = id("searchText")
+
+    @staticmethod
+    def music(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"library_unit_background")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"library_unit_background")]')
+
+    @staticmethod
+    def category(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"library_unit_card_view")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"library_unit_card_view")]')
+
 
     @staticmethod
     def category_name(index=1):

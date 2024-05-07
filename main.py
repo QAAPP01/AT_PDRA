@@ -10,7 +10,7 @@ import schedule
 import time
 
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
-from send_mail.send_report import send_report
+from send_mail.send_report import send_report, generate_allure_report, remove_allure_result, move_allure_history, send_allure_report
 
 
 # import ecl_operation
@@ -31,7 +31,7 @@ system_port_default = 8200  # for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
 test_case_folder_name = 'SFT'
-server_scan_folder_name = 'ServerScan'
+
 test_case_main_file = 'main.py'
 report_list = []
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
@@ -61,15 +61,14 @@ print('Current OS:', platform_type)
 
 # generate path - test case, report
 dir_path = os.path.dirname(os.path.realpath(__file__))
-test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name))
-server_scan_path = os.path.normpath(os.path.join(dir_path, project_name, server_scan_folder_name))
+
+
 app_path = os.path.normpath(os.path.join(dir_path, project_name, 'app'))
-print('test_case_path=', test_case_path)
 
 
 # execute
-def __run_test(_test_case_path, _test_case_folder_name, _udid, _system_port):
-    start = 'pytest -s "%s" --color=yes --udid=%s --systemPort=%s' % (os.path.normpath(os.path.join(_test_case_path, 'main.py')), _udid, _system_port)
+def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port):
+    start = 'pytest -s --alluredir %s "%s" --color=yes --udid=%s --systemPort=%s' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, 'main.py')), _udid, _system_port)
     print('Start to run test >>>\n')
     try:
         os.system('color')
@@ -77,7 +76,6 @@ def __run_test(_test_case_path, _test_case_folder_name, _udid, _system_port):
         pass
     stdout = os.popen(start).read()
     print(stdout)
-    report_list.append(os.path.normpath(os.path.join(dir_path, project_name, _test_case_folder_name, 'report/%s/%s' % (_udid + '_' + tr_number, 'SFT_Report.html'))))
 
 
 def auto_run():
@@ -182,7 +180,7 @@ def auto_run():
                 previous_tr_number = dict_result['prev_tr_no']
 
                 version_numbers = dict_result['build'].split('.')
-                package_version = version_numbers[0].split('PowerDirector Mobile for Android:')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
+                package_version = version_numbers[0].split('PowerDirector Mobile for Android: ')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
                 package_build_number = version_numbers[3]
                 print(f'package_version = {package_version}, package_build_number = {package_build_number}')
 
@@ -228,6 +226,8 @@ def auto_run():
         # run test
         print(
             f'Test Info: TR = {tr_number}, Prev_TR = {previous_tr_number}, Build = {package_version}.{package_build_number}')
+
+        test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name))
         for device_idx in range(parallel_device_count):
             deviceid_list.append(device_udid[device_idx])
             cmd = ["%s" % test_case_path, "%s" % test_case_folder_name, "%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
@@ -268,16 +268,19 @@ def auto_run():
 
 def auto_server_scan():
     print("\n ======== Server Scan Test Start ========")
-    procs = []
-    deviceid_list = []
+    test_folder = 'ServerScan'
+    result_folder = 'server-scan-allure-results'
+    report_folder = 'server-scan-allure-report'
+    test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
 
+    remove_allure_result(result_folder)
+
+    procs = []
     with open('tr_info', 'r') as file:
         for line in file:
             key, value = line.strip().split('=')
             if key == 'tr_number':
                 tr_number = value
-            elif key == 'previous_tr_number':
-                previous_tr_number = value
             elif key == 'package_version':
                 package_version = value
             elif key == 'package_build_number':
@@ -285,22 +288,21 @@ def auto_server_scan():
 
     # run test
     print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
-    for device_idx in range(parallel_device_count):
-        deviceid_list.append(device_udid[device_idx])
-        cmd = ["%s" % server_scan_path, "%s" % server_scan_folder_name, "%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
-        p = Process(target=__run_test, args=cmd)
-        p.start()
-        procs.append(p)
-        print(report_list)
+    cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % deviceName, "%s" % str(system_port_default)]
+    p = Process(target=__run_test, args=cmd)
+    p.start()
+    procs.append(p)
 
     for p in procs:
         p.join()
     print('test complete.')
 
+    move_allure_history(result_folder, report_folder)
+    generate_allure_report(result_folder, report_folder)
 
-    # [mail result]
     if send:
-        send_report("Server Scan Test Result", deviceid_list, server_scan_path, receiver, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version)
+        send_allure_report(report_folder, "Server Scan Test Result", deviceName, receiver, tr_number, package_version,
+                           package_build_number)
         print('send report complete.')
 
     print("\n ======== Server Scan Test Finish ========")
@@ -345,7 +347,7 @@ if __name__ == '__main__':
     schedule.every().friday.at("15:00").do(auto_run)
     schedule.every().friday.at("18:00").do(auto_run)
 
-    schedule.every().day.at("00:05").do(auto_server_scan)
+    schedule.every().day.at("00:00").do(auto_server_scan)
 
     while True:
         schedule.run_pending()

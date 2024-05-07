@@ -1,16 +1,25 @@
+import json
+import time
+import datetime
 import traceback
-from os.path import dirname as dir
-
 import os
 import pytest
 import sys
+from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.page_factory import PageFactory
+from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
+from os.path import dirname as dir
 
-sys.path.insert(0,(dir(dir(dir(__file__)))))
-from ATFramework_aPDR.ATFramework.utils import MyReport
-from ATFramework_aPDR.ATFramework.utils.log import logger
-from main_server_sacn import package_name
+
+
+DRIVER_DESIRED_CAPS = {}
+DEFAULT_BROWSER = 'com.android.chrome'
+platform_type = 'Android'
+PACKAGE_NAME = package_name
+TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
+TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 
 debug_mode = 0
 tr_number = ''
@@ -31,13 +40,6 @@ except Exception:
     traceback.print_exc()
 
 
-DRIVER_DESIRED_CAPS = ''
-REPORT_INSTANCE = MyReport(tr_number=tr_number, previous_tr_number=previous_tr_number)
-DEFAULT_BROWSER = 'com.android.chrome'
-platform_type = 'Android'
-PACKAGE_NAME = package_name
-TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
-TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 
 # Recording path
 folder_path = os.path.join(os.path.dirname(__file__), "recording")
@@ -57,28 +59,18 @@ def systemPort(request):
     return request.config.getoption("systemPort")
 
 @pytest.fixture(scope='session', autouse=True)
-def report_initial(udid):
-    global REPORT_INSTANCE
-    logger('report_init, udid='+ udid)
-    REPORT_INSTANCE.set_udid(udid)
-    logger("report = %s" % REPORT_INSTANCE)
-    return True
-
-@pytest.fixture(scope='class', autouse=True)
 def driver_get_desiredcap(udid, systemPort):
     global DRIVER_DESIRED_CAPS
     if platform_type == 'Android':
         DRIVER_DESIRED_CAPS = {'udid': str(udid), 'systemPort': str(systemPort)}
     else:
         DRIVER_DESIRED_CAPS = {'udid': str(udid)}
-    # print('driver_get_desiredcap, caps=', DRIVER_DESIRED_CAPS)
     return True
 
 
 @pytest.fixture(scope="session")
 def driver():
     import os
-    from ATFramework_aPDR.ATFramework.utils.log import logger
     from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
     from ATFramework_aPDR.configs import app_config
     from ATFramework_aPDR.configs import driver_config
@@ -91,9 +83,10 @@ def driver():
 
     if debug_mode:
         logger('**** Debug Mode ****')
-        desired_caps['udid'] = 'R5CW31G76ST'
-        if 'R5CW31G76ST' not in os.popen('adb devices').read():
-            desired_caps['udid'] = 'R5CT32Q3WQN'
+        desired_caps['udid'] = 'R5CT32Q3WQN'
+        if desired_caps['udid'] not in os.popen('adb devices').read():
+            # desired_caps['udid'] = 'R5CW31G76ST'
+            desired_caps['udid'] = '9596423546005V8'
 
         mode = 'debug'
         args = [
@@ -147,3 +140,49 @@ def driver():
         except InvalidSessionIdException:
             pass
     appium.stop()
+
+
+@pytest.fixture(scope='class', autouse=True)
+def driver_init(driver):
+    logger("[Start] Init driver session")
+    driver.driver.launch_app()
+    yield
+    driver.driver.close_app()
+
+
+@pytest.fixture(scope="session")
+def shortcut(driver):
+    page_main = PageFactory().get_page_object("main_page", driver)
+    page_edit = PageFactory().get_page_object("edit", driver)
+    page_media = PageFactory().get_page_object("import_media", driver)
+    page_preference = PageFactory().get_page_object("timeline_settings", driver)
+    return page_main, page_edit, page_media, page_preference
+
+
+def pytest_terminal_summary(terminalreporter, exitstatus, config):
+    logger("pytest_terminal_summary")
+    def format_duration(seconds):
+        td = datetime.timedelta(seconds=int(seconds))
+        return str(td)
+
+    results = terminalreporter.stats
+    num_collected = terminalreporter._numcollected
+    passed = len(results.get('passed', []))
+    failed = len(results.get('failed', []))
+    errors = len(results.get('error', []))
+    skipped = len(results.get('skipped', []))
+
+    duration_seconds = time.time() - terminalreporter._sessionstarttime
+    formatted_duration = format_duration(duration_seconds)
+
+    summary = {
+        "num_collected": num_collected,
+        "passed": passed,
+        "failed": failed,
+        "errors": errors,
+        "skipped": skipped,
+        "duration": formatted_duration
+    }
+
+    with open('summary.json', 'w') as f:
+        json.dump(summary, f)
