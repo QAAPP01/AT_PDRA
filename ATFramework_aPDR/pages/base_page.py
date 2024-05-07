@@ -620,13 +620,14 @@ class BasePage(BasePage):
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
 
-    def h_is_not_exist(self, locator, timeout=3):
+    def h_is_not_exist(self, locator, timeout=120):
         start = time.time()
         try:
             WebDriverWait(self.driver.driver, timeout).until_not(EC.presence_of_element_located(locator))
+            logger(f"[Disappear ({round(time.time() - start, 2)})] {locator}")
             return True
         except TimeoutException:
-            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            logger(f"[Still Exist ({round(time.time() - start, 2)})] {locator}")
             return False
 
     def h_is_child_id_exist(self, parent, child, timeout=3):

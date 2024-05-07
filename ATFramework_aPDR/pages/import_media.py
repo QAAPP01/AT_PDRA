@@ -334,13 +334,13 @@ class MediaPage(BasePage):
         if tab not in tabs:
             logger(f'[Fail] Invalid tab: {tab}')
             return False
-        if self.click(tabs[tab], 1):
-            logger(f'Clicked {tab}')
-            return True
-        else:
-            logger(f'[Fail] Click {tab}')
-            return False
-
+        if not self.element(tabs[tab]).get_attribute('selected') == 'true':
+            if self.click(tabs[tab], 1):
+                logger(f'Clicked {tab}')
+                return True
+            else:
+                logger(f"[Fail] Click {tab}")
+                return False
 
 
         
