@@ -14,17 +14,16 @@ from .conftest import REPORT_INSTANCE as report
 sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
 
-@allure.feature("Music Scan")
-class Test_Music:
+@allure.feature("SFX Scan")
+class Test_SFX:
     @pytest.fixture(autouse=True)
     def initial(self, driver):
         logger("[Start] Init driver session")
 
         self.driver = driver
         self.uuid = [
-            "5a037e93-6bae-4630-a83d-c2dad6f8da6e",
-            "872ad7b3-bcb3-4ddc-99ce-09a0ddc2682e",
-            "a07a8287-a5c3-4e8a-a4af-8b0cf5b9eb31",
+            "bf7398d4-902f-4b6f-a24e-53b6fa49f59c",
+            "44aa61a0-82b4-4f39-b156-c16cc157a4c6",
         ]
 
         # shortcut
@@ -47,8 +46,8 @@ class Test_Music:
         self.driver.driver.stop_recording_screen()
         driver.driver.close_app()
 
-    @allure.story("Download Meta Music")
-    def sce_1_2_1(self):
+    @allure.story("Download Meta SFX")
+    def sce_1_3_1(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
@@ -57,10 +56,9 @@ class Test_Music:
         try:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.enter_audio_library('Music')
-            self.page_media.click_music_tab('meta')
+            self.page_edit.enter_audio_library('SFX')
+            self.page_media.click_sfx_tab('meta')
 
-            self.click(L.import_media.music_library.category(3))
             music = self.elements(L.import_media.music_library.music(0))
             for i in music:
                 i.click()
@@ -84,20 +82,20 @@ class Test_Music:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
-            self.page_edit.enter_audio_library('Music')
-            self.page_media.click_music_tab('meta')
+            self.page_edit.enter_audio_library('SFX')
+            self.page_media.click_sfx_tab('meta')
 
             return "FAIL"
 
-    @allure.story("Download Mixtape Music")
-    def sce_1_2_2(self):
+    @allure.story("Download CL SFX")
+    def sce_1_3_2(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
         report.start_uuid(uuid)
 
         try:
-            self.page_media.click_music_tab('mixtape')
+            self.page_media.click_sfx_tab('cl')
 
             self.click(L.import_media.music_library.category(3))
             music = self.elements(L.import_media.music_library.music(0))
@@ -118,53 +116,15 @@ class Test_Music:
             traceback.print_exc()
             report.new_result(uuid, False, fail_log=err)
             self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_audio_library('Music')
-            self.page_media.click_music_tab('mixtape')
 
             return "FAIL"
 
-    @allure.story("Download CL Music")
-    def sce_1_2_3(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
-
-        try:
-            self.page_media.click_music_tab('cl')
-
-            self.click(L.import_media.music_library.category(3))
-            music = self.elements(L.import_media.music_library.music(0))
-            for i in music:
-                i.click()
-                if self.click(L.import_media.music_library.download, 2):
-                    if self.is_exist(L.import_media.music_library.download_cancel):
-                        self.is_not_exist(L.import_media.music_library.download_cancel)
-                    break
-
-            if self.is_exist(L.import_media.music_library.add):
-                report.new_result(uuid, True)
-                return "PASS"
-            else:
-                raise Exception('[Fail] Download failed')
-
-        except Exception as err:
-            traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
-            self.driver.driver.close_app()
-
-            return "FAIL"
 
     @report.exception_screenshot
     def test_case(self):
         result = {
-            "sec_1_2_1": self.sce_1_2_1(),
-            "sec_1_2_2": self.sce_1_2_2(),
-            "sec_1_2_3": self.sce_1_2_3(),
+            "sec_1_3_1": self.sce_1_3_1(),
+            "sec_1_3_2": self.sce_1_3_2(),
         }
         for key, value in result.items():
             if value != "PASS":

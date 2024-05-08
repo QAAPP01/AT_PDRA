@@ -595,10 +595,25 @@ class EditPage(BasePage):
                     break
         return True
 
-    def enter_music_library(self):
+    def enter_audio_library(self, audio_type):
+        """
+        Description: Enter audio library
+        :param audio_type: 'Music' or 'SFX' or 'Voice Over'
+        :return: True or False
+        """
+
+        audio_dict = {
+            'Music': 'Music',
+            'SFX': 'Sound\nFX',
+            'Voice Over': 'Voice-Over'
+        }
+        if audio_type not in audio_dict:
+            logger(f'[Warning] Invalid audio type "{audio_type}"')
+            return False
+
         try:
             self.click_tool('Audio')
-            self.click(find_string("Music"))
+            self.click(find_string(audio_dict[audio_type]))
             return True
         except Exception:
             traceback.print_exc()
