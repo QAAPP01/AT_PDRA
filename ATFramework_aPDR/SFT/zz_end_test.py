@@ -14,4 +14,3 @@ class TestEnd():
         #self.report.add_ovinfo("duration", "xxx")
         self.report.export()
         driver.driver.quit()
-
