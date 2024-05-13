@@ -43,8 +43,8 @@ class Test_SFX:
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
-        self.driver.driver.stop_recording_screen()
-        driver.driver.close_app()
+        # self.driver.driver.stop_recording_screen()
+        # driver.driver.close_app()
 
     @allure.story("Download Meta SFX")
     def sce_1_3_1(self):

@@ -147,3 +147,4 @@ def driver():
         except InvalidSessionIdException:
             pass
     appium.stop()
+
