@@ -18,7 +18,7 @@ from .test_aPDR_SFT_Scenario_01_03 import Test_SFT_Scenario_01_03
 from .test_aPDR_SFT_Scenario_01_04 import Test_SFT_Scenario_01_04
 from .test_aPDR_SFT_Scenario_01_05 import Test_SFT_Scenario_01_05
 from .test_aPDR_SFT_Scenario_01_06 import Test_SFT_Scenario_01_06
-# from .test_import_master_text_to_image_01_07 import Test_Import_Master_TTI
+from .test_import_master_text_to_image_01_07 import Test_Import_Master_TTI
 from .test_import_stock_filter_01_08 import Test_Import_Stock_Filter
 
 from .test_aPDR_SFT_Scenario_02_01 import Test_SFT_Scenario_02_01
@@ -45,8 +45,8 @@ from .test_shortcut_speed_06_08 import Test_Shortcut_Speed
 from .test_shortcut_mosaic_06_09 import Test_Shortcut_Mosaic
 from .test_shortcut_filter_06_10 import Test_Shortcut_Filter
 
-# from .test_shortcut_ai_scene_06_12 import Test_Shortcut_AI_Scene
-# from .test_shortcut_text_to_image_06_13 import Test_Shortcut_Text_to_Image
+from .test_shortcut_ai_scene_06_12 import Test_Shortcut_AI_Scene
+from .test_shortcut_text_to_image_06_13 import Test_Shortcut_Text_to_Image
 from .test_shortcut_auto_caption_06_14 import Test_Shortcut_Auto_Caption
 from .test_shortcut_voice_changer_06_15 import Test_Shortcut_Voice_Changer
 from .test_shortcut_audio_tool_06_19 import Test_Audio_Tool
