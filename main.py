@@ -10,7 +10,7 @@ import schedule
 import time
 
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
-from send_mail.send_report import send_report
+from send_mail.send_report import send_report, generate_allure_report, remove_allure_result, move_allure_history, send_allure_report
 
 
 # import ecl_operation
@@ -25,7 +25,8 @@ from send_mail.send_report import send_report
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
 # deviceName = "R5CT32Q3WQN"
-deviceName = "R5CW31G76ST"
+# deviceName = "R5CW31G76ST"
+deviceName = "9596423546005V8"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
@@ -61,15 +62,14 @@ print('Current OS:', platform_type)
 
 # generate path - test case, report
 dir_path = os.path.dirname(os.path.realpath(__file__))
-test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name))
-server_scan_path = os.path.normpath(os.path.join(dir_path, project_name, server_scan_folder_name))
+
+
 app_path = os.path.normpath(os.path.join(dir_path, project_name, 'app'))
-print('test_case_path=', test_case_path)
 
 
 # execute
-def __run_test(_test_case_path, _test_case_folder_name, _udid, _system_port):
-    start = 'pytest -s "%s" --color=yes --udid=%s --systemPort=%s' % (os.path.normpath(os.path.join(_test_case_path, 'main.py')), _udid, _system_port)
+def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port):
+    start = 'pytest -s --alluredir %s "%s" --color=yes --udid=%s --systemPort=%s' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, 'main.py')), _udid, _system_port)
     print('Start to run test >>>\n')
     try:
         os.system('color')
@@ -77,7 +77,6 @@ def __run_test(_test_case_path, _test_case_folder_name, _udid, _system_port):
         pass
     stdout = os.popen(start).read()
     print(stdout)
-    report_list.append(os.path.normpath(os.path.join(dir_path, project_name, _test_case_folder_name, 'report/%s/%s' % (_udid + '_' + tr_number, 'SFT_Report.html'))))
 
 
 def auto_run():
@@ -228,6 +227,8 @@ def auto_run():
         # run test
         print(
             f'Test Info: TR = {tr_number}, Prev_TR = {previous_tr_number}, Build = {package_version}.{package_build_number}')
+
+        test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_case_folder_name))
         for device_idx in range(parallel_device_count):
             deviceid_list.append(device_udid[device_idx])
             cmd = ["%s" % test_case_path, "%s" % test_case_folder_name, "%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
@@ -317,41 +318,77 @@ def auto_run_all():
     print_next_run_time()
 
 
+def allure_test():
+    print("\n ======== Server Scan Test Start ========")
+    result_folder = 'server-scan-allure-results'
+    report_folder = 'server-scan-allure-report'
+    remove_allure_result(result_folder)
+    test_case_path = os.path.normpath(os.path.join(dir_path, project_name, server_scan_folder_name))
+
+    procs = []
+    with open('tr_info', 'r') as file:
+        for line in file:
+            key, value = line.strip().split('=')
+            if key == 'tr_number':
+                tr_number = value
+            elif key == 'package_version':
+                package_version = value
+            elif key == 'package_build_number':
+                package_build_number = value
+
+    # run test
+    print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
+    cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % deviceName, "%s" % str(system_port_default)]
+    p = Process(target=__run_test, args=cmd)
+    p.start()
+    procs.append(p)
+
+    for p in procs:
+        p.join()
+    print('test complete.')
+
+    move_allure_history(result_folder, report_folder)
+    generate_allure_report(result_folder, report_folder)
+
+    send_allure_report(report_folder, "SFT Test Result", deviceName, receiver, tr_number, package_version, package_build_number)
+
+
+
 if __name__ == '__main__':
-    auto_run()
+    allure_test()
 
-    schedule.every().monday.at("09:00").do(auto_run)
-    schedule.every().monday.at("12:00").do(auto_run)
-    schedule.every().monday.at("15:00").do(auto_run)
-    schedule.every().monday.at("18:00").do(auto_run)
-
-    schedule.every().tuesday.at("09:00").do(auto_run)
-    schedule.every().tuesday.at("12:00").do(auto_run)
-    schedule.every().tuesday.at("15:00").do(auto_run)
-    schedule.every().tuesday.at("18:00").do(auto_run)
-
-    schedule.every().wednesday.at("09:00").do(auto_run)
-    schedule.every().wednesday.at("12:00").do(auto_run)
-    schedule.every().wednesday.at("15:00").do(auto_run)
-    schedule.every().wednesday.at("18:00").do(auto_run)
-
-    schedule.every().thursday.at("09:00").do(auto_run)
-    schedule.every().thursday.at("12:00").do(auto_run)
-    schedule.every().thursday.at("15:00").do(auto_run)
-    schedule.every().thursday.at("18:00").do(auto_run)
-
-    schedule.every().friday.at("09:00").do(auto_run)
-    schedule.every().friday.at("12:00").do(auto_run)
-    schedule.every().friday.at("15:00").do(auto_run)
-    schedule.every().friday.at("18:00").do(auto_run)
-
-    schedule.every().day.at("00:00").do(auto_server_scan)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-        sleep = int(schedule.idle_seconds())
-        time_delta = datetime.timedelta(seconds=sleep)
-        print(f"Sleeping for {time_delta} until the next scheduled run...")
-        print_next_run_time()
-        time.sleep(sleep)
+    # schedule.every().monday.at("09:00").do(auto_run)
+    # schedule.every().monday.at("12:00").do(auto_run)
+    # schedule.every().monday.at("15:00").do(auto_run)
+    # schedule.every().monday.at("18:00").do(auto_run)
+    #
+    # schedule.every().tuesday.at("09:00").do(auto_run)
+    # schedule.every().tuesday.at("12:00").do(auto_run)
+    # schedule.every().tuesday.at("15:00").do(auto_run)
+    # schedule.every().tuesday.at("18:00").do(auto_run)
+    #
+    # schedule.every().wednesday.at("09:00").do(auto_run)
+    # schedule.every().wednesday.at("12:00").do(auto_run)
+    # schedule.every().wednesday.at("15:00").do(auto_run)
+    # schedule.every().wednesday.at("18:00").do(auto_run)
+    #
+    # schedule.every().thursday.at("09:00").do(auto_run)
+    # schedule.every().thursday.at("12:00").do(auto_run)
+    # schedule.every().thursday.at("15:00").do(auto_run)
+    # schedule.every().thursday.at("18:00").do(auto_run)
+    #
+    # schedule.every().friday.at("09:00").do(auto_run)
+    # schedule.every().friday.at("12:00").do(auto_run)
+    # schedule.every().friday.at("15:00").do(auto_run)
+    # schedule.every().friday.at("18:00").do(auto_run)
+    #
+    # schedule.every().day.at("00:00").do(auto_server_scan)
+    #
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
+    #     sleep = int(schedule.idle_seconds())
+    #     time_delta = datetime.timedelta(seconds=sleep)
+    #     print(f"Sleeping for {time_delta} until the next scheduled run...")
+    #     print_next_run_time()
+    #     time.sleep(sleep)

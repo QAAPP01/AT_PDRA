@@ -1,3 +1,5 @@
+import json
+
 from .sendemail import send_mail
 import os
 import shutil
@@ -188,3 +190,98 @@ def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_
     print(f'Done.')
     
     return True
+
+def remove_allure_result(result_folder):
+    if os.path.exists(result_folder):
+        shutil.rmtree(result_folder)
+    return True
+
+def move_allure_history(result_folder, report_folder):
+    if os.path.exists(f'{report_folder}/history'):
+        shutil.move(f'{report_folder}/history', f'{result_folder}/history')
+    return True
+
+def generate_allure_report(result_folder, report_folder):
+    os.system(f'allure generate {result_folder} --clean -o {report_folder}')
+    os.system(f'allure generate --single-file {result_folder} --clean -o {report_folder}-html')
+    return True
+
+def send_allure_report(report_folder, test_result_title, device_id, receiver_list, tr_number, package_version, package_build_number):
+
+    opts = {'account': 'cltest.qaapp1@gmail.com', 'password': 'izjysnzxhygofgns',
+            'to': '', 'subject': '',
+            'from': 'ATServer', 'text': 'txt_content', 'html': 'html_content',
+            'attachment': []}
+
+    with open(f'{report_folder}/summary.json', 'r') as f:
+        summary_info = json.load(f)
+
+    html_report_header = '<html><head><meta http-equiv=""Content-Type"" content=""text/html; charset=ANSI""></head><body style=font-family:Calibri>'
+    html_report_tail = '</body></html>'
+    mail_body = html_report_header
+    mail_body += f'<h1>{test_result_title}</h1>'
+    mail_body += f'<p>device: {device_id}</p>'
+    mail_body += f'<p>TR: {tr_number}</p>'
+    mail_body += f'<p>Build: {package_version}.{package_build_number}</p>'
+    mail_body = f'<h3>Test Summary:</h3>'
+    mail_body += f'<p>Total: {summary_info["num_collected"]}</p>'
+    mail_body += f'<p>Passed: {summary_info["passed"]}</p>'
+    mail_body += f'<p>Failed: {summary_info["failed"]}</p>'
+    mail_body += f'<p>Errors: {summary_info["errors"]}</p>'
+    mail_body += f'<p>Skipped: {summary_info["skipped"]}</p>'
+    mail_body += f'<p>Duration: {summary_info["duration"]}</p>'
+    mail_body += html_report_tail
+
+    opts['attachment'].append(f'{report_folder}-html\\index.html')
+
+    opts['subject'] = f'QAAPP_{test_result_title}_{package_version}.{package_build_number}'
+    opts['to'] = receiver_list
+    opts['html'] = mail_body
+    send_mail(opts)
+
+    # Create QA Report
+    # auto_report = True
+    # if auto_report:
+    #     tr_dict = {"browser": "Edge",
+    #                "tr_no": tr_number,
+    #                "qr_dict": {'short_description': opts['subject'],
+    #                            'build_day': datetime.date.today().strftime('%m%d'),
+    #                            'test_result': f'{test_result_title} - {result} [PASS: {summary_dict["pass"]}, FAIL: {summary_dict["fail"]}]',
+    #                            'test_result_details': f'Pass: {summary_dict["pass"]}\nFail: {summary_dict["fail"]}\nSkip: {summary_dict["skip"]}\nN/A: {summary_dict["na"]}\nTotal time: {summary_dict["duration"]}',
+    #                            }
+    #                }
+    #     auto_create_qr(tr_dict, opts['attachment'])
+    # # remove attachment files
+    # remove_attachment_file(opts['attachment'])
+    # print('compelte')
+    #
+    # # Add to Google Sheet
+    # # initial google_api object
+    # sheet_name = f"{summary_dict['title']}"
+    # # header = ['Date', 'Time', 'SR', 'Build_Ver', 'Build_No', 'Server', 'OS', 'Device', 'Version', 'Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+    # header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+    # obj_google_api = GoogleApi(sheet_name, header_custom)
+    # # add new record
+    # new_record = {'Date': summary_dict['date'],
+    #               'Time': summary_dict['time'],
+    #               'Script_Name': summary_dict['title'],
+    #               'Script_Ver': script_version,
+    #               'SR_No': sr_number,
+    #               'TR_No': tr_number,
+    #               'Build_No': package_build_number,
+    #               'Prod_Ver': package_version,
+    #               'Prod_Ver_Type': 'Prod',
+    #               'OS': summary_dict['os'],
+    #               'OS_Ver': summary_dict['version'],
+    #               'Device_ID': summary_dict['device']}
+    # obj_google_api.add_new_record(new_record)
+    # # print(f'current row={obj_google_api.row_prev_record}')
+    #
+    # # update columns of previous record
+    # data = {'Pass': summary_dict['pass'], 'Fail': summary_dict['fail'], 'Skip': summary_dict['skip'],
+    #         'N/A': summary_dict['na'], 'Total time': summary_dict['duration']}
+    # obj_google_api.update_columns(data)
+    # #
+    # print(f'Done.')
+    #
+    # return True
