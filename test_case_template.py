@@ -55,6 +55,7 @@ class Test_Scan_Media:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline(skip_media=False)
             self.page_media.select_video_library("getty")
+            raise Exception
 
     @allure.story("Getty Video Download")
     def test_getty_video_download(self, driver):
@@ -75,3 +76,4 @@ class Test_Scan_Media:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline(skip_media=False)
             self.page_media.select_video_library("getty")
+            raise Exception
