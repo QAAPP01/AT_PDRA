@@ -84,7 +84,7 @@ def driver():
     if debug_mode:
         logger('**** Debug Mode ****')
         desired_caps['udid'] = 'R5CT32Q3WQN'
-        if 'R5CT32Q3WQN' not in os.popen('adb devices').read():
+        if desired_caps['udid'] not in os.popen('adb devices').read():
             # desired_caps['udid'] = 'R5CW31G76ST'
             desired_caps['udid'] = '9596423546005V8'
 
@@ -140,6 +140,14 @@ def driver():
         except InvalidSessionIdException:
             pass
     appium.stop()
+
+
+@pytest.fixture(scope='class', autouse=True)
+def driver_init(driver):
+    logger("[Start] Init driver session")
+    driver.driver.launch_app()
+    yield
+    driver.driver.close_app()
 
 
 @pytest.fixture(scope="session")

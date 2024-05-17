@@ -181,6 +181,24 @@ class ai_audio_tool:
                 return xpath(f'//*[contains(@resource-id,"bg_selected")]')
 
 
+class Sticker:
+    close = id('back_button')
+    @staticmethod
+    def sticker(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"cms_sticker_library_item")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"cms_sticker_library_item")]')
+
+
+class Filter:
+    @staticmethod
+    def filter(index=1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"top_area")]')
+
 
 class Converting:
     ok = aid('[AID]ConfirmDialog_OK')
@@ -1330,6 +1348,8 @@ class Interface:
     main_tool = MainTool
     sub_tool = SubTool
     text = Text
+    filter = Filter
+    sticker = Sticker
 
     adjust_sub = Adjust_sub()
     audio_configuration = Audio_Configuration()
@@ -1372,6 +1392,7 @@ class Interface:
     stabilizer = Stabilizer()
     stabilizer_correction = Stabilizer_Correction()
     stabilizing_video_window = Produce_Video_Window()
+
     sub_menu = SubMenu_Timeline_Setting()
     tips = Tips()
     title_animation = Title_Animation()

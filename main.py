@@ -24,15 +24,15 @@ from send_mail.send_report import send_report, generate_allure_report, remove_al
 # parallel_device_count - the device number for parallel testing (default: 1)
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
-# deviceName = "R5CT32Q3WQN"
+deviceName = "R5CT32Q3WQN"
 # deviceName = "R5CW31G76ST"
-deviceName = "9596423546005V8"
+# deviceName = "9596423546005V8"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
 test_case_folder_name = 'SFT'
-server_scan_folder_name = 'ServerScan'
+
 test_case_main_file = 'main.py'
 report_list = []
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
@@ -49,8 +49,8 @@ tr_number = 'TR240207-034'  # for manual
 
 # [Report Mail Setting]
 title_project = 'aPDR'
-receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
-# receiver = ['hausen_lin@cyberlink.com']
+# receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
+receiver = ['hausen_lin@cyberlink.com']
 
 script_version = 'Testing'
 # script_version = 'Debug'
@@ -181,7 +181,7 @@ def auto_run():
                 previous_tr_number = dict_result['prev_tr_no']
 
                 version_numbers = dict_result['build'].split('.')
-                package_version = version_numbers[0].split('PowerDirector Mobile for Android:')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
+                package_version = version_numbers[0].split('PowerDirector Mobile for Android: ')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
                 package_build_number = version_numbers[3]
                 print(f'package_version = {package_version}, package_build_number = {package_build_number}')
 
@@ -269,61 +269,12 @@ def auto_run():
 
 def auto_server_scan():
     print("\n ======== Server Scan Test Start ========")
-    procs = []
-    deviceid_list = []
-
-    with open('tr_info', 'r') as file:
-        for line in file:
-            key, value = line.strip().split('=')
-            if key == 'tr_number':
-                tr_number = value
-            elif key == 'previous_tr_number':
-                previous_tr_number = value
-            elif key == 'package_version':
-                package_version = value
-            elif key == 'package_build_number':
-                package_build_number = value
-
-    # run test
-    print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
-    for device_idx in range(parallel_device_count):
-        deviceid_list.append(device_udid[device_idx])
-        cmd = ["%s" % server_scan_path, "%s" % server_scan_folder_name, "%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
-        p = Process(target=__run_test, args=cmd)
-        p.start()
-        procs.append(p)
-        print(report_list)
-
-    for p in procs:
-        p.join()
-    print('test complete.')
-
-
-    # [mail result]
-    if send:
-        send_report("Server Scan Test Result", deviceid_list, server_scan_path, receiver, sr_number, tr_number, previous_tr_number, package_version, package_build_number, script_version)
-        print('send report complete.')
-
-    print("\n ======== Server Scan Test Finish ========")
-
-
-def print_next_run_time():
-    next_run = schedule.next_run()
-    print(f"\nNext execution time: {next_run}")
-
-
-def auto_run_all():
-    auto_run()
-    auto_server_scan()
-    print_next_run_time()
-
-
-def allure_test():
-    print("\n ======== Server Scan Test Start ========")
+    test_folder = 'ServerScan'
     result_folder = 'server-scan-allure-results'
     report_folder = 'server-scan-allure-report'
+    test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
+
     remove_allure_result(result_folder)
-    test_case_path = os.path.normpath(os.path.join(dir_path, project_name, server_scan_folder_name))
 
     procs = []
     with open('tr_info', 'r') as file:
@@ -350,12 +301,27 @@ def allure_test():
     move_allure_history(result_folder, report_folder)
     generate_allure_report(result_folder, report_folder)
 
-    send_allure_report(report_folder, "SFT Test Result", deviceName, receiver, tr_number, package_version, package_build_number)
+    if send:
+        send_allure_report(report_folder, "Server Scan Test Result", deviceName, receiver, tr_number, package_version,
+                           package_build_number)
+        print('send report complete.')
 
+    print("\n ======== Server Scan Test Finish ========")
+
+
+def print_next_run_time():
+    next_run = schedule.next_run()
+    print(f"\nNext execution time: {next_run}")
+
+
+def auto_run_all():
+    auto_run()
+    auto_server_scan()
+    print_next_run_time()
 
 
 if __name__ == '__main__':
-    allure_test()
+    auto_server_scan()
 
     # schedule.every().monday.at("09:00").do(auto_run)
     # schedule.every().monday.at("12:00").do(auto_run)
@@ -381,14 +347,14 @@ if __name__ == '__main__':
     # schedule.every().friday.at("12:00").do(auto_run)
     # schedule.every().friday.at("15:00").do(auto_run)
     # schedule.every().friday.at("18:00").do(auto_run)
-    #
-    # schedule.every().day.at("00:00").do(auto_server_scan)
-    #
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(1)
-    #     sleep = int(schedule.idle_seconds())
-    #     time_delta = datetime.timedelta(seconds=sleep)
-    #     print(f"Sleeping for {time_delta} until the next scheduled run...")
-    #     print_next_run_time()
-    #     time.sleep(sleep)
+
+    schedule.every().day.at("00:00").do(auto_server_scan)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+        sleep = int(schedule.idle_seconds())
+        time_delta = datetime.timedelta(seconds=sleep)
+        print(f"Sleeping for {time_delta} until the next scheduled run...")
+        print_next_run_time()
+        time.sleep(sleep)

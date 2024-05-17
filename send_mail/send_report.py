@@ -1,4 +1,5 @@
 import json
+import sys
 
 from .sendemail import send_mail
 import os
@@ -70,10 +71,10 @@ def copy_rename(old_file_name, new_file_name, test_case_path, device_id):
 
 
 def auto_create_qr(param_dict, att_list):
-    dst_dir = os.path.dirname(__file__)
+    cwd = os.getcwd()
     file_dict = {}
     for i in range(len(att_list)):
-        file_dict[f"upload_files_{i+1}"] = os.path.join(dst_dir, att_list[i])
+        file_dict[f"upload_files_{i+1}"] = os.path.join(cwd, att_list[i])
     param_dict["browser"] = "edge"
     param_dict["qr_dict"].update(file_dict)
     qr_operation.create_qr(param_dict)
@@ -213,17 +214,24 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
             'from': 'ATServer', 'text': 'txt_content', 'html': 'html_content',
             'attachment': []}
 
-    with open(f'{report_folder}/summary.json', 'r') as f:
+    with open('summary.json', 'r') as f:
         summary_info = json.load(f)
+
+    if summary_info["failed"] > 0:
+        result = '[FAIL]'
+    elif summary_info["passed"] == 0 and summary_info["failed"] == 0:
+        result = '[SKIP]'
+    else:
+        result = '[PASS]'
 
     html_report_header = '<html><head><meta http-equiv=""Content-Type"" content=""text/html; charset=ANSI""></head><body style=font-family:Calibri>'
     html_report_tail = '</body></html>'
     mail_body = html_report_header
-    mail_body += f'<h1>{test_result_title}</h1>'
+    mail_body += f'<h1>{test_result_title} {result}</h1>'
     mail_body += f'<p>device: {device_id}</p>'
     mail_body += f'<p>TR: {tr_number}</p>'
     mail_body += f'<p>Build: {package_version}.{package_build_number}</p>'
-    mail_body = f'<h3>Test Summary:</h3>'
+    mail_body += f'<h2>Test Summary:</h2>'
     mail_body += f'<p>Total: {summary_info["num_collected"]}</p>'
     mail_body += f'<p>Passed: {summary_info["passed"]}</p>'
     mail_body += f'<p>Failed: {summary_info["failed"]}</p>'
@@ -234,27 +242,28 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
 
     opts['attachment'].append(f'{report_folder}-html\\index.html')
 
-    opts['subject'] = f'QAAPP_{test_result_title}_{package_version}.{package_build_number}'
+    opts['subject'] = f'PDRAndroid{package_version}.{package_build_number} {test_result_title}'
+    opts['subject'] += result
     opts['to'] = receiver_list
     opts['html'] = mail_body
     send_mail(opts)
 
+
     # Create QA Report
-    # auto_report = True
-    # if auto_report:
-    #     tr_dict = {"browser": "Edge",
-    #                "tr_no": tr_number,
-    #                "qr_dict": {'short_description': opts['subject'],
-    #                            'build_day': datetime.date.today().strftime('%m%d'),
-    #                            'test_result': f'{test_result_title} - {result} [PASS: {summary_dict["pass"]}, FAIL: {summary_dict["fail"]}]',
-    #                            'test_result_details': f'Pass: {summary_dict["pass"]}\nFail: {summary_dict["fail"]}\nSkip: {summary_dict["skip"]}\nN/A: {summary_dict["na"]}\nTotal time: {summary_dict["duration"]}',
-    #                            }
-    #                }
-    #     auto_create_qr(tr_dict, opts['attachment'])
-    # # remove attachment files
-    # remove_attachment_file(opts['attachment'])
-    # print('compelte')
-    #
+    auto_report = True
+    if auto_report:
+        na_count = summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"]
+        tr_dict = {"browser": "Edge",
+                   "tr_no": tr_number,
+                   "qr_dict": {'short_description': opts['subject'],
+                               'build_day': datetime.date.today().strftime('%m%d'),
+                               'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {summary_info["failed"]}]',
+                               'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {summary_info["failed"]}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
+                               }
+                   }
+        auto_create_qr(tr_dict, opts['attachment'])
+        print('compelte')
+
     # # Add to Google Sheet
     # # initial google_api object
     # sheet_name = f"{summary_dict['title']}"
@@ -283,5 +292,5 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
     # obj_google_api.update_columns(data)
     # #
     # print(f'Done.')
-    #
-    # return True
+
+    return True
