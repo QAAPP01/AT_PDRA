@@ -9,8 +9,8 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
-from ..ATFramework.drivers.appium_driver import AppiumU2Driver
+from ATFramework_aPDR.SFT.conftest import REPORT_INSTANCE as report
+from ATFramework_aPDR.ATFramework.drivers.appium_driver import AppiumU2Driver
 
 """
 allure levels:
@@ -34,11 +34,12 @@ def class_setup_teardown(driver: AppiumU2Driver):
     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
 
 
-@allure.feature('')
-class Test:
+@allure.feature('Track Limitation')
+class TestTrackLimitation:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
+        
         self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
 
         self.click = self.page_main.h_click
