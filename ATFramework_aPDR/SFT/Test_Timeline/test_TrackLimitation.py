@@ -1,15 +1,8 @@
-import traceback
-import inspect
 import pytest
-import sys
 import allure
-from os import path
 
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
-from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.pages.locator import locator as L
-from ATFramework_aPDR.pages.page_factory import PageFactory
-from ATFramework_aPDR.SFT.conftest import REPORT_INSTANCE as report
+from ATFramework_aPDR.SFT.Test_Timeline.TestBase import TestBase
+import ATFramework_aPDR.pages.locator as L
 from ATFramework_aPDR.ATFramework.drivers.appium_driver import AppiumU2Driver
 
 """
@@ -21,78 +14,50 @@ allure levels:
 """
 
 
-@pytest.fixture(scope="class", autouse=True)
-def class_setup_teardown(driver: AppiumU2Driver):
-    logger("[Start] Init driver session")
-
-    driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
-    driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-    driver.implicit_wait(30)  # Wait to app to start
-    # Will open to main menu
-    yield
-    driver.driver.stop_recording_screen()
-    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
-
-
 @allure.feature('Track Limitation')
-class TestTrackLimitation:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+class TestTrackLimitation(TestBase):
+    VIDEO_LIMITATION = 3
+    AUDIO_LIMITATION = 9
+    PIP_LIMITATION = 9
 
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
+    """
+    self.page_preference = shortcut # not found
+    """
 
-    @allure.story("Getty Video Preview")
-    def test_getty_video_preview(self, driver):
-        logger(f"\n[Start] {inspect.stack()[0][3]}")
+    @allure.story("Video Track Limitation")
+    def test_timeline_video_limitation(self, driver: AppiumU2Driver,
+                                       page_edit, page_main):
+        try:
+            for i in range(self.VIDEO_LIMITATION):
+                allure.title('Add a video to PiP track')
+                page_edit.add_pip_media(media_type='Video')
+
+            allure.title('Add another video after reaching track limitation')
+            page_edit.add_pip_media(media_type='Video')
+            allure.title('Should pop dialog if trying to add video while reaching track limitation')
+            assert driver.get_text(L.import_media.device_limit.limit_title) == 'Video Overlay Maximum Exceeded'
+            driver.click_element(L.import_media.device_limit.btn_remind_ok)
+
+        except Exception as e:
+            self.exception_handler(e, driver, page_main)
+
+    @allure.story("Audio Track Limitation")
+    def test_timeline_audio_limitation(self, driver: AppiumU2Driver,
+                                       page_edit, page_main):
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.subscribe()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
+            # todo: add script
+            pass
 
-            self.click(L.import_media.media_library.btn_preview())
-            self.page_media.waiting_download()
-            img = self.page_main.get_picture(L.import_media.media_library.video.display_preview)
+        except Exception as e:
+            self.exception_handler(e, driver, page_main)
 
-            assert HCompareImg(img).is_not_black()
-            driver.driver.back()
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
-            raise Exception
-
-    @allure.story("Getty Video Download")
-    def test_getty_video_download(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
+    @allure.story("PiP Track Limitation")
+    def test_timeline_video_limitation(self, driver: AppiumU2Driver,
+                                       page_edit, page_main):
 
         try:
-            self.click(L.import_media.media_library.media())
-            self.page_media.waiting_download()
+            pass
 
-            assert self.click(L.import_media.media_library.delete_selected, 60)
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
-            raise Exception
+        except Exception as e:
+            self.exception_handler(e, driver, page_main)
