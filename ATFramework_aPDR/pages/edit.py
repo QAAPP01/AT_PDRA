@@ -523,7 +523,7 @@ class EditPage(BasePage):
         return self.h_click(locator)
 
     def click_sub_tool(self, name, timeout=0.2):
-        if not self.is_exist(L.edit.timeline.sub_tool, timeout):
+        if not self.is_exist(L.edit.timeline.sub_tool, 1):
             logger("[Warning] Cannot find sub tool menu")
             logger("[Info] Select the first clip")
             self.click(L.edit.timeline.clip())
@@ -618,6 +618,29 @@ class EditPage(BasePage):
         except Exception:
             traceback.print_exc()
             return False
+
+    def enter_sticker_library(self, sticker_type):
+        """
+        Description: Enter audio library
+        :param sticker_type: 'sticker' or 'ai sticker'
+        :return: True or False
+        """
+
+        sticker_dict = {
+            'sticker': 'Add Sticker',
+            'ai sticker': 'AI Sticker'
+        }
+        if sticker_type not in sticker_dict:
+            logger(f'[Warning] Invalid sticker type "{sticker_type}"')
+            sticker_type = sticker_dict['sticker']
+        try:
+            self.click_tool('Sticker')
+            self.click(find_string(sticker_type[sticker_type]))
+            return True
+        except Exception:
+            traceback.print_exc()
+            return False
+
 
     def click_audio_tool(self, locator, timeout=0.2):
         tool_xpath = xpath('//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout')

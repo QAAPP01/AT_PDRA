@@ -290,7 +290,7 @@ class MediaPage(BasePage):
         return False
 
     def waiting_download(self, timeout=120):
-        if self.h_is_exist(L.import_media.media_library.loading_text, 5):
+        if self.h_is_exist(L.import_media.media_library.loading_text, 3):
             if self.h_is_not_exist(L.import_media.media_library.loading_text):
                 return True
             else:
@@ -298,7 +298,7 @@ class MediaPage(BasePage):
                 return False
 
     def waiting_loading(self, timeout=120):
-        if self.h_is_exist(L.import_media.media_library.loading_text, 5):
+        if self.h_is_exist(L.import_media.media_library.loading_text, 3):
             if self.h_is_not_exist(L.import_media.media_library.loading_text, timeout):
                 return True
             else:
