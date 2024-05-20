@@ -351,7 +351,7 @@ class AppiumU2Driver(Borg, BaseDriver):
     def get_text(self, locator):
         try:
             text = self.get_element(locator).text
-            return text.encode('utf-8')
+            return text
         except Exception:
             print("ERROR: %s page cannot get text from %s element" % (self, locator))
         raise Exception
