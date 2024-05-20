@@ -1,3 +1,5 @@
+import time
+
 import pytest
 import allure
 
@@ -25,8 +27,8 @@ class TestTrackLimitation(TestBase):
     """
 
     @allure.story("Video Track Limitation")
-    def test_timeline_video_limitation(self, driver: AppiumU2Driver,
-                                       page_edit, page_main):
+    def test_timeline_video_track_limitation(self, driver: AppiumU2Driver,
+                                             page_edit, page_main):
         try:
             for i in range(self.VIDEO_LIMITATION):
                 allure.title('Add a video to PiP track')
@@ -42,19 +44,20 @@ class TestTrackLimitation(TestBase):
             self.exception_handler(e, driver, page_main)
 
     @allure.story("Audio Track Limitation")
-    def test_timeline_audio_limitation(self, driver: AppiumU2Driver,
-                                       page_edit, page_main):
+    def test_timeline_audio_track_limitation(self, driver: AppiumU2Driver,
+                                             page_edit, page_main, import_media):
 
         try:
-            # todo: add script
-            pass
+            page_edit.enter_audio_library(audio_type='SFX')
+            import_media.select_music_library()
+            time.sleep(20)
 
         except Exception as e:
             self.exception_handler(e, driver, page_main)
 
     @allure.story("PiP Track Limitation")
-    def test_timeline_video_limitation(self, driver: AppiumU2Driver,
-                                       page_edit, page_main):
+    def test_timeline_video_track_limitation(self, driver: AppiumU2Driver,
+                                             page_edit, page_main):
 
         try:
             pass
