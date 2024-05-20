@@ -23,6 +23,11 @@ def page_edit(driver):
     yield EditPage(driver)
 
 
+@pytest.fixture(scope="class")
+def import_media(driver):
+    yield MediaPage(driver)
+
+
 @pytest.fixture(scope="class", autouse=True)
 def class_setup_teardown(driver: AppiumU2Driver,
                          page_main: MainPage):
