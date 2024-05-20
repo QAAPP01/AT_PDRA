@@ -1,0 +1,47 @@
+05/13/2024 05:24:40 PM <conftest.py> [report_initial](line 62) - report_init, udid=auto
+05/13/2024 05:24:40 PM <conftest.py> [report_initial](line 64) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002019EB2D5D0>
+05/13/2024 05:24:40 PM <conftest.py> [driver](line 93) - **** Debug Mode ****
+05/13/2024 05:24:54 PM <conftest.py> [driver](line 137) - Message: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+    at getResponseForW3CError (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\errors.js:1118:9)
+    at asyncHandler (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\protocol.js:491:57)
+05/13/2024 05:24:54 PM <conftest.py> [driver](line 138) - Remove Appium
+05/13/2024 05:24:56 PM <conftest.py> [driver](line 137) - Message: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+    at getResponseForW3CError (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\errors.js:1118:9)
+    at asyncHandler (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\protocol.js:491:57)
+05/13/2024 05:24:56 PM <conftest.py> [driver](line 138) - Remove Appium
+05/13/2024 05:24:58 PM <conftest.py> [driver](line 137) - Message: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+    at getResponseForW3CError (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\errors.js:1118:9)
+    at asyncHandler (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\protocol.js:491:57)
+05/13/2024 05:24:58 PM <conftest.py> [driver](line 138) - Remove Appium
+05/13/2024 05:24:58 PM <test_sfx_download.py> [init](line 19) - [Start] Init driver session
+05/13/2024 05:30:51 PM <conftest.py> [report_initial](line 62) - report_init, udid=auto
+05/13/2024 05:30:51 PM <conftest.py> [report_initial](line 64) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000002225130F590>
+05/13/2024 05:30:51 PM <conftest.py> [driver](line 93) - **** Debug Mode ****
+05/13/2024 05:30:56 PM <conftest.py> [driver](line 137) - Message: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+    at getResponseForW3CError (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\errors.js:1118:9)
+    at asyncHandler (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\protocol.js:491:57)
+05/13/2024 05:30:56 PM <conftest.py> [driver](line 138) - Remove Appium
+05/13/2024 05:30:58 PM <conftest.py> [driver](line 137) - Message: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+    at getResponseForW3CError (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\errors.js:1118:9)
+    at asyncHandler (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\protocol.js:491:57)
+05/13/2024 05:30:58 PM <conftest.py> [driver](line 138) - Remove Appium
+05/13/2024 05:31:01 PM <conftest.py> [driver](line 137) - Message: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Device R5CT32Q3WQN was not in the list of connected devices
+    at getResponseForW3CError (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\errors.js:1118:9)
+    at asyncHandler (C:\Users\jethro_wang\node_modules\@appium\base-driver\lib\protocol\protocol.js:491:57)
+05/13/2024 05:31:01 PM <conftest.py> [driver](line 138) - Remove Appium
+05/13/2024 05:31:01 PM <test_sfx_download.py> [init](line 19) - [Start] Init driver session
+05/13/2024 05:35:43 PM <conftest.py> [report_initial](line 62) - report_init, udid=auto
+05/13/2024 05:35:43 PM <conftest.py> [report_initial](line 64) - report = <ATFramework_aPDR.ATFramework.utils._report.report.MyReport object at 0x000001BD09673650>
+05/13/2024 05:35:43 PM <conftest.py> [driver](line 93) - **** Debug Mode ****

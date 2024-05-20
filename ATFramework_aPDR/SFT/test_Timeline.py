@@ -12,8 +12,6 @@ from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import REPORT_INSTANCE as report
 from ..ATFramework.drivers.appium_driver import AppiumU2Driver
 
-sys.path.insert(0, (path.dirname(path.dirname(__file__))))
-
 
 @pytest.fixture(scope="class", autouse=True)
 def class_setup_teardown(driver: AppiumU2Driver):
@@ -21,7 +19,7 @@ def class_setup_teardown(driver: AppiumU2Driver):
 
     driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
     driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-    driver.implicit_wait(30) # Wait to app to start
+    driver.implicit_wait(30)  # Wait to app to start
     yield
     driver.driver.stop_recording_screen()
     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
