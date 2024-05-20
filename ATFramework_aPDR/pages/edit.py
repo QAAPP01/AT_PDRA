@@ -632,10 +632,11 @@ class EditPage(BasePage):
         }
         if sticker_type not in sticker_dict:
             logger(f'[Warning] Invalid sticker type "{sticker_type}"')
-            sticker_type = sticker_dict['sticker']
+            sticker_type = 'sticker'
+
         try:
             self.click_tool('Sticker')
-            self.click(find_string(sticker_type[sticker_type]))
+            self.click(find_string(sticker_dict[sticker_type]))
             return True
         except Exception:
             traceback.print_exc()
@@ -668,6 +669,14 @@ class EditPage(BasePage):
             else:
                 return True
         logger("Swipe over the set times, please increase the times setting")
+
+    def waiting_download(self, timeout=120):
+        if self.h_is_exist(L.import_media.media_library.loading_text, 3):
+            if self.h_is_not_exist(L.import_media.media_library.loading_text):
+                return True
+            else:
+                logger("[Warning] downloading timeout")
+                return False
 
 
     def timeline_swipe(self, direction, distance):

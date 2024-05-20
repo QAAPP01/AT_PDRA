@@ -33,8 +33,6 @@ class Test_Scan_Sticker:
             self.page_edit.waiting_download()
 
             assert self.is_exist(L.edit.preview.pip_preview)
-            self.click(L.edit.sticker.close)
-            self.click(L.edit.menu.delete)
 
         except Exception:
             traceback.print_exc()
