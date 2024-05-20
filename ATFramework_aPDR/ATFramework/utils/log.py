@@ -1,6 +1,9 @@
-import logging,logging.handlers,os,inspect,platform
+import inspect
+import logging
+import logging.handlers
+import os
+import platform
 from functools import wraps
-
 
 try:
     os.system('color')
@@ -14,6 +17,8 @@ pattern = dname(dname(dname(__file__))) # [log] -> [ATFramework] -> [Target Fold
 
 if platform.system() == "Windows":
     import ctypes
+
+
     class DbgViewHandler(logging.Handler):
         def emit(self, record):
             ctypes.windll.kernel32.OutputDebugStringW(self.format(record))
@@ -24,14 +29,15 @@ for frame in inspect.stack():
 
 os.makedirs( log_path , exist_ok=True)
 
+
 def set_udid(udid):
     global log_path
-    log_path = "%s/%s" % (log_path, udid)
+    log_path = f"{log_path}/{udid}"
 
-def logger(*msg,function=None,file_name=None,write_to_file=True,line=True):
 
-    if not file_name:
-        file_name = log_path + "/module.log"
+def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_file=True, line=True,
+           log_level: str = 'debug'):
+
     if not function:
         function = inspect.stack()[1].function
         line = inspect.stack()[1].frame.f_lineno
@@ -40,38 +46,72 @@ def logger(*msg,function=None,file_name=None,write_to_file=True,line=True):
         line = inspect.stack()[2].frame.f_lineno
         name = os.path.basename(inspect.stack()[2].filename)
 
-    myMsg = [str(x) for x in msg]
+    def get_color(string):
+        reset = '\033[0m'
+        colors = {
+            'debug': '\033[37m',  # level = 10, gray
+            'info': '\033[97m',  # level = 20, white
+            'warn': '\033[33m',  # level = 30, yellow
+            'error': '\033[31;m',  # level = 40, red
+            'crit': '\033[30;41;1;1m',  # level = 50, black with red background
 
-    if "error" in myMsg[0].lower() or "fail" in myMsg[0].lower():
-        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[91;1;5m %(message)s".format(name, function, line)
-    elif "warning" in myMsg[0].lower():
-        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[93m %(message)s".format(name, function, line)
-    else:
-        cformat_pattern = "\033[37m%(asctime)s \033[92;4;1m<{}>\033[0m \033[96m[{}]\033[93;1m(line {})\033[0m\033[97m %(message)s".format(name, function, line)
+            'time': '\033[92m',
+            'name': '\033[97;4;1m',
+            'function': '\033[96m',
+            'line': '\033[93;1m'
+        }
+        return reset + colors[string]
 
-    format_pattern = "%(asctime)s <{}> [{}](line {}) - %(message)s".format(name,function,line)
-    formatter = logging.Formatter(fmt=format_pattern,datefmt="%m/%d/%Y %I:%M:%S %p")
-    cformatter = logging.Formatter(fmt=cformat_pattern,datefmt="%m/%d/%Y %I:%M:%S %p")
+    match log_level.lower():
+        case 'info':
+            level = logging.INFO
+            color = get_color('info')
+        case 'warn':
+            level = logging.WARN
+            color = get_color('warn')
+        case 'error':
+            level = logging.ERROR
+            color = get_color('error')
+        case 'critical':
+            level = logging.CRITICAL
+            color = get_color('crit')
+        case _:
+            level = logging.DEBUG
+            color = get_color('debug')
+
+    formatter = logging.Formatter(fmt=f"%(asctime)s <{name}> [{function}](line {line}) - %(message)s",
+                                  datefmt="%m/%d/%Y %I:%M:%S %p")
+
     _logger = logging.getLogger("ATFramework")
     if _logger.handlers:
         for hdlr in _logger.handlers[:]:
             _logger.removeHandler(hdlr)
-    _logger.setLevel(logging.DEBUG)
+
     _console = logging.StreamHandler()
-    _console.setLevel(logging.DEBUG) 
-    _console.setFormatter(cformatter)
-    _logger.addHandler(_console)
-    ft_rotating = logging.handlers.TimedRotatingFileHandler(file_name,when="D",interval=1,backupCount=0,delay=True)
-    ft_rotating.setLevel(logging.DEBUG) #file_time_rotating
+    _console.setLevel(level)
+    _console.setFormatter(logging.Formatter(fmt=f"{get_color('time')}%(asctime)s "
+                                                f"{get_color('name')}<{name}> "
+                                                f"{get_color('function')}[{function}] "
+                                                f"{get_color('line')}(line {line}) "
+                                                f"{color} %(message)s",
+                                            datefmt="%m/%d/%Y %I:%M:%S %p"))
+
+    ft_rotating = logging.handlers.TimedRotatingFileHandler(file_name, when="D", interval=1, backupCount=0, delay=True)
+    ft_rotating.setLevel(level)  # file_time_rotating
     ft_rotating.setFormatter(formatter)
+
+    _logger.setLevel(level)
+    _logger.addHandler(_console)
     _logger.addHandler(ft_rotating)
+
     if platform.system() == "Windows":
         dbw = DbgViewHandler()
-        dbw.setLevel(logging.DEBUG)
+        dbw.setLevel(level)
         dbw.setFormatter(formatter)
         _logger.addHandler(dbw)
 
-    _logger.debug(str(*myMsg))
+    myMsg = [str(x) for x in msg]
+    _logger.log(level, str(*myMsg))
     ft_rotating.close()
     
     
