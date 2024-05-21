@@ -6,7 +6,6 @@ import os
 import pytest
 import sys
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.pages.page_factory import PageFactory
 from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
@@ -83,9 +82,9 @@ def driver():
 
     if debug_mode:
         logger('**** Debug Mode ****')
-        desired_caps['udid'] = 'R5CT32Q3WQN'
+        desired_caps['udid'] = 'R5CT21VMV6P'
         if desired_caps['udid'] not in os.popen('adb devices').read():
-            desired_caps['udid'] = 'R5CW31G76ST'
+            desired_caps['udid'] = 'R5CT21VMV6P'
             # desired_caps['udid'] = '9596423546005V8'
 
         mode = 'debug'
@@ -152,11 +151,11 @@ def driver_init(driver):
 
 @pytest.fixture(scope="session")
 def shortcut(driver):
-    page_main = PageFactory().get_page_object("main_page", driver)
-    page_edit = PageFactory().get_page_object("edit", driver)
-    page_media = PageFactory().get_page_object("import_media", driver)
-    page_preference = PageFactory().get_page_object("timeline_settings", driver)
-    return page_main, page_edit, page_media, page_preference
+    from ATFramework_aPDR.pages.edit import EditPage
+    from ATFramework_aPDR.pages.import_media import MediaPage
+    from ATFramework_aPDR.pages.main_page import MainPage
+    from ATFramework_aPDR.pages.timeline_settings import TimelineSettingsPage
+    return MainPage(driver), EditPage(driver), MediaPage(driver), TimelineSettingsPage(driver)
 
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
