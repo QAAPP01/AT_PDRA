@@ -82,9 +82,11 @@ def driver():
 
     if debug_mode:
         logger('**** Debug Mode ****')
-        desired_caps['udid'] = 'R5CT21VMV6P'
+        desired_caps['udid'] = '0B211JEC210389'
         if desired_caps['udid'] not in os.popen('adb devices').read():
-            desired_caps['udid'] = 'R5CT21VMV6P'
+            desired_caps['udid'] = '0B211JEC210389'
+            # S22 = 0B211JEC210389
+            # P4a = R5CT21VMV6P
             # desired_caps['udid'] = '9596423546005V8'
 
         mode = 'debug'
@@ -144,9 +146,9 @@ def driver():
 @pytest.fixture(scope='class', autouse=True)
 def driver_init(driver):
     logger("[Start] Init driver session")
-    driver.driver.launch_app()
+    driver.activate_app(package_name)
     yield
-    driver.driver.close_app()
+    driver.stop_app(package_name)
 
 
 @pytest.fixture(scope="session")

@@ -14,14 +14,9 @@ def import_media(driver):
 
 
 @pytest.fixture(scope="class", autouse=True)
-def class_setup_teardown(driver: AppiumU2Driver,
-                         page_main: MainPage):
-
+def class_setup_teardown(driver: AppiumU2Driver):
     # driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
     driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-    page_main.enter_launcher()
-    page_main.subscribe()
-    page_main.enter_timeline()
     # Will open to main menu
     yield
     # driver.driver.stop_recording_screen()
