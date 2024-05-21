@@ -18,7 +18,7 @@ class Test_Template:
     def initial(self):
         # ---- local mode ---
         from .conftest import DRIVER_DESIRED_CAPS
-        from .conftest import REPORT_INSTANCE
+        
         global report
         print('Init. driver session')
         print('DRIVER_CAPS=', DRIVER_DESIRED_CAPS)
@@ -28,7 +28,7 @@ class Test_Template:
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = REPORT_INSTANCE
+        self.
         # ---- local mode > end ----
                                                               
         # retry 3 time if craete driver fail

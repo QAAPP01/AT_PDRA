@@ -74,7 +74,6 @@ def driver():
     from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
     from ATFramework_aPDR.configs import app_config
     from ATFramework_aPDR.configs import driver_config
-    from main_server_sacn import deviceName
 
     driver = None
     desired_caps = {}
@@ -129,8 +128,8 @@ def driver():
         except Exception as e:
             logger(e)
             logger("Remove Appium")
-            os.system(f"adb -s {deviceName} shell pm uninstall io.appium.settings")
-            os.system(f"adb -s {deviceName} shell pm uninstall io.appium.uiautomator2.server")
+            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.settings")
+            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.uiautomator2.server")
             retry -= 1
 
     yield driver
@@ -186,3 +185,16 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
 
     with open('summary.json', 'w') as f:
         json.dump(summary, f)
+
+# === Logging fixture ===
+
+@pytest.fixture(scope='class', autouse=True)
+def log_class_start(request):
+    logger(f"\n[Start] Class: {request.node.cls.__name__}", log_level='info')
+    yield
+    logger(f"\n[End] Class: {request.node.cls.__name__}", log_level='info')
+
+
+@pytest.fixture(autouse=True)
+def log_function_test(request):
+    logger(f"\n[Start] Function: {request.node.name}", log_level='info')

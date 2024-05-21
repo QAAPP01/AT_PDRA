@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -131,7 +131,7 @@ class Test_Edit_Pip_Video:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -142,7 +142,7 @@ class Test_Edit_Pip_Video:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -150,14 +150,14 @@ class Test_Edit_Pip_Video:
             self.page_edit.add_pip_media('video', test_material_folder, video_9_16)
 
             if self.is_exist(L.edit.pip.clip()):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Clip is not exist')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -171,7 +171,7 @@ class Test_Edit_Pip_Video:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             x = self.element(L.edit.pip.clip()).rect['width']//2
@@ -179,14 +179,14 @@ class Test_Edit_Pip_Video:
             self.page_edit.click_sub_tool('Split')
 
             if self.is_exist(L.edit.pip.clip(2)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] 2nd Clip is not exist')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -197,7 +197,7 @@ class Test_Edit_Pip_Video:
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_case(self):
         for func in dir(self):
             if func.startswith('sce_'):

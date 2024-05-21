@@ -12,10 +12,10 @@ import time
 from pages.locator import locator as L
 from pages.locator.locator_type import *
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
-report = REPORT_INSTANCE
+
 
 pdr_package = PACKAGE_NAME
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -48,7 +48,7 @@ class Test_sce_04_01_01:
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
                                                               
         # retry 3 time if craete driver fail
@@ -81,7 +81,7 @@ class Test_sce_04_01_01:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_01(self):
         main = self.main_page
         import_media = self.import_media
@@ -105,9 +105,9 @@ class Test_sce_04_01_01:
         
         # block 24 fps + 1080p
         _start('e5bb9c90-a7d6-48ad-9922-df9643a79dd0')
-        produce.click(L.produce.facebook.setting)
-        produce.setting.set_bitrate(SMALLER_SIZE)
-        produce.setting.set_framerate(FPS_24)
+        produce.click(L.produce.facebook.preference)
+        produce.preference.set_bitrate(SMALLER_SIZE)
+        produce.preference.set_framerate(FPS_24)
         produce.click(L.produce.facebook.setting_page.ok)
         result_lock_1080p_24fps = produce.is_exist(L.produce.facebook.fhd_lock)
         _end('e5bb9c90-a7d6-48ad-9922-df9643a79dd0',result_lock_1080p_24fps)
@@ -119,9 +119,9 @@ class Test_sce_04_01_01:
         
         # BETTER_QUALITY + FPS_30
         _start('52f82180-1a98-43ff-aeab-c15485fd8f3a')
-        produce.click(L.produce.facebook.setting)
-        produce.setting.set_bitrate(BETTER_QUALITY)
-        produce.setting.set_framerate(FPS_30)
+        produce.click(L.produce.facebook.preference)
+        produce.preference.set_bitrate(BETTER_QUALITY)
+        produce.preference.set_framerate(FPS_30)
         produce.click(L.produce.facebook.setting_page.ok)
         produce.click(L.produce.facebook.next)
         #produce.exist_click(L.main.subscribe.back_btn,3)
@@ -141,9 +141,9 @@ class Test_sce_04_01_01:
         # SD + STANDARD + FPS_60
         _start('330116a5-370b-4de0-86a3-eb4199beb282')
         produce.set_resolution(SD)
-        produce.click(L.produce.facebook.setting)
-        produce.setting.set_bitrate(STANDARD)
-        produce.setting.set_framerate(FPS_60)
+        produce.click(L.produce.facebook.preference)
+        produce.preference.set_bitrate(STANDARD)
+        produce.preference.set_framerate(FPS_60)
         produce.click(L.produce.facebook.setting_page.ok)
         produce.click(L.produce.facebook.next)
         #produce.exist_click(L.main.subscribe.back_btn,3)
@@ -153,7 +153,7 @@ class Test_sce_04_01_01:
         
         
     #@pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_02(self):
         main = self.main_page
         import_media = self.import_media
@@ -178,9 +178,9 @@ class Test_sce_04_01_01:
         # HD +  small + FPS_60
         _start('080e9f6b-1be8-4975-baf6-edfd47d91e9f')
         produce.set_resolution(HD)
-        produce.click(L.produce.facebook.setting)
-        produce.setting.set_bitrate(SMALLER_SIZE)
-        produce.setting.set_framerate(FPS_60)
+        produce.click(L.produce.facebook.preference)
+        produce.preference.set_bitrate(SMALLER_SIZE)
+        produce.preference.set_framerate(FPS_60)
         produce.click(L.produce.facebook.setting_page.ok)
         produce.click(L.produce.facebook.next)
         #produce.exist_click(L.main.subscribe.back_btn,3)
@@ -201,9 +201,9 @@ class Test_sce_04_01_01:
         logger("sd +  better + FPS_30")
         _start('9ba6d5e8-eade-4fcc-8bcd-7b8d25d18f08')
         produce.set_resolution(SD)
-        produce.click(L.produce.facebook.setting)
-        produce.setting.set_bitrate(BETTER_QUALITY)
-        produce.setting.set_framerate(FPS_30)
+        produce.click(L.produce.facebook.preference)
+        produce.preference.set_bitrate(BETTER_QUALITY)
+        produce.preference.set_framerate(FPS_30)
         produce.click(L.produce.facebook.setting_page.ok)
         produce.click(L.produce.facebook.next)
         #produce.exist_click(L.main.subscribe.back_btn,3)
@@ -225,9 +225,9 @@ class Test_sce_04_01_01:
         # hd + smaller + FPS_24
         _start('d9f93608-7882-435b-8ff7-0a9e36e072d1')
         produce.set_resolution(HD)
-        produce.click(L.produce.facebook.setting)
-        produce.setting.set_bitrate(SMALLER_SIZE)
-        produce.setting.set_framerate(FPS_24)
+        produce.click(L.produce.facebook.preference)
+        produce.preference.set_bitrate(SMALLER_SIZE)
+        produce.preference.set_framerate(FPS_24)
         produce.click(L.produce.facebook.setting_page.ok)
         produce.click(L.produce.facebook.next)
         #produce.exist_click(L.main.subscribe.back_btn,3)
@@ -238,7 +238,7 @@ class Test_sce_04_01_01:
         
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_03(self):
         """
             Implement it on product release build.
@@ -247,7 +247,7 @@ class Test_sce_04_01_01:
         """
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_04(self):
         """
             Implement it on product release build.
@@ -256,7 +256,7 @@ class Test_sce_04_01_01:
         """
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_05(self):
         main = self.main_page
         import_media = self.import_media
@@ -283,7 +283,7 @@ class Test_sce_04_01_01:
         #produce.exist_click(L.main.subscribe.back_btn,3)
         produce.close_produce_page()
         #result_finish_upload = produce.is_exist(L.produce.tab.cloud)
-        result_finish_upload = produce.is_exist(L.main.project.new)
+        result_finish_upload = produce.is_exist(L.launcher.project.new)
         _end('b83f975b-d3e6-4d83-b6d1-13b3cb9582a7',result_finish_upload)
 
 '''        

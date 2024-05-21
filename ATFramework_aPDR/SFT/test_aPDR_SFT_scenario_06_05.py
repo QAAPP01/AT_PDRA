@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_06_05:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_06_05:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_05_01(self):
         logger('>>> test_sce_06_05_01 : Sample Projects <<<')
         media_list = ['01_static.mp4']
@@ -83,7 +83,7 @@ class Test_SFT_Scenario_06_05:
         self.report.start_uuid('79a75a2c-9892-47f7-8239-614f75b47cf8')
         time.sleep(5)
         page_main.swipe_main_page('up', 1)
-        result = page_main.is_exist(L.main.sample_projects.list)
+        result = page_main.is_exist(L.launcher.sample_projects.list)
         self.report.new_result('79a75a2c-9892-47f7-8239-614f75b47cf8', result)
 
         self.report.start_uuid('c0591c2d-ce72-435e-992d-45caa3ebafbe')
@@ -110,6 +110,6 @@ class Test_SFT_Scenario_06_05:
         self.report.start_uuid('10bb663b-71ef-4b51-9dc2-01b5be71acce')
         page_edit.click(L.edit.menu.produce)
         time.sleep(5)
-        result = True if page_edit.is_exist(L.main.subscribe.back_btn) else False
+        result = True if page_edit.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('10bb663b-71ef-4b51-9dc2-01b5be71acce', result)
 

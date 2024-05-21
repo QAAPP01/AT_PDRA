@@ -199,7 +199,7 @@ class EditPage(BasePage):
             if self.h_is_exist(L.main.premium.pdr_premium, 1):
                 self.driver.driver.back()
 
-            if self.is_exist(L.main.main.new_project):
+            if self.is_exist(L.main.launcher.new_project):
                 return True
             else:
                 raise Exception('No new_project')
@@ -672,7 +672,7 @@ class EditPage(BasePage):
 
     def waiting_download(self, timeout=120):
         if self.h_is_exist(L.import_media.media_library.loading_text, 3):
-            if self.h_is_not_exist(L.import_media.media_library.loading_text):
+            if self.h_is_not_exist(L.import_media.media_library.loading_text, timeout):
                 return True
             else:
                 logger("[Warning] downloading timeout")
@@ -2073,7 +2073,7 @@ class EditPage(BasePage):
         try:
             elm = self.el(L.edit.edit_sub.bottom_edit_menu)
             item = elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]/..')
-            apply_icon = item.find_element('xpath', "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
+            apply_icon = item.find_elements('xpath', "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
             # logger(f'apply_icon = {apply_icon}')
             if apply_icon != []:
                 logger('Found applied icon!')

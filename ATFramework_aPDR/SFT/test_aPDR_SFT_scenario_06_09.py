@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 add_package = 'com.cyberlink.addirector'
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_06_09:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_06_09:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_09_01(self):
         logger('>>> test_sce_06_09_01 : Premium Link/Icon <<<')
         media_list = ['01_static.mp4']
@@ -109,13 +109,13 @@ class Test_SFT_Scenario_06_09:
         self.report.start_uuid('768c75d8-3b26-45d3-b3df-cc8929b19d72')
         page_edit.click(L.edit.menu.effect)
         time.sleep(5)
-        result = page_edit.is_exist(L.main.premium.icon_library_lock)
+        result = page_edit.is_exist(L.launcher.premium.icon_library_lock)
         self.report.new_result('768c75d8-3b26-45d3-b3df-cc8929b19d72', not result)        
         
         self.report.start_uuid('8e05043a-c017-4629-b83e-f3805e754ba2')
         page_edit.timeline_select_item_by_index_on_track(1, 1)
         time.sleep(5)
-        result = page_edit.is_exist(L.main.premium.icon_tool_premium)
+        result = page_edit.is_exist(L.launcher.premium.icon_tool_premium)
         self.report.new_result('8e05043a-c017-4629-b83e-f3805e754ba2', not result)
         
         self.report.start_uuid('c7055132-f723-4662-829f-eec0deef15ec')

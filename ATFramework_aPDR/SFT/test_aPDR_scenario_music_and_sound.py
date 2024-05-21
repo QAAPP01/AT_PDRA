@@ -12,11 +12,11 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
-report = REPORT_INSTANCE
+
 
 pdr_package = PACKAGE_NAME
 
@@ -35,7 +35,7 @@ class Test_SFT_Scenario_Music_and_Sound_Clips:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -66,7 +66,7 @@ class Test_SFT_Scenario_Music_and_Sound_Clips:
         self.driver.stop_driver()
 
     #@pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_music(self):
         #self.report.start_uuid('')
         media_list = ['slow_motion.mp4', 'png.png']
@@ -78,7 +78,7 @@ class Test_SFT_Scenario_Music_and_Sound_Clips:
         project_title = '16_9'
         page_main.reset_project_list(self.device_udid, pdr_package, project_title)
         page_main.select_existed_project_by_title(project_title)
-        page_main.el(L.main.project_info.btn_edit_project).click()
+        page_main.el(L.launcher.project_info.btn_edit_project).click()
         page_edit.el(L.edit.menu.import_media).click()
         page_media.switch_to_music_library()
         page_media.select_media_by_text('Music')
@@ -187,7 +187,7 @@ class Test_SFT_Scenario_Music_and_Sound_Clips:
         self.report.add_result(udid[0], True if result >= 23 else False, 'sce_music' ,f'Amount = {result}')     
                 
     #@pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_sound(self):
         
         media_list = ['png.png']
@@ -200,7 +200,7 @@ class Test_SFT_Scenario_Music_and_Sound_Clips:
         project_title = '16_9'
         page_main.reset_project_list(self.device_udid, pdr_package, project_title)
         page_main.select_existed_project_by_title(project_title)
-        page_main.el(L.main.project_info.btn_edit_project).click()
+        page_main.el(L.launcher.project_info.btn_edit_project).click()
         page_edit.el(L.edit.menu.import_media).click()
         # page_media.switch_to_music_library()
         page_media.switch_to_sound_clips_library()

@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 add_package = 'com.cyberlink.addirector'
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_06_11:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_06_11:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_11_01(self):
         logger('>>> test_sce_06_11_01 : GettyImages Premium <<<')
         media_list = ['01_static.mp4']
@@ -235,7 +235,7 @@ class Test_SFT_Scenario_06_11:
         
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_11_02(self):
         logger('>>> test_sce_06_11_02 : Stock Video Filter <<<')
         media_list = ['01_static.mp4']
@@ -1412,7 +1412,7 @@ class Test_SFT_Scenario_06_11:
         page_main.sign_out_cyberlink_account()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_11_03(self):
         logger('>>> test_sce_06_11_03 : GettyImages Premium for Free User<<<')
         media_list = ['01_static.mp4']

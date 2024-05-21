@@ -13,10 +13,10 @@ import os
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
-report = REPORT_INSTANCE
+
 
 pdr_package = PACKAGE_NAME
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -93,7 +93,7 @@ class Test_TemplateScan_00:
         #self.driver.stop_app(pdr_package)
 
     #@pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_00_01_01a(self):
         logger('[V] Install and reset app')
         self.driver.remove_app(pdr_package)
@@ -106,7 +106,7 @@ class Test_TemplateScan_01:
     def setup_class(cls):
         # ---- local mode ---
         from .conftest import DRIVER_DESIRED_CAPS
-        from .conftest import REPORT_INSTANCE
+        
         global report
         logger('\n============<Init driver session>============')
         print('DRIVER_CAPS=', DRIVER_DESIRED_CAPS)
@@ -118,7 +118,7 @@ class Test_TemplateScan_01:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        cls.report = REPORT_INSTANCE
+        cls.
         # ---- local mode > end ----
         cls.test_material_folder = test_material_folder
         cls.driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
@@ -147,16 +147,16 @@ class Test_TemplateScan_01:
         page_main = PageFactory().get_page_object("main_page", self.driver)
         logger('[V] Set Permission')
         logger('[Permission] Confirm GDPR')
-        if page_main.exist_click(L.main.permission.gdpr_accept,5): # Android version  < 6 or locate in EU
+        if page_main.exist_click(L.launcher.permission.gdpr_accept, 5): # Android version  < 6 or locate in EU
             logger("[Permission] GDPR found and closed")
-        page_main.is_exist(L.main.permission.file_ok, 120)
-        page_main.el(L.main.permission.file_ok).click()
-        page_main.el(L.main.permission.photo_allow).click()
+        page_main.is_exist(L.launcher.permission.file_ok, 120)
+        page_main.el(L.launcher.permission.file_ok).click()
+        page_main.el(L.launcher.permission.photo_allow).click()
         page_main.check_open_tutorial()
     
     # @pytest.mark.skip
     @pytest.mark.usefixtures('set_permission')
-    @report.exception_screenshot
+    
     def test_sce_00_01_01(self):
         
         page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -651,7 +651,7 @@ class Test_TemplateScan_01:
 
     # @pytest.mark.skip
     # @pytest.mark.usefixtures('set_permission')
-    @report.exception_screenshot
+    
     def test_sce_00_01_02(self):
 
         global current_template

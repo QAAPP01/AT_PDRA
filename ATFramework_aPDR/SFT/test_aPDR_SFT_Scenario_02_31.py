@@ -16,7 +16,7 @@ import pytest
 import time
 
 from main import deviceName
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
@@ -24,7 +24,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage, HCompar
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 class Test_SFT_Scenario_02_31:
@@ -34,7 +34,7 @@ class Test_SFT_Scenario_02_31:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
         self.test_material_folder = TEST_MATERIAL_FOLDER
         self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
@@ -50,14 +50,14 @@ class Test_SFT_Scenario_02_31:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
 
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def sce_02_31_01_to_22(self):
         try:
             result = {}
@@ -65,7 +65,7 @@ class Test_SFT_Scenario_02_31:
             item_id = '02_31_01'
             uuid = 'd842fce8-5196-462a-8855-18f2f8b781ae'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
@@ -76,13 +76,13 @@ class Test_SFT_Scenario_02_31:
             first_category = self.page_main.h_get_element(L.edit.pip.Text.font_category(1))
             result[item_id] = first_category.text == "Favorites"
 
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_02'
             uuid = '4575e6fa-f2b6-4ed9-a1e6-4c72dcac40d8'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             first_category.click()
             favorite_message = self.page_main.h_get_element(L.edit.pip.Text.font_favorite_message).text
@@ -91,26 +91,26 @@ class Test_SFT_Scenario_02_31:
             if not result[item_id]:
                 logger(f'\n[Fail] favorite_message = {favorite_message}')
 
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_03'
             uuid = '46f626d9-bc0d-4260-b9c5-78dd09f76901'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             second_category = self.page_main.h_get_element(L.edit.pip.Text.font_category(2))
 
             result[item_id] = second_category.text == "All"
             if not result[item_id]:
                 logger(f'\n[Fail] second_category.text = {second_category.text}')
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_04'
             uuid = 'e193799e-09d7-4ad1-8845-895fbca2d298'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             def find_category(category):
                 while 1:
@@ -129,31 +129,31 @@ class Test_SFT_Scenario_02_31:
                 return find_category_result
 
             result[item_id] = find_category("Handwriting")
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_05'
             uuid = '43012949-2010-439b-959d-f98515235ec2'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             result[item_id] = find_category("Calligraphy")
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_06'
             uuid = 'fa86261b-d4c2-4284-aa86-da8ac7a97b9a'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             result[item_id] = find_category("Monospace")
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_09'
             uuid = 'eb256f5c-a43c-4c49-8c81-da25b09442e7'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             font_categories = self.page_main.h_get_elements(L.edit.pip.Text.font_category(0))
             while 1:
@@ -165,22 +165,22 @@ class Test_SFT_Scenario_02_31:
                     break
 
             result[item_id] = last == "From Files"
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_07'
             uuid = 'ab60335c-2f54-47a1-a229-873882325b7c'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             result[item_id] = font_categories[-2].text == "System Fonts"
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_08'
             uuid = '1a2d0245-9372-4464-bafe-83cc98c44fb5'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             font_categories[-2].click()
             system_font = "AndroidClock Regular"
@@ -212,13 +212,13 @@ class Test_SFT_Scenario_02_31:
                             continue
 
             result[item_id] = font_result
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_10'
             uuid = '1bb358ad-0552-4836-8ebd-399d8475e7db'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.pip.Text.font_import)
             import_font_name = "Raleway-Regular.ttf"
@@ -231,13 +231,13 @@ class Test_SFT_Scenario_02_31:
             result[item_id] = self.page_main.h_is_exist(find_string(imported_font))
             if not result[item_id]:
                 logger(f"\n[Fail] imported_font = {imported_font}")
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_11'
             uuid = '0b280a2f-2268-4c71-9f7d-a4d96059429d'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             selected_categories = self.elements(xpath('//*[contains(@resource-id, "item_category_selected")]'))
             last_category_selected = selected_categories[-1].get_attribute("selected")
@@ -245,21 +245,21 @@ class Test_SFT_Scenario_02_31:
             result[item_id] = last_category_selected == "true"
             if not result[item_id]:
                 logger(f"\n[Fail] last_category_selected = {last_category_selected}")
-            self.report.new_result(uuid, result[item_id])
+            
 
             item_id = '02_31_12'
             uuid = '1b6603e6-67dd-408f-a283-8d8a754f2c3e'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_main.h_long_press(find_string(imported_font))
             result[item_id] = self.page_main.h_is_exist(find_string("Added to Favorites."), 5)
-            self.report.new_result(uuid, result[item_id])
+            
 
             item_id = '02_31_13'
             uuid = 'e37adc83-eafc-43b4-b432-1460d167fa23'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             # Scroll back to Favorites
             while 1:
@@ -285,21 +285,21 @@ class Test_SFT_Scenario_02_31:
                 result_display_in_favorites = favorite_first.text == imported_font
 
             result[item_id] = result_display_in_favorites
-            self.report.new_result(uuid, result[item_id])
+            
 
             item_id = '02_31_14'
             uuid = '77456912-5af1-498e-b7ff-35b9f437a148'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_main.h_long_press(L.edit.pip.Text.font_name(1))
             result[item_id] = self.page_main.h_is_exist(find_string("Removed from Favorites."))
-            self.report.new_result(uuid, result[item_id])
+            
 
             item_id = '02_31_15'
             uuid = '7ab428d3-948d-4399-a187-b0cc56d469d3'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             if favorite_first:
                 if not self.page_main.h_is_exist(find_string(imported_font), 1):
@@ -311,13 +311,13 @@ class Test_SFT_Scenario_02_31:
                 result[item_id] = False
                 logger('[Error] Cannot find the font in "Favorites"')
 
-            self.report.new_result(uuid, result[item_id])
+            
 
 
             item_id = '02_31_16'
             uuid = 'e06b4242-05c8-45f8-8e4b-643b5b3d17dd'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(xpath('(//*[contains(@resource-id, "category_name")])[2]'))
             self.click(L.edit.pip.Text.font_filter)
@@ -327,12 +327,12 @@ class Test_SFT_Scenario_02_31:
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_31', '02_31_16.png')
 
             result[item_id] = True if HCompareImg(pic_base, pic_after).full_compare() > 0.97 else False
-            self.report.new_result(uuid, result[item_id])
+            
 
             item_id = '02_31_17'
             uuid = 'b08c5b67-0188-4053-b7a2-6d8fa3bc6bdb'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.pip.Text.font_filter)
             self.click(find_string("Traditional Chinese"))
@@ -353,12 +353,12 @@ class Test_SFT_Scenario_02_31:
             result[item_id] = result_cht and result_chs
             if not result[item_id]:
                 logger(f'[Fail] result_cht = {result_cht}, result_chs = {result_chs}')
-            self.report.new_result(uuid, result[item_id])
+            
 
             item_id = '02_31_18'
             uuid = 'b8dfe1e3-c31a-499b-a3d9-ae2d7099e9a4'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.pip.Text.font_filter)
             while not self.click(find_string("Japanese")):
@@ -368,12 +368,12 @@ class Test_SFT_Scenario_02_31:
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_31', '02_31_18.png')
 
             result[item_id] = True if HCompareImg(pic_base, pic_after).full_compare() > 0.97 else False
-            self.report.new_result(uuid, result[item_id])
+            
 
             item_id = '02_31_19'
             uuid = 'e285b0b4-2583-4cdd-aad0-5288cea39dbd'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.pip.Text.font_filter)
             while not self.click(find_string("Korean")):
@@ -383,24 +383,24 @@ class Test_SFT_Scenario_02_31:
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_31', '02_31_19.png')
 
             result[item_id] = True if HCompareImg(pic_base, pic_after).full_compare() > 0.97 else False
-            self.report.new_result(uuid, result[item_id])
+            
 
             item_id = '02_31_20'
             uuid = 'fdb62dd0-2663-4d54-bf40-77399dabf441'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.pip.Text.back)
             self.page_edit.click_sub_tool("Font")
 
             result[item_id] = self.page_main.h_is_exist(find_string("Recently used"))
-            self.report.new_result(uuid, result[item_id])
+            
 
             # Case
             item_id = '02_31_21'
             uuid = '9296361c-87ef-415c-925c-f7550fab83da'
             logger(f"\n[Start] sce_{item_id}")
-            self.report.start_uuid(uuid)
+            
 
             # Check highlighted category is All
             highlight_frame = self.elements(xpath('//*[contains(@resource-id, "item_category_selected")]'))
@@ -426,7 +426,7 @@ class Test_SFT_Scenario_02_31:
             result[item_id] = result_highlight and result_other_no_recently_used
             if not result[item_id]:
                 logger(f'[Fail] result_highlight = {result_highlight}, result_other_no_recently_used = {result_other_no_recently_used}')
-            self.report.new_result(uuid, result[item_id])
+            
 
             result['2_31_22'] = self.sce_2_31_22()
 
@@ -435,7 +435,7 @@ class Test_SFT_Scenario_02_31:
             # item_id = '02_31_22'
             # uuid = 'a441348c-7fc0-4b90-a0bf-b7672dc50e3b'
             # logger(f"\n[Start] sce_{item_id}")
-            # self.report.start_uuid(uuid)
+            # 
             #
             # for i in range(4):
             #     self.click(L.edit.pip.Text.font_category(3))
@@ -453,7 +453,7 @@ class Test_SFT_Scenario_02_31:
             # else:
             #     result[item_id] = False
             #     logger(f'[Fail] 5th font name = {self.element(L.edit.pip.Text.font_name(5)).text}')
-            # self.report.new_result(uuid, result[item_id])
+            # 
 
             # Ending
             pprint(result)
@@ -464,7 +464,7 @@ class Test_SFT_Scenario_02_31:
     def sce_2_31_22(self):
         uuid = 'a441348c-7fc0-4b90-a0bf-b7672dc50e3b'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             for i in range(4):
@@ -486,11 +486,11 @@ class Test_SFT_Scenario_02_31:
                 self.page_edit.click_sub_tool("Font")
 
             if self.element(L.edit.pip.Text.font_name(5)).text == "Default":
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] 5th font name = {self.element(L.edit.pip.Text.font_name(5)).text}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
         except Exception as err:
             logger(f'\n{err}')

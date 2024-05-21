@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -69,7 +69,7 @@ class Test_Edit_Master_Filter:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -88,7 +88,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -96,7 +96,7 @@ class Test_Edit_Master_Filter:
             self.page_edit.add_master_media('video', test_material_folder, video_9_16)
 
             if self.page_edit.enter_sub_tool('Filter'):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter Filter')
@@ -104,7 +104,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -120,7 +120,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.before_filter = self.page_edit.get_preview_pic()
@@ -129,7 +129,7 @@ class Test_Edit_Master_Filter:
             self.click(L.edit.sub_tool.filter.edit)
 
             if self.is_exist(L.edit.sub_tool.filter.slider):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] No slider')
@@ -137,7 +137,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -157,13 +157,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             slider = self.element(L.edit.sub_tool.filter.slider)
 
             if float(slider.text) == 100:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider.text}')
@@ -171,7 +171,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -191,13 +191,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.after_filter = self.page_edit.get_preview_pic()
 
             if not HCompareImg(self.after_filter, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -205,7 +205,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -226,14 +226,14 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min()
             slider = self.element(L.edit.sub_tool.filter.slider)
 
             if float(slider.text) == 0:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider.text}')
@@ -241,7 +241,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -262,13 +262,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.value_0 = self.page_edit.get_preview_pic()
 
             if not HCompareImg(self.value_0, self.after_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -276,7 +276,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -298,14 +298,14 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max()
             slider = self.element(L.edit.sub_tool.filter.slider)
 
             if float(slider.text) == 100:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider.text}')
@@ -313,7 +313,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -334,13 +334,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.value_100 = self.page_edit.get_preview_pic()
 
             if not HCompareImg(self.value_100, self.value_0).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -348,7 +348,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -369,7 +369,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             action_chains = ActionChains(self.driver.driver)
@@ -381,7 +381,7 @@ class Test_Edit_Master_Filter:
             self.click(L.edit.sub_tool.filter.item(1))
 
             if HCompareImg(pic_compare, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is not original')
@@ -389,7 +389,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -411,14 +411,14 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.sub_tool.filter.compare)
             pic_release = self.page_edit.get_preview_pic()
 
             if HCompareImg(pic_release, self.value_100).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is not resumed')
@@ -426,7 +426,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -445,14 +445,14 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.sub_tool.filter.cancel)
             pic_cancel = self.page_edit.get_preview_pic()
 
             if HCompareImg(pic_cancel, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is changed')
@@ -460,7 +460,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -475,7 +475,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.enter_sub_tool('Filter')
@@ -485,7 +485,7 @@ class Test_Edit_Master_Filter:
             pic_apply = self.page_edit.get_preview_pic()
 
             if not HCompareImg(pic_apply, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is not changed')
@@ -493,7 +493,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -512,7 +512,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.enter_sub_tool('Filter')
@@ -521,7 +521,7 @@ class Test_Edit_Master_Filter:
             pic_none = self.page_edit.get_preview_pic()
 
             if HCompareImg(pic_none, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is changed')
@@ -529,7 +529,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -544,7 +544,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.add_master_media('video', test_material_folder, video_9_16)
@@ -564,7 +564,7 @@ class Test_Edit_Master_Filter:
 
                 self.click(L.edit.sub_tool.filter.cancel)
 
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Filter is not applied')
@@ -572,7 +572,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -586,13 +586,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
 
             if self.page_edit.enter_sub_tool('Filter'):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter Filter')
@@ -600,7 +600,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -616,7 +616,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.before_filter = self.page_edit.get_preview_pic()
@@ -625,7 +625,7 @@ class Test_Edit_Master_Filter:
             self.click(L.edit.sub_tool.filter.edit)
 
             if self.is_exist(L.edit.sub_tool.filter.slider):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] No slider')
@@ -633,7 +633,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -653,13 +653,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             slider = self.element(L.edit.sub_tool.filter.slider)
 
             if float(slider.text) == 100:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider.text}')
@@ -667,7 +667,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -687,13 +687,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.after_filter = self.page_edit.get_preview_pic()
 
             if not HCompareImg(self.after_filter, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -701,7 +701,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -722,14 +722,14 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min()
             slider = self.element(L.edit.sub_tool.filter.slider)
 
             if float(slider.text) == 0:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider.text}')
@@ -737,7 +737,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -758,13 +758,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.value_0 = self.page_edit.get_preview_pic()
 
             if not HCompareImg(self.value_0, self.after_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -772,7 +772,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -794,14 +794,14 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max()
             slider = self.element(L.edit.sub_tool.filter.slider)
 
             if float(slider.text) == 100:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider.text}')
@@ -809,7 +809,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -830,13 +830,13 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.value_100 = self.page_edit.get_preview_pic()
 
             if not HCompareImg(self.value_100, self.value_0).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -844,7 +844,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -865,7 +865,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             action_chains = ActionChains(self.driver.driver)
@@ -877,7 +877,7 @@ class Test_Edit_Master_Filter:
             self.click(L.edit.sub_tool.filter.item(1))
 
             if HCompareImg(pic_compare, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is not original')
@@ -885,7 +885,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -907,14 +907,14 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.sub_tool.filter.compare)
             pic_release = self.page_edit.get_preview_pic()
 
             if HCompareImg(pic_release, self.value_100).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is not resumed')
@@ -922,7 +922,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -941,14 +941,14 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.sub_tool.filter.cancel)
             pic_cancel = self.page_edit.get_preview_pic()
 
             if HCompareImg(pic_cancel, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is changed')
@@ -956,7 +956,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -971,7 +971,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.enter_sub_tool('Filter')
@@ -981,7 +981,7 @@ class Test_Edit_Master_Filter:
             pic_apply = self.page_edit.get_preview_pic()
 
             if not HCompareImg(pic_apply, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is not changed')
@@ -989,7 +989,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1008,7 +1008,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.enter_sub_tool('Filter')
@@ -1017,7 +1017,7 @@ class Test_Edit_Master_Filter:
             pic_none = self.page_edit.get_preview_pic()
 
             if HCompareImg(pic_none, self.before_filter).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview is changed')
@@ -1025,7 +1025,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1040,7 +1040,7 @@ class Test_Edit_Master_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.add_master_media('photo', test_material_folder, photo_9_16)
@@ -1057,7 +1057,7 @@ class Test_Edit_Master_Filter:
             self.page_edit.enter_sub_tool('Filter')
 
             if self.is_exist(L.edit.sub_tool.filter.edit):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Filter is not applied')
@@ -1065,7 +1065,7 @@ class Test_Edit_Master_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1075,7 +1075,7 @@ class Test_Edit_Master_Filter:
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_case(self):
         result = {"sce_7_7_1": self.sce_7_7_1(),
                   "sce_7_7_2": self.sce_7_7_2(),

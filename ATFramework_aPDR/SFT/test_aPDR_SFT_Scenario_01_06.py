@@ -6,14 +6,14 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import PACKAGE_NAME
-from .conftest import REPORT_INSTANCE
+
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 class Test_SFT_Scenario_01_06:
@@ -23,7 +23,7 @@ class Test_SFT_Scenario_01_06:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -37,7 +37,7 @@ class Test_SFT_Scenario_01_06:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
@@ -46,7 +46,7 @@ class Test_SFT_Scenario_01_06:
         uuid = 'd013615b-af96-45e6-9131-ebb28cf4e62a'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -63,7 +63,7 @@ class Test_SFT_Scenario_01_06:
 
             self.driver.driver.back()
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -74,7 +74,7 @@ class Test_SFT_Scenario_01_06:
         uuid = 'a7fe71e0-2d94-465d-82d6-0984681d921e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             pic_src = self.page_main.get_picture(id("pickerDeviceLibrary"))
@@ -88,7 +88,7 @@ class Test_SFT_Scenario_01_06:
                 result = False
                 fail_log = '\n[Fail] Image no changed'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -99,7 +99,7 @@ class Test_SFT_Scenario_01_06:
         uuid = '98254f7e-2c56-4758-90fc-569aed52a0d4'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.media_library.btn_preview())
@@ -115,7 +115,7 @@ class Test_SFT_Scenario_01_06:
                 result = False
                 fail_log = '\n[Fail] Preview window is not exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -127,7 +127,7 @@ class Test_SFT_Scenario_01_06:
         uuid = '7259b134-e694-4766-bf01-58d9293aead7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.long_press(L.import_media.media_library.media())
@@ -143,7 +143,7 @@ class Test_SFT_Scenario_01_06:
                 result = False
                 fail_log = '\n[Fail] Preview window is not exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -155,7 +155,7 @@ class Test_SFT_Scenario_01_06:
         item_id = '01_06_05'
         uuid = '3e807c53-7c96-428d-b127-950f5caaed50'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
 
         self.click(L.import_media.media_library.media())
         while self.is_exist(L.import_media.media_library.downloading, 1):
@@ -173,7 +173,7 @@ class Test_SFT_Scenario_01_06:
         uuid = 'ce5575ba-3d33-4522-857b-de58025ac03f'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.tap_blank_space()
@@ -184,11 +184,11 @@ class Test_SFT_Scenario_01_06:
             self.click(id("tx_sign_in_to_facebook"))
 
             if self.is_exist(L.import_media.music_library.category_name(0), 10):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = '[Fail] Cannot find category page'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
         except Exception as err:
             logger(f'\n{err}')
@@ -207,18 +207,18 @@ class Test_SFT_Scenario_01_06:
         uuid = '2772d69e-c19f-4410-932f-04aa205ccc05'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             pic_tgt = self.page_main.get_picture(L.import_media.music_library.meta)
             pic_src = path.join(path.dirname(__file__), 'test_material', '01_06', f'{func_name}.png')
 
             if HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = '[Fail] Meta icon is different'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -238,7 +238,7 @@ class Test_SFT_Scenario_01_06:
         item_id = '01_06_08'
         uuid = 'df832d9e-82a4-493b-8720-4a7bc2a37107'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
 
         self.click(L.import_media.music_library.meta)
         if self.is_exist(find_string("sound/collection/terms")):
@@ -254,7 +254,7 @@ class Test_SFT_Scenario_01_06:
         item_id = '01_06_09'
         uuid = '2a34361c-1eb6-4f27-89c4-054668707b7c'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
 
         self.click(L.import_media.music_library.filter_genres)
 
@@ -270,7 +270,7 @@ class Test_SFT_Scenario_01_06:
         item_id = '01_06_10'
         uuid = 'df48c34f-a04e-4ae4-a19f-f4b245087b86'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
 
         self.click(L.import_media.music_library.category_name(3))
         clip = self.element(L.import_media.music_library.clip())
@@ -291,7 +291,7 @@ class Test_SFT_Scenario_01_06:
         uuid = 'ddd0b988-4bdd-4b92-b08c-3155921dc160'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.music_library.download)
@@ -302,11 +302,11 @@ class Test_SFT_Scenario_01_06:
                 raise Exception('No Add button')
 
             if self.is_exist(xpath(f'//*[contains(@content-desc,"{clip_name}")]')):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Clip is not exist'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
         except Exception as err:
             logger(f'\n{err}')
@@ -322,7 +322,7 @@ class Test_SFT_Scenario_01_06:
         uuid = 'd22b9e7c-b34d-492c-96af-f742cc075410'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_tool("Audio")
@@ -337,18 +337,18 @@ class Test_SFT_Scenario_01_06:
                 raise Exception('No Favorite category')
 
             if self.is_exist(find_string(clip_name)):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Cannot find clip {(clip_name)}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
         except Exception as err:
             logger(f'\n{err}')
             return "FAIL"
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_case(self):
         result = {"sce_1_6_1": self.sce_1_6_1(),
                   "sce_1_6_2": self.sce_1_6_2(),

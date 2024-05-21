@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_02_08:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_02_08:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_08_01(self):
         media_list = ['01_static.mp4']
         page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -201,7 +201,7 @@ class Test_SFT_Scenario_02_08:
         self.report.new_result('5e7a4d96-0a24-4502-a8bd-2da95ec0cac4', result)
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_08_02(self):
         media_list = ['01_static.mp4']
         page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -373,7 +373,7 @@ class Test_SFT_Scenario_02_08:
         self.report.new_result('928a22ba-9956-4e5a-88bb-3b41c1af7ceb', True if (not compare_result) else False)
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_08_03(self):
         media_list = ['01_static.mp4']
         page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -515,7 +515,7 @@ class Test_SFT_Scenario_02_08:
         self.report.new_result('ed06e2a2-ce49-411d-9d66-1484b917769c', result)  
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_08_04(self):
         media_list = ['01_static.mp4']
         page_main = PageFactory().get_page_object("main_page", self.driver)

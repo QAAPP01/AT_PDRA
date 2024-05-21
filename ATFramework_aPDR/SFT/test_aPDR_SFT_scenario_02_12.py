@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_02_12:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_02_12:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_12_01(self):
         logger('>>> test_sce_02_12_01: Effect Layer <<<')
         media_list = ['01_static.mp4']
@@ -278,7 +278,7 @@ class Test_SFT_Scenario_02_12:
         self.report.new_result('a0b35ad7-3362-4001-a8fc-ddb527f690c5', (lambda pic_src, pic_dest: True if not CompareImage(pic_src, pic_dest, 7).compare_image() else False)(pic_base, pic_after))
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_12_02(self):
         logger('>>> test_sce_02_12_02: Sticker Room <<<')
         media_list = ['01_static.mp4']

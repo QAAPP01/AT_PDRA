@@ -13,11 +13,11 @@ import time
 from pages.locator import locator as L
 from pages.locator.locator_type import *
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 
-report = REPORT_INSTANCE
+
 
 pdr_package = PACKAGE_NAME
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -36,7 +36,7 @@ class Test_sce_02_01_01:
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
 
         # retry 3 time if craete driver fail
@@ -72,7 +72,7 @@ class Test_sce_02_01_01:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_01(self):
         main = self.main_page
         import_media = self.import_media
@@ -112,7 +112,7 @@ class Test_sce_02_01_01:
         self.report.start_uuid("d5b79a1e-03ee-443a-8a49-d98349bba1b3")
         self.report.new_result("6805d7b3-1775-4b5f-930f-159965846428", result)
         self.report.new_result("d5b79a1e-03ee-443a-8a49-d98349bba1b3", result)
-        '''
+
         logger("[V]Trim")
         self.report.start_uuid("394f27cb-9e6f-411b-add7-638473575131")
         self.report.start_uuid("73720235-b876-49a2-82d9-75b7e3a4d620")
@@ -123,7 +123,6 @@ class Test_sce_02_01_01:
         self.report.start_uuid("ae24be03-9cad-455e-b23e-924d12984199")
         result = edit.check_timeline_gap()
         self.report.new_result("ae24be03-9cad-455e-b23e-924d12984199", result)
-        '''
 
         logger("[V]Flip")
         # edit.click(L.edit.menu.edit)
@@ -195,7 +194,7 @@ class Test_sce_02_01_01:
             edit.back()
 
     @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_01a(self):
         logger("test_scenario_02_01_01a")
         self.page = self.main_page
@@ -478,7 +477,7 @@ class Test_sce_02_01_01:
         self.report.new_result("2653a289-4c3f-44f0-98fd-7496f6a52d0a", result_auto_save)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_02(self):
         logger("test_scenario_02_01_02")
         main = self.main_page
@@ -739,7 +738,7 @@ class Test_sce_02_01_01:
         self.report.new_result("1f282e0d-52ca-4dd5-8f58-901afba122e7", result_watermark)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_03(self):
         logger("test_scenario_02_01_03")
         main = self.main_page
@@ -777,7 +776,7 @@ class Test_sce_02_01_01:
         self.report.new_result("4afec38c-bc92-4b82-9f80-0f34c02668b1", result)
 """
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_04(self):
         logger("test_scenario_02_01_04")
         main = self.main_page
