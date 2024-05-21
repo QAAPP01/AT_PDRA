@@ -7,22 +7,7 @@ from ATFramework_aPDR.pages.edit import EditPage
 from ATFramework_aPDR.pages.import_media import MediaPage
 
 
-# === Class scope page fixture ===
-@pytest.fixture(scope="class")
-def page_main(driver):
-    yield MainPage(driver)
-
-
-@pytest.fixture(scope="class")
-def page_media(driver):
-    yield MediaPage(driver)
-
-
-@pytest.fixture(scope="class")
-def page_edit(driver):
-    yield EditPage(driver)
-
-
+# === Class scope page/step fixture ===
 @pytest.fixture(scope="class")
 def import_media(driver):
     yield MediaPage(driver)
