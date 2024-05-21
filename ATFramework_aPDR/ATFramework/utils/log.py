@@ -12,8 +12,7 @@ except:
 
 log_path = ""
 dname = os.path.dirname
-pattern = dname(dname(dname(__file__))) # [log] -> [ATFramework] -> [Target Folder]
-
+pattern = dname(dname(dname(__file__)))  # [log] -> [ATFramework] -> [Target Folder]
 
 if platform.system() == "Windows":
     import ctypes
@@ -27,7 +26,7 @@ for frame in inspect.stack():
     if pattern in frame.filename:
         log_path = dname(frame.filename) + "/log"
 
-os.makedirs( log_path , exist_ok=True)
+os.makedirs(log_path, exist_ok=True)
 
 
 def set_udid(udid):
@@ -36,8 +35,7 @@ def set_udid(udid):
 
 
 def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_file=True, line=True,
-           log_level: str = 'debug'):
-
+           log_level: str = None):
     if not function:
         function = inspect.stack()[1].function
         line = inspect.stack()[1].frame.f_lineno
@@ -62,22 +60,34 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
         }
         return reset + colors[string]
 
-    match log_level.lower():
-        case 'info':
-            level = logging.INFO
-            color = get_color('info')
-        case 'warn':
-            level = logging.WARN
-            color = get_color('warn')
-        case 'error':
-            level = logging.ERROR
-            color = get_color('error')
-        case 'critical':
-            level = logging.CRITICAL
-            color = get_color('crit')
-        case _:
-            level = logging.DEBUG
-            color = get_color('debug')
+    def get_log_level():
+        info_strings = '[Info]', '[info]'
+        warning_strings = '[Warning]', '[warning]', '[Warn]', '[warn]'
+        error_strings = '[Error]', '[error]', '[AssertError]', '[AssertionError]'
+        critical_strings = '[Critical]', '[critical]', '[Crit]', '[crit]', 'Exception]', '[exception]'
+
+        if log_level:
+            match log_level.lower():
+                case 'info':
+                    return logging.INFO, get_color('info')
+                case 'warn':
+                    return logging.WARN, get_color('warn')
+                case 'error':
+                    return logging.ERROR, get_color('error')
+                case 'critical':
+                    return logging.CRITICAL, get_color('crit')
+
+        for level_strings, levels, colors in [
+                (info_strings, logging.INFO, 'info'),
+                (warning_strings, logging.WARN, 'warn'),
+                (error_strings, logging.ERROR, 'error'),
+                (critical_strings, logging.CRITICAL, 'crit')]:
+            if any(s in msg for s in level_strings):
+                return levels, get_color(colors)
+
+        return logging.DEBUG, get_color('debug')
+
+    level, color = get_log_level()
 
     formatter = logging.Formatter(fmt=f"%(asctime)s <{name}> [{function}](line {line}) - %(message)s",
                                   datefmt="%m/%d/%Y %I:%M:%S %p")
@@ -113,35 +123,46 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
     myMsg = [str(x) for x in msg]
     _logger.log(level, str(*myMsg))
     ft_rotating.close()
-    
-    
-def qa_log(file_name=None,write_to_file=True):
+
+
+def qa_log(file_name=None, write_to_file=True):
     'decorator'
     if not file_name:
-        file_name = os.path.dirname(__file__)+"/log/Product.log"
+        file_name = os.path.dirname(__file__) + "/log/Product.log"
         os.makedirs(log_path, exist_ok=True)
+
     def outer(func):
         @wraps(func)
-        def inner(*args,**kwargs):
-            log_pattern= "Start function "  + \
-            ("args: %s" % str(args) if args else "") + \
-            (" kwargs: %s" % str(kwargs) if kwargs else "")
-            logger(log_pattern,function = func.__name__,file_name=file_name)
-            ret = func(*args,**kwargs)
-            logger("End function ",function = func.__name__,file_name=file_name)
+        def inner(*args, **kwargs):
+            log_pattern = "Start function " + \
+                          ("args: %s" % str(args) if args else "") + \
+                          (" kwargs: %s" % str(kwargs) if kwargs else "")
+            logger(log_pattern, function=func.__name__, file_name=file_name)
+            ret = func(*args, **kwargs)
+            logger("End function ", function=func.__name__, file_name=file_name)
             return ret
+
         return inner
+
     return outer
 
 
 if __name__ == "__main__":
     '''decorator sameple'''
+
+
     @qa_log()
-    def test(index,text="TEXT"):
-        print ("index={} text={}".format(index,text))
-    test(33,text="sample")
-    
+    def test(index, text="TEXT"):
+        print("index={} text={}".format(index, text))
+
+
+    test(33, text="sample")
+
     '''normal logger sample'''
+
+
     def xxx():
         logger("123123")
+
+
     xxx()
