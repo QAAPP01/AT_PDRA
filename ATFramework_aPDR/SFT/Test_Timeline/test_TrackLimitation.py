@@ -17,27 +17,28 @@ allure levels:
 @allure.feature('Track Limitation')
 class TestTrackLimitation:
 
+    @pytest.fixture(scope='class', autouse=True)
+    def class_setup(self, shortcut, driver):
+        driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
+        self.page_main, *_ = shortcut
+        self.page_main.enter_launcher()
+        self.page_main.subscribe()
+        self.page_main.enter_timeline()
+        yield
+        driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
         self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
 
         self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
 
-        self.page_main.enter_launcher()
-        self.page_main.subscribe()
         self.page_main.enter_timeline()
         yield
-        driver.driver.back()
-
-    def check_first_two_track_same_y_value(self, ele1: tuple, ele2: tuple) -> bool:
-        # Return the first two track y values, can use to check if the two tracks are in the same tracks
-        return self.element(ele1).rect['y'] == self.element(ele2).rect['y']
+        self.click(L.edit.menu.home)
 
     VIDEO_LIMITATION = 3
     AUDIO_LIMITATION = 9
@@ -45,9 +46,9 @@ class TestTrackLimitation:
 
     @pytest.mark.skip
     @allure.story("Video Track Limitation")
-    def test_timeline_video_track_limitation(self, driver: AppiumU2Driver):
+    def test_timeline_limitation_video_track(self, driver: AppiumU2Driver):
         try:
-            allure.title(f'Add {self.VIDEO_LIMITATION} video(s) to PiP track')
+            allure.title(f'Add {self.VIDEO_LIMITATION} + 1 video(s) to PiP track')
             for i in range(self.VIDEO_LIMITATION + 1):
                 self.page_edit.add_pip_media(media_type='Video')
 
@@ -58,91 +59,64 @@ class TestTrackLimitation:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[Assertion Error] {repr(e)}]', log_level='error')
+                logger(f'[AssertionError] {repr(e)}]')
             else:
-                logger(f'[Exception] {repr(e)}', log_level='critical')
-                pytest.fail(f'[Exception] {repr(e)}]')
-            driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-            driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
+                logger(f'[Exception] {repr(e)}')
+            pytest.fail(f'[Exception] {repr(e)}]')
 
-    @pytest.mark.skip
     @allure.story("Audio Track Limitation")
-    def test_timeline_audio_track_limitation(self, driver: AppiumU2Driver):
-
-        def add_audio_track() -> None:
-            self.page_edit.enter_audio_library(audio_type='SFX')
-            self.click(L.import_media.library_listview.frame_song)
-            if self.elements(L.import_media.library_listview.download_song):
-                self.click(L.import_media.library_listview.download_song)
-            else:
-                self.click(L.import_media.library_listview.add)
-
+    def test_timeline_limitation_audio_track(self, driver: AppiumU2Driver):
         try:
-            allure.title(f'Add {self.AUDIO_LIMITATION} audio(s) to PiP track')
-            for _ in range(self.AUDIO_LIMITATION):
-                add_audio_track()
+            allure.title(f'Add {self.AUDIO_LIMITATION} + 1 audio(s) to PiP track')
+            for _ in range(self.AUDIO_LIMITATION + 1):
+                self.page_edit.enter_audio_library(audio_type='SFX')
+                if not self.elements(L.import_media.library_listview.add):
+                    self.click(L.import_media.library_listview.frame_song)
+                    self.click(L.import_media.library_listview.download_song)
+                else:
+                    self.click(L.import_media.library_listview.add)
+                self.click(L.search.id('btn_session_back_icon'))
 
-            ele1_locator = L.edit.timeline.clip_audio(index=1)
-            ele2_locator = L.edit.timeline.clip_audio(index=2)
+            # Only the first track will have 2 audio clip
+            allure.title(f'Only the first track will have 2 audio clip')
+            assert type(y1 := self.element(L.edit.timeline.clip_audio(index=1)).rect['y']) is int
+            assert type(y2 := self.element(L.edit.timeline.clip_audio(index=2)).rect['y']) is int
+            assert y1 == y2
 
-            # The ninth audio track should not be on the first audio track,
-            assert not self.check_first_two_track_same_y_value(ele1_locator, ele2_locator)
-
-            # The tenth audio track should be on the first audio track
-            allure.title(f'The new audio should be on the '
-                         f'first track if already have {self.AUDIO_LIMITATION} audio tracks')
-            add_audio_track()
-            assert self.check_first_two_track_same_y_value(ele1_locator, ele2_locator)
+            assert type(y3 := self.element(L.edit.timeline.clip_audio(index=3)).rect['y']) is int
+            assert type(y4 := self.element(L.edit.timeline.clip_audio(index=4)).rect['y']) is int
+            assert y3 != y4
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[Assertion Error] {repr(e)}]', log_level='error')
+                logger(f'[AssertionError] {repr(e)}]')
             else:
-                logger(f'[Exception] {repr(e)}', log_level='critical')
-                pytest.fail(f'[Exception] {repr(e)}]')
-            driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-            driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
+                logger(f'[Exception] {repr(e)}')
+            pytest.fail(f'[Exception] {repr(e)}]')
 
     @allure.story("PiP Track Limitation")
-    def test_timeline_video_track_limitation(self, driver: AppiumU2Driver):
-
-        def enter_sticker_feature():
+    def test_timeline_limitation_pip_track(self, driver: AppiumU2Driver):
+        try:
+            allure.title(f'Add {self.PIP_LIMITATION} + 1 sticker(s) to PiP track')
             self.page_edit.enter_main_tool(name='Sticker')
             self.click(L.search.find_string('Add Sticker'))
-
-        def add_pip_sticker() -> None:
-            self.click(L.edit.main_tool.sticker.item())
-
-        try:
-            allure.title(f'Add {self.PIP_LIMITATION} sticker(s) to PiP track')
-            enter_sticker_feature()
-            for _ in range(self.PIP_LIMITATION):
-                add_pip_sticker()
+            for _ in range(self.PIP_LIMITATION + 1):
+                self.click(L.edit.main_tool.sticker.item())
             self.click(L.edit.pip.Text.back)
 
-            import time
-            time.sleep(30)
+            # Only the first track will have 2 pip clip
+            allure.title(f'Only the first track will have 2 pip clip')
+            assert type(y1 := self.element(L.edit.pip.clip(index=1)).rect['y']) is int
+            assert type(y2 := self.element(L.edit.pip.clip(index=2)).rect['y']) is int
+            assert y1 == y2
 
-            # ele1_locator = self.page_edit.timeline_get_item_by_index_on_track(track=2, index=1)
-            # ele2_locator = self.page_edit.timeline_get_item_by_index_on_track(track=1, index=2)
-            #
-            # # The 20th pip should not be on the first audio track,
-            # assert not self.check_first_two_track_same_y_value(ele1_locator, ele2_locator)
-            #
-            # # The 21th pip should be on the first audio track
-            # allure.title(f'The new pip should be on the first track if already have {self.PIP_LIMITATION} pip tracks')
-            # enter_sticker_feature()
-            # add_pip_sticker()
-            # self.click(L.edit.pip.Text.back)
-            # assert self.check_first_two_track_same_y_value(ele1_locator, ele2_locator)
+            assert type(y3 := self.element(L.edit.pip.clip(index=3)).rect['y']) is int
+            assert type(y4 := self.element(L.edit.pip.clip(index=4)).rect['y']) is int
+            assert y3 != y4
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[Assertion Error] {repr(e)}]', log_level='error')
+                logger(f'[AssertionError] {repr(e)}]')
             else:
-                logger(f'[Exception] {repr(e)}', log_level='critical')
+                logger(f'[Exception] {repr(e)}')
             pytest.fail(f'{repr(e)}]')

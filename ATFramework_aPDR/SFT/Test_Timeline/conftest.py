@@ -6,23 +6,6 @@ from ATFramework_aPDR.pages.main_page import MainPage
 from ATFramework_aPDR.pages.edit import EditPage
 from ATFramework_aPDR.pages.import_media import MediaPage
 
-
-# === Class scope page/step fixture ===
-@pytest.fixture(scope="class")
-def import_media(driver):
-    yield MediaPage(driver)
-
-
-@pytest.fixture(scope="class", autouse=True)
-def class_setup_teardown(driver: AppiumU2Driver):
-    # driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
-    driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-    # Will open to main menu
-    yield
-    # driver.driver.stop_recording_screen()
-    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
-
-
 # === Logging fixture ===
 @pytest.fixture(scope='class', autouse=True)
 def log_class_start(request):
