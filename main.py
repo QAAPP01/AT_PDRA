@@ -10,7 +10,7 @@ import schedule
 import time
 
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
-from send_mail.send_report import send_report, generate_allure_report, remove_allure_result, move_allure_history, send_allure_report
+from send_mail.send_report import generate_allure_report, remove_allure_result, move_allure_history, send_allure_report
 
 
 # import ecl_operation
@@ -24,8 +24,8 @@ from send_mail.send_report import send_report, generate_allure_report, remove_al
 # parallel_device_count - the device number for parallel testing (default: 1)
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
-deviceName = "R5CT32Q3WQN"
-# deviceName = "R5CW31G76ST"
+# deviceName = "R5CT32Q3WQN"
+deviceName = "R5CW31G76ST"
 # deviceName = "9596423546005V8"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
@@ -171,9 +171,6 @@ def auto_run():
         if auto_download:
             sr_number = ''
             tr_number = ''
-            previous_tr_number = ''
-            package_version = ''
-            package_build_number = ''
 
             para_dict = {'prod_name': 'PowerDirector Mobile for Android',
                          'sr_no': sr_number,
@@ -306,8 +303,7 @@ def auto_server_scan():
     generate_allure_report(result_folder, report_folder)
 
     if send:
-        send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version,
-                           package_build_number)
+        send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number)
         print('send report complete.')
 
     print("\n ======== Server Scan Test Finish ========")

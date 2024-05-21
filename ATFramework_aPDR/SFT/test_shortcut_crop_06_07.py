@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -70,7 +70,7 @@ class Test_Shortcut_Crop:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -89,14 +89,14 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Crop & Rotate')
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter media picker')
@@ -104,7 +104,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -117,13 +117,13 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.media_library.back)
 
             if self.is_exist(L.main.shortcut.shortcut_name(0)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot return launcher')
@@ -131,7 +131,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -143,7 +143,7 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_shortcut('Crop & Rotate')
@@ -151,7 +151,7 @@ class Test_Shortcut_Crop:
             self.click(L.import_media.media_library.trim_back)
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter media picker')
@@ -159,7 +159,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -172,7 +172,7 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.media_library.btn_preview())
@@ -182,7 +182,7 @@ class Test_Shortcut_Crop:
             self.page_media.waiting()
 
             if self.is_exist(find_string('Export')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter Crop & Rotate')
@@ -190,7 +190,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -206,13 +206,13 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.editor_back)
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter media picker')
@@ -220,7 +220,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -233,14 +233,14 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
 
             if self.is_exist(find_string('Export')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter Crop & Rotate')
@@ -248,7 +248,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -263,7 +263,7 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.play)
@@ -271,7 +271,7 @@ class Test_Shortcut_Crop:
             self.timecode_play = self.element(L.main.shortcut.timecode).text
 
             if self.timecode_play != "00:00":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
@@ -279,7 +279,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -295,14 +295,14 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.play)
             timecode_play = self.element(L.main.shortcut.timecode).text
 
             if timecode_play != self.timecode_play:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {timecode_play}')
@@ -310,7 +310,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -326,14 +326,14 @@ class Test_Shortcut_Crop:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
             timecode_play = self.element(L.main.shortcut.timecode).text
 
             if timecode_play == '00:00':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {timecode_play}')
@@ -341,7 +341,7 @@ class Test_Shortcut_Crop:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -352,7 +352,7 @@ class Test_Shortcut_Crop:
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_case(self):
         result = {"sce_6_7_1": self.sce_6_7_1(),
                   "sce_6_7_2": self.sce_6_7_2(),

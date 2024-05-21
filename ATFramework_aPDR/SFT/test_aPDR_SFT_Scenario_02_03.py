@@ -6,14 +6,14 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import PACKAGE_NAME
-from .conftest import REPORT_INSTANCE
+
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -30,7 +30,7 @@ class Test_SFT_Scenario_02_03:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -44,7 +44,7 @@ class Test_SFT_Scenario_02_03:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -61,17 +61,17 @@ class Test_SFT_Scenario_02_03:
         uuid = '4f38b72e-6424-40dc-adec-fe50681b6bdc'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
 
             if self.page_main.enter_timeline():
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = '[Fail] Cannot find timeline canvas'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -88,17 +88,17 @@ class Test_SFT_Scenario_02_03:
         uuid = '4aa79f8e-ec89-4298-9ff7-a332c8af9110'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             duration = self.page_edit.preference.enter_default_text_duration()
 
             if duration == '5.0 s':
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Duration incorrect: {duration}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -116,7 +116,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '819376c8-8d0b-4a4f-8272-9b1d1dd63e76'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         slider = L.timeline_settings.preference.slider
         try:
@@ -125,11 +125,11 @@ class Test_SFT_Scenario_02_03:
             duration_after = self.element(slider).text
 
             if float(duration_after) > float(duration_before):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] duration_before = {duration_before}, duration_after = {duration_after}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -148,17 +148,17 @@ class Test_SFT_Scenario_02_03:
         uuid = '345b40e7-fe5c-4ce4-b937-620046a29299'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             duration = self.element(L.timeline_settings.preference.duration_text).text
 
             if duration == '10.0 s':
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Duration incorrect: {duration}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -176,7 +176,7 @@ class Test_SFT_Scenario_02_03:
         uuid = 'a1785993-89ab-4fff-9392-558f1dba1f8b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         slider = L.timeline_settings.preference.slider
         try:
@@ -185,11 +185,11 @@ class Test_SFT_Scenario_02_03:
             duration_after = self.element(slider).text
 
             if float(duration_after) < float(duration_before):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] duration_before = {duration_before}, duration_after = {duration_after}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -208,7 +208,7 @@ class Test_SFT_Scenario_02_03:
         uuid = 'c1920d5d-e501-468f-8a66-8eb3723c0584'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             duration = self.element(L.timeline_settings.preference.duration_text).text
@@ -216,11 +216,11 @@ class Test_SFT_Scenario_02_03:
             self.page_edit.preference.back_to_timeline()
 
             if duration == '0.5 s':
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Duration incorrect: {duration}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -237,15 +237,15 @@ class Test_SFT_Scenario_02_03:
         uuid = '22625080-9f16-4ba3-9bc7-6d6cbd5ee1c1'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if self.page_edit.text.check_built_in_title():
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Built in title checking fail'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -263,7 +263,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '30281dfe-de3b-4809-9dcd-469ce0741ecf'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if not self.click(find_string('Assembly Line')):
@@ -271,14 +271,14 @@ class Test_SFT_Scenario_02_03:
             self.click(L.edit.text.add)
 
             if self.is_exist(L.edit.text.text_preview):
-                self.report.new_result(uuid, True)
+                
 
                 self.click(L.edit.menu.delete)
 
                 return "PASS"
             else:
                 fail_log = f'[Fail] No found text clip'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -295,15 +295,15 @@ class Test_SFT_Scenario_02_03:
         uuid = 'bc2a6a8d-5832-4136-a5eb-dcf232d3ad69'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if self.page_edit.add_pip_media('Video', test_material_folder, video_9_16):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = '[Fail] Add pip video fail'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -321,15 +321,15 @@ class Test_SFT_Scenario_02_03:
         uuid = 'a52b08eb-ff8c-4e3f-b4ce-9c9b788495fd'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if self.page_edit.add_pip_media('Photo', test_material_folder, photo_9_16):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = '[Fail] Add pip photo fail'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -347,18 +347,18 @@ class Test_SFT_Scenario_02_03:
         uuid = '7a1459b5-88c9-42e7-8e06-d1937b8d2e64'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if not self.page_edit.enter_sub_tool('Cutout'):
                 raise Exception('Enter Cutout fail')
 
             if self.element(find_string('No Effect')).get_attribute('selected') == 'true':
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = '[Fail] "No Effect" is not selected'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -377,7 +377,7 @@ class Test_SFT_Scenario_02_03:
         uuid = 'c2b0eea9-4983-42b3-8e1a-6ee13b2851f5'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             pic_src = self.page_main.get_picture(L.edit.preview.pip_preview)
@@ -388,11 +388,11 @@ class Test_SFT_Scenario_02_03:
             pic_tgt = self.page_main.get_picture(L.edit.preview.pip_preview)
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = '[Fail] Image before and after are the same'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -411,7 +411,7 @@ class Test_SFT_Scenario_02_03:
         uuid = 'fd2eb945-b2f0-4697-bfb6-7274e2d11b5d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if not self.page_edit.enter_sub_option_tool('Chroma Key'):
@@ -420,14 +420,14 @@ class Test_SFT_Scenario_02_03:
             toast = self.element(L.edit.toast).text
 
             if toast == toast_default:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Toast incorrect: {toast}')
 
         except Exception as err:
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -443,7 +443,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '87d52e81-e0e8-4dce-931e-0b814ea32f51'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             pic_src = self.page_main.get_picture(L.edit.sub_tool.cutout.color_picker.preview)
@@ -451,11 +451,11 @@ class Test_SFT_Scenario_02_03:
             pic_tgt = self.page_main.get_picture(L.edit.sub_tool.cutout.color_picker.preview)
 
             if not HCompareImg(pic_tgt, pic_src).full_compare_result():
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Before and after images are the same'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -476,18 +476,18 @@ class Test_SFT_Scenario_02_03:
         uuid = '2c0f4591-9721-4091-8a60-037a3bb30dd2'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             result_max = self.driver.drag_slider_to_max(L.edit.sub_tool.cutout.color_picker.picker_slider)
             result_min = self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.picker_slider)
 
             if result_max and result_min:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Drag to max and min fail'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -508,17 +508,17 @@ class Test_SFT_Scenario_02_03:
         uuid = '738da597-7238-43ec-99b7-34ea822e51cf'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.sub_tool.cutout.color_picker.picker_btn)
 
             if self.is_exist(L.edit.sub_tool.cutout.color_picker.picker_image):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] No found color picker on the preview'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -538,7 +538,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '3167c930-80a6-4113-8e56-c5f352b1749d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             range_value = self.element(L.edit.sub_tool.cutout.color_picker.range_value).text
@@ -546,11 +546,11 @@ class Test_SFT_Scenario_02_03:
             range_value_default = '13'
 
             if range_value == range_value_default:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Range value incorrect: {range_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -570,7 +570,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '98101220-f6a3-46c0-8044-1a85757b0df9'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.sub_tool.cutout.color_picker.range_slider)
@@ -578,11 +578,11 @@ class Test_SFT_Scenario_02_03:
             range_value_max = "100"
 
             if range_value == range_value_max:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Range value incorrect:{range_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -602,7 +602,7 @@ class Test_SFT_Scenario_02_03:
         uuid = 'c4940dac-33e1-4d08-9d57-0f2dbfee9ae8'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.range_slider)
@@ -610,11 +610,11 @@ class Test_SFT_Scenario_02_03:
             range_value_min= "0"
 
             if range_value == range_value_min:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Range value incorrect:{range_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -634,7 +634,7 @@ class Test_SFT_Scenario_02_03:
         uuid = 'fb594b20-242e-4779-8bcc-6172b648e03e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
@@ -642,11 +642,11 @@ class Test_SFT_Scenario_02_03:
             denoise_value_default = "20"
 
             if denoise_value == denoise_value_default:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Range value incorrect:{denoise_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -666,7 +666,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '26578cc4-5a39-446c-b4a5-ac3e0a6aed44'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.sub_tool.cutout.color_picker.denoise_slider)
@@ -674,11 +674,11 @@ class Test_SFT_Scenario_02_03:
             denoise_value_max = "100"
 
             if denoise_value == denoise_value_max:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Range value incorrect:{denoise_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -698,7 +698,7 @@ class Test_SFT_Scenario_02_03:
         uuid = 'f8f2dce3-eeb4-4015-8236-453dd3f5baba'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.sub_tool.cutout.color_picker.denoise_slider)
@@ -706,11 +706,11 @@ class Test_SFT_Scenario_02_03:
             denoise_value_min = "0"
 
             if denoise_value == denoise_value_min:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Range value incorrect:{denoise_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -732,7 +732,7 @@ class Test_SFT_Scenario_02_03:
         uuid = 'f76319dc-54b2-4c10-b286-50e8188ab845'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if not self.click(L.edit.sub_tool.cutout.color_picker.apply):
@@ -745,11 +745,11 @@ class Test_SFT_Scenario_02_03:
             denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
 
             if range_value == denoise_value == "0":
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Value incorrect: range_value:{range_value}, denoise_value:{denoise_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -769,7 +769,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '68f5e57a-ac2b-452a-91c6-b4bfb43f2b1b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if not self.click(L.edit.sub_tool.cutout.color_picker.reset):
@@ -779,11 +779,11 @@ class Test_SFT_Scenario_02_03:
             denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
 
             if range_value == range_value_default and denoise_value == denoise_value_default:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Value incorrect: range_value:{range_value}, denoise_value:{denoise_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -805,7 +805,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '545c205b-66f4-4036-8856-ea10ab4a340e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if not self.click(L.edit.sub_tool.cutout.color_picker.cancel):
@@ -818,11 +818,11 @@ class Test_SFT_Scenario_02_03:
             denoise_value = self.element(L.edit.sub_tool.cutout.color_picker.denoise_value).text
 
             if range_value == denoise_value == "0":
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Value incorrect: range_value:{range_value}, denoise_value:{denoise_value}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -844,7 +844,7 @@ class Test_SFT_Scenario_02_03:
         uuid = '2e869d26-d734-476c-a948-8fb7bcf3b64b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -868,7 +868,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -878,7 +878,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '6b9cf2f2-87ab-4738-8dc4-614223eb8df0'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_17.png')
@@ -890,7 +890,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -900,7 +900,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '42d6c14a-c2d9-4d54-a888-85c6337e33e4'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.aspect_ratio.ratio_1_1)
 
@@ -911,7 +911,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -921,7 +921,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'f35ceb9e-f37c-42f8-9bfe-b9f23da0d1a9'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_19.png')
@@ -933,7 +933,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -943,7 +943,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '9e04fdc7-beb5-442f-be6f-bedb66909e8f'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.aspect_ratio.ratio_21_9)
 
@@ -954,7 +954,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -964,7 +964,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '8bb03dce-1b63-4f9b-96cf-2e7882d02e76'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_21.png')
@@ -976,7 +976,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -986,7 +986,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'c0edb49c-02f5-4fcb-a404-3488077f466c'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.aspect_ratio.ratio_4_5)
 
@@ -997,7 +997,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1007,7 +1007,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '0ab23f49-c1ba-402a-97fe-714e84346b76'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_23.png')
@@ -1019,7 +1019,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1029,7 +1029,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'd5acb1cd-5810-44d8-ba0e-571c988a7ae4'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.aspect_ratio.ratio_16_9)
 
@@ -1040,7 +1040,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1050,7 +1050,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '6e4025cd-f203-4685-8e49-e6f4bb5b7bdf'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = image_original
@@ -1062,7 +1062,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1072,7 +1072,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'b17ecaa4-c427-4337-95f9-cd506284b85a'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.timeline.master_clip)
             self.page_edit.click_sub_tool("Fit & Fill")
@@ -1091,7 +1091,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1101,7 +1101,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'faef9b26-5263-432d-9cf9-5b0765bf7ba2'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_27.png')
@@ -1113,7 +1113,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1123,7 +1123,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'c23658ab-d37c-471c-93a9-a67f4c7b205c'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.aspect_ratio.ratio_1_1)
 
@@ -1134,7 +1134,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1144,7 +1144,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'fd2fc883-944e-40af-91f2-12258ad5bd69'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_29.png')
@@ -1156,7 +1156,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1166,7 +1166,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'd6ceb6f0-fffd-44c4-8fb1-b301315add5e'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.aspect_ratio.ratio_21_9)
 
@@ -1177,7 +1177,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1187,7 +1187,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '679139c0-c69d-43dd-b000-f9551adb6857'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_31.png')
@@ -1199,7 +1199,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1209,7 +1209,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'e4555e47-4e3a-42a9-b884-1d06d0cc2b5f'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.aspect_ratio.ratio_4_5)
 
@@ -1220,7 +1220,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1230,7 +1230,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '51dc22bb-e3c4-4ec3-a75d-287002a6e085'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = path.join(path.dirname(__file__), 'test_material', '02_03', '02_03_33.png')
@@ -1242,7 +1242,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1252,7 +1252,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = '775129a4-9c40-46ba-95d3-da00f125b4b7'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.aspect_ratio.ratio_16_9)
 
@@ -1263,7 +1263,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Project ratio is incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1273,7 +1273,7 @@ class Test_SFT_Scenario_02_03:
         try:
             uuid = 'c7eba5c2-11c8-4258-a405-945142cf77d8'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             pic_after = self.page_main.get_preview_pic()
             pic_base = image_original
@@ -1285,7 +1285,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = '\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f'[Error] {err}')
@@ -1298,7 +1298,7 @@ class Test_SFT_Scenario_02_03:
         item_id = '02_03_310'
         uuid = '72f8d373-9b32-4dad-bf16-81bce0cb87a7'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
         self.page_main.enter_launcher()
         self.page_main.enter_timeline()
 
@@ -1314,13 +1314,13 @@ class Test_SFT_Scenario_02_03:
         result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         logger(f"[Info] result_photo = {result_photo}")
         result[item_id] = result_photo
-        self.report.new_result(uuid, result[item_id])
+        
 
         # sce_02_03_311
         item_id = '02_03_311'
         uuid = '4f7e1155-33ab-4d1c-b080-e6ecf11af385'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
         self.page_edit.h_click(L.edit.adjust_sub.reset)
         self.page_edit.click_sub_tool('Contrast')
         self.page_edit.element(L.edit.timeline.slider).send_keys(0)
@@ -1329,13 +1329,13 @@ class Test_SFT_Scenario_02_03:
         result_photo = True if HCompareImg(pic_base, pic_after).full_compare() > 0.9 else False
         logger(f"[Info] result_photo = {result_photo}")
         result[item_id] = result_photo
-        self.report.new_result(uuid, result[item_id])
+        
 
         # sce_02_03_312
         item_id = '02_03_312'
         uuid = 'f2482eb4-c4f4-42ae-9ae0-fa9b48305eaa'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
         self.page_edit.h_click(L.edit.adjust_sub.reset)
         self.page_edit.click_sub_tool('Saturation')
         self.page_edit.h_set_slider(1)
@@ -1345,13 +1345,13 @@ class Test_SFT_Scenario_02_03:
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '200'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
-        self.report.new_result(uuid, result[item_id])
+        
 
         # sce_02_03_313
         item_id = '02_03_313'
         uuid = 'd7723b46-9d61-442b-a905-0f3be2e45010'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
         self.page_edit.h_click(L.edit.adjust_sub.reset)
         self.page_edit.click_sub_tool('Hue')
         self.page_edit.h_set_slider(1)
@@ -1361,13 +1361,13 @@ class Test_SFT_Scenario_02_03:
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '200'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
-        self.report.new_result(uuid, result[item_id])
+        
 
         # sce_02_03_314
         item_id = '02_03_314'
         uuid = '21609f3c-7e8e-4498-9d81-8002f059998f'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
         self.page_edit.h_click(L.edit.adjust_sub.reset)
         self.page_edit.click_sub_tool('Temp')
         self.page_edit.h_set_slider(0.7)
@@ -1377,13 +1377,13 @@ class Test_SFT_Scenario_02_03:
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '70'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
-        self.report.new_result(uuid, result[item_id])
+        
 
         # sce_02_03_315
         item_id = '02_03_315'
         uuid = '0f261b4a-1644-41d6-8534-6f94570712ae'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
         self.page_edit.h_click(L.edit.adjust_sub.reset)
         self.page_edit.click_sub_tool('Tint')
         self.page_edit.h_set_slider(0.5)
@@ -1393,7 +1393,7 @@ class Test_SFT_Scenario_02_03:
         result_value = self.page_edit.h_get_element(L.edit.adjust_sub.number).text == '50'
         logger(f"[Info] result_photo = {result_photo}, result_value = {result_value}")
         result[item_id] = result_photo and result_value
-        self.report.new_result(uuid, result[item_id])
+        
 
         global pic_src
         pic_src = pic_after
@@ -1405,7 +1405,7 @@ class Test_SFT_Scenario_02_03:
             uuid = 'e39097dc-d519-4816-8980-bdff9e19f13c'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
             item_id = inspect.stack()[0][3].split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.h_click(L.edit.adjust_sub.reset)
             self.page_edit.click_sub_tool('Sharpness')
@@ -1422,7 +1422,7 @@ class Test_SFT_Scenario_02_03:
                 result = False
                 fail_log = f'\n[Fail] result_photo: {result_photo}, result_value: {result_value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")

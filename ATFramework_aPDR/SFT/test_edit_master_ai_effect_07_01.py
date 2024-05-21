@@ -6,13 +6,13 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import PACKAGE_NAME
-from .conftest import REPORT_INSTANCE
+
 from .conftest import TEST_MATERIAL_FOLDER
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -33,7 +33,7 @@ class Test_Ai_Effect:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -47,7 +47,7 @@ class Test_Ai_Effect:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -64,7 +64,7 @@ class Test_Ai_Effect:
         uuid = '7713342c-d600-43b7-9fe8-1675a2124c7b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -73,7 +73,7 @@ class Test_Ai_Effect:
             self.page_edit.click_tool('AI Effect')
 
             if self.is_exist(L.edit.master.ai_effect.effect()):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the effect')
@@ -81,7 +81,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -96,7 +96,7 @@ class Test_Ai_Effect:
         uuid = '09586d72-f271-4863-9e7e-36416d682706'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             global preview_default
@@ -106,7 +106,7 @@ class Test_Ai_Effect:
             self.page_media.waiting_download()
 
             if self.element(id('itemMask')).get_attribute("selected") == "true":
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception("[FAIL] Effect is not selected")
@@ -114,7 +114,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -131,14 +131,14 @@ class Test_Ai_Effect:
         uuid = 'b235c57c-2f0e-41af-94b7-559ef7848880'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.master.ai_effect.cancel)
             after_preview = self.page_main.get_preview_pic()
 
             if HCompareImg(after_preview, preview_default).full_compare() > 0.96:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception("[FAIL] Images diff")
@@ -146,7 +146,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -161,13 +161,13 @@ class Test_Ai_Effect:
         uuid = '283f410f-a8aa-4ff7-aa9f-b60221586e8d'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_sub_tool("AI Effect")
 
             if self.is_exist(L.edit.master.ai_effect.effect()):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the effect')
@@ -175,7 +175,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -191,7 +191,7 @@ class Test_Ai_Effect:
         uuid = 'a887fe92-4174-45eb-b042-3e5967c6df35'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             effect_name = self.element(L.edit.master.ai_effect.effect_name(1)).text
@@ -206,13 +206,13 @@ class Test_Ai_Effect:
             if not self.is_exist(find_string(effect_name)):
                 raise Exception('[Fail] Cannot find the effect in the favorite category')
 
-            self.report.new_result(uuid, True)
+            
             return "PASS"
 
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -230,13 +230,13 @@ class Test_Ai_Effect:
         uuid = 'b6684755-ce40-4db2-b117-54004bf61e0e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.long_press(L.edit.master.ai_effect.effect(1))
 
             if not self.is_exist(L.edit.master.ai_effect.effect(0)):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Favorite category is not empty')
@@ -244,7 +244,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -260,11 +260,11 @@ class Test_Ai_Effect:
         uuid = 'b38fa219-f9de-4492-9d97-cb8385bb2a4b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if self.page_edit.click_category("Body Effect", L.edit.master.ai_effect.category(0)):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter "Body Effect"')
@@ -272,7 +272,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -289,13 +289,13 @@ class Test_Ai_Effect:
         uuid = 'fcebcfb5-f2b5-41d7-91d8-70425154ba2c'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_edit.click_effect("Contour 2", L.edit.master.ai_effect.effect_name(0))
 
         try:
             if self.is_exist(L.edit.master.ai_effect.edit):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find "Contour 2"')
@@ -303,7 +303,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -321,7 +321,7 @@ class Test_Ai_Effect:
         uuid = '8f6911a6-f3ab-4d48-8626-08287afb95af'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.master.ai_effect.edit)
@@ -333,7 +333,7 @@ class Test_Ai_Effect:
             preview_after = self.page_main.get_preview_pic()
 
             if HCompareImg(preview_after, preview_before).full_compare() < 1:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Preview has no changed')
@@ -341,7 +341,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -360,7 +360,7 @@ class Test_Ai_Effect:
         uuid = '6b006448-51b4-4c0e-aaa4-2ce61454af32'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.master.ai_effect.color_preset(1))
@@ -373,7 +373,7 @@ class Test_Ai_Effect:
             preview_after = self.page_main.get_preview_pic()
 
             if HCompareImg(preview_after, preview_before).full_compare() < 1:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Preview has no changed')
@@ -381,7 +381,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -400,14 +400,14 @@ class Test_Ai_Effect:
         uuid = '03719502-c937-4167-8080-3ba26a580979'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             size_text = xpath('//*[contains(@text,"Size")]/../*[contains(@resource-id,"value")]')
             size_text = self.element(size_text).text
 
             if size_text == '6':
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default value incorrect: {size_text}')
@@ -415,7 +415,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -434,7 +434,7 @@ class Test_Ai_Effect:
         uuid = 'fde57950-3d73-4734-af2d-cf97feacb94b'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             if not self.driver.drag_slider_to_max(L.edit.master.ai_effect.slider(1)):
@@ -443,7 +443,7 @@ class Test_Ai_Effect:
             size_text = self.element(size_text).text
 
             if size_text == '100':
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Max value incorrect: {size_text}')
@@ -451,7 +451,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -471,13 +471,13 @@ class Test_Ai_Effect:
         uuid = '96e00830-27e6-4bd8-af67-799faed17367'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             preview_after = self.page_main.get_preview_pic()
 
             if HCompareImg(preview_after, preview_before).full_compare() < 1:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Preview has no changed')
@@ -485,7 +485,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -504,7 +504,7 @@ class Test_Ai_Effect:
         uuid = 'ec71b63d-857a-45e8-9aa6-ed255b7cf1a7'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.master.ai_effect.slider(1))
@@ -512,7 +512,7 @@ class Test_Ai_Effect:
             size_text = self.element(size_text).text
 
             if size_text == '1':
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] min value incorrect: {size_text}')
@@ -520,7 +520,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -540,13 +540,13 @@ class Test_Ai_Effect:
         uuid = '64a6b861-c343-4afe-8758-8d522c2ee234'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             preview_after = self.page_main.get_preview_pic()
 
             if HCompareImg(preview_after, preview_before).full_compare() < 1:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Preview has no changed')
@@ -554,7 +554,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -573,7 +573,7 @@ class Test_Ai_Effect:
         uuid = 'b1842e2f-85e1-4733-b66a-e9e9a2709f43'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.master.ai_effect.reset)
@@ -581,7 +581,7 @@ class Test_Ai_Effect:
             size_text = self.element(size_text).text
 
             if size_text == '6':
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value is not the default(5): {size_text}')
@@ -589,7 +589,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -608,13 +608,13 @@ class Test_Ai_Effect:
         uuid = 'aa3241e2-63f4-4e06-b722-d3c751c0aefe'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.master.ai_effect.back)
 
             if self.is_exist(L.edit.master.ai_effect.effect()):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the effect')
@@ -622,7 +622,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -640,14 +640,14 @@ class Test_Ai_Effect:
         uuid = '9bd61e1e-f41a-4e72-8c8e-0060a3c86afe'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.master.ai_effect.ok)
             preview_after = self.page_main.get_preview_pic()
 
             if HCompareImg(preview_after, preview_default).full_compare() < 1:
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Preview has no changed')
@@ -655,7 +655,7 @@ class Test_Ai_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             return "FAIL"
 

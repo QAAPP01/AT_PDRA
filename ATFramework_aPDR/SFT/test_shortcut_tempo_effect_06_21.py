@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -65,7 +65,7 @@ class Test_Tempo_Effect:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -76,7 +76,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -84,14 +84,14 @@ class Test_Tempo_Effect:
             time.sleep(1)
 
             if self.element(L.main.shortcut.demo_title).text == "Tempo Effect":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Enter Demo page fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -104,20 +104,20 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.demo_back)
 
             if self.is_exist(L.main.shortcut.shortcut_name(0)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot return launcher')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -129,7 +129,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_shortcut('Tempo Effect')
@@ -138,14 +138,14 @@ class Test_Tempo_Effect:
             after = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
 
             if not HCompareImg(before, after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Mute button no change')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -158,20 +158,20 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.try_it_now)
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter media picker')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -185,20 +185,20 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.media_library.back)
 
             if self.is_exist(L.main.shortcut.shortcut_name(0)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Return launcher fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -210,7 +210,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_shortcut('Tempo Effect')
@@ -222,14 +222,14 @@ class Test_Tempo_Effect:
             self.click(L.import_media.media_library.trim_back)
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Tap preview "{video_9_16}" fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -245,7 +245,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(xpath(f'//*[@text="{video_9_16}"]/../*[contains(@resource-id,"btn_preview")]'))
@@ -255,14 +255,14 @@ class Test_Tempo_Effect:
             self.page_media.waiting()
 
             if self.is_exist(find_string('Export')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter Voice Changer')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -280,20 +280,20 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.editor_back)
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Enter media picker fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -307,21 +307,21 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_media_by_text(video_9_16)
             self.page_media.waiting()
 
             if self.is_exist(find_string('Export')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the export button')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -337,7 +337,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.play)
@@ -345,14 +345,14 @@ class Test_Tempo_Effect:
             self.timecode_play = self.element(L.main.shortcut.timecode).text
 
             if self.timecode_play != "00:00":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -368,21 +368,21 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.play)
             timecode_play = self.element(L.main.shortcut.timecode).text
 
             if timecode_play != self.timecode_play:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {timecode_play}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -398,21 +398,21 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
             timecode_play = self.element(L.main.shortcut.timecode).text
 
             if timecode_play == '00:00':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {timecode_play}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -428,20 +428,20 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.tempo_effect.premium_item())
 
             if self.is_exist(L.edit.try_before_buy.premium_tag):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] No premium tage')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -457,7 +457,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.tempo_effect.effect(2))
@@ -465,14 +465,14 @@ class Test_Tempo_Effect:
             self.click(L.main.shortcut.tempo_effect.edit)
 
             if self.is_exist(find_string("Adjust")):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Enter edit room fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -491,20 +491,20 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.tempo_effect.edit_back)
 
             if not self.is_exist(find_string("Adjust"), 1):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Return effect room fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -521,21 +521,21 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.tempo_effect.edit)
             self.click(L.main.shortcut.tempo_effect.spinner)
 
             if self.click(L.main.shortcut.tempo_effect.audio_source(2)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Select audio source fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -553,7 +553,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(self.element(L.main.shortcut.tempo_effect.slider(2)))
@@ -562,14 +562,14 @@ class Test_Tempo_Effect:
             max_value = self.element(L.main.shortcut.tempo_effect.slider(2)).text
 
             if min_value != max_value:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Slider value no changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -587,7 +587,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(self.element(L.main.shortcut.tempo_effect.slider(3)))
@@ -596,14 +596,14 @@ class Test_Tempo_Effect:
             max_value = self.element(L.main.shortcut.tempo_effect.slider(3)).text
 
             if min_value != max_value:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Slider value no changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -621,7 +621,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
@@ -634,14 +634,14 @@ class Test_Tempo_Effect:
             max_value = self.element(sliders[-2]).text
 
             if min_value != max_value:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Slider value no changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -664,7 +664,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             sliders = self.elements(L.main.shortcut.tempo_effect.slider(0))
@@ -674,14 +674,14 @@ class Test_Tempo_Effect:
             max_value = self.element(sliders[-1]).text
 
             if min_value != max_value:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Slider value no changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -704,7 +704,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.tempo_effect.reset)
@@ -713,14 +713,14 @@ class Test_Tempo_Effect:
             value_2 = self.element(sliders[-1]).text
 
             if [value_1, value_2] == self.default_value:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] {value_1}, {value_2} != {self.default_value}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -738,7 +738,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.full_editor)
@@ -746,14 +746,14 @@ class Test_Tempo_Effect:
             item_name = self.element(xpath('//*[contains(@resource-id,"itemEdit")]/../../*[contains(@resource-id,"itemName")]')).text
 
             if item_name == self.effect_name:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] {item_name} != {self.effect_name}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -766,7 +766,7 @@ class Test_Tempo_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.menu.home)
@@ -777,19 +777,19 @@ class Test_Tempo_Effect:
             self.click(L.main.shortcut.tempo_effect.effect(2))
 
             if self.page_main.shortcut_produce():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Produce fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_case(self):
         result = {
             "sce_6_21_1": self.sce_6_21_1(),

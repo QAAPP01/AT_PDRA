@@ -8,13 +8,13 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import PACKAGE_NAME
-from .conftest import REPORT_INSTANCE
+
 from .conftest import TEST_MATERIAL_FOLDER
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -34,7 +34,7 @@ class Test_SFT_Scenario_02_01:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
 
 
         # shortcut
@@ -49,7 +49,7 @@ class Test_SFT_Scenario_02_01:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -69,7 +69,7 @@ class Test_SFT_Scenario_02_01:
         uuid = '923cc0c9-f6d8-4f65-8076-f1b585d5b1a3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         import datetime
         dt = datetime.datetime.today()
@@ -85,13 +85,13 @@ class Test_SFT_Scenario_02_01:
             result = False
             fail_log = '\n[Fail] Cannot find timeline canvas'
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def sce_2_1_2(self):
         uuid = 'a6faa123-8177-429b-9202-14c21e8905c0'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_edit.add_master_media('Video', test_material_folder, file_video)
         self.click(L.edit.timeline.master_clip)
@@ -106,14 +106,14 @@ class Test_SFT_Scenario_02_01:
             fail_log = '\n[Fail] Cannot find "Split"'
             logger(fail_log)
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def sce_2_1_3(self):
         try:
             uuid = '8973afb2-a0de-4e47-bd0c-d670f83f3c88'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             clip = self.element(L.edit.timeline.master_video(file_video)).rect
             x = clip["x"] + clip["width"] // 2
@@ -130,7 +130,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Split fail: playhead_center = {playhead_center}, x_after = {x_after}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -140,7 +140,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '09cadca9-f7cd-4d6e-a0d1-e26cce285fcf'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             clip = self.elements(L.edit.timeline.master_video_thumbnail(file_video, 2))[0]
             pic_after = self.page_main.h_screenshot(clip)
@@ -153,7 +153,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -163,7 +163,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'b3121bdd-b1f5-4532-9f6c-13237193ee4f'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if self.page_edit.click_sub_tool('Rotate'):
                 result = True
@@ -172,7 +172,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Click "Rotate" fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -182,7 +182,7 @@ class Test_SFT_Scenario_02_01:
         uuid = '6805d7b3-1775-4b5f-930f-159965846428'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             time.sleep(5)
@@ -206,7 +206,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'd5b79a1e-03ee-443a-8a49-d98349bba1b3'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if result_12:
                 result = True
@@ -215,7 +215,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Image incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -225,7 +225,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '394f27cb-9e6f-411b-add7-638473575131'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if self.page_edit.trim_clip(frame="right") and self.page_edit.trim_clip(frame="left"):
                 result = True
@@ -234,7 +234,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Trim fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -244,7 +244,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '73720235-b876-49a2-82d9-75b7e3a4d620'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             # by pass bug
             self.page_main.swipe_element(L.edit.timeline.timeline_ruler, 'left', 1)
@@ -262,7 +262,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -272,7 +272,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'ae24be03-9cad-455e-b23e-924d12984199'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             clips = self.elements(L.edit.timeline.master_video(file_video))
             clip1 = clips[0].rect
@@ -285,7 +285,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] end of clip1 = {clip1["x"] + clip1["width"]}, start of clip2 = {clip2["x"]}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -295,7 +295,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'bef218e9-b099-4126-ac5b-1d5a80ed0554'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             # by pass bug
             self.click(L.edit.timeline.clip())
@@ -308,7 +308,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Click "Flip" fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -318,7 +318,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '6be89ea0-524f-4d3f-bc99-e27c2acbe909'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             time.sleep(5)
             pic_after = self.page_main.h_screenshot()
@@ -341,7 +341,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'cac9a824-5140-47d6-ae60-d126e04becde'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if result_27:
                 result = True
@@ -350,7 +350,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Image incorrect'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -360,7 +360,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '4a9dcf18-a3a8-414f-839f-bc4b085f79c2'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             global pic_original
             pic_original = self.page_main.h_screenshot()
@@ -382,7 +382,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -392,7 +392,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'af6b9dc7-3318-47bd-93e9-cdf5e452b326'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_free)
@@ -411,7 +411,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -421,7 +421,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '789d8fa7-6027-47f5-a979-c165c4dc6028'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_9_16)
@@ -436,7 +436,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -446,7 +446,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '15c5cdc8-d471-4df4-9ae8-bfd5dcc32067'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_1_1)
@@ -461,7 +461,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -471,7 +471,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '8683f4f6-9110-4577-be14-3b7174f60f32'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_4_5)
@@ -486,7 +486,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -496,7 +496,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'a962eb0d-a799-4dac-918f-b287ee3244c3'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_16_9)
@@ -511,7 +511,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Preview has no changed'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -521,7 +521,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '4d9b5fae-140c-4f00-9260-088eec60dcb5'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_4_3)
@@ -536,7 +536,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -546,7 +546,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'd9106fce-f2b0-4b92-bd1f-ce3eb0e185dd'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.page_main.h_swipe_element(L.edit.crop.btn_1_1, L.edit.crop.btn_4_3, 1)
@@ -562,7 +562,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Preview has no changed'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -572,7 +572,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '7f642e5d-1ef0-44a8-8d01-5de9d10a933c'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.page_main.h_swipe_element(L.edit.crop.btn_4_5, L.edit.crop.btn_free, 1)
@@ -588,7 +588,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -598,7 +598,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '2eec3b22-9b2a-41b6-8c8b-ae50e1ab1f10'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.btn_21_9)
@@ -613,7 +613,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Preview has no changed'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -623,7 +623,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '00b2177a-05c4-411a-8c68-0b88cd3ce8bd'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
 
@@ -634,7 +634,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Found Play/Pause button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -644,7 +644,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '8e379056-3eba-4d4f-8601-9b321f014a46'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             slider_rect = self.element(L.edit.crop.slider).rect
             x = slider_rect['x'] + slider_rect['width'] // 2
@@ -660,7 +660,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] time code is incorrect:{time_code.split("/")[0]}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -670,7 +670,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'e38aad9a-a25a-4c41-8598-923c01c74b4a'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.click_sub_tool('Crop')
             self.click(L.edit.crop.reset)
@@ -685,7 +685,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -695,7 +695,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '227a3419-90e9-465a-b230-6efe8bc640d0'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_edit.add_master_media('video', test_material_folder, file_video)
             if self.page_edit.click_sub_tool('Reverse'):
@@ -705,7 +705,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Click "Reverse" fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
 
         except Exception as err:
@@ -723,7 +723,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '73b8a01c-23d2-498c-8d99-0d1e6fb681c3'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.reverse.dialog_ok)
             progress_bar = self.is_exist(L.edit.reverse.progress_bar)
@@ -736,7 +736,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] progress_bar:{progress_bar}, ad:{ad}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -746,7 +746,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '63ef8f5b-b929-400d-b32c-69e647e9f4b6'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             logger('[Info] Reversing')
             while self.is_exist(L.edit.reverse.progress_bar):
@@ -767,7 +767,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Thumbnails are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -777,7 +777,7 @@ class Test_SFT_Scenario_02_01:
         uuid = 'dce25f23-067f-4a5f-8dda-692ee46fada3'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         self.report.new_result(uuid, None, 'N/A')
 
@@ -793,7 +793,7 @@ class Test_SFT_Scenario_02_01:
         #         result = False
         #         fail_log = f'\n[Fail] Cannot find "Stabilizer"'
         #
-        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     
         #     return "PASS" if result else "FAIL"
         # except Exception as err:
         #     logger(f"[Error] {err}")
@@ -802,7 +802,7 @@ class Test_SFT_Scenario_02_01:
     def sce_2_1_50(self):
         uuid = '36454a6f-1031-4372-a1fb-f2f3f79a8ce3'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.report.new_result(uuid, None, 'N/A')
 
@@ -819,7 +819,7 @@ class Test_SFT_Scenario_02_01:
         #         result = False
         #         fail_log = f'\n[Fail] Cannot find "Stabilizing video"'
         #
-        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     
         #     return "PASS" if result else "FAIL"
         # except Exception as err:
         #     logger(f"[Error] {err}")
@@ -828,7 +828,7 @@ class Test_SFT_Scenario_02_01:
     def sce_2_1_49(self):
         uuid = '8ce1701e-fa22-4544-a586-98eef705981d'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.report.new_result(uuid, None, 'N/A')
 
@@ -850,7 +850,7 @@ class Test_SFT_Scenario_02_01:
         #         result = False
         #         fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
         #
-        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     
         #     return "PASS" if result else "FAIL"
         # except Exception as err:
         #     logger(f"[Error] {err}")
@@ -859,7 +859,7 @@ class Test_SFT_Scenario_02_01:
     def sce_2_1_51(self):
         uuid = 'f770a0a8-68b9-4811-86c6-7131c3a732f3'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.report.new_result(uuid, None, 'N/A')
 
@@ -884,7 +884,7 @@ class Test_SFT_Scenario_02_01:
         #         result = False
         #         fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
         #
-        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     
         #     return "PASS" if result else "FAIL"
         # except Exception as err:
         #     logger(f"[Error] {err}")
@@ -893,7 +893,7 @@ class Test_SFT_Scenario_02_01:
     def sce_2_1_52(self):
         uuid = 'aae26929-d157-441c-9959-cc4f3004cd7c'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.report.new_result(uuid, None, 'N/A')
         #
@@ -916,7 +916,7 @@ class Test_SFT_Scenario_02_01:
         #         result = False
         #         fail_log = f'\n[Fail] result_pic = {result_pic}, result_value = {result_value}'
         #
-        #     self.report.new_result(uuid, result, fail_log=fail_log)
+        #     
         #     return "PASS" if result else "FAIL"
         # except Exception as err:
         #     logger(f"[Error] {err}")
@@ -940,7 +940,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '4017ecaf-4099-45c4-bdff-2fb9633d42c4'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -954,7 +954,7 @@ class Test_SFT_Scenario_02_01:
             value = self.element(L.edit.timeline.slider_value).text
 
             if value == "0":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default incorrect: {value}')
@@ -962,7 +962,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -980,14 +980,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '94c02d7d-3fc6-479a-969e-c9aee5cc4ca1'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) > 0:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -995,7 +995,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1013,7 +1013,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '5be6d9f5-cf81-4408-80a7-2aca089389cb'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1023,7 +1023,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1031,7 +1031,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1048,14 +1048,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '206d5ec5-53fc-439e-8277-6fc407bdd26e'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) < 0:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1063,7 +1063,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1081,7 +1081,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '56bfcf3c-ebc3-4c44-b278-2f99a5ac017e'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1091,7 +1091,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1099,7 +1099,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1115,7 +1115,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '176f1faa-cf8d-47e7-aa9d-15f975a5abae'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_sub_option_tool("Contrast")
@@ -1123,7 +1123,7 @@ class Test_SFT_Scenario_02_01:
             value = self.element(L.edit.timeline.slider_value).text
 
             if value == "0":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default incorrect: {value}')
@@ -1131,7 +1131,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1149,14 +1149,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '120dc857-7115-4dff-aa89-9a4c87cac13c'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) > 0:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1164,7 +1164,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1182,7 +1182,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '8ceae3f4-e25a-4420-8e9e-036efe2c32ad'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1192,7 +1192,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1200,7 +1200,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1217,14 +1217,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'a4434695-07e6-4013-92d3-a776e99ce42a'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) < 0:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1232,7 +1232,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1250,7 +1250,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '6e38e549-1176-4c7c-b247-dfb73b34c98e'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1260,7 +1260,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1268,7 +1268,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1284,7 +1284,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '563a3999-87e2-4b02-8256-ea1c0c42e6a8'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_sub_option_tool("Saturation")
@@ -1292,7 +1292,7 @@ class Test_SFT_Scenario_02_01:
             value = self.element(L.edit.timeline.slider_value).text
 
             if value == "100":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default incorrect: {value}')
@@ -1300,7 +1300,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1318,14 +1318,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'd8fe2c0e-f903-4c34-9f3b-dc4b1165c19e'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) > 100:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1333,7 +1333,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1351,7 +1351,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '7156957f-4dca-496f-a4c6-65e674753603'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1361,7 +1361,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1369,7 +1369,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1386,14 +1386,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '0523771e-346a-4477-80ef-b7c2d2c4f46d'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) < 100:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1401,7 +1401,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1419,7 +1419,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '4641b18f-3f95-431a-85a3-8d68bd6afc22'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1429,7 +1429,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1437,7 +1437,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1453,7 +1453,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '8d509724-ad94-41ba-8add-ca7a0c018aae'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_sub_option_tool("Hue")
@@ -1461,7 +1461,7 @@ class Test_SFT_Scenario_02_01:
             value = self.element(L.edit.timeline.slider_value).text
 
             if value == "100":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default incorrect: {value}')
@@ -1469,7 +1469,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1487,14 +1487,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'eb384538-b939-4445-b12c-4c2038c9a51d'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) > 100:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1502,7 +1502,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1520,7 +1520,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'e1e887e6-8cba-4c26-9de3-ee1ad93c0599'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1530,7 +1530,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1538,7 +1538,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1555,14 +1555,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'c7701799-6d27-4126-8ab9-f158d6ca49ac'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) < 100:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1570,7 +1570,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1588,7 +1588,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '55d52fc1-4867-408c-aa91-0240796084f0'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1598,7 +1598,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1606,7 +1606,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1622,7 +1622,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'ae478e12-9e67-42d0-9052-1cf63f3394ca'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_sub_option_tool("Temp")
@@ -1630,7 +1630,7 @@ class Test_SFT_Scenario_02_01:
             value = self.element(L.edit.timeline.slider_value).text
 
             if value == "50":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default incorrect: {value}')
@@ -1638,7 +1638,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1656,14 +1656,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'cb5ef2e5-c9c4-422e-8a53-a1e0a67c717e'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) > 50:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1671,7 +1671,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1689,7 +1689,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '0a4208a2-2d52-4964-9df4-23c29aba3f2a'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1699,7 +1699,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1707,7 +1707,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1724,14 +1724,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'c01e1811-16c2-447c-980d-cbe12e197e1c'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) < 50:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1739,7 +1739,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1757,7 +1757,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'ed5d6e4a-eeb7-47af-936f-ae7c2ff8ef95'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1767,7 +1767,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1775,7 +1775,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1791,7 +1791,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '7ef47ca5-1eaf-4202-bb35-b576ea881f21'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_sub_option_tool("Tint")
@@ -1799,7 +1799,7 @@ class Test_SFT_Scenario_02_01:
             value = self.element(L.edit.timeline.slider_value).text
 
             if value == "50":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default incorrect: {value}')
@@ -1807,7 +1807,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1825,14 +1825,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '8a325e3f-f985-4bae-91da-c58266a6d4dc'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) > 50:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1840,7 +1840,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1858,7 +1858,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '1637dd88-bb2a-40c0-ab03-c854f9681e58'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1868,7 +1868,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1876,7 +1876,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1893,14 +1893,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '2049e934-49b4-4f49-b4b2-5c5b2bbfa708'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.timeline.slider)
             value = self.element(L.edit.timeline.slider_value).text
 
             if int(value) < 50:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -1908,7 +1908,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1926,7 +1926,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'cb672a5c-543a-4d03-b81c-0a1a9f56070a'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.timeline.slider_value).text
@@ -1936,7 +1936,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -1944,7 +1944,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1960,7 +1960,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '66247e49-e3aa-4b77-929e-33b67fff2f63'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_sub_option_tool("Sharpness")
@@ -1968,7 +1968,7 @@ class Test_SFT_Scenario_02_01:
             value = self.element(L.edit.timeline.slider_value).text
 
             if value == "0":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default incorrect: {value}')
@@ -1976,7 +1976,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -1994,7 +1994,7 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '8ac1816f-4cf6-4c48-95b7-6f770176cf73'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max()
@@ -2005,7 +2005,7 @@ class Test_SFT_Scenario_02_01:
             result_preview = True if not HCompareImg(preview, self.adjustment_original).full_compare() == 1 else False
 
             if result_value and result_preview:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] result_value:{result_value}, result_preview: {result_preview}')
@@ -2013,7 +2013,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -2030,7 +2030,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'ef0b9513-1de9-45a3-a6e4-2059298ee095'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.sub_tool_menu.back)
             self.page_edit.add_master_media('video', test_material_folder, 'video.mp4')
@@ -2048,7 +2048,7 @@ class Test_SFT_Scenario_02_01:
 
             self.click(L.edit.timeline.reset)
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2060,7 +2060,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "80"
@@ -2075,7 +2075,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2085,7 +2085,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '523fa5b4-4430-4696-a383-d2225a96f4ae'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"] + rect["width"]
@@ -2099,7 +2099,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2111,7 +2111,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "100"
@@ -2126,7 +2126,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2136,7 +2136,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'd0dc8798-0ade-4c09-a472-d2a2b7b00c56'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"]
@@ -2150,7 +2150,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2162,7 +2162,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "40"
@@ -2177,7 +2177,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2187,7 +2187,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'e843e5e9-7186-48e9-abb1-9c4f2b9030c8'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if self.page_edit.click_sub_option_tool("Smoothness"):
                 result = True
@@ -2198,7 +2198,7 @@ class Test_SFT_Scenario_02_01:
 
             self.click(L.edit.timeline.reset)
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2208,7 +2208,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '393cfcfd-43b0-475f-b13d-fe0252d6c02a'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "80"
@@ -2223,7 +2223,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2233,7 +2233,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '86e0beb3-2ccf-4458-bb7f-11d91d70306c'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"] + rect["width"]
@@ -2247,7 +2247,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2257,7 +2257,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '4d4f4af3-6c98-4a4c-9774-bac2339ed28a'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "100"
@@ -2272,7 +2272,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2282,7 +2282,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'cd508710-449f-46a2-9885-02f359ea68bb'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"]
@@ -2296,7 +2296,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2306,7 +2306,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'f96b2755-2cab-4f5c-bcfa-49da0a234a26'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "0"
@@ -2323,7 +2323,7 @@ class Test_SFT_Scenario_02_01:
 
             self.page_edit.click_sub_option_tool("Remove")
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2333,7 +2333,7 @@ class Test_SFT_Scenario_02_01:
         uuid = '9876425c-07fa-4251-aac2-043efba6099e'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -2353,7 +2353,7 @@ class Test_SFT_Scenario_02_01:
 
             self.click(L.edit.timeline.reset)
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2365,7 +2365,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "80"
@@ -2380,7 +2380,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2390,7 +2390,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '7702acb8-01ab-485b-a1b9-1ae0d40b3db0'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"] + rect["width"]
@@ -2404,7 +2404,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2416,7 +2416,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "100"
@@ -2431,7 +2431,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2441,7 +2441,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'a4eca9b7-5e95-4705-85c3-215ced32e652'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"]
@@ -2455,7 +2455,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2467,7 +2467,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "40"
@@ -2482,7 +2482,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2492,7 +2492,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'efbf6762-c2be-423a-866a-5f02850339b0'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if self.page_edit.click_sub_option_tool("Smoothness"):
                 result = True
@@ -2503,7 +2503,7 @@ class Test_SFT_Scenario_02_01:
 
             self.click(L.edit.timeline.reset)
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2513,7 +2513,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'b8555a72-e79c-48e8-be81-b8cd86c7e385'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "80"
@@ -2528,7 +2528,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2538,7 +2538,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '98e4a27e-3f30-4416-99c5-09a5120d3d0d'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"] + rect["width"]
@@ -2552,7 +2552,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2562,7 +2562,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'a410a826-d866-4cf9-a1c7-a7a77af7432b'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "100"
@@ -2577,7 +2577,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2587,7 +2587,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'a7a640c4-9eb1-457b-9983-96fabfd51c26'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"]
@@ -2601,7 +2601,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2611,7 +2611,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'cb153b5e-c536-4ed6-8d9f-71f235711d5d'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
             result_value = value == "0"
@@ -2626,7 +2626,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2638,7 +2638,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.menu.undo)
             value = self.element(L.edit.timeline.slider_value).text
@@ -2652,7 +2652,7 @@ class Test_SFT_Scenario_02_01:
 
             self.page_edit.click_sub_option_tool("Remove")
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2662,7 +2662,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'a7a218b8-8869-4823-b94f-09e43738c99d'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
 
             self.page_edit.add_master_media("photo", test_material_folder, "9_16.jpg")
@@ -2680,7 +2680,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2690,7 +2690,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '1dd00bf7-eb3d-4c16-a59e-df719e686705'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.fit_and_fill.btn_fit)
             pic_fit = self.page_main.get_preview_pic()
@@ -2702,7 +2702,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2712,7 +2712,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'df25ea97-3885-4565-8674-8e1dab542c1f'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.driver.zoom(L.edit.preview.preview)
             pic_tgt = self.page_main.get_preview_pic()
@@ -2724,7 +2724,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2734,7 +2734,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '9ce3c256-c06f-4d46-ae32-690a8f55dc0e'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.sub_tool_menu.back)
             self.page_edit.click_sub_tool("Background")
@@ -2746,7 +2746,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] None is not selected'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2756,7 +2756,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'da46e132-84b5-4309-85e6-25912abfe68c'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.background.btn_blur)
             value = self.element(L.edit.timeline.slider_value).text
@@ -2768,7 +2768,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2778,7 +2778,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '5421f1c3-fa82-4e1c-9bd2-3ec000e6bc79'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"] + rect["width"]
@@ -2792,7 +2792,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2802,7 +2802,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '392c83be-1b18-4144-8139-e37f4bc78912'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"]
@@ -2816,7 +2816,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2826,7 +2826,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '12078d3f-6e1e-4c7c-9646-cdd0b4f1bf78'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.edit.background.btn_background_color)
             self.click(L.edit.background.card_color(2))
@@ -2838,7 +2838,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Slider is not exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2848,7 +2848,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '788d9d49-a399-4836-9a5a-73e6adbcec6b'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             value = self.element(L.edit.timeline.slider_value).text
 
@@ -2859,7 +2859,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2869,7 +2869,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '839b984f-7bbc-4c90-9f7c-937517e968c7'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"] + rect["width"]
@@ -2883,7 +2883,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2893,7 +2893,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'b4f3d847-7ca1-49d8-9675-2548942ff9c4'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             rect = self.element(L.edit.timeline.slider).rect
             end_x = rect["x"]
@@ -2907,7 +2907,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Value incorrect: {value}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2917,7 +2917,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '2700a3cb-50c3-4b20-b2a6-c53551176f01'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             locator = L.edit.background.card_color(1)
             self.click(locator)
@@ -2936,7 +2936,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Image is the same'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2946,7 +2946,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '9576806e-542b-454e-bcb9-f68b2129b64d'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             cards = self.elements(L.edit.background.card_color(0))
             self.click(cards[-1])
@@ -2965,7 +2965,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Slider is exist'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -2980,7 +2980,7 @@ class Test_SFT_Scenario_02_01:
                 try:
                     uuid = 'a7c251ce-afdb-48d7-9ee3-5ecf91451c7c'
                     logger(f"\n[Start] {inspect.stack()[0][3]}")
-                    self.report.start_uuid(uuid)
+                    
 
                     cards = self.elements(L.edit.background.pattern_layout(0))
                     self.click(cards[index])
@@ -3002,7 +3002,7 @@ class Test_SFT_Scenario_02_01:
                         result = False
                         fail_log = f'\n[Fail] Image no change'
 
-                    self.report.new_result(uuid, result, fail_log=fail_log)
+                    
                     return "PASS" if result else "FAIL"
 
                 except Exception as err:
@@ -3013,7 +3013,7 @@ class Test_SFT_Scenario_02_01:
                 try:
                     uuid = '5df5c584-5393-4b89-bee8-cf139e820fb0'
                     logger(f"\n[Start] {inspect.stack()[0][3]}")
-                    self.report.start_uuid(uuid)
+                    
 
                     cards = self.elements(L.edit.background.pattern_layout(0))
                     self.click(cards[index])
@@ -3037,7 +3037,7 @@ class Test_SFT_Scenario_02_01:
                         result = False
                         fail_log = f'\n[Fail] result_img = {result_img}, result_premium = {result_premium}'
 
-                    self.report.new_result(uuid, result, fail_log=fail_log)
+                    
                     return "PASS" if result else "FAIL"
                 except Exception as err:
                     logger(f"[Error] {err}")
@@ -3089,7 +3089,7 @@ class Test_SFT_Scenario_02_01:
     #     try:
     #         uuid = 'bca3a613-0136-4e50-bed8-d3bcaa2916dc'
     #         logger(f"\n[Start] {inspect.stack()[0][3]}")
-    #         self.report.start_uuid(uuid)
+    #         
     #
     #         self.page_edit.add_master_media('photo', test_material_folder, 'photo.jpg')
     #         self.click(L.edit.timeline.master_clip)
@@ -3110,7 +3110,7 @@ class Test_SFT_Scenario_02_01:
     #             result = False
     #             fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
     #
-    #         self.report.new_result(uuid, result, fail_log=fail_log)
+    #         
     #         return "PASS" if result else "FAIL"
     #     except Exception as err:
     #         logger(f"[Error] {err}")
@@ -3120,7 +3120,7 @@ class Test_SFT_Scenario_02_01:
     #     try:
     #         uuid = '4c4e9e25-e039-4899-a165-1e18c39db2bd'
     #         logger(f"\n[Start] {inspect.stack()[0][3]}")
-    #         self.report.start_uuid(uuid)
+    #         
     #
     #         rect = self.element(L.edit.timeline.slider).rect
     #         end_x = rect["x"] + rect["width"]
@@ -3140,7 +3140,7 @@ class Test_SFT_Scenario_02_01:
     #             result = False
     #             fail_log = f'\n[Fail] result_value:{result_value}, result_preview: {result_preview}'
     #
-    #         self.report.new_result(uuid, result, fail_log=fail_log)
+    #         
     #         return "PASS" if result else "FAIL"
     #     except Exception as err:
     #         logger(f"[Error] {err}")
@@ -3150,7 +3150,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'a29fa42b-7da3-47ae-8f5b-8d3d9a8b4dfb'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline(skip_media=False)
@@ -3166,7 +3166,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = '\n[Fail] Cannot find "Split"'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3176,7 +3176,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'a8b1a23a-6604-4ea4-b703-388bf7afaca0'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             clip = self.element(L.edit.timeline.master_photo(file_photo)).rect
             x = clip["x"] + clip["width"] // 2
@@ -3193,7 +3193,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Split fail: playhead_center = {playhead_center}, x_after = {x_after}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3203,7 +3203,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'f210260a-0827-41aa-a792-85d5cbf3c1e3'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.before_rotate = self.page_edit.get_preview_pic(L.edit.preview.pip_preview)
 
@@ -3218,7 +3218,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3228,7 +3228,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '0ed05cdd-8647-4dcf-9747-9894dad0e3e3'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if self.page_edit.click_sub_tool('Rotate'):
                 result = True
@@ -3237,7 +3237,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Click "Rotate" fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3247,11 +3247,11 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '1a05c9a6-66b7-4703-9f22-6172a920c201'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             if self.page_edit.check_bottom_edit_menu_item_apply_status('Rotate'):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Images are different')
@@ -3259,7 +3259,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             return "FAIL"
 
@@ -3267,13 +3267,13 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '9a0bb1c8-ad1a-435c-9857-de26254509d0'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_edit.get_preview_pic(L.edit.preview.pip_preview)
 
             if not HCompareImg(preview, self.before_rotate).full_compare_result():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Image incorrect')
@@ -3281,7 +3281,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             
             return "FAIL"
 
@@ -3289,7 +3289,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '2ace49cd-c714-4e6c-a8fc-ae494f61b24b'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if self.page_edit.trim_clip(frame="right") and self.page_edit.trim_clip(frame="left"):
                 result = True
@@ -3298,7 +3298,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Trim fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3308,7 +3308,7 @@ class Test_SFT_Scenario_02_01:
         uuid = '89c4c006-39de-49b3-8152-3d32058ee865'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             # by pass bug
@@ -3327,7 +3327,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3337,7 +3337,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '48a4971d-ce32-4169-9aea-bb8a55f9cd47'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             clips = self.elements(L.edit.timeline.master_photo(file_photo, 0))
             clip1 = clips[0].rect
@@ -3350,7 +3350,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] end of clip1 = {clip1["x"] + clip1["width"]}, start of clip2 = {clip2["x"]}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3360,7 +3360,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '4ac3df8a-866a-4b1a-9b2f-131828bec003'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.before_flip = self.page_edit.get_preview_pic()
 
@@ -3371,7 +3371,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Click "Flip" fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3381,13 +3381,13 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'f25a6a25-0e02-47e7-a946-ced87e59c5b7'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             after_flip = self.page_edit.get_preview_pic()
 
             if not HCompareImg(after_flip, self.before_flip).full_compare_result():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Image incorrect')
@@ -3395,7 +3395,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             return "FAIL"
 
@@ -3403,11 +3403,11 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '9fdbe069-5de1-4c45-bb21-d3ea110a0342'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             if self.element(L.edit.preview.pip_preview).get_attribute('displayed') == 'true':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Image is not displayed')
@@ -3415,7 +3415,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             return "FAIL"
 
@@ -3423,7 +3423,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'a1963b21-6657-428a-8d7c-e364759ff8f7'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
@@ -3445,7 +3445,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = '\n[Fail] Cannot find "Split"'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3455,7 +3455,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'edf7a556-0c94-4873-8964-f3607bb7bea6'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             clip = self.element(L.edit.pip.clip_audio(file_music)).rect
             x = clip["x"] + clip["width"] // 2
@@ -3472,7 +3472,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Split fail: playhead_center = {playhead_center}, x_after = {x_after}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3482,7 +3482,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '4c5605cb-b555-49e2-98af-42f218648b7d'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if self.is_exist(L.edit.pip.audio_thumbnail(file_music, 2)):
                 result = True
@@ -3491,7 +3491,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Cannot find the thumbnail of music clip'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3501,7 +3501,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'cf534cbd-b813-4ff4-b4e5-8f6d78d8d038'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
             clip = L.edit.pip.clip_audio(file_music)
 
             if self.page_edit.trim_clip(clip, frame="right") and self.page_edit.trim_clip(clip, frame="left"):
@@ -3511,7 +3511,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Trim fail'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3521,7 +3521,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = 'd08f9e0a-2f6c-4671-9337-360023460dd2'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             if self.is_exist(L.edit.pip.audio_thumbnail(file_music, 2)):
                 result = True
@@ -3530,7 +3530,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] Cannot find the thumbnail of music clip'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3540,7 +3540,7 @@ class Test_SFT_Scenario_02_01:
         try:
             uuid = '4afec38c-bc92-4b82-9f80-0f34c02668b1'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             clips = self.elements(L.edit.pip.clip_audio(file_music, 0))
             clip1 = clips[0].rect
@@ -3553,7 +3553,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] end of clip1 = {clip1["x"] + clip1["width"]}, start of clip2 = {clip2["x"]}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3565,7 +3565,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             for i in range(4):
                 if self.click(L.edit.sub_tool.back, timeout=0.1):
@@ -3580,7 +3580,7 @@ class Test_SFT_Scenario_02_01:
                 result = False
                 fail_log = f'\n[Fail] cannot find the watermark'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -3590,14 +3590,14 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = 'd21dac5a-a1a4-46e6-a587-1c14512a663c'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.before_play = self.page_main.get_preview_pic()
             self.click(L.edit.menu.play)
 
             if self.is_exist(L.edit.timeline.playhead_timecode):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'\n[Fail] Cannot find the timecode')
@@ -3605,7 +3605,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             return "FAIL"
 
@@ -3613,13 +3613,13 @@ class Test_SFT_Scenario_02_01:
         func_name = inspect.stack()[0][3]
         uuid = '666bb375-a688-4f90-9dc1-535a374ad165'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             pic_tgt = self.page_main.get_preview_pic()
 
             if not HCompareImg(pic_tgt, self.before_play).full_compare_result():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'\n[Fail] Image no change')
@@ -3627,7 +3627,7 @@ class Test_SFT_Scenario_02_01:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             return "FAIL"
 
@@ -3638,7 +3638,7 @@ class Test_SFT_Scenario_02_01:
             func_name = inspect.stack()[0][3]
             logger(f"\n[Start] {func_name}")
             case_id = func_name.split("sce_")[1]
-            self.report.start_uuid(uuid)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -3656,13 +3656,13 @@ class Test_SFT_Scenario_02_01:
 
             self.page_edit.click_sub_option_tool("Remove")
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
             return "ERROR"
 
-    @report.exception_screenshot
+    
     def test_case_1(self):
         result = {"sce_2_1_1": self.sce_2_1_1(),
 

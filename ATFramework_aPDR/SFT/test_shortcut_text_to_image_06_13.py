@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -97,7 +97,7 @@ class Test_Shortcut_Text_to_Image:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -108,7 +108,7 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -116,14 +116,14 @@ class Test_Shortcut_Text_to_Image:
             time.sleep(1)
 
             if self.element(L.main.shortcut.tti.title).text == 'Text to Image':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter Text to Image')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -136,20 +136,20 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.close)
 
             if self.is_exist(L.main.shortcut.shortcut_name(0)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot return launcher')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -161,7 +161,7 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_shortcut('Text to Image')
@@ -172,14 +172,14 @@ class Test_Shortcut_Text_to_Image:
             self.click(L.main.shortcut.tti.done)
 
             if self.element(L.main.shortcut.tti.prompt).text == "x"*401:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Enter prompt fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -197,18 +197,18 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             if self.is_exist(L.main.shortcut.tti.exceed_hint):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] No found warning message')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -226,18 +226,18 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             if self.element(L.main.shortcut.tti.generate).get_attribute("enabled") == "false":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Generate button is not disabled')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -255,7 +255,7 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.element(L.main.shortcut.tti.prompt).click()
@@ -268,14 +268,14 @@ class Test_Shortcut_Text_to_Image:
                 time.sleep(1)
 
             if self.is_exist(L.main.shortcut.tti.sensitive):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] No found warning message')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -293,18 +293,18 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             if self.element(L.main.shortcut.tti.generate).get_attribute("enabled") == "false":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Generate button is not disabled')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -322,7 +322,7 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.tti.prompt)
@@ -330,14 +330,14 @@ class Test_Shortcut_Text_to_Image:
             self.click(L.main.shortcut.tti.done)
 
             if self.element(L.main.shortcut.tti.prompt).text == "Type more than 10 words, describing the object, colors, composition, lighting, painting styles, etc.":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Prompt is not cleared')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -352,7 +352,7 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.tti.prompt)
@@ -363,14 +363,14 @@ class Test_Shortcut_Text_to_Image:
             self.click(L.main.shortcut.tti.done)
 
             if self.element(L.main.shortcut.tti.prompt).text == self.input:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Prompt is incorrect')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -391,20 +391,20 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             select = self.element(xpath('//*[contains(@resource-id,"view_is_selected")]/../*[contains(@resource-id,"tv_name")]')).text
 
             if select == "None":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Default incorrect: {select}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -424,20 +424,20 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(xpath('//*[contains(@resource-id,"card_view")]//*[contains(@resource-id,"iv_premium")]'))
 
             if self.click(L.main.subscribe.back_btn):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Click IAP Back fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -457,7 +457,7 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(xpath('(//*[contains(@resource-id,"card_view") and not(.//*[contains(@resource-id,"iv_premium")])])[2]'))
@@ -465,14 +465,14 @@ class Test_Shortcut_Text_to_Image:
             select = self.element(xpath('//*[contains(@resource-id,"view_is_selected")]/../*[contains(@resource-id,"tv_name")]')).text
 
             if select != "None":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Select stlye fail: {select}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -492,20 +492,20 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(xpath('//*[contains(@resource-id,"cv_sticker")]/*[contains(@resource-id,"iv_premium")]'))
 
             if self.click(L.main.subscribe.back_btn):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Click IAP Back fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -525,21 +525,21 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
             self.click(L.main.shortcut.tti.overwrite_cancel)
 
             if self.element(L.main.shortcut.tti.prompt).text == self.input:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Prompt is incorrect')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -559,7 +559,7 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
@@ -567,7 +567,7 @@ class Test_Shortcut_Text_to_Image:
             prompt = self.element(L.main.shortcut.tti.prompt).text
 
             if prompt != self.input:
-                report.new_result(uuid, True)
+                
 
                 self.input = prompt
 
@@ -577,7 +577,7 @@ class Test_Shortcut_Text_to_Image:
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -600,20 +600,20 @@ class Test_Shortcut_Text_to_Image:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.tti.generate)
 
             if self.is_exist(L.main.shortcut.tti.remove_watermark):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] No found remove watermark')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -629,7 +629,7 @@ class Test_Shortcut_Text_to_Image:
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_case(self):
         result = {
             "sce_6_13_1": self.sce_6_13_1(),

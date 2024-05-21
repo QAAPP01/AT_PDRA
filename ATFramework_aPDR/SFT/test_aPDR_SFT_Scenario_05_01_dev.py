@@ -15,7 +15,7 @@ import pytest
 import time
 
 from main import deviceName
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
@@ -23,7 +23,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -34,7 +34,7 @@ class Test_SFT_Scenario_05_01:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
         self.test_material_folder = TEST_MATERIAL_FOLDER
         self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
@@ -50,13 +50,13 @@ class Test_SFT_Scenario_05_01:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_05_01(self):
         result = {}
 
@@ -90,7 +90,7 @@ class Test_SFT_Scenario_05_01:
         item_id = '05_01_06'
         uuid = '71adbc41-8fea-4aca-a384-9afb48612000'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
 
         result[item_id] = self.page_edit.intro_video.enter_intro_profile()
 
@@ -99,7 +99,7 @@ class Test_SFT_Scenario_05_01:
         else:
             logger(f'\n[Fail] Cannot find profile page')
 
-        self.report.new_result(uuid, result[item_id])
+        
 
         # sce_05_01_07
         logger("\n[Start] sce_05_01_07")
@@ -161,7 +161,7 @@ class Test_SFT_Scenario_05_01:
 
     #
     # @pytest.mark.skip
-    # @report.exception_screenshot
+    # 
     # def test_sce_05_01_02(self):
     #     logger('>>> test_sce_05_01_02: Video Intro - Search Page<<<')
     #     media_list = ['01_static.mp4']
@@ -188,7 +188,7 @@ class Test_SFT_Scenario_05_01:
     #
     #
     # @pytest.mark.skip
-    # @report.exception_screenshot
+    # 
     # def test_sce_05_01_03(self):
     #     logger('>>> test_sce_05_01_03: Video Intro - Template Details Page<<<')
     #     media_list = ['01_static.mp4']
@@ -215,7 +215,7 @@ class Test_SFT_Scenario_05_01:
     #
     #
     # @pytest.mark.skip
-    # @report.exception_screenshot
+    # 
     # def test_sce_05_01_04(self):
     #     logger('>>> test_sce_05_01_04: Video Intro - Report Page<<<')
     #     media_list = ['01_static.mp4']
@@ -242,7 +242,7 @@ class Test_SFT_Scenario_05_01:
     #
     #
     # @pytest.mark.skip
-    # @report.exception_screenshot
+    # 
     # def test_sce_05_01_05(self):
     #     logger('>>> test_sce_05_01_05: Video Intro - Comments Page<<<')
     #     media_list = ['01_static.mp4']
@@ -268,7 +268,7 @@ class Test_SFT_Scenario_05_01:
     #     self.report.new_result('c94efe1e-e049-4606-995d-652173cd54a1', result)
     #
     # @pytest.mark.skip
-    # @report.exception_screenshot
+    # 
     # def test_sce_05_01_06(self):
     #     logger('>>> test_sce_05_01_06: Video Intro - Creator Profile Page<<<')
     #     media_list = ['01_static.mp4']
@@ -295,7 +295,7 @@ class Test_SFT_Scenario_05_01:
     #
     #
     # @pytest.mark.skip
-    # @report.exception_screenshot
+    # 
     # def test_sce_05_01_07(self):
     #     logger('>>> test_sce_05_01_07: Video Intro - Edit Template<<<')
     #     media_list = ['01_static.mp4']
@@ -360,7 +360,7 @@ class Test_SFT_Scenario_05_01:
     #     self.report.new_result('c35bc68c-cb4e-4cab-a083-6a7cd67486e4', result)
     #
     # # @pytest.mark.skip
-    # @report.exception_screenshot
+    # 
     # def test_sce_05_01_08(self):
     #     logger('>>> test_sce_05_01_08: Video Intro - Edit Background Video<<<')
     #     media_list = ['01_static.mp4']
@@ -618,7 +618,7 @@ class Test_SFT_Scenario_05_01:
     #     self.report.new_result('4968d627-c3f6-4c28-9309-dec4999a4541', result)
     #
     # # @pytest.mark.skip
-    # @report.exception_screenshot
+    # 
     # def test_sce_05_01_09(self):
     #     logger('>>> test_sce_05_01_09: Video Intro - Add Default Text<<<')
     #     media_list = ['01_static.mp4']

@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_02_11:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_02_11:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_11_01(self):
         logger('>>> test_sce_02_11_01: Video template <<<')
         media_list = ['01_static.mp4']
@@ -223,7 +223,7 @@ class Test_SFT_Scenario_02_11:
         self.report.new_result('feb8c151-9182-4a6a-bf4b-bf74833303bf', result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_11_02(self):
         logger('>>> test_sce_02_11_02: Overlay Room <<<')
         media_list = ['01_static.mp4']

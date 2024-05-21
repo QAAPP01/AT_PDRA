@@ -15,14 +15,14 @@ from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from main import deviceName
 from .conftest import PACKAGE_NAME
-from .conftest import REPORT_INSTANCE
+
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -33,7 +33,7 @@ class Test_SFT_Scenario_05_11:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
         self.test_material_folder = TEST_MATERIAL_FOLDER
         self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
@@ -49,7 +49,7 @@ class Test_SFT_Scenario_05_11:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
@@ -58,7 +58,7 @@ class Test_SFT_Scenario_05_11:
         try:
             uuid = 'bfb8aabd-5575-47b4-9838-f0d6429974fa'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
@@ -79,14 +79,14 @@ class Test_SFT_Scenario_05_11:
                 result = False
                 fail_log = f'\n[Fail] Images are different'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
             return "ERROR"
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_05_11_27(self):
         result = {"sce_5_11_27": self.sce_5_11_27(),
                   }

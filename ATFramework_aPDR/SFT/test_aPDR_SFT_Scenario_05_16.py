@@ -18,7 +18,7 @@ from ATFramework_aPDR.configs import driver_config
 from ATFramework_aPDR.ATFramework.utils.log import logger
 import pytest
 import time
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
@@ -27,7 +27,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 
 sys.path.insert(0, (dir(dir(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -38,7 +38,7 @@ class Test_SFT_Scenario_05_16:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
         self.test_material_folder = TEST_MATERIAL_FOLDER
         self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
@@ -53,13 +53,13 @@ class Test_SFT_Scenario_05_16:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         driver.driver.launch_app()
         yield
         driver.driver.close_app()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_05_16_16(self):
         result = {}
 
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_05_16:
         item_id = '05_16_16'
         uuid = 'd6cd4a33-715a-4eae-ad88-271e44b91482'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_main.enter_launcher()
         self.page_main.enter_timeline()
@@ -85,7 +85,7 @@ class Test_SFT_Scenario_05_16:
         actions.perform()
         result[item_id] = self.page_edit.h_is_exist(id('contentMessage'))
 
-        self.report.new_result(uuid, result[item_id])
+        
 
         # print result
         pprint(result)

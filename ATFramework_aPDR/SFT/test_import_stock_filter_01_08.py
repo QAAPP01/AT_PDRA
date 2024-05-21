@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -73,7 +73,7 @@ class Test_Import_Stock_Filter:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -84,7 +84,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -99,14 +99,14 @@ class Test_Import_Stock_Filter:
             self.pic_search = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -126,7 +126,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -137,14 +137,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -160,7 +160,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -171,14 +171,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -194,7 +194,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -205,14 +205,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -228,7 +228,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -239,14 +239,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if HCompareImg(self.pic_default, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not resumed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -259,7 +259,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_video_library("giphy")
@@ -272,14 +272,14 @@ class Test_Import_Stock_Filter:
             pic_search = self.page_main.h_full_screenshot()
 
             if not HCompareImg(pic_search, pic_default).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -293,20 +293,20 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.media_library.search_clear)
 
             if self.element(L.import_media.sort_menu.sort_button).get_attribute("enabled") == "false":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Sort button not disabled')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -319,7 +319,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_video_library("pexels")
@@ -332,14 +332,14 @@ class Test_Import_Stock_Filter:
             self.pic_search = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -358,7 +358,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -369,14 +369,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -392,7 +392,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -403,14 +403,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -426,7 +426,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -437,14 +437,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -460,7 +460,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -471,14 +471,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if HCompareImg(self.pic_default, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not resumed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -491,7 +491,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_video_library("pixabay")
@@ -504,14 +504,14 @@ class Test_Import_Stock_Filter:
             self.pic_search = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -530,7 +530,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -541,14 +541,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -564,7 +564,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -575,14 +575,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if HCompareImg(self.pic_default, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not resumed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -595,7 +595,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_photo_library("getty")
@@ -608,14 +608,14 @@ class Test_Import_Stock_Filter:
             self.pic_search = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -634,7 +634,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -645,14 +645,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -668,7 +668,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -679,14 +679,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -702,7 +702,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -713,14 +713,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -736,7 +736,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -747,14 +747,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not resumed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -770,7 +770,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -781,14 +781,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -804,7 +804,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -815,14 +815,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -838,7 +838,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -849,14 +849,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -872,7 +872,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -883,14 +883,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -906,7 +906,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -919,14 +919,14 @@ class Test_Import_Stock_Filter:
             self.click(L.import_media.media_library.search_clear)
 
             if HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not resumed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -939,7 +939,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_photo_library("pexels")
@@ -952,14 +952,14 @@ class Test_Import_Stock_Filter:
             self.pic_search = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_default).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -978,7 +978,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -989,14 +989,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1012,7 +1012,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -1023,14 +1023,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1046,7 +1046,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -1057,14 +1057,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1080,7 +1080,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -1093,14 +1093,14 @@ class Test_Import_Stock_Filter:
             self.click(L.import_media.media_library.search_clear)
 
             if HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not resumed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1113,7 +1113,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_photo_library("pixabay")
@@ -1126,14 +1126,14 @@ class Test_Import_Stock_Filter:
             self.pic_search = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, self.pic_default).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1152,7 +1152,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -1163,14 +1163,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1186,7 +1186,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -1197,14 +1197,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if HCompareImg(self.pic_default, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not resumed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1220,7 +1220,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.media_library.search)
@@ -1233,14 +1233,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1256,7 +1256,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             media = self.element(L.import_media.media_library.media())
@@ -1267,14 +1267,14 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if not HCompareImg(self.pic_search, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not changed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -1290,7 +1290,7 @@ class Test_Import_Stock_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -1301,19 +1301,19 @@ class Test_Import_Stock_Filter:
             pic_after = self.page_main.h_full_screenshot()
 
             if HCompareImg(self.pic_default, pic_after).ssim_compare():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Result not resumed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_case(self):
         result = {
             "sce_1_8_1": self.sce_1_8_1(),

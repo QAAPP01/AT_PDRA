@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_02_13:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_02_13:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_13_01(self):
         logger('>>> test_sce_02_13_01: Title Blending <<<')
         media_list = ['01_static.mp4']
@@ -266,7 +266,7 @@ class Test_SFT_Scenario_02_13:
         
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_13_02(self):
         logger('>>> test_sce_02_13_02: Replace <<<')
         media_list = ['01_static.mp4']
@@ -630,7 +630,7 @@ class Test_SFT_Scenario_02_13:
 
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_13_03(self):
         logger('>>> test_sce_02_13_03: Replace - V to V Keep edited check <<<')
         media_list = ['01_static.mp4']
@@ -831,7 +831,7 @@ class Test_SFT_Scenario_02_13:
         self.report.new_result('f2c0db1e-9494-4419-ae51-af12f7ada5f8', result_crop)
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_13_04(self):
         logger('>>> test_sce_02_13_04: Replace - P to P Keep edited check <<<')
         media_list = ['01_static.mp4']
@@ -1023,7 +1023,7 @@ class Test_SFT_Scenario_02_13:
         
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_13_05(self):
         logger('>>> test_sce_02_13_05: Replace - C to P / P to C Keep edited check <<<')
         media_list = ['01_static.mp4']

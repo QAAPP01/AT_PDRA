@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_02_18:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_02_18:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_18_01(self):
         logger('>>> test_sce_02_18_01: Animation - Video Clip <<<')
         media_list = ['01_static.mp4']
@@ -174,7 +174,7 @@ class Test_SFT_Scenario_02_18:
         self.report.new_result('be3a8055-9252-4138-8277-fe52d5115249', result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_18_02(self):
         logger('>>> test_sce_02_18_02: Animation - Photo Clip <<<')
         media_list = ['png.png']
@@ -281,7 +281,7 @@ class Test_SFT_Scenario_02_18:
         self.report.new_result('57d01ef0-97a1-4668-a791-c7309ce42205', result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_18_03(self):
         logger('>>> test_sce_02_18_03: Animation - Sticker Clip <<<')
         media_list = ['png.png']
@@ -386,7 +386,7 @@ class Test_SFT_Scenario_02_18:
         self.report.new_result('7bcdab84-5fdd-497b-81c8-41dfa90f3f3d', result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_18_04(self):
         logger('>>> test_sce_02_18_04: Animation - Colorboard Clip <<<')
         media_list = ['png.png']
