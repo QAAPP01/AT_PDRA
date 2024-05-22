@@ -6,6 +6,7 @@ from ATFramework_aPDR.pages.main_page import MainPage
 from ATFramework_aPDR.pages.edit import EditPage
 from ATFramework_aPDR.pages.import_media import MediaPage
 
+
 # === Logging fixture ===
 @pytest.fixture(scope='class', autouse=True)
 def log_class_start(request):
