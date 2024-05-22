@@ -4,18 +4,11 @@ import allure
 from ATFramework_aPDR.ATFramework.utils import logger
 import ATFramework_aPDR.pages.locator as L
 from ATFramework_aPDR.ATFramework.drivers.appium_driver import AppiumU2Driver
-
-"""
-allure levels:
-- Feature (class)
--- Story (feature)
---- title (step)
----- steps (X)
-"""
+from ATFramework_aPDR.SFT.Test_Timeline.TestBase import TestBase
 
 
 @allure.feature('Track Limitation')
-class TestTrackLimitation:
+class TestTrackLimitation(TestBase):
 
     @pytest.fixture(scope='class', autouse=True)
     def class_setup(self, shortcut, driver):
@@ -60,9 +53,14 @@ class TestTrackLimitation:
         except Exception as e:
             if type(e) is AssertionError:
                 logger(f'[AssertionError] {repr(e)}]')
+                text = 'AssertionError'
+            elif type(e) is ValueError:
+                logger(f'[UnitTestError] {repr(e)}]')
+                text = 'UnitTestError'
             else:
                 logger(f'[Exception] {repr(e)}')
-            pytest.fail(f'[Exception] {repr(e)}]')
+                text = 'Exception'
+            pytest.fail(f'[{text}] {repr(e)}]')
 
     @allure.story("Audio Track Limitation")
     def test_timeline_limitation_audio_track(self, driver: AppiumU2Driver):
@@ -79,20 +77,33 @@ class TestTrackLimitation:
 
             # Only the first track will have 2 audio clip
             allure.title(f'Only the first track will have 2 audio clip')
-            assert type(y1 := self.element(L.edit.timeline.clip_audio(index=1)).rect['y']) is int
-            assert type(y2 := self.element(L.edit.timeline.clip_audio(index=2)).rect['y']) is int
+            self.check(
+                type(y1 := self.element(L.edit.timeline.clip_audio(index=1)).rect['y']),
+                int)
+            self.check(
+                type(y2 := self.element(L.edit.timeline.clip_audio(index=2)).rect['y']),
+                int)
             assert y1 == y2
 
-            assert type(y3 := self.element(L.edit.timeline.clip_audio(index=3)).rect['y']) is int
-            assert type(y4 := self.element(L.edit.timeline.clip_audio(index=4)).rect['y']) is int
+            self.check(
+                type(y3 := self.element(L.edit.timeline.clip_audio(index=3)).rect['y']),
+                int)
+            self.check(
+                type(y4 := self.element(L.edit.timeline.clip_audio(index=4)).rect['y']),
+                int)
             assert y3 != y4
 
         except Exception as e:
             if type(e) is AssertionError:
                 logger(f'[AssertionError] {repr(e)}]')
+                text = 'AssertionError'
+            elif type(e) is ValueError:
+                logger(f'[UnitTestError] {repr(e)}]')
+                text = 'UnitTestError'
             else:
                 logger(f'[Exception] {repr(e)}')
-            pytest.fail(f'[Exception] {repr(e)}]')
+                text = 'Exception'
+            pytest.fail(f'[{text}] {repr(e)}]')
 
     @allure.story("PiP Track Limitation")
     def test_timeline_limitation_pip_track(self, driver: AppiumU2Driver):
@@ -106,17 +117,30 @@ class TestTrackLimitation:
 
             # Only the first track will have 2 pip clip
             allure.title(f'Only the first track will have 2 pip clip')
-            assert type(y1 := self.element(L.edit.pip.clip(index=1)).rect['y']) is int
-            assert type(y2 := self.element(L.edit.pip.clip(index=2)).rect['y']) is int
+            self.check(
+                type(y1 := self.element(L.edit.pip.clip(index=1)).rect['y']),
+                int)
+            self.check(
+                type(y2 := self.element(L.edit.pip.clip(index=2)).rect['y']),
+                int)
             assert y1 == y2
 
-            assert type(y3 := self.element(L.edit.pip.clip(index=3)).rect['y']) is int
-            assert type(y4 := self.element(L.edit.pip.clip(index=4)).rect['y']) is int
+            self.check(
+                type(y3 := self.element(L.edit.pip.clip(index=3)).rect['y']),
+                int)
+            self.check(
+                type(y4 := self.element(L.edit.pip.clip(index=4)).rect['y']),
+                int)
             assert y3 != y4
 
         except Exception as e:
             if type(e) is AssertionError:
                 logger(f'[AssertionError] {repr(e)}]')
+                text = 'AssertionError'
+            elif type(e) is ValueError:
+                logger(f'[UnitTestError] {repr(e)}]')
+                text = 'UnitTestError'
             else:
                 logger(f'[Exception] {repr(e)}')
-            pytest.fail(f'{repr(e)}]')
+                text = 'Exception'
+            pytest.fail(f'[{text}] {repr(e)}]')
