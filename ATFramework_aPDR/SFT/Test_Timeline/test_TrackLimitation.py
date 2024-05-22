@@ -37,7 +37,6 @@ class TestTrackLimitation(TestBase):
     AUDIO_LIMITATION = 9
     PIP_LIMITATION = 20
 
-    @pytest.mark.skip
     @allure.story("Video Track Limitation")
     def test_timeline_limitation_video_track(self, driver: AppiumU2Driver):
         try:
