@@ -63,7 +63,7 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
     def get_log_level():
         info_strings = '[Info]', '[info]'
         warning_strings = '[Warning]', '[warning]', '[Warn]', '[warn]'
-        error_strings = '[Error]', '[error]', '[AssertError]', '[AssertionError]'
+        error_strings = '[Error]', '[error]', '[AssertError]', '[AssertionError]', '[UnitTestError]'
         critical_strings = '[Critical]', '[critical]', '[Crit]', '[crit]', 'Exception]', '[exception]'
 
         if log_level:
@@ -72,9 +72,9 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
                     return logging.INFO, get_color('info')
                 case 'warn':
                     return logging.WARN, get_color('warn')
-                case 'error':
+                case 'err':
                     return logging.ERROR, get_color('error')
-                case 'critical':
+                case 'crit':
                     return logging.CRITICAL, get_color('crit')
 
         for level_strings, levels, colors in [
@@ -82,7 +82,7 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
                 (warning_strings, logging.WARN, 'warn'),
                 (error_strings, logging.ERROR, 'error'),
                 (critical_strings, logging.CRITICAL, 'crit')]:
-            if any(s in msg for s in level_strings):
+            if any(x for x in level_strings if x in msg[0]):
                 return levels, get_color(colors)
 
         return logging.DEBUG, get_color('debug')
