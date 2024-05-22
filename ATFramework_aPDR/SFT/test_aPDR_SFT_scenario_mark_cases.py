@@ -8,10 +8,10 @@ from configs import driver_config
 from ATFramework.utils.log import logger
 import pytest
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
-report = REPORT_INSTANCE
+
 
 pdr_package = PACKAGE_NAME
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -32,7 +32,7 @@ class Test_SFT_Scenario_Mark_Case:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = test_material_folder
@@ -62,7 +62,7 @@ class Test_SFT_Scenario_Mark_Case:
         self.driver.stop_driver()
 
     #@pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_mark_case(self):
         # for AT N/A cases =====================================
         # self.report.add_result('e94b15b5-a219-45a3-a2ed-10648c201b11', 'N/A', None)  # N/A case

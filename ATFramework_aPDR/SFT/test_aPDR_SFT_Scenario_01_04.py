@@ -6,13 +6,13 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import PACKAGE_NAME
-from .conftest import REPORT_INSTANCE
+
 from .conftest import TEST_MATERIAL_FOLDER
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -24,7 +24,7 @@ class Test_SFT_Scenario_01_04:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -38,7 +38,7 @@ class Test_SFT_Scenario_01_04:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -58,7 +58,7 @@ class Test_SFT_Scenario_01_04:
         uuid = 'c3410853-f64a-49a8-9e82-ac0b2e42dcaf'
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -69,7 +69,7 @@ class Test_SFT_Scenario_01_04:
             self.page_edit.back_to_launcher()
 
             if mode_setting == "portrait" and orientation == "PORTRAIT":
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'\n[Fail] mode_setting = {mode_setting}, orientation = {orientation}')
@@ -77,14 +77,14 @@ class Test_SFT_Scenario_01_04:
         except Exception as err:
             self.stop_recording(func_name)
             logger(f'\n{err}')
-            self.report.new_result(uuid, False, fail_log=err)
+            
 
             return "FAIL"
 
     def sce_01_04_02(self):
         uuid = 'd6381ed1-92fc-45b0-a3e9-46dbbc9e50bb'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         mode_setting = self.page_main.change_UI_mode("landscape")
         self.driver.driver.orientation = "PORTRAIT"
@@ -100,13 +100,13 @@ class Test_SFT_Scenario_01_04:
             fail_log = f'\n[Fail] mode_setting = {mode_setting}, orientation = {orientation}'
             logger(fail_log)
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def sce_01_04_03(self):
         uuid = '1c8e65a8-8de5-4853-ba25-ef0789b35c33'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         # auto_portrait
         mode_setting = self.page_main.change_UI_mode("auto-rotate")
@@ -142,7 +142,7 @@ class Test_SFT_Scenario_01_04:
             fail_log = f'\n[Fail] result_portrait = {result_portrait}, result_landscape = {result_landscape}'
             logger(fail_log)
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def test_case(self):

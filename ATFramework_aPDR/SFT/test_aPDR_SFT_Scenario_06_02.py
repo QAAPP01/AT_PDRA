@@ -13,14 +13,14 @@ from ATFramework_aPDR.configs import app_config
 from ATFramework_aPDR.configs import driver_config
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE
+
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 
 file_video = 'video.mp4'
 file_photo = 'photo.jpg'
@@ -33,7 +33,7 @@ class Test_SFT_Scenario_06_02:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
         self.test_material_folder = TEST_MATERIAL_FOLDER
         self.test_material_folder_01 = TEST_MATERIAL_FOLDER_01
 
@@ -48,7 +48,7 @@ class Test_SFT_Scenario_06_02:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        self.report.set_driver(driver)
+        
         driver.driver.launch_app()
 
     def sce_6_4_70(self):
@@ -56,7 +56,7 @@ class Test_SFT_Scenario_06_02:
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_ai_effect.enter_free_template_media_picker()
@@ -76,7 +76,7 @@ class Test_SFT_Scenario_06_02:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -91,7 +91,7 @@ class Test_SFT_Scenario_06_02:
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
         case_id = func_name.split("sce_")[1]
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.page_ai_effect.leave_editor_to_library(reenter=True)
@@ -111,7 +111,7 @@ class Test_SFT_Scenario_06_02:
                 result = False
                 fail_log = '\n[Fail] Cannot find produce button'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -122,7 +122,7 @@ class Test_SFT_Scenario_06_02:
             return "ERROR"
 
 
-    @report.exception_screenshot
+    
     def test_sce_6_1_1_to_135(self):
         result = {"sce_6_4_70": self.sce_6_4_70(),
                   "sce_6_4_71": self.sce_6_4_71(),

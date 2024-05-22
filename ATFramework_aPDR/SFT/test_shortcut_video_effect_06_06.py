@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -73,7 +73,7 @@ class Test_Shortcut_Video_Effect:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -92,14 +92,14 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Video Effect')
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter media picker')
@@ -107,7 +107,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -120,13 +120,13 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.media_library.back)
 
             if self.is_exist(L.main.shortcut.shortcut_name(0)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot return launcher')
@@ -134,7 +134,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -146,7 +146,7 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_shortcut('Video Effect')
@@ -154,7 +154,7 @@ class Test_Shortcut_Video_Effect:
             self.click(L.import_media.media_library.trim_back)
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter media picker')
@@ -162,7 +162,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -175,7 +175,7 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.media_library.btn_preview())
@@ -185,7 +185,7 @@ class Test_Shortcut_Video_Effect:
             self.page_media.waiting()
 
             if self.is_exist(L.main.shortcut.video_effect.effect(0)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter Video Effect')
@@ -193,7 +193,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -208,13 +208,13 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.editor_back)
 
             if self.is_exist(find_string('Add Media')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter media picker')
@@ -222,7 +222,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -235,14 +235,14 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.page_media.waiting()
 
             if self.is_exist(L.main.shortcut.video_effect.effect(0)):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter Video Effect')
@@ -250,7 +250,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -265,7 +265,7 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.play)
@@ -273,7 +273,7 @@ class Test_Shortcut_Video_Effect:
             self.timecode_play = self.element(L.main.shortcut.timecode).text
 
             if self.timecode_play != "00:00":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
@@ -281,7 +281,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -296,14 +296,14 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.main.shortcut.play)
             timecode_play = self.element(L.main.shortcut.timecode).text
 
             if timecode_play != self.timecode_play:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {timecode_play}')
@@ -311,7 +311,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -326,14 +326,14 @@ class Test_Shortcut_Video_Effect:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
             timecode_play = self.element(L.main.shortcut.timecode).text
 
             if timecode_play == '00:00':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Timecode no change: {timecode_play}')
@@ -341,7 +341,7 @@ class Test_Shortcut_Video_Effect:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -353,7 +353,7 @@ class Test_Shortcut_Video_Effect:
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_sce_6_1_1_to_135(self):
         result = {"sce_6_6_1": self.sce_6_6_1(),
                   "sce_6_6_2": self.sce_6_6_2(),

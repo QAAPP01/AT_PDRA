@@ -12,7 +12,7 @@ from ATFramework_aPDR.configs import driver_config
 from ATFramework_aPDR.ATFramework.utils.log import logger
 import pytest
 import time
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
@@ -21,7 +21,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 
 sys.path.insert(0, (dir(dir(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -39,7 +39,7 @@ class Test_SFT_Scenario_05_03:
         if desired_caps['udid'] == 'auto':
             del desired_caps['udid']
         logger(f"[Info] caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -75,7 +75,7 @@ class Test_SFT_Scenario_05_03:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_05_03_30(self):
         result = {}
 
@@ -83,23 +83,23 @@ class Test_SFT_Scenario_05_03:
         item_id = '05_03_30'
         uuid = '2dfd00f8-53a6-4380-9b9e-54355ff851ad'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
         self.page_main.enter_launcher()
         self.page_main.enter_timeline()
         self.page_edit.intro_video.enter_intro()
         self.page_edit.intro_video.edit_1st_template()
         result[item_id] = self.page_edit.intro_video.customize()
-        self.report.new_result(uuid, result[item_id])
+        
 
         # sce_05_03_31
         item_id = '05_03_31'
         uuid = '82d2f413-f2b9-4ba0-94cc-75e66bf03cd0'
         logger(f"\n[Start] sce_{item_id}")
-        self.report.start_uuid(uuid)
+        
         self.page_edit.h_click(L.edit.intro_video.home)
         self.page_edit.h_click(L.edit.intro_video.btn_leave)
         self.page_edit.intro_video.edit_1st_template()
         result[item_id] = self.page_edit.intro_video.add_to_video()
-        self.report.new_result(uuid, result[item_id])
+        
 
         pprint(result)

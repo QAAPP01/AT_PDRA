@@ -12,14 +12,14 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import PACKAGE_NAME
-from .conftest import REPORT_INSTANCE
+
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 sys.path.insert(0, (dirname(dirname(__file__))))
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 # global value
@@ -40,7 +40,7 @@ class Test_SFT_Scenario_01_03:
         logger("[Start] Init driver session")
 
         self.driver = driver
-        self.report = report
+        
 
         # shortcut
         self.page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -54,7 +54,7 @@ class Test_SFT_Scenario_01_03:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -72,7 +72,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_01(self):
         uuid = 'c023139e-c9cc-4328-8712-3ee02658fbaa'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         global project_name
         project_name = '16_9'
@@ -91,7 +91,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_02(self):
         uuid = 'a5217615-8e5b-45c0-9926-7a590329f261'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         project_ratio = self.page_edit.preview_ratio()
         if project_ratio == '16:9':
@@ -106,7 +106,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_03(self):
         uuid = 'd04019c0-bdb6-4237-a3d4-7571a7f5e54d'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_main.h_click(L.edit.timeline.item_view_border)
         self.page_main.h_click(L.edit.menu.delete)
@@ -123,13 +123,13 @@ class Test_SFT_Scenario_01_03:
             fail_log = f'\n[Fail] Not synced with sec_1.2.5, timeline_result = {timeline_result}, duration_result = {duration_result}'
             logger(fail_log)
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def sce_01_03_04(self):
         uuid = '0015cf16-0a05-4bdd-ab05-3bb7a4427f1b'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         duration_result = self.page_edit.check_setting_image_duration(0.1)
         timeline_result = self.page_edit.check_timeline_image_duration(file_name='16_9.jpg')
@@ -148,7 +148,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_05(self):
         uuid = '217c88ad-6b65-4410-be29-b94d805facf0'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         duration_result = self.page_edit.check_setting_image_duration(10.0)
         timeline_result = self.page_edit.check_timeline_image_duration(file_name='16_9.jpg')
@@ -167,7 +167,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_06(self):
         uuid = 'd525ef8a-7a27-42f3-ac90-5e1783510720'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_main.h_click(L.edit.timeline.item_view_border)
         self.page_main.h_click(L.edit.menu.delete)
@@ -196,7 +196,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_07(self):
         uuid = 'f0925727-013a-4f85-9263-185913bef854'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_main.h_click(L.edit.settings.menu)
         self.page_main.h_click(L.edit.settings.preference)
@@ -223,18 +223,18 @@ class Test_SFT_Scenario_01_03:
     def sce_1_3_8(self):
         uuid = '8b96e410-9567-43bd-9318-e708588c121f'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.preview.import_tips_icon)
             self.page_media.switch_to_video_library()
 
             if self.page_media.select_local_folder(test_material_folder_01):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] Cannot find the folder{test_material_folder_01}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -250,7 +250,7 @@ class Test_SFT_Scenario_01_03:
     def sce_1_3_9(self):
         uuid = '8c798524-1b86-45d2-8817-b571a2d24744'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             for retry in range(20):
@@ -260,11 +260,11 @@ class Test_SFT_Scenario_01_03:
                     break
 
             if self.is_exist(find_string("mp4.mp4")):
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = '[Fail] Cannot find the file "mp4.mp4"'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -280,7 +280,7 @@ class Test_SFT_Scenario_01_03:
     def sce_1_3_10(self):
         uuid = 'e86a08d6-ef03-489f-9c25-0cb1129c7ec7'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         try:
             self.click(L.import_media.sort_menu.sort_button)
@@ -288,11 +288,11 @@ class Test_SFT_Scenario_01_03:
             result_descending = self.element(L.import_media.sort_menu.descending).get_attribute("checked")
 
             if result_date == "true" and result_descending == "true":
-                self.report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 fail_log = f'[Fail] result_date = {result_date}, result_descending = {result_descending}'
-                self.report.new_result(uuid, False, fail_log=fail_log)
+                
                 raise Exception(fail_log)
 
         except Exception as err:
@@ -310,7 +310,7 @@ class Test_SFT_Scenario_01_03:
         try:
             uuid = '6915774e-803f-4bdc-b3e2-801265ab092d'
             logger(f"\n[Start] {inspect.stack()[0][3]}")
-            self.report.start_uuid(uuid)
+            
 
             self.click(L.import_media.sort_menu.by_name)
             self.click(L.import_media.sort_menu.descending)
@@ -329,7 +329,7 @@ class Test_SFT_Scenario_01_03:
                 result = False
                 fail_log = f'\n[Fail] files_name order incorrect: {files_name}'
 
-            self.report.new_result(uuid, result, fail_log=fail_log)
+            
             return "PASS" if result else "FAIL"
         except Exception as err:
             logger(f"[Error] {err}")
@@ -338,7 +338,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_13(self):
         uuid = 'f94ff455-5b41-48e5-8fbb-ae82e1a0f06c'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.click(L.import_media.sort_menu.sort_button)
         self.click(L.import_media.sort_menu.by_resolution)
@@ -361,7 +361,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_14(self):
         uuid = '4c7a3ee8-3583-48ff-93d8-0a419c93bdaf'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.click(L.import_media.sort_menu.sort_button)
         self.click(L.import_media.sort_menu.by_duration)
@@ -387,7 +387,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_15(self):
         uuid = 'e561ab86-9b2f-448a-95ac-da9316b0364d'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.click(L.import_media.sort_menu.sort_button)
         self.click(L.import_media.sort_menu.by_file_size)
@@ -410,7 +410,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_12(self):
         uuid = '98a791b5-7722-4d7c-a1a2-1950fbc8a8cd'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.click(L.import_media.sort_menu.sort_button)
         self.click(L.import_media.sort_menu.by_date)
@@ -433,7 +433,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_16(self):
         uuid = '821b99cf-c7e8-49dd-939b-3e42ea3e2a78'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         file_name = "mp4.mp4"
         self.page_media.select_local_video(test_material_folder, file_name)
@@ -445,13 +445,13 @@ class Test_SFT_Scenario_01_03:
             result = False
             fail_log = f'\n[Fail] Cannot find {file_name} on master track'
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def sce_01_03_17(self):
         uuid = 'e59a01fc-8854-4779-b324-acd2bbff1d43'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_edit.add_master_media()
         file_name = "mkv.mkv"
@@ -464,13 +464,13 @@ class Test_SFT_Scenario_01_03:
             result = False
             fail_log = f'\n[Fail] Cannot find {file_name} on master track'
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def sce_01_03_18(self):
         uuid = '40a15d6a-2366-4e3d-8e1a-6d15c08b5eec'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_edit.add_master_media()
         file_name = 'gif.gif'
@@ -483,13 +483,13 @@ class Test_SFT_Scenario_01_03:
             result = False
             fail_log = f'\n[Fail] Cannot find "{file_name}" on master track'
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def sce_01_03_19(self):
         uuid = 'be427fb7-345f-42f5-9b9a-d6b8478b48d0'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         if self.element(L.edit.timeline.master_photo('gif.gif')).rect['width'] == clip_width:
             result = True
@@ -498,13 +498,13 @@ class Test_SFT_Scenario_01_03:
             result = False
             fail_log = f'\n[Fail] clip_width is not equal'
 
-        self.report.new_result(uuid, result, fail_log=fail_log)
+        
         return "PASS" if result else "FAIL"
 
     def sce_01_03_20(self):
         uuid = '26c0fd29-ebbf-4bc8-b11e-bf5ccd6e208a'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_edit.add_master_media()
         file_name = 'png.png'
@@ -522,7 +522,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_21(self):
         uuid = '6c59047f-90f0-4b4d-a3fb-a4ab45040524'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         if self.element(L.edit.timeline.master_photo('png.png')).rect['width'] == clip_width:
             result = True
@@ -537,7 +537,7 @@ class Test_SFT_Scenario_01_03:
         func_name = inspect.stack()[0][3]
         uuid = 'ea56db50-2b0d-48d9-9feb-f91203f6a31e'
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.enter_main_tool("Audio")
@@ -556,7 +556,7 @@ class Test_SFT_Scenario_01_03:
             locator = aid(f"[AID]TimeLineAudio_{file_name}")
 
             if self.page_main.h_is_exist(locator):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'\n[Fail] Cannot find "{file_name}" on master track')
@@ -564,7 +564,7 @@ class Test_SFT_Scenario_01_03:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -576,7 +576,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_23(self):
         uuid = '9ee4f99d-b3ec-4274-90fb-b71567c64b9b'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_edit.click_tool("Audio")
         self.page_main.h_click(find_string("Music"))
@@ -601,7 +601,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_24(self):
         uuid = '9877d20c-9521-41eb-9554-bda13a6a837f'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_edit.click_tool("Audio")
         self.page_main.h_click(find_string("Music"))
@@ -626,7 +626,7 @@ class Test_SFT_Scenario_01_03:
     def sce_01_03_34(self):
         uuid = 'dd672f53-f444-4562-ae07-a38499322f04'
         logger(f"\n[Start] {inspect.stack()[0][3]}")
-        self.report.start_uuid(uuid)
+        
 
         self.page_edit.h_click(L.edit.menu.home)
         # Churn Recovery

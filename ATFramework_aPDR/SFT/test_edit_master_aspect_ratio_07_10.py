@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -44,7 +44,7 @@ class Test_Edit_Aspect_Ratio:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -55,7 +55,7 @@ class Test_Edit_Aspect_Ratio:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -64,14 +64,14 @@ class Test_Edit_Aspect_Ratio:
             self.click(L.edit.settings.aspect_ratio)
 
             if self.is_exist(L.edit.aspect_ratio.ratio_16_9):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Enter aspect ratio failed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -86,21 +86,21 @@ class Test_Edit_Aspect_Ratio:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.toolbar.back)
             self.page_edit.click_tool("Aspect Ratio")
 
             if self.is_exist(L.edit.aspect_ratio.ratio_16_9):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Enter aspect ratio failed')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -115,21 +115,21 @@ class Test_Edit_Aspect_Ratio:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.aspect_ratio.ratio_16_9)
             ratio = self.page_edit.preview_ratio()
 
             if ratio == "16:9":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Ratio not match: {ratio}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -144,21 +144,21 @@ class Test_Edit_Aspect_Ratio:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.aspect_ratio.ratio_9_16)
             ratio = self.page_edit.preview_ratio()
 
             if ratio == "9:16":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Ratio not match: {ratio}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -173,21 +173,21 @@ class Test_Edit_Aspect_Ratio:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.aspect_ratio.ratio_1_1)
             ratio = self.page_edit.preview_ratio()
 
             if ratio == "1:1":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Ratio not match: {ratio}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -202,21 +202,21 @@ class Test_Edit_Aspect_Ratio:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.aspect_ratio.ratio_21_9)
             ratio = self.page_edit.preview_ratio()
 
             if ratio == "21:9":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Ratio not match: {ratio}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -231,21 +231,21 @@ class Test_Edit_Aspect_Ratio:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.aspect_ratio.ratio_4_5)
             ratio = self.page_edit.preview_ratio()
 
             if ratio == "4:5":
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Ratio not match: {ratio}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -256,7 +256,7 @@ class Test_Edit_Aspect_Ratio:
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_case(self):
         result = {
             "sce_7_10_1": self.sce_7_10_1(),

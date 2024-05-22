@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -97,7 +97,7 @@ class Test_Overlay_VideoFx:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -116,7 +116,7 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -127,7 +127,7 @@ class Test_Overlay_VideoFx:
             self.click(L.edit.fx_layer.add)
 
             if self.is_exist(L.edit.fx_layer.videoFx.item()):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the Effect')
@@ -135,7 +135,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -152,14 +152,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.cancel)
             self.page_edit.enter_main_tool('Video Effects')
 
             if self.is_exist(L.edit.fx_layer.videoFx.item()):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the Effect')
@@ -167,7 +167,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -185,7 +185,7 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.preview_original = self.page_main.get_preview_pic()
@@ -195,7 +195,7 @@ class Test_Overlay_VideoFx:
             value = self.element(L.edit.fx_layer.videoFx.value(1)).text
 
             if value == '50':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -203,7 +203,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -226,14 +226,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.fx_layer.videoFx.slider(1))
             value = self.element(L.edit.fx_layer.videoFx.value(1)).text
 
             if value == '0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -241,7 +241,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -264,13 +264,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare() == 1:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -278,7 +278,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -300,14 +300,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.fx_layer.videoFx.slider(1))
             value = self.element(L.edit.fx_layer.videoFx.value(1)).text
 
             if value == '100':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -315,7 +315,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -338,13 +338,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare() == 1:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -352,7 +352,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -374,13 +374,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.fx_layer.videoFx.value(2)).text
 
             if value == '50':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -388,7 +388,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -410,14 +410,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.fx_layer.videoFx.slider(2))
             value = self.element(L.edit.fx_layer.videoFx.value(2)).text
 
             if value == '0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -425,7 +425,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -448,13 +448,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare() == 1:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -462,7 +462,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -484,14 +484,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.fx_layer.videoFx.slider(2))
             value = self.element(L.edit.fx_layer.videoFx.value(2)).text
 
             if value == '100':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -499,7 +499,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -522,13 +522,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare() == 1:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -536,7 +536,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -558,7 +558,7 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.videoFx.reset)
@@ -567,7 +567,7 @@ class Test_Overlay_VideoFx:
             value_2 = self.element(L.edit.fx_layer.videoFx.value(2)).text
 
             if value_1 == '50' and value_2 == '50':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value_1}, {value_2}')
@@ -575,7 +575,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -597,13 +597,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.videoFx.back)
 
             if self.is_exist(L.edit.fx_layer.videoFx.item()):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] No found effect list')
@@ -611,7 +611,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -632,7 +632,7 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_category('Blur', L.edit.fx_layer.videoFx.category(0))
@@ -641,7 +641,7 @@ class Test_Overlay_VideoFx:
             value = self.element(L.edit.fx_layer.videoFx.value(1)).text
 
             if value == '50':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -649,7 +649,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -671,14 +671,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.fx_layer.videoFx.slider(1))
             value = self.element(L.edit.fx_layer.videoFx.value(1)).text
 
             if value == '0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -686,7 +686,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -709,13 +709,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare() == 1:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -723,7 +723,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -745,14 +745,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.fx_layer.videoFx.slider(1))
             value = self.element(L.edit.fx_layer.videoFx.value(1)).text
 
             if value == '100':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -760,7 +760,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -783,13 +783,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare() == 1:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -797,7 +797,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -819,13 +819,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.fx_layer.videoFx.value(2)).text
 
             if value == '50':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -833,7 +833,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -855,14 +855,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.fx_layer.videoFx.slider(2))
             value = self.element(L.edit.fx_layer.videoFx.value(2)).text
 
             if value == '0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -870,7 +870,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -893,13 +893,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare() == 1:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -907,7 +907,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -929,14 +929,14 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.fx_layer.videoFx.slider(2))
             value = self.element(L.edit.fx_layer.videoFx.value(2)).text
 
             if value == '100':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -944,7 +944,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -967,13 +967,13 @@ class Test_Overlay_VideoFx:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare() == 1:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -981,7 +981,7 @@ class Test_Overlay_VideoFx:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()

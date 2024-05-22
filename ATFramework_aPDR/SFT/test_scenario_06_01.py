@@ -12,10 +12,10 @@ import time
 from pages.locator import locator as L
 from pages.locator.locator_type import *
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
-report = REPORT_INSTANCE
+
 
 
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -47,7 +47,7 @@ class Test_sce_06_01_01:    # free account
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
                                                               
         # retry 3 time if craete driver fail
@@ -85,7 +85,7 @@ class Test_sce_06_01_01:    # free account
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_01_01(self):
         SUBSCRIPTION_PAGE = 'com.cyberlink.powerdirector.StorePageActivity'
         main = self.main_page
@@ -145,7 +145,7 @@ class Test_sce_06_01_01:    # free account
         _end('47c34531-7ba6-40a1-9ebb-adcb34882c4a',result_enter_subscription)
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_01_02(self):
         main = self.main_page
         import_media = self.import_media
@@ -425,7 +425,7 @@ class Test_sce_06_02_01:    # purchased account
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
         self.driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
                                                               desired_caps)
@@ -450,7 +450,7 @@ class Test_sce_06_02_01:    # purchased account
         self.driver.stop_driver()
         
     @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_02_01(self):
         main = self.main_page
         import_media = self.import_media
@@ -484,7 +484,7 @@ class Test_sce_06_02_01:    # purchased account
         _end('a1e3e52c-4bdd-4ce6-8ab1-02d1c61f2f91',result_cart)
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_02_02(self):
         main = self.main_page
         import_media = self.import_media
@@ -587,7 +587,7 @@ class Test_sce_06_02_01:    # purchased account
         
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_02_03(self):
         main = self.main_page
         import_media = self.import_media
@@ -729,7 +729,7 @@ class Test_sce_06_03_01:    # subscribe account
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
         self.driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
                                                               desired_caps)
@@ -756,7 +756,7 @@ class Test_sce_06_03_01:    # subscribe account
         self.driver.stop_driver()
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_03_01(self):
         main = self.main_page
         import_media = self.import_media
@@ -797,7 +797,7 @@ class Test_sce_06_03_01:    # subscribe account
         
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_03_02(self):
         main = self.main_page
         import_media = self.import_media
@@ -890,7 +890,7 @@ class Test_sce_06_03_01:    # subscribe account
         _end('e741220f-3ef6-44d0-ad94-325d5e8e802f',result_no_watermark)
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_03_03(self):
         main = self.main_page
         import_media = self.import_media
@@ -1076,7 +1076,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
         self.driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, 'local',
                                                               desired_caps)
@@ -1103,7 +1103,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         self.driver.stop_driver()
         
     #@pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_04_01(self):
         main = self.main_page
         import_media = self.import_media
@@ -1185,7 +1185,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         _end('01997dc0-1873-4f78-8af0-9702cbe17bad',result_hd_smaller_24fps)
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_06_04_02(self):
         main = self.main_page
         import_media = self.import_media

@@ -12,10 +12,10 @@ import time
 from pages.locator import locator as L
 from pages.locator.locator_type import *
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
-report = REPORT_INSTANCE
+
 
 pdr_package = PACKAGE_NAME
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -48,7 +48,7 @@ class Test_sce_04_01_01:
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
                                                               
         # retry 3 time if craete driver fail
@@ -81,7 +81,7 @@ class Test_sce_04_01_01:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_01(self):
         main = self.main_page
         import_media = self.import_media
@@ -153,7 +153,7 @@ class Test_sce_04_01_01:
         
         
     #@pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_02(self):
         main = self.main_page
         import_media = self.import_media
@@ -238,7 +238,7 @@ class Test_sce_04_01_01:
         
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_03(self):
         """
             Implement it on product release build.
@@ -247,7 +247,7 @@ class Test_sce_04_01_01:
         """
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_04(self):
         """
             Implement it on product release build.
@@ -256,7 +256,7 @@ class Test_sce_04_01_01:
         """
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_01_05(self):
         main = self.main_page
         import_media = self.import_media

@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_02_09:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_02_09:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_09_01(self):
         media_list = ['01_static.mp4']
         page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -172,7 +172,7 @@ class Test_SFT_Scenario_02_09:
         
         
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_09_02(self):
         media_list = ['01_static.mp4']
         page_main = PageFactory().get_page_object("main_page", self.driver)
@@ -275,7 +275,7 @@ class Test_SFT_Scenario_02_09:
         self.report.new_result('c21d6722-d9ad-450e-aac9-140e510042ab', result)
 
    #@pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_09_03(self):
         media_list = ['01_static.mp4']
         page_main = PageFactory().get_page_object("main_page", self.driver)

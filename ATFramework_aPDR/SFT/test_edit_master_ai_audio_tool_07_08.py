@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -70,7 +70,7 @@ class Test_Edit_Master_Audio_Tool:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -81,7 +81,7 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -92,14 +92,14 @@ class Test_Edit_Master_Audio_Tool:
             locator = id('tool_entry_label')[1]
             entry = self.element(xpath(f'//*[@resource-id="{locator}" and @text="AI Audio \nTool"]/../..'))
             if entry.get_attribute('enabled') == 'false':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Entry is not disabled')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -114,7 +114,7 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.menu.delete)
@@ -124,14 +124,14 @@ class Test_Edit_Master_Audio_Tool:
             self.click(L.edit.try_before_buy.try_it_first, 1)
 
             if self.element(L.edit.ai_audio_tool.title).text == 'Speech Enhance':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter the page')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -148,7 +148,7 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             time.sleep(15)
@@ -156,14 +156,14 @@ class Test_Edit_Master_Audio_Tool:
             self.click(L.edit.ai_audio_tool.tool_back)
 
             if self.is_exist(id('tool_entry_icon')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] No found clip tools')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -178,7 +178,7 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_sub_tool('AI Audio \nTool')
@@ -186,14 +186,14 @@ class Test_Edit_Master_Audio_Tool:
             self.click(L.edit.try_before_buy.try_it_first, 1)
 
             if self.element(L.edit.ai_audio_tool.title).text == 'Speech Enhance':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot enter the page')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -211,21 +211,21 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             time.sleep(15)
             self.click(L.edit.ai_audio_tool.info)
             
             if self.click(find_string('Try It Now')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Click "Try It Now" fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -244,19 +244,19 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             slider = self.element(L.edit.ai_audio_tool.strength_slider).text
             if slider == '80.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -274,20 +274,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.ai_audio_tool.strength_slider)
             slider = self.element(L.edit.ai_audio_tool.strength_slider).text
             if slider == '0.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -305,20 +305,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.ai_audio_tool.strength_slider)
             slider = self.element(L.edit.ai_audio_tool.strength_slider).text
             if slider == '100.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -336,19 +336,19 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
             if slider == '20.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -366,20 +366,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.ai_audio_tool.compensation_slider)
             slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
             if slider == '0.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -397,13 +397,13 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.ai_audio_tool.compensation_slider)
             slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
             if slider == '100.0':
-                report.new_result(uuid, True)
+                
 
                 return "PASS"
             else:
@@ -411,7 +411,7 @@ class Test_Edit_Master_Audio_Tool:
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -429,20 +429,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.ai_audio_tool.ok)
 
             if self.is_exist(L.edit.ai_audio_tool.speech_enhance_is_applied):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Speech Enhance is not applied')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -461,20 +461,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
 
             if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Audio tool preview is OFF')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -494,20 +494,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.ai_audio_tool.voice_changer_on_off)
 
             if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Turn off Audio tool fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -526,21 +526,21 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.ai_audio_tool.remove)
             self.click(L.edit.ai_audio_tool.ok)
 
             if not self.is_exist(L.edit.ai_audio_tool.speech_enhance_is_applied, 2):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Speech Enhance is still applied')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -555,7 +555,7 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
@@ -564,14 +564,14 @@ class Test_Edit_Master_Audio_Tool:
             self.click(L.edit.ai_audio_tool.info)
 
             if self.click(find_string('Try It Now')):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Click "Try It Now" fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -590,19 +590,19 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             slider = self.element(L.edit.ai_audio_tool.strength_slider).text
             if slider == '80.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -620,20 +620,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.ai_audio_tool.strength_slider)
             slider = self.element(L.edit.ai_audio_tool.strength_slider).text
             if slider == '0.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -651,20 +651,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.ai_audio_tool.strength_slider)
             slider = self.element(L.edit.ai_audio_tool.strength_slider).text
             if slider == '100.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -682,19 +682,19 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
             if slider == '20.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -712,20 +712,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.ai_audio_tool.compensation_slider)
             slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
             if slider == '0.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {slider}')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -743,13 +743,13 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.ai_audio_tool.compensation_slider)
             slider = self.element(L.edit.ai_audio_tool.compensation_slider).text
             if slider == '100.0':
-                report.new_result(uuid, True)
+                
 
                 return "PASS"
             else:
@@ -757,7 +757,7 @@ class Test_Edit_Master_Audio_Tool:
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -775,20 +775,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.ai_audio_tool.ok)
 
             if self.is_exist(L.edit.ai_audio_tool.audio_denoise_is_applied):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Audio Denoise is not applied')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -807,20 +807,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
 
             if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Audio tool preview is OFF')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -840,20 +840,20 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.ai_audio_tool.voice_changer_on_off)
 
             if self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Turn off Audio tool fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -872,7 +872,7 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
@@ -880,14 +880,14 @@ class Test_Edit_Master_Audio_Tool:
             self.click(L.edit.ai_audio_tool.ok)
 
             if not self.is_exist(L.edit.ai_audio_tool.audio_denoise_is_applied, 2):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Audio Denoise is still applied')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
 
@@ -902,7 +902,7 @@ class Test_Edit_Master_Audio_Tool:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
@@ -914,19 +914,19 @@ class Test_Edit_Master_Audio_Tool:
             self.click(L.edit.menu.produce)
 
             if self.is_exist(L.main.subscribe.premium_list):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Click IAP Back fail')
 
         except Exception as err:
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
             self.driver.driver.close_app()
 
             return "FAIL"
 
-    @report.exception_screenshot
+    
     def test_case(self):
         result = {"sce_7_8_3": self.sce_7_8_3(),
                   "sce_7_8_1": self.sce_7_8_1(),

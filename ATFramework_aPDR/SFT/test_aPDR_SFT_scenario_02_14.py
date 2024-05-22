@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_02_14:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_02_14:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_14_01(self):
         logger('>>> test_sce_02_14_01: Facilitate Usage <<<')
         media_list = ['01_static.mp4']
@@ -179,7 +179,7 @@ class Test_SFT_Scenario_02_14:
         self.report.new_result('2715d1bb-1f7d-4b68-b742-69246be4b064', True if pos_before != pos_after else False)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_14_02(self):
         logger('>>> test_sce_02_14_02: Drag Clip Master between PiP Track <<<')
         media_list = ['01_static.mp4']
@@ -285,7 +285,7 @@ class Test_SFT_Scenario_02_14:
         self.report.new_result('590f5110-8d44-42c0-bd56-a492aec762f3', (lambda pic_src, pic_dest: True if not CompareImage(pic_src, pic_dest, 7).compare_image() else False)(pic_base, pic_after))
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_14_03(self):
         logger('>>> test_sce_02_14_03: Freeze Frame <<<')
         media_list = ['01_static.mp4']
@@ -433,7 +433,7 @@ class Test_SFT_Scenario_02_14:
         self.report.new_result('42dd8da5-2ca6-45a7-bde7-0f15af9a2bec', result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_14_04(self):
         logger('>>> test_sce_02_14_04: Replace Audio <<<')
         media_list = ['01_static.mp4']
@@ -563,7 +563,7 @@ class Test_SFT_Scenario_02_14:
         self.report.new_result('8ef120fc-99d8-49b3-ae1a-12896c947c92', result_audiotool)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_14_05(self):
         logger('>>> test_sce_02_14_05: Enabled all pip/audio tracks for free user  <<<')
         media_list = ['01_static.mp4']
@@ -768,7 +768,7 @@ class Test_SFT_Scenario_02_14:
         self.report.new_result('5a61f310-5769-44f6-8d1d-e80507e23525', result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_14_06(self):
         logger('>>> test_sce_02_14_06: IAP check and Trim Stabilized Video<<<')
         media_list = ['01_static.mp4']
@@ -822,7 +822,7 @@ class Test_SFT_Scenario_02_14:
         self.report.new_result('d80f48be-a1e4-4a7f-be69-de564f4cfb81', result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_14_07(self):
         logger('>>> test_sce_02_14_07: Download Getty Images<<<')
         media_list = ['01_static.mp4']

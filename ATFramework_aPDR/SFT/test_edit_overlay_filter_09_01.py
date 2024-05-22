@@ -8,7 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from .conftest import REPORT_INSTANCE as report
+
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -61,7 +61,7 @@ class Test_Overlay_Filter:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
 
-        report.set_driver(driver)
+        
         self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
         driver.driver.launch_app()
         yield
@@ -78,7 +78,7 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.page_main.enter_launcher()
@@ -89,7 +89,7 @@ class Test_Overlay_Filter:
             self.click(L.edit.fx_layer.add)
 
             if self.is_exist(L.edit.fx_layer.filter.item()):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the Filter')
@@ -97,7 +97,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -114,14 +114,14 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.cancel)
             self.page_edit.enter_main_tool('Filter')
 
             if self.is_exist(L.edit.fx_layer.filter.item()):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the Filter')
@@ -129,7 +129,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -148,7 +148,7 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.preview_original = self.page_main.get_preview_pic()
@@ -158,7 +158,7 @@ class Test_Overlay_Filter:
             self.click(L.edit.fx_layer.filter.edit)
 
             if self.is_exist(L.edit.fx_layer.filter.slider):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception("[FAIL] No slider")
@@ -166,7 +166,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -189,13 +189,13 @@ class Test_Overlay_Filter:
         uuid = self.uuid[3]
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             value = self.element(L.edit.fx_layer.filter.slider).text
 
             if value == '100.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -203,7 +203,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -225,14 +225,14 @@ class Test_Overlay_Filter:
         uuid = self.uuid[4]
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_min(L.edit.fx_layer.filter.slider)
             value = self.element(L.edit.fx_layer.filter.slider).text
 
             if value == '0.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -240,7 +240,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -263,13 +263,13 @@ class Test_Overlay_Filter:
         uuid = self.uuid[5]
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_apply).full_compare_result():
-                report.new_result(uuid, True)
+                
 
                 self.preview_apply = preview
 
@@ -280,7 +280,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -304,13 +304,13 @@ class Test_Overlay_Filter:
         uuid = self.uuid[6]
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.driver.drag_slider_to_max(L.edit.fx_layer.filter.slider)
             value = self.element(L.edit.fx_layer.filter.slider).text
             if value == '100.0':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Value incorrect: {value}')
@@ -318,7 +318,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -341,13 +341,13 @@ class Test_Overlay_Filter:
         uuid = self.uuid[7]
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_apply).full_compare_result():
-                report.new_result(uuid, True)
+                
 
                 self.preview_apply = preview
 
@@ -358,7 +358,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -380,7 +380,7 @@ class Test_Overlay_Filter:
         uuid = self.uuid[8]
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         report.new_result(uuid, None, 'AT limitation')
 
@@ -391,7 +391,7 @@ class Test_Overlay_Filter:
         #     action.release()
         #
         #     if HCompareImg(preview, self.preview_original).full_compare_result():
-        #         report.new_result(uuid, True)
+        #         
         #
         #         return "PASS"
         #     else:
@@ -400,7 +400,7 @@ class Test_Overlay_Filter:
         # except Exception as err:
         #     traceback.print_exc()
         #     self.stop_recording(func_name)
-        #     report.new_result(uuid, False, fail_log=err)
+        #     
         #
         #     self.driver.driver.close_app()
         #     self.driver.driver.launch_app()
@@ -419,14 +419,14 @@ class Test_Overlay_Filter:
         uuid = self.uuid[9]
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.compare)
             preview = self.page_main.get_preview_pic()
 
             if HCompareImg(preview, self.preview_apply).full_compare_result():
-                report.new_result(uuid, True)
+                
 
                 return "PASS"
             else:
@@ -435,7 +435,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -454,14 +454,14 @@ class Test_Overlay_Filter:
         uuid = self.uuid[10]
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.cancel)
             preview = self.page_main.get_preview_pic()
 
             if HCompareImg(preview, self.preview_original).full_compare_result():
-                report.new_result(uuid, True)
+                
 
                 return "PASS"
             else:
@@ -470,7 +470,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -490,13 +490,13 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.tool_menu_filter)
 
             if self.is_exist(L.edit.fx_layer.filter.item()):
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception('[Fail] Cannot find the Filter')
@@ -504,7 +504,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -519,7 +519,7 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.item())
@@ -528,7 +528,7 @@ class Test_Overlay_Filter:
             preview = self.page_main.get_preview_pic()
 
             if not HCompareImg(preview, self.preview_original).full_compare_result():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview no change')
@@ -536,7 +536,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -556,7 +556,7 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.tool_menu_filter)
@@ -565,7 +565,7 @@ class Test_Overlay_Filter:
             preview = self.page_main.get_preview_pic()
 
             if HCompareImg(preview, self.preview_original).full_compare_result():
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Preview change')
@@ -573,7 +573,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -592,7 +592,7 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.sub_tool.back)
@@ -616,7 +616,7 @@ class Test_Overlay_Filter:
             self.click(L.edit.fx_layer.filter.tool_menu_filter)
 
             if self.element(L.edit.fx_layer.filter.item_name(3)).get_attribute('selected') == 'true':
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Highlight incorrect')
@@ -624,7 +624,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -651,7 +651,7 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.cancel)
@@ -666,7 +666,7 @@ class Test_Overlay_Filter:
             self.click(L.edit.fx_layer.filter.tool_menu_split)
 
             if len(self.elements(L.edit.fx_layer.filter.clip(0))) == 4:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Clip num incorrect')
@@ -674,7 +674,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
@@ -708,13 +708,13 @@ class Test_Overlay_Filter:
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
         logger(f"\n[Start] {func_name}")
-        report.start_uuid(uuid)
+        
 
         try:
             self.click(L.edit.fx_layer.filter.tool_menu_duplicate)
 
             if len(self.elements(L.edit.fx_layer.filter.clip(0))) == 5:
-                report.new_result(uuid, True)
+                
                 return "PASS"
             else:
                 raise Exception(f'[Fail] Clip num incorrect')
@@ -722,7 +722,7 @@ class Test_Overlay_Filter:
         except Exception as err:
             self.stop_recording(func_name)
             traceback.print_exc()
-            report.new_result(uuid, False, fail_log=err)
+            
 
 
 

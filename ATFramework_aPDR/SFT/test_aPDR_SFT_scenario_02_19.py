@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_02_19:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_02_19:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_19_01(self):
         logger('>>> test_sce_02_19_01: Text Designer Support Shadow Distance/Angle & Text color apply to all <<<')
         media_list = ['01_static.mp4']
@@ -130,7 +130,7 @@ class Test_SFT_Scenario_02_19:
         self.report.new_result('9e9f3fa1-8304-404e-996c-6931880a9632', result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_19_02(self):
         logger('>>> test_sce_02_19_02: PiP Border & Shadow Support Shadow Distance/Angle <<<')
         media_list = ['01_static.mp4', 'jpg.jpg']

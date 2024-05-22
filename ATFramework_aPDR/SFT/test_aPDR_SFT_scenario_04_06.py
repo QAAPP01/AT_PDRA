@@ -12,12 +12,12 @@ import time
 
 from pages.locator import locator as L
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 from .conftest import TEST_MATERIAL_FOLDER_01
 
-report = REPORT_INSTANCE
+
 pdr_package = PACKAGE_NAME
 
 
@@ -36,7 +36,7 @@ class Test_SFT_Scenario_04_06:
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
         logger(f"desired_caps={desired_caps}")
-        self.report = report
+        
         self.device_udid = DRIVER_DESIRED_CAPS['udid']
         # ---- local mode > end ----
         self.test_material_folder = TEST_MATERIAL_FOLDER
@@ -67,7 +67,7 @@ class Test_SFT_Scenario_04_06:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_06_01(self):
         logger('>>> test_sce_04_06_01 : New produce flow <<<')
         media_list = ['01_static.mp4']
@@ -124,7 +124,7 @@ class Test_SFT_Scenario_04_06:
         self.report.new_result('88c8a821-a88a-437f-9c71-b18dac4d6d4c', result)  
     
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_04_06_02(self):
         logger('>>> test_sce_04_06_02 : Share to IG/TikTok <<<')
         media_list = ['01_static.mp4']

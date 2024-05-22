@@ -13,11 +13,11 @@ import time
 from pages.locator import locator as L
 from pages.locator.locator_type import *
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
 
-report = REPORT_INSTANCE
+
 
 pdr_package = PACKAGE_NAME
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -36,7 +36,7 @@ class Test_sce_02_01_01:
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
 
         # retry 3 time if craete driver fail
@@ -72,7 +72,7 @@ class Test_sce_02_01_01:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_01(self):
         main = self.main_page
         import_media = self.import_media
@@ -194,7 +194,7 @@ class Test_sce_02_01_01:
             edit.back()
 
     @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_01a(self):
         logger("test_scenario_02_01_01a")
         self.page = self.main_page
@@ -477,7 +477,7 @@ class Test_sce_02_01_01:
         self.report.new_result("2653a289-4c3f-44f0-98fd-7496f6a52d0a", result_auto_save)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_02(self):
         logger("test_scenario_02_01_02")
         main = self.main_page
@@ -738,7 +738,7 @@ class Test_sce_02_01_01:
         self.report.new_result("1f282e0d-52ca-4dd5-8f58-901afba122e7", result_watermark)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_03(self):
         logger("test_scenario_02_01_03")
         main = self.main_page
@@ -776,7 +776,7 @@ class Test_sce_02_01_01:
         self.report.new_result("4afec38c-bc92-4b82-9f80-0f34c02668b1", result)
 """
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_02_01_04(self):
         logger("test_scenario_02_01_04")
         main = self.main_page

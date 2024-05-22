@@ -32,7 +32,7 @@ from os.path import basename
 
 def send_mail(opts):
     # set info
-    fileRead = lambda fileName,mode="r": open(os.path.dirname(__file__)+"//"+filename,mode)
+    fileRead = lambda fileName,mode="r": open(os.path.dirname(__file__)+"//"+fileName,mode)
     me = opts['account']
     you = opts['to']
     password = opts['password']
@@ -63,7 +63,8 @@ def send_mail(opts):
     msg.attach(part2)
     #msg.attach(att)
     for f in attachment:
-        with open("{}\\{}".format(os.path.dirname(os.path.abspath(__file__)), f), "rb") as fil:
+        # with open("{}\\{}".format(os.path.dirname(os.path.abspath(__file__)), f), "rb") as fil:
+        with open(f, "rb") as fil:
             part = MIMEApplication(
                 fil.read(),
                 Name=basename(f)

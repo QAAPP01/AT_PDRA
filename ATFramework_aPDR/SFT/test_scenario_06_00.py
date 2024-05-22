@@ -12,10 +12,10 @@ import time
 from pages.locator import locator as L
 from pages.locator.locator_type import *
 
-from .conftest import REPORT_INSTANCE
+
 from .conftest import PACKAGE_NAME
 from .conftest import TEST_MATERIAL_FOLDER
-report = REPORT_INSTANCE
+
 
 
 test_material_folder = TEST_MATERIAL_FOLDER
@@ -35,7 +35,7 @@ class Test_sce_06_00_00:
         desired_caps.update(app_config.prod_cap)
         desired_caps.update(DRIVER_DESIRED_CAPS)
         print('desired_caps=', desired_caps)
-        self.report = report
+        
         # ---- local mode > end ----
                                                               
         # retry 3 time if craete driver fail
@@ -70,7 +70,7 @@ class Test_sce_06_00_00:
         self.driver.stop_driver()
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_gt_01(self):
         main = self.main_page
         import_media = self.import_media
@@ -143,7 +143,7 @@ class Test_sce_06_00_00:
         _end('e00e06e6-2593-48e8-8bd2-112354b49a36',result)
 
     # @pytest.mark.skip
-    @report.exception_screenshot
+    
     def test_sce_gt_02(self):
         main = self.main_page
         import_media = self.import_media
