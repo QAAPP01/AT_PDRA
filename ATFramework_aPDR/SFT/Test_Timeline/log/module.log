@@ -1,0 +1,85 @@
+05/22/2024 05:39:53 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:39:53 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:39:53 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:47:20 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:47:20 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:47:20 PM <test_test.py> [test_timeline_limitation_video_track](line 17) - [Info] info
+05/22/2024 05:47:20 PM <test_test.py> [test_timeline_limitation_video_track](line 19) - [Warn] Warn
+05/22/2024 05:47:20 PM <test_test.py> [test_timeline_limitation_video_track](line 20) - [Warning] Warn
+05/22/2024 05:47:20 PM <test_test.py> [test_timeline_limitation_video_track](line 22) - [AssertionError] assert this
+05/22/2024 05:47:20 PM <test_test.py> [test_timeline_limitation_video_track](line 23) - [UnitTestError] assert this
+05/22/2024 05:47:20 PM <test_test.py> [test_timeline_limitation_video_track](line 25) - [UnitTestError] ex
+05/22/2024 05:47:20 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:48:40 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:48:40 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:48:40 PM <test_test.py> [test_timeline_limitation_video_track](line 17) - [Info] info
+05/22/2024 05:48:40 PM <test_test.py> [test_timeline_limitation_video_track](line 19) - [Warn] Warn
+05/22/2024 05:48:40 PM <test_test.py> [test_timeline_limitation_video_track](line 20) - [Warning] Warn
+05/22/2024 05:48:40 PM <test_test.py> [test_timeline_limitation_video_track](line 22) - [AssertionError] assert this
+05/22/2024 05:48:41 PM <test_test.py> [test_timeline_limitation_video_track](line 23) - [UnitTestError] assert this
+05/22/2024 05:48:41 PM <test_test.py> [test_timeline_limitation_video_track](line 25) - [UnitTestError] ex
+05/22/2024 05:48:41 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:49:34 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:49:34 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:49:34 PM <test_test.py> [test_timeline_limitation_video_track](line 17) - [Info] info
+05/22/2024 05:49:34 PM <test_test.py> [test_timeline_limitation_video_track](line 19) - [Warn] Warn
+05/22/2024 05:49:34 PM <test_test.py> [test_timeline_limitation_video_track](line 20) - [Warning] Warn
+05/22/2024 05:49:34 PM <test_test.py> [test_timeline_limitation_video_track](line 22) - [AssertionError] assert this
+05/22/2024 05:49:34 PM <test_test.py> [test_timeline_limitation_video_track](line 23) - [UnitTestError] assert this
+05/22/2024 05:49:34 PM <test_test.py> [test_timeline_limitation_video_track](line 25) - [UnitTestError] ex
+05/22/2024 05:49:34 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:50:06 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:50:06 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:50:06 PM <test_test.py> [test_timeline_limitation_video_track](line 17) - [Info] info
+05/22/2024 05:50:06 PM <test_test.py> [test_timeline_limitation_video_track](line 19) - [Warn] Warn
+05/22/2024 05:50:06 PM <test_test.py> [test_timeline_limitation_video_track](line 20) - [Warning] Warn
+05/22/2024 05:50:06 PM <test_test.py> [test_timeline_limitation_video_track](line 22) - [AssertionError] assert this
+05/22/2024 05:50:06 PM <test_test.py> [test_timeline_limitation_video_track](line 23) - [UnitTestError] assert this
+05/22/2024 05:50:06 PM <test_test.py> [test_timeline_limitation_video_track](line 25) - [UnitTestError] ex
+05/22/2024 05:50:06 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:50:27 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:50:27 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:50:27 PM <test_test.py> [test_timeline_limitation_video_track](line 17) - [Info] info
+05/22/2024 05:50:27 PM <test_test.py> [test_timeline_limitation_video_track](line 19) - [Warn] Warn
+05/22/2024 05:50:27 PM <test_test.py> [test_timeline_limitation_video_track](line 20) - [Warning] Warn
+05/22/2024 05:50:27 PM <test_test.py> [test_timeline_limitation_video_track](line 22) - [AssertionError] assert this
+05/22/2024 05:50:27 PM <test_test.py> [test_timeline_limitation_video_track](line 23) - [UnitTestError] assert this
+05/22/2024 05:50:27 PM <test_test.py> [test_timeline_limitation_video_track](line 25) - [UnitTestError] ex
+05/22/2024 05:50:27 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:50:45 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:50:45 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:50:45 PM <test_test.py> [test_timeline_limitation_video_track](line 17) - [Info] info
+05/22/2024 05:50:45 PM <test_test.py> [test_timeline_limitation_video_track](line 19) - [Warn] Warn
+05/22/2024 05:50:45 PM <test_test.py> [test_timeline_limitation_video_track](line 20) - [Warning] Warn
+05/22/2024 05:50:45 PM <test_test.py> [test_timeline_limitation_video_track](line 22) - [AssertionError] assert this
+05/22/2024 05:50:45 PM <test_test.py> [test_timeline_limitation_video_track](line 23) - [UnitTestError] assert this
+05/22/2024 05:50:45 PM <test_test.py> [test_timeline_limitation_video_track](line 25) - [UnitTestError] ex
+05/22/2024 05:50:45 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:51:01 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:51:01 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:51:01 PM <test_test.py> [test_timeline_limitation_video_track](line 17) - [Info] info
+05/22/2024 05:51:01 PM <test_test.py> [test_timeline_limitation_video_track](line 19) - [Warn] Warn
+05/22/2024 05:51:01 PM <test_test.py> [test_timeline_limitation_video_track](line 20) - [Warning] Warn
+05/22/2024 05:51:01 PM <test_test.py> [test_timeline_limitation_video_track](line 22) - [AssertionError] assert this
+05/22/2024 05:51:01 PM <test_test.py> [test_timeline_limitation_video_track](line 23) - [UnitTestError] assert this
+05/22/2024 05:51:01 PM <test_test.py> [test_timeline_limitation_video_track](line 25) - [UnitTestError] ex
+05/22/2024 05:51:01 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:51:22 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestTrackLimitation
+05/22/2024 05:51:22 PM <conftest.py> [log_function_test](line 20) - [Start Test] Function: test_timeline_limitation_video_track
+05/22/2024 05:51:23 PM <test_test.py> [test_timeline_limitation_video_track](line 17) - [Info] info
+05/22/2024 05:51:23 PM <test_test.py> [test_timeline_limitation_video_track](line 19) - [Warn] Warn
+05/22/2024 05:51:23 PM <test_test.py> [test_timeline_limitation_video_track](line 20) - [Warning] Warn
+05/22/2024 05:51:23 PM <test_test.py> [test_timeline_limitation_video_track](line 22) - [AssertionError] assert this
+05/22/2024 05:51:23 PM <test_test.py> [test_timeline_limitation_video_track](line 23) - [UnitTestError] assert this
+05/22/2024 05:51:23 PM <test_test.py> [test_timeline_limitation_video_track](line 25) - [Exception] ex
+05/22/2024 05:51:23 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestTrackLimitation
+05/22/2024 06:10:09 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:10:09 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:11:08 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:11:08 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:12:07 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:12:07 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:13:13 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:13:13 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:14:03 PM <conftest.py> [log_class_start](line 13) - [Start Test(Class)] Class: TestMasterReplaceVideo
+05/22/2024 06:14:03 PM <conftest.py> [log_class_start](line 15) - [End Test(Class)] Class: TestMasterReplaceVideo
