@@ -2,9 +2,10 @@ from .locator_type import *
 new_project = id('layout_new_project')
 
 
-class Main:
+class Launcher:
     new_project = id('layout_new_project')
     subscribe = id('layout_premium')
+    ai_creation = id('layout_ai_creation')
 
 
 class Shortcut:
@@ -489,7 +490,7 @@ class Interface:
     permission = Permission()
     project = Project()
     project_info = Project_Info()
-    main = Main
+    launcher = Launcher
     menu = Menu()
     setting = Setting()
     tutorials = Tutorials()
