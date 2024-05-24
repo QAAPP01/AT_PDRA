@@ -15,7 +15,6 @@ class TestTrackLimitation:
         driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
         self.page_main, *_ = shortcut
         self.page_main.enter_launcher()
-        self.page_main.subscribe()
         self.page_main.enter_timeline()
         yield
         driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')

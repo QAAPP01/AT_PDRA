@@ -74,7 +74,6 @@ def driver():
     from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
     from ATFramework_aPDR.configs import app_config
     from ATFramework_aPDR.configs import driver_config
-    from main_server_sacn import deviceName
 
     driver = None
     desired_caps = {}
@@ -129,8 +128,8 @@ def driver():
         except Exception as e:
             logger(e)
             logger("Remove Appium")
-            os.system(f"adb -s {deviceName} shell pm uninstall io.appium.settings")
-            os.system(f"adb -s {deviceName} shell pm uninstall io.appium.uiautomator2.server")
+            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.settings")
+            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.uiautomator2.server")
             retry -= 1
 
     yield driver
