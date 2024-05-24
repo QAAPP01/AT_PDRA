@@ -313,7 +313,7 @@ class MainPage(BasePage):
             return True
 
     def project_create_new(self, ratio="16:9", type="video"):
-        from pages.page_factory import PageFactory
+        from .page_factory import PageFactory
         from .locator.locator import import_media as L_media
         import_media = PageFactory().get_page_object("import_media", self.driver)
         edit = PageFactory().get_page_object("edit", self.driver)
