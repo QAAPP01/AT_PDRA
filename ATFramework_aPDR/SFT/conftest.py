@@ -188,3 +188,16 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
 
     with open('summary.json', 'w') as f:
         json.dump(summary, f)
+
+# === Logging fixture ===
+
+@pytest.fixture(scope='class', autouse=True)
+def log_class_start(request):
+    logger(f"[Start Test(Class)] Class: {request.node.cls.__name__}", log_level='info')
+    yield
+    logger(f"[End Test(Class)] Class: {request.node.cls.__name__}", log_level='info')
+
+
+@pytest.fixture(autouse=True)
+def log_function_test(request):
+    logger(f"[Start Test] Function: {request.node.name}", log_level='info')
