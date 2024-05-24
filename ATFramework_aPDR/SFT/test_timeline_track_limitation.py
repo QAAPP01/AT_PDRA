@@ -50,12 +50,12 @@ class TestTrackLimitation:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story("Audio Track Limitation")
     def test_timeline_limitation_audio_track(self, driver: AppiumU2Driver):
@@ -82,12 +82,12 @@ class TestTrackLimitation:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story("PiP Track Limitation")
     def test_timeline_limitation_pip_track(self, driver: AppiumU2Driver):
@@ -111,9 +111,9 @@ class TestTrackLimitation:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')

@@ -44,12 +44,12 @@ class TestMasterReplaceVideo:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story('Replace video to video')
     def test_replace_video_to_video(self, driver):
@@ -68,12 +68,12 @@ class TestMasterReplaceVideo:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story('Replace video to color board')
     def test_replace_video_to_color_board(self, driver):
@@ -94,12 +94,12 @@ class TestMasterReplaceVideo:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story('Replace video to photo')
     def test_replace_video_to_photo(self, driver):
@@ -113,15 +113,15 @@ class TestMasterReplaceVideo:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             elif type(e) is ValueError:
-                logger(f'[UnitTestError] {repr(e)}]')
+                logger(f'[UnitTestError] {e}]')
                 text = 'UnitTestError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
 
 @allure.feature('Replace Photo')
@@ -164,12 +164,12 @@ class TestMasterReplacePhoto:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story('Replace photo to color board')
     def test_replace_photo_to_color_board(self, driver):
@@ -189,12 +189,12 @@ class TestMasterReplacePhoto:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story('Replace photo to video')
     def test_replace_photo_to_video(self):
@@ -209,12 +209,12 @@ class TestMasterReplacePhoto:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
 
 @allure.feature('Replace color board')
@@ -257,12 +257,12 @@ class TestMasterReplaceColorBoard:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story('Replace color board to photo')
     def test_replace_color_board_to_photo(self):
@@ -274,12 +274,12 @@ class TestMasterReplaceColorBoard:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
 
     @allure.story('Replace color board to video')
     def test_replace_color_board_to_video(self):
@@ -294,9 +294,9 @@ class TestMasterReplaceColorBoard:
 
         except Exception as e:
             if type(e) is AssertionError:
-                logger(f'[AssertionError] {repr(e)}]')
+                logger(f'[AssertionError] {e}]')
                 text = 'AssertionError'
             else:
-                logger(f'[Exception] {repr(e)}')
+                logger(f'[Exception] {e}')
                 text = 'Exception'
-            pytest.fail(f'[{text}] {repr(e)}]')
+            pytest.fail(f'[{text}] {e}]')
