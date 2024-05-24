@@ -61,10 +61,10 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
         return reset + colors[string]
 
     def get_log_level():
-        info_strings = '[Info]', '[info]'
-        warning_strings = '[Warning]', '[warning]', '[Warn]', '[warn]'
-        error_strings = '[Error]', '[error]', '[AssertError]', '[AssertionError]', '[UnitTestError]'
-        critical_strings = '[Critical]', '[critical]', '[Crit]', '[crit]', 'Exception]', '[exception]'
+        info_strings = 'info'
+        warning_strings = 'warning', 'warn'
+        error_strings = 'error', 'AssertError', 'AssertionError', 'UnitTestError'
+        critical_strings = 'Critical', 'critical', 'Crit', 'crit', 'Exception', 'exception'
 
         if log_level:
             match log_level.lower():
@@ -82,7 +82,7 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
                 (warning_strings, logging.WARN, 'warn'),
                 (error_strings, logging.ERROR, 'error'),
                 (critical_strings, logging.CRITICAL, 'crit')]:
-            if any(x for x in level_strings if x in msg[0]):
+            if any(x for x in level_strings if f'[{x}]'.lower() in msg[0].lower()):
                 return levels, get_color(colors)
 
         return logging.DEBUG, get_color('debug')
