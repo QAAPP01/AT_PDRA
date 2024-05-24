@@ -84,8 +84,8 @@ def driver():
         logger('**** Debug Mode ****')
         desired_caps['udid'] = 'R5CT32Q3WQN'
         if desired_caps['udid'] not in os.popen('adb devices').read():
-            desired_caps['udid'] = 'R5CW31G76ST'
-            # desired_caps['udid'] = '9596423546005V8'
+            # desired_caps['udid'] = 'R5CW31G76ST'
+            desired_caps['udid'] = '9596423546005V8'
 
         mode = 'debug'
         args = [
