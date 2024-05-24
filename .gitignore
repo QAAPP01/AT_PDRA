@@ -3,10 +3,7 @@
 *.mkv
 *.mov
 *.3gp
-test.ipynb
-.gitignore
 /.idea
-*.pyc
 /ATFramework_aPDR/ATFramework/log/
 /ATFramework_aPDR/SFT/report/
 /ATFramework_aPDR/SFT/log/

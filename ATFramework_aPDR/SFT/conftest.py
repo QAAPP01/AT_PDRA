@@ -6,6 +6,7 @@ import os
 import pytest
 import sys
 from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.page_factory import PageFactory
 from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
@@ -82,11 +83,9 @@ def driver():
 
     if debug_mode:
         logger('**** Debug Mode ****')
-        desired_caps['udid'] = '0B211JEC210389'
+        desired_caps['udid'] = 'R5CT32Q3WQN'
         if desired_caps['udid'] not in os.popen('adb devices').read():
-            desired_caps['udid'] = os.popen('adb devices').read().split('\n')[1].split('\t')[0]
-            # S22 = 0B211JEC210389
-            # P4a = R5CT21VMV6P
+            desired_caps['udid'] = 'R5CW31G76ST'
             # desired_caps['udid'] = '9596423546005V8'
 
         mode = 'debug'
@@ -146,19 +145,18 @@ def driver():
 @pytest.fixture(scope='class', autouse=True)
 def driver_init(driver):
     logger("[Start] Init driver session")
-    driver.stop_app(package_name)
-    driver.activate_app(package_name)
+    driver.driver.launch_app()
     yield
-    driver.stop_app(package_name)
+    driver.driver.close_app()
 
 
 @pytest.fixture(scope="session")
 def shortcut(driver):
-    from ATFramework_aPDR.pages.edit import EditPage
-    from ATFramework_aPDR.pages.import_media import MediaPage
-    from ATFramework_aPDR.pages.main_page import MainPage
-    from ATFramework_aPDR.pages.timeline_settings import TimelineSettingsPage
-    return MainPage(driver), EditPage(driver), MediaPage(driver), TimelineSettingsPage(driver)
+    page_main = PageFactory().get_page_object("main_page", driver)
+    page_edit = PageFactory().get_page_object("edit", driver)
+    page_media = PageFactory().get_page_object("import_media", driver)
+    page_preference = PageFactory().get_page_object("timeline_settings", driver)
+    return page_main, page_edit, page_media, page_preference
 
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
