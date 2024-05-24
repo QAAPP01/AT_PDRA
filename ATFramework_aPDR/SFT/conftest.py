@@ -128,8 +128,8 @@ def driver():
         except Exception as e:
             logger(e)
             logger("Remove Appium")
-            os.system(f"adb -s {deviceName} shell pm uninstall io.appium.settings")
-            os.system(f"adb -s {deviceName} shell pm uninstall io.appium.uiautomator2.server")
+            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.settings")
+            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.uiautomator2.server")
             retry -= 1
 
     yield driver
@@ -141,13 +141,13 @@ def driver():
     appium.stop()
 
 
-@pytest.fixture(scope='class', autouse=True)
-def driver_init(driver):
-    logger("[Start] Init driver session")
-    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
-    driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-    yield
-    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+# @pytest.fixture(scope='class', autouse=True)
+# def driver_init(driver):
+#     logger("[Start] Init driver session")
+#     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+#     driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
+#     yield
+#     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
 
 
 @pytest.fixture(scope="session")
