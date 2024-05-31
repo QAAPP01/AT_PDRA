@@ -5,12 +5,12 @@ import traceback
 import os
 import pytest
 import sys
+
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
 from os.path import dirname as dir
-
 
 
 DRIVER_DESIRED_CAPS = {}
@@ -39,10 +39,10 @@ except Exception:
     traceback.print_exc()
 
 
-
 # Recording path
 folder_path = os.path.join(os.path.dirname(__file__), "recording")
 os.makedirs(folder_path, exist_ok=True)
+
 
 def pytest_addoption(parser):
     parser.addoption("--udid", action="store", default="auto", help="device unique udid")
@@ -53,9 +53,11 @@ def pytest_addoption(parser):
 def udid(request):
     return request.config.getoption("udid")
 
+
 @pytest.fixture(scope='session')
 def systemPort(request):
     return request.config.getoption("systemPort")
+
 
 @pytest.fixture(scope='session', autouse=True)
 def driver_get_desiredcap(udid, systemPort):
@@ -192,7 +194,9 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
     with open('summary.json', 'w') as f:
         json.dump(summary, f)
 
+
 # === Logging fixture ===
+
 
 @pytest.fixture(scope='class', autouse=True)
 def log_class_start(request):
