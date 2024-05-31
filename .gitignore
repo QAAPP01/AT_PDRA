@@ -5,9 +5,16 @@
 *.3gp
 *.pyc
 /.idea
+
 /ATFramework_aPDR/ATFramework/log/
 /ATFramework_aPDR/SFT/report/
 /ATFramework_aPDR/SFT/log/
+/sft-allure-report/
+/sft-allure-report-html/
+/sft-allure-results/
 /ATFramework_aPDR/app/
 /ATFramework_aPDR/ATFramework/utils/_ecl_operation/log/
+
 /ATFramework_aPDR/ATFramework/utils/log/module.log
+summary.json
+

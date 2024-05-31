@@ -25,7 +25,7 @@ from send_mail.send_report import generate_allure_report, remove_allure_result, 
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
 # deviceName = "R5CT32Q3WQN"
-deviceName = "R5CW31G76ST"
+deviceName = "R5CT21VMV6P"
 # deviceName = "9596423546005V8"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
@@ -50,7 +50,7 @@ tr_number = 'TR240207-034'  # for manual
 # [Report Mail Setting]
 title_project = 'aPDR'
 # receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
-receiver = ['hausen_lin@cyberlink.com']
+receiver = ['jethro_wang@cyberlink.com']
 
 script_version = 'Testing'
 # script_version = 'Debug'
