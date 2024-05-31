@@ -82,8 +82,13 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
                 (warning_strings, logging.WARN, 'warn'),
                 (error_strings, logging.ERROR, 'error'),
                 (critical_strings, logging.CRITICAL, 'crit')]:
-            if any(x for x in level_strings if f'[{x}]'.lower() in msg[0].lower()):
-                return levels, get_color(colors)
+            try:
+                iter(msg)
+                if any(x for x in level_strings if x in msg[0]):
+                    return levels, get_color(colors)
+            except TypeError:
+                if any(x for x in level_strings if x in msg):
+                    return levels, get_color(colors)
 
         return logging.DEBUG, get_color('debug')
 
