@@ -416,7 +416,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             return elements[index] if index else elements
         except TimeoutException:
             print("ERROR: %s page cannot find %s element" % (self, locator))
-            raise Exception
+            # raise Exception
 
     # ==================================================================================================================
     # Function: click_element
