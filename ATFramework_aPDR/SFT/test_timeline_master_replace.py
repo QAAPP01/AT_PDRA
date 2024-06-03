@@ -4,7 +4,6 @@ import allure
 import ATFramework_aPDR.pages.locator.locator as L
 from ATFramework_aPDR.ATFramework.utils import logger
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
-from ATFramework_aPDR.ATFramework.drivers.appium_driver import AppiumU2Driver
 
 
 def replace_to_video(shortcut):
@@ -18,7 +17,9 @@ def replace_to_video(shortcut):
     if element(L.import_media.media_library.dialog_ok):
         click(L.import_media.media_library.dialog_ok)
 
-@allure.feature('Replace Video')
+
+@allure.epic('Timeline')
+@allure.feature('Master')
 class TestMasterReplaceVideo:
 
     @pytest.fixture(scope='class', autouse=True)
@@ -48,7 +49,9 @@ class TestMasterReplaceVideo:
         self.replace_to_video = replace_to_video
         yield
 
-    @allure.story('Replace video to video')
+    @allure.story('Video')
+    @allure.title('Replace')
+    @allure.step('Video to Video')
     def test_replace_video_to_video(self, driver, shortcut):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -67,7 +70,9 @@ class TestMasterReplaceVideo:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
-    @allure.story('Replace video to color board')
+    @allure.story('Video')
+    @allure.title('Replace')
+    @allure.step('Video to Color board')
     def test_replace_video_to_color_board(self, driver):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -93,7 +98,9 @@ class TestMasterReplaceVideo:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
-    @allure.story('Replace video to photo')
+    @allure.story('Video')
+    @allure.title('Replace')
+    @allure.step('Video to Photo')
     def test_replace_video_to_photo(self, driver):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -116,7 +123,8 @@ class TestMasterReplaceVideo:
             pytest.fail(f'[{text}] {e}]')
 
 
-@allure.feature('Replace Photo')
+@allure.epic('Timeline')
+@allure.feature('Master')
 class TestMasterReplacePhoto:
 
     @pytest.fixture(scope='class', autouse=True)
@@ -147,7 +155,9 @@ class TestMasterReplacePhoto:
         self.click(L.edit.timeline.clip())
         yield
 
-    @allure.story('Replace photo to photo')
+    @allure.story('Photo')
+    @allure.title('Replace')
+    @allure.step('Photo to Photo')
     def test_replace_photo_to_photo(self):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -164,7 +174,9 @@ class TestMasterReplacePhoto:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
-    @allure.story('Replace photo to color board')
+    @allure.story('Photo')
+    @allure.title('Replace')
+    @allure.step('Photo to Color board')
     def test_replace_photo_to_color_board(self, driver):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -189,7 +201,9 @@ class TestMasterReplacePhoto:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
-    @allure.story('Replace photo to video')
+    @allure.story('Photo')
+    @allure.title('Replace')
+    @allure.step('Photo to Video')
     def test_replace_photo_to_video(self, shortcut):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -208,7 +222,8 @@ class TestMasterReplacePhoto:
             pytest.fail(f'[{text}] {e}]')
 
 
-@allure.feature('Replace color board')
+@allure.epic('Timeline')
+@allure.feature('Master')
 class TestMasterReplaceColorBoard:
 
     @pytest.fixture(scope='class', autouse=True)
@@ -239,7 +254,9 @@ class TestMasterReplaceColorBoard:
         self.click(L.edit.timeline.clip())
         yield
 
-    @allure.story('Replace color board to color board')
+    @allure.story('Color board')
+    @allure.title('Replace')
+    @allure.step('Color board to Color board')
     def test_replace_color_board_to_color_board(self):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -256,7 +273,9 @@ class TestMasterReplaceColorBoard:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
-    @allure.story('Replace color board to photo')
+    @allure.story('Color board')
+    @allure.title('Replace')
+    @allure.step('Color board to Photo')
     def test_replace_color_board_to_photo(self):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -273,7 +292,9 @@ class TestMasterReplaceColorBoard:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
-    @allure.story('Replace color board to video')
+    @allure.story('Color board')
+    @allure.title('Replace')
+    @allure.step('Color board to Video')
     def test_replace_color_board_to_video(self, shortcut):
         try:
             self.page_edit.click_sub_tool('Replace')
