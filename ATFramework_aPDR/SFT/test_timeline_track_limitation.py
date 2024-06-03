@@ -12,12 +12,11 @@ class TestTrackLimitation:
 
     @pytest.fixture(scope='class', autouse=True)
     def class_setup(self, shortcut, driver):
-        driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
         self.page_main, *_ = shortcut
         self.page_main.enter_launcher()
+        self.page_main.subscribe()  # Sound import needs sub
         self.page_main.enter_timeline()
         yield
-        driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
 
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
@@ -70,15 +69,13 @@ class TestTrackLimitation:
                     self.click(L.import_media.library_listview.add)
                 self.click(T.id('btn_session_back_icon'))
 
+            # (//android.view.View[@content-desc="[AID]TimeLineAudio_credit card slam..wav"])
+
             # Only the first track will have 2 audio clip
             allure.title(f'Only the first track will have 2 audio clip')
-            y1 = self.element(L.edit.timeline.clip_audio(index=1)).rect['y']
-            y2 = self.element(L.edit.timeline.clip_audio(index=2)).rect['y']
-            assert y1 == y2
-
-            y3 = self.element(L.edit.timeline.clip_audio(index=3)).rect['y']
-            y4 = self.element(L.edit.timeline.clip_audio(index=4)).rect['y']
-            assert y3 != y4
+            track = self.elements(T.id('item_view_bg'))
+            assert track[0].rect['y'] == track[1].rect['y']
+            assert track[2].rect['y'] != track[3].rect['y']
 
         except Exception as e:
             if type(e) is AssertionError:
@@ -101,13 +98,9 @@ class TestTrackLimitation:
 
             # Only the first track will have 2 pip clip
             allure.title(f'Only the first track will have 2 pip clip')
-            y1 = self.element(L.edit.pip.clip(index=1)).rect['y']
-            y2 = self.element(L.edit.pip.clip(index=2)).rect['y']
-            assert y1 == y2
-
-            y3 = self.element(L.edit.pip.clip(index=3)).rect['y']
-            y4 = self.element(L.edit.pip.clip(index=4)).rect['y']
-            assert y3 != y4
+            track = self.elements(T.id('item_view_bg'))
+            assert track[0].rect['y'] == track[1].rect['y']
+            assert track[2].rect['y'] != track[3].rect['y']
 
         except Exception as e:
             if type(e) is AssertionError:
