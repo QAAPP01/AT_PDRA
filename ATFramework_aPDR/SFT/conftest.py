@@ -143,27 +143,22 @@ def driver():
     appium.stop()
 
 
-# @pytest.fixture(scope='class', autouse=True)
-# def driver_init(driver):
-#     logger("[Start] Init driver session")
-#     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
-#     driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-#     yield
-#     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+@pytest.fixture(scope='module', autouse=True)
+def driver_init(driver):
+    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+    driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
+    yield
+    # driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
 
 
+
+from ATFramework_aPDR.pages.edit import EditPage
+from ATFramework_aPDR.pages.import_media import MediaPage
+from ATFramework_aPDR.pages.main_page import MainPage
+from ATFramework_aPDR.pages.timeline_settings import TimelineSettingsPage
 @pytest.fixture(scope="session")
-def shortcut(driver):
-    from ATFramework_aPDR.pages.edit import EditPage
-    from ATFramework_aPDR.pages.import_media import MediaPage
-    from ATFramework_aPDR.pages.main_page import MainPage
-    from ATFramework_aPDR.pages.timeline_settings import TimelineSettingsPage
-
-    page_main = MainPage(driver)
-    page_edit = EditPage(driver)
-    page_media = MediaPage(driver)
-    page_preference = TimelineSettingsPage(driver)
-    return page_main, page_edit, page_media, page_preference
+def shortcut(driver) -> [MainPage, EditPage, MediaPage, TimelineSettingsPage]:
+    return MainPage(driver), EditPage(driver), MediaPage(driver), TimelineSettingsPage(driver)
 
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
