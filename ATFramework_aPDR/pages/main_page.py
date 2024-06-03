@@ -42,6 +42,7 @@ class MainPage(BasePage):
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
+            self.click(L.main.subscribe.back_btn)
             return self.is_exist(L.main.new_project, 10)
 
     def enter_launcher(self):
