@@ -24,9 +24,10 @@ from send_mail.send_report import generate_allure_report, remove_allure_result, 
 # parallel_device_count - the device number for parallel testing (default: 1)
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
-# deviceName = "R5CT32Q3WQN"
 deviceName = "R5CT21VMV6P"
-# deviceName = "9596423546005V8"
+# p4a = 0B211JEC210389
+# s22 = R5CT21VMV6P
+
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
@@ -39,9 +40,9 @@ package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 # ======================================================================================================================
 # [Configuration]
-auto_download = True
-send = True
-test_apk_from_appPath = True
+auto_download = False
+send = False
+test_apk_from_appPath = False
 
 sr_number = 'DRA240110-04'  # for manual
 tr_number = 'TR240207-034'  # for manual
@@ -80,6 +81,7 @@ def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port):
 
 
 def auto_run():
+    global tr_number, sr_number
     while True:
         print("\n ======== SFT Test Start ========")
         procs = []
@@ -169,8 +171,8 @@ def auto_run():
 
         # [auto download lasted build]
         if auto_download:
-            sr_number = ''
-            tr_number = ''
+            #sr_number = ''
+            #tr_number = ''
 
             para_dict = {'prod_name': 'PowerDirector Mobile for Android',
                          'sr_no': sr_number,
@@ -321,40 +323,15 @@ def auto_run_all():
 
 
 if __name__ == '__main__':
+    try:
+        import os
+        for i in ['sft-allure-report', 'sft-allure-report-html', 'sft-allure-results']:
+            shutil.rmtree(os.path.join(r'C:\Users\jethro_wang\Desktop\Cyberlink\pycharm\AT_PDRA', i))
+    except:
+        pass
+
     auto_run()
 
-    schedule.every().monday.at("07:00").do(auto_run)
-    schedule.every().monday.at("10:00").do(auto_run)
-    schedule.every().monday.at("13:00").do(auto_run)
-    schedule.every().monday.at("16:00").do(auto_run)
+    from subprocess import run
+    run(r'C:\Users\jethro_wang\Desktop\Cyberlink\pycharm\AT_PDRA\sft-allure-report-html\index.html')
 
-    schedule.every().tuesday.at("07:00").do(auto_run)
-    schedule.every().tuesday.at("10:00").do(auto_run)
-    schedule.every().tuesday.at("13:00").do(auto_run)
-    schedule.every().tuesday.at("16:00").do(auto_run)
-
-    schedule.every().wednesday.at("07:00").do(auto_run)
-    schedule.every().wednesday.at("10:00").do(auto_run)
-    schedule.every().wednesday.at("13:00").do(auto_run)
-    schedule.every().wednesday.at("16:00").do(auto_run)
-
-    schedule.every().thursday.at("07:00").do(auto_run)
-    schedule.every().thursday.at("10:00").do(auto_run)
-    schedule.every().thursday.at("13:00").do(auto_run)
-    schedule.every().thursday.at("16:00").do(auto_run)
-
-    schedule.every().friday.at("07:00").do(auto_run)
-    schedule.every().friday.at("10:00").do(auto_run)
-    schedule.every().friday.at("13:00").do(auto_run)
-    schedule.every().friday.at("16:00").do(auto_run)
-
-    schedule.every().day.at("00:05").do(auto_server_scan)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-        sleep = int(schedule.idle_seconds())
-        time_delta = datetime.timedelta(seconds=sleep)
-        print(f"Sleeping for {time_delta} until the next scheduled run...")
-        print_next_run_time()
-        time.sleep(sleep)
