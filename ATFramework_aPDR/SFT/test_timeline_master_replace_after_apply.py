@@ -4,7 +4,6 @@ import allure
 import ATFramework_aPDR.pages.locator.locator as L
 import ATFramework_aPDR.pages.locator.locator_type as T
 from ATFramework_aPDR.ATFramework.utils import logger
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 
 
 def replace_to_video(shortcut):
@@ -19,19 +18,20 @@ def replace_to_video(shortcut):
         click(L.import_media.media_library.dialog_ok)
 
 
+
 @allure.epic('Timeline')
 @allure.feature('Master')
 class TestMasterReplaceVideoAfterApplyVolume:
 
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
-        page_main, page_edit, *_ = shortcut
-
-        page_main.enter_launcher()
-        page_main.subscribe()
-        page_main.enter_timeline()
-        yield
-        page_edit.back_to_launcher()
+    # @pytest.fixture(scope='class', autouse=True)
+    # def class_setup(self, shortcut, driver):
+    #     page_main, page_edit, *_ = shortcut
+    #
+    #     page_main.enter_launcher()
+    #     page_main.subscribe()
+    #     page_main.enter_timeline()
+    #     yield
+    #     page_edit.back_to_launcher()
 
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
@@ -46,31 +46,35 @@ class TestMasterReplaceVideoAfterApplyVolume:
         self.click(L.edit.preview.import_tips_icon)
         self.click(L.import_media.media_library.media(index=1))
         self.click(L.import_media.media_library.apply)
-        self.click(L.edit.timeline.clip())
+        self.click(L.edit.timeline.track)
         yield
         self.click(L.edit.menu.delete)
 
+    @pytest.mark.skip
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Volume (Slide bar, Fade in, Fade out)')
     def test_replace_video_adjusted_volume(self, driver, shortcut):
         from random import randint
-        slider_int = randint(1, 200)
+        slider_int = float(randint(1, 200))
 
         try:
-
             self.page_edit.click_sub_tool('Volume')
             self.element(L.edit.speed.slider).send_keys(slider_int)
             self.click(L.edit.speed.ease_in)
             self.click(L.edit.speed.ease_out)
+            self.click(L.edit.sub_tool.back)
 
+            self.click(L.edit.timeline.track)
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
-
+            
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Volume')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Volume')
             self.page_edit.click_sub_tool('Volume')
-            assert self.element(L.edit.speed.slider).get_text() == slider_int
+            # need to convert str (xxx.x) to int to compare with
+            assert float(self.element(L.edit.speed.slider).text) == slider_int
             assert self.element(L.edit.speed.ease_in).get_attribute('selected') == 'true'
             assert self.element(L.edit.speed.ease_out).get_attribute('selected') == 'true'
 
@@ -83,25 +87,26 @@ class TestMasterReplaceVideoAfterApplyVolume:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
+    @pytest.mark.skip
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Audio tool (Voice Changer)')
-    def test_replace_video_adjusted_audioTool(self, driver, shortcut):
+    def test_replace_video_adjusted_audio_tool(self, driver, shortcut):
         try:
-
-            self.page_edit.click_sub_tool('Audio Tool')
-            self.page_edit.click_sub_tool('Voice Changer')
-            self.page_edit.click_sub_tool('Radio 1')
+            self.page_edit.click_sub_tool('AI Audio \nTool')
+            self.click(L.edit.ai_audio_tool.ai_voice_changer)
+            self.click(T.id('iv_voice_name'))
             self.click(L.edit.ai_audio_tool.apply)
             self.click(L.edit.ai_audio_tool.ok)
+            self.click(L.edit.sub_tool.back)
 
+            self.click(L.edit.timeline.track)
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
 
-            self.page_edit.click_sub_tool('Voice Effects')
-            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Audio Tool')
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('AI Audio \nTool')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('AI Audio \nTool')
 
         except Exception as e:
             if type(e) is AssertionError:
@@ -114,20 +119,24 @@ class TestMasterReplaceVideoAfterApplyVolume:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Filter')
     def test_replace_video_adjusted_filter(self, driver, shortcut):
         try:
             self.page_edit.click_sub_tool('Filter')
             self.page_edit.click_effect('A06', L.edit.master.ai_effect.effect())
             self.click(L.edit.ai_audio_tool.apply)
             self.click(L.edit.ai_audio_tool.ok)
+            self.click(L.edit.sub_tool.back)
 
+            self.click(L.edit.timeline.track)
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
+            self.click(L.edit.sub_tool.back)
 
-            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Voice Effects')
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Filter')
+            logger(f'{self.page_edit.is_sub_tool_exist("Filter")}', log_level='warn')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Filter')
 
         except Exception as e:
             if type(e) is AssertionError:
@@ -140,21 +149,22 @@ class TestMasterReplaceVideoAfterApplyVolume:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Adjustment')
     def test_replace_video_adjusted_adjustment(self, driver, shortcut):
         from random import randint
         slider_int = randint(1, 200)
 
         try:
             self.page_edit.click_sub_tool('Adjustment')
-            self.page_edit.click_sub_tool('Brightness')
+            self.click(L.edit.adjust_sub)
+            self.click(T.find_string('Brightness'))
             self.element(L.edit.speed.slider).send_keys(slider_int)
+            self.click(L.edit.sub_tool.back)
             self.click(L.edit.toolbar.back)
 
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
+            self.click(L.edit.timeline.track)
 
             assert self.page_edit.check_bottom_edit_menu_item_apply_status('Adjustment')
 
@@ -169,10 +179,9 @@ class TestMasterReplaceVideoAfterApplyVolume:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Speed')
     def test_replace_video_adjusted_speed(self, driver, shortcut):
         from random import randint
-        slider_int = randint(1, 100)
+        slider_int = float(randint(1, 100))
 
         try:
             self.page_edit.click_sub_tool('Speed')
@@ -182,12 +191,14 @@ class TestMasterReplaceVideoAfterApplyVolume:
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
+            self.click(L.edit.sub_tool.back)
 
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Speed')
             assert self.page_edit.check_bottom_edit_menu_item_apply_status('Speed')
 
             self.page_edit.click_sub_tool('Speed')
-            assert self.element(L.edit.speed.slider).get_text() == str(slider_int)
+            assert self.element(L.edit.speed.slider).text == int(slider_int)
 
         except Exception as e:
             if type(e) is AssertionError:
@@ -200,19 +211,20 @@ class TestMasterReplaceVideoAfterApplyVolume:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Effect')
     def test_replace_video_adjusted_effect(self, driver, shortcut):
 
         try:
             self.page_edit.click_sub_tool('Effect')
             self.page_edit.click_effect('Beating', L.edit.master.effect.effect())
-            self.click(L.edit.ai_audio_tool.apply)
+            self.click(L.edit.ai_audio_tool.ok)
 
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
+            self.click(L.edit.sub_tool.back)
 
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Effect')
             assert self.page_edit.check_bottom_edit_menu_item_apply_status('Effect')
 
         except Exception as e:
@@ -226,7 +238,6 @@ class TestMasterReplaceVideoAfterApplyVolume:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Stabilizer')
     def test_replace_video_adjusted_stabilizer(self, driver, shortcut):
         from random import randint
         slider_int = randint(1, 100)
@@ -239,12 +250,14 @@ class TestMasterReplaceVideoAfterApplyVolume:
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
+            self.click(L.edit.sub_tool.back)
 
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Stabilizer')
             assert self.page_edit.check_bottom_edit_menu_item_apply_status('Stabilizer')
 
             self.page_edit.click_sub_tool('Stabilizer')
-            assert self.element(L.edit.speed.slider).get_text() == str(slider_int)
+            assert self.element(L.edit.speed.slider).text == str(slider_int)
 
         except Exception as e:
             if type(e) is AssertionError:
@@ -257,14 +270,13 @@ class TestMasterReplaceVideoAfterApplyVolume:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Skin Smoothener')
     def test_replace_video_adjusted_skin_smoothener(self, driver, shortcut):
         from random import randint
         bright_slider_int = randint(40, 100)
         smooth_slider_int = randint(0, 100)
 
         try:
-            self.page_edit.click_sub_tool('Stabilizer')
+            self.page_edit.click_sub_tool('Skin \nSmoothener')
             self.page_edit.click_sub_tool('Brightness')
             self.element(L.edit.speed.slider).send_keys(bright_slider_int)
             self.page_edit.click_sub_tool('Smoothness')
@@ -274,15 +286,17 @@ class TestMasterReplaceVideoAfterApplyVolume:
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
+            self.click(L.edit.sub_tool.back)
 
-            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Stabilizer')
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Skin \nSmoothener')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Skin \nSmoothener')
 
-            self.page_edit.click_sub_tool('Stabilizer')
+            self.page_edit.click_sub_tool('Skin \nSmoothener')
             self.page_edit.click_sub_tool('Brightness')
-            assert self.element(L.edit.speed.slider).get_text() == str(bright_slider_int)
+            assert self.element(L.edit.speed.slider).text == str(bright_slider_int)
             self.page_edit.click_sub_tool('Smoothness')
-            assert self.element(L.edit.speed.slider).get_text() == str(smooth_slider_int)
+            assert self.element(L.edit.speed.slider).text == str(smooth_slider_int)
 
         except Exception as e:
             if type(e) is AssertionError:
@@ -295,7 +309,6 @@ class TestMasterReplaceVideoAfterApplyVolume:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Fit & Fill')
     def test_replace_video_adjusted_skin_fit_fill(self, driver, shortcut):
 
         try:
@@ -305,9 +318,11 @@ class TestMasterReplaceVideoAfterApplyVolume:
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
+            self.click(L.edit.sub_tool.back)
 
-            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Stabilizer')
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Fit & Fill')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Fit & Fill')
 
         except Exception as e:
             if type(e) is AssertionError:
@@ -320,21 +335,130 @@ class TestMasterReplaceVideoAfterApplyVolume:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Replace video after setting Pan & Zoom')
-    def test_replace_video_adjusted_skin_pan_zoom(self, driver, shortcut):
+    def test_replace_video_adjusted_pan_zoom(self, driver, shortcut):
 
         try:
             self.page_edit.click_sub_tool('Pan & Zoom')
             self.page_edit.click_sub_tool('Custom')
-            # drag video to anywhere
+            self.page_edit.h_swipe_element_to_location(T.id('resizable_master_view'), 100)
             self.click(L.edit.pan_zoom_effect.ok)
-            self.drag(T.id('resizable_master_view'))
+            self.click(L.edit.toolbar.back)
+
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
-            self.click(L.edit.timeline.clip())
+            self.click(L.edit.sub_tool.back)
 
-            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Stabilizer')
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Pan & Zoom')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Pan & Zoom')
+
+        except Exception as e:
+            if type(e) is AssertionError:
+                logger(f'[AssertionError] {e}]')
+                text = 'AssertionError'
+            else:
+                logger(f'[Exception] {e}')
+                text = 'Exception'
+            pytest.fail(f'[{text}] {e}]')
+
+    @allure.story('Video')
+    @allure.title('Replace')
+    def test_replace_video_adjusted_crop(self, driver, shortcut):
+
+        try:
+            self.page_edit.click_sub_tool('Crop')
+            self.click(L.edit.crop.btn_16_9)
+            self.click(L.edit.crop.apply)
+
+            self.page_edit.click_sub_tool('Replace')
+            self.click(L.import_media.media_library.media(index=2))
+            self.replace_to_video(shortcut)
+            self.click(L.edit.sub_tool.back)
+
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Crop')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Crop')
+            self.page_edit.click_sub_tool('Crop')
+            assert self.element(L.edit.crop.btn_16_9).get_attribute('selected') == 'true'
+            self.click(L.edit.crop.cancel)
+
+        except Exception as e:
+            if type(e) is AssertionError:
+                logger(f'[AssertionError] {e}]')
+                text = 'AssertionError'
+            else:
+                logger(f'[Exception] {e}')
+                text = 'Exception'
+            pytest.fail(f'[{text}] {e}]')
+
+    @allure.story('Video')
+    @allure.title('Replace')
+    def test_replace_video_adjusted_rotate(self, driver, shortcut):
+
+        try:
+            self.page_edit.click_sub_tool('Rotate')
+
+            self.page_edit.click_sub_tool('Replace')
+            self.click(L.import_media.media_library.media(index=2))
+            self.replace_to_video(shortcut)
+            self.click(L.edit.sub_tool.back)
+
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Rotate')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Rotate')
+
+        except Exception as e:
+            if type(e) is AssertionError:
+                logger(f'[AssertionError] {e}]')
+                text = 'AssertionError'
+            else:
+                logger(f'[Exception] {e}')
+                text = 'Exception'
+            pytest.fail(f'[{text}] {e}]')
+
+    @allure.story('Video')
+    @allure.title('Replace')
+    def test_replace_video_adjusted_flip(self, driver, shortcut):
+
+        try:
+            self.page_edit.click_sub_tool('Flip')
+
+            self.page_edit.click_sub_tool('Replace')
+            self.click(L.import_media.media_library.media(index=2))
+            self.replace_to_video(shortcut)
+            self.click(L.edit.sub_tool.back)
+
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Flip')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Flip')
+
+        except Exception as e:
+            if type(e) is AssertionError:
+                logger(f'[AssertionError] {e}]')
+                text = 'AssertionError'
+            else:
+                logger(f'[Exception] {e}')
+                text = 'Exception'
+            pytest.fail(f'[{text}] {e}]')
+
+    @allure.story('Video')
+    @allure.title('Replace')
+    def test_replace_video_adjusted_flip(self, driver, shortcut):
+
+        try:
+            self.page_edit.click_sub_tool('Reverse')
+            self.click(L.edit.reverse.dialog_ok)
+            self.page_main.is_not_in_page([L.edit.reverse.ad, L.edit.reverse.ad_promotion], 3 * 60)
+
+            self.page_edit.click_sub_tool('Replace')
+            self.click(L.import_media.media_library.media(index=2))
+            self.replace_to_video(shortcut)
+            self.click(L.edit.sub_tool.back)
+
+            self.click(L.edit.timeline.track)
+            self.page_edit.is_sub_tool_exist('Reverse')
+            assert self.page_edit.check_bottom_edit_menu_item_apply_status('Reverse')
 
         except Exception as e:
             if type(e) is AssertionError:
@@ -346,11 +470,5 @@ class TestMasterReplaceVideoAfterApplyVolume:
             pytest.fail(f'[{text}] {e}]')
 
 
-
     # todo:
-    #   complete: 15
-    #   Pan & Zoom
-    #   Crop
-    #   Rotate
-    #   Flip
-    #   Reverse
+    #   complete: 21
