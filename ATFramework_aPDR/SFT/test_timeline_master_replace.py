@@ -51,7 +51,6 @@ class TestMasterReplaceVideo:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Video to Video')
     def test_replace_video_to_video(self, driver, shortcut):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -72,7 +71,6 @@ class TestMasterReplaceVideo:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Video to Color board')
     def test_replace_video_to_color_board(self, driver):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -100,7 +98,6 @@ class TestMasterReplaceVideo:
 
     @allure.story('Video')
     @allure.title('Replace')
-    @allure.step('Video to Photo')
     def test_replace_video_to_photo(self, driver):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -157,7 +154,6 @@ class TestMasterReplacePhoto:
 
     @allure.story('Photo')
     @allure.title('Replace')
-    @allure.step('Photo to Photo')
     def test_replace_photo_to_photo(self):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -176,7 +172,6 @@ class TestMasterReplacePhoto:
 
     @allure.story('Photo')
     @allure.title('Replace')
-    @allure.step('Photo to Color board')
     def test_replace_photo_to_color_board(self, driver):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -203,7 +198,6 @@ class TestMasterReplacePhoto:
 
     @allure.story('Photo')
     @allure.title('Replace')
-    @allure.step('Photo to Video')
     def test_replace_photo_to_video(self, shortcut):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -256,7 +250,6 @@ class TestMasterReplaceColorBoard:
 
     @allure.story('Color board')
     @allure.title('Replace')
-    @allure.step('Color board to Color board')
     def test_replace_color_board_to_color_board(self):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -275,7 +268,6 @@ class TestMasterReplaceColorBoard:
 
     @allure.story('Color board')
     @allure.title('Replace')
-    @allure.step('Color board to Photo')
     def test_replace_color_board_to_photo(self):
         try:
             self.page_edit.click_sub_tool('Replace')
@@ -294,7 +286,6 @@ class TestMasterReplaceColorBoard:
 
     @allure.story('Color board')
     @allure.title('Replace')
-    @allure.step('Color board to Video')
     def test_replace_color_board_to_video(self, shortcut):
         try:
             self.page_edit.click_sub_tool('Replace')
