@@ -19,7 +19,7 @@ class Test_PiP_Sticker_Opacity:
         logger("[Start] Init driver session")
         driver.driver.launch_app()
         yield
-        driver.driver.close_app()
+        # driver.driver.close_app()
 
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -44,7 +44,7 @@ class Test_PiP_Sticker_Opacity:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline(skip_media=False)
             self.click(L.import_media.media_library.color_board)
-            self.click(L.import_media.media_library.first)
+            self.click(L.import_media.media_library.media(5))
             self.click(L.import_media.media_library.next)
             self.page_edit.enter_sticker_library("Sticker")
             self.page_media.select_sticker_by_order(order=3)
@@ -161,6 +161,7 @@ class Test_PiP_Sticker_Opacity:
             raise Exception
 
 
+@pytest.mark.PiP
 @allure.epic("Timeline_PiP")
 @allure.feature("Sticker")
 @allure.story("Fade")
@@ -302,7 +303,7 @@ class Test_PiP_Sticker_Blending:
         self.set_slider = self.page_edit.h_set_slider
 
     @allure.title("Enter blending panel")
-    def test_sticker_show_fade_in_out(self, driver):
+    def test_sticker_enter_blending_panel(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 

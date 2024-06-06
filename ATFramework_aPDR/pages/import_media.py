@@ -415,12 +415,12 @@ class MediaPage(BasePage):
             raise Exception
         return True
 
-    def select_sticker_by_order(self, order, timeout=10):
+    def select_sticker_by_order(self, order, timeout=20):
         logger("start >> select_sticker_by_order<<")
         logger(f"input - {order}")
         try:
-            self.is_exist(L.library_gridview.library_recycler_gridview, timeout)
-            frame = self.el(L.library_gridview.library_recycler_gridview)
+            self.is_exist(L.import_media.media_library.recycler_view, timeout)
+            frame = self.el(L.import_media.media_library.recycler_view)
             element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"cms_sticker_library_item")])[{order}]')
             element.click()
         except Exception:

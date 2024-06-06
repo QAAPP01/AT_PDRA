@@ -232,6 +232,8 @@ class Timeline:
     timecode = id("timeline_playhead_label")
     fx_effect_thumbnail = id('fx_effect_thumbnail')
     item_view_thumbnail_host = id('item_view_thumbnail_host')
+    item_view_thumbnail_view = id('item_view_thumbnail_view')
+    item_view_border = id('item_view_border')
     exceed_max_video = aid('[AID]ConfirmDialog_OK')
 
     first_audio = ("xpath", '(//android.widget.LinearLayout[@content-desc="[AID]TimeLineAudio_mp3.mp3"])[1]')
@@ -678,8 +680,10 @@ class Opacity():
 
 
 class Fade():
-    fade_in = aid("[AID]Fade_ApplyFadeIn")
-    fade_out = aid("[AID]Fade_ApplyFadeOut")
+    # fade_in = aid("[AID]Fade_ApplyFadeIn")
+    # fade_out = aid("[AID]Fade_ApplyFadeOut")
+    fade_in = find_string("Fade in")
+    fade_out = find_string("Fade out")
     ok = aid("[AID]Dialog_OK")
 
 
