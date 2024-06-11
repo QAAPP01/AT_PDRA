@@ -267,6 +267,7 @@ def auto_run():
         delete_apk(app_path)
 
         print("\n ======== SFT Test Finish ========")
+        break
 
 
 def auto_server_scan():
@@ -332,6 +333,7 @@ if __name__ == '__main__':
 
     auto_run()
 
-    from subprocess import run
-    run(r'C:\Users\jethro_wang\Desktop\Cyberlink\pycharm\AT_PDRA\sft-allure-report-html\index.html')
+    import webbrowser
+    webbrowser.open(r'C:\Users\jethro_wang\Desktop\Cyberlink\pycharm\AT_PDRA\sft-allure-report-html\index.html')
+
 
