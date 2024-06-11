@@ -7,8 +7,8 @@ import ATFramework_aPDR.pages.locator.locator_type as T
 from ATFramework_aPDR.ATFramework.drivers.appium_driver import AppiumU2Driver
 
 
-@allure.feature('Track Limitation')
-@allure.epic('PiP')
+@pytest.mark.pip
+@allure.epic('Timeline_PiP')
 class TestTrackLimitation:
 
     @pytest.fixture(scope='class', autouse=True)
@@ -36,8 +36,8 @@ class TestTrackLimitation:
     AUDIO_LIMITATION = 9
     PIP_LIMITATION = 20
 
-    @allure.story('Video')
-    @allure.title('Track Limitation')
+    @allure.feature('Video')
+    @allure.story('Track Limitation')
     def test_timeline_limitation_video_track(self, driver: AppiumU2Driver):
         try:
             allure.title(f'Add {self.VIDEO_LIMITATION} + 1 video(s) to PiP track')
@@ -58,8 +58,8 @@ class TestTrackLimitation:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
-    @allure.story('Audio')
-    @allure.title('Track Limitation')
+    @allure.feature('Audio')
+    @allure.story('Track Limitation')
     def test_timeline_limitation_audio_track(self, driver: AppiumU2Driver):
         try:
             allure.title(f'Add {self.AUDIO_LIMITATION} + 1 audio(s) to PiP track')
@@ -89,7 +89,7 @@ class TestTrackLimitation:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
-    @allure.story('PiP')
+    @allure.feature('PiP')
     @allure.title('Track Limitation')
     def test_timeline_limitation_pip_track(self, driver: AppiumU2Driver):
         try:
