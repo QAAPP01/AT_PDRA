@@ -148,7 +148,7 @@ def driver_init(driver):
     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
     driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
     yield
-    # driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
 
 
 
