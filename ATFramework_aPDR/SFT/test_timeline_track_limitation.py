@@ -7,7 +7,6 @@ import ATFramework_aPDR.pages.locator.locator_type as T
 from ATFramework_aPDR.ATFramework.drivers.appium_driver import AppiumU2Driver
 
 
-@pytest.mark.pip
 @allure.epic('Timeline_PiP')
 class TestTrackLimitation:
 

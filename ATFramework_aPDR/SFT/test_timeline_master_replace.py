@@ -19,7 +19,6 @@ def replace_to_video(shortcut):
         click(L.import_media.media_library.dialog_ok)
 
 
-@pytest.mark.master
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Replace')
