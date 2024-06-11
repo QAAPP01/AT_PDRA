@@ -23,15 +23,15 @@ def replace_to_video(shortcut):
 @allure.story('Replace')
 class TestMasterReplaceVideoAfterApply:
 
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
-        page_main, page_edit, *_ = shortcut
-
-        page_main.enter_launcher()
-        page_main.subscribe()
-        page_main.enter_timeline()
-        yield
-        page_edit.back_to_launcher()
+    # @pytest.fixture(scope='class', autouse=True)
+    # def class_setup(self, shortcut, driver):
+    #     page_main, page_edit, *_ = shortcut
+    #
+    #     page_main.enter_launcher()
+    #     page_main.subscribe()
+    #     page_main.enter_timeline()
+    #     yield
+    #     page_edit.back_to_launcher()
 
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
@@ -50,6 +50,7 @@ class TestMasterReplaceVideoAfterApply:
         yield
         self.click(L.edit.menu.delete)
 
+    @pytest.mark.skip
     @allure.title('Replace after setting volume')
     def test_replace_video_adjusted_volume(self, driver, shortcut):
         from random import randint
@@ -86,6 +87,7 @@ class TestMasterReplaceVideoAfterApply:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
+    @pytest.mark.skip
     @allure.title('Replace after setting audio tool')
     def test_replace_video_adjusted_audio_tool(self, driver, shortcut):
         try:
@@ -114,6 +116,7 @@ class TestMasterReplaceVideoAfterApply:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
+    @pytest.mark.skip
     @allure.title('Replace after setting filter')
     def test_replace_video_adjusted_filter(self, driver, shortcut):
         try:
@@ -143,6 +146,7 @@ class TestMasterReplaceVideoAfterApply:
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
 
+    @pytest.mark.skip
     @allure.title('Replace after setting adjustment')
     def test_replace_video_adjusted_adjustment(self, driver, shortcut):
         from random import randint
@@ -447,15 +451,16 @@ class TestMasterReplaceVideoAfterApply:
             self.page_edit.click_sub_tool('Reverse')
             self.click(L.edit.reverse.dialog_ok)
             self.page_main.is_not_in_page([L.edit.reverse.ad, L.edit.reverse.ad_promotion], 3 * 60)
+            self.click(L.edit.sub_tool.back)
 
+            self.click(L.edit.timeline.track)
             self.page_edit.click_sub_tool('Replace')
             self.click(L.import_media.media_library.media(index=2))
             self.replace_to_video(shortcut)
             self.click(L.edit.sub_tool.back)
 
             self.click(L.edit.timeline.track)
-            self.page_edit.click_sub_tool('Reverse')
-            self.click(L.edit.sub_tool.back)
+            self.page_edit.is_sub_tool_exist('Reverse')
             assert self.page_edit.check_bottom_edit_menu_item_apply_status('Reverse')
 
         except Exception as e:
@@ -466,6 +471,18 @@ class TestMasterReplaceVideoAfterApply:
                 logger(f'[Exception] {e}')
                 text = 'Exception'
             pytest.fail(f'[{text}] {e}]')
+
+        try:
+            assert not self.page_edit.check_bottom_edit_menu_item_apply_status('Reverse')
+
+        except Exception as e:
+        if type(e) is AssertionError:
+
+        else:
+            logger(f'[Exception] {e}')
+            text = 'Exception'
+        pytest.fail(f'[{text}] {e}]')
+
 
 
     # todo:

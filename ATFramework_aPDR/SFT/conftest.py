@@ -86,7 +86,8 @@ def driver():
         logger('**** Debug Mode ****')
         desired_caps['udid'] = 'R5CT21VMV6P'
         if desired_caps['udid'] not in os.popen('adb devices').read():
-            desired_caps['udid'] = os.popen('adb devices').read().split('\n')[1].split('\t')[0]
+            desired_caps['udid'] = 'R5CT21VMV6P'
+            #desired_caps['udid'] = os.popen('adb devices').read().split('\n')[1].split('\t')[0]
             # desired_caps['udid'] = '9596423546005V8'
 
         mode = 'debug'
@@ -143,12 +144,12 @@ def driver():
     appium.stop()
 
 
-@pytest.fixture(scope='module', autouse=True)
-def driver_init(driver):
-    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
-    driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-    yield
-    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+# @pytest.fixture(scope='module', autouse=True)
+# def driver_init(driver):
+#     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+#     driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
+#     yield
+#     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
 
 
 
