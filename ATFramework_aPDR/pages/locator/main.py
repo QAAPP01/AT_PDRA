@@ -7,6 +7,16 @@ class Launcher:
     subscribe = id('layout_premium')
     ai_creation = id('layout_ai_creation')
 
+class AI_Creation:
+    entry = id('layout_ai_creation')
+
+    @staticmethod
+    def feature_name(index: int = 1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"tv_title")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"tv_title")]')
+
 
 class Shortcut:
     demo_title = id('tv_title')
@@ -256,6 +266,16 @@ class Shortcut:
         compare_thumb = id('iv_thumb')
         compare = id('btn_compare')
 
+    class ai_art:
+        generating = id('animated_image')
+        @staticmethod
+        def style_name(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+
 
 
 class Permission:
@@ -486,6 +506,7 @@ class Premium():
 #=======================================
 class Interface:
     new_project = new_project
+    ai_creation = AI_Creation
     shortcut = Shortcut
     permission = Permission()
     project = Project()

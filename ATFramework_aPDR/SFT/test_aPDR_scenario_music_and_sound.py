@@ -78,7 +78,7 @@ class Test_SFT_Scenario_Music_and_Sound_Clips:
         project_title = '16_9'
         page_main.reset_project_list(self.device_udid, pdr_package, project_title)
         page_main.select_existed_project_by_title(project_title)
-        page_main.el(L.main.project_info.btn_edit_project).click()
+        page_main.el(L.launcher.project_info.btn_edit_project).click()
         page_edit.el(L.edit.menu.import_media).click()
         page_media.switch_to_music_library()
         page_media.select_media_by_text('Music')
@@ -200,7 +200,7 @@ class Test_SFT_Scenario_Music_and_Sound_Clips:
         project_title = '16_9'
         page_main.reset_project_list(self.device_udid, pdr_package, project_title)
         page_main.select_existed_project_by_title(project_title)
-        page_main.el(L.main.project_info.btn_edit_project).click()
+        page_main.el(L.launcher.project_info.btn_edit_project).click()
         page_edit.el(L.edit.menu.import_media).click()
         # page_media.switch_to_music_library()
         page_media.switch_to_sound_clips_library()

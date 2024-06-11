@@ -74,6 +74,7 @@ def driver():
     from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
     from ATFramework_aPDR.configs import app_config
     from ATFramework_aPDR.configs import driver_config
+    from main_server_sacn import deviceName
 
     driver = None
     desired_caps = {}
@@ -84,8 +85,8 @@ def driver():
         logger('**** Debug Mode ****')
         desired_caps['udid'] = 'R5CT32Q3WQN'
         if desired_caps['udid'] not in os.popen('adb devices').read():
-            # desired_caps['udid'] = 'R5CW31G76ST'
-            desired_caps['udid'] = '9596423546005V8'
+            desired_caps['udid'] = 'R5CW31G76ST'
+            # desired_caps['udid'] = '9596423546005V8'
 
         mode = 'debug'
         args = [
@@ -185,3 +186,16 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
 
     with open('summary.json', 'w') as f:
         json.dump(summary, f)
+
+# === Logging fixture ===
+
+@pytest.fixture(scope='class', autouse=True)
+def log_class_start(request):
+    logger(f"\n[Start] Class: {request.node.cls.__name__}", log_level='info')
+    yield
+    logger(f"\n[End] Class: {request.node.cls.__name__}", log_level='info')
+
+
+@pytest.fixture(autouse=True)
+def log_function_test(request):
+    logger(f"\n[Start] Function: {request.node.name}", log_level='info')

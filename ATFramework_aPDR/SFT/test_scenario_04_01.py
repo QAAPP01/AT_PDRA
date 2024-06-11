@@ -283,7 +283,7 @@ class Test_sce_04_01_01:
         #produce.exist_click(L.main.subscribe.back_btn,3)
         produce.close_produce_page()
         #result_finish_upload = produce.is_exist(L.produce.tab.cloud)
-        result_finish_upload = produce.is_exist(L.main.project.new)
+        result_finish_upload = produce.is_exist(L.launcher.project.new)
         _end('b83f975b-d3e6-4d83-b6d1-13b3cb9582a7',result_finish_upload)
 
 '''        

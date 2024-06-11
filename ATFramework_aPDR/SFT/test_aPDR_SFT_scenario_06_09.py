@@ -109,13 +109,13 @@ class Test_SFT_Scenario_06_09:
         self.report.start_uuid('768c75d8-3b26-45d3-b3df-cc8929b19d72')
         page_edit.click(L.edit.menu.effect)
         time.sleep(5)
-        result = page_edit.is_exist(L.main.premium.icon_library_lock)
+        result = page_edit.is_exist(L.launcher.premium.icon_library_lock)
         self.report.new_result('768c75d8-3b26-45d3-b3df-cc8929b19d72', not result)        
         
         self.report.start_uuid('8e05043a-c017-4629-b83e-f3805e754ba2')
         page_edit.timeline_select_item_by_index_on_track(1, 1)
         time.sleep(5)
-        result = page_edit.is_exist(L.main.premium.icon_tool_premium)
+        result = page_edit.is_exist(L.launcher.premium.icon_tool_premium)
         self.report.new_result('8e05043a-c017-4629-b83e-f3805e754ba2', not result)
         
         self.report.start_uuid('c7055132-f723-4662-829f-eec0deef15ec')

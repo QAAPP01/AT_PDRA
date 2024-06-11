@@ -242,7 +242,7 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
 
     opts['attachment'].append(f'{report_folder}-html\\index.html')
 
-    opts['subject'] = f'PDRAndroid{package_version}.{package_build_number} {test_result_title}'
+    opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number}'
     opts['subject'] += result
     opts['to'] = receiver_list
     opts['html'] = mail_body

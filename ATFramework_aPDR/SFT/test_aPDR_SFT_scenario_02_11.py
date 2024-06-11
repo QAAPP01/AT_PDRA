@@ -275,7 +275,7 @@ class Test_SFT_Scenario_02_11:
         time.sleep(5)
         result = page_edit.trying_premium_content('sub')
         time.sleep(5)
-        page_edit.click(L.main.subscribe.back_btn)
+        page_edit.click(L.launcher.subscribe.back_btn)
         time.sleep(5)
         self.report.new_result('8d226161-4506-480e-bd6c-668ddab1f92e', result)
 
