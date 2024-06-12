@@ -26,6 +26,7 @@ from send_mail.send_report import generate_allure_report, remove_allure_result, 
 
 deviceName = "R5CT32Q3WQN"
 # deviceName = "R5CW31G76ST"
+# deviceName = "9596423546005V8"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
@@ -48,8 +49,8 @@ tr_number = 'TR240207-034'  # for manual
 
 # [Report Mail Setting]
 title_project = 'aPDR'
-receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com"]
-# receiver = ['hausen_lin@cyberlink.com']
+receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com", "Jethro_Wang@cyberlink.com", "Amber_Mai@cyberlink.com"]
+# receiver = ['hausen_lin@cyberlink.com', "biaggi_li@cyberlink.com"]
 
 script_version = 'Testing'
 # script_version = 'Debug'
@@ -73,8 +74,8 @@ if not os.path.exists(app_path):
 
 
 # execute
-def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port):
-    start = 'pytest -s --alluredir %s "%s" --color=yes --udid=%s --systemPort=%s' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, 'main.py')), _udid, _system_port)
+def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port, _test_file_name="main.py"):
+    start = 'pytest -s --alluredir %s "%s" --color=yes --udid=%s --systemPort=%s' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, _test_file_name)), _udid, _system_port)
     print('Start to run test >>>\n')
     try:
         os.system('color')
@@ -312,17 +313,54 @@ def auto_server_scan():
         print('send report complete.')
 
     print("\n ======== Server Scan Test Finish ========")
+    auto_ai_style_scan()
+
+
+def auto_ai_style_scan():
+    print("\n ======== AI Style Scan Test Start ========")
+    test_folder = 'ServerScan'
+    test_result_title = 'AI Style Scan Test Result'
+    result_folder = 'ai-style-scan-allure-results'
+    report_folder = 'ai-style-scan-allure-report'
+    test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
+
+    remove_allure_result(result_folder)
+
+    procs = []
+    with open('tr_info', 'r') as file:
+        for line in file:
+            key, value = line.strip().split('=')
+            if key == 'tr_number':
+                tr_number = value
+            elif key == 'package_version':
+                package_version = value
+            elif key == 'package_build_number':
+                package_build_number = value
+
+    # run test
+    print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
+    cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % deviceName, "%s" % str(system_port_default), "main_scan_ai_style.py"]
+    p = Process(target=__run_test, args=cmd)
+    p.start()
+    procs.append(p)
+
+    for p in procs:
+        p.join()
+    print('test complete.')
+
+    move_allure_history(result_folder, report_folder)
+    generate_allure_report(result_folder, report_folder)
+
+    if send:
+        send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number)
+        print('send report complete.')
+
+    print("\n ======== AI Style Scan Test Finish ========")
 
 
 def print_next_run_time():
     next_run = schedule.next_run()
     print(f"\nNext execution time: {next_run}")
-
-
-def auto_run_all():
-    auto_run()
-    auto_server_scan()
-    print_next_run_time()
 
 
 if __name__ == '__main__':
