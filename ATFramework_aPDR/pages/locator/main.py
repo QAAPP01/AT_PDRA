@@ -293,7 +293,7 @@ class Project:
     created = Created_project()
     empty = aid("[AID]Project_Create")
     select = id('project_item_border')
-    new_project = id('iv_add')
+    new_project = id('layout_new_project')
     new_existed_created = id("btn_create_new_project")
     name = aid("[AID]Modify_ProjectName")
     btn_produced_videos = id("btn_produced_video")
