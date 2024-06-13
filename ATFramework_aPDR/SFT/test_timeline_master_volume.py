@@ -39,3 +39,46 @@ class TestMasterVideoVolume:
         self.drag = self.page_main.h_drag_element
         yield
 
+    @allure.title('Volume default value')
+    def test_default_volume(self):
+        pass
+
+    @allure.title('Volume max value')
+    def test_max_value(self):
+        pass
+
+    @allure.title('Volume min value')
+    def test_min_value(self):
+        pass
+
+    @allure.title('Mute button can enable')
+    def test_mute_able(self):
+        pass
+
+    @allure.title('Volume cannot adjusted when muted')
+    def test_mute_volume_slider_disable(self):
+        pass
+
+    @allure.title('Mute button can disable')
+    def test_mute_enable(self):
+        pass
+
+    @allure.title('Volume slider will enable when not mute')
+    def test_slider_recover(self):
+        pass
+
+    @allure.title('Fade in button can disable')
+    def test_fade_in_disable(self):
+        pass
+
+    @allure.title('Fade in button can enable')
+    def test_fade_in_enable(self):
+        pass
+
+    @allure.title('Fade out button can disable')
+    def test_fadeout_disable(self):
+        pass
+
+    @allure.title('Fade out button can enable')
+    def test_fadeout_enable(self):
+        pass
