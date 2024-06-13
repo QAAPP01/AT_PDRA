@@ -98,11 +98,11 @@ class Test_sce_06_01_01:    # free account
         _end = self.report.new_result
         
         _start('d0979612-dcbb-488f-a883-5c29610c2da8')
-        result_dispaly_shopping_cart =  main.is_exist(L.main.project.shopping_cart)
+        result_dispaly_shopping_cart =  main.is_exist(L.launcher.project.shopping_cart)
         _end('d0979612-dcbb-488f-a883-5c29610c2da8',result_dispaly_shopping_cart)
         
         _start('5e225481-1f07-4891-be84-c78700ee3432')
-        main.click(L.main.project.shopping_cart)
+        main.click(L.launcher.project.shopping_cart)
         time.sleep(1)
         result_enter_subscription = main.ad.is_subscription_page()
         main.back()
@@ -115,11 +115,11 @@ class Test_sce_06_01_01:    # free account
         #edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
         #main.click(L.main.project.tutorials)
         main.new_launcher_enter_tutorials()
-        result_dispaly_shopping_cart =  main.is_exist(L.main.project.shopping_cart)
+        result_dispaly_shopping_cart =  main.is_exist(L.launcher.project.shopping_cart)
         _end('6d4971d5-8633-4b34-ae6e-aaf68a40f18a',result_dispaly_shopping_cart)
 
         _start('66f283f8-c5ad-42cb-b075-67d11b994ae2')
-        main.click(L.main.project.shopping_cart)
+        main.click(L.launcher.project.shopping_cart)
         time.sleep(1)
         result_enter_subscription = main.ad.is_subscription_page()
         main.back()
@@ -245,7 +245,7 @@ class Test_sce_06_01_01:    # free account
         edit.click(L.edit.menu.Produce_sub_page.produce)
         produce.click(L.produce.tab.gallery)
         produce.click(L.produce.facebook.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         if not produce.ad.find_target_ad(produce.ad.AD_NORMAL): raise Exception("Find AD error.")
         result_has_ad, result_ratio = produce.ad.check_ad_and_ratio()
         _end('4449cad8-9150-40b6-9629-8d71ffb19561',result_has_ad)
@@ -261,7 +261,7 @@ class Test_sce_06_01_01:    # free account
         _start('aefefc61-1171-47ec-a421-7ecfe2045c29')
         _start('050c2089-953b-4378-8eec-b833ad1ebdc2')
         produce.click(L.produce.facebook.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         time.sleep(1)
         if not produce.ad.find_target_ad(produce.ad.AD_PROMOTION): raise Exception("Find AD error.")
         result_has_ad, result_ratio = produce.ad.check_ad_and_ratio()
@@ -462,16 +462,16 @@ class Test_sce_06_02_01:    # purchased account
         _end = self.report.new_result
         
         _start('84eaa02a-211c-4cb8-8b69-a55f34177851')
-        result_cart = main.is_exist(L.main.project.shopping_cart)
+        result_cart = main.is_exist(L.launcher.project.shopping_cart)
         _end('84eaa02a-211c-4cb8-8b69-a55f34177851',result_cart)
         
         _start('37307ca7-4c66-41fd-bd66-2c8bd3f12e4b')
-        edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
-        edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
-        edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
-        edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
-        main.click(L.main.project.tutorials)
-        result_cart = main.is_exist(L.main.tutorials.shopping_cart)
+        edit.swipe_element(L.launcher.project.new_launcher_scroll, "up", 200)
+        edit.swipe_element(L.launcher.project.new_launcher_scroll, "up", 200)
+        edit.swipe_element(L.launcher.project.new_launcher_scroll, "up", 200)
+        edit.swipe_element(L.launcher.project.new_launcher_scroll, "up", 200)
+        main.click(L.launcher.project.tutorials)
+        result_cart = main.is_exist(L.launcher.tutorials.shopping_cart)
         _end('37307ca7-4c66-41fd-bd66-2c8bd3f12e4b',result_cart)
         main.back()
         
@@ -480,7 +480,7 @@ class Test_sce_06_02_01:    # purchased account
         edit.click(L.edit.timeline.clip)
         edit.click(L.edit.menu.timeline_setting)
         edit.click(L.edit.sub_menu.settings)
-        result_cart = main.is_exist(L.main.tutorials.shopping_cart)
+        result_cart = main.is_exist(L.launcher.tutorials.shopping_cart)
         _end('a1e3e52c-4bdd-4ce6-8ab1-02d1c61f2f91',result_cart)
         
     # @pytest.mark.skip
@@ -510,11 +510,11 @@ class Test_sce_06_02_01:    # purchased account
         
         ## Help page (Native Ads)
         _start('1cc47e98-78e1-40e1-9a3a-29520154f413')
-        edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
-        edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
-        edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
-        edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
-        main.click(L.main.project.tutorials)
+        edit.swipe_element(L.launcher.project.new_launcher_scroll, "up", 200)
+        edit.swipe_element(L.launcher.project.new_launcher_scroll, "up", 200)
+        edit.swipe_element(L.launcher.project.new_launcher_scroll, "up", 200)
+        edit.swipe_element(L.launcher.project.new_launcher_scroll, "up", 200)
+        main.click(L.launcher.project.tutorials)
         result_no_ad = not main.ad.get_ad_type()
         _end('1cc47e98-78e1-40e1-9a3a-29520154f413',result_no_ad)
         main.back()
@@ -522,7 +522,7 @@ class Test_sce_06_02_01:    # purchased account
         ## Produced video page (Native Ads)
         _start('b436426d-cba3-49ba-82b0-975fee132362')
         time.sleep(1)
-        main.click(L.main.project.btn_produced_videos)
+        main.click(L.launcher.project.btn_produced_videos)
         result_no_ad = not main.ad.get_ad_type()
         _end('b436426d-cba3-49ba-82b0-975fee132362',result_no_ad)
         main.back()  # return main page
@@ -558,7 +558,7 @@ class Test_sce_06_02_01:    # purchased account
         produce.click(L.produce.gallery.full_hd)
         time.sleep(1.5)
         produce.click(L.produce.gallery.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         result_no_ad = not main.ad.get_ad_type()
         _end('130e95b2-b3bc-4df3-acd0-cc5346e493c6',result_no_ad)
         _end('b5034624-a167-41ef-b0de-f1eb97b14d1a',result_no_ad)
@@ -711,7 +711,7 @@ class Test_sce_06_02_01:    # purchased account
         produce.click(L.produce.gallery.sd)
         time.sleep(1.5)
         produce.click(L.produce.gallery.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         result_no_watermark = produce.ground_truth_video('video_no_watermark.mp4')
         _end('ff2fa2d9-0bbf-470c-b290-b2476244926d',result_no_watermark)
         
@@ -768,7 +768,7 @@ class Test_sce_06_03_01:    # subscribe account
         _end = self.report.new_result
         
         _start('5796828c-640a-4a2c-aea3-3cd321157db7')
-        result_no_cart = main.is_not_exist(L.main.project.shopping_cart)
+        result_no_cart = main.is_not_exist(L.launcher.project.shopping_cart)
         _end('5796828c-640a-4a2c-aea3-3cd321157db7',result_no_cart)
         
         _start('c25e15a3-9b58-48a8-8cd2-0247bb98cecc')
@@ -778,7 +778,7 @@ class Test_sce_06_03_01:    # subscribe account
         #edit.swipe_element(L.main.project.new_launcher_scroll, "up", 200)
         #main.click(L.main.project.tutorials)
         main.new_launcher_enter_tutorials()
-        result_no_cart = main.is_not_exist(L.main.tutorials.shopping_cart)
+        result_no_cart = main.is_not_exist(L.launcher.tutorials.shopping_cart)
         _end('c25e15a3-9b58-48a8-8cd2-0247bb98cecc',result_no_cart)
         time.sleep(2)
         main.back()
@@ -792,7 +792,7 @@ class Test_sce_06_03_01:    # subscribe account
         edit.click(L.edit.timeline.clip)
         edit.click(L.edit.menu.timeline_setting)
         edit.click(L.edit.sub_menu.settings)
-        result_no_cart = main.is_not_exist(L.main.tutorials.shopping_cart)
+        result_no_cart = main.is_not_exist(L.launcher.tutorials.shopping_cart)
         _end('388d9f9e-f698-42e2-8417-49af8254b193',result_no_cart)
         
         
@@ -822,14 +822,14 @@ class Test_sce_06_03_01:    # subscribe account
         
         ## Produced video page (Native Ads)
         _start('45bfa307-1d43-4920-b8df-3b91269cf71c')
-        main.click(L.main.project.btn_produced_videos)
+        main.click(L.launcher.project.btn_produced_videos)
         result_no_ad = not main.ad.get_ad_type()
         _end('45bfa307-1d43-4920-b8df-3b91269cf71c',result_no_ad)
         main.back()  # return main page
         
         ## Help page (Native Ads)
         _start('d93f1fb6-98e1-4234-8e29-f8f04430191a')
-        main.click(L.main.project.tutorials)
+        main.click(L.launcher.project.tutorials)
         result_no_ad = not main.ad.get_ad_type()
         _end('d93f1fb6-98e1-4234-8e29-f8f04430191a',result_no_ad)
         main.back()
@@ -1140,7 +1140,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         produce.preference.set_framerate(FPS_60)
         produce.click(L.produce.gallery.setting_page.ok)
         produce.click(L.produce.gallery.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         produce.ad.close_full_page_ad()
         result_4k_better_60fps = produce.close_produce_page()
         _end('6c5cd91c-6d7c-43e1-9b56-e508f3fbe754',result_4k_better_60fps)
@@ -1154,7 +1154,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         produce.preference.set_framerate(FPS_30)
         produce.click(L.produce.gallery.setting_page.ok)
         produce.click(L.produce.gallery.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         produce.ad.close_full_page_ad()
         result_fhd_standard_30fps = produce.close_produce_page()
         _end('c7bb9a56-1199-43c7-a943-caa469305ab9',result_fhd_standard_30fps)
@@ -1168,7 +1168,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         produce.preference.set_framerate(FPS_24)
         produce.click(L.produce.gallery.setting_page.ok)
         produce.click(L.produce.gallery.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         produce.ad.close_full_page_ad()
         
         _start('505fd59a-8537-4f9b-a9fb-6b6a576b9109') # adjust speed
@@ -1222,7 +1222,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         produce.preference.set_framerate(FPS_60)
         produce.click(L.produce.youtube.setting_page.ok)
         produce.click(L.produce.youtube.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         produce.ad.close_full_page_ad()
         result_4k_better_60fps = produce.close_produce_page()
         _end('26939d03-5b04-4511-aab7-f9b886ffa348',result_4k_better_60fps)
@@ -1236,7 +1236,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         produce.preference.set_framerate(FPS_30)
         produce.click(L.produce.youtube.setting_page.ok)
         produce.click(L.produce.youtube.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         produce.ad.close_full_page_ad()
         result_fhd_standard_30fps = produce.close_produce_page()
         _end('c15d5f51-c6e2-4364-9d0e-88d5a4d6c6fa',result_fhd_standard_30fps)
@@ -1250,7 +1250,7 @@ class Test_sce_06_04_01:    # [4. Output]  + subscribe account
         produce.preference.set_framerate(FPS_24)
         produce.click(L.produce.youtube.setting_page.ok)
         produce.click(L.produce.youtube.next)
-        produce.exist_click(L.main.subscribe.back_btn,3)
+        produce.exist_click(L.launcher.subscribe.back_btn, 3)
         produce.ad.close_full_page_ad()
         
         _start('afa22cd1-3df7-4020-98f5-feeed6c0f40f') # adjust speed

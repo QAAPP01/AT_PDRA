@@ -179,12 +179,12 @@ class Test_SFT_Scenario_06_07:
         self.report.new_result('65ebd201-8428-4b82-bfd6-474ffadf9107', result)
 
         self.report.start_uuid('fcdb81bb-18fc-4705-971c-ee517189b041')
-        result = True if page_main.is_exist(L.main.gamification.produced_videos_progress) else False
+        result = True if page_main.is_exist(L.launcher.gamification.produced_videos_progress) else False
         self.report.new_result('fcdb81bb-18fc-4705-971c-ee517189b041', result)
 
         # Login
         self.report.start_uuid('05157b8f-1b9f-4448-99c5-c76cf1059441')
-        page_main.click(L.main.gamification.tab_complete)
+        page_main.click(L.launcher.gamification.tab_complete)
         time.sleep(5)
         result = page_main.check_gamification_titles('Sign up and log in')
         self.report.new_result('05157b8f-1b9f-4448-99c5-c76cf1059441', result)
@@ -197,7 +197,7 @@ class Test_SFT_Scenario_06_07:
 
         # 3 day check in
         self.report.start_uuid('6ffb8ac9-5fb4-4296-9397-979fbbbca288')
-        page_main.click(L.main.gamification.tab_active)
+        page_main.click(L.launcher.gamification.tab_active)
         time.sleep(5)
         # result = page_main.check_gamification_titles('Check in for 3 days')
         description_list = page_main.check_gamification_mission_description()
@@ -211,7 +211,7 @@ class Test_SFT_Scenario_06_07:
 
         self.report.start_uuid('a9b71b0b-6b5b-4bfe-bb07-1500c4211fc7')
         self.report.start_uuid('d38a4c35-4be2-46ad-ae6b-838e49f1a9ea')
-        result = True if page_main.is_exist(L.main.gamification.btn_claim) else False
+        result = True if page_main.is_exist(L.launcher.gamification.btn_claim) else False
         self.report.new_result('a9b71b0b-6b5b-4bfe-bb07-1500c4211fc7', result)
         self.report.new_result('d38a4c35-4be2-46ad-ae6b-838e49f1a9ea', result)
 
@@ -244,7 +244,7 @@ class Test_SFT_Scenario_06_07:
         # page_main.click(L.main.gamification.claim_dialog.btn_use)
         # time.sleep(5)
         # result = page_main.check_gamification_claim_countdown()
-        result = True if page_main.is_exist(L.main.gamification.claim_dialog.btn_use) else False
+        result = True if page_main.is_exist(L.launcher.gamification.claim_dialog.btn_use) else False
         self.report.new_result('a0986f30-c3de-431e-bb37-3ca38c2af404', result)
         self.report.new_result('d9777f94-1737-4989-8f2d-18bd94c5f1e7', result)
         self.report.new_result('51903285-4e2a-4bcd-b2a8-211afff942c9', result)

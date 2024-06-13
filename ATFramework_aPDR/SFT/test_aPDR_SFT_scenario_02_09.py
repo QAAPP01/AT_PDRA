@@ -212,8 +212,8 @@ class Test_SFT_Scenario_02_09:
         # Try before buy - free trial
         self.report.start_uuid('9059d9a1-1588-47a3-9f71-4c149e5050e2')
         page_edit.el(L.edit.try_before_buy.free_trial).click()  
-        if  page_edit.is_exist(L.main.subscribe.back_btn):
-            page_edit.el(L.main.subscribe.back_btn).click()
+        if  page_edit.is_exist(L.launcher.subscribe.back_btn):
+            page_edit.el(L.launcher.subscribe.back_btn).click()
             result = True 
         else:
             result = False
