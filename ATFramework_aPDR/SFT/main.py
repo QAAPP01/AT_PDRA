@@ -1,5 +1,7 @@
 from .test_app_initial import test_app_init
 
+from .test_shortcut_ai_art import Test_Shortcut_AI_Art
+
 from .test_timeline_master_replace import TestMasterReplaceVideo
 from .test_timeline_master_replace import TestMasterReplacePhoto
 from .test_timeline_master_replace import TestMasterReplaceColorBoard
@@ -40,7 +42,7 @@ from .test_shortcut_crop_06_07 import Test_Shortcut_Crop
 from .test_shortcut_speed_06_08 import Test_Shortcut_Speed
 from .test_shortcut_mosaic_06_09 import Test_Shortcut_Mosaic
 from .test_shortcut_filter_06_10 import Test_Shortcut_Filter
-from .test_shortcut_ai_art_06_11 import Test_Shortcut_AI_Art
+
 # from .test_shortcut_ai_scene_06_12 import Test_Shortcut_AI_Scene
 # from .test_shortcut_text_to_image_06_13 import Test_Shortcut_Text_to_Image
 from .test_shortcut_auto_caption_06_14 import Test_Shortcut_Auto_Caption

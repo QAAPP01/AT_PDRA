@@ -74,7 +74,6 @@ def driver():
     from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
     from ATFramework_aPDR.configs import app_config
     from ATFramework_aPDR.configs import driver_config
-    from main_server_sacn import deviceName
 
     driver = None
     desired_caps = {}
