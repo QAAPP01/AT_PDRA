@@ -192,30 +192,15 @@ def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_
     
     return True
 
-
 def remove_allure_result(result_folder):
     if os.path.exists(result_folder):
-        try:
-            shutil.rmtree(result_folder)
-            print(f"Successfully removed {result_folder}")
-        except Exception as e:
-            print(f"An error occurred while removing {result_folder}: {e}")
-    else:
-        print(f"No directory found at {result_folder}")
-
+        shutil.rmtree(result_folder)
+    return True
 
 def move_allure_history(result_folder, report_folder):
-    history_path = os.path.join(report_folder, 'history')
-    destination_path = os.path.join(result_folder, 'history')
-
-    if os.path.exists(history_path):
-        try:
-            shutil.move(history_path, destination_path)
-            print(f"Successfully moved history from {history_path} to {destination_path}")
-        except Exception as e:
-            print(f"An error occurred while moving history: {e}")
-    else:
-        print(f"No history directory found at {history_path}")
+    if os.path.exists(f'{report_folder}/history'):
+        shutil.move(f'{report_folder}/history', f'{result_folder}/history')
+    return True
 
 def generate_allure_report(result_folder, report_folder):
     os.system(f'allure generate {result_folder} --clean -o {report_folder}')
