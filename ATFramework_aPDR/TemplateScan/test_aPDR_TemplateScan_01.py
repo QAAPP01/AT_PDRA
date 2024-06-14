@@ -147,11 +147,11 @@ class Test_TemplateScan_01:
         page_main = PageFactory().get_page_object("main_page", self.driver)
         logger('[V] Set Permission')
         logger('[Permission] Confirm GDPR')
-        if page_main.exist_click(L.main.permission.gdpr_accept,5): # Android version  < 6 or locate in EU
+        if page_main.exist_click(L.launcher.permission.gdpr_accept, 5): # Android version  < 6 or locate in EU
             logger("[Permission] GDPR found and closed")
-        page_main.is_exist(L.main.permission.file_ok, 120)
-        page_main.el(L.main.permission.file_ok).click()
-        page_main.el(L.main.permission.photo_allow).click()
+        page_main.is_exist(L.launcher.permission.file_ok, 120)
+        page_main.el(L.launcher.permission.file_ok).click()
+        page_main.el(L.launcher.permission.photo_allow).click()
         page_main.check_open_tutorial()
     
     # @pytest.mark.skip

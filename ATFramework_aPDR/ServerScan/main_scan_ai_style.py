@@ -1,0 +1,3 @@
+from .test_scan_ai_style import Test_Scan_AI_Art
+from .test_scan_ai_style import Test_Scan_AI_Cartoon
+from .test_scan_ai_style import Test_Scan_AI_Sketch
