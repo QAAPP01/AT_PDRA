@@ -46,7 +46,11 @@ class Test_Shortcut_AI_Art:
 
         except Exception:
             traceback.print_exc()
-            self.relaunch(driver)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_ai_feature('AI Art')
             raise
 
     @allure.story("Entry")
@@ -59,7 +63,10 @@ class Test_Shortcut_AI_Art:
 
         except Exception:
             traceback.print_exc()
-            self.relaunch(driver)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
             raise
 
     @allure.story("Entry")
@@ -73,7 +80,12 @@ class Test_Shortcut_AI_Art:
 
         except Exception:
             traceback.print_exc()
-            self.relaunch(driver)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
             raise
 
     @allure.story("Entry")
@@ -86,7 +98,10 @@ class Test_Shortcut_AI_Art:
 
         except Exception:
             traceback.print_exc()
-            self.relaunch(driver)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
             raise
 
     @allure.story("Media Picker")
@@ -101,7 +116,13 @@ class Test_Shortcut_AI_Art:
 
         except Exception:
             traceback.print_exc()
-            self.relaunch(driver)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
             raise
 
     @allure.story("Media Picker")
@@ -114,7 +135,11 @@ class Test_Shortcut_AI_Art:
 
         except Exception:
             traceback.print_exc()
-            self.relaunch(driver)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
             raise
 
     @allure.story("Media Picker")
@@ -130,7 +155,15 @@ class Test_Shortcut_AI_Art:
 
         except Exception:
             traceback.print_exc()
-            self.relaunch(driver)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
             raise
 
     @allure.story("Editor")
@@ -143,5 +176,93 @@ class Test_Shortcut_AI_Art:
 
         except Exception:
             traceback.print_exc()
-            self.relaunch(driver)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            raise
+
+    @allure.story("Editor")
+    @allure.title("Enter prompt")
+    def test_enter_prompt(self, driver):
+        try:
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+            self.click(find_string('Custom'))
+            self.element(L.main.shortcut.ai_art.prompt).send_keys('Apple')
+            text = self.element(L.main.shortcut.ai_art.prompt).text
+
+            assert text == 'Apple'
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+            self.click(find_string('Custom'))
+            self.element(L.main.shortcut.ai_art.prompt).send_keys('Apple')
+            raise
+
+    @allure.story("Editor")
+    @allure.title("Clear prompt")
+    def test_clear_prompt(self, driver):
+        try:
+            self.click(L.main.shortcut.ai_art.clear)
+            text = self.element(L.main.shortcut.ai_art.prompt).text
+
+            assert 'Please provide a description' in text
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+            self.click(find_string('Custom'))
+            raise
+
+    @allure.story("Editor")
+    @allure.title("Gen custom")
+    def test_gen_custom(self, driver):
+        try:
+            self.element(L.main.shortcut.ai_art.prompt).send_keys('Apple')
+
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.apply)
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
+            assert self.is_exist(find_string('Export'))
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
             raise

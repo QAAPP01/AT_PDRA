@@ -268,6 +268,9 @@ class Shortcut:
 
     class ai_art:
         generating = id('animated_image')
+        prompt = id('editText')
+        clear = id('btnDelete')
+        apply = id('btnConfirm')
         @staticmethod
         def style_name(index: int = 1):
             if index:
