@@ -241,7 +241,8 @@ class Test_Shortcut_AI_Art:
             else:
                 raise Exception(f"Exceeded retry limit: {retry}")
 
-            assert self.is_exist(find_string('Export'))
+            preview = self.page_edit.get_preview_pic()
+            assert HCompareImg(preview).is_not_black()
 
         except Exception:
             traceback.print_exc()
@@ -256,3 +257,37 @@ class Test_Shortcut_AI_Art:
             self.page_media.waiting_loading()
 
             raise
+
+    @allure.story("Editor")
+    @allure.title("Gen style")
+    def test_paid_style(self, driver):
+        try:
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name())
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
+            preview = self.page_edit.get_preview_pic()
+            assert HCompareImg(preview).is_not_black()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            raise
+
+
+

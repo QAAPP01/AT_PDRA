@@ -284,6 +284,21 @@ class Shortcut:
         continue_btn = id('tv_continue')
         dont_show_again = id('checkBox')
 
+        @staticmethod
+        def style(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"materialCardView")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"materialCardView")]')
+
+        @staticmethod
+        def paid_style(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemPremium")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemPremium")]')
+
+
 
 
 

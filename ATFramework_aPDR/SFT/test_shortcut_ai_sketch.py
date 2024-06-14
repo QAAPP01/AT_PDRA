@@ -12,8 +12,8 @@ photo_9_16 = 'photo_9_16.jpg'
 
 
 @allure.epic("Shortcut")
-@allure.feature("AI Cartoon")
-class Test_Shortcut_AI_Cartoon:
+@allure.feature("AI Sketch")
+class Test_Shortcut_AI_Sketch:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
