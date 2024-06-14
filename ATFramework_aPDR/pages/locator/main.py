@@ -6,6 +6,7 @@ class Launcher:
     new_project = id('layout_new_project')
     subscribe = id('layout_premium')
     ai_creation = id('layout_ai_creation')
+    home = id('layout_home')
 
 class AI_Creation:
     entry = id('layout_ai_creation')
