@@ -260,11 +260,11 @@ class Test_Shortcut_AI_Art:
 
     @allure.story("Editor")
     @allure.title("Gen style")
-    def test_paid_style(self, driver):
+    def test_gen_style(self, driver):
         try:
             retry = 30
             for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name())
+                self.click(L.main.shortcut.ai_art.style_name(2))
                 self.click(aid('[AID]ConfirmDialog_No'), 1)
                 self.page_main.shortcut.waiting_generated()
                 if not self.click(id('ok_button'), 1):
