@@ -478,12 +478,13 @@ class Menu:
     play = aid("[AID]TimeLine_Play")
     # edit = id("btn_edit_img") # after select video
     edit = id("btn_session_edit")
-    split = id("btn_split")
+    # split = id("btn_split")
     delete = id("btn_delete")
     home = id('btn_home')
     btn_apply_all = id('btn_apply_all')
     full_screen = id('btn_fullScreen')
     use_original = aid('[AID]ConfirmDialog_Cancel')
+    split = find_string('Split')
 
 
 class SubToolMenu:
