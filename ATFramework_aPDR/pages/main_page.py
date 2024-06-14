@@ -24,6 +24,7 @@ class MainPage(BasePage):
 
     def __init__(self, *args, **kwargs):
         BasePage.__init__(self, *args, **kwargs)
+        self.shortcut = Shortcut(self)
 
     def initial(self):
         logger("Waiting for permission_file_ok")
@@ -34,7 +35,7 @@ class MainPage(BasePage):
 
     def subscribe(self):
         self.click(L.main.subscribe.entry)
-        if self.is_exist(find_string("You've unlocked these premium features and content"), 1):
+        if self.is_exist(find_string("You've unlocked"), 2):
             self.click(L.main.subscribe.back_btn)
             return True
         else:
@@ -91,6 +92,22 @@ class MainPage(BasePage):
             return False
         self.click(L.main.shortcut.shortcut_name(name))
         return True
+
+    def enter_ai_feature(self, name):
+        if self.click(find_string(name), 2):
+            return True
+        else:
+            last = ""
+            while 1:
+                features = self.elements(L.main.ai_creation.feature_name(0))
+                if features[-1].text == last:
+                    logger(f'No feature "{name}"', log_level='error')
+                    return False
+                else:
+                    last = features[-1].text
+                    self.h_swipe_element(features[-1], features[0], 3)
+                    if self.click(find_string(name), 2):
+                        return True
 
     def shortcut_produce(self):
         try:
@@ -1185,3 +1202,46 @@ class MainPage(BasePage):
         except Exception:
             raise Exception
         return True
+
+
+class Shortcut:
+    def __init__(self, main):
+        self.main = main
+
+        self.click = self.main.h_click
+        self.long_press = self.main.h_long_press
+        self.element = self.main.h_get_element
+        self.elements = self.main.h_get_elements
+        self.is_exist = self.main.h_is_exist
+        self.is_not_exist = self.main.h_is_not_exist
+
+    def click_style(self, name):
+        style = find_string(name)
+        try:
+            if self.is_exist(style, 2):
+                self.click(style)
+            else:
+                last = ""
+                while 1:
+                    items = self.elements(L.main.shortcut.ai_art.style_name(0))
+                    if items[-1].text == last:
+                        logger("Not found style")
+                        return False
+                    else:
+                        last = items[-1].text
+                        self.main.h_swipe_element(items[-1], items[0], 3)
+                        if self.click(style):
+                            break
+            return True
+        except Exception:
+            traceback.print_exc()
+            return False
+
+    def waiting_generated(self, timeout=120):
+        try:
+            if self.is_exist(L.main.shortcut.ai_art.generating, 2):
+                self.is_not_exist(L.main.shortcut.ai_art.generating, timeout)
+            return True
+        except Exception:
+            traceback.print_exc()
+            return False

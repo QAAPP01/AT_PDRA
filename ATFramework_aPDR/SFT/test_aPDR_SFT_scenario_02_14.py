@@ -609,7 +609,7 @@ class Test_SFT_Scenario_02_14:
         time.sleep(5)
         page_edit.click(L.import_media.library_gridview.add)
         time.sleep(5)
-        result = True if not page_media.is_exist(L.main.subscribe.back_btn) else False
+        result = True if not page_media.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('3647c477-8dc4-4c84-85bc-40fdf3e85926', result)
 
         self.report.start_uuid('0974471e-c105-429a-ad85-08860760860e')
@@ -628,7 +628,7 @@ class Test_SFT_Scenario_02_14:
             time.sleep(5)
             page_edit.click(L.import_media.library_gridview.add)
             time.sleep(5)
-        result = True if not page_media.is_exist(L.main.subscribe.back_btn) else False
+        result = True if not page_media.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('0974471e-c105-429a-ad85-08860760860e', result)
 
         self.report.start_uuid('6960c6d0-1229-483a-a63c-c0709f8fa86d')
@@ -645,7 +645,7 @@ class Test_SFT_Scenario_02_14:
         for n in range(4):
             page_edit.click(L.import_media.library_gridview.add)
             time.sleep(5)
-        result = True if not page_media.is_exist(L.main.subscribe.back_btn) else False
+        result = True if not page_media.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('6960c6d0-1229-483a-a63c-c0709f8fa86d', result)
 
         self.report.start_uuid('f3391802-eb55-4379-82ff-d377e7300260')
@@ -662,7 +662,7 @@ class Test_SFT_Scenario_02_14:
         for n in range(4):
             page_media.click(L.import_media.library_gridview.add_sticker)
             time.sleep(5)
-        result = True if not page_media.is_exist(L.main.subscribe.back_btn) else False
+        result = True if not page_media.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('f3391802-eb55-4379-82ff-d377e7300260', result)
 
         self.report.start_uuid('2001cf22-5599-4229-a875-cab89b4d02ab')
@@ -679,7 +679,7 @@ class Test_SFT_Scenario_02_14:
         for n in range(4):
             page_media.click(L.import_media.library_gridview.add)
             time.sleep(5)
-        result = True if not page_media.is_exist(L.main.subscribe.back_btn) else False
+        result = True if not page_media.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('2001cf22-5599-4229-a875-cab89b4d02ab', result)
 
         self.report.start_uuid('981638e8-6be1-4227-9bea-e1a7ef616848')
@@ -694,7 +694,7 @@ class Test_SFT_Scenario_02_14:
         for n in range(4):
             page_media.click(L.import_media.library_gridview.add)
             time.sleep(5)
-        result = True if not page_media.is_exist(L.main.subscribe.back_btn) else False
+        result = True if not page_media.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('981638e8-6be1-4227-9bea-e1a7ef616848', result)
 
         self.report.start_uuid('ac09b641-15ec-4aa6-9d15-5ad6698d084a')
@@ -743,7 +743,7 @@ class Test_SFT_Scenario_02_14:
         for n in range(4):
             page_media.click(L.import_media.library_gridview.add)
             time.sleep(5)
-        result = True if not page_media.is_exist(L.main.subscribe.back_btn) else False
+        result = True if not page_media.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('ac09b641-15ec-4aa6-9d15-5ad6698d084a', result)
 
         self.report.start_uuid('b7a46bc1-6138-4563-a047-27ad76f5f947')
@@ -763,7 +763,7 @@ class Test_SFT_Scenario_02_14:
         time.sleep(2)
         page_edit.back()
         time.sleep(2)
-        result = True if not page_media.is_exist(L.main.subscribe.back_btn) else False
+        result = True if not page_media.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('b7a46bc1-6138-4563-a047-27ad76f5f947', result)
         self.report.new_result('5a61f310-5769-44f6-8d1d-e80507e23525', result)
 
@@ -784,7 +784,7 @@ class Test_SFT_Scenario_02_14:
 
         self.report.start_uuid('a1afdfa0-3351-4b76-86a3-5b4b40f4135e')
         page_main.wait_subscribe_expire()
-        page_main.click(L.main.project.shopping_cart)
+        page_main.click(L.launcher.project.shopping_cart)
         time.sleep(5)
         result = page_main.check_iap_feature_items('More Overlay Tracks')
         page_edit.back()
@@ -793,9 +793,9 @@ class Test_SFT_Scenario_02_14:
 
         self.report.start_uuid('791c7b6d-3945-4169-bcca-1422e0530033')
         page_main.subscribe()
-        if not page_main.is_exist(L.main.premium.btn_premium):
+        if not page_main.is_exist(L.launcher.premium.btn_premium):
             page_main.reset_project_list(self.device_udid, pdr_package, project_title)
-        page_main.click(L.main.premium.btn_premium)
+        page_main.click(L.launcher.premium.btn_premium)
         result = page_main.check_iap_feature_items('More Overlay Tracks')
         self.report.new_result('791c7b6d-3945-4169-bcca-1422e0530033', not result)
 

@@ -191,11 +191,10 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
 
 @pytest.fixture(scope='class', autouse=True)
 def log_class_start(request):
-    logger(f"[Start Test(Class)] Class: {request.node.cls.__name__}", log_level='info')
-    yield
-    logger(f"[End Test(Class)] Class: {request.node.cls.__name__}", log_level='info')
+    if request.node.cls is not None:
+        logger(f"\n[Start] Class: {request.node.cls.__name__}", log_level='info')
 
 
 @pytest.fixture(autouse=True)
 def log_function_test(request):
-    logger(f"[Start Test] Function: {request.node.name}", log_level='info')
+    logger(f"\n[Start] Function: {request.node.name}", log_level='info')

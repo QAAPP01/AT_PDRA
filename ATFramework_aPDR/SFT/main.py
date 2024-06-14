@@ -1,5 +1,12 @@
 from .test_app_initial import test_app_init
 
+from .test_timeline_master_replace import TestMasterReplaceVideo
+from .test_timeline_master_replace import TestMasterReplacePhoto
+from .test_timeline_master_replace import TestMasterReplaceColorBoard
+
+from .test_timeline_master_replace_after_apply import TestMasterReplaceVideoAfterApply
+
+
 
 from .test_aPDR_SFT_Scenario_01_01 import Test_SFT_Scenario_01_01
 from .test_aPDR_SFT_Scenario_01_02 import Test_SFT_Scenario_01_02

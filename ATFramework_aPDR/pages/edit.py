@@ -2073,9 +2073,15 @@ class EditPage(BasePage):
         try:
             elm = self.el(L.edit.edit_sub.bottom_edit_menu)
             item = elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]/..')
-            apply_icon = item.find_element('xpath', "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
-            # logger(f'apply_icon = {apply_icon}')
-            if apply_icon != []:
+            apply_icon = item.find_elements('xpath', "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
+
+            item_x = item.rect['x']
+            if item_x < 100:
+                self.h_swipe_element_to_location(item, end_x=item_x + 100)
+            if item_x > 900:
+                self.h_swipe_element_to_location(item, end_x=item_x - 100)
+
+            if apply_icon:
                 logger('Found applied icon!')
                 return True
             else:

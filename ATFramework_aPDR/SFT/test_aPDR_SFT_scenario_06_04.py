@@ -89,7 +89,7 @@ class Test_SFT_Scenario_06_04:
 
         self.report.start_uuid('503bf1ee-84c5-4ee9-a6da-4b5c9a160720')
         page_main.click(L.timeline_settings.settings.back)
-        result = True if not page_edit.is_exist(L.main.project.shopping_cart, 0) else False
+        result = True if not page_edit.is_exist(L.launcher.project.shopping_cart, 0) else False
         self.report.new_result('503bf1ee-84c5-4ee9-a6da-4b5c9a160720', result)
 
         self.report.start_uuid('cde33cec-4722-40bb-90a5-ca4802523445')
@@ -109,7 +109,7 @@ class Test_SFT_Scenario_06_04:
         page_produce.select_produce_type('gallery')
         page_produce.set_resolution(1)
         time.sleep(5)
-        result = True if not page_edit.is_exist(L.main.subscribe.back_btn, 0) else False
+        result = True if not page_edit.is_exist(L.launcher.subscribe.back_btn, 0) else False
         self.report.new_result('e1b556c0-1d64-437b-b9bf-c932f1aab766', result)
 
         self.driver.stop_app(pdr_package)
