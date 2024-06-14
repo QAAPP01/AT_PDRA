@@ -26,47 +26,13 @@ class Test_Shortcut_AI_Cartoon:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @allure.story("Entry")
-    @allure.title("From shortcut")
-    def test_entry_from_shortcut(self, driver):
-        try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Cartoon')
-
-            assert self.is_exist(find_string('AI Cartoon'))
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_ai_feature('AI Cartoon')
-            raise
-
-    @allure.story("Entry")
-    @allure.title("Back to launcher")
-    def test_back_to_launcher(self, driver):
-        try:
-            self.click(L.main.shortcut.demo_back)
-
-            assert self.is_exist(L.main.shortcut.shortcut_name(0))
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            raise
-
-    @allure.story("Entry")
     @allure.title("From AI creation")
     def test_entry_from_ai_creation(self, driver):
         try:
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_main.enter_ai_feature('AI Sketch')
 
-            assert self.is_exist(find_string('AI Cartoon'))
+            assert self.is_exist(find_string('AI Sketch'))
 
         except Exception:
             traceback.print_exc()
@@ -75,7 +41,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_main.enter_ai_feature('AI Sketch')
             raise
 
     @allure.story("Entry")
@@ -95,14 +61,64 @@ class Test_Shortcut_AI_Cartoon:
             raise
 
     @allure.story("Media Picker")
-    @allure.title("Enter media picker")
-    def test_enter_media_picker(self, driver):
+    @allure.title("Recommendation close")
+    def test_recommendation_close(self, driver):
         try:
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
+            self.click(L.main.shortcut.ai_sketch.close)
+
+            assert self.is_exist(find_string('AI Creation'))
+
+        except Exception:
+            traceback.print_exc()
+
+            raise
+
+    @allure.story("Media Picker")
+    @allure.title("Recommendation continue")
+    def test_recommendation_continue(self, driver):
+        try:
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Sketch')
+            self.click(L.main.shortcut.try_it_now)
+            self.click(L.main.shortcut.ai_sketch.continue_btn)
 
             assert self.is_exist(find_string('Add Media'))
+
+        except Exception:
+            traceback.print_exc()
+
+            raise
+
+    @allure.story("Media Picker")
+    @allure.title("Recommendation dont show again")
+    def test_recommendation_dont_show(self, driver):
+        try:
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Sketch')
+            self.click(L.main.shortcut.try_it_now)
+            self.click(L.main.shortcut.ai_sketch.dont_show_again)
+            self.click(L.main.shortcut.ai_sketch.continue_btn)
+
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Sketch')
+            self.click(L.main.shortcut.try_it_now)
+
+            assert not self.is_exist(L.main.shortcut.ai_sketch.continue_btn)
 
         except Exception:
             traceback.print_exc()
@@ -111,7 +127,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             raise
 
@@ -136,7 +152,7 @@ class Test_Shortcut_AI_Cartoon:
     @allure.title("Import photo")
     def test_import_photo(self, driver):
         try:
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -150,7 +166,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -171,7 +187,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             raise
 

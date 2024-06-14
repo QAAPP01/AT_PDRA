@@ -279,6 +279,11 @@ class Shortcut:
             else:
                 return xpath(f'//*[contains(@resource-id,"itemName")]')
 
+    class ai_sketch:
+        close = id('iv_close')
+        continue_btn = id('tv_continue')
+        dont_show_again = id('checkBox')
+
 
 
 

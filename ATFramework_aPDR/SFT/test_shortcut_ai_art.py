@@ -10,10 +10,10 @@ from ATFramework_aPDR.pages.locator.locator_type import *
 
 photo_9_16 = 'photo_9_16.jpg'
 
+
 @allure.epic("Shortcut")
 @allure.feature("AI Art")
 class Test_Shortcut_AI_Art:
-
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
@@ -24,16 +24,6 @@ class Test_Shortcut_AI_Art:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
-
-    def relaunch(self, driver):
-        driver.driver.close_app()
-        driver.driver.launch_app()
-
-        self.page_main.enter_launcher()
-        self.page_main.enter_ai_feature('AI Art')
-        self.click(L.main.shortcut.try_it_now)
-        self.page_media.select_local_photo(test_material_folder, photo_9_16)
-        self.page_media.waiting_loading()
 
     @allure.story("Entry")
     @allure.title("From shortcut")
