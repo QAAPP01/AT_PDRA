@@ -49,11 +49,12 @@ class MainPage(BasePage):
         try:
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, timeout=1):
-                if self.h_is_not_exist(L.main.permission.loading_bar, 120):
-                    time.sleep(1)
+                time.sleep(1)
+                if self.is_exist(L.main.permission.loading_bar, 5):
+                    self.h_is_not_exist(L.main.permission.loading_bar, 120)
                 self.click(L.main.premium.iap_back)
                 if self.is_exist(L.main.launcher.home):
-                    logger('Enter Launcher Done', log_level='error')
+                    logger('Enter Launcher Done')
                     return True
                 else:
                     logger('Enter Launcher Fail', log_level='error')
