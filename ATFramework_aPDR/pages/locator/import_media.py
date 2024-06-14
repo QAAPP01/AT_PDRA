@@ -225,6 +225,7 @@ class Menu():
     effect_layer_library = id('library_menu_fx_layer')
     sound_clips_library = id('library_menu_sound_clips')
     title_library = id('library_menu_title')
+    music = id('layout_music')
 
     @staticmethod
     def file_name(index=1):
