@@ -7,7 +7,8 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 
 
-@allure.feature("Scan Sticker")
+@allure.epic("Server Scan")
+@allure.feature("Sticker")
 class Test_Scan_Sticker:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -20,7 +21,7 @@ class Test_Scan_Sticker:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-    @allure.story("Sticker Download")
+    @allure.story("Download")
     def test_sticker_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")

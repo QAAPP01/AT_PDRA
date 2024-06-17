@@ -65,6 +65,12 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 
 app_path = os.path.normpath(os.path.join(dir_path, project_name, 'app'))
+if not os.path.exists(app_path):
+    try:
+        os.makedirs(app_path)
+        print(f"Created directory: {app_path}")
+    except Exception as e:
+        print(f"An error occurred while creating directory {app_path}: {e}")
 
 
 # execute
