@@ -12,8 +12,8 @@ photo_9_16 = 'photo_9_16.jpg'
 
 
 @allure.epic("Shortcut")
-@allure.feature("AI Art")
-class Test_Shortcut_AI_Art:
+@allure.feature("AI Cartoon")
+class Test_Shortcut_AI_Cartoon:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
@@ -35,18 +35,18 @@ class Test_Shortcut_AI_Art:
     def test_entry_from_shortcut(self, driver):
         try:
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Art')
+            self.page_main.enter_shortcut('AI Cartoon')
 
-            assert self.is_exist(find_string('AI Art'))
+            assert self.is_exist(find_string('AI Cartoon'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_ai_feature('AI Art')
-            pytest.fail(f"{str(e)}")
+            self.page_main.enter_ai_feature('AI Cartoon')
+            raise
 
     @allure.story("Entry")
     @allure.title("Back to launcher")
@@ -56,32 +56,32 @@ class Test_Shortcut_AI_Art:
 
             assert self.is_exist(L.main.shortcut.shortcut_name(0))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            pytest.fail(f"{str(e)}")
+            raise
 
     @allure.story("Entry")
     @allure.title("From AI creation")
     def test_entry_from_ai_creation(self, driver):
         try:
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Cartoon')
 
-            assert self.is_exist(find_string('AI Art'))
+            assert self.is_exist(find_string('AI Cartoon'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            pytest.fail(f"{str(e)}")
+            self.page_main.enter_ai_feature('AI Cartoon')
+            raise
 
     @allure.story("Entry")
     @allure.title("Back to AI creation")
@@ -91,34 +91,34 @@ class Test_Shortcut_AI_Art:
 
             assert self.is_exist(find_string('AI Creation'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            pytest.fail(f"{str(e)}")
+            raise
 
     @allure.story("Media Picker")
     @allure.title("Enter media picker")
     def test_enter_media_picker(self, driver):
         try:
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
 
             assert self.is_exist(find_string('Add Media'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
-            pytest.fail(f"{str(e)}")
+            raise
 
     @allure.story("Media Picker")
     @allure.title("Back from media picker")
@@ -128,38 +128,38 @@ class Test_Shortcut_AI_Art:
 
             assert self.is_exist(find_string('AI Creation'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            pytest.fail(f"{str(e)}")
+            raise
 
     @allure.story("Media Picker")
     @allure.title("Import photo")
     def test_import_photo(self, driver):
         try:
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
 
             assert self.is_exist(find_string('Export'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
-            pytest.fail(f"{str(e)}")
+            raise
 
     @allure.story("Editor")
     @allure.title("Back to media picker")
@@ -169,213 +169,24 @@ class Test_Shortcut_AI_Art:
 
             assert self.is_exist(find_string('Add Media'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Editor")
-    @allure.title("Enter prompt")
-    def test_enter_prompt(self, driver):
-        try:
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-            self.click(find_string('Custom'))
-            self.element(L.main.shortcut.ai_art.prompt).send_keys('Apple')
-            text = self.element(L.main.shortcut.ai_art.prompt).text
-
-            assert text == 'Apple'
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-            self.click(find_string('Custom'))
-            self.element(L.main.shortcut.ai_art.prompt).send_keys('Apple')
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Editor")
-    @allure.title("Clear prompt")
-    def test_clear_prompt(self, driver):
-        try:
-            self.click(L.main.shortcut.ai_art.clear)
-            text = self.element(L.main.shortcut.ai_art.prompt).text
-
-            assert 'Please provide a description' in text
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-            self.click(find_string('Custom'))
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Editor")
-    @allure.title("Generate custom prompt")
-    def test_gen_custom_prompt(self, driver):
-        try:
-            self.element(L.main.shortcut.ai_art.prompt).send_keys('Apple')
-
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.apply)
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
-
-            preview = self.page_edit.get_preview_pic()
-            assert HCompareImg(preview).is_not_black()
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Editor")
-    @allure.title("Enter custom history")
-    def test_enter_custom_history(self, driver):
-        try:
-            self.click(find_string('Custom'))
-            self.is_exist(L.main.shortcut.ai_art.prompt, 5)
-            self.click(L.main.shortcut.ai_art.custom_history)
-
-            assert self.element(L.main.shortcut.ai_art.title).text == 'History'
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-            self.click(find_string('Custom'))
-            self.click(L.main.shortcut.ai_art.custom_history)
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Editor")
-    @allure.title("Leave custom history")
-    def test_leave_custom_history(self, driver):
-        try:
-            self.click(L.main.shortcut.ai_art.close)
-
-            assert self.is_exist(L.main.shortcut.ai_art.prompt)
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-            self.click(find_string('Custom'))
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Editor")
-    @allure.title("Import prompt history")
-    def test_import_prompt_history(self, driver):
-        try:
-            self.click(find_string('Custom'))
-            self.click(L.main.shortcut.ai_art.custom_history)
-            prompt = self.element(L.main.shortcut.ai_art.history_prompt(0)).text
-            self.click(L.main.shortcut.ai_art.history_prompt(0))
-
-            assert self.element(L.main.shortcut.ai_art.prompt).text == prompt
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-            self.click(find_string('Custom'))
-            self.click(L.main.shortcut.ai_art.custom_history)
-            self.click(L.main.shortcut.ai_art.history_prompt(0))
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Editor")
-    @allure.title("Regenerate history prompt")
-    def test_regenerate_history_prompt(self, driver):
-        try:
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.apply)
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
-
-            preview = self.page_edit.get_preview_pic()
-            assert HCompareImg(preview).is_not_black()
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            pytest.fail(f"{str(e)}")
+            raise
 
     @allure.story("Editor")
     @allure.title("Generate style")
     def test_gen_style(self, driver):
         try:
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
             retry = 30
             for i in range(retry):
                 self.click(L.main.shortcut.ai_art.style_name(2))
@@ -459,7 +270,8 @@ class Test_Shortcut_AI_Art:
             shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
             self.click(L.main.shortcut.ai_art.compare)
 
-            assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'true' and self.element(L.main.shortcut.ai_art.compare).text == "Compare On"
+            assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'true' and self.element(
+                L.main.shortcut.ai_art.compare).text == "Compare On"
 
         except Exception as e:
             traceback.print_exc()
@@ -566,7 +378,8 @@ class Test_Shortcut_AI_Art:
         try:
             self.click(L.main.shortcut.ai_art.compare)
 
-            assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'false' and self.element(L.main.shortcut.ai_art.compare).text == "Compare Off"
+            assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'false' and self.element(
+                L.main.shortcut.ai_art.compare).text == "Compare Off"
 
         except Exception as e:
             traceback.print_exc()
@@ -624,6 +437,3 @@ class Test_Shortcut_AI_Art:
                 raise Exception(f"Exceeded retry limit: {retry}")
 
             pytest.fail(f"{str(e)}")
-
-
-

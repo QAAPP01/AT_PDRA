@@ -269,12 +269,49 @@ class Shortcut:
 
     class ai_art:
         generating = id('animated_image')
+        prompt = id('editText')
+        clear = id('btnDelete')
+        apply = id('btnConfirm')
+        custom_history = id('history_button')
+        title = id('tv_title')
+        close = id('iv_close')
+        regenerate = id('itemRefresh')
+        compare = id('tv_compare')
+        compare_thumb = id('iv_thumb')
+
+        @staticmethod
+        def history_prompt(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"tv_prompt")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"tv_prompt")]')
+
         @staticmethod
         def style_name(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+    class ai_sketch:
+        close = id('iv_close')
+        continue_btn = id('tv_continue')
+        dont_show_again = id('checkBox')
+
+        @staticmethod
+        def style(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"materialCardView")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"materialCardView")]')
+
+        @staticmethod
+        def paid_style(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemPremium")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemPremium")]')
+
 
 
 
