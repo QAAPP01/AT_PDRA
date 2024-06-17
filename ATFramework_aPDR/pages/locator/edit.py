@@ -478,12 +478,13 @@ class Menu:
     play = aid("[AID]TimeLine_Play")
     # edit = id("btn_edit_img") # after select video
     edit = id("btn_session_edit")
-    split = id("btn_split")
+    # split = id("btn_split")
     delete = id("btn_delete")
     home = id('btn_home')
     btn_apply_all = id('btn_apply_all')
     full_screen = id('btn_fullScreen')
     use_original = aid('[AID]ConfirmDialog_Cancel')
+    split = find_string('Split')
 
 
 class SubToolMenu:
@@ -1340,6 +1341,13 @@ class FxLayer:
             else:
                 return xpath(f'//*[contains(@resource-id,"value")]')
 
+class Volume:
+    slider = id('adjustable_parameter_seek_bar')
+    mute = xpath('//android.widget.TextView[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/option_label" and @text="Mute"]')
+    fade_in = xpath('//android.widget.TextView[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/option_label" and @text="Fade in"]')
+    fade_out = xpath('//android.widget.TextView[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/option_label" and @text="Fade out"]')
+
+
 
 class Interface:
     converting = Converting
@@ -1400,6 +1408,7 @@ class Interface:
     transition = Transition()
     try_before_buy = Try_Before_Buy
     tutorial_bubble = Tutorial_Bubble()
+    volume = Volume
     master = Master
     ai_audio_tool = ai_audio_tool
     toolbar = Toolbar
