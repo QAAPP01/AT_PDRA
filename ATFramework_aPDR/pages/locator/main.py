@@ -272,6 +272,20 @@ class Shortcut:
         prompt = id('editText')
         clear = id('btnDelete')
         apply = id('btnConfirm')
+        custom_history = id('history_button')
+        title = id('tv_title')
+        close = id('iv_close')
+        regenerate = id('itemRefresh')
+        compare = id('tv_compare')
+        compare_thumb = id('iv_thumb')
+
+        @staticmethod
+        def history_prompt(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"tv_prompt")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"tv_prompt")]')
+
         @staticmethod
         def style_name(index: int = 1):
             if index:

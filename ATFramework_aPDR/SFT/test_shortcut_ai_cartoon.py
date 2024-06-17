@@ -25,6 +25,11 @@ class Test_Shortcut_AI_Cartoon:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
+    @pytest.fixture(scope="module")
+    def shared_data(self):
+        data = {}
+        yield data
+
     @allure.story("Entry")
     @allure.title("From shortcut")
     def test_entry_from_shortcut(self, driver):
@@ -175,3 +180,260 @@ class Test_Shortcut_AI_Cartoon:
             self.click(L.main.shortcut.try_it_now)
             raise
 
+    @allure.story("Editor")
+    @allure.title("Generate style")
+    def test_gen_style(self, driver):
+        try:
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name(2))
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
+            preview = self.page_edit.get_preview_pic()
+            assert HCompareImg(preview).is_not_black()
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name(2))
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Regenerate style")
+    def test_regenerate_style(self, driver):
+        try:
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.regenerate)
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
+            preview = self.page_edit.get_preview_pic()
+            assert HCompareImg(preview).is_not_black()
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name(2))
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Compare button enabled")
+    def test_compare_button_enabled(self, driver, shared_data):
+        try:
+            shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
+            self.click(L.main.shortcut.ai_art.compare)
+
+            assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'true' and self.element(
+                L.main.shortcut.ai_art.compare).text == "Compare On"
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name(2))
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+            shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
+
+            self.click(L.main.shortcut.ai_art.compare)
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Compare preview display")
+    def test_compare_preview(self, driver, shared_data):
+        try:
+            shared_data["pic_after_compare"] = self.page_edit.get_preview_pic()
+
+            assert not HCompareImg(shared_data["pic_before_compare"], shared_data["pic_after_compare"]).ssim_compare()
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name(2))
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+            self.click(L.main.shortcut.ai_art.compare)
+            shared_data["pic_after_compare"] = self.page_edit.get_preview_pic()
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Move compare line")
+    def test_move_compare_line(self, driver, shared_data):
+        try:
+            thumb = self.element(L.main.shortcut.photo_enhance.compare_thumb)
+            rect = thumb.rect
+            x = rect['x']
+            y = rect['y']
+            self.page_main.h_drag_element(thumb, x - 100, y)
+            pic_after_drag = self.page_main.get_preview_pic()
+
+            assert not HCompareImg(pic_after_drag, shared_data["pic_after_compare"]).ssim_compare()
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name(2))
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+            self.click(L.main.shortcut.ai_art.compare)
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Compare button disabled")
+    def test_compare_button_disabled(self, driver, shared_data):
+        try:
+            self.click(L.main.shortcut.ai_art.compare)
+
+            assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'false' and self.element(
+                L.main.shortcut.ai_art.compare).text == "Compare Off"
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name(2))
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+            shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Compare preview not display")
+    def test_compare_preview_not_display(self, driver, shared_data):
+        try:
+            pic_preview = self.page_edit.get_preview_pic()
+
+            assert HCompareImg(pic_preview, shared_data["pic_before_compare"]).ssim_compare()
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            retry = 30
+            for i in range(retry):
+                self.click(L.main.shortcut.ai_art.style_name(2))
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+                self.page_main.shortcut.waiting_generated()
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
+            pytest.fail(f"{str(e)}")
