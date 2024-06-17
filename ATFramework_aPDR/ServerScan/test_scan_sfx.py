@@ -75,7 +75,7 @@ class Test_Scan_SFX:
                         self.is_not_exist(L.import_media.music_library.download_cancel)
                     break
             assert self.is_exist(L.import_media.music_library.add)
-            
+
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
