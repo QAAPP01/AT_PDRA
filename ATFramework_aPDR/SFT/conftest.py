@@ -152,13 +152,12 @@ def driver():
 #     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
 
 
-
-from ATFramework_aPDR.pages.edit import EditPage
-from ATFramework_aPDR.pages.import_media import MediaPage
-from ATFramework_aPDR.pages.main_page import MainPage
-from ATFramework_aPDR.pages.timeline_settings import TimelineSettingsPage
 @pytest.fixture(scope="session")
-def shortcut(driver) -> [MainPage, EditPage, MediaPage, TimelineSettingsPage]:
+def shortcut(driver):
+    from ATFramework_aPDR.pages.edit import EditPage
+    from ATFramework_aPDR.pages.import_media import MediaPage
+    from ATFramework_aPDR.pages.main_page import MainPage
+    from ATFramework_aPDR.pages.timeline_settings import TimelineSettingsPage
     return MainPage(driver), EditPage(driver), MediaPage(driver), TimelineSettingsPage(driver)
 
 
