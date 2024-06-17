@@ -1,6 +1,8 @@
 from .test_app_initial import test_app_init
 
 from .test_shortcut_ai_art import Test_Shortcut_AI_Art
+from .test_shortcut_ai_cartoon import Test_Shortcut_AI_Cartoon
+from .test_shortcut_ai_sketch import Test_Shortcut_AI_Sketch
 
 from .test_timeline_master_replace import TestMasterReplaceVideo
 from .test_timeline_master_replace import TestMasterReplacePhoto
