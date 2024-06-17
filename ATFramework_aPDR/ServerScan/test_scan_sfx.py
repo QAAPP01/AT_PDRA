@@ -7,7 +7,8 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 
 
-@allure.feature("Scan SFX")
+@allure.epic("Server Scan")
+@allure.feature("SFX")
 class Test_Scan_SFX:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -20,7 +21,8 @@ class Test_Scan_SFX:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-    @allure.story("Meta SFX Download")
+    @allure.story("Meta")
+    @allure.title("Download SFX")
     def test_meta_sfx_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -54,7 +56,8 @@ class Test_Scan_SFX:
 
             raise Exception
 
-    @allure.story("CL SFX Download")
+    @allure.story("CL")
+    @allure.title("Download SFX")
     def test_cl_sfx_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
