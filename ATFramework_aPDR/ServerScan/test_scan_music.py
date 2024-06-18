@@ -7,7 +7,8 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 
 
-@allure.feature("Scan Music")
+@allure.epic("Server Scan")
+@allure.feature("Music")
 class Test_Scan_Music:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -20,7 +21,8 @@ class Test_Scan_Music:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-    @allure.story("Meta Music Download")
+    @allure.story("Meta")
+    @allure.title("Download Music")
     def test_meta_music_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -55,7 +57,8 @@ class Test_Scan_Music:
 
             raise Exception
 
-    @allure.story("Mixtape Music Download")
+    @allure.story("Mixtape")
+    @allure.title("Download Music")
     def test_mixtape_music_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -73,7 +76,7 @@ class Test_Scan_Music:
                         self.is_not_exist(L.import_media.music_library.download_cancel)
                     break
             assert self.is_exist(L.import_media.music_library.add)
-            
+
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
@@ -86,7 +89,8 @@ class Test_Scan_Music:
 
             raise Exception
 
-    @allure.story("CL Music Download")
+    @allure.story("CL")
+    @allure.title("Download Music")
     def test_cl_music_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")

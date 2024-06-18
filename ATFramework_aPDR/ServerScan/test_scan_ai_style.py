@@ -4,7 +4,7 @@ import pytest
 import allure
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
-from ATFramework_aPDR.ATFramework.utils.log import logger
+
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.locator.locator_type import *
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
@@ -33,9 +33,9 @@ class Test_Scan_AI_Art:
     def apply_style(self, style, retry=30):
         for i in range(retry):
             self.page_main.shortcut.click_style(style)
-            self.click(aid('[AID]ConfirmDialog_No'), 0.5)
+            self.click(aid('[AID]ConfirmDialog_No'), 1)
             self.page_main.shortcut.waiting_generated()
-            if not self.click(id('ok_button'), 0.5):
+            if not self.click(id('ok_button'), 1):
                 break
         else:
             raise Exception(f"Exceeded retry limit: {retry}")
@@ -50,18 +50,17 @@ class Test_Scan_AI_Art:
         self.page_main.enter_launcher()
         self.click(L.main.ai_creation.entry)
         self.page_main.enter_ai_feature('AI Art')
-        self.click(L.main.shortcut.try_it_now)
+        self.click(L.main.shortcut.try_it_now, 2)
         self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
     @allure.title("Maid")
     def test_ai_art_maid(self, driver):
-
         try:
             self.page_main.enter_launcher()
             self.page_main.subscribe()
             self.click(L.main.ai_creation.entry)
             self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
+            self.click(L.main.shortcut.try_it_now, 2)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
             assert self.apply_style('Maid')
@@ -365,9 +364,9 @@ class Test_Scan_AI_Cartoon:
     def apply_style(self, style, retry=30):
         for i in range(retry):
             self.page_main.shortcut.click_style(style)
-            self.click(aid('[AID]ConfirmDialog_No'), 0.5)
+            self.click(aid('[AID]ConfirmDialog_No'), 1)
             self.page_main.shortcut.waiting_generated()
-            if not self.click(id('ok_button'), 0.5):
+            if not self.click(id('ok_button'), 1):
                 break
         else:
             raise Exception(f"Exceeded retry limit: {retry}")
@@ -382,7 +381,7 @@ class Test_Scan_AI_Cartoon:
         self.page_main.enter_launcher()
         self.click(L.main.ai_creation.entry)
         self.page_main.enter_ai_feature('AI Cartoon')
-        self.click(L.main.shortcut.try_it_now)
+        self.click(L.main.shortcut.try_it_now, 2)
         self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
     @allure.title("Elf")
@@ -393,7 +392,7 @@ class Test_Scan_AI_Cartoon:
             self.page_main.subscribe()
             self.click(L.main.ai_creation.entry)
             self.page_main.enter_ai_feature('AI Cartoon')
-            self.click(L.main.shortcut.try_it_now)
+            self.click(L.main.shortcut.try_it_now, 2)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
             assert self.apply_style('Elf')
@@ -510,9 +509,9 @@ class Test_Scan_AI_Sketch:
     def apply_style(self, style, retry=30):
         for i in range(retry):
             self.page_main.shortcut.click_style(style)
-            self.click(aid('[AID]ConfirmDialog_No'), 0.5)
+            self.click(aid('[AID]ConfirmDialog_No'), 1)
             self.page_main.shortcut.waiting_generated()
-            if not self.click(id('ok_button'), 0.5):
+            if not self.click(id('ok_button'), 1):
                 break
         else:
             raise Exception(f"Exceeded retry limit: {retry}")
@@ -527,7 +526,7 @@ class Test_Scan_AI_Sketch:
         self.page_main.enter_launcher()
         self.click(L.main.ai_creation.entry)
         self.page_main.enter_ai_feature('AI Sketch')
-        self.click(L.main.shortcut.try_it_now)
+        self.click(L.main.shortcut.try_it_now, 2)
         self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
     @allure.title("Oil Painting")
@@ -538,7 +537,7 @@ class Test_Scan_AI_Sketch:
             self.page_main.subscribe()
             self.click(L.main.ai_creation.entry)
             self.page_main.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
+            self.click(L.main.shortcut.try_it_now, 2)
             if self.click(id("checkBox"), 0.5):
                 self.click(id('tv_continue'))
             self.page_media.select_local_photo(test_material_folder, photo_9_16)

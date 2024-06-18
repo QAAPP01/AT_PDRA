@@ -65,11 +65,17 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 
 app_path = os.path.normpath(os.path.join(dir_path, project_name, 'app'))
+if not os.path.exists(app_path):
+    try:
+        os.makedirs(app_path)
+        print(f"Created directory: {app_path}")
+    except Exception as e:
+        print(f"An error occurred while creating directory {app_path}: {e}")
 
 
 # execute
 def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port, _test_file_name="main.py"):
-    start = 'pytest -s --alluredir %s "%s" --color=yes --udid=%s --systemPort=%s' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, _test_file_name)), _udid, _system_port)
+    start = 'pytest -s --alluredir %s "%s" --color=yes --udid=%s --systemPort=%s --clean-alluredir' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, _test_file_name)), _udid, _system_port)
     print('Start to run test >>>\n')
     try:
         os.system('color')
@@ -364,26 +370,31 @@ if __name__ == '__main__':
     schedule.every().monday.at("10:00").do(auto_run)
     schedule.every().monday.at("13:00").do(auto_run)
     schedule.every().monday.at("16:00").do(auto_run)
+    schedule.every().monday.at("19:00").do(auto_run)
 
     schedule.every().tuesday.at("07:00").do(auto_run)
     schedule.every().tuesday.at("10:00").do(auto_run)
     schedule.every().tuesday.at("13:00").do(auto_run)
     schedule.every().tuesday.at("16:00").do(auto_run)
+    schedule.every().tuesday.at("19:00").do(auto_run)
 
     schedule.every().wednesday.at("07:00").do(auto_run)
     schedule.every().wednesday.at("10:00").do(auto_run)
     schedule.every().wednesday.at("13:00").do(auto_run)
     schedule.every().wednesday.at("16:00").do(auto_run)
+    schedule.every().wednesday.at("19:00").do(auto_run)
 
     schedule.every().thursday.at("07:00").do(auto_run)
     schedule.every().thursday.at("10:00").do(auto_run)
     schedule.every().thursday.at("13:00").do(auto_run)
     schedule.every().thursday.at("16:00").do(auto_run)
+    schedule.every().thursday.at("19:00").do(auto_run)
 
     schedule.every().friday.at("07:00").do(auto_run)
     schedule.every().friday.at("10:00").do(auto_run)
     schedule.every().friday.at("13:00").do(auto_run)
     schedule.every().friday.at("16:00").do(auto_run)
+    schedule.every().friday.at("19:00").do(auto_run)
 
     schedule.every().day.at("00:05").do(auto_server_scan)
 

@@ -2,7 +2,7 @@ import sys, time, os
 import traceback
 from telnetlib import EC
 
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 
 from ATFramework_aPDR.pages.base_page import BasePage
@@ -39,7 +39,6 @@ class MainPage(BasePage):
             self.click(L.main.subscribe.back_btn)
             return True
         else:
-            self.click(L.main.subscribe.iap_monthly)
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
@@ -49,18 +48,19 @@ class MainPage(BasePage):
         try:
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, timeout=1):
-                if self.h_is_not_exist(L.main.permission.loading_bar, 120):
-                    time.sleep(1)
-                    self.click(L.main.premium.iap_back)
+                time.sleep(1)
+                if self.is_exist(L.main.permission.loading_bar, 5):
+                    self.h_is_not_exist(L.main.permission.loading_bar, 120)
+                self.click(L.main.premium.iap_back)
+                if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
-                    return True
                 else:
-                    logger('Enter Launcher Fail')
+                    logger('Enter Launcher Fail', log_level='error')
                     return False
             # 2nd Launch
             else:
-                if self.h_is_not_exist(L.main.permission.loading_bar, 120):
-                    time.sleep(1)
+                if self.is_exist(L.main.permission.loading_bar, 5):
+                    self.h_is_not_exist(L.main.permission.loading_bar, 120)
                     opening_activity = "com.cyberlink.powerdirector.tutorial.OpenIntroActivity"
                     current_activity = self.driver.driver.current_activity
                     if current_activity == opening_activity:
@@ -68,19 +68,20 @@ class MainPage(BasePage):
                         self.h_click(L.main.tutorials.close_open_tutorial)
                         self.h_click(L.main.premium.iap_back)
                         logger('Enter Launcher Done')
-                        return True
                     else:
                         time.sleep(1)
                         # Churn Recovery
                         if self.h_is_exist(L.main.premium.pdr_premium, 1):
                             self.driver.driver.back()
                             logger('Enter Launcher Done')
-                            return True
                         else:
                             # IAP
                             self.click(L.main.premium.iap_back, 1)
-                            logger('Enter Launcher Done')
-                            return True
+
+            self.subscribe()
+            logger('Enter Launcher Done')
+            return True
+
         except Exception:
             traceback.print_exc()
             return False
@@ -1236,6 +1237,50 @@ class Shortcut:
         except Exception:
             traceback.print_exc()
             return False
+
+    def click_paid_style(self):
+        try:
+            last = None
+            while 1:
+                if self.click(L.main.shortcut.ai_sketch.paid_style, 1):
+                    return True
+                else:
+                    styles = self.elements(L.main.shortcut.ai_sketch.style(0))
+                    if styles[-1] == last:
+                        logger("Not found paid style")
+                        return False
+                    else:
+                        last = styles[-1]
+                        self.main.h_swipe_element(styles[-1], styles[0], 3)
+        except Exception:
+            traceback.print_exc()
+            return False
+
+    def click_free_style(self):
+        try:
+            last = None
+            while 1:
+                styles = self.elements(L.main.shortcut.ai_sketch.style(0))
+                for style in styles:
+                    try:
+                        style.find_element(id("itemPremium"))
+                    except NoSuchElementException:
+                        style.click()
+                        print("Clicked on a non-premium style.")
+                        return True
+                else:
+                    if styles[-1] == last:
+                        logger("Not found free style")
+                        return False
+                    else:
+                        last = styles[-1]
+                        self.main.h_swipe_element(styles[-1], styles[0], 3)
+
+        except Exception:
+            traceback.print_exc()
+            return False
+
+
 
     def waiting_generated(self, timeout=120):
         try:
