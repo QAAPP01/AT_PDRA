@@ -77,10 +77,10 @@ class MainPage(BasePage):
                         else:
                             # IAP
                             self.click(L.main.premium.iap_back, 1)
-                            logger('Enter Launcher Done')
-                            return True
 
             self.subscribe()
+            logger('Enter Launcher Done')
+            return True
 
         except Exception:
             traceback.print_exc()
