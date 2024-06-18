@@ -14,19 +14,23 @@ class TestMasterSplitVideo:
     @pytest.fixture(scope='class', autouse=True)
     def class_setup(self, shortcut, driver):
         page_main, page_edit, *_ = shortcut
-
-        page_main.enter_launcher()
-        page_main.subscribe()
         click = page_main.h_click
-        click(L.main.new_project)
-        click(L.import_media.media_library.media(index=1))
-        click(L.import_media.media_library.apply)
 
-        driver.swipe_element(L.edit.timeline.playhead, 'left', offset=0.1)
-        click(T.id('item_view_bg'))
-        page_edit.click_sub_tool('Split')
+        with allure.step('[Step] Enter launcher'):
+            page_main.enter_launcher()
+        with allure.step('[Step] New timeline with video'):
+            click(L.main.new_project)
+            click(L.import_media.media_library.media(index=1))
+            click(L.import_media.media_library.apply)
+
+        with allure.step('[Swipe] timeline to left'):
+            driver.swipe_element(L.edit.timeline.playhead, 'left', offset=0.1)
+        with allure.step('[Click] Split'):
+            click(T.id('item_view_bg'))
+            page_edit.click_sub_tool('Split')
         yield
-        page_edit.back_to_launcher()
+        with allure.step('[Step] Back to launcher'):
+            page_edit.back_to_launcher()
 
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
@@ -67,17 +71,22 @@ class TestMasterSplitPhoto:
         page_main, page_edit, page_media, _ = shortcut
         click = page_main.h_click
 
-        page_main.enter_launcher()
-        click(L.main.new_project)
-        page_media.switch_to_photo_library()
-        click(L.import_media.media_library.media(index=1))
-        click(L.import_media.media_library.apply)
+        with allure.step('[Step] Enter launcher'):
+            page_main.enter_launcher()
+        with allure.step('[Step] New timeline with photo'):
+            click(L.main.new_project)
+            page_media.switch_to_photo_library()
+            click(L.import_media.media_library.media(index=1))
+            click(L.import_media.media_library.apply)
 
-        driver.swipe_element(L.edit.timeline.playhead, 'left', offset=0.1)
-        click(T.id('item_view_bg'))
-        page_edit.click_sub_tool('Split')
+        with allure.step('[Swipe] timeline to left'):
+            driver.swipe_element(L.edit.timeline.playhead, 'left', offset=0.1)
+        with allure.step('[Click] Split'):
+            click(T.id('item_view_bg'))
+            page_edit.click_sub_tool('Split')
         yield
-        page_edit.back_to_launcher()
+        with allure.step('[Step] Back to launcher'):
+            page_edit.back_to_launcher()
 
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):

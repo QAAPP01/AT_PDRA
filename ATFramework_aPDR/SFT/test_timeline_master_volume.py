@@ -13,17 +13,21 @@ class TestMasterVideoVolume:
     @pytest.fixture(scope='class', autouse=True)
     def class_setup(self, shortcut, driver):
         page_main, page_edit, *_ = shortcut
-
-        page_main.enter_launcher()
         click = page_main.h_click
-        click(L.main.new_project)
-        click(L.import_media.media_library.media(index=1))
-        click(L.import_media.media_library.apply)
 
-        click(T.id('item_view_bg'))
-        page_edit.click_sub_tool('Volume')
+        with allure.step('[Step] Enter launcher'):
+            page_main.enter_launcher()
+        with allure.step('[Step] New timeline with video'):
+            click(L.main.new_project)
+            click(L.import_media.media_library.media(index=1))
+            click(L.import_media.media_library.apply)
+
+        with allure.step('[Step] Enter Volume function'):
+            click(T.id('item_view_bg'))
+            page_edit.click_sub_tool('Volume')
         yield
-        page_edit.back_to_launcher()
+        with allure.step('[Step] Back to launcher'):
+            page_edit.back_to_launcher()
 
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
@@ -43,18 +47,21 @@ class TestMasterVideoVolume:
 
     @allure.title('Volume max value')
     def test_max_value(self):
-        self.element(L.edit.volume.slider).send_keys(9999)
+        with allure.step('[Set] Slider max value'):
+            self.element(L.edit.volume.slider).send_keys(9999)
         assert float(self.element(L.edit.volume.slider).text) == 200
 
     @allure.title('Volume min value')
     def test_min_value(self):
-        self.element(L.edit.volume.slider).send_keys(-9999)
+        with allure.step('[Set] Slider min value'):
+            self.element(L.edit.volume.slider).send_keys(-9999)
         assert float(self.element(L.edit.volume.slider).text) == 0
 
     @allure.title('Mute button can enable')
     def test_mute_enable(self):
-        mute = self.element(L.edit.volume.mute)
-        mute.click()
+        with allure.step('[Click] Mute'):
+            mute = self.element(L.edit.volume.mute)
+            mute.click()
         assert mute.get_attribute('selected') == 'true'
 
     @allure.title('Volume cannot adjusted when muted')
@@ -63,8 +70,9 @@ class TestMasterVideoVolume:
 
     @allure.title('Mute button can disable')
     def test_mute_disable(self):
-        mute = self.element(L.edit.volume.mute)
-        mute.click()
+        with allure.step('[Click] Mute'):
+            mute = self.element(L.edit.volume.mute)
+            mute.click()
         assert mute.get_attribute('selected') == 'false'
 
     @allure.title('Volume slider will enable and can adjust when not mute')
@@ -74,29 +82,34 @@ class TestMasterVideoVolume:
         assert self.element(L.edit.volume.slider).get_attribute('enabled') == 'true'
 
         value = self.element(L.edit.volume.slider).text
-        self.element(L.edit.volume.slider).send_keys(randint(0, 200))
+        with allure.step('[Set] Slider to random value'):
+            self.element(L.edit.volume.slider).send_keys(randint(0, 200))
         assert float(self.element(L.edit.volume.slider).text) != float(value)
 
     @allure.title('Fade in button can enable')
     def test_fade_in_enable(self):
-        fade_in = self.element(L.edit.volume.fade_in)
-        fade_in.click()
+        with allure.step('[Click] Fade in'):
+            fade_in = self.element(L.edit.volume.fade_in)
+            fade_in.click()
         assert fade_in.get_attribute('selected') == 'true'
 
     @allure.title('Fade in button can disable')
     def test_fade_in_disable(self):
-        fade_in = self.element(L.edit.volume.fade_in)
-        fade_in.click()
+        with allure.step('[Click] Fade in'):
+            fade_in = self.element(L.edit.volume.fade_in)
+            fade_in.click()
         assert fade_in.get_attribute('selected') == 'false'
 
     @allure.title('Fade out button can enable')
     def test_fadeout_enable(self):
-        fade_out = self.element(L.edit.volume.fade_out)
-        fade_out.click()
+        with allure.step('[Click] Fade out'):
+            fade_out = self.element(L.edit.volume.fade_out)
+            fade_out.click()
         assert fade_out.get_attribute('selected') == 'true'
 
     @allure.title('Fade out button can disable')
     def test_fadeout_disable(self):
-        fade_out = self.element(L.edit.volume.fade_out)
-        fade_out.click()
+        with allure.step('[Click] Fade out'):
+            fade_out = self.element(L.edit.volume.fade_out)
+            fade_out.click()
         assert fade_out.get_attribute('selected') == 'false'
