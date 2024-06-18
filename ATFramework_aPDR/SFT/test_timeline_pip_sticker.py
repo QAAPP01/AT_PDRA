@@ -101,7 +101,7 @@ class Test_PiP_Sticker_Opacity:
             self.element(L.edit.adjust_sub.progress).send_keys('50.0')
             pic_after = self.page_edit.get_preview_pic(L.edit.preview.pip_preview)
 
-            assert HCompareImg(pic_base, pic_after).full_compare() < 1
+            assert HCompareImg(pic_base, pic_after).ssim_compare() < 1
 
         except Exception:
             traceback.print_exc()
@@ -221,7 +221,7 @@ class Test_PiP_Sticker_Fade:
             self.click(L.edit.menu.play)
             pic_after = self.page_edit.get_preview_pic(L.edit.preview.pip_preview)
 
-            assert HCompareImg(pic_base, pic_after).full_compare() < 1
+            assert HCompareImg(pic_base, pic_after).ssim_compare() < 1
 
         except Exception:
             traceback.print_exc()
@@ -253,7 +253,7 @@ class Test_PiP_Sticker_Fade:
             self.click(L.edit.fade.fade_out)
             self.click(L.edit.sub_tool.back)
 
-            assert HCompareImg(pic_base, pic_after).full_compare() < 1
+            assert HCompareImg(pic_base, pic_after).ssim_compare() < 1
 
         except Exception:
             traceback.print_exc()
@@ -334,7 +334,7 @@ class Test_PiP_Sticker_Blending:
             self.click(L.edit.fx_layer.filter.item(3))
             pic_after = self.page_edit.get_preview_pic(L.edit.preview.pip_preview)
 
-            assert HCompareImg(pic_base, pic_after).full_compare() < 1
+            assert HCompareImg(pic_base, pic_after).ssim_compare() < 1
 
         except Exception:
             traceback.print_exc()
