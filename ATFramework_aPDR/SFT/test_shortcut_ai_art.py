@@ -597,8 +597,8 @@ class Test_Shortcut_AI_Art:
             pytest.fail(f"{str(e)}")
 
     @allure.story("Editor")
-    @allure.title("Compare preview not display")
-    def test_compare_preview_not_display(self, driver, shared_data):
+    @allure.title("Compare preview resume")
+    def test_compare_preview_resume(self, driver, shared_data):
         try:
             pic_preview = self.page_edit.get_preview_pic()
 
