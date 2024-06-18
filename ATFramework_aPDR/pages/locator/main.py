@@ -273,11 +273,20 @@ class Shortcut:
         clear = id('btnDelete')
         apply = id('btnConfirm')
         custom_history = id('history_button')
-        title = id('tv_title')
+        page_title = id('tv_title')
         close = id('iv_close')
         regenerate = id('itemRefresh')
         compare = id('tv_compare')
         compare_thumb = id('iv_thumb')
+        history = id('history_button')
+        close_history = id('back_btn')
+
+        @staticmethod
+        def history_image(index: int = 1):
+            if index:
+                return xpath(f'//android.widget.FrameLayout[3]/*/*/*/*/android.view.ViewGroup[{index}]')
+            else:
+                return xpath(f'//android.widget.FrameLayout[3]/*/*/*/*/android.view.ViewGroup')
 
         @staticmethod
         def history_prompt(index: int = 1):
