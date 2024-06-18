@@ -38,31 +38,23 @@ class TestTrackLimitation:
     @allure.feature('Video')
     @allure.story('Track Limitation')
     def test_timeline_limitation_video_track(self, driver: AppiumU2Driver):
-        try:
-            allure.title(f'Add {self.VIDEO_LIMITATION} + 1 video(s) to PiP track')
-            for i in range(self.VIDEO_LIMITATION + 1):
-                self.page_edit.add_pip_media(media_type='Video')
+        for i in range(1, self.VIDEO_LIMITATION + 2):
+            with allure.step(f'[Step] Add 1 pip video, currently added {i} video tracks'):
+                self.page_edit.click_tool('Overlay')
+                self.click(T.find_string('Video'))
+                self.click(L.import_media.media_library.media(index=1))
+                self.click(L.edit.sub_tool.back)
 
-            allure.title('Should pop dialog if trying to add video while reaching track limitation')
-            assert driver.get_text(L.import_media.device_limit.limit_title) == 'Video Overlay Maximum Exceeded'
+        assert driver.get_text(L.import_media.device_limit.limit_title) == 'Video Overlay Maximum Exceeded'
 
+        with allure.step('[Click] OK button'):
             self.click(L.import_media.device_limit.btn_remind_ok)
-
-        except Exception as e:
-            if type(e) is AssertionError:
-                logger(f'[AssertionError] {e}]')
-                text = 'AssertionError'
-            else:
-                logger(f'[Exception] {e}')
-                text = 'Exception'
-            pytest.fail(f'[{text}] {e}]')
 
     @allure.feature('Audio')
     @allure.story('Track Limitation')
     def test_timeline_limitation_audio_track(self, driver: AppiumU2Driver):
-        try:
-            allure.title(f'Add {self.AUDIO_LIMITATION} + 1 audio(s) to PiP track')
-            for _ in range(self.AUDIO_LIMITATION + 1):
+        for i in range(1, self.AUDIO_LIMITATION + 2):
+            with allure.step(f'[Step] Add 1 pip audio, currently added {i} audio tracks'):
                 self.page_edit.enter_audio_library(audio_type='SFX')
                 if not self.elements(L.import_media.library_listview.add):
                     self.click(L.import_media.library_listview.frame_song)
@@ -71,45 +63,21 @@ class TestTrackLimitation:
                     self.click(L.import_media.library_listview.add)
                 self.click(T.id('btn_session_back_icon'))
 
-            # (//android.view.View[@content-desc="[AID]TimeLineAudio_credit card slam..wav"])
-
-            # Only the first track will have 2 audio clip
-            allure.title(f'Only the first track will have 2 audio clip')
-            track = self.elements(T.id('item_view_bg'))
-            assert track[0].rect['y'] == track[1].rect['y']
-            assert track[2].rect['y'] != track[3].rect['y']
-
-        except Exception as e:
-            if type(e) is AssertionError:
-                logger(f'[AssertionError] {e}]')
-                text = 'AssertionError'
-            else:
-                logger(f'[Exception] {e}')
-                text = 'Exception'
-            pytest.fail(f'[{text}] {e}]')
+        track = self.elements(T.id('item_view_bg'))
+        assert track[0].rect['y'] == track[1].rect['y']
+        assert track[2].rect['y'] != track[3].rect['y']
 
     @allure.feature('PiP')
-    @allure.title('Track Limitation')
+    @allure.story('Track Limitation')
     def test_timeline_limitation_pip_track(self, driver: AppiumU2Driver):
-        try:
-            allure.title(f'Add {self.PIP_LIMITATION} + 1 sticker(s) to PiP track')
-            self.page_edit.enter_main_tool(name='Sticker')
-            self.click(T.find_string('Add Sticker'))
-            for _ in range(self.PIP_LIMITATION + 1):
+        self.page_edit.enter_main_tool(name='Sticker')
+        self.click(T.find_string('Add Sticker'))
+        for i in range(1, self.PIP_LIMITATION + 2):
+            with allure.step(f'[Step] Add 1 pip, currently added {i} pip tracks'):
                 self.click(L.edit.main_tool.sticker.item())
-            self.click(L.edit.pip.Text.back)
+        self.click(L.edit.pip.Text.back)
 
-            # Only the first track will have 2 pip clip
-            allure.title(f'Only the first track will have 2 pip clip')
-            track = self.elements(T.id('item_view_bg'))
-            assert track[0].rect['y'] == track[1].rect['y']
-            assert track[2].rect['y'] != track[3].rect['y']
-
-        except Exception as e:
-            if type(e) is AssertionError:
-                logger(f'[AssertionError] {e}]')
-                text = 'AssertionError'
-            else:
-                logger(f'[Exception] {e}')
-                text = 'Exception'
-            pytest.fail(f'[{text}] {e}]')
+        # Only the first track will have 2 pip clip
+        track = self.elements(T.id('item_view_bg'))
+        assert track[0].rect['y'] == track[1].rect['y']
+        assert track[2].rect['y'] != track[3].rect['y']
