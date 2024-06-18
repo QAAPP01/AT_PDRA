@@ -38,7 +38,7 @@ class TestTrackLimitation:
     @allure.feature('Video')
     @allure.story('Track Limitation')
     def test_timeline_limitation_video_track(self, driver: AppiumU2Driver):
-        for i in range(self.VIDEO_LIMITATION + 1):
+        for i in range(1, self.VIDEO_LIMITATION + 2):
             with allure.step(f'[Step] Add 1 pip video, currently added {i} video tracks'):
                 self.page_edit.click_tool('Overlay')
                 self.click(T.find_string('Video'))
@@ -53,7 +53,7 @@ class TestTrackLimitation:
     @allure.feature('Audio')
     @allure.story('Track Limitation')
     def test_timeline_limitation_audio_track(self, driver: AppiumU2Driver):
-        for i in range(self.AUDIO_LIMITATION + 1):
+        for i in range(1, self.AUDIO_LIMITATION + 2):
             with allure.step(f'[Step] Add 1 pip audio, currently added {i} audio tracks'):
                 self.page_edit.enter_audio_library(audio_type='SFX')
                 if not self.elements(L.import_media.library_listview.add):
@@ -68,11 +68,11 @@ class TestTrackLimitation:
         assert track[2].rect['y'] != track[3].rect['y']
 
     @allure.feature('PiP')
-    @allure.title('Track Limitation')
+    @allure.story('Track Limitation')
     def test_timeline_limitation_pip_track(self, driver: AppiumU2Driver):
         self.page_edit.enter_main_tool(name='Sticker')
         self.click(T.find_string('Add Sticker'))
-        for i in range(self.PIP_LIMITATION + 1):
+        for i in range(1, self.PIP_LIMITATION + 2):
             with allure.step(f'[Step] Add 1 pip, currently added {i} pip tracks'):
                 self.click(L.edit.main_tool.sticker.item())
         self.click(L.edit.pip.Text.back)
