@@ -64,6 +64,7 @@ class TestMasterPhotoAdjustment_AIColor:
 
     @allure.title('Slider max value')
     def test_max_slider(self):
+        self.element(L.edit.sub_tool.slider).send_keys(1)
         self.element(L.edit.sub_tool.slider).send_keys(9999)
         assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
 
