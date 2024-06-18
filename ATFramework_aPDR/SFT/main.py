@@ -6,6 +6,11 @@ from .test_timeline_master_replace import TestMasterReplaceColorBoard
 
 from .test_timeline_master_replace_after_apply import TestMasterReplaceVideoAfterApply
 
+# PiP Track
+from .test_timeline_pip_music import Test_PiP_Import_Music
+from .test_timeline_pip_music import Test_PiP_Music_Volume
+from .test_timeline_pip_music import Test_PiP_Music_Split
+from .test_timeline_pip_music import Test_PiP_Music_AI_Voice_Chagner
 
 
 from .test_aPDR_SFT_Scenario_01_01 import Test_SFT_Scenario_01_01
