@@ -198,7 +198,7 @@ class Test_Shortcut_AI_Sketch:
 
     @allure.story("Editor")
     @allure.title("Generate style")
-    def test_gen_style(self, driver):
+    def test_gen_style(self, driver, shared_data):
         try:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -214,6 +214,7 @@ class Test_Shortcut_AI_Sketch:
                 raise Exception(f"Exceeded retry limit: {retry}")
 
             preview = self.page_edit.get_preview_pic()
+            shared_data["pic_history"] = preview
             assert HCompareImg(preview).is_not_black()
 
         except Exception as e:
@@ -223,7 +224,7 @@ class Test_Shortcut_AI_Sketch:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -236,6 +237,8 @@ class Test_Shortcut_AI_Sketch:
                     break
             else:
                 raise Exception(f"Exceeded retry limit: {retry}")
+
+            shared_data["pic_history"] = self.page_edit.get_preview_pic()
 
             pytest.fail(f"{str(e)}")
 
@@ -263,7 +266,7 @@ class Test_Shortcut_AI_Sketch:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -296,7 +299,7 @@ class Test_Shortcut_AI_Sketch:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -331,7 +334,7 @@ class Test_Shortcut_AI_Sketch:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -370,7 +373,7 @@ class Test_Shortcut_AI_Sketch:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -404,7 +407,7 @@ class Test_Shortcut_AI_Sketch:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -423,8 +426,8 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
     @allure.story("Editor")
-    @allure.title("Compare preview not display")
-    def test_compare_preview_not_display(self, driver, shared_data):
+    @allure.title("Compare preview resume")
+    def test_compare_preview_resume(self, driver, shared_data):
         try:
             pic_preview = self.page_edit.get_preview_pic()
 
@@ -437,7 +440,7 @@ class Test_Shortcut_AI_Sketch:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
+            self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -451,5 +454,75 @@ class Test_Shortcut_AI_Sketch:
                     break
             else:
                 raise Exception(f"Exceeded retry limit: {retry}")
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Enter history")
+    def test_enter_history(self, driver):
+        try:
+            self.click(L.main.shortcut.ai_art.history)
+
+            assert self.is_exist(find_string('History'))
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Sketch')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+            self.click(L.main.shortcut.ai_art.history)
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Reopen history image")
+    def test_reopen_history_image(self, driver, shared_data):
+        try:
+            self.click(L.main.shortcut.ai_art.history)
+            self.click(L.main.shortcut.ai_art.history_image(2))
+            preview = self.page_edit.get_preview_pic()
+
+            assert HCompareImg(preview, shared_data["pic_history"]).ssim_compare()
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Sketch')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+            self.click(L.main.shortcut.ai_art.history)
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Editor")
+    @allure.title("Leave history")
+    def test_leave_history(self, driver):
+        try:
+            self.click(L.main.shortcut.ai_art.close_history)
+
+            assert not self.is_exist(find_string('History'))
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Sketch')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
 
             pytest.fail(f"{str(e)}")
