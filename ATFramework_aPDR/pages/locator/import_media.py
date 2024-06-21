@@ -391,6 +391,7 @@ class Transition_List():
 
 class Device_limit():
     limit_message = id('message')
+    limit_title = id('title')
     btn_remind_ok = id('btn_remind_ok')
 
 
