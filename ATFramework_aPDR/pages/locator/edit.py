@@ -952,10 +952,12 @@ class Speed():
     preview_toast_text = id("adjustTextNow")
     # ease_in = id("easeInSwitch")
     # ease_out = id("easeOutSwitch")
-    ease_in = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[2]')
-    ease_out = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[3]')
-    # mute_audio = id("muteSwitch")
     mute_audio = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[1]')
+    keep_pitch = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[2]')
+    ease_in = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[3]')
+    ease_out = ("xpath", '(//*[contains(@resource-id,"option_list")])/*[4]')
+    # mute_audio = id("muteSwitch")
+    reset = id('btn_reset')
 
 
 class Subscription():
