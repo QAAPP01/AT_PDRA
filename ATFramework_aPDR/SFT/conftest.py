@@ -2,6 +2,7 @@ import json
 import time
 import datetime
 import traceback
+import allure
 import os
 import pytest
 import sys
@@ -197,3 +198,36 @@ def log_class_start(request):
 @pytest.fixture(autouse=True)
 def log_function_test(request):
     logger(f"\n[Start] Function: {request.node.name}", log_level='info')
+
+
+def screenshot_on_failure(cls):
+    for attr in dir(cls):
+        if callable(getattr(cls, attr)) and not attr.startswith("__"):
+            method = getattr(cls, attr)
+            setattr(cls, attr, screenshot_on_failure_method(method))
+    return cls
+
+
+def screenshot_on_failure_method(func):
+    def wrapper(self, *args, **kwargs):
+        func_file = os.path.abspath(func.__code__.co_filename)
+        func_name = func.__name__
+
+        failure_dir = os.path.join(os.path.dirname(func_file), 'failure')
+        os.makedirs(failure_dir, exist_ok=True)
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        screenshot_path = os.path.join(failure_dir, f"{func_name}_{timestamp}.png")
+
+        try:
+            return func(self, *args, **kwargs)
+        except (Exception, AssertionError) as e:
+            driver = kwargs.get('driver')
+            if driver:
+                driver.driver.save_screenshot(screenshot_path)
+                allure.attach.file(screenshot_path, name="screenshot", attachment_type=allure.attachment_type.PNG)
+
+            traceback.print_exc()
+
+            raise e
+
+    return wrapper
