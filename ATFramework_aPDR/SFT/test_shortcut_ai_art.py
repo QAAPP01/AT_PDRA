@@ -376,15 +376,7 @@ class Test_Shortcut_AI_Art:
     @allure.title("Generate style")
     def test_gen_style(self, driver, shared_data):
         try:
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name(2))
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
 
             preview = self.page_edit.get_preview_pic()
             shared_data["pic_history"] = preview
@@ -401,15 +393,7 @@ class Test_Shortcut_AI_Art:
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name(2))
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
 
             shared_data["pic_history"] = self.page_edit.get_preview_pic()
 
@@ -443,15 +427,7 @@ class Test_Shortcut_AI_Art:
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name(2))
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
 
             pytest.fail(f"{str(e)}")
 
@@ -476,15 +452,8 @@ class Test_Shortcut_AI_Art:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
 
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name(2))
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
+            self.page_main.shortcut.waiting_generated()
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
             shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
 
             self.click(L.main.shortcut.ai_art.compare)
@@ -511,15 +480,7 @@ class Test_Shortcut_AI_Art:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
 
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name(2))
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
             self.click(L.main.shortcut.ai_art.compare)
             shared_data["pic_after_compare"] = self.page_edit.get_preview_pic()
 
@@ -550,15 +511,7 @@ class Test_Shortcut_AI_Art:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
 
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name(2))
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
             self.click(L.main.shortcut.ai_art.compare)
 
             pytest.fail(f"{str(e)}")
@@ -583,15 +536,7 @@ class Test_Shortcut_AI_Art:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
 
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name(2))
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
             shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
 
             pytest.fail(f"{str(e)}")
@@ -616,15 +561,7 @@ class Test_Shortcut_AI_Art:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
 
-            retry = 30
-            for i in range(retry):
-                self.click(L.main.shortcut.ai_art.style_name(2))
-                self.click(aid('[AID]ConfirmDialog_No'), 1)
-                self.page_main.shortcut.waiting_generated()
-                if not self.click(id('ok_button'), 1):
-                    break
-            else:
-                raise Exception(f"Exceeded retry limit: {retry}")
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
 
             pytest.fail(f"{str(e)}")
 
@@ -695,5 +632,57 @@ class Test_Shortcut_AI_Art:
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Export")
+    @allure.title("Save Image")
+    def test_save_image(self, driver):
+        try:
+            self.click(L.main.shortcut.export)
+            self.click(find_string('Save Image'))
+
+            assert self.is_exist(L.main.shortcut.save_to_camera_roll)
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
+
+            self.click(L.main.shortcut.export)
+            self.click(find_string('Save Image'))
+
+            pytest.fail(f"{str(e)}")
+
+    @allure.story("Export")
+    @allure.title("Back to editor")
+    def test_back_to_editor(self, driver):
+        try:
+            self.click(L.main.shortcut.produce_back)
+
+            assert self.is_exist(L.main.shortcut.editor_back)
+
+        except Exception as e:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.click(L.main.ai_creation.entry)
+            self.page_main.enter_ai_feature('AI Art')
+            self.click(L.main.shortcut.try_it_now)
+            self.page_media.select_local_photo(test_material_folder, photo_9_16)
+            self.page_media.waiting_loading()
+
+            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
 
             pytest.fail(f"{str(e)}")

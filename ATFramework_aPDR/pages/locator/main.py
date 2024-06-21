@@ -35,6 +35,8 @@ class Shortcut:
     full_editor = id('tv_full_editor')
     produce_progress_bar = id('progress_bar')
     produce_full_editor = id('btn_full_editor')
+    save_to_camera_roll = id('btn_save_to_camera_roll')
+    produce_back = aid('[AID]Produce_Back')
 
     @staticmethod
     def shortcut_name(param=1):
@@ -44,6 +46,7 @@ class Shortcut:
             return xpath(f'(//*[contains(@resource-id,"tv_name")])[{param}]')
         else:
             return xpath(f'//*[contains(@resource-id,"tv_name")]')
+
 
     class hsl:
         red = id('view_red')
@@ -306,6 +309,9 @@ class Shortcut:
         close = id('iv_close')
         continue_btn = id('tv_continue')
         dont_show_again = id('checkBox')
+        crop = id('crop_button')
+        title = id('tv_title')
+        crop_close = id('cancel_btn')
 
         @staticmethod
         def style(index: int = 1):

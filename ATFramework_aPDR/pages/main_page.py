@@ -48,10 +48,9 @@ class MainPage(BasePage):
         try:
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, 1):
-                time.sleep(1)
-                if self.is_exist(L.main.permission.loading_bar, 2):
+                if self.is_exist(L.main.permission.loading_bar, 5):
                     self.h_is_not_exist(L.main.permission.loading_bar, 120)
-                self.click(L.main.premium.iap_back, 2)
+                self.click(L.main.premium.iap_back, 1)
                 if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
                 else:
@@ -59,13 +58,14 @@ class MainPage(BasePage):
                     return False
             # 2nd Launch
             else:
-                if self.is_exist(L.main.permission.loading_bar, 2):
+                if self.is_exist(L.main.permission.loading_bar, 1):
                     self.h_is_not_exist(L.main.permission.loading_bar, 120)
                 if self.is_exist(L.main.tutorials.close_open_tutorial, 1):
                     self.h_click(L.main.tutorials.close_open_tutorial)
+                    self.click(L.main.premium.iap_back, 1)
                 else:
                     # Churn Recovery
-                    if self.h_is_exist(L.main.premium.pdr_premium, 2):
+                    if self.h_is_exist(L.main.premium.pdr_premium, 1):
                         self.driver.driver.back()
                     else:
                         # IAP
@@ -1273,13 +1273,22 @@ class Shortcut:
             traceback.print_exc()
             return False
 
-
-
-    def waiting_generated(self, timeout=120):
+    def waiting_generated(self, gen_btn=None, retry=30, timeout=120):
         try:
-            if self.is_exist(L.main.shortcut.ai_art.generating, 2):
-                self.is_not_exist(L.main.shortcut.ai_art.generating, timeout)
-            return True
+            for i in range(retry):
+                if gen_btn:
+                    self.click(gen_btn)
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+
+                if self.is_exist(L.main.shortcut.ai_art.generating, 1):
+                    self.is_not_exist(L.main.shortcut.ai_art.generating, timeout)
+
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
         except Exception:
             traceback.print_exc()
-            return False
+            raise
+
