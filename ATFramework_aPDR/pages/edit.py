@@ -67,6 +67,18 @@ class EditPage(BasePage):
         self.border_and_shadow = Border_and_Shadow(self.driver)
         self.intro_video = Intro_Video(self.driver)
 
+    def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
+        boundary_rect = self.element(L.edit.crop.boundary).rect
+        if x > 1:
+            end_x = x
+        else:
+            end_x = boundary_rect['x'] + boundary_rect['width'] * x
+        if y > 1:
+            end_y = y
+        else:
+            end_y = boundary_rect['y'] + boundary_rect['height'] * y
+        self.h_drag_element(corner, end_x, end_y)
+
     def try_it_first(self, timeout=1):
         self.click(find_string('Try it First'), timeout)
 
@@ -106,7 +118,7 @@ class EditPage(BasePage):
                     last = new_last
         logger('Function reach the limit')
         return False
-    
+
     def add_master_media(self, media_type=None, folder='00PDRa_Testing_Material', file_name=None):
         try:
             if media_type:
@@ -188,8 +200,6 @@ class EditPage(BasePage):
         except Exception as err:
             logger(f'[ERROR] {err}')
             return False
-
-
 
     def back_to_launcher(self):
         try:
@@ -329,14 +339,12 @@ class EditPage(BasePage):
         except Exception as err:
             raise Exception(f'[Error] {err}')
 
-
-
     def tap_blank_space(self):
         try:
             time_code = self.element(L.edit.preview.time_code).rect
             timeline = self.element(L.edit.timeline.timeline_area).rect
-            x = time_code['x'] + time_code['width']//2
-            y = timeline['y'] + timeline['height']//2
+            x = time_code['x'] + time_code['width'] // 2
+            y = timeline['y'] + timeline['height'] // 2
             self.driver.driver.tap([(x, y)])
             return True
         except Exception as err:
@@ -373,7 +381,6 @@ class EditPage(BasePage):
     #     except Exception:
     #         traceback.print_exc()
     #         return False
-
 
     def preview_ratio(self):
         """
@@ -438,7 +445,7 @@ class EditPage(BasePage):
             logger(f'[Error] {err}')
             return False
 
-    def enter_main_tool(self, name, timeout=0.2, search_times = 100):
+    def enter_main_tool(self, name, timeout=0.2, search_times=100):
         try:
             for i in range(4):
                 if self.h_click(L.edit.sub_tool.back, timeout=0.1):
@@ -488,7 +495,8 @@ class EditPage(BasePage):
             logger("[Info] Select the first clip")
             self.h_click(L.edit.timeline.clip())
         if exclusive:
-            locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}") and not(contains(@text,"{exclusive}"))]')
+            locator = ('xpath',
+                       f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}") and not(contains(@text,"{exclusive}"))]')
         else:
             locator = ('xpath', f'//*[contains(@resource-id,"tool_entry_label") and contains(@text,"{name}")]')
         while 1:
@@ -508,7 +516,7 @@ class EditPage(BasePage):
         if not self.h_is_exist(L.edit.timeline.option_label, 1):
             logger("[Info] Cannot find sub option tool menu")
             return False
-        locator = ('xpath', '//*[contains(@resource-id,"option_label") and contains(@text,"'+name+'")]')
+        locator = ('xpath', '//*[contains(@resource-id,"option_label") and contains(@text,"' + name + '")]')
         while 1:
             if not self.h_is_exist(locator, timeout=timeout):
                 tool = self.h_get_elements(E.timeline.option_label)
@@ -543,7 +551,6 @@ class EditPage(BasePage):
                         return False
 
         return self.click(locator)
-
 
     def click_sub_option_tool(self, name, timeout=0.1):
         if not self.h_is_exist(L.edit.timeline.option_label, 1):
@@ -642,9 +649,9 @@ class EditPage(BasePage):
             traceback.print_exc()
             return False
 
-
     def click_audio_tool(self, locator, timeout=0.2):
-        tool_xpath = xpath('//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout')
+        tool_xpath = xpath(
+            '//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout')
         for i in range(60):
             if not self.click(locator, timeout):
                 tool = self.elements(tool_xpath)
@@ -677,7 +684,6 @@ class EditPage(BasePage):
             else:
                 logger("[Warning] downloading timeout")
                 return False
-
 
     def timeline_swipe(self, direction, distance):
         logger(f"start timeline_swipe to {direction} with {distance}")
@@ -1363,7 +1369,7 @@ class EditPage(BasePage):
                 self.h_swipe_location(start_x, y, end_x, y, speed=20, duration=500)
             else:
                 start_x = clip["x"] + clip["width"]
-                end_x = start_x-dx
+                end_x = start_x - dx
                 self.h_swipe_location(start_x, y, end_x, y, speed=20, duration=500)
             width_after = self.h_get_element(locator).rect["width"]
             if width_after < width_original:
@@ -1879,11 +1885,11 @@ class EditPage(BasePage):
         logger(f"Didn't find {name} element")
         return False
 
-    def h_set_slider(self, percentage, slider_draggable_offset=664/762):  # percentage: 0~1  ex: 0.5
+    def h_set_slider(self, percentage, slider_draggable_offset=664 / 762):  # percentage: 0~1  ex: 0.5
         slider = self.h_get_element(L.edit.timeline.slider).rect
         slider_width = slider["width"]
         slider_range = round(slider_width * slider_draggable_offset)
-        slider_unit = round((slider_width - slider_range)/2)
+        slider_unit = round((slider_width - slider_range) / 2)
         start_x = slider['x'] + slider_unit
         y = slider["y"] + slider["height"] / 2
         x = int(start_x + slider_range * percentage)
@@ -2204,7 +2210,6 @@ class EditPage(BasePage):
 
             self.ai_sticker = self.AISticker(self)
 
-
         class AISticker:
             def __init__(self, sticker):
                 self.sticker = sticker
@@ -2270,12 +2275,11 @@ class Preference(BasePage):
                     self.driver.swipe_up()
             self.click(L.timeline_settings.preference.default_text_duration)
             slider = self.element(L.timeline_settings.preference.slider)
-            slider.send_keys(float(duration)*10-5)
+            slider.send_keys(float(duration) * 10 - 5)
             return True
         except Exception as e:
             logger(f'[Error] {e}')
             return False
-
 
     def trigger_fileName(self, enable=True):
         try:
@@ -2411,7 +2415,6 @@ class Sub_item():
             (percentage * self.max), self.elem_progress.text,
             float(self.elem_progress.text) == (percentage * self.max)))
         return float(self.elem_progress.text) == (percentage * self.max)
-
 
 
 class Audio_Denoise_Sub_item(Sub_item):
@@ -2740,7 +2743,6 @@ class Title_Designer(BasePage):
         except Exception as e:
             logger(f'[Error] {e}')
             return False
-
 
     def select_tab(self, name):
         logger(f"start select_tab - {name}")
@@ -3148,7 +3150,7 @@ class Transition(BasePage):
     def set_duration(self, expect_duration=2.0, apply_to_all=0):
         try:
             slider = self.element(L.edit.timeline.slider)
-            slider.send_keys(float(expect_duration)*10-1)
+            slider.send_keys(float(expect_duration) * 10 - 1)
 
             if apply_to_all:
                 self.click(L.edit.timeline.apply_all)
@@ -3205,8 +3207,6 @@ class Settings(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-
-
 
     def swipe_to_option(self, option):
         logger("start >> swipe_to_option <<")
