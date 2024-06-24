@@ -11,7 +11,6 @@ from ATFramework_aPDR.pages.page_factory import PageFactory
 from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
-from os.path import dirname as dir
 
 
 
@@ -159,7 +158,7 @@ def shortcut(driver):
     return page_main, page_edit, page_media, page_preference
 
 
-def pytest_terminal_summary(terminalreporter, exitstatus, config):
+def pytest_terminal_summary(terminalreporter):
     logger("pytest_terminal_summary")
     def format_duration(seconds):
         td = datetime.timedelta(seconds=int(seconds))
@@ -200,34 +199,14 @@ def log_function_test(request):
     logger(f"\n[Start] Function: {request.node.name}", log_level='info')
 
 
-def screenshot_on_failure(cls):
-    for attr in dir(cls):
-        if callable(getattr(cls, attr)) and not attr.startswith("__"):
-            method = getattr(cls, attr)
-            setattr(cls, attr, screenshot_on_failure_method(method))
-    return cls
+def screenshot_on_failure(node, report, driver):
+    if report.failed:
+        logger(f"\n[Error] {report.longreprtext}", log_level='error')
 
-
-def screenshot_on_failure_method(func):
-    def wrapper(self, *args, **kwargs):
-        func_file = os.path.abspath(func.__code__.co_filename)
-        func_name = func.__name__
-
-        failure_dir = os.path.join(os.path.dirname(func_file), 'failure')
+        failure_dir = os.path.join(os.path.dirname(__file__), "failures")
         os.makedirs(failure_dir, exist_ok=True)
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        screenshot_path = os.path.join(failure_dir, f"{func_name}_{timestamp}.png")
+        screenshot_path = os.path.join(failure_dir, f"{node.name}_{timestamp}.png")
 
-        try:
-            return func(self, *args, **kwargs)
-        except (Exception, AssertionError) as e:
-            driver = kwargs.get('driver')
-            if driver:
-                driver.driver.save_screenshot(screenshot_path)
-                allure.attach.file(screenshot_path, name="screenshot", attachment_type=allure.attachment_type.PNG)
-
-            traceback.print_exc()
-
-            raise e
-
-    return wrapper
+        driver.driver.save_screenshot(screenshot_path)
+        allure.attach.file(screenshot_path, attachment_type=allure.attachment_type.PNG)
