@@ -1,14 +1,23 @@
 import time
 import pytest
-
-from ATFramework_aPDR.pages.locator.locator_type import find_string
+import allure
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.locator.locator_type import *
 from ATFramework_aPDR.ATFramework.utils.log import logger
 
 
+@allure.epic("App initial")
 class TestInit:
+    @pytest.fixture(scope='class', autouse=True)
+    def driver_init(self, driver):
+        logger("Start driver session", log_level='warning')
+        driver.driver.reset()
+        time.sleep(1)
+        driver.driver.launch_app()
+        yield
+        driver.driver.close_app()
+
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
@@ -20,17 +29,13 @@ class TestInit:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-    def close_overlap_tip(self):
+    @allure.feature("Close overlay tip")
+    def close_overlay_tip(self):
         self.page_edit.add_pip_media('photo')
         self.click(id('iv_hint'))
 
     def test_app_init(self, driver):
         try:
-            logger("[Start] APP Init")
-            driver.driver.reset()
-            time.sleep(1)
-            driver.driver.launch_app()
-
             page_main = PageFactory().get_page_object("main_page", driver)
             page_edit = PageFactory().get_page_object("edit", driver)
             click = page_main.h_click
@@ -47,7 +52,7 @@ class TestInit:
             page_main.h_click(L.edit.menu.settings)
             page_main.h_click(find_string('Expand Track Height'), 2)
 
-            self.close_overlap_tip()
+            self.close_overlay_tip()
 
             if not page_main.h_click(L.edit.preview.import_tips_icon, timeout=1):
                 if not page_main.h_click(L.edit.timeline.main_track_import, timeout=1):
