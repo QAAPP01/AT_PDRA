@@ -9,7 +9,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 original_preview = None
 
 
-# @pytest.fixture(scope='module', autouse=True)
+@pytest.fixture(scope='module')
 def module_setup(shortcut, driver):
     global original_preview
     page_main, page_edit, *_ = shortcut
@@ -29,6 +29,7 @@ def module_setup(shortcut, driver):
     page_edit.back_to_launcher()
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_AI Color')
@@ -89,6 +90,7 @@ class TestMasterVideoAdjustment_AIColor:
                                 7).compare_image()
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_Brightness')
@@ -149,6 +151,7 @@ class TestMasterVideoAdjustment_Brightness:
                                 7).compare_image()
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_Contrast')
@@ -210,6 +213,7 @@ class TestMasterVideoAdjustment_Contrast:
                                 7).compare_image()
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_Saturation')
@@ -271,6 +275,7 @@ class TestMasterVideoAdjustment_Saturation:
                                 7).compare_image()
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_HSL')
@@ -371,6 +376,7 @@ class TestMasterVideoAdjustment_HSL:
         assert self.element(L.main.shortcut.hsl.luminance_value).text == self.DEFAULT
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_Hue')
@@ -432,6 +438,7 @@ class TestMasterVideoAdjustment_Hue:
                                 7).compare_image()
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_Temp')
@@ -493,6 +500,7 @@ class TestMasterVideoAdjustment_Temp:
                                 7).compare_image()
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_Tint')
@@ -554,6 +562,7 @@ class TestMasterVideoAdjustment_Tint:
                                 7).compare_image()
 
 
+@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Adjustment_Sharpness')
