@@ -24,8 +24,8 @@ from send_mail.send_report import generate_allure_report, remove_allure_result, 
 # parallel_device_count - the device number for parallel testing (default: 1)
 # project_name - the target project for testing (e.g. aU, iPHD, aPDR)
 
-deviceName = "R5CT32Q3WQN"
-# deviceName = "R5CW31G76ST"
+# deviceName = "R5CT32Q3WQN"
+deviceName = "R5CW31G76ST"
 # deviceName = "9596423546005V8"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
@@ -39,9 +39,9 @@ package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 # ======================================================================================================================
 # [Configuration]
-auto_download = True
-send = True
-test_apk_from_appPath = True
+auto_download = False
+send = False
+test_apk_from_appPath = False
 
 sr_number = 'DRA240110-04'  # for manual
 tr_number = 'TR240207-034'  # for manual

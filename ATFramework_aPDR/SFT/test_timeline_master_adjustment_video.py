@@ -9,7 +9,7 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 original_preview = None
 
 
-@pytest.fixture(scope='module', autouse=True)
+# @pytest.fixture(scope='module', autouse=True)
 def module_setup(shortcut, driver):
     global original_preview
     page_main, page_edit, *_ = shortcut
