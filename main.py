@@ -44,7 +44,7 @@ send = True
 test_apk_from_appPath = True
 
 sr_number = 'DRA240110-04'  # for manual
-tr_number = 'TR240207-034'  # for manual
+manual_tr_number = 'TR240207-034'  # for manual
 
 
 # [Report Mail Setting]
@@ -195,7 +195,6 @@ def auto_run():
                 # [log tr info]
                 sr_number = dict_result['sr_no']
                 tr_number = dict_result['tr_no']
-                previous_tr_number = dict_result['prev_tr_no']
 
                 version_numbers = dict_result['build'].split('.')
                 package_version = version_numbers[0].split('PowerDirector Mobile for Android: ')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
@@ -207,8 +206,8 @@ def auto_run():
             install_apk(apk, deviceName)
 
         else:
+            tr_number = manual_tr_number
             # Manual
-            previous_tr_number = ecl_operation.manual_get_prev_tr()
 
             if test_apk_from_appPath:
                 apk = rename_apk()
@@ -237,7 +236,6 @@ def auto_run():
 
         with open('tr_info', 'w+') as file:
             file.write(f'tr_number={tr_number}\n')
-            file.write(f'previous_tr_number={previous_tr_number}\n')
             file.write(f'package_version={package_version}\n')
             file.write(f'package_build_number={package_build_number}\n')
 

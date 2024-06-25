@@ -138,7 +138,7 @@ def driver():
 
 @pytest.fixture(scope='class', autouse=True)
 def driver_init(driver):
-    logger("Start driver session", log_level='warning')
+    logger("==== Start driver session ====")
     driver.driver.launch_app()
     yield
     driver.driver.close_app()
