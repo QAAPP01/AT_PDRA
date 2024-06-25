@@ -1,4 +1,4 @@
-from .test_app_initial import test_app_init
+from .test_app_initial import TestInit
 
 # Shortcut
 from .test_shortcut_ai_art import Test_Shortcut_AI_Art

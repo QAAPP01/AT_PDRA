@@ -40,11 +40,6 @@ except Exception:
     traceback.print_exc()
 
 
-
-# Recording path
-folder_path = os.path.join(os.path.dirname(__file__), "recording")
-os.makedirs(folder_path, exist_ok=True)
-
 def pytest_addoption(parser):
     parser.addoption("--udid", action="store", default="auto", help="device unique udid")
     parser.addoption("--systemPort", action="store", default="8200", help="uiautomator2 port")
@@ -160,6 +155,7 @@ def shortcut(driver):
 
 def pytest_terminal_summary(terminalreporter):
     logger("pytest_terminal_summary")
+
     def format_duration(seconds):
         td = datetime.timedelta(seconds=int(seconds))
         return str(td)
@@ -199,14 +195,22 @@ def log_function_test(request):
     logger(f"\n[Start] Function: {request.node.name}", log_level='info')
 
 
-def screenshot_on_failure(node, report, driver):
-    if report.failed:
-        logger(f"\n[Error] {report.longreprtext}", log_level='error')
+# === Exception Screenshot Fixture ===
 
-        failure_dir = os.path.join(os.path.dirname(__file__), "failures")
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    setattr(item, "rep_" + rep.when, rep)
+
+
+@pytest.fixture(autouse=True)
+def exception_screenshot(request, driver):
+    yield
+    if request.node.rep_call.failed:
+        failure_dir = os.path.join(os.path.dirname(__file__), "failures_screenshot")
         os.makedirs(failure_dir, exist_ok=True)
-        timestamp = time.strftime("%Y%m%d_%H%M%S")
-        screenshot_path = os.path.join(failure_dir, f"{node.name}_{timestamp}.png")
-
-        driver.driver.save_screenshot(screenshot_path)
-        allure.attach.file(screenshot_path, attachment_type=allure.attachment_type.PNG)
+        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.png")
+        driver.driver.get_screenshot_as_file(screenshot_path)
+        allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.PNG)
+        logger(f"Exception screenshot: {screenshot_path}", log_level='error')
