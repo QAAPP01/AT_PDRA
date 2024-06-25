@@ -2,6 +2,7 @@ import json
 import time
 import datetime
 import traceback
+import allure
 import os
 import pytest
 import sys
@@ -10,7 +11,6 @@ from ATFramework_aPDR.pages.page_factory import PageFactory
 from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
-from os.path import dirname as dir
 
 
 
@@ -39,11 +39,6 @@ except FileNotFoundError:
 except Exception:
     traceback.print_exc()
 
-
-
-# Recording path
-folder_path = os.path.join(os.path.dirname(__file__), "recording")
-os.makedirs(folder_path, exist_ok=True)
 
 def pytest_addoption(parser):
     parser.addoption("--udid", action="store", default="auto", help="device unique udid")
@@ -158,8 +153,9 @@ def shortcut(driver):
     return page_main, page_edit, page_media, page_preference
 
 
-def pytest_terminal_summary(terminalreporter, exitstatus, config):
+def pytest_terminal_summary(terminalreporter):
     logger("pytest_terminal_summary")
+
     def format_duration(seconds):
         td = datetime.timedelta(seconds=int(seconds))
         return str(td)
@@ -197,3 +193,24 @@ def log_class_start(request):
 @pytest.fixture(autouse=True)
 def log_function_test(request):
     logger(f"\n[Start] Function: {request.node.name}", log_level='info')
+
+
+# === Exception Screenshot Fixture ===
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    setattr(item, "rep_" + rep.when, rep)
+
+
+@pytest.fixture(autouse=True)
+def exception_screenshot(request, driver):
+    yield
+    if request.node.rep_call.failed:
+        failure_dir = os.path.join(os.path.dirname(__file__), "failures_screenshot")
+        os.makedirs(failure_dir, exist_ok=True)
+        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.png")
+        driver.driver.get_screenshot_as_file(screenshot_path)
+        allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.PNG)
+        logger(f"Exception screenshot: {screenshot_path}", log_level='error')

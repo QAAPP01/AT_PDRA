@@ -153,8 +153,8 @@ class EditPage(BasePage):
                 logger('[Warning] Did not assign media type')
 
             self.tap_blank_space()
-            if not self.enter_main_tool("Media"):
-                raise Exception('Click "Media" fail')
+            if not self.enter_main_tool("Overlay"):
+                raise Exception('Click "Overlay" fail')
             else:
                 if not self.h_click(find_string(media_type)):
                     raise Exception(f'Click "{media_type}" fail')
