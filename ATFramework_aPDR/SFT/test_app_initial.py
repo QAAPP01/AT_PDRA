@@ -11,7 +11,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 class TestInit:
     @pytest.fixture(scope='class', autouse=True)
     def driver_init(self, driver):
-        logger("Start driver session", log_level='warning')
+        logger("==== Start driver session ====")
         driver.driver.reset()
         time.sleep(1)
         driver.driver.launch_app()
