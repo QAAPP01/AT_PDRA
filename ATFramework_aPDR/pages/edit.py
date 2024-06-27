@@ -2283,21 +2283,27 @@ class Preference(BasePage):
 
     def trigger_fileName(self, enable=True):
         try:
+            # Open settings menu
             self.click(L.edit.settings.menu)
-            self.click(L.edit.settings.preference)
+            if not self.click(L.edit.settings.preference):
+                raise
+
+            # Find the display file name switch
             while not self.is_exist(L.timeline_settings.preference.display_file_name_switch, 1):
                 if self.is_exist(xpath('//*[contains(@text,"Enable All Default Tips")]'), 1):
                     raise Exception('No found display_file_name_switch')
                 else:
                     self.driver.swipe_up()
 
+            # Toggle the switch
             status = self.page_preference.check_setting(L.timeline_settings.preference.display_file_name_switch)
             if status != enable:
                 self.page_preference.click_setting(L.timeline_settings.preference.display_file_name_switch)
+
             self.click(L.timeline_settings.preference.back)
             return True
-        except Exception as err:
-            raise Exception(f'[Error] {err}')
+        except Exception as e:
+            raise e
 
 
 class Sub_item():
