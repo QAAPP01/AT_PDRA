@@ -74,9 +74,8 @@ class TestInit:
 
             page_main.h_click(L.edit.menu.home)
             # Churn Recovery
-            if page_main.h_is_exist(L.main.premium.pdr_premium, 2):
+            if page_main.h_is_exist(L.main.premium.pdr_premium, 1):
                 driver.driver.back()
-            click(L.main.premium.iap_back, 1)
             page_main.h_click(L.main.project.entry)
             page_main.h_long_press(L.main.project.project_name())
             page_main.h_click(find_string("Delete"))
