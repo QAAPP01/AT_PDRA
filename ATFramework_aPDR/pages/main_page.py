@@ -42,7 +42,11 @@ class MainPage(BasePage):
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
-            return self.is_exist(L.main.new_project, 10)
+            self.click(id('iv_close'))  # close the credit dialog
+            if self.is_exist(L.main.new_project, 10):
+                return True
+            else:
+                raise
 
     def enter_launcher(self):
         try:
@@ -50,7 +54,8 @@ class MainPage(BasePage):
             if self.click(L.main.permission.gdpr_accept, 1):
                 if self.is_exist(L.main.permission.loading_bar, 5):
                     self.h_is_not_exist(L.main.permission.loading_bar, 120)
-                self.click(L.main.premium.iap_back)
+                self.click(L.main.premium.iap_back, 2)
+                self.click(id('iv_close'))  # close the credit dialog
                 if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
                 else:
