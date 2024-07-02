@@ -52,9 +52,7 @@ class MainPage(BasePage):
         try:
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, 1):
-                if self.is_exist(L.main.permission.loading_bar, 5):
-                    self.h_is_not_exist(L.main.permission.loading_bar, 120)
-                self.click(L.main.premium.iap_back, 2)
+                self.click(L.main.premium.iap_back, 15)
                 self.click(id('iv_close'))  # close the credit dialog
                 if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
