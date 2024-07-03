@@ -9,8 +9,8 @@ from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
 original_preview = None
 
 
-@pytest.fixture(scope='module')
-def module_setup(shortcut, driver):
+@pytest.fixture(scope='class')
+def module_setup(shortcut, driver, driver_init):
     global original_preview
     page_main, page_edit, page_media, _ = shortcut
 
@@ -30,7 +30,6 @@ def module_setup(shortcut, driver):
     page_edit.back_to_launcher()
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_AI Color')
@@ -41,7 +40,7 @@ class TestMasterPhotoAdjustment_AIColor:
     MAX = '100'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
         page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
 
@@ -92,7 +91,6 @@ class TestMasterPhotoAdjustment_AIColor:
                                 7).compare_image()
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_Brightness')
@@ -103,7 +101,7 @@ class TestMasterPhotoAdjustment_Brightness:
     MAX = '100'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
         page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
 
@@ -153,7 +151,6 @@ class TestMasterPhotoAdjustment_Brightness:
                                 7).compare_image()
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_Contrast')
@@ -164,7 +161,7 @@ class TestMasterPhotoAdjustment_Contrast:
     MAX = '100'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
         page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
 
@@ -215,7 +212,6 @@ class TestMasterPhotoAdjustment_Contrast:
                                 7).compare_image()
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_Saturation')
@@ -226,7 +222,7 @@ class TestMasterPhotoAdjustment_Saturation:
     MAX = '200'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
         page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
 
@@ -277,7 +273,6 @@ class TestMasterPhotoAdjustment_Saturation:
                                 7).compare_image()
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_HSL')
@@ -288,7 +283,7 @@ class TestMasterPhotoAdjustment_HSL:
     MAX = '50'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
 
         page_edit.select_adjustment_from_bottom_edit_menu('HSL')
@@ -378,7 +373,6 @@ class TestMasterPhotoAdjustment_HSL:
         assert self.element(L.main.shortcut.hsl.luminance_value).text == self.DEFAULT
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_Hue')
@@ -389,7 +383,7 @@ class TestMasterPhotoAdjustment_Hue:
     MAX = '200'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
         page_edit.select_adjustment_from_bottom_edit_menu('Hue')
 
@@ -440,7 +434,6 @@ class TestMasterPhotoAdjustment_Hue:
                                 7).compare_image()
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_Temp')
@@ -451,7 +444,7 @@ class TestMasterPhotoAdjustment_Temp:
     MAX = '100'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
         page_edit.select_adjustment_from_bottom_edit_menu('Temp')
 
@@ -503,7 +496,6 @@ class TestMasterPhotoAdjustment_Temp:
                                 7).compare_image()
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_Tint')
@@ -514,7 +506,7 @@ class TestMasterPhotoAdjustment_Tint:
     MAX = '100'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
         page_edit.select_adjustment_from_bottom_edit_menu('Tint')
 
@@ -565,7 +557,6 @@ class TestMasterPhotoAdjustment_Tint:
                                 7).compare_image()
 
 
-@pytest.mark.usefixtures('module_setup')
 @allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Adjustment_Sharpness')
@@ -576,7 +567,7 @@ class TestMasterPhotoAdjustment_Sharpness:
     MAX = '200'
 
     @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver):
+    def class_setup(self, shortcut, driver, module_setup):
         page_main, page_edit, *_ = shortcut
         page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
 
