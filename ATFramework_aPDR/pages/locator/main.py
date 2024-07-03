@@ -6,6 +6,7 @@ class Launcher:
     new_project = id('layout_new_project')
     subscribe = id('layout_premium')
     ai_creation = id('layout_ai_creation')
+    home = id('layout_home')
 
 class AI_Creation:
     entry = id('layout_ai_creation')
@@ -34,6 +35,8 @@ class Shortcut:
     full_editor = id('tv_full_editor')
     produce_progress_bar = id('progress_bar')
     produce_full_editor = id('btn_full_editor')
+    save_to_camera_roll = id('btn_save_to_camera_roll')
+    produce_back = aid('[AID]Produce_Back')
 
     @staticmethod
     def shortcut_name(param=1):
@@ -43,6 +46,7 @@ class Shortcut:
             return xpath(f'(//*[contains(@resource-id,"tv_name")])[{param}]')
         else:
             return xpath(f'//*[contains(@resource-id,"tv_name")]')
+
 
     class hsl:
         red = id('view_red')
@@ -268,12 +272,61 @@ class Shortcut:
 
     class ai_art:
         generating = id('animated_image')
+        prompt = id('editText')
+        clear = id('btnDelete')
+        apply = id('btnConfirm')
+        custom_history = id('history_button')
+        page_title = id('tv_title')
+        close = id('iv_close')
+        regenerate = id('itemRefresh')
+        compare = id('tv_compare')
+        compare_thumb = id('iv_thumb')
+        history = id('history_button')
+        close_history = id('back_btn')
+
+        @staticmethod
+        def history_image(index: int = 1):
+            if index:
+                return xpath(f'//android.widget.FrameLayout[3]/*/*/*/*/android.view.ViewGroup[{index}]')
+            else:
+                return xpath(f'//android.widget.FrameLayout[3]/*/*/*/*/android.view.ViewGroup')
+
+        @staticmethod
+        def history_prompt(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"tv_prompt")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"tv_prompt")]')
+
         @staticmethod
         def style_name(index: int = 1):
             if index:
                 return xpath(f'(//*[contains(@resource-id,"itemName")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"itemName")]')
+
+    class ai_sketch:
+        close = id('iv_close')
+        continue_btn = id('tv_continue')
+        dont_show_again = id('checkBox')
+        crop = id('crop_button')
+        title = id('tv_title')
+        crop_close = id('cancel_btn')
+
+        @staticmethod
+        def style(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"materialCardView")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"materialCardView")]')
+
+        @staticmethod
+        def paid_style(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"itemPremium")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"itemPremium")]')
+
 
 
 

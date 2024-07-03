@@ -322,13 +322,14 @@ class MediaPage(BasePage):
     def click_music_tab(self, tab):
         """
         Click music tab
-        :param tab: 'local' or 'meta' or 'mixtape' or 'cl'
+        :param tab: 'local' or 'meta' or 'mixtape' or 'getty' or 'cl'
         :return: Boolean of success or not
         """
         tabs = {
             'local': id('tab_music_local'),
             'meta': id('tab_meta_sound'),
             'mixtape': id('tab_mix_tape_sound_clip'),
+            'getty': id('tab_sound_stripe'),
             'cl': id('tab_bgm_sound_clip'),
         }
         if tab not in tabs:
@@ -349,8 +350,9 @@ class MediaPage(BasePage):
         :return: Boolean of success or not
         """
         tabs = {
-            'meta': id('tab_meta_sound_effect_text'),
-            'cl': id('tab_sound_fx_text'),
+            'meta': id('tab_meta_sound_effect'),
+            'getty': id('tab_sound_stripe'),
+            'cl': id('tab_sound_fx'),
         }
         if tab not in tabs:
             logger(f'[Fail] Invalid tab: {tab}')

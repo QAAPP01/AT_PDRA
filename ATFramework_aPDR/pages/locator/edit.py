@@ -633,6 +633,7 @@ class Crop:
     btn_3_4 = id('btn_crop_3_4')
     btn_21_9 = id('btn_crop_21_9')
     right_top = aid('[AID]Resizable_RightTop')
+    right_bottom = aid('[AID]Resizable_RightBottom')
     boundary = id('resizable_boundary')
     apply = id('apply_btn')
     cancel = id('cancel_btn')

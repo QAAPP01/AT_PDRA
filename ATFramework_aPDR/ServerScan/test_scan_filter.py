@@ -14,7 +14,8 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
-@allure.feature("Scan Filter")
+@allure.epic("Server Scan")
+@allure.feature("Filter")
 class Test_Scan_Filter:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -27,7 +28,7 @@ class Test_Scan_Filter:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-    @allure.story("Filter Download")
+    @allure.story("Download")
     def test_filter_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")

@@ -8,7 +8,8 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 
 
-@allure.feature("Media Scan")
+@allure.epic("Server Scan")
+@allure.feature("Media")
 class Test_Scan_Media:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -21,7 +22,8 @@ class Test_Scan_Media:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-    @allure.story("Getty Video Preview")
+    @allure.story("Video")
+    @allure.title("Getty Video Preview")
     def test_getty_video_preview(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -50,7 +52,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Video Download")
+    @allure.story("Video")
+    @allure.title("Getty Video Download")
     def test_getty_video_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -72,7 +75,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Video Search/Thumbnail")
+    @allure.story("Video")
+    @allure.title("Getty Video Search/Thumbnail")
     def test_getty_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -99,7 +103,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Pro Video Preview")
+    @allure.story("Video")
+    @allure.title("Getty Pro Video Preview")
     def test_getty_pro_video_preview(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -125,7 +130,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Pro Video Download")
+    @allure.story("Video")
+    @allure.title("Getty Pro Video Download")
     def test_getty_pro_video_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -149,7 +155,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Pro Video Search/Thumbnail")
+    @allure.story("Video")
+    @allure.title("Getty Pro Video Search/Thumbnail")
     def test_getty_pro_video_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -176,7 +183,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Giphy Video Download")
+    @allure.story("Video")
+    @allure.title("Giphy Video Download")
     def test_giphy_video_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -199,7 +207,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Giphy Video Search/Thumbnail")
+    @allure.story("Video")
+    @allure.title("Giphy Video Search/Thumbnail")
     def test_giphy_video_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -226,7 +235,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pexels Video Preview")
+    @allure.story("Video")
+    @allure.title("Pexels Video Preview")
     def test_pexels_video_preview(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -252,7 +262,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pexels Video Download")
+    @allure.story("Video")
+    @allure.title("Pexels Video Download")
     def test_pexels_video_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -274,7 +285,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pexels Video Search/Thumbnail")
+    @allure.story("Video")
+    @allure.title("Pexels Video Search/Thumbnail")
     def test_pexels_video_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -301,7 +313,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pixabay Video Preview")
+    @allure.story("Video")
+    @allure.title("Pixabay Video Preview")
     def test_pixabay_video_preview(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -327,7 +340,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pixabay Video Download")
+    @allure.story("Video")
+    @allure.title("Pixabay Video Download")
     def test_pixabay_video_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -349,7 +363,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pixabay Video Search/Thumbnail")
+    @allure.story("Video")
+    @allure.title("Pixabay Video Search/Thumbnail")
     def test_pixabay_video_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -376,7 +391,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Photo Preview")
+    @allure.story("Photo")
+    @allure.title("Getty Photo Preview")
     def test_getty_photo_preview(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -402,7 +418,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Photo Download")
+    @allure.story("Photo")
+    @allure.title("Getty Photo Download")
     def test_getty_photo_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -424,7 +441,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Photo Search/Thumbnail")
+    @allure.story("Photo")
+    @allure.title("Getty Photo Search/Thumbnail")
     def test_getty_photo_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -451,7 +469,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Pro Photo Preview")
+    @allure.story("Photo")
+    @allure.title("Getty Pro Photo Preview")
     def test_getty_pro_photo_preview(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -477,7 +496,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Pro Photo Download")
+    @allure.story("Photo")
+    @allure.title("Getty Pro Photo Download")
     def test_getty_pro_photo_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -501,7 +521,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Getty Pro Photo Search/Thumbnail")
+    @allure.story("Photo")
+    @allure.title("Getty Pro Photo Search/Thumbnail")
     def test_getty_pro_photo_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -528,7 +549,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pexels Photo Preview")
+    @allure.story("Photo")
+    @allure.title("Pexels Photo Preview")
     def test_pexels_photo_preview(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -554,7 +576,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pexels Photo Download")
+    @allure.story("Photo")
+    @allure.title("Pexels Photo Download")
     def test_pexels_photo_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -576,7 +599,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pexels Photo Search/Thumbnail")
+    @allure.story("Photo")
+    @allure.title("Pexels Photo Search/Thumbnail")
     def test_pexels_photo_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -603,7 +627,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pixabay Photo Preview")
+    @allure.story("Photo")
+    @allure.title("Pixabay Photo Preview")
     def test_pixabay_photo_preview(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -629,7 +654,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pixabay Photo Download")
+    @allure.story("Photo")
+    @allure.title("Pixabay Photo Download")
     def test_pixabay_photo_download(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -651,7 +677,8 @@ class Test_Scan_Media:
 
             raise Exception
 
-    @allure.story("Pixabay Photo Search/Thumbnail")
+    @allure.story("Photo")
+    @allure.title("Pixabay Photo Search/Thumbnail")
     def test_pixabay_photo_thumbnail(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")

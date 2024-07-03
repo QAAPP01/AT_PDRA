@@ -273,12 +273,13 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
     # Create QA Report
     auto_report = True
     if auto_report:
+        fail_count = int(summary_info["failed"]) + int(summary_info["errors"])
         na_count = summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"]
         tr_dict = {"browser": "Edge",
                    "tr_no": tr_number,
                    "qr_dict": {'short_description': opts['subject'],
                                'build_day': datetime.date.today().strftime('%m%d'),
-                               'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {summary_info["failed"]}]',
+                               'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {fail_count}]',
                                'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {summary_info["failed"]}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
                                }
                    }

@@ -403,8 +403,12 @@ class HCompareImg(object):
 
             image_1 = cv2.imread(self.image_1_path, cv2.IMREAD_GRAYSCALE)
             image_2 = cv2.imread(self.image_2_path, cv2.IMREAD_GRAYSCALE)
-            logger(f'Image 1: {self.image_1_path}')
-            logger(f'Image 2: {self.image_2_path}')
+            logger(f'Image 1: {self.image_1_path}, shape: {image_1.shape}')
+            logger(f'Image 2: {self.image_2_path}, shape: {image_2.shape}')
+
+            if image_1.shape != image_2.shape:
+                logger(f'Images shape are different')
+                return False
 
             ssim_index, _ = ssim(image_1, image_2, full=True)
             # euclidean_distance = np.linalg.norm(image_1 - image_2)

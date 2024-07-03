@@ -90,7 +90,7 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
                 if any(x for x in level_strings if x in msg):
                     return levels, get_color(colors)
 
-        return logging.DEBUG, get_color('debug')
+        return logging.INFO, get_color('info')
 
     level, color = get_log_level()
 

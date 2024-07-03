@@ -11,7 +11,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 class TestInit:
     @pytest.fixture(scope='class', autouse=True)
     def driver_init(self, driver):
-        logger("Start driver session", log_level='warning')
+        logger("==== Start driver session ====")
         driver.driver.reset()
         time.sleep(1)
         driver.driver.launch_app()
@@ -28,6 +28,11 @@ class TestInit:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
+
+    @allure.feature("Expand pip track")
+    def expand_pip_track(self):
+        self.page_main.h_click(L.edit.menu.settings)
+        self.page_main.h_click(find_string('Expand Track Height'), 2)
 
     @allure.feature("Close overlay tip")
     def close_overlay_tip(self):
@@ -48,10 +53,7 @@ class TestInit:
             page_main.click(('id', 'tv_continue'))
             page_main.h_click(("id", "tv_hint"), 2)
 
-            # expand pip track
-            page_main.h_click(L.edit.menu.settings)
-            page_main.h_click(find_string('Expand Track Height'), 2)
-
+            self.expand_pip_track()
             self.close_overlay_tip()
 
             if not page_main.h_click(L.edit.preview.import_tips_icon, timeout=1):
@@ -63,8 +65,7 @@ class TestInit:
             page_main.h_click(("xpath", '(//*[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/source_image_view"])[2]'))
             page_main.h_click(L.import_media.media_library.apply)
 
-            if not page_edit.preference.trigger_fileName(enable=True):
-                raise Exception('trigger_fileName fail')
+            self.page_edit.preference.trigger_fileName(enable=True)
 
             page_main.h_click(('id', 'transition_hint'))
             page_main.h_click(L.edit.menu.play)
@@ -73,9 +74,8 @@ class TestInit:
 
             page_main.h_click(L.edit.menu.home)
             # Churn Recovery
-            if page_main.h_is_exist(L.main.premium.pdr_premium, 2):
+            if page_main.h_is_exist(L.main.premium.pdr_premium, 1):
                 driver.driver.back()
-            click(L.main.premium.iap_back, 1)
             page_main.h_click(L.main.project.entry)
             page_main.h_long_press(L.main.project.project_name())
             page_main.h_click(find_string("Delete"))

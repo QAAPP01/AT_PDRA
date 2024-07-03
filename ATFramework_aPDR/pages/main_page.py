@@ -42,44 +42,43 @@ class MainPage(BasePage):
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
-            self.click(L.main.subscribe.back_btn)
-            return self.is_exist(L.main.new_project, 10)
+            self.click(id('iv_close'))  # close the credit dialog
+            if self.is_exist(L.main.new_project, 10):
+                return True
+            else:
+                raise
 
     def enter_launcher(self):
         try:
             # 1st Launch
-            if self.click(L.main.permission.gdpr_accept, timeout=1):
-                if self.h_is_not_exist(L.main.permission.loading_bar, 120):
-                    time.sleep(1)
-                    self.click(L.main.premium.iap_back)
+            if self.click(L.main.permission.gdpr_accept, 1):
+                if self.is_exist(L.main.permission.loading_bar, 5):
+                    self.h_is_not_exist(L.main.permission.loading_bar, 120)
+                self.click(L.main.premium.iap_back, 2)
+                self.click(id('iv_close'))  # close the credit dialog
+                if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
                 else:
-                    logger('Enter Launcher Fail')
+                    logger('Enter Launcher Fail', log_level='error')
                     return False
             # 2nd Launch
             else:
-                if self.is_exist(L.main.permission.loading_bar, 5):
+                if self.is_exist(L.main.permission.loading_bar, 1):
                     self.h_is_not_exist(L.main.permission.loading_bar, 120)
-                    opening_activity = "com.cyberlink.powerdirector.tutorial.OpenIntroActivity"
-                    current_activity = self.driver.driver.current_activity
-                    if current_activity == opening_activity:
-                        time.sleep(1)
-                        self.h_click(L.main.tutorials.close_open_tutorial)
-                        self.h_click(L.main.premium.iap_back)
-                        logger('Enter Launcher Done')
+                if self.is_exist(L.main.tutorials.close_open_tutorial, 1):
+                    self.h_click(L.main.tutorials.close_open_tutorial)
+                    self.click(L.main.premium.iap_back, 1)
+                else:
+                    # Churn Recovery
+                    if self.h_is_exist(L.main.premium.pdr_premium, 1):
+                        self.driver.driver.back()
                     else:
-                        time.sleep(1)
-                        # Churn Recovery
-                        if self.h_is_exist(L.main.premium.pdr_premium, 1):
-                            self.driver.driver.back()
-                            logger('Enter Launcher Done')
-                        else:
-                            # IAP
-                            self.click(L.main.premium.iap_back, 1)
-                            logger('Enter Launcher Done')
-                            return True
+                        # IAP
+                        self.click(L.main.premium.iap_back, 1)
 
             self.subscribe()
+            logger('Enter Launcher Done')
+            return True
 
         except Exception:
             traceback.print_exc()
@@ -1279,13 +1278,22 @@ class Shortcut:
             traceback.print_exc()
             return False
 
-
-
-    def waiting_generated(self, timeout=120):
+    def waiting_generated(self, gen_btn=None, retry=30, timeout=120):
         try:
-            if self.is_exist(L.main.shortcut.ai_art.generating, 2):
-                self.is_not_exist(L.main.shortcut.ai_art.generating, timeout)
-            return True
+            for i in range(retry):
+                if gen_btn:
+                    self.click(gen_btn)
+                self.click(aid('[AID]ConfirmDialog_No'), 1)
+
+                if self.is_exist(L.main.shortcut.ai_art.generating, 1):
+                    self.is_not_exist(L.main.shortcut.ai_art.generating, timeout)
+
+                if not self.click(id('ok_button'), 1):
+                    break
+            else:
+                raise Exception(f"Exceeded retry limit: {retry}")
+
         except Exception:
             traceback.print_exc()
-            return False
+            raise
+
