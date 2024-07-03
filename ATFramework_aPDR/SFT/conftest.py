@@ -138,12 +138,12 @@ def driver():
     appium.stop()
 
 
-# @pytest.fixture(scope='module', autouse=True)
-# def driver_init(driver):
-#     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
-#     driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
-#     yield
-#     driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+@pytest.fixture(scope='class', autouse=True)
+def driver_init(driver):
+    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
+    driver.activate_app('com.cyberlink.powerdirector.DRA140225_01')
+    yield
+    driver.stop_app('com.cyberlink.powerdirector.DRA140225_01')
 
 
 @pytest.fixture(scope="session")
