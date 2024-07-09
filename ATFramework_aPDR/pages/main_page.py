@@ -52,9 +52,7 @@ class MainPage(BasePage):
         try:
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, 1):
-                if self.is_exist(L.main.permission.loading_bar, 5):
-                    self.h_is_not_exist(L.main.permission.loading_bar, 120)
-                self.click(L.main.premium.iap_back, 2)
+                self.click(L.main.premium.iap_back, 15)
                 self.click(id('iv_close'))  # close the credit dialog
                 if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
@@ -85,12 +83,14 @@ class MainPage(BasePage):
             return False
 
     def enter_shortcut(self, name):
-        self.click(xpath('//*[@text="More"]'))
+
         if not self.is_exist(L.main.shortcut.shortcut_name(name), 1):
-            logger(f'[Fail] Cannot find the shortcut "{name}"')
+            self.click(xpath('//*[@text="More"]'))
+        if self.click(L.main.shortcut.shortcut_name(name)):
+            return True
+        else:
+            logger(f'[Error] Cannot find the shortcut "{name}"', 'error')
             return False
-        self.click(L.main.shortcut.shortcut_name(name))
-        return True
 
     def enter_ai_feature(self, name):
         if self.click(find_string(name), 2):

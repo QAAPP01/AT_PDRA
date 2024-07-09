@@ -6,6 +6,7 @@ import allure
 import os
 import pytest
 import sys
+from PIL import Image
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from main_server_sacn import package_name
@@ -210,7 +211,16 @@ def exception_screenshot(request, driver):
     if request.node.rep_call.failed:
         failure_dir = os.path.join(os.path.dirname(__file__), "failures_screenshot")
         os.makedirs(failure_dir, exist_ok=True)
-        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.png")
+        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.jpg")
+
         driver.driver.get_screenshot_as_file(screenshot_path)
-        allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.PNG)
+
+        image = Image.open(screenshot_path)
+        width, height = image.size
+        new_width = 360
+        new_height = int(height * (new_width / width))
+        resized_image = image.resize((new_width, new_height), Image.ANTIALIAS)
+        resized_image.save(screenshot_path, 'JPEG', quality=85)
+
+        allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)
         logger(f"Exception screenshot: {screenshot_path}", log_level='error')
