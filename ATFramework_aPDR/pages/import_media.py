@@ -289,21 +289,16 @@ class MediaPage(BasePage):
         logger("[Warning] waiting timeout")
         return False
 
-    def waiting_download(self, timeout=120):
-        if self.h_is_exist(L.import_media.media_library.loading_text, 3):
-            if self.h_is_not_exist(L.import_media.media_library.loading_text):
-                return True
-            else:
-                logger("[Warning] downloading timeout")
-                return False
-
     def waiting_loading(self, timeout=120):
-        if self.h_is_exist(L.import_media.media_library.loading_text, 3):
+        if self.h_is_exist(L.import_media.media_library.loading_text, 5):
             if self.h_is_not_exist(L.import_media.media_library.loading_text, timeout):
                 return True
             else:
-                logger("[Warning] loading timeout")
+                logger("[Warning] loading timeout", "warn")
                 return False
+
+    def waiting_download(self, timeout=120):
+        self.waiting_loading(timeout)
 
     def import_last_folder(self):
         logger ("start >> import_last_folder <<")

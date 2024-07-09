@@ -37,6 +37,9 @@ class Shortcut:
     produce_full_editor = id('btn_full_editor')
     save_to_camera_roll = id('btn_save_to_camera_roll')
     produce_back = aid('[AID]Produce_Back')
+    produce_percentage = id('progress_percentage')
+    save = id('btn_save')
+    upgrade = id('btn_upgrade')
 
     @staticmethod
     def shortcut_name(param=1):

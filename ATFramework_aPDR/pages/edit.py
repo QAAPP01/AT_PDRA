@@ -2188,16 +2188,20 @@ class EditPage(BasePage):
             raise Exception
 
     def waiting(self, timeout=120):
-        logger(f'[Info] Start waiting {timeout} sec...')
-        time.sleep(1)
-        for i in range(timeout):
-            if self.is_exist(find_string("Cancel"), 1):
-                continue
-            else:
-                logger(f'[Info] Complete!')
+        if self.is_exist(find_string("Cancel"), 5):
+            if self.h_is_not_exist(find_string("Cancel"), timeout):
                 return True
-        logger("[Warning] loading timeout")
-        return False
+            else:
+                logger("[Warning] Waiting timeout", "warn")
+                return False
+
+    def waiting_produce(self, timeout=120):
+        if self.h_is_exist(L.main.shortcut.produce_percentage, 5):
+            if self.h_is_not_exist(L.main.shortcut.produce_percentage, timeout):
+                return True
+            else:
+                logger("[Warning] produce timeout", "warn")
+                return False
 
     class Sticker:
         def __init__(self, edit):

@@ -83,6 +83,7 @@ class TestInit:
                 page_main.h_click(L.main.project.dialog_ok)
                 logger("\n[Done] app_initial")
                 return True
+
             except Exception as err:
                 logger(f'[Error] {err}')
                 driver.driver.close_app()

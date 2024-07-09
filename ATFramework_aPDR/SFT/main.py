@@ -1,9 +1,23 @@
 from .test_app_initial import *
 
 # Shortcut
-from .test_shortcut_ai_art import Test_Shortcut_AI_Art
-from .test_shortcut_ai_cartoon import Test_Shortcut_AI_Cartoon
-from .test_shortcut_ai_sketch import Test_Shortcut_AI_Sketch
+from .test_shortcut_ai_art import *
+from .test_shortcut_ai_cartoon import *
+from .test_shortcut_ai_sketch import *
+from .test_shortcut_cutout import *
+from .test_shortcut_speed import *
+from .test_shortcut_trim import *
+from .test_shortcut_crop_rotate import *
+from .test_shortcut_stabilizer import *
+from .test_shortcut_mosaic import *
+from .test_shortcut_image_enhancement import *
+from .test_shortcut_video_effect import *
+from .test_shortcut_tempo_effect import *
+from .test_shortcut_body_effect import *
+from .test_shortcut_ai_color import *
+from .test_shortcut_filter import *
+from .test_shortcut_auto_caption import *
+from .test_shortcut_voice_changer import *
 
 # Master
 from ATFramework_aPDR.SFT.test_timeline_master_replace import *
@@ -48,10 +62,9 @@ from .test_timeline_pip_music import Test_PiP_Music_AI_Voice_Chagner
 # from .test_shortcut_stabilizer_06_02 import Test_Shortcut_Stabilizer
 # from .test_shortcut_body_effect_06_03 import Test_Shortcut_Body_Effect
 # # from .test_shortcut_anime_art_06_04 import Test_Anime_Art
-# from .test_shortcut_cutout_06_05 import Test_Shortcut_Cutout
 # from .test_shortcut_video_effect_06_06 import Test_Shortcut_Video_Effect
 # from .test_shortcut_crop_06_07 import Test_Shortcut_Crop
-# from .test_shortcut_speed_06_08 import Test_Shortcut_Speed
+
 # from .test_shortcut_mosaic_06_09 import Test_Shortcut_Mosaic
 # from .test_shortcut_filter_06_10 import Test_Shortcut_Filter
 #
