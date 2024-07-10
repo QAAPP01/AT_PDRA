@@ -219,7 +219,9 @@ def exception_screenshot(request, driver):
         width, height = image.size
         new_width = 360
         new_height = int(height * (new_width / width))
-        resized_image = image.resize((new_width, new_height), Image.ANTIALIAS)
+        resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+        if resized_image.mode == 'RGBA':
+            resized_image = resized_image.convert('RGB')
         resized_image.save(screenshot_path, 'JPEG', quality=85)
 
         allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)
