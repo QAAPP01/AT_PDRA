@@ -985,7 +985,8 @@ class Ecl_Operation():
                 break
             retry += 1
         if not result_download:
-            return False
+            logger(f'[download_build_by_tr] Download TR build failed. {src_path=}')
+            exit(1)
         logger('Download TR build completely.')
         return True
 
