@@ -19,7 +19,7 @@ class Test_PiP_Sticker_Opacity:
         logger("[Start] Init driver session")
         driver.driver.launch_app()
         yield
-        # driver.driver.close_app()
+        driver.driver.close_app()
 
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -156,6 +156,15 @@ class Test_PiP_Sticker_Opacity:
 
         except Exception:
             traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_sticker_library("Sticker")
+            self.page_media.select_sticker_by_order(order=3)
+            self.page_media.waiting_download()
+            self.click(L.edit.sticker.close)
 
             raise Exception
 
@@ -184,12 +193,6 @@ class Test_PiP_Sticker_Fade:
         logger(f"\n[Start] {func_name}")
 
         try:
-            # self.page_main.enter_launcher()
-            # self.page_main.enter_timeline()
-            # self.page_edit.enter_sticker_library("Sticker")
-            # self.page_media.select_sticker_by_order(order=3)
-            # self.page_media.waiting_download()
-            # self.click(L.edit.sticker.close)
             self.page_edit.click_sub_tool('Fade')
 
             assert self.is_exist(L.edit.fade.fade_in) and self.is_exist(L.edit.fade.fade_out)
@@ -266,7 +269,6 @@ class Test_PiP_Sticker_Fade:
             self.page_media.select_sticker_by_order(order=3)
             self.page_media.waiting_download()
             self.click(L.edit.sticker.close)
-            self.page_edit.click_sub_tool('Fade')
             raise Exception
 
 
@@ -274,13 +276,6 @@ class Test_PiP_Sticker_Fade:
 @allure.feature("Sticker")
 @allure.story("Blending")
 class Test_PiP_Sticker_Blending:
-    # @pytest.fixture(scope='class', autouse=True)
-    # def driver_init(self, driver):
-    #     logger("[Start] Init driver session")
-    #     driver.driver.launch_app()
-    #     yield
-    #     driver.driver.close_app()
-
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
@@ -300,12 +295,6 @@ class Test_PiP_Sticker_Blending:
         logger(f"\n[Start] {func_name}")
 
         try:
-            # self.page_main.enter_launcher()
-            # self.page_main.enter_timeline()
-            # self.page_edit.enter_sticker_library("Sticker")
-            # self.page_media.select_sticker_by_order(order=3)
-            # self.page_media.waiting_download()
-            # self.click(L.edit.sticker.close)
             self.page_edit.click_sub_tool('Blending')
 
             assert self.is_exist(L.edit.fx_layer.filter.item(1))
