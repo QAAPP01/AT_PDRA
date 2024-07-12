@@ -152,6 +152,10 @@ class ai_audio_tool:
     filter_save = id('save_btn')
     filter_reset = id('reset_btn')
     voice_changer_on_off = id('voice_changer_btn')
+    filter_panel = id('filter_container')
+    filter_option = id('bg_selected')
+    ai_voice_changer_panel = id('recycler_voice')
+    cat_Professional = aid('Professional')
 
     strength_slider = id("strength_seekbar")
     compensation_slider = id("compensation_seekbar")
