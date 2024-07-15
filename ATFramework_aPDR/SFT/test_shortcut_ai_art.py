@@ -146,7 +146,7 @@ class Test_Shortcut_AI_Art:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
 
-            assert self.is_exist(find_string('Export'))
+            assert self.is_exist(L.main.shortcut.export)
 
         except Exception as e:
             traceback.print_exc()
