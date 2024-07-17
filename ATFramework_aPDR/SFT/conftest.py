@@ -151,7 +151,8 @@ def shortcut(driver):
     page_edit = PageFactory().get_page_object("edit", driver)
     page_media = PageFactory().get_page_object("import_media", driver)
     page_preference = PageFactory().get_page_object("timeline_settings", driver)
-    return page_main, page_edit, page_media, page_preference
+    page_shortcut = PageFactory().get_page_object("shortcut", driver)
+    return page_main, page_edit, page_media, page_preference, page_shortcut
 
 
 def pytest_terminal_summary(terminalreporter):
