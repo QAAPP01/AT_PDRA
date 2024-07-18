@@ -162,40 +162,6 @@ class Test_Shortcut_Cutout:
             self.page_main.enter_launcher()
             self.page_shortcut.enter_editor('Cutout')
 
-
-
-
-
-    def sce_6_5_7(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        try:
-            self.click(L.main.shortcut.editor_back)
-
-            if self.is_exist(find_string('Add Media')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter media picker')
-
-        except Exception as err:
-            self.stop_recording(func_name)
-            traceback.print_exc()
-            
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Cutout')
-            self.click(L.main.shortcut.try_it_now)
-
-            return "FAIL"
-
-
     @allure.story("Editor")
     @allure.title("Export")
     def test_export(self):

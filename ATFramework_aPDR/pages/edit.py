@@ -2192,7 +2192,7 @@ class EditPage(BasePage):
             if self.h_is_not_exist(find_string("Cancel"), timeout):
                 return True
             else:
-                logger("[Warning] Waiting timeout", "warn")
+                logger("[Warning] Waiting timeout", log_level="warn")
                 return False
 
     def waiting_produce(self, timeout=60):
@@ -2206,7 +2206,7 @@ class EditPage(BasePage):
                     previous_percentage = current_percentage
                     continue
                 else:
-                    logger("[Warning] produce timeout", "warn")
+                    logger("[Warning] produce timeout", log_level="warn")
                     return False
 
     class Sticker:
