@@ -19,7 +19,7 @@ photo_16_9 = 'photo_16_9.jpg'
 class Test_Shortcut_Stabilizer:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -50,62 +50,121 @@ class Test_Shortcut_Stabilizer:
 
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Stabilizer')
-
-            pytest.fail(f"{str(e)}")
-
     @allure.story("Entry")
+    @allure.title("Back from demo")
+    def test_back_from_demo(self, driver):
+        try:
+            assert self.page_shortcut.back_from_demo()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+
+    @allure.story("Media")
     @allure.title("Enter Media Picker")
     def test_entry_media_picker(self, driver):
         try:
-            self.click(L.main.shortcut.try_it_now)
+            assert self.page_shortcut.enter_media_picker('Stabilizer')
 
-            assert self.is_exist(find_string('Add Media'))
-
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Stabilizer')
-            self.click(L.main.shortcut.try_it_now)
+            self.page_shortcut.enter_media_picker('Stabilizer')
 
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Entry")
-    @allure.title("Enter Editor")
-    def test_entry_editor(self, driver):
+    @allure.story("Media")
+    @allure.title("Back from media picker")
+    def test_back_from_media_picker(self, driver):
         try:
-            self.page_media.select_local_video(test_material_folder, video_9_16)
-            self.page_edit.waiting()
+            assert self.page_shortcut.back_from_media_picker()
 
-            assert self.is_exist(L.main.shortcut.export)
-
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Stabilizer')
-            self.page_media.select_local_video(test_material_folder, video_9_16)
-            self.page_edit.waiting()
 
-            pytest.fail(f"{str(e)}")
+    @allure.story("Media")
+    @allure.title("Enter trim before edit")
+    def test_entry_trim_before_edit(self, driver):
+        try:
+            assert self.page_shortcut.enter_trim_before_edit('Stabilizer')
 
-    @allure.story("Entry")
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_trim_before_edit('Stabilizer')
+
+    @allure.story("Media")
+    @allure.title("Back from trim before edit")
+    def test_back_from_trim_before_edit(self, driver):
+        try:
+            assert self.page_shortcut.back_from_trim()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_media_picker('Stabilizer')
+
+    @allure.story("Media")
+    @allure.title("Trim video and edit")
+    def test_trim_and_edit(self, driver):
+        try:
+            assert self.page_shortcut.trim_and_edit()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_editor('Stabilizer')
+
+    @allure.story("Media")
+    @allure.title("Back from editor")
+    def test_back_from_editor(self, driver):
+        try:
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_media_picker('Stabilizer')
+
+    @allure.story("Media")
+    @allure.title("Enter editor")
+    def test_enter_editor(self, driver):
+        try:
+            assert self.page_shortcut.enter_editor()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_editor('Stabilizer')
+
+    @allure.story("Editor")
     @allure.title("Export")
-    def test_entry_export(self, driver):
+    def test_export(self):
         try:
-            self.click(L.main.shortcut.export)
-            self.click(L.main.shortcut.produce)
-            self.page_edit.waiting_produce()
+            assert self.page_shortcut.export()
 
-            assert self.is_exist(L.main.shortcut.save_to_camera_roll)
-
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-
-            pytest.fail(f"{str(e)}")
-
-

@@ -12,9 +12,9 @@ import subprocess
 from pathlib import Path
 from appium.webdriver.common.touch_action import TouchAction
 from ATFramework_aPDR.pages.locator import locator as L
+from .locator.locator_type import *
 from .locator.locator import edit as E
 from .locator.locator import import_media as I
-from .locator.locator_type import *
 from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 
 pdr_package = PACKAGE_NAME

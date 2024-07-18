@@ -19,7 +19,7 @@ photo_16_9 = 'photo_16_9.jpg'
 class Test_Shortcut_Speed:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -39,7 +39,7 @@ class Test_Shortcut_Speed:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('Speed')
+            self.page_shortcut.enter_shortcut('Speed')
 
             assert self.is_exist(find_string('Add Media'))
 
@@ -49,164 +49,100 @@ class Test_Shortcut_Speed:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Speed')
+            self.page_shortcut.enter_shortcut('Speed')
 
-            pytest.fail(f"{str(e)}")
-
-
-
-
-
-    def sce_6_8_2(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.story("Media")
+    @allure.title("Back from media picker")
+    def test_back_from_media_picker(self, driver):
         try:
-            self.click(L.import_media.media_library.back)
-
-            if self.is_exist(L.main.shortcut.shortcut_name(0)):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot return launcher')
-
-        except Exception as err:
-            self.stop_recording(func_name)
-            traceback.print_exc()
+            assert self.page_shortcut.back_from_media_picker()
             
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-
-            return "FAIL"
-
-    def sce_6_8_3(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        try:
-            self.page_main.enter_shortcut('Speed')
-            self.click(L.import_media.media_library.btn_preview())
-            self.click(L.import_media.media_library.trim_back)
-
-            if self.is_exist(find_string('Add Media')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter media picker')
-
-        except Exception as err:
-            self.stop_recording(func_name)
-            traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Speed')
-
-            return "FAIL"
-
-    def sce_6_8_4(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        try:
-            self.click(L.import_media.media_library.btn_preview())
-            self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
-            self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
-            self.click(L.import_media.media_library.trim_next)
-            self.page_edit.waiting()
-
-            if self.is_exist(find_string('Export')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter Speed')
-
-        except Exception as err:
-            self.stop_recording(func_name)
-            traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Speed')
-            self.click(L.import_media.media_library.btn_preview())
-            self.click(L.import_media.media_library.trim_next)
-
-            return "FAIL"
-
-    def sce_6_8_5(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        try:
-            self.click(L.main.shortcut.editor_back)
-
-            if self.is_exist(find_string('Add Media')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter media picker')
-
-        except Exception as err:
-            self.stop_recording(func_name)
-            traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Speed')
-
-            return "FAIL"
-
-    @allure.story("Entry")
-    @allure.title("Enter Editor")
-    def test_entry_editor(self, driver):
-        try:
-            self.page_media.select_local_video(test_material_folder, video_9_16)
-            self.page_edit.waiting()
-
-            assert self.is_exist(L.main.shortcut.export)
-
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Speed')
-            self.page_media.select_local_video(test_material_folder, video_9_16)
-            self.page_edit.waiting()
 
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Entry")
-    @allure.title("Export")
-    def test_entry_export(self, driver):
+    @allure.story("Media")
+    @allure.title("Enter trim before edit")
+    def test_entry_trim_before_edit(self, driver):
         try:
-            self.click(L.main.shortcut.export)
-            self.click(L.main.shortcut.produce)
-            self.page_edit.waiting_produce()
+            assert self.page_shortcut.enter_trim_before_edit('Speed')
 
-            assert self.is_exist(L.main.shortcut.save_to_camera_roll)
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
 
-        except Exception as e:
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_trim_before_edit('Speed')
+            
+    @allure.story("Media")
+    @allure.title("Back from trim before edit")
+    def test_back_from_trim_before_edit(self, driver):
+        try:
+            assert self.page_shortcut.back_from_trim()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_media_picker('Speed')
+
+    @allure.story("Media")
+    @allure.title("Trim video and edit")
+    def test_trim_and_edit(self, driver):
+        try:
+            assert self.page_shortcut.trim_and_edit()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_editor('Speed')
+
+    @allure.story("Media")
+    @allure.title("Back from editor")
+    def test_back_from_editor(self, driver):
+        try:
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_media_picker('Speed')
+
+    @allure.story("Media")
+    @allure.title("Enter editor")
+    def test_enter_editor(self, driver):
+        try:
+            assert self.page_shortcut.enter_editor()
+
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_editor('Speed')
+
+    @allure.story("Editor")
+    @allure.title("Export")
+    def test_export(self):
+        try:
+            assert self.page_shortcut.export()
+
+        except Exception:
             traceback.print_exc()
 
-            pytest.fail(f"{str(e)}")
 
     def sce_6_8_7(self):
         func_name = inspect.stack()[0][3]
@@ -234,7 +170,7 @@ class Test_Shortcut_Speed:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Speed')
+            self.page_shortcut.enter_shortcut('Speed')
             self.page_media.select_local_video(test_material_folder,video_9_16)
             self.page_edit.waiting()
 
@@ -265,7 +201,7 @@ class Test_Shortcut_Speed:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Speed')
+            self.page_shortcut.enter_shortcut('Speed')
             self.page_media.select_local_video(test_material_folder,video_9_16)
             self.page_edit.waiting()
 
@@ -295,7 +231,7 @@ class Test_Shortcut_Speed:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Speed')
+            self.page_shortcut.enter_shortcut('Speed')
             self.page_media.select_local_video(test_material_folder,video_9_16)
             self.page_edit.waiting()
 

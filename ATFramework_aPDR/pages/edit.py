@@ -2192,16 +2192,22 @@ class EditPage(BasePage):
             if self.h_is_not_exist(find_string("Cancel"), timeout):
                 return True
             else:
-                logger("[Warning] Waiting timeout", "warn")
+                logger("[Warning] Waiting timeout", log_level="warn")
                 return False
 
-    def waiting_produce(self, timeout=120):
+    def waiting_produce(self, timeout=60):
         if self.h_is_exist(L.main.shortcut.produce_percentage, 5):
-            if self.h_is_not_exist(L.main.shortcut.produce_percentage, timeout):
-                return True
-            else:
-                logger("[Warning] produce timeout", "warn")
-                return False
+            previous_percentage = self.element(L.main.shortcut.produce_percentage).text
+            while True:
+                if self.h_is_not_exist(L.main.shortcut.produce_percentage, timeout):
+                    return True
+                current_percentage = self.element(L.main.shortcut.produce_percentage).text
+                if current_percentage != previous_percentage:
+                    previous_percentage = current_percentage
+                    continue
+                else:
+                    logger("[Warning] produce timeout", log_level="warn")
+                    return False
 
     class Sticker:
         def __init__(self, edit):
