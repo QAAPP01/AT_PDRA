@@ -67,8 +67,10 @@ class Test_PiP_Import_Video:
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             assert self.is_exist(L.edit.timeline.item_view_thumbnail_view)
+
+
 
         except Exception:
             traceback.print_exc()
@@ -79,7 +81,7 @@ class Test_PiP_Import_Video:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             raise Exception
 
 @allure.epic('Timeline_PiP_Video')
@@ -117,7 +119,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -139,7 +141,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             raise Exception
 
@@ -161,7 +163,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             raise Exception
@@ -185,7 +187,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             raise Exception
@@ -196,10 +198,10 @@ class Test_PiP_Video_Adjustment_AI_Color:
         logger(f"\n[Start] {func_name}")
 
         try:
-            pic_base = self.page_edit.get_preview_pic()
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not CompareImage(pic_base, pic_after, 7).compare_image()
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(20, 100)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
         except Exception:
             traceback.print_exc()
@@ -210,7 +212,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             raise Exception
@@ -233,7 +235,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -272,7 +274,7 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             raise Exception
 
@@ -294,7 +296,7 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             raise Exception
@@ -318,7 +320,7 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             raise Exception
@@ -329,10 +331,10 @@ class Test_PiP_Video_Adjustment_Brightness:
         logger(f"\n[Start] {func_name}")
 
         try:
-            pic_base = self.page_edit.get_preview_pic()
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not CompareImage(pic_base, pic_after, 7).compare_image()
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
         except Exception:
             traceback.print_exc()
@@ -343,7 +345,7 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             raise Exception
@@ -366,7 +368,7 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -405,7 +407,7 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             raise Exception
 
@@ -427,7 +429,7 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             raise Exception
@@ -451,7 +453,7 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             raise Exception
@@ -462,10 +464,10 @@ class Test_PiP_Video_Adjustment_Contrast:
         logger(f"\n[Start] {func_name}")
 
         try:
-            pic_base = self.page_edit.get_preview_pic()
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not CompareImage(pic_base, pic_after, 7).compare_image()
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
         except Exception:
             traceback.print_exc()
@@ -476,7 +478,7 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             raise Exception
@@ -499,7 +501,7 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -538,7 +540,7 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             raise Exception
 
@@ -560,7 +562,7 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             raise Exception
@@ -584,7 +586,7 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             raise Exception
@@ -595,10 +597,10 @@ class Test_PiP_Video_Adjustment_Saturation:
         logger(f"\n[Start] {func_name}")
 
         try:
-            pic_base = self.page_edit.get_preview_pic()
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not CompareImage(pic_base, pic_after, 7).compare_image()
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
         except Exception:
             traceback.print_exc()
@@ -609,7 +611,7 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             raise Exception
@@ -632,7 +634,7 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -673,7 +675,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
@@ -693,7 +695,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
@@ -715,7 +717,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
@@ -739,7 +741,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
@@ -758,7 +760,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
@@ -780,7 +782,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
@@ -804,7 +806,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
@@ -823,7 +825,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
@@ -845,7 +847,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
@@ -869,7 +871,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
@@ -894,7 +896,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -934,7 +936,7 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             raise Exception
 
@@ -956,7 +958,7 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             raise Exception
@@ -980,7 +982,7 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             raise Exception
@@ -991,10 +993,10 @@ class Test_PiP_Video_Adjustment_Hue:
         logger(f"\n[Start] {func_name}")
 
         try:
-            pic_base = self.page_edit.get_preview_pic()
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not CompareImage(pic_base, pic_after, 7).compare_image()
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
         except Exception:
             traceback.print_exc()
@@ -1005,7 +1007,7 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             raise Exception
@@ -1028,7 +1030,7 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -1067,7 +1069,7 @@ class Test_PiP_Video_Adjustment_Temp:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             raise Exception
 
@@ -1089,7 +1091,7 @@ class Test_PiP_Video_Adjustment_Temp:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             raise Exception
@@ -1113,7 +1115,7 @@ class Test_PiP_Video_Adjustment_Temp:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             raise Exception
@@ -1124,24 +1126,24 @@ class Test_PiP_Video_Adjustment_Temp:
         logger(f"\n[Start] {func_name}")
 
         try:
-            pic_base = self.page_edit.get_preview_pic()
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not CompareImage(pic_base, pic_after, 7).compare_image()
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
         except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+                traceback.print_exc()
+                driver.driver.close_app()
+                driver.driver.launch_app()
 
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
-            self.page_edit.click_sub_tool('Adjustment')
-            self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
-            raise Exception
+                self.page_main.enter_launcher()
+                self.page_main.enter_timeline()
+                self.page_edit.enter_main_tool('Overlay')
+                self.click(L.import_media.menu.overlay_video)
+                self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+                self.page_edit.click_sub_tool('Adjustment')
+                self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
+                raise Exception
 
     @allure.title('Reset')
     def test_hue_reset(self, driver):
@@ -1161,7 +1163,7 @@ class Test_PiP_Video_Adjustment_Temp:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -1200,7 +1202,7 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             raise Exception
 
@@ -1222,7 +1224,7 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             raise Exception
@@ -1246,7 +1248,7 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             raise Exception
@@ -1257,10 +1259,10 @@ class Test_PiP_Video_Adjustment_Tint:
         logger(f"\n[Start] {func_name}")
 
         try:
-            pic_base = self.page_edit.get_preview_pic()
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not CompareImage(pic_base, pic_after, 7).compare_image()
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
         except Exception:
             traceback.print_exc()
@@ -1271,7 +1273,7 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             raise Exception
@@ -1294,7 +1296,7 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
@@ -1333,7 +1335,7 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             raise Exception
 
@@ -1355,7 +1357,7 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             raise Exception
@@ -1379,7 +1381,7 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             raise Exception
@@ -1390,10 +1392,10 @@ class Test_PiP_Video_Adjustment_Sharpness:
         logger(f"\n[Start] {func_name}")
 
         try:
-            pic_base = self.page_edit.get_preview_pic()
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not CompareImage(pic_base, pic_after, 7).compare_image()
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
         except Exception:
             traceback.print_exc()
@@ -1404,7 +1406,7 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             raise Exception
@@ -1427,6 +1429,6 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mp4.mp4')
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
