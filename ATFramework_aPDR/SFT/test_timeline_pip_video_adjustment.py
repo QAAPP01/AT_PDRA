@@ -28,7 +28,7 @@ class Test_PiP_Import_Video:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -89,7 +89,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -244,7 +244,7 @@ class Test_PiP_Video_Adjustment_Brightness:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -377,7 +377,7 @@ class Test_PiP_Video_Adjustment_Contrast:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -510,7 +510,7 @@ class Test_PiP_Video_Adjustment_Saturation:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -643,7 +643,7 @@ class Test_PiP_Video_Adjustment_HSL:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -905,7 +905,7 @@ class Test_PiP_Video_Adjustment_Hue:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -1039,7 +1039,7 @@ class Test_PiP_Video_Adjustment_Temp:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -1172,7 +1172,7 @@ class Test_PiP_Video_Adjustment_Tint:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -1305,7 +1305,7 @@ class Test_PiP_Video_Adjustment_Sharpness:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
