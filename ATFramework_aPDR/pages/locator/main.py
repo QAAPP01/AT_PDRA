@@ -40,6 +40,7 @@ class Shortcut:
     produce_percentage = id('progress_percentage')
     save = id('btn_save')
     upgrade = id('btn_upgrade')
+    produce_home = id('home_button')
 
     @staticmethod
     def shortcut_name(param=1):
@@ -201,6 +202,8 @@ class Shortcut:
 
     class audio_tool:
         info = id('info_icon')
+        demo_speech_enhance = xpath('//*[contains(@resource-id,"audio_tools_button")]/*[@text="Speech Enhance"]')
+        demo_ai_denoise = xpath('//*[contains(@resource-id,"audio_tools_button")]/*[@text="AI Denoise"]')
 
         strength_slider = id("strength_seekbar")
         compensation_slider = id("compensation_seekbar")

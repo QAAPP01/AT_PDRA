@@ -546,50 +546,5 @@ class Test_PiP_Music_AI_Voice_Chagner:
             self.page_main.h_click(find_string(test_material_folder))
             self.element(L.import_media.music_library.add).click()
             self.page_edit.click_sub_tool('AI Audio \nTool')
+            self.click(L.edit.ai_audio_tool.ai_voice_changer)
             raise Exception
-
-    '''
-@allure.epic("Timeline_PiP")
-@allure.feature("Music")
-@allure.story("AI Audio Tool_Speech Enhance")
-class Test_PiP_Music_Speech_Enhance:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
-    @allure.title("Apply Speech Enhance")
-    def test_apply_speech_enhance(self, driver):
-        try:
-            self.click(L.edit.ai_audio_tool.speech_enhance)
-            self.click(L.edit.ai_audio_tool.speech_enhance)
-            pic_base = self.page_edit.get_preview_pic(L.edit.ai_audio_tool.speech_enhance_panel)
-            self.click(L.edit.ai_audio_tool.filter)
-            self.elements(L.edit.ai_audio_tool.filter_option)[1].click()
-            self.click(L.edit.ai_audio_tool.filter_save)
-            pic_after = self.page_edit.get_preview_pic(L.edit.ai_audio_tool.speech_enhance_panel)
-            assert not HCompareImg(pic_base, pic_after).ssim_compare()
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool("Audio")
-            self.click(L.import_media.menu.music)
-            self.page_main.h_click(L.edit.music.local)
-            self.page_main.h_click(find_string(test_material_folder))
-            self.element(L.import_media.music_library.add).click()
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            self.click(L.edit.ai_audio_tool.speech_enhance)
-            raise Exception
-    '''
