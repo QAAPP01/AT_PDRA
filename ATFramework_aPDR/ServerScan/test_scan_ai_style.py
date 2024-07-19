@@ -21,7 +21,7 @@ photo_16_9 = 'photo_16_9.jpg'
 class Test_Scan_AI_Art:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -352,7 +352,7 @@ class Test_Scan_AI_Art:
 class Test_Scan_AI_Cartoon:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
@@ -497,7 +497,7 @@ class Test_Scan_AI_Cartoon:
 class Test_Scan_AI_Sketch:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press

@@ -37,7 +37,7 @@ class TestMasterVideoSpeed:
     @pytest.fixture(autouse=True)
     def define_vars(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
