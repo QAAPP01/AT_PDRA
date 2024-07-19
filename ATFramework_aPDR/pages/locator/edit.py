@@ -129,6 +129,9 @@ class Master:
             else:
                 return xpath(f'//*[contains(@resource-id,"value")]')
 
+class adjustment:
+    view_green = id('view_green')
+
 class ai_audio_tool:
     tool_back = id('btn_session_back')
     title = id('fragment_title')
@@ -554,6 +557,7 @@ class Edit_sub():
     crop_hint = id("pinch_image")
     in_animation_entry = id('in_animation_entry')
     out_animation_entry = id('out_animation_entry')
+    option_list = id('option_list')
 
 
 class Blending_Sub():
@@ -1423,3 +1427,4 @@ class Interface:
     master = Master
     ai_audio_tool = ai_audio_tool
     toolbar = Toolbar
+    adjustment = adjustment
