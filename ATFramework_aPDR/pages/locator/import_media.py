@@ -226,6 +226,8 @@ class Menu():
     sound_clips_library = id('library_menu_sound_clips')
     title_library = id('library_menu_title')
     music = id('layout_music')
+    overlay_video = find_string('Video')
+    overlay_photo = find_string('Photo')
 
     @staticmethod
     def file_name(index=1):
