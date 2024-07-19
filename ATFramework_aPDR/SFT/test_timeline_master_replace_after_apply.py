@@ -37,7 +37,7 @@ class TestMasterReplaceVideoAfterApply:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.element = self.page_main.h_get_element

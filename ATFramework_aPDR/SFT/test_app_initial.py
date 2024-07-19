@@ -9,7 +9,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 
 @allure.epic("App initial")
 class TestInit:
-    @pytest.fixture(scope='class', autouse=True)
+    @pytest.fixture(scope='module', autouse=True)
     def driver_init(self, driver):
         logger("==== Start driver session ====")
         driver.driver.reset()
@@ -20,7 +20,7 @@ class TestInit:
 
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press

@@ -46,7 +46,7 @@ class TestMasterVideoAdjustment_AIColor:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
@@ -106,7 +106,7 @@ class TestMasterVideoAdjustment_Brightness:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
@@ -166,7 +166,7 @@ class TestMasterVideoAdjustment_Contrast:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
@@ -227,7 +227,7 @@ class TestMasterVideoAdjustment_Saturation:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
@@ -291,7 +291,7 @@ class TestMasterVideoAdjustment_HSL:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
@@ -388,7 +388,7 @@ class TestMasterVideoAdjustment_Hue:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
@@ -449,7 +449,7 @@ class TestMasterVideoAdjustment_Temp:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
@@ -510,7 +510,7 @@ class TestMasterVideoAdjustment_Tint:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
@@ -571,7 +571,7 @@ class TestMasterVideoAdjustment_Sharpness:
     @pytest.fixture(autouse=True)
     def function_setup_teardown(self, shortcut, driver):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements

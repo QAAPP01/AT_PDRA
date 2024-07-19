@@ -20,7 +20,7 @@ class Test_Scan_Media:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference = shortcut
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
