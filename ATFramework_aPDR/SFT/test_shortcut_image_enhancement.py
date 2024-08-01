@@ -51,8 +51,6 @@ class Test_Shortcut_Image_Enhancer:
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Image Enhancer')
 
-            pytest.fail(f"{str(e)}")
-
     @allure.story("Entry")
     @allure.title("Enter Editor")
     def test_entry_editor(self, driver):

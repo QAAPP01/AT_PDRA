@@ -35,18 +35,20 @@ class MainPage(BasePage):
 
     def subscribe(self):
         self.click(L.main.subscribe.entry)
-        if self.is_exist(find_string("You've unlocked"), 2):
-            self.click(L.main.subscribe.back_btn)
-            return True
-        else:
+        if self.is_exist(L.main.subscribe.continue_btn, 1):
+            self.click(L.main.subscribe.continue_btn)
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
             self.click(id('iv_close'))  # close the credit dialog
-            if self.is_exist(L.main.new_project, 10):
-                return True
-            else:
-                raise
+        else:
+            self.driver.driver.back()
+            for retry in range(2):
+                if self.is_exist(L.main.new_project, 10):
+                    return True
+                else:
+                    self.driver.driver.back()
+            return False
 
     def enter_launcher(self):
         try:

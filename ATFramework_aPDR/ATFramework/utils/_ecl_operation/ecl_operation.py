@@ -304,7 +304,7 @@ class Ecl_Operation():
                 head = 'Program Path'
                 tail = 'Built by'
                 result = self._get_tr_info(cleantext, head, tail)
-                dict_result['prog_path'] = result[0].replace('(ex: Q:\PoweDVD\):', '').strip()
+                dict_result['prog_path'] = result[0].replace('(ex: Q:\\PoweDVD\\):', '').strip()
                 # TR Info. - Build
                 head = 'Build:'
                 tail = 'Environment'
@@ -364,7 +364,7 @@ class Ecl_Operation():
             tail = 'Big Bang Definition'
             result = self._get_tr_info(cleantext, head, tail)
             if result:
-                pattern = '([A-Z]{3}[\d]{6}-[\d]{2})'
+                pattern = r'([A-Z]{3}[\d]{6}-[\d]{2})'
                 sub_sr_list = re.findall(pattern, result[0])
         except Exception as e:
             err_msg = f'[get_sub_sr_list]Exception Occurs. ErrroLog={e}, Please check the if can reach SR page correctly.'
@@ -384,11 +384,11 @@ class Ecl_Operation():
             tail = ''
             result = self._get_tr_info(cleantext, head, tail)
             # get TR list
-            pattern_tr = '[A-Z]{2}[\d]{6}-[\d]{3}'
+            pattern_tr = r'[A-Z]{2}[\d]{6}-[\d]{3}'
             tr_list = re.findall(pattern_tr, result[0])
             # print(f'Amount={len(tr_list)}, {tr_list=}')
             # split by TR number with index i.e. 2TR210929-003
-            pattern_tr_with_index = '[\d]{1}[A-Z]{2}[\d]{6}-[\d]{3}'
+            pattern_tr_with_index = r'[\d]{1}[A-Z]{2}[\d]{6}-[\d]{3}'
             status_list = re.split(pattern_tr_with_index, result[0])
             del status_list[0] # remove first invalid record
             # print(f'Amount={len(status_list)}, {status_list=}')

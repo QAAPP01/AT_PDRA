@@ -415,7 +415,7 @@ class HCompareImg(object):
             logger(f"ssim_index = {ssim_index}")
             # logger(f'euclidean_distance = {euclidean_distance}')
 
-            if ssim_index > threshold:
+            if ssim_index >= threshold:
                 logger("Images compare pass")
                 return True
             else:
@@ -424,7 +424,7 @@ class HCompareImg(object):
         except:
             traceback.print_exc()
 
-    def histogram_compare(self, threshold=0.95):
+    def histogram_compare(self, threshold=0.98):
         try:
             # 比較色彩值的分佈情況，主要用色相(H)、飽和度(S)和亮度(V)的比較 (對應 calcHist 的 channels [0, 1, 2], 也可以只比較其中幾項，如[0, 1])
 

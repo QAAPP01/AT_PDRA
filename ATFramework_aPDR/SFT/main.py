@@ -34,7 +34,9 @@ from ATFramework_aPDR.SFT.test_timeline_master_adjustment_video import *
 
 # PiP Track
 from ATFramework_aPDR.SFT.test_timeline_pip_track_limitation import *
-from .test_timeline_pip_music import Test_PiP_Import_Music
-from .test_timeline_pip_music import Test_PiP_Music_Volume
-from .test_timeline_pip_music import Test_PiP_Music_Split
-from .test_timeline_pip_music import Test_PiP_Music_AI_Voice_Chagner
+from .test_timeline_pip_sticker import *
+from .test_timeline_pip_music import *
+from .test_timeline_pip_video_adjustment import *
+from .test_timeline_pip_photo_adjustment import *
+
+
