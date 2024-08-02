@@ -34,15 +34,16 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def subscribe(self):
-        self.click(L.main.subscribe.entry)
-        if self.is_exist(L.main.subscribe.continue_btn, 1):
-            self.click(L.main.subscribe.continue_btn)
+        self.click(L.main.menu.menu)
+        if self.is_exist(L.main.menu.iap_banner, 1):
+            self.click(L.main.menu.iap_banner)
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
-            self.click(id('iv_close'))  # close the credit dialog
+            self.click(L.main.menu.back)
+            self.click(id('iv_close'), 2)  # close the credit dialog
         else:
-            self.driver.driver.back()
+            self.click(L.main.menu.back)
             for retry in range(2):
                 if self.is_exist(L.main.new_project, 10):
                     return True

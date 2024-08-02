@@ -435,10 +435,11 @@ class AiEffect:
 
 
 class Menu:
-    menu = xpath('//*[contains(@resource-id,"iv_menu")][1]')
+    menu = id("iv_menu")
     back = id("iv_back")
     preference = id('btn_preference')
     display_file_name_switch = id('displayNameInMedia_switch')
+    iap_banner = id("layout_premium")
 
 class Tutorials():
     youtube_view = id('youtube_view')
