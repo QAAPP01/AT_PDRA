@@ -1,3 +1,5 @@
+import traceback
+
 from .locator import locator as L
 from .locator.locator_type import *
 from ATFramework_aPDR.pages.base_page import BasePage
@@ -39,15 +41,19 @@ class Shortcut(BasePage):
             return False
 
     def enter_media_picker(self, shortcut_name=None):
-        if shortcut_name:
-            self.enter_shortcut(shortcut_name)
-        self.click(L.main.shortcut.try_it_now, 1)
+        try:
+            if shortcut_name:
+                self.enter_shortcut(shortcut_name)
+            self.click(L.main.shortcut.try_it_now, 1)
 
-        if self.is_exist(find_string('Add Media')):
-            return True
-        else:
-            logger(f'[Error] enter_media_picker fail', log_level='error')
-            return False
+            if self.is_exist(find_string('Add Media')):
+                return True
+            else:
+                logger(f'[Error] enter_media_picker fail', log_level='error')
+                return False
+        except Exception:
+            traceback.print_exc()
+
 
     def back_from_media_picker(self):
         self.click(L.import_media.media_library.back)
