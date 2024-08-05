@@ -249,7 +249,7 @@ def auto_run():
             p.join()
         print('test complete.')
 
-        # move_allure_history(result_folder, report_folder)
+        move_allure_history(result_folder, report_folder)
         generate_allure_report(result_folder, report_folder)
 
         if send:

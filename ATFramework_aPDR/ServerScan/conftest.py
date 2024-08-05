@@ -10,7 +10,6 @@ from ATFramework_aPDR.pages.page_factory import PageFactory
 from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
-from os.path import dirname as dir
 
 
 
@@ -143,7 +142,7 @@ def driver():
 
 @pytest.fixture(scope='class', autouse=True)
 def driver_init(driver):
-    logger("[Start] Init driver session")
+    logger("==== Start driver session ====")
     driver.driver.launch_app()
     yield
     driver.driver.close_app()
@@ -155,11 +154,13 @@ def shortcut(driver):
     page_edit = PageFactory().get_page_object("edit", driver)
     page_media = PageFactory().get_page_object("import_media", driver)
     page_preference = PageFactory().get_page_object("timeline_settings", driver)
-    return page_main, page_edit, page_media, page_preference
+    page_shortcut = PageFactory().get_page_object("shortcut", driver)
+    return page_main, page_edit, page_media, page_preference, page_shortcut
 
 
-def pytest_terminal_summary(terminalreporter, exitstatus, config):
+def pytest_terminal_summary(terminalreporter):
     logger("pytest_terminal_summary")
+
     def format_duration(seconds):
         td = datetime.timedelta(seconds=int(seconds))
         return str(td)

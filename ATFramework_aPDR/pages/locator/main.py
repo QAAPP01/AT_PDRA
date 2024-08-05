@@ -500,6 +500,7 @@ class Subscribe:
     complete = (None,)
     premium_tag = id('premium_features_used_bubble')
     premium_list = id("premium_list")
+    iap_icon = id('iv_premium')
 
 
 

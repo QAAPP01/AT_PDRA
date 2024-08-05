@@ -43,50 +43,64 @@ class Test_Shortcut_Image_Enhancer:
 
             assert self.is_exist(find_string('Add Media'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
             self.page_main.enter_shortcut('Image Enhancer')
+            
+    @allure.story("Media")
+    @allure.title("Back from media picker")
+    def test_back_from_media_picker(self, driver):
+        try:
+            assert self.page_shortcut.back_from_media_picker()
 
-            pytest.fail(f"{str(e)}")
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
 
-    @allure.story("Entry")
-    @allure.title("Enter Editor")
+            self.page_main.enter_launcher()
+
+    @allure.story("Media")
+    @allure.title("Enter editor")
     def test_entry_editor(self, driver):
         try:
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_edit.waiting()
+            assert self.page_shortcut.enter_editor('Image Enhancer')
 
-            assert self.is_exist(L.main.shortcut.save)
-
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Image Enhancer')
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_edit.waiting()
+            self.page_shortcut.enter_editor('Image Enhancer')
 
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Entry")
-    @allure.title("Export")
-    def test_entry_export(self, driver):
+    @allure.story("Media")
+    @allure.title("Back from editor")
+    def test_back_from_editor(self, driver):
         try:
-            self.click(L.main.shortcut.save)
-            self.click(L.main.shortcut.produce)
-            self.page_edit.waiting_produce()
+            assert self.page_shortcut.back_from_editor()
 
-            assert self.is_exist(L.main.shortcut.save_to_camera_roll)
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
 
-        except Exception as e:
+            self.page_main.enter_launcher()
+            self.page_shortcut.enter_media_picker('Image Enhancer')
+
+    @allure.story("Editor")
+    @allure.title("Export")
+    def test_export(self):
+        try:
+            self.page_shortcut.enter_editor(file=photo_9_16)
+            assert self.page_shortcut.export()
+
+        except Exception:
             traceback.print_exc()
 
-            pytest.fail(f"{str(e)}")
 
 

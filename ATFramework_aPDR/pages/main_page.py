@@ -8,6 +8,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
 from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 import subprocess
 from pathlib import Path
 from appium.webdriver.common.touch_action import TouchAction
@@ -34,22 +35,20 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def subscribe(self):
-        self.click(L.main.menu.menu)
-        if self.is_exist(L.main.menu.iap_banner, 1):
-            self.click(L.main.menu.iap_banner)
+        icon = L.main.subscribe.iap_icon
+        icon = self.get_picture(icon)
+
+        if not HCompareImg(icon, 'subscribed_icon.png').ssim_compare():
+            self.click(L.main.subscribe.entry)
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
-            self.click(L.main.menu.back)
             self.click(id('iv_close'), 2)  # close the credit dialog
-        else:
-            self.click(L.main.menu.back)
-            for retry in range(2):
-                if self.is_exist(L.main.new_project, 10):
-                    return True
-                else:
-                    self.driver.driver.back()
-            return False
+            if self.is_exist(L.main.new_project, 10):
+                return True
+            else:
+                raise
+        return True
 
     def enter_launcher(self):
         try:

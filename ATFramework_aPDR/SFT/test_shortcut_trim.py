@@ -43,7 +43,7 @@ class Test_Shortcut_Trim:
 
             assert self.is_exist(find_string('Add Media'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -66,7 +66,7 @@ class Test_Shortcut_Trim:
 
     @allure.story("Media")
     @allure.title("Enter editor")
-    def test_entry_trim_before_edit(self, driver):
+    def test_enter_editor(self, driver):
         try:
             assert self.page_shortcut.enter_editor('Trim')
 
@@ -94,7 +94,7 @@ class Test_Shortcut_Trim:
 
     @allure.story("Editor")
     @allure.title("Trim")
-    def test_enter_editor(self, driver):
+    def test_entry_trim_before_edit(self, driver):
         try:
             assert self.page_shortcut.trim_and_edit()
 

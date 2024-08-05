@@ -68,7 +68,7 @@ class TestMasterSplitPhoto:
 
     @pytest.fixture(scope='class', autouse=True)
     def in_class_setup(self, shortcut, driver):
-        page_main, page_edit, page_media, _ = shortcut
+        page_main, page_edit, page_media, *_ = shortcut
         click = page_main.h_click
 
         with allure.step('[Step] Enter launcher'):
