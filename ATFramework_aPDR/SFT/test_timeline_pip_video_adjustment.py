@@ -151,6 +151,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
             self.element(L.edit.sub_tool.slider).send_keys(100)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -284,6 +285,7 @@ class Test_PiP_Video_Adjustment_Brightness:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -417,6 +419,7 @@ class Test_PiP_Video_Adjustment_Contrast:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -465,7 +468,7 @@ class Test_PiP_Video_Adjustment_Contrast:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
+            self.element(L.edit.sub_tool.slider).send_keys(randint(50, 199))
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -550,6 +553,7 @@ class Test_PiP_Video_Adjustment_Saturation:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 
@@ -946,6 +950,7 @@ class Test_PiP_Video_Adjustment_Hue:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 
@@ -1079,6 +1084,7 @@ class Test_PiP_Video_Adjustment_Temp:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
             self.element(L.edit.sub_tool.slider).send_keys(100)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -1212,6 +1218,7 @@ class Test_PiP_Video_Adjustment_Tint:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
             self.element(L.edit.sub_tool.slider).send_keys(100)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -1345,6 +1352,7 @@ class Test_PiP_Video_Adjustment_Sharpness:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 

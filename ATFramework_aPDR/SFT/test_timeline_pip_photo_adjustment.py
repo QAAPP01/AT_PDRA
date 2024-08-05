@@ -415,6 +415,7 @@ class Test_PiP_Photo_Adjustment_Contrast:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -548,6 +549,7 @@ class Test_PiP_Photo_Adjustment_Saturation:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 
@@ -944,6 +946,7 @@ class Test_PiP_Photo_Adjustment_Hue:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 
@@ -1077,6 +1080,7 @@ class Test_PiP_Photo_Adjustment_Temp:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
             self.element(L.edit.sub_tool.slider).send_keys(100)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -1210,6 +1214,7 @@ class Test_PiP_Photo_Adjustment_Tint:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
             self.element(L.edit.sub_tool.slider).send_keys(100)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -1343,6 +1348,7 @@ class Test_PiP_Photo_Adjustment_Sharpness:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 
