@@ -36,20 +36,20 @@ class MainPage(BasePage):
     def subscribe(self):
         self.click(L.main.menu.menu)
         if self.is_exist(L.main.menu.iap_banner, 1):
-            self.click(L.main.menu.iap_banner)
+            self.click(L.main.menu.back)
+            self.click(L.main.subscribe.entry)
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
-            self.click(L.main.menu.back)
             self.click(id('iv_close'), 2)  # close the credit dialog
+            if self.is_exist(L.main.new_project, 10):
+                return True
+            else:
+                raise
+
         else:
             self.click(L.main.menu.back)
-            for retry in range(2):
-                if self.is_exist(L.main.new_project, 10):
-                    return True
-                else:
-                    self.driver.driver.back()
-            return False
+        return True
 
     def enter_launcher(self):
         try:
