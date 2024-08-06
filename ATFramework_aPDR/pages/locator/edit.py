@@ -419,6 +419,15 @@ class SubTool:
 
     class Cutout:
         try_it = aid('[AID]Upgrade_No')
+        no_effect = find_string('No Effect')
+        remove_background = find_string('Remove Background')
+        chroma_key = find_string('Chroma Key')
+        change_background = find_string('Change Background')
+        image = find_string('Image')
+        animated = find_string('Animated')
+        color = find_string('Color')
+        master_preview = id('boundary_container')
+        item = id('itemMask')
 
         class ColorPicker:
             preview = xpath(f'//*[contains(@resource-id,"movie_view")]/android.view.View')
@@ -720,6 +729,7 @@ class Preview:
     pip_preview = id('resizable_boundary')
     movie_view = id("movie_view")
     preview = xpath('//*[contains(@resource-id,"movie_view")]/android.view.View')
+    boundary_container = id('boundary_container')
     time_code = id('playingTime')
     set_font = aid("[AID]TitleDesign_RightTop")
     # rotate = aid("[AID]Resizable_RightBottom")

@@ -23,68 +23,7 @@ def driver_init(driver):
 
 @allure.epic('Timeline_PiP')
 @allure.feature('Photo')
-@allure.story('Import Photo')
-class Test_PiP_Import_Photo:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
-    @allure.title('Enter Photo Library')
-    def test_enter_photo_library(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-
-        try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_photo)
-            assert self.is_exist(L.import_media.media_library.first)
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_photo)
-            raise Exception
-
-    @allure.title('Add photo to PiP track')
-    def test_add_local_photo_to_timeline(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-
-        try:
-            self.page_media.select_local_photo(test_material_folder, 'jpg.jpg')
-            assert self.is_exist(L.edit.timeline.item_view_thumbnail_view)
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_photo)
-            self.page_media.select_local_photo(test_material_folder, 'jpg.jpg')
-            raise Exception
-
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('AI Color')
+@allure.story('Adjustment_AI Color')
 class Test_PiP_Photo_Adjustment_AI_Color:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -105,6 +44,11 @@ class Test_PiP_Photo_Adjustment_AI_Color:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_photo)
+            self.page_media.select_local_photo(test_material_folder, 'jpg.jpg')
             self.page_edit.click_sub_tool('Adjustment')
             assert self.is_exist(L.edit.edit_sub.option_list)
 
@@ -237,9 +181,9 @@ class Test_PiP_Photo_Adjustment_AI_Color:
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('Brightness')
+@allure.epic('Timeline_PiP')
+@allure.feature('Photo')
+@allure.story('Adjustment_Brightness')
 class Test_PiP_Photo_Adjustment_Brightness:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -370,9 +314,9 @@ class Test_PiP_Photo_Adjustment_Brightness:
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('Contrast')
+@allure.epic('Timeline_PiP')
+@allure.feature('Photo')
+@allure.story('Adjustment_Contrast')
 class Test_PiP_Photo_Adjustment_Contrast:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -504,9 +448,9 @@ class Test_PiP_Photo_Adjustment_Contrast:
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('Saturation')
+@allure.epic('Timeline_PiP')
+@allure.feature('Photo')
+@allure.story('Adjustment_Saturation')
 class Test_PiP_Photo_Adjustment_Saturation:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -638,9 +582,9 @@ class Test_PiP_Photo_Adjustment_Saturation:
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('HSL')
+@allure.epic('Timeline_PiP')
+@allure.feature('Photo')
+@allure.story('Adjustment_HSL')
 class Test_PiP_Photo_Adjustment_HSL:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -900,9 +844,9 @@ class Test_PiP_Photo_Adjustment_HSL:
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('Hue')
+@allure.epic('Timeline_PiP')
+@allure.feature('Photo')
+@allure.story('Adjustment_Hue')
 class Test_PiP_Photo_Adjustment_Hue:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -995,7 +939,7 @@ class Test_PiP_Photo_Adjustment_Hue:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(20, 100)
+            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -1035,9 +979,9 @@ class Test_PiP_Photo_Adjustment_Hue:
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('Temp')
+@allure.epic('Timeline_PiP')
+@allure.feature('Photo')
+@allure.story('Adjustment_Temp')
 class Test_PiP_Photo_Adjustment_Temp:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -1169,9 +1113,9 @@ class Test_PiP_Photo_Adjustment_Temp:
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('Tint')
+@allure.epic('Timeline_PiP')
+@allure.feature('Photo')
+@allure.story('Adjustment_Tint')
 class Test_PiP_Photo_Adjustment_Tint:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -1303,9 +1247,9 @@ class Test_PiP_Photo_Adjustment_Tint:
             self.page_edit.click_sub_tool('Adjustment')
             raise Exception
 
-@allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
-@allure.story('Sharpness')
+@allure.epic('Timeline_PiP')
+@allure.feature('Photo')
+@allure.story('Adjustment_Sharpness')
 class Test_PiP_Photo_Adjustment_Sharpness:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
