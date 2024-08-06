@@ -35,10 +35,9 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def subscribe(self):
-        icon = L.main.subscribe.iap_icon
-        icon = self.get_picture(icon)
-
-        if not HCompareImg(icon, 'subscribed_icon.png').ssim_compare():
+        self.click(L.main.menu.menu)
+        if self.is_exist(L.main.menu.iap_banner, 1):
+            self.click(L.main.menu.back)
             self.click(L.main.subscribe.entry)
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
@@ -48,6 +47,9 @@ class MainPage(BasePage):
                 return True
             else:
                 raise
+
+        else:
+            self.click(L.main.menu.back)
         return True
 
     def enter_launcher(self):
