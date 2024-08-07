@@ -228,7 +228,7 @@ def generate_allure_report(result_folder, report_folder):
     return True
 
 
-def send_allure_report(report_folder, test_result_title, device_id, receiver_list, tr_number, package_version, package_build_number):
+def send_allure_report(report_folder, test_result_title, device_id, receiver_list, tr_number, package_version, package_build_number, sr_number=None):
 
     opts = {'account': 'cltest.qaapp1@gmail.com', 'password': 'izjysnzxhygofgns',
             'to': '', 'subject': '',
@@ -280,39 +280,39 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
                    "qr_dict": {'short_description': opts['subject'],
                                'build_day': datetime.date.today().strftime('%m%d'),
                                'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {fail_count}]',
-                               'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {summary_info["failed"]}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
+                               'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {fail_count}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
                                }
                    }
         auto_create_qr(tr_dict, opts['attachment'])
         print('compelte')
 
-    # # Add to Google Sheet
-    # # initial google_api object
-    # sheet_name = f"{summary_dict['title']}"
-    # # header = ['Date', 'Time', 'SR', 'Build_Ver', 'Build_No', 'Server', 'OS', 'Device', 'Version', 'Pass', 'Fail', 'Skip', 'N/A', 'Total time']
-    # header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
-    # obj_google_api = GoogleApi(sheet_name, header_custom)
-    # # add new record
-    # new_record = {'Date': summary_dict['date'],
-    #               'Time': summary_dict['time'],
-    #               'Script_Name': summary_dict['title'],
-    #               'Script_Ver': script_version,
-    #               'SR_No': sr_number,
-    #               'TR_No': tr_number,
-    #               'Build_No': package_build_number,
-    #               'Prod_Ver': package_version,
-    #               'Prod_Ver_Type': 'Prod',
-    #               'OS': summary_dict['os'],
-    #               'OS_Ver': summary_dict['version'],
-    #               'Device_ID': summary_dict['device']}
-    # obj_google_api.add_new_record(new_record)
-    # # print(f'current row={obj_google_api.row_prev_record}')
-    #
-    # # update columns of previous record
-    # data = {'Pass': summary_dict['pass'], 'Fail': summary_dict['fail'], 'Skip': summary_dict['skip'],
-    #         'N/A': summary_dict['na'], 'Total time': summary_dict['duration']}
-    # obj_google_api.update_columns(data)
-    # #
-    # print(f'Done.')
+        # Add to Google Sheet
+        # initial google_api object
+        sheet_name = f"aPDR_SFT"
+        # header = ['Date', 'Time', 'SR', 'Build_Ver', 'Build_No', 'Server', 'OS', 'Device', 'Version', 'Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+        header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+        obj_google_api = GoogleApi(sheet_name, header_custom)
+        # add new record
+        new_record = {'Date': datetime.date.today(),
+                      'Time': datetime.datetime.now().strftime("%I:%M %p"),
+                      'Script_Name': "aPDR_SFT",
+                      'Script_Ver': "Testing",
+                      'SR_No': sr_number,
+                      'TR_No': tr_number,
+                      'Build_No': package_build_number,
+                      'Prod_Ver': package_version,
+                      'Prod_Ver_Type': 'Prod',
+                      'OS': 'Android',
+                      'OS_Ver': "12",
+                      'Device_ID': 'Samsung A53'}
+        obj_google_api.add_new_record(new_record)
+        # print(f'current row={obj_google_api.row_prev_record}')
+
+        # update columns of previous record
+        data = {'Pass': summary_info["passed"], 'Fail': fail_count, 'Skip': summary_info["skipped"],
+                'N/A': na_count, 'Total time': summary_info["duration"]}
+        obj_google_api.update_columns(data)
+        #
+        print(f'Done.')
 
     return True
