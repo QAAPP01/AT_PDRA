@@ -6,20 +6,14 @@ import allure
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.locator.locator_type import *
 
 
-@allure.feature("Media Scan")
-class Test_Scan_Media:
-    @pytest.fixture(scope='class', autouse=True)
-    def driver_init(self, driver):
-        logger("[Start] Init driver session")
-        driver.driver.launch_app()
-        yield
-        driver.driver.close_app()
-
+@allure.epic("Shortcut")
+@allure.feature("Image Enhancer")
+class Test_Shortcut_Image_Enhancer:
     @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
+    def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
@@ -29,23 +23,20 @@ class Test_Scan_Media:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
+    @pytest.fixture(scope="module")
+    def shared_data(self):
+        data = {}
+        yield data
+
     @allure.story("Getty Video Preview")
-    def test_getty_video_preview(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-
+    def test_entry_media_picker(self, driver):
         try:
             self.page_main.enter_launcher()
-            self.page_main.subscribe()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
+            self.page_edit.waiting()
 
-            self.click(L.import_media.media_library.btn_preview())
-            self.page_media.waiting_download()
-            img = self.page_main.get_picture(L.import_media.media_library.video.display_preview)
+            self.page_main.enter_shortcut('Image Enhancer')
 
-            assert HCompareImg(img).is_not_black()
-            driver.driver.back()
+            assert self.is_exist(find_string('Add Media'))
 
         except Exception:
             traceback.print_exc()
@@ -53,27 +44,6 @@ class Test_Scan_Media:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
-            raise Exception
+            self.page_main.enter_shortcut('Image Enhancer')
 
-    @allure.story("Getty Video Download")
-    def test_getty_video_download(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-
-        try:
-            self.click(L.import_media.media_library.media())
-            self.page_media.waiting_download()
-
-            assert self.click(L.import_media.media_library.delete_selected, 60)
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
-            raise Exception
+            pytest.fail('Failed to enter media picker')

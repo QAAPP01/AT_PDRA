@@ -253,7 +253,7 @@ def auto_run():
         generate_allure_report(result_folder, report_folder)
 
         if send:
-            send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number)
+            send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number)
             print('send report complete.')
 
         ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
@@ -394,4 +394,6 @@ if __name__ == '__main__':
         time_delta = datetime.timedelta(seconds=sleep)
         print(f"Sleeping for {time_delta} until the next scheduled run...")
         print_next_run_time()
+        if sleep < 0:
+            sleep = 0
         time.sleep(sleep)

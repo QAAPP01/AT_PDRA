@@ -8,7 +8,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 import subprocess
 from pathlib import Path
 from appium.webdriver.common.touch_action import TouchAction
