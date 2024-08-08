@@ -226,7 +226,6 @@ def auto_run():
             package_version, package_build_number = get_package_version(package_name, deviceName)
 
         with open('tr_info', 'w+') as file:
-            file.write(f'sr_number={sr_number}\n')
             file.write(f'tr_number={tr_number}\n')
             file.write(f'package_version={package_version}\n')
             file.write(f'package_build_number={package_build_number}\n')
@@ -395,4 +394,6 @@ if __name__ == '__main__':
         time_delta = datetime.timedelta(seconds=sleep)
         print(f"Sleeping for {time_delta} until the next scheduled run...")
         print_next_run_time()
+        if sleep < 0:
+            sleep = 0
         time.sleep(sleep)
