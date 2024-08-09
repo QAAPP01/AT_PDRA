@@ -295,7 +295,7 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
         # add new record
         new_record = {'Date': datetime.date.today(),
                       'Time': datetime.datetime.now().strftime("%I:%M %p"),
-                      'Script_Name': "aPDR_SFT",
+                      'Script_Name': test_result_title,
                       'Script_Ver': "Testing",
                       'SR_No': sr_number,
                       'TR_No': tr_number,

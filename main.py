@@ -226,6 +226,7 @@ def auto_run():
             package_version, package_build_number = get_package_version(package_name, deviceName)
 
         with open('tr_info', 'w+') as file:
+            file.write(f'sr_number={sr_number}\n')
             file.write(f'tr_number={tr_number}\n')
             file.write(f'package_version={package_version}\n')
             file.write(f'package_build_number={package_build_number}\n')
@@ -278,6 +279,8 @@ def auto_server_scan():
             key, value = line.strip().split('=')
             if key == 'tr_number':
                 tr_number = value
+            elif key == 'sr_number':
+                sr_number = value
             elif key == 'package_version':
                 package_version = value
             elif key == 'package_build_number':
@@ -298,7 +301,7 @@ def auto_server_scan():
     generate_allure_report(result_folder, report_folder)
 
     if send:
-        send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number)
+        send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number)
         print('send report complete.')
 
     print("\n ======== Server Scan Test Finish ========")
