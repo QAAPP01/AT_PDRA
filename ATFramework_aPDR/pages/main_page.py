@@ -92,7 +92,7 @@ class MainPage(BasePage):
         if self.click(L.main.shortcut.shortcut_name(name)):
             return True
         else:
-            logger(f'[Error] Cannot find the shortcut "{name}"', 'error')
+            logger(f'[Error] Cannot find the shortcut "{name}"', log_level='error')
             return False
 
     def enter_ai_feature(self, name):

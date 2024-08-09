@@ -12,7 +12,7 @@ original_preview = None
 @pytest.fixture(scope='class')
 def module_setup(shortcut, driver):
     global original_preview
-    page_main, page_edit, *_ = shortcut
+    page_main, page_edit, page_media, page_preference, *_ = shortcut
 
     page_main.enter_launcher()
     page_main.subscribe()

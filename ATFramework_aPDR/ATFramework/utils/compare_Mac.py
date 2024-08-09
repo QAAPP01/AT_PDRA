@@ -399,7 +399,7 @@ class HCompareImg(object):
 
     def ssim_compare(self, threshold=0.98):
         try:
-            # 主要比較亮度、對比度和結構三個方面，特別是結構比較
+            # 主要比較亮度、對比度和結構三個方面，特別是結構(形狀)比較
 
             image_1 = cv2.imread(self.image_1_path, cv2.IMREAD_GRAYSCALE)
             image_2 = cv2.imread(self.image_2_path, cv2.IMREAD_GRAYSCALE)

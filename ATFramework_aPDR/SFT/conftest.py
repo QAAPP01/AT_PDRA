@@ -129,11 +129,12 @@ def driver():
             retry -= 1
 
     yield driver
-    if not debug_mode:
-        try:
-            driver.driver.quit()
-        except InvalidSessionIdException:
-            pass
+
+    try:
+        driver.driver.quit()
+    except InvalidSessionIdException:
+        pass
+
     appium.stop()
 
 
@@ -206,13 +207,14 @@ def pytest_runtest_makereport(item, call):
     setattr(item, "rep_" + rep.when, rep)
 
 
-@pytest.fixture(autouse=True)
-def exception_screenshot(request, driver):
+@pytest.fixture(scope="function", autouse=True)
+def exception_screenshot(request):
     yield
     if request.node.rep_call.failed:
-        failure_dir = os.path.join(os.path.dirname(__file__), "failures_screenshot")
+        driver = request.node.funcargs['driver']
+        failure_dir = os.path.join(os.path.dirname(__file__), "exception_screenshot")
         os.makedirs(failure_dir, exist_ok=True)
-        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.jpg")
+        screenshot_path = os.path.join(failure_dir, f"{request.node.name}_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg")
 
         driver.driver.get_screenshot_as_file(screenshot_path)
 

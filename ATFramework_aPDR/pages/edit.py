@@ -1861,7 +1861,8 @@ class EditPage(BasePage):
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(5):
             if self.is_exist(locator):
-                elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+                button = self.el(locator)
+                button.click()
                 return True
             else:
                 # elm.driver.swipe_left()

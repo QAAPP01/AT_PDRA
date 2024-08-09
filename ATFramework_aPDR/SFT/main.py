@@ -38,5 +38,7 @@ from .test_timeline_pip_sticker import *
 from .test_timeline_pip_music import *
 from .test_timeline_pip_video_adjustment import *
 from .test_timeline_pip_photo_adjustment import *
+from .test_timeline_pip_video_cutout import *
+from .test_timeline_pip_photo_cutout import *
 
 
