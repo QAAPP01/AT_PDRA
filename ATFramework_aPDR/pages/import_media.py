@@ -290,12 +290,17 @@ class MediaPage(BasePage):
         return False
 
     def waiting_loading(self, timeout=120):
-        if self.h_is_exist(L.import_media.media_library.loading_text, 5):
-            if self.h_is_not_exist(L.import_media.media_library.loading_text, timeout):
-                return True
-            else:
-                logger("[Warning] loading timeout", "warn")
-                return False
+        if self.h_is_exist(L.import_media.media_library.percentage, 5):
+            while 1:
+                percentage = self.element(L.import_media.media_library.percentage).text
+                if self.h_is_not_exist(L.import_media.media_library.percentage, timeout):
+                    return True
+                else:
+                    if percentage != self.element(L.import_media.media_library.percentage).text:
+                        continue
+                    else:
+                        logger("[Warning] loading timeout", log_level="warn")
+                        return False
 
     def waiting_download(self, timeout=120):
         self.waiting_loading(timeout)

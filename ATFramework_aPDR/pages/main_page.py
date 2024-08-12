@@ -85,6 +85,16 @@ class MainPage(BasePage):
             traceback.print_exc()
             return False
 
+    def relaunch(self):
+        try:
+            self.driver.close_app()
+            self.driver.launch_app()
+            self.enter_launcher()
+            return True
+        except Exception:
+            traceback.print_exc()
+            return False
+
     def enter_shortcut(self, name):
 
         if not self.is_exist(L.main.shortcut.shortcut_name(name), 1):
