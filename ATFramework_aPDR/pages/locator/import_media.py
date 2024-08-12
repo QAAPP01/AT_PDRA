@@ -58,6 +58,7 @@ class MediaLibrary:
     delete_selected = id('pickerStoryboardItemDelete')
     getty_iap_monthly = id('iap_monthly_layout')
     getty_iap_continue = id('btn_continue')
+    percentage = id('progress_text_view')
 
     @staticmethod
     def media(index=1):
