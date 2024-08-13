@@ -3,6 +3,7 @@ import traceback
 from .locator import locator as L
 from .locator.locator_type import *
 from ATFramework_aPDR.pages.base_page import BasePage
+from ATFramework_aPDR.pages.main_page import MainPage
 from ATFramework_aPDR.pages.edit import EditPage
 from ATFramework_aPDR.pages.import_media import MediaPage
 from ATFramework_aPDR.ATFramework.utils.log import logger
@@ -17,6 +18,7 @@ photo_16_9 = 'photo_16_9.jpg'
 class Shortcut(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
+        self.page_main = MainPage(driver)
         self.page_edit = EditPage(driver)
         self.page_media = MediaPage(driver)
         self.driver = driver
@@ -114,7 +116,7 @@ class Shortcut(BasePage):
         self.click(L.import_media.media_library.trim_next)
         self.page_edit.waiting()
 
-        if self.is_exist(L.main.shortcut.export):
+        if self.is_exist(L.main.shortcut.export) and self.element(L.main.shortcut.trimmed_video).text == 'Export':
             return True
         else:
             logger(f'[Error] trim_video fail', log_level='error')

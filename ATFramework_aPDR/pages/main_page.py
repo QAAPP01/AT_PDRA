@@ -15,9 +15,7 @@ from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator_type import *
 from .locator.locator import edit as E
 from .locator.locator import import_media as I
-from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
-
-pdr_package = PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME as pdr_package
 
 
 class MainPage(BasePage):
@@ -34,22 +32,19 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def subscribe(self):
-        self.click(L.main.menu.menu)
-        if self.is_exist(L.main.menu.iap_banner, 1):
-            self.click(L.main.menu.back)
-            self.click(L.main.subscribe.entry)
+        self.click(L.main.subscribe.entry)
+        if self.is_exist(find_string("You've unlocked"), 2):
+            self.click(L.main.subscribe.back_btn)
+            return True
+        else:
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
-            self.click(id('iv_close'), 2)  # close the credit dialog
+            self.click(id('iv_close'))  # close the credit dialog
             if self.is_exist(L.main.new_project, 10):
                 return True
             else:
                 raise
-
-        else:
-            self.click(L.main.menu.back)
-        return True
 
     def enter_launcher(self):
         try:
@@ -87,8 +82,8 @@ class MainPage(BasePage):
 
     def relaunch(self):
         try:
-            self.driver.close_app()
-            self.driver.launch_app()
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
             self.enter_launcher()
             return True
         except Exception:

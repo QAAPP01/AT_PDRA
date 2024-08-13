@@ -122,7 +122,7 @@ class Test_Shortcut_Mosaic:
             self.page_shortcut.enter_media_picker('Mosaic')
 
     @allure.story("Media")
-    @allure.title("Trim video and edit")
+    @allure.title("Trim and edit")
     def test_trim_and_edit(self, driver):
         try:
             assert self.page_shortcut.trim_and_edit()
