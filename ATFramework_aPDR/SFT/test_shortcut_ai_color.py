@@ -29,13 +29,20 @@ class Test_Shortcut_AI_Color:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @pytest.fixture(scope="module")
-    def shared_data(self):
-        data = {}
+    def data(self):
+        data = {'last_result': True}
         yield data
 
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
+
     @allure.story("Entry")
-    @allure.title("Enter Demo page")
-    def test_entry_demo_page(self, driver):
+    @allure.title("From shortcut")
+    def test_entry_from_shortcut(self, data):
         try:
             self.page_main.enter_launcher()
 
@@ -43,69 +50,133 @@ class Test_Shortcut_AI_Color:
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Color'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Color')
-
-            pytest.fail(f"{str(e)}")
+            data['last_result'] = False
+            raise
 
     @allure.story("Entry")
+    @allure.title("Back from demo")
+    def test_back_from_demo(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Color')
+
+            assert self.page_shortcut.back_from_demo()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
     @allure.title("Enter Media Picker")
-    def test_entry_media_picker(self, driver):
+    def test_entry_media_picker(self, data):
         try:
-            self.click(L.main.shortcut.try_it_now)
+            if self.last_is_fail(data):
+                pass
 
-            assert self.is_exist(find_string('Add Media'))
+            assert self.page_shortcut.enter_media_picker('AI Color')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Color')
-            self.click(L.main.shortcut.try_it_now)
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Entry")
-    @allure.title("Enter Editor")
-    def test_entry_editor(self, driver):
+    @allure.story("Media")
+    @allure.title("Back from media picker")
+    def test_back_from_media_picker(self, data):
         try:
-            self.page_media.select_local_video(test_material_folder, video_9_16)
-            self.page_edit.waiting()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Color')
 
-            assert self.is_exist(L.main.shortcut.export)
+            assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Color')
-            self.page_media.select_local_video(test_material_folder, video_9_16)
-            self.page_edit.waiting()
+    @allure.story("Media")
+    @allure.title("Enter trim before edit")
+    def test_entry_trim_before_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
 
-            pytest.fail(f"{str(e)}")
+            assert self.page_shortcut.enter_trim_before_edit('AI Color')
 
-    @allure.story("Entry")
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
+    @allure.title("Back from trim before edit")
+    def test_back_from_trim_before_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('AI Color')
+
+            assert self.page_shortcut.back_from_trim()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
+    @allure.title("Trim and edit")
+    def test_trim_and_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Color')
+
+            assert self.page_shortcut.trim_and_edit()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
+    @allure.title("Back from editor")
+    def test_back_from_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Color')
+
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
+    @allure.title("Enter editor")
+    def test_entry_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Color')
+
+            assert self.page_shortcut.enter_editor()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Editor")
     @allure.title("Export")
-    def test_entry_export(self, driver):
+    def test_export(self, data):
         try:
-            self.click(L.main.shortcut.export)
-            self.click(L.main.shortcut.produce)
-            self.page_edit.waiting_produce()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Color')
 
-            assert self.is_exist(L.main.shortcut.save_to_camera_roll)
+            assert self.page_shortcut.export()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-
-            pytest.fail(f"{str(e)}")
-
-
+            data['last_result'] = False
+            raise

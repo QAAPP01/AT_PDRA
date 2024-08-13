@@ -31,6 +31,7 @@ from ATFramework_aPDR.pages.page_factory import PageFactory
 class EditPage(BasePage):
     def __init__(self, *args, **kwargs):
         BasePage.__init__(self, *args, **kwargs)
+        self.page_main = PageFactory().get_page_object("main", self.driver)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
 
@@ -602,6 +603,7 @@ class EditPage(BasePage):
                     break
         return True
 
+    # Audio
     def enter_audio_library(self, audio_type):
         """
         Description: Enter audio library
@@ -615,7 +617,7 @@ class EditPage(BasePage):
             'Voice Over': 'Voice-Over'
         }
         if audio_type not in audio_dict:
-            logger(f'[Warning] Invalid audio type "{audio_type}"')
+            logger(f'[Error] Invalid audio type "{audio_type}"', log_level='error')
             return False
 
         try:
@@ -625,6 +627,56 @@ class EditPage(BasePage):
         except Exception:
             traceback.print_exc()
             return False
+
+    def select_music_tab(self, stock, audio_type=None):
+        if audio_type:
+            self.enter_audio_library(audio_type)
+
+        stock_dict = {
+            'local': id('tab_music_local'),
+            'meta': id('tab_meta_sound'),
+            'mixtape': id('tab_mix_tape_sound_clip'),
+            'getty': id('tab_sound_stripe'),
+            'cl': id('tab_bgm_sound_clip'),
+        }
+        if stock not in stock_dict:
+            logger(f'[Error] Invalid stock "{stock}"', log_level='error')
+            return False
+
+        try:
+            end = ""
+            if not self.is_exist(stock):
+                while not self.h_click(stock, 1):
+                    tabs = self.h_get_elements(('xpath', '//android.widget.LinearLayout/android.widget.RelativeLayout'))
+                    last = tabs[-1].get_attribute("resource-id")
+                    if last == end:
+                        logger(f'[Error] No stock: {stock}', log_level='error')
+                        return False
+                    else:
+                        end = last
+                        self.h_swipe_element(tabs[-1], tabs[0], 5)
+                return True
+            else:
+                if self.element(stock).get_attribute('selected') == 'false':
+                    self.h_click(stock, 1)
+                return True
+        except Exception:
+            traceback.print_exc()
+            return False
+
+    def check_youtube_code(self):
+        try:
+            self.click(id('library_unit_copy'))
+            if self.element(aid('[AID]youtube_code')).text == 'Try again later':
+                raise Exception('YouTube code is not generated')
+
+        except Exception:
+            traceback.print_exc()
+            return False
+
+        finally:
+            self.click(aid('[AID]ok_button'))
+
 
     def enter_sticker_library(self, sticker_type):
         """
@@ -648,6 +700,7 @@ class EditPage(BasePage):
         except Exception:
             traceback.print_exc()
             return False
+
 
     def click_audio_tool(self, locator, timeout=0.2):
         tool_xpath = xpath(

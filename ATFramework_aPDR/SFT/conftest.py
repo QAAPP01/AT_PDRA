@@ -1,4 +1,5 @@
 import json
+import subprocess
 import time
 import datetime
 import traceback
@@ -9,16 +10,15 @@ import sys
 from PIL import Image
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
+from main import package_name as PACKAGE_NAME
 
 
 
 DRIVER_DESIRED_CAPS = {}
 DEFAULT_BROWSER = 'com.android.chrome'
 platform_type = 'Android'
-PACKAGE_NAME = package_name
 TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
 TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 
@@ -78,10 +78,19 @@ def driver():
 
     if debug_mode:
         logger('**** Debug Mode ****')
+
         desired_caps['udid'] = 'R5CT32Q3WQN'
-        if desired_caps['udid'] not in os.popen('adb devices').read():
-            desired_caps['udid'] = 'R5CW31G76ST'
-            # desired_caps['udid'] = '9596423546005V8'
+
+        connected_devices = subprocess.run(['adb', 'devices'], stdout=subprocess.PIPE)
+        connected_devices_output = connected_devices.stdout.decode().splitlines()
+
+        device_ids = [line.split()[0] for line in connected_devices_output if line and '\tdevice' in line]
+
+        if desired_caps['udid'] not in device_ids:
+            if device_ids:
+                desired_caps['udid'] = device_ids[0]
+            else:
+                raise RuntimeError("No devices connected.")
 
         mode = 'debug'
         args = [
@@ -137,11 +146,12 @@ def driver():
 
     appium.stop()
 
-
 @pytest.fixture(scope='class', autouse=True)
 def driver_init(driver):
+    page_main = PageFactory().get_page_object("main_page", driver)
     logger("==== Start driver session ====")
     driver.driver.launch_app()
+    page_main.enter_launcher()
     yield
     driver.driver.close_app()
 

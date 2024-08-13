@@ -8,6 +8,8 @@ cap = {
     "automationName": "UiAutomator2",
     "settings[waitForIdleTimeout]": 10,
     "newCommandTimeout": 10000,
+    "ignoreUnimportantViews": False,
+    "enableMultiWindows": True,
     "appPackage": "com.cyberlink.powerdirector.DRA140225_01",
     "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
     "language": "en",
