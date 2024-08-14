@@ -3,6 +3,7 @@ import sys, time
 import os
 import shutil
 import traceback
+from random import randint
 
 import cv2
 from appium.webdriver.common.touch_action import TouchAction
@@ -18,7 +19,7 @@ from selenium.webdriver.common.actions.pointer_input import PointerInput
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage, HCompareImg
 
 from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator_type import *
@@ -33,6 +34,7 @@ class EditPage(BasePage):
         BasePage.__init__(self, *args, **kwargs)
         self.page_media = PageFactory().get_page_object("import_media", self.driver)
         self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
+        self.page_main = PageFactory().get_page_object("main_page", self.driver)
 
         self.el = lambda id: self.driver.driver.find_element(id[0], id[1])
         self.els = lambda id: self.driver.driver.find_elements(id[0], id[1])
@@ -66,6 +68,9 @@ class EditPage(BasePage):
         self.duration = Duration(self.driver)
         self.border_and_shadow = Border_and_Shadow(self.driver)
         self.intro_video = Intro_Video(self.driver)
+        self.color_picker = Color_Picker(self.driver)
+        self.cutout = Cutout(self.driver)
+        self.a_chroma_key = A_Chroma_Key(self.driver)
 
     def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
         boundary_rect = self.element(L.edit.crop.boundary).rect
@@ -794,8 +799,8 @@ class EditPage(BasePage):
             x_center = int(el_target.rect['x'] + el_target.rect['width'] / 2)
             y_center = int(el_target.rect['y'] + el_target.rect['height'] / 2)
             TouchAction(self.driver.driver).long_press(None, x_center, y_center).wait(3).move_to(None,
-                                                                                                 x_center + shift_x,
-                                                                                                 y_center).release().perform()
+                x_center + shift_x,
+                y_center).release().perform()
         except Exception:
             logger('Exception occurs')
             raise Exception
@@ -2088,7 +2093,7 @@ class EditPage(BasePage):
                 self.h_swipe_element_to_location(item, end_x=item_x - 100)
 
             apply_icon = item.find_elements('xpath',
-                                            "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
+                "//android.widget.ImageView[contains(@resource-id,'tool_entry_has_apply_icon')]")
 
             if apply_icon:
                 logger('Found applied icon!')
@@ -2615,6 +2620,8 @@ class Chroma_Key():
     def __init__(self, driver):
         self.color_range = ChromaKey_Sub_item(driver, "Color Range", 200)
         self.denoise = ChromaKey_Sub_item(driver, "Denoise", 200)
+
+
 
 
 class Opacity_effect():
@@ -3145,14 +3152,14 @@ class Pan_Zoom():
             x_axis_center = int(start_position.rect['x'] + start_position.rect['width'] / 2)
             y_axis_center = int(start_position.rect['y'] + start_position.rect['height'] / 2)
             TouchAction(self.driver).press(None, x_axis_center, y_axis_center).wait(1000).move_to(None,
-                                                                                                  x_axis_center + 200,
-                                                                                                  y_axis_center).release().perform()
+                x_axis_center + 200,
+                y_axis_center).release().perform()
             # set end position
             x_axis_center = int(end_position.rect['x'] + end_position.rect['width'] / 2)
             y_axis_center = int(end_position.rect['y'] + end_position.rect['height'] / 2)
             TouchAction(self.driver).press(None, x_axis_center, y_axis_center).wait(1000).move_to(None,
-                                                                                                  x_axis_center - 200,
-                                                                                                  y_axis_center).release().perform()
+                x_axis_center - 200,
+                y_axis_center).release().perform()
         except Exception:
             logger("exception occurs")
             raise Exception
@@ -4212,3 +4219,217 @@ class Intro_Video(BasePage):
         self.click_sub_tool('Flip')
         pic_after = EditPage.get_picture(self, L.edit.pip_designer.pip_object)
         return CompareImage(pic_base, pic_after, 7).compare_image()
+
+
+class Color_Picker(BasePage):
+
+    def enter_color_picker(self):
+        self.elements(L.edit.sub_tool.cutout.card_color)[1].click()
+
+    def color_picker_dropper(self):
+        self.enter_color_picker()
+        self.click(L.edit.pip.colorpicker.btn_dropper)
+        # 點擊滴管之後如果選取狀態是false表示有問題
+        if self.element(L.edit.pip.colorpicker.btn_dropper).get_attribute('selected') == 'false':
+            return False
+        self.click(L.edit.pip_library.pip_object)
+        # 判斷點選preivew畫面後,滴管的選取狀態是不是true,是true的話表示沒有套用成功,所以回傳False
+        if self.element(L.edit.pip.colorpicker.btn_dropper).get_attribute('selected') == 'true':
+            return False
+        return True
+
+    def color_picker_color_map(self):
+        pic_base = self.get_boundary_preview()
+        self.page_edit.swipe_element(L.edit.pip.colorpicker.color_map, "right", 300)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def color_picker_slider(self, direction='up'):
+        pic_base = self.get_boundary_preview()
+        self.page_edit.swipe_element(L.edit.pip.colorpicker.slider_hue, direction)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def color_picker_rgb_text(self, color='red'):
+        pic_base = self.get_boundary_preview()
+        if color == 'red':
+            self.element(L.edit.pip.colorpicker.text_red).send_keys(randint(1, 360))
+        elif color == 'green':
+            self.element(L.edit.pip.colorpicker.text_green).send_keys(randint(1, 360))
+        elif color == 'blue':
+            self.element(L.edit.pip.colorpicker.text_blue).send_keys(randint(1, 360))
+        else:
+            print('color is wrong')
+        pic_after = self.page_edit.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def color_picker_apply(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.pip.colorpicker.apply)
+        pic_after = self.get_boundary_preview()
+        return HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def color_picker_cancel(self):
+        self.color_picker_slider(direction="down")
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.pip.colorpicker.cancel)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+
+class Cutout(BasePage):
+
+    def start_with_cutout(self, clip_type='master video'):
+        if clip_type == 'master video':
+            self.page_main.start_with_master_video()
+        elif clip_type == 'master photo':
+            self.page_main.start_with_master_photo()
+        elif clip_type == 'pip video':
+            self.page_main.start_with_pip_video()
+        elif clip_type == 'pip photo':
+            self.page_main.start_with_pip_photo()
+        else:
+            print('clip type is wrong')
+        self.page_edit.click_sub_tool('Cutout')
+        return self.element(L.edit.sub_tool.cutout.no_effect).get_attribute('selected') == 'true'
+
+    def cutout_remove_background(self):
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.remove_background).click()
+        self.page_edit.waiting()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_no_effect(self):
+        pic_base = self.page_edit.get_preview_pic()
+        self.element(L.edit.sub_tool.cutout.no_effect).click()
+        pic_after = self.page_edit.get_preview_pic()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_image_default_image(self):
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.change_background).click()
+        pic_after = self.get_boundary_preview()
+        image = self.elements(L.edit.sub_tool.cutout.item)
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1) and image[
+            3].get_attribute('selected') == 'true'
+
+    def cutout_image_change_cl_image(self, order=3):
+        if order < 3:
+            order = 3
+        pic_base = self.get_boundary_preview()
+        self.elements(L.edit.sub_tool.cutout.item)[order].click()
+        self.page_edit.waiting()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_image_none(self):
+        pic_base = self.get_boundary_preview()
+        self.elements(L.edit.sub_tool.cutout.item)[1].click()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_custom_image(self):
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.item).click()
+        self.element(L.import_media.media_library.first).click()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_animated_background(self, order=3):
+        if order < 3:
+            order = 3
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.animated).click()
+        self.elements(L.edit.sub_tool.cutout.item)[order].click()
+        self.page_edit.waiting()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_animated_none(self):
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.item).click()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_color_background(self):
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.color).click()
+        self.elements(L.edit.sub_tool.cutout.card_color)[6].click()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_color_none(self):
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.card_color).click()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def cutout_change_background_apply(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.sub_tool.cutout.apply)
+        pic_after = self.get_boundary_preview()
+        return HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def cutout_change_background_cancel(self):
+        self.page_edit.click_sub_tool('Cutout')
+        self.element(L.edit.sub_tool.cutout.change_background).click()
+        self.element(L.edit.sub_tool.cutout.color).click()
+        self.elements(L.edit.sub_tool.cutout.card_color)[15].click()
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.sub_tool.cutout.cancel)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+class A_Chroma_Key(BasePage):
+
+    def enter_chroma_key(self):
+        self.element(L.edit.sub_tool.cutout.chroma_key).click()
+        return self.is_exist(L.edit.sub_tool.cutout.color_picker.picker_btn)
+
+    def chroma_key_click_preview(self):
+        pic_base = self.get_preview_pic()
+        self.click(L.edit.preview.movie_view)
+        pic_after = self.get_preview_pic()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def chroma_key_picker_slider(self):
+        pic_base = self.get_preview_pic()
+        self.element(L.edit.sub_tool.cutout.color_picker.picker_slider).send_keys(randint(0, 360))
+        pic_after = self.get_preview_pic()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def chroma_key_range_slider(self):
+        pic_base = self.get_preview_pic()
+        self.element(L.edit.sub_tool.cutout.color_picker.range_slider).send_keys(randint(30, 100))
+        pic_after = self.get_preview_pic()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def chroma_key_denoise_slider(self):
+        pic_base = self.get_preview_pic()
+        self.element(L.edit.sub_tool.cutout.color_picker.denoise_slider).send_keys(randint(50, 100))
+        pic_after = self.get_preview_pic()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def chroma_key_reset(self):
+        pic_base = self.get_preview_pic()
+        self.click(L.edit.sub_tool.cutout.color_picker.reset)
+        pic_after = self.get_preview_pic()
+        self.click(L.edit.sub_tool.cutout.color_picker.apply)
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def chroma_key_cancel(self):
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.chroma_key).click()
+        self.click(L.edit.preview.movie_view)
+        self.click(L.edit.sub_tool.cutout.color_picker.cancel)
+        pic_after = self.get_boundary_preview()
+        return HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def chroma_key_apply(self):
+        pic_base = self.get_boundary_preview()
+        self.element(L.edit.sub_tool.cutout.chroma_key).click()
+        self.click(L.edit.preview.movie_view)
+        self.click(L.edit.sub_tool.cutout.color_picker.apply)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)

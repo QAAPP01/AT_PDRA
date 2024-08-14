@@ -271,6 +271,7 @@ class Shortcut:
         remove_watermark = id('remove_watermark')
         overwrite_cancel = aid('[AID]ConfirmDialog_Cancel')
         overwrite_ok = aid('[AID]ConfirmDialog_OK')
+        editor_choice = id('cl_container')
 
     class photo_enhance:
         compare_thumb = id('iv_thumb')

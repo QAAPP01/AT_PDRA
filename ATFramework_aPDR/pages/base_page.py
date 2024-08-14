@@ -112,6 +112,16 @@ class BasePage(BasePage):
                 time.sleep(2)
                 element = self.h_get_element(locator)
         return self.get_picture(locator)
+
+    def get_boundary_preview(self, locator=L.edit.pip_library.pip_object):
+        time.sleep(1)
+        element = self.h_get_element(locator)
+        for i in range(60):
+            if not element.get_attribute('displayed') == 'true':
+                time.sleep(2)
+                element = self.h_get_element(locator)
+        return self.get_picture(locator)
+
     def get_library_pic(self):
         elem = self.el(L.import_media.library_gridview.library_rooms)
         logger("elem = %s" % str(elem.rect) )

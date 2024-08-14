@@ -17,6 +17,7 @@ from .locator.locator_type import *
 from .locator.locator import edit as E
 from .locator.locator import import_media as I
 from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
+from ATFramework_aPDR.pages.page_factory import PageFactory
 
 pdr_package = PACKAGE_NAME
 
@@ -26,6 +27,7 @@ class MainPage(BasePage):
     def __init__(self, *args, **kwargs):
         BasePage.__init__(self, *args, **kwargs)
         self.shortcut = Shortcut(self)
+        self.page_media = PageFactory().get_page_object("import_media", self.driver)
 
     def initial(self):
         logger("Waiting for permission_file_ok")
@@ -1205,6 +1207,56 @@ class MainPage(BasePage):
         except Exception:
             raise Exception
         return True
+
+    def start_with_master_video(self, folder='00PDRa_Testing_Material', video='mkv.mkv', selected=True):
+        try:
+            self.enter_launcher()
+            self.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(folder, video)
+            self.click(L.import_media.media_library.apply)
+            if selected:
+                self.click(L.edit.timeline.master_clip)
+
+        except Exception:
+            traceback.print_exc()
+            return False
+
+    def start_with_master_photo(self, folder='00PDRa_Testing_Material', photo='jpg.jpg', selected=True):
+        try:
+            self.enter_launcher()
+            self.enter_timeline(skip_media=False)
+            self.page_media.select_local_photo(folder, photo)
+            self.click(L.import_media.media_library.apply)
+            if selected:
+                self.click(L.edit.timeline.master_clip)
+
+        except Exception:
+            traceback.print_exc()
+            return False
+
+    def start_with_pip_photo(self, folder='00PDRa_Testing_Material', photo='jpg.jpg'):
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_photo)
+            self.page_media.select_local_photo(folder, photo)
+
+        except Exception:
+            traceback.print_exc()
+            return False
+
+    def start_with_pip_video(self, folder='00PDRa_Testing_Material', video='mkv.mkv'):
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(folder, video)
+
+        except Exception:
+            traceback.print_exc()
+            return False
 
 
 class Shortcut:
