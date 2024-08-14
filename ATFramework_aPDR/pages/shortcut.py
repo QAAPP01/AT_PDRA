@@ -116,7 +116,9 @@ class Shortcut(BasePage):
         self.click(L.import_media.media_library.trim_next)
         self.page_edit.waiting()
 
-        if self.is_exist(L.main.shortcut.export) and self.element(L.main.shortcut.trimmed_video).text == 'Export':
+        self.click(id('btn_upgrade'), 1)  # for auto cations
+
+        if self.is_exist(L.main.shortcut.export) and self.element(L.main.shortcut.export).text == 'Export':
             return True
         else:
             logger(f'[Error] trim_video fail', log_level='error')
