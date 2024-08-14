@@ -8,7 +8,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from ATFramework_aPDR.pages.base_page import BasePage
 from ATFramework_aPDR.ATFramework.utils.extra import element_exist_click
 from ATFramework_aPDR.ATFramework.utils.log import logger
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 import subprocess
 from pathlib import Path
 from appium.webdriver.common.touch_action import TouchAction
@@ -20,6 +19,7 @@ from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 from ATFramework_aPDR.pages.page_factory import PageFactory
 
 pdr_package = PACKAGE_NAME
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME as pdr_package
 
 
 class MainPage(BasePage):
@@ -27,7 +27,6 @@ class MainPage(BasePage):
     def __init__(self, *args, **kwargs):
         BasePage.__init__(self, *args, **kwargs)
         self.shortcut = Shortcut(self)
-        self.page_media = PageFactory().get_page_object("import_media", self.driver)
 
     def initial(self):
         logger("Waiting for permission_file_ok")
@@ -37,22 +36,19 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def subscribe(self):
-        self.click(L.main.menu.menu)
-        if self.is_exist(L.main.menu.iap_banner, 1):
-            self.click(L.main.menu.back)
-            self.click(L.main.subscribe.entry)
+        self.click(L.main.subscribe.entry)
+        if self.is_exist(find_string("You've unlocked"), 2):
+            self.click(L.main.subscribe.back_btn)
+            return True
+        else:
             self.click(L.main.subscribe.continue_btn)
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 5)
-            self.click(id('iv_close'), 2)  # close the credit dialog
+            self.click(id('iv_close'))  # close the credit dialog
             if self.is_exist(L.main.new_project, 10):
                 return True
             else:
                 raise
-
-        else:
-            self.click(L.main.menu.back)
-        return True
 
     def enter_launcher(self):
         try:
@@ -84,6 +80,16 @@ class MainPage(BasePage):
             logger('Enter Launcher Done')
             return True
 
+        except Exception:
+            traceback.print_exc()
+            return False
+
+    def relaunch(self):
+        try:
+            self.driver.driver.close_app()
+            self.driver.driver.launch_app()
+            self.enter_launcher()
+            return True
         except Exception:
             traceback.print_exc()
             return False

@@ -21,6 +21,18 @@ class Test_Scan_Music:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
+    @pytest.fixture(scope="module")
+    def data(self):
+        data = {'last_result': True}
+        yield data
+
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
+
     @allure.story("Meta")
     @allure.title("Download")
     def test_meta_music_download(self, driver):
@@ -71,7 +83,8 @@ class Test_Scan_Music:
             for i in music:
                 i.click()
                 if self.click(L.import_media.music_library.download, 2):
-                    self.click(L.edit.try_before_buy.try_it_first, 1)
+                    if self.page_media.subscribe_getty_pro():
+                        self.click(L.import_media.music_library.download, 2)
                     if self.is_exist(L.import_media.music_library.download_cancel, 1):
                         self.is_not_exist(L.import_media.music_library.download_cancel)
                     break
@@ -88,6 +101,11 @@ class Test_Scan_Music:
             self.page_media.click_music_tab('getty')
 
             pytest.fail(f"{str(e)}")
+
+    @allure.story("Getty")
+    @allure.title("YouTube code")
+    def test_getty_music_youtube_code(self, driver):
+        assert self.page_edit.check_youtube_code()
 
     @allure.story("Mixtape")
     @allure.title("Download")

@@ -1,25 +1,24 @@
+import time
 import traceback
-import inspect
 import pytest
 import allure
-
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
+from ATFramework_aPDR.pages.locator.locator_type import *
+
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
 
 
-@allure.feature("Media Scan")
-class Test_Scan_Media:
-    @pytest.fixture(scope='class', autouse=True)
-    def driver_init(self, driver):
-        logger("[Start] Init driver session")
-        driver.driver.launch_app()
-        yield
-        driver.driver.close_app()
-
+@allure.epic("Shortcut")
+@allure.feature("Video Effect")
+class Test_Shortcut_Video_Effect:
     @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
+    def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
@@ -29,51 +28,127 @@ class Test_Scan_Media:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-    @allure.story("Getty Video Preview")
-    def test_getty_video_preview(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
+    @pytest.fixture(scope="module")
+    def data(self):
+        data = {'last_result': True}
+        yield data
 
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
+
+    @allure.story("Entry")
+    @allure.title("Enter Media Picker")
+    def test_entry_media_picker(self, data):
         try:
             self.page_main.enter_launcher()
-            self.page_main.subscribe()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
 
-            self.click(L.import_media.media_library.btn_preview())
-            self.page_media.waiting_download()
-            img = self.page_main.get_picture(L.import_media.media_library.video.display_preview)
+            self.page_shortcut.enter_shortcut('Video Effect')
 
-            assert HCompareImg(img).is_not_black()
-            driver.driver.back()
+            assert self.is_exist(find_string('Add Media'))
 
         except Exception:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
-            raise Exception
-
-    @allure.story("Getty Video Download")
-    def test_getty_video_download(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-
+    @allure.story("Media")
+    @allure.title("Back from media picker")
+    def test_back_from_media_picker(self, data):
         try:
-            self.click(L.import_media.media_library.media())
-            self.page_media.waiting_download()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Video Effect')
 
-            assert self.click(L.import_media.media_library.delete_selected, 60)
+            assert self.page_shortcut.back_from_media_picker()
 
         except Exception:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_video_library("getty")
-            raise Exception
+    @allure.story("Media")
+    @allure.title("Enter trim before edit")
+    def test_entry_trim_before_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.enter_trim_before_edit('Video Effect')
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
+    @allure.title("Back from trim before edit")
+    def test_back_from_trim_before_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('Video Effect')
+
+            assert self.page_shortcut.back_from_trim()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
+    @allure.title("Trim and edit")
+    def test_trim_and_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Video Effect')
+
+            assert self.page_shortcut.trim_and_edit()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
+    @allure.title("Back from editor")
+    def test_back_from_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Video Effect')
+
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Media")
+    @allure.title("Enter editor")
+    def test_entry_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Video Effect')
+
+            assert self.page_shortcut.enter_editor()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.story("Editor")
+    @allure.title("Export")
+    def test_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Video Effect')
+
+            assert self.page_shortcut.export()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise

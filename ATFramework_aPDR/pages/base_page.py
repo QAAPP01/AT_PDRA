@@ -16,7 +16,6 @@ from appium.webdriver.common.touch_action import TouchAction
 
 from PIL import Image
 
-from .ad import Ad
 from ATFramework_aPDR.ATFramework.pages.base_page import *
 from .locator import locator as L
 from .locator.locator_type import *
@@ -36,7 +35,6 @@ class BasePage(BasePage):
         self.el_find_string = lambda id: self.driver.driver.find_element('xpath','//*[contains(@text,"' + id + '")]')
         self.driver.driver.update_settings({"waitForIdleTimeout": 300})
         self.app_package = PACKAGE_NAME
-        self.ad = Ad(self)
         self.udid = self.driver.driver.desired_capabilities['deviceUDID']
         self.package_name = self.app_package
         # logger("PackageName = %s" % PACKAGE_NAME)
@@ -362,53 +360,53 @@ class BasePage(BasePage):
             return None
         return color_rgb
 
-    def download_media(self,name,name2=None):
-        logger(f"start download_media: {name} / {name2}")
-        implicitly = self.driver.driver.implicitly_wait()
-        self.driver.driver.implicitly_wait(3)
-        try:
-            self.click(find_string("Get More"))
-        except:
-            self.el_find_string("Music and Sound Clips").click()
-        self.driver.driver.implicitly_wait(implicitly)
-        time.sleep(1)
-        retry = 3
-        while retry:
-            try:
-                self.el_find_string(name).click()
-                time.sleep(1)
-                break
-            except:
-                retry -=1
-                logger("Unable to click element, try again! {retry}")
-        if retry == 0: raise Exception("Find elememt errpr.")
-        if name2:   # download music/sound case
-            self.el_find_string(name2).click()
-            elems = self.els(L.import_media.library_listview.download_song)
-            for elem in elems:
-                if elem.get_attribute("enabled") == "true":
-                    elem.click()
-                    break
-            result_has_subscription = bool(self.ad.get_ad_type())
-            self.back()
-            result_has_unlock_ad = bool(self.ad.get_ad_type())
-            #if result_has_unlock_ad: self.back() # close watch ad to unlock
-            return result_has_subscription, result_has_unlock_ad
-        result_has_subscription = bool(self.ad.get_ad_type())
-        time.sleep(1)
-        self.back() # cancel subscription
-        result_has_unlock_ad = 0 if not result_has_subscription else bool(self.ad.get_ad_type())
-        ''' ## **unnecessary to download**
-        import_media.click(L.ad.watch_ad_to_unlock)
-        import_media.is_vanish(L.ad.count_down , 60) # AD should be 30sec only
-        import_media.back()
-        import_media.is_vanish(L.ad.progress_bar , 60) # wait till DL complete
-        result_dl_package = bool (self.el_find_string("Disturbance"))
-        '''
-        if result_has_unlock_ad: self.back() # exit unload ad page
-        time.sleep(1)
-        self.back() # exit more page
-        return result_has_subscription , result_has_unlock_ad
+    # def download_media(self,name,name2=None):
+    #     logger(f"start download_media: {name} / {name2}")
+    #     implicitly = self.driver.driver.implicitly_wait()
+    #     self.driver.driver.implicitly_wait(3)
+    #     try:
+    #         self.click(find_string("Get More"))
+    #     except:
+    #         self.el_find_string("Music and Sound Clips").click()
+    #     self.driver.driver.implicitly_wait(implicitly)
+    #     time.sleep(1)
+    #     retry = 3
+    #     while retry:
+    #         try:
+    #             self.el_find_string(name).click()
+    #             time.sleep(1)
+    #             break
+    #         except:
+    #             retry -=1
+    #             logger("Unable to click element, try again! {retry}")
+    #     if retry == 0: raise Exception("Find elememt errpr.")
+    #     if name2:   # download music/sound case
+    #         self.el_find_string(name2).click()
+    #         elems = self.els(L.import_media.library_listview.download_song)
+    #         for elem in elems:
+    #             if elem.get_attribute("enabled") == "true":
+    #                 elem.click()
+    #                 break
+    #         result_has_subscription = bool(self.ad.get_ad_type())
+    #         self.back()
+    #         result_has_unlock_ad = bool(self.ad.get_ad_type())
+    #         #if result_has_unlock_ad: self.back() # close watch ad to unlock
+    #         return result_has_subscription, result_has_unlock_ad
+    #     result_has_subscription = bool(self.ad.get_ad_type())
+    #     time.sleep(1)
+    #     self.back() # cancel subscription
+    #     result_has_unlock_ad = 0 if not result_has_subscription else bool(self.ad.get_ad_type())
+    #     ''' ## **unnecessary to download**
+    #     import_media.click(L.ad.watch_ad_to_unlock)
+    #     import_media.is_vanish(L.ad.count_down , 60) # AD should be 30sec only
+    #     import_media.back()
+    #     import_media.is_vanish(L.ad.progress_bar , 60) # wait till DL complete
+    #     result_dl_package = bool (self.el_find_string("Disturbance"))
+    #     '''
+    #     if result_has_unlock_ad: self.back() # exit unload ad page
+    #     time.sleep(1)
+    #     self.back() # exit more page
+    #     return result_has_subscription , result_has_unlock_ad
 
     def copy_custom_font(self,font_name):
         source_full_path = r'%s\SFT\custom_font\%s'% (dirname(dirname(__file__)),font_name)

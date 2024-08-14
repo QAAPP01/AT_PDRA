@@ -92,15 +92,5 @@ class Test_Shortcut_Image_Enhancer:
             self.page_main.enter_launcher()
             self.page_shortcut.enter_media_picker('Image Enhancer')
 
-    @allure.story("Editor")
-    @allure.title("Export")
-    def test_export(self):
-        try:
-            self.page_shortcut.enter_editor(file=photo_9_16)
-            assert self.page_shortcut.export()
-
-        except Exception:
-            traceback.print_exc()
-
 
 
