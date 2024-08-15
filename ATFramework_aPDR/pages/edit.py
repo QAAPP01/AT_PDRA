@@ -674,8 +674,12 @@ class EditPage(BasePage):
     def check_youtube_code(self):
         try:
             self.click(id('library_unit_copy'))
-            if self.element(aid('[AID]youtube_code')).text == 'Try again later':
+            if self.is_exist(id('waiting_cursor'), 1):
+                self.is_not_exist(id('waiting_cursor'), 60)
+            if self.element(aid('[AID]youtube_code')).text == 'Try again later' or self.element(aid('[AID]youtube_code')).text == "":
                 raise Exception('YouTube code is not generated')
+            else:
+                return True
 
         except Exception as e:
             traceback.print_exc()
