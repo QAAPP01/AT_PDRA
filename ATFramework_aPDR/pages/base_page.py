@@ -46,8 +46,9 @@ class BasePage(BasePage):
                 element.click()
                 logger(f"[Click] {locator}")
                 return True
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
         return False
 
     def h_screenshot(self, locator=L.edit.preview.preview, crop=None):

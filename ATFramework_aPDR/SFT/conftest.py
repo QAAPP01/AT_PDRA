@@ -237,3 +237,6 @@ def exception_screenshot(request, driver):
 
         allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)
         logger(f"Exception screenshot: {screenshot_path}", log_level='error')
+
+        page_main = PageFactory().get_page_object("main_page", driver)
+        page_main.relaunch()

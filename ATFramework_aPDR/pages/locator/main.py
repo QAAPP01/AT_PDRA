@@ -9,6 +9,7 @@ class Launcher:
     home = id('layout_home')
 
 class AI_Creation:
+    title = id('tv_project_title')
     entry = id('layout_ai_creation')
 
     @staticmethod

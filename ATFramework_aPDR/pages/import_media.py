@@ -292,10 +292,11 @@ class MediaPage(BasePage):
     def waiting_loading(self, timeout=120):
         if self.h_is_exist(L.import_media.media_library.percentage, 5):
             while 1:
-                percentage = self.element(L.import_media.media_library.percentage).text
                 if self.h_is_not_exist(L.import_media.media_library.percentage, timeout):
                     return True
                 else:
+                    percentage = self.element(L.import_media.media_library.percentage).text
+                    time.sleep(20)
                     if percentage != self.element(L.import_media.media_library.percentage).text:
                         continue
                     else:

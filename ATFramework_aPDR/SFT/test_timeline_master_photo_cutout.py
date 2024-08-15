@@ -43,8 +43,9 @@ class Test_Master_Photo_Cutout_Change_Background:
         try:
             assert self.page_edit.cutout.start_with_cutout(clip_type='photo')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -95,8 +96,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_image_default_image()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -115,8 +117,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
             assert self.is_exist(L.edit.sub_tool.cutout.animated)
             assert self.is_exist(L.edit.sub_tool.cutout.color)
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -134,8 +137,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_image_change_cl_image(7)
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -153,8 +157,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_image_none()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -172,8 +177,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_custom_image()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -199,8 +205,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
             assert self.is_exist(L.edit.sub_tool.cutout.color_picker.picker_btn)
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -219,8 +226,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_animated_background()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -238,8 +246,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_animated_none()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -257,8 +266,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_color_background()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -276,8 +286,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_color_none()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -295,8 +306,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.color_picker.color_picker_dropper()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -314,8 +326,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.color_picker.color_picker_color_map()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -333,8 +346,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.color_picker.color_picker_slider()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -352,8 +366,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.color_picker.color_picker_rgb_text('red')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -371,8 +386,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.color_picker.color_picker_rgb_text('green')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -390,8 +406,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.color_picker.color_picker_rgb_text('blue')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -409,8 +426,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.color_picker.color_picker_apply()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -429,8 +447,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
             self.page_edit.color_picker.enter_color_picker()
             assert self.page_edit.color_picker.color_picker_cancel()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -448,8 +467,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_change_background_apply()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -467,8 +487,9 @@ class Test_PiP_Photo_Cutout_Change_Background_:
         try:
             assert self.page_edit.cutout.cutout_change_background_cancel()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 

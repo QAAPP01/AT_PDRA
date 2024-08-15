@@ -36,8 +36,9 @@ class Shortcut(BasePage):
     def back_from_demo(self):
         self.click(L.main.shortcut.demo_back)
 
-        if self.is_exist(L.main.shortcut.shortcut_name(0)):
+        if self.is_exist(L.main.shortcut.shortcut_name(0)) or self.element(L.main.ai_creation.title).text == 'AI Creation':
             return True
+
         else:
             logger(f'[Error] back_from_demo fail', log_level='error')
             return False
@@ -53,8 +54,9 @@ class Shortcut(BasePage):
             else:
                 logger(f'[Error] enter_media_picker fail', log_level='error')
                 return False
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
 
 
     def back_from_media_picker(self):
@@ -134,3 +136,6 @@ class Shortcut(BasePage):
         else:
             logger(f'[Error] export fail', log_level='error')
             return False
+
+    def tti_back(self):
+        self.click(L.main.shortcut.close)

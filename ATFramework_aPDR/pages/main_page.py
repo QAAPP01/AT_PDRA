@@ -80,8 +80,9 @@ class MainPage(BasePage):
             logger('Enter Launcher Done')
             return True
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
     def relaunch(self):
@@ -90,8 +91,9 @@ class MainPage(BasePage):
             self.driver.driver.launch_app()
             self.enter_launcher()
             return True
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
     def enter_shortcut(self, name):
@@ -105,6 +107,7 @@ class MainPage(BasePage):
             return False
 
     def enter_ai_feature(self, name):
+        self.click(L.main.ai_creation.entry)
         if self.click(find_string(name), 2):
             return True
         else:
@@ -1223,8 +1226,9 @@ class MainPage(BasePage):
             if selected:
                 self.click(L.edit.timeline.master_clip)
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
     def start_with_master_photo(self, folder='00PDRa_Testing_Material', photo='jpg.jpg', selected=True):
@@ -1236,8 +1240,9 @@ class MainPage(BasePage):
             if selected:
                 self.click(L.edit.timeline.master_clip)
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
     def start_with_pip_photo(self, folder='00PDRa_Testing_Material', photo='jpg.jpg'):
@@ -1248,8 +1253,9 @@ class MainPage(BasePage):
             self.click(L.import_media.menu.overlay_photo)
             self.page_media.select_local_photo(folder, photo)
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
     def start_with_pip_video(self, folder='00PDRa_Testing_Material', video='mkv.mkv'):
@@ -1260,8 +1266,9 @@ class MainPage(BasePage):
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(folder, video)
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
 
@@ -1294,8 +1301,9 @@ class Shortcut:
                         if self.click(style):
                             break
             return True
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
     def click_paid_style(self):
@@ -1312,8 +1320,9 @@ class Shortcut:
                     else:
                         last = styles[-1]
                         self.main.h_swipe_element(styles[-1], styles[0], 3)
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
     def click_free_style(self):
@@ -1336,8 +1345,9 @@ class Shortcut:
                         last = styles[-1]
                         self.main.h_swipe_element(styles[-1], styles[0], 3)
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False
 
     def waiting_generated(self, gen_btn=None, retry=30, timeout=120):
@@ -1355,7 +1365,8 @@ class Shortcut:
             else:
                 raise Exception(f"Exceeded retry limit: {retry}")
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             raise
 

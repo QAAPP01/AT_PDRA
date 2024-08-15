@@ -1089,6 +1089,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             time.sleep(0.5)
             return True
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             return False

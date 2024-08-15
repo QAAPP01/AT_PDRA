@@ -48,8 +48,9 @@ class Test_Shortcut_Filter:
 
             assert self.is_exist(find_string('Add Media'))
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -62,8 +63,9 @@ class Test_Shortcut_Filter:
                 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -76,8 +78,9 @@ class Test_Shortcut_Filter:
 
             assert self.page_shortcut.enter_trim_before_edit('Filter')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -90,8 +93,9 @@ class Test_Shortcut_Filter:
 
             assert self.page_shortcut.back_from_trim()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -104,8 +108,9 @@ class Test_Shortcut_Filter:
 
             assert self.page_shortcut.trim_and_edit()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -118,8 +123,9 @@ class Test_Shortcut_Filter:
 
             assert self.page_shortcut.back_from_editor()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -132,8 +138,9 @@ class Test_Shortcut_Filter:
 
             assert self.page_shortcut.enter_editor()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -146,8 +153,9 @@ class Test_Shortcut_Filter:
 
             assert self.page_shortcut.export()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 

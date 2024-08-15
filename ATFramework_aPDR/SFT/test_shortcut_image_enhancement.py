@@ -43,8 +43,9 @@ class Test_Shortcut_Image_Enhancer:
 
             assert self.is_exist(find_string('Add Media'))
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -57,8 +58,9 @@ class Test_Shortcut_Image_Enhancer:
         try:
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -70,8 +72,9 @@ class Test_Shortcut_Image_Enhancer:
         try:
             assert self.page_shortcut.enter_editor('Image Enhancer')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -84,8 +87,9 @@ class Test_Shortcut_Image_Enhancer:
         try:
             assert self.page_shortcut.back_from_editor()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 

@@ -26,15 +26,21 @@ class Test_Shortcut_AI_Art:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @pytest.fixture(scope="module")
-    def shared_data(self):
-        data = {}
+    def data(self):
+        data = {'last_result': True}
         yield data
+
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
 
     @allure.story("Entry")
     @allure.title("From shortcut")
     def test_entry_from_shortcut(self, driver):
         try:
-            self.page_main.enter_launcher()
             self.page_main.enter_shortcut('AI Art')
 
             assert self.is_exist(find_string('AI Art'))
