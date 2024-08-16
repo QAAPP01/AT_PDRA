@@ -1,3 +1,4 @@
+import time
 import traceback
 import inspect
 import pytest
@@ -351,6 +352,15 @@ class Test_Scan_Media:
 
             raise Exception
 
+    def check_download_media(self):
+        for retry in range(9):
+            self.click(L.import_media.media_library.media(retry+1))
+            self.page_media.waiting_download()
+            if self.is_exist(L.import_media.media_library.delete_selected):
+                return True
+        else:
+            return False
+
     @allure.story("Video")
     @allure.title("Pixabay Video Download")
     def test_pixabay_video_download(self, driver):
@@ -358,8 +368,7 @@ class Test_Scan_Media:
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.click(L.import_media.media_library.media())
-            self.page_media.waiting_download()
+            self.check_download_media()
 
             assert self.click(L.import_media.media_library.delete_selected)
 
