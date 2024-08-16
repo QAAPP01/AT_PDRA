@@ -57,6 +57,7 @@ class Shortcut(BasePage):
         except Exception as e:
             traceback.print_exc()
             logger(e)
+            return False
 
 
     def back_from_media_picker(self):

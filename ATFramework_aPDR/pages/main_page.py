@@ -15,10 +15,6 @@ from ATFramework_aPDR.pages.locator import locator as L
 from .locator.locator_type import *
 from .locator.locator import edit as E
 from .locator.locator import import_media as I
-from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
-from ATFramework_aPDR.pages.page_factory import PageFactory
-
-pdr_package = PACKAGE_NAME
 from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME as pdr_package
 
 

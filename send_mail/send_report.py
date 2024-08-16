@@ -1,5 +1,6 @@
 import json
 import sys
+import traceback
 
 from .sendemail import send_mail
 import os
@@ -288,31 +289,34 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
 
         # Add to Google Sheet
         # initial google_api object
-        sheet_name = f"aPDR_SFT"
-        # header = ['Date', 'Time', 'SR', 'Build_Ver', 'Build_No', 'Server', 'OS', 'Device', 'Version', 'Pass', 'Fail', 'Skip', 'N/A', 'Total time']
-        header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
-        obj_google_api = GoogleApi(sheet_name, header_custom)
-        # add new record
-        new_record = {'Date': datetime.date.today(),
-                      'Time': datetime.datetime.now().strftime("%I:%M %p"),
-                      'Script_Name': "aPDR_SFT",
-                      'Script_Ver': "Testing",
-                      'SR_No': sr_number,
-                      'TR_No': tr_number,
-                      'Build_No': package_build_number,
-                      'Prod_Ver': package_version,
-                      'Prod_Ver_Type': 'Prod',
-                      'OS': 'Android',
-                      'OS_Ver': "12",
-                      'Device_ID': 'Samsung A53'}
-        obj_google_api.add_new_record(new_record)
-        # print(f'current row={obj_google_api.row_prev_record}')
+        try:
+            sheet_name = f"aPDR_SFT"
+            # header = ['Date', 'Time', 'SR', 'Build_Ver', 'Build_No', 'Server', 'OS', 'Device', 'Version', 'Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+            header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+            obj_google_api = GoogleApi(sheet_name, header_custom)
+            # add new record
+            new_record = {'Date': datetime.date.today().isoformat(),
+                          'Time': datetime.datetime.now().strftime("%I:%M %p"),
+                          'Script_Name': test_result_title,
+                          'Script_Ver': "Testing",
+                          'SR_No': sr_number,
+                          'TR_No': tr_number,
+                          'Build_No': package_build_number,
+                          'Prod_Ver': package_version,
+                          'Prod_Ver_Type': 'Prod',
+                          'OS': 'Android',
+                          'OS_Ver': "12",
+                          'Device_ID': 'Samsung A53'}
+            obj_google_api.add_new_record(new_record)
+            # print(f'current row={obj_google_api.row_prev_record}')
 
-        # update columns of previous record
-        data = {'Pass': summary_info["passed"], 'Fail': fail_count, 'Skip': summary_info["skipped"],
-                'N/A': na_count, 'Total time': summary_info["duration"]}
-        obj_google_api.update_columns(data)
-        #
-        print(f'Done.')
+            # update columns of previous record
+            data = {'Pass': summary_info["passed"], 'Fail': fail_count, 'Skip': summary_info["skipped"],
+                    'N/A': na_count, 'Total time': summary_info["duration"]}
+            obj_google_api.update_columns(data)
+            #
+            print(f'Done.')
+        except Exception:
+            traceback.print_exc()
 
     return True
