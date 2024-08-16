@@ -428,6 +428,9 @@ class SubTool:
         color = find_string('Color')
         master_preview = id('boundary_container')
         item = id('itemMask')
+        card_color = id('card_color') # 換顏色的選項
+        apply = id('btn_ok')
+        cancel = id('btn_cancel')
 
         class ColorPicker:
             preview = xpath(f'//*[contains(@resource-id,"movie_view")]/android.view.View')
@@ -904,6 +907,8 @@ class Pip:
         text_red = id('color_red_edit_text')
         text_green = id('color_green_edit_text')
         text_blue = id('color_blue_edit_text')
+        apply = id('btn_apply_icon')
+        cancel = id('btn_back_icon')
 
     colorpicker = ColorPicker()
     premium_font_icon = id('try_icon')

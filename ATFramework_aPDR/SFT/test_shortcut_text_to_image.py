@@ -29,16 +29,21 @@ class Test_Shortcut_Text_to_Image:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @pytest.fixture(scope="module")
-    def shared_data(self):
-        data = {}
+    def data(self):
+        data = {'last_result': True}
         yield data
 
-    @allure.story("Entry")
-    @allure.title("Enter feature page")
-    def test_entry_feature_page(self, driver):
-        try:
-            self.page_main.enter_launcher()
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
 
+    @allure.story("Entry")
+    @allure.title("From shortcut")
+    def test_entry_from_shortcut(self, data):
+        try:
             self.page_main.enter_shortcut('Text to Image')
             time.sleep(1)
 
@@ -46,13 +51,24 @@ class Test_Shortcut_Text_to_Image:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+    @allure.story("Entry")
+    @allure.title("Back to launcher")
+    def test_back_to_launcher(self, data):
+        try:
+            self.page_shortcut.tti_back()
 
-            pytest.fail(f"{str(e)}")
+            assert self.is_exist(L.main.shortcut.shortcut_name(0))
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
 
     def sce_6_13_2(self):
         func_name = inspect.stack()[0][3]

@@ -29,77 +29,72 @@ class Test_Shortcut_AI_Art:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @pytest.fixture(scope="module")
-    def shared_data(self):
-        data = {}
+    def data(self):
+        data = {'last_result': True}
         yield data
 
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
+
     @allure.story("Entry")
-    @allure.title("From Home")
-    def test_entry_from_home(self, driver):
+    @allure.title("From shortcut")
+    def test_entry_from_shortcut(self, data):
         try:
-            self.page_main.enter_launcher()
             self.page_main.enter_shortcut('AI Anime Video')
 
-            assert self.is_exist(find_string('AI Anime Video'))
+            assert self.element(L.main.shortcut.demo_title).text == 'AI Anime Video'
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_ai_feature('AI Anime Video')
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Entry")
-    @allure.title("Back to launcher")
-    def test_back_to_launcher(self, driver):
+    @allure.title("Back from demo")
+    def test_back_from_demo(self, data):
         try:
-            self.click(L.main.shortcut.demo_back)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Anime Video')
 
-            assert self.is_exist(L.main.shortcut.shortcut_name(0))
+            assert self.page_shortcut.back_from_demo()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Entry")
     @allure.title("From AI creation")
-    def test_entry_from_ai_creation(self, driver):
+    def test_entry_from_ai_creation(self, data):
         try:
-            self.click(L.main.ai_creation.entry)
             self.page_main.enter_ai_feature('AI Anime Video')
 
-            assert self.is_exist(find_string('AI Anime Video'))
+            assert self.element(L.main.shortcut.demo_title).text == 'AI Anime Video'
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Anime Video')
-
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Entry")
     @allure.title("Back to AI creation")
-    def test_back_to_ai_creation(self, driver):
+    def test_back_to_ai_creation(self, data):
         try:
-            self.click(L.main.shortcut.demo_back)
+            if self.last_is_fail(data):
+                self.page_main.enter_ai_feature('AI Anime Video')
 
-            assert self.is_exist(find_string('AI Creation'))
+            assert self.page_shortcut.back_from_demo()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 

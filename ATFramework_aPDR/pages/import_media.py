@@ -239,7 +239,7 @@ class MediaPage(BasePage):
             self.click(('class name', 'android.widget.Button'))
             self.click(find_string('Not now'), 1)
             if self.is_not_exist(aid('Google Play'), 30):
-                if self.is_exist(L.import_media.media_library.media(), 10) or self.is_exist(L.import_media.music_library.music) :
+                if self.is_exist(L.import_media.music_library.music(0), 1) or self.is_exist(L.import_media.media_library.media(), 10):
                     return True
                 else:
                     raise Exception("Doesn't return to media picker")
@@ -292,10 +292,11 @@ class MediaPage(BasePage):
     def waiting_loading(self, timeout=120):
         if self.h_is_exist(L.import_media.media_library.percentage, 5):
             while 1:
-                percentage = self.element(L.import_media.media_library.percentage).text
                 if self.h_is_not_exist(L.import_media.media_library.percentage, timeout):
                     return True
                 else:
+                    percentage = self.element(L.import_media.media_library.percentage).text
+                    time.sleep(20)
                     if percentage != self.element(L.import_media.media_library.percentage).text:
                         continue
                     else:

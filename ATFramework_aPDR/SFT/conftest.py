@@ -138,12 +138,11 @@ def driver():
             retry -= 1
 
     yield driver
-
-    try:
-        driver.driver.quit()
-    except InvalidSessionIdException:
-        pass
-
+    if not debug_mode:
+        try:
+            driver.driver.quit()
+        except InvalidSessionIdException:
+            pass
     appium.stop()
 
 @pytest.fixture(scope='class', autouse=True)
@@ -217,14 +216,13 @@ def pytest_runtest_makereport(item, call):
     setattr(item, "rep_" + rep.when, rep)
 
 
-@pytest.fixture(scope="function", autouse=True)
-def exception_screenshot(request):
+@pytest.fixture(autouse=True)
+def exception_screenshot(request, driver):
     yield
     if request.node.rep_call.failed:
-        driver = request.node.funcargs['driver']
-        failure_dir = os.path.join(os.path.dirname(__file__), "exception_screenshot")
+        failure_dir = os.path.join(os.path.dirname(__file__), "failures_screenshot")
         os.makedirs(failure_dir, exist_ok=True)
-        screenshot_path = os.path.join(failure_dir, f"{request.node.name}_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg")
+        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.jpg")
 
         driver.driver.get_screenshot_as_file(screenshot_path)
 
@@ -239,3 +237,6 @@ def exception_screenshot(request):
 
         allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)
         logger(f"Exception screenshot: {screenshot_path}", log_level='error')
+
+        page_main = PageFactory().get_page_object("main_page", driver)
+        page_main.relaunch()

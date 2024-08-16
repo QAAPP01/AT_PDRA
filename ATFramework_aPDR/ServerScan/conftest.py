@@ -1,22 +1,24 @@
 import json
+import subprocess
 import time
 import datetime
 import traceback
+import allure
 import os
 import pytest
 import sys
+from PIL import Image
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from main_server_sacn import package_name
 from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
+from main import package_name as PACKAGE_NAME
 
 
 
 DRIVER_DESIRED_CAPS = {}
 DEFAULT_BROWSER = 'com.android.chrome'
 platform_type = 'Android'
-PACKAGE_NAME = package_name
 TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
 TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 
@@ -38,11 +40,6 @@ except FileNotFoundError:
 except Exception:
     traceback.print_exc()
 
-
-
-# Recording path
-folder_path = os.path.join(os.path.dirname(__file__), "recording")
-os.makedirs(folder_path, exist_ok=True)
 
 def pytest_addoption(parser):
     parser.addoption("--udid", action="store", default="auto", help="device unique udid")
@@ -81,10 +78,19 @@ def driver():
 
     if debug_mode:
         logger('**** Debug Mode ****')
+
         desired_caps['udid'] = 'R5CT32Q3WQN'
-        if desired_caps['udid'] not in os.popen('adb devices').read():
-            desired_caps['udid'] = 'R5CW31G76ST'
-            # desired_caps['udid'] = '9596423546005V8'
+
+        connected_devices = subprocess.run(['adb', 'devices'], stdout=subprocess.PIPE)
+        connected_devices_output = connected_devices.stdout.decode().splitlines()
+
+        device_ids = [line.split()[0] for line in connected_devices_output if line and '\tdevice' in line]
+
+        if desired_caps['udid'] not in device_ids:
+            if device_ids:
+                desired_caps['udid'] = device_ids[0]
+            else:
+                raise RuntimeError("No devices connected.")
 
         mode = 'debug'
         args = [
@@ -139,11 +145,12 @@ def driver():
             pass
     appium.stop()
 
-
 @pytest.fixture(scope='class', autouse=True)
 def driver_init(driver):
+    page_main = PageFactory().get_page_object("main_page", driver)
     logger("==== Start driver session ====")
     driver.driver.launch_app()
+    page_main.enter_launcher()
     yield
     driver.driver.close_app()
 
@@ -198,3 +205,38 @@ def log_class_start(request):
 @pytest.fixture(autouse=True)
 def log_function_test(request):
     logger(f"\n[Start] Function: {request.node.name}", log_level='info')
+
+
+# === Exception Screenshot Fixture ===
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    setattr(item, "rep_" + rep.when, rep)
+
+
+@pytest.fixture(autouse=True)
+def exception_screenshot(request, driver):
+    yield
+    if request.node.rep_call.failed:
+        failure_dir = os.path.join(os.path.dirname(__file__), "failures_screenshot")
+        os.makedirs(failure_dir, exist_ok=True)
+        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.jpg")
+
+        driver.driver.get_screenshot_as_file(screenshot_path)
+
+        image = Image.open(screenshot_path)
+        width, height = image.size
+        new_width = 360
+        new_height = int(height * (new_width / width))
+        resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+        if resized_image.mode == 'RGBA':
+            resized_image = resized_image.convert('RGB')
+        resized_image.save(screenshot_path, 'JPEG', quality=85)
+
+        allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)
+        logger(f"Exception screenshot: {screenshot_path}", log_level='error')
+
+        page_main = PageFactory().get_page_object("main_page", driver)
+        page_main.relaunch()

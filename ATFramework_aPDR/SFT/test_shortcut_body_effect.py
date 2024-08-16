@@ -50,8 +50,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Body Effect'
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -64,8 +65,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -78,8 +80,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.enter_media_picker('Body Effect')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -92,8 +95,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -106,8 +110,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.enter_trim_before_edit('Body Effect')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -120,8 +125,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.back_from_trim()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -134,8 +140,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.trim_and_edit()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -148,8 +155,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.back_from_editor()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -162,8 +170,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.enter_editor()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 
@@ -176,8 +185,9 @@ class Test_Shortcut_Body_Effect:
 
             assert self.page_shortcut.export()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             data['last_result'] = False
             raise
 

@@ -99,6 +99,8 @@ class Test_Scan_Music:
             self.page_main.enter_timeline()
             self.page_edit.enter_audio_library('Music')
             self.page_media.click_music_tab('getty')
+            self.click(L.import_media.music_library.category(3))
+            self.click(L.import_media.music_library.music())
 
             pytest.fail(f"{str(e)}")
 

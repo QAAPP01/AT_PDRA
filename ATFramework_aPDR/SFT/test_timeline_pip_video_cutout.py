@@ -45,16 +45,11 @@ class Test_PiP_Video_Cutout_Change_Background:
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Cutout')
-            assert self.element(L.edit.sub_tool.cutout.no_effect).get_attribute('selected') == 'true'
+            assert self.page_edit.cutout.start_with_cutout('pip video')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -70,14 +65,11 @@ class Test_PiP_Video_Cutout_Change_Background:
     def test_cutout_remove_background(self, driver):
 
         try:
-            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.cutout.remove_background).click()
-            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
-            assert self.element(L.edit.sub_tool.cutout.remove_background).get_attribute('selected') == 'true'
+            assert self.page_edit.cutout.cutout_remove_background()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -92,12 +84,11 @@ class Test_PiP_Video_Cutout_Change_Background:
     @allure.title('No Effect')
     def test_cutout_no_effect(self, driver):
         try:
-            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.cutout.no_effect).click()
-            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
-        except Exception:
+            assert self.page_edit.cutout.cutout_no_effect()
+
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -132,11 +123,11 @@ class Test_PiP_Video_Cutout_chroma_key:
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.element(L.edit.sub_tool.cutout.chroma_key).click()
-            assert self.is_exist(L.edit.sub_tool.cutout.color_picker.picker_btn)
+            assert self.page_edit.a_chroma_key.enter_chroma_key()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -152,13 +143,11 @@ class Test_PiP_Video_Cutout_chroma_key:
     @allure.title('Click Preview')
     def test_chroma_key_click_preview(self, driver):
         try:
-            pic_base = self.page_edit.get_preview_pic()
-            self.click(L.edit.preview.movie_view)
-            pic_after = self.page_edit.get_preview_pic()
-            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+            assert self.page_edit.a_chroma_key.chroma_key_click_preview()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -174,12 +163,11 @@ class Test_PiP_Video_Cutout_chroma_key:
     @allure.title('Picker Slider')
     def test_chroma_key_picker_slider(self, driver):
         try:
-            pic_base = self.page_edit.get_preview_pic()
-            self.element(L.edit.sub_tool.cutout.color_picker.picker_slider).send_keys(randint(0, 360))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
-        except Exception:
+            assert self.page_edit.a_chroma_key.chroma_key_picker_slider()
+
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -195,12 +183,11 @@ class Test_PiP_Video_Cutout_chroma_key:
     @allure.title('Range Slider')
     def test_chroma_key_range_slider(self, driver):
         try:
-            pic_base = self.page_edit.get_preview_pic()
-            self.element(L.edit.sub_tool.cutout.color_picker.range_slider).send_keys(randint(30, 100))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
-        except Exception:
+            assert self.page_edit.a_chroma_key.chroma_key_range_slider()
+
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -216,12 +203,11 @@ class Test_PiP_Video_Cutout_chroma_key:
     @allure.title('Denoise Slider')
     def test_chroma_key_denoise_slider(self, driver):
         try:
-            pic_base = self.page_edit.get_preview_pic()
-            self.element(L.edit.sub_tool.cutout.color_picker.denoise_slider).send_keys(randint(50, 100))
-            pic_after = self.page_edit.get_preview_pic()
-            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
-        except Exception:
+            assert self.page_edit.a_chroma_key.chroma_key_denoise_slider()
+
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -237,15 +223,11 @@ class Test_PiP_Video_Cutout_chroma_key:
     @allure.title('Reset')
     def test_chroma_key_reset(self, driver):
         try:
-            pic_base = self.page_edit.get_preview_pic()
-            self.click(L.edit.sub_tool.cutout.color_picker.reset)
-            pic_after = self.page_edit.get_preview_pic()
-            self.click(L.edit.sub_tool.cutout.color_picker.apply)
-            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
-            assert self.is_exist(L.edit.sub_tool.cutout.color_picker.picker_btn)
+            assert self.page_edit.a_chroma_key.chroma_key_reset()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -261,15 +243,11 @@ class Test_PiP_Video_Cutout_chroma_key:
     @allure.title('Cancel')
     def test_chroma_key_cancel(self, driver):
         try:
-            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.cutout.chroma_key).click()
-            self.click(L.edit.preview.movie_view)
-            self.click(L.edit.sub_tool.cutout.color_picker.cancel)
-            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            assert HCompareImg(pic_base, pic_after).histogram_compare(1)
+            assert self.page_edit.a_chroma_key.chroma_key_cancel()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -285,15 +263,11 @@ class Test_PiP_Video_Cutout_chroma_key:
     @allure.title('Apply')
     def test_chroma_key_apply(self, driver):
         try:
-            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.cutout.chroma_key).click()
-            self.click(L.edit.preview.movie_view)
-            self.click(L.edit.sub_tool.cutout.color_picker.apply)
-            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+            assert self.page_edit.a_chroma_key.chroma_key_apply()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 

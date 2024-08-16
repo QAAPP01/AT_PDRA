@@ -56,8 +56,9 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.back_from_demo()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -69,8 +70,9 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.enter_media_picker('Stabilizer')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -83,8 +85,9 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -96,8 +99,9 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.enter_trim_before_edit('Stabilizer')
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -110,8 +114,9 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.back_from_trim()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -124,8 +129,9 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.trim_and_edit()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -138,8 +144,9 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.back_from_editor()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -152,8 +159,9 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.enter_editor()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -166,5 +174,6 @@ class Test_Shortcut_Stabilizer:
         try:
             assert self.page_shortcut.export()
 
-        except Exception:
+        except Exception as e:
             traceback.print_exc()
+            logger(e)
