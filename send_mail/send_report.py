@@ -283,6 +283,7 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
                 width: 100%;
                 border-collapse: collapse;
                 margin-top: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             }
             .summary-table th, .summary-table td {
                 border: 1px solid #ddd;
@@ -298,6 +299,9 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
             }
             .summary-table tr:hover {
                 background-color: #ddd;
+            }
+            .failed-row {
+                background-color: #ffcccc;
             }
         </style>
     </head>
@@ -315,34 +319,38 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
     mail_body += '<h2>Test Summary:</h2>'
     mail_body += f'''
     <table class="summary-table">
-        <tr>
-            <th>Test Metric</th>
-            <th>Count</th>
-        </tr>
-        <tr>
-            <td>Total Tests</td>
-            <td>{summary_info["num_collected"]}</td>
-        </tr>
-        <tr>
-            <td>Passed</td>
-            <td>{summary_info["passed"]}</td>
-        </tr>
-        <tr>
-            <td>Failed</td>
-            <td>{summary_info["failed"]}</td>
-        </tr>
-        <tr>
-            <td>Errors</td>
-            <td>{summary_info["errors"]}</td>
-        </tr>
-        <tr>
-            <td>Skipped</td>
-            <td>{summary_info["skipped"]}</td>
-        </tr>
-        <tr>
-            <td>Duration</td>
-            <td>{summary_info["duration"]}</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Test Metric</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Tests</td>
+                <td>{summary_info["num_collected"]}</td>
+            </tr>
+            <tr>
+                <td>Passed</td>
+                <td>{summary_info["passed"]}</td>
+            </tr>
+            <tr class="failed-row">
+                <td>Failed</td>
+                <td>{summary_info["failed"]}</td>
+            </tr>
+            <tr>
+                <td>Errors</td>
+                <td>{summary_info["errors"]}</td>
+            </tr>
+            <tr>
+                <td>Skipped</td>
+                <td>{summary_info["skipped"]}</td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td>{summary_info["duration"]}</td>
+            </tr>
+        </tbody>
     </table>
     '''
     mail_body += html_report_tail
