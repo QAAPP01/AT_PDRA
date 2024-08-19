@@ -231,14 +231,22 @@ def generate_allure_report(result_folder, report_folder):
 
 def send_allure_report(report_folder, test_result_title, device_id, receiver_list, tr_number, package_version, package_build_number, sr_number=None):
 
-    opts = {'account': 'cltest.qaapp1@gmail.com', 'password': 'izjysnzxhygofgns',
-            'to': '', 'subject': '',
-            'from': 'ATServer', 'text': 'txt_content', 'html': 'html_content',
-            'attachment': []}
+    opts = {
+        'account': 'cltest.qaapp1@gmail.com',
+        'password': 'izjysnzxhygofgns',
+        'to': '',
+        'subject': '',
+        'from': 'ATServer',
+        'text': 'txt_content',
+        'html': 'html_content',
+        'attachment': []
+    }
 
+    # 讀取測試摘要信息
     with open('summary.json', 'r') as f:
         summary_info = json.load(f)
 
+    # 根據測試結果設置報告標題
     if summary_info["failed"] > 0:
         result = '[FAIL]'
     elif summary_info["passed"] == 0 and summary_info["failed"] == 0:
@@ -246,75 +254,163 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
     else:
         result = '[PASS]'
 
-    html_report_header = '<html><head><meta http-equiv=""Content-Type"" content=""text/html; charset=ANSI""></head><body style=font-family:Calibri>'
+    # 設置報告的 HTML 標頭和樣式
+    html_report_header = '''
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ANSI">
+        <style>
+            body {
+                font-family: Calibri, sans-serif;
+                background-color: #f4f4f4;
+                color: #333;
+                padding: 20px;
+            }
+            h1 {
+                color: #2c3e50;
+                border-bottom: 2px solid #2980b9;
+                padding-bottom: 10px;
+            }
+            h2 {
+                color: #2980b9;
+                margin-top: 20px;
+            }
+            p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            .summary-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            .summary-table th, .summary-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            .summary-table th {
+                background-color: #2980b9;
+                color: white;
+            }
+            .summary-table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            .summary-table tr:hover {
+                background-color: #ddd;
+            }
+            .failed-row {
+                background-color: #ffcccc;
+            }
+        </style>
+    </head>
+    <body>
+    '''
+
     html_report_tail = '</body></html>'
+
+    # 組裝報告的 HTML 內容
     mail_body = html_report_header
-    mail_body += f'<h1>{test_result_title} {result}</h1>'
-    mail_body += f'<p>device: {device_id}</p>'
-    mail_body += f'<p>TR: {tr_number}</p>'
-    mail_body += f'<p>Build: {package_version}.{package_build_number}</p>'
-    mail_body += f'<h2>Test Summary:</h2>'
-    mail_body += f'<p>Total: {summary_info["num_collected"]}</p>'
-    mail_body += f'<p>Passed: {summary_info["passed"]}</p>'
-    mail_body += f'<p>Failed: {summary_info["failed"]}</p>'
-    mail_body += f'<p>Errors: {summary_info["errors"]}</p>'
-    mail_body += f'<p>Skipped: {summary_info["skipped"]}</p>'
-    mail_body += f'<p>Duration: {summary_info["duration"]}</p>'
+    mail_body += f'<h1>{test_result_title}: {result}</h1>'
+    mail_body += f'<p><strong>Device:</strong> {device_id}</p>'
+    mail_body += f'<p><strong>TR:</strong> {tr_number}</p>'
+    mail_body += f'<p><strong>Build:</strong> {package_version}.{package_build_number}</p>'
+    mail_body += '<h2>Test Summary:</h2>'
+    mail_body += f'''
+    <table class="summary-table">
+        <thead>
+            <tr>
+                <th>Test Metric</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Tests</td>
+                <td>{summary_info["num_collected"]}</td>
+            </tr>
+            <tr>
+                <td>Passed</td>
+                <td>{summary_info["passed"]}</td>
+            </tr>
+            <tr class="failed-row">
+                <td>Failed</td>
+                <td>{summary_info["failed"]}</td>
+            </tr>
+            <tr>
+                <td>Errors</td>
+                <td>{summary_info["errors"]}</td>
+            </tr>
+            <tr>
+                <td>Skipped</td>
+                <td>{summary_info["skipped"]}</td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td>{summary_info["duration"]}</td>
+            </tr>
+        </tbody>
+    </table>
+    '''
     mail_body += html_report_tail
 
+    # 設置郵件選項
     opts['attachment'].append(f'{report_folder}-html\\index.html')
-
-    opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number}'
-    opts['subject'] += result
+    opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number} {result}'
     opts['to'] = receiver_list
     opts['html'] = mail_body
+
+    # 發送郵件
     send_mail(opts)
 
-
-    # Create QA Report
+    # 自動創建 QA 報告並更新 Google Sheet
     auto_report = True
     if auto_report:
         fail_count = int(summary_info["failed"]) + int(summary_info["errors"])
         na_count = summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"]
-        tr_dict = {"browser": "Edge",
-                   "tr_no": tr_number,
-                   "qr_dict": {'short_description': opts['subject'],
-                               'build_day': datetime.date.today().strftime('%m%d'),
-                               'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {fail_count}]',
-                               'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {fail_count}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
-                               }
-                   }
+        tr_dict = {
+            "browser": "Edge",
+            "tr_no": tr_number,
+            "qr_dict": {
+                'short_description': opts['subject'],
+                'build_day': datetime.date.today().strftime('%m%d'),
+                'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {fail_count}]',
+                'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {fail_count}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
+            }
+        }
         auto_create_qr(tr_dict, opts['attachment'])
         print('compelte')
 
-        # Add to Google Sheet
-        # initial google_api object
+        # 更新 Google Sheet
         try:
             sheet_name = f"aPDR_SFT"
-            # header = ['Date', 'Time', 'SR', 'Build_Ver', 'Build_No', 'Server', 'OS', 'Device', 'Version', 'Pass', 'Fail', 'Skip', 'N/A', 'Total time']
             header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
             obj_google_api = GoogleApi(sheet_name, header_custom)
-            # add new record
-            new_record = {'Date': datetime.date.today().isoformat(),
-                          'Time': datetime.datetime.now().strftime("%I:%M %p"),
-                          'Script_Name': test_result_title,
-                          'Script_Ver': "Testing",
-                          'SR_No': sr_number,
-                          'TR_No': tr_number,
-                          'Build_No': package_build_number,
-                          'Prod_Ver': package_version,
-                          'Prod_Ver_Type': 'Prod',
-                          'OS': 'Android',
-                          'OS_Ver': "12",
-                          'Device_ID': 'Samsung A53'}
+            new_record = {
+                'Date': datetime.date.today().isoformat(),
+                'Time': datetime.datetime.now().strftime("%I:%M %p"),
+                'Script_Name': test_result_title,
+                'Script_Ver': "Testing",
+                'SR_No': sr_number,
+                'TR_No': tr_number,
+                'Build_No': package_build_number,
+                'Prod_Ver': package_version,
+                'Prod_Ver_Type': 'Prod',
+                'OS': 'Android',
+                'OS_Ver': "12",
+                'Device_ID': 'Samsung A53'
+            }
             obj_google_api.add_new_record(new_record)
-            # print(f'current row={obj_google_api.row_prev_record}')
 
-            # update columns of previous record
-            data = {'Pass': summary_info["passed"], 'Fail': fail_count, 'Skip': summary_info["skipped"],
-                    'N/A': na_count, 'Total time': summary_info["duration"]}
+            data = {
+                'Pass': summary_info["passed"],
+                'Fail': fail_count,
+                'Skip': summary_info["skipped"],
+                'N/A': na_count,
+                'Total time': summary_info["duration"]
+            }
             obj_google_api.update_columns(data)
-            #
             print(f'Done.')
         except Exception:
             traceback.print_exc()
