@@ -254,7 +254,7 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
     else:
         result = '[PASS]'
 
-    # 設置報告的 HTML 標頭和樣式
+    # HTML 標頭和樣式
     html_report_header = '''
     <html>
     <head>
@@ -310,7 +310,10 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
 
     html_report_tail = '</body></html>'
 
-    # 組裝報告的 HTML 內容
+    # fail background
+    failed_row_class = 'failed-row' if summary_info["failed"] > 0 else ''
+
+    # HTML 內容
     mail_body = html_report_header
     mail_body += f'<h1>{test_result_title}: {result}</h1>'
     mail_body += f'<p><strong>Device:</strong> {device_id}</p>'
@@ -319,43 +322,39 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
     mail_body += '<h2>Test Summary:</h2>'
     mail_body += f'''
     <table class="summary-table">
-        <thead>
-            <tr>
-                <th>Test Metric</th>
-                <th>Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Total Tests</td>
-                <td>{summary_info["num_collected"]}</td>
-            </tr>
-            <tr>
-                <td>Passed</td>
-                <td>{summary_info["passed"]}</td>
-            </tr>
-            <tr class="failed-row">
-                <td>Failed</td>
-                <td>{summary_info["failed"]}</td>
-            </tr>
-            <tr>
-                <td>Errors</td>
-                <td>{summary_info["errors"]}</td>
-            </tr>
-            <tr>
-                <td>Skipped</td>
-                <td>{summary_info["skipped"]}</td>
-            </tr>
-            <tr>
-                <td>Duration</td>
-                <td>{summary_info["duration"]}</td>
-            </tr>
-        </tbody>
+        <tr>
+            <th>Test Metric</th>
+            <th>Count</th>
+        </tr>
+        <tr>
+            <td>Total Tests</td>
+            <td>{summary_info["num_collected"]}</td>
+        </tr>
+        <tr>
+            <td>Passed</td>
+            <td>{summary_info["passed"]}</td>
+        </tr>
+        <tr class="{failed_row_class}">
+            <td>Failed</td>
+            <td>{summary_info["failed"]}</td>
+        </tr>
+        <tr>
+            <td>Errors</td>
+            <td>{summary_info["errors"]}</td>
+        </tr>
+        <tr>
+            <td>Skipped</td>
+            <td>{summary_info["skipped"]}</td>
+        </tr>
+        <tr>
+            <td>Duration</td>
+            <td>{summary_info["duration"]}</td>
+        </tr>
     </table>
     '''
     mail_body += html_report_tail
 
-    # 設置郵件選項
+    # mail
     opts['attachment'].append(f'{report_folder}-html\\index.html')
     opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number} {result}'
     opts['to'] = receiver_list
