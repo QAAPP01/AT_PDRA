@@ -30,16 +30,21 @@ class Test_Shortcut_AI_Audio_Tools:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @pytest.fixture(scope="module")
-    def shared_data(self):
-        data = {}
+    def data(self):
+        data = {'last_result': True}
         yield data
+
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
 
     @allure.story("Entry")
     @allure.title("Enter demo page")
     def test_entry_demo_page(self, driver):
         try:
-            self.page_main.enter_launcher()
-
             self.page_main.enter_shortcut('AI Audio Tools')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Audio Tools'
@@ -143,7 +148,7 @@ class Test_Shortcut_AI_Audio_Tools:
     @allure.feature("Speech Enhance")
     @allure.story("Media Picker")
     @allure.title("Enter Editor")
-    def test_speech_enhance_entry_editor(self, driver):
+    def test_speech_enhance_entry_editor(self, data):
         try:
             self.page_main.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
@@ -155,18 +160,24 @@ class Test_Shortcut_AI_Audio_Tools:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_edit.waiting()
+    @allure.story("Editor")
+    @allure.title("Play preview")
+    def test_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance')
 
-            pytest.fail(f"{str(e)}")
+            assert self.page_shortcut.play_preview()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.feature("Speech Enhance")
     @allure.story("Export")
@@ -233,7 +244,7 @@ class Test_Shortcut_AI_Audio_Tools:
     @allure.feature("AI Denoise")
     @allure.story("Media Picker")
     @allure.title("Enter Editor")
-    def test_ai_denoise_entry_editor(self, driver):
+    def test_ai_denoise_entry_editor(self, data):
         try:
             self.page_main.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
@@ -245,18 +256,24 @@ class Test_Shortcut_AI_Audio_Tools:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_edit.waiting()
+    @allure.story("Editor")
+    @allure.title("Play preview")
+    def test_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise')
 
-            pytest.fail(f"{str(e)}")
+            assert self.page_shortcut.play_preview()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.feature("AI Denoise")
     @allure.story("Export")

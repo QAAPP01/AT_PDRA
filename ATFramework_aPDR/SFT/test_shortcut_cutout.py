@@ -30,16 +30,21 @@ class Test_Shortcut_Cutout:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @pytest.fixture(scope="module")
-    def shared_data(self):
-        data = {}
+    def data(self):
+        data = {'last_result': True}
         yield data
+
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
 
     @allure.story("Entry")
     @allure.title("From shortcut")
     def test_entry_from_shortcut(self, driver):
         try:
-            self.page_main.enter_launcher()
-
             self.page_shortcut.enter_shortcut('Cutout')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Smart Cutout'
@@ -158,18 +163,61 @@ class Test_Shortcut_Cutout:
 
     @allure.story("Media")
     @allure.title("Enter editor")
-    def test_enter_editor(self, driver):
+    def test_enter_editor(self, data):
         try:
             assert self.page_shortcut.enter_editor()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_editor('Cutout')
+    @allure.story("Editor")
+    @allure.title("Play preview")
+    def test_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Cutout')
+
+            assert self.page_shortcut.play_preview()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    # @allure.story("Editor")
+    # @allure.title("Add background photo")
+    # def test_add_background_photo(self,data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Cutout')
+    #
+    #         assert self.page_shortcut.add_background_photo(test_material_folder,photo_9_16)
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.story("Editor")
+    # @allure.title("Remove background")
+    # def test_remove_background(self,data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Cutout')
+    #
+    #         assert self.page_shortcut.remove_background()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+
 
     @allure.story("Editor")
     @allure.title("Export")

@@ -52,6 +52,12 @@ class Shortcut:
         else:
             return xpath(f'//*[contains(@resource-id,"tv_name")]')
 
+    @staticmethod
+    def item(index: int = 1):
+        if index:
+            return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"top_area")]')
 
     class hsl:
         red = id('view_red')

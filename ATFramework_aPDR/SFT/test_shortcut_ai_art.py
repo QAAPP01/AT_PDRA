@@ -136,7 +136,7 @@ class Test_Shortcut_AI_Art:
 
     @allure.story("Media Picker")
     @allure.title("Import photo")
-    def test_import_photo(self, driver):
+    def test_import_photo(self, data):
         try:
             self.page_main.enter_ai_feature('AI Art')
             self.click(L.main.shortcut.try_it_now)
@@ -147,16 +147,24 @@ class Test_Shortcut_AI_Art:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Art')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-            pytest.fail(f"{str(e)}")
+    @allure.story("Editor")
+    @allure.title("Play preview")
+    def test_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Art')
+
+            assert self.page_shortcut.play_preview()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Back to media picker")

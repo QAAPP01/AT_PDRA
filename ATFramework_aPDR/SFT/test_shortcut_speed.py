@@ -29,41 +29,45 @@ class Test_Shortcut_Speed:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @pytest.fixture(scope="module")
-    def shared_data(self):
-        data = {}
+    def data(self):
+        data = {'last_result': True}
         yield data
+
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
 
     @allure.story("Entry")
     @allure.title("Enter Media Picker")
-    def test_entry_media_picker(self, driver):
+    def test_entry_media_picker(self, data):
         try:
-            self.page_main.enter_launcher()
-
             self.page_shortcut.enter_shortcut('Speed')
 
             assert self.is_exist(find_string('Add Media'))
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Speed')
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Media")
     @allure.title("Back from media picker")
-    def test_back_from_media_picker(self, driver):
+    def test_back_from_media_picker(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Speed')
+
             assert self.page_shortcut.back_from_media_picker()
             
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
+            data['last_result'] = False
+            raise
 
     @allure.story("Media")
     @allure.title("Enter trim before edit")
@@ -127,18 +131,30 @@ class Test_Shortcut_Speed:
 
     @allure.story("Media")
     @allure.title("Enter editor")
-    def test_enter_editor(self, driver):
+    def test_enter_editor(self, data):
         try:
             assert self.page_shortcut.enter_editor()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_editor('Speed')
+    @allure.story("Editor")
+    @allure.title("Play preview")
+    def test_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Speed')
+
+            assert self.page_shortcut.play_preview()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Export")

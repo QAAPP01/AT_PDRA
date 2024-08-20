@@ -26,9 +26,16 @@ class Test_Shortcut_AI_Sketch:
         self.is_not_exist = self.page_main.h_is_not_exist
 
     @pytest.fixture(scope="module")
-    def shared_data(self):
-        data = {}
+    def data(self):
+        data = {'last_result': True}
         yield data
+
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
 
     @allure.story("Entry")
     @allure.title("From AI creation")
@@ -157,7 +164,7 @@ class Test_Shortcut_AI_Sketch:
 
     @allure.story("Media Picker")
     @allure.title("Import photo")
-    def test_import_photo(self, driver):
+    def test_import_photo(self, data):
         try:
             self.page_main.enter_ai_feature('AI Sketch')
             self.click(L.main.shortcut.try_it_now)
@@ -168,16 +175,24 @@ class Test_Shortcut_AI_Sketch:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-            pytest.fail(f"{str(e)}")
+    @allure.story("Editor")
+    @allure.title("Play preview")
+    def test_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch')
+
+            assert self.page_shortcut.play_preview()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Back to media picker")
@@ -200,7 +215,7 @@ class Test_Shortcut_AI_Sketch:
 
     @allure.story("Editor")
     @allure.title("Generate style")
-    def test_gen_style(self, driver, shared_data):
+    def test_gen_style(self, driver, data):
         try:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -208,7 +223,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
 
             preview = self.page_edit.get_preview_pic()
-            shared_data["pic_history"] = preview
+            data["pic_history"] = preview
             assert HCompareImg(preview).is_not_black()
 
         except Exception as e:
@@ -224,7 +239,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_media.waiting_loading()
 
             self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            shared_data["pic_history"] = self.page_edit.get_preview_pic()
+            data["pic_history"] = self.page_edit.get_preview_pic()
 
             pytest.fail(f"{str(e)}")
 
@@ -254,9 +269,9 @@ class Test_Shortcut_AI_Sketch:
 
     @allure.story("Editor")
     @allure.title("Compare button enabled")
-    def test_compare_button_enabled(self, driver, shared_data):
+    def test_compare_button_enabled(self, driver, data):
         try:
-            shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
+            data["pic_before_compare"] = self.page_edit.get_preview_pic()
             self.click(L.main.shortcut.ai_art.compare)
 
             assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'true' and self.element(
@@ -275,7 +290,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_media.waiting_loading()
 
             self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
+            data["pic_before_compare"] = self.page_edit.get_preview_pic()
 
             self.click(L.main.shortcut.ai_art.compare)
 
@@ -283,11 +298,11 @@ class Test_Shortcut_AI_Sketch:
 
     @allure.story("Editor")
     @allure.title("Compare preview display")
-    def test_compare_preview(self, driver, shared_data):
+    def test_compare_preview(self, driver, data):
         try:
-            shared_data["pic_after_compare"] = self.page_edit.get_preview_pic()
+            data["pic_after_compare"] = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(shared_data["pic_before_compare"], shared_data["pic_after_compare"]).ssim_compare()
+            assert not HCompareImg(data["pic_before_compare"], data["pic_after_compare"]).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -303,13 +318,13 @@ class Test_Shortcut_AI_Sketch:
 
             self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
             self.click(L.main.shortcut.ai_art.compare)
-            shared_data["pic_after_compare"] = self.page_edit.get_preview_pic()
+            data["pic_after_compare"] = self.page_edit.get_preview_pic()
 
             pytest.fail(f"{str(e)}")
 
     @allure.story("Editor")
     @allure.title("Move compare line")
-    def test_move_compare_line(self, driver, shared_data):
+    def test_move_compare_line(self, driver, data):
         try:
             thumb = self.element(L.main.shortcut.photo_enhance.compare_thumb)
             rect = thumb.rect
@@ -318,7 +333,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.h_drag_element(thumb, x - 100, y)
             pic_after_drag = self.page_main.get_preview_pic()
 
-            assert not HCompareImg(pic_after_drag, shared_data["pic_after_compare"]).ssim_compare()
+            assert not HCompareImg(pic_after_drag, data["pic_after_compare"]).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -339,7 +354,7 @@ class Test_Shortcut_AI_Sketch:
 
     @allure.story("Editor")
     @allure.title("Compare button disabled")
-    def test_compare_button_disabled(self, driver, shared_data):
+    def test_compare_button_disabled(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_art.compare)
 
@@ -359,17 +374,17 @@ class Test_Shortcut_AI_Sketch:
             self.page_media.waiting_loading()
 
             self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            shared_data["pic_before_compare"] = self.page_edit.get_preview_pic()
+            data["pic_before_compare"] = self.page_edit.get_preview_pic()
 
             pytest.fail(f"{str(e)}")
 
     @allure.story("Editor")
     @allure.title("Compare preview resume")
-    def test_compare_preview_resume(self, driver, shared_data):
+    def test_compare_preview_resume(self, driver, data):
         try:
             pic_preview = self.page_edit.get_preview_pic()
 
-            assert HCompareImg(pic_preview, shared_data["pic_before_compare"]).ssim_compare()
+            assert HCompareImg(pic_preview, data["pic_before_compare"]).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -412,13 +427,13 @@ class Test_Shortcut_AI_Sketch:
 
     @allure.story("Editor")
     @allure.title("Reopen history image")
-    def test_reopen_history_image(self, driver, shared_data):
+    def test_reopen_history_image(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_art.history)
             self.click(L.main.shortcut.ai_art.history_image(2))
             preview = self.page_edit.get_preview_pic()
 
-            assert HCompareImg(preview, shared_data["pic_history"]).ssim_compare()
+            assert HCompareImg(preview, data["pic_history"]).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -510,9 +525,9 @@ class Test_Shortcut_AI_Sketch:
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Original")
-    def test_crop_original(self, driver, shared_data):
+    def test_crop_original(self, driver, data):
         try:
-            shared_data['pic_crop_original'] = self.page_edit.get_preview_pic()
+            data['pic_crop_original'] = self.page_edit.get_preview_pic()
             self.click(L.main.shortcut.ai_sketch.crop)
             self.page_main.h_swipe_element(L.edit.crop.btn_free, L.edit.crop.btn_9_16, 3)
             time.sleep(1)
@@ -521,7 +536,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_crop_original']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_crop_original']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -541,12 +556,12 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Free")
-    def test_crop_free(self, driver, shared_data):
+    def test_crop_free(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.click(L.edit.crop.btn_free)
@@ -554,7 +569,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -574,12 +589,12 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("9:16")
-    def test_crop_9_16(self, driver, shared_data):
+    def test_crop_9_16(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.click(L.edit.crop.btn_9_16)
@@ -587,7 +602,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -607,12 +622,12 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("1:1")
-    def test_crop_1_1(self, driver, shared_data):
+    def test_crop_1_1(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.click(L.edit.crop.btn_1_1)
@@ -620,7 +635,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -640,12 +655,12 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("4:5")
-    def test_crop_4_5(self, driver, shared_data):
+    def test_crop_4_5(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.click(L.edit.crop.btn_4_5)
@@ -653,7 +668,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -673,12 +688,12 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("16:9")
-    def test_crop_16_9(self, driver, shared_data):
+    def test_crop_16_9(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.click(L.edit.crop.btn_16_9)
@@ -686,7 +701,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -706,12 +721,12 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("4:3")
-    def test_crop_4_3(self, driver, shared_data):
+    def test_crop_4_3(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.click(L.edit.crop.btn_4_3)
@@ -719,7 +734,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -739,12 +754,12 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("3:4")
-    def test_crop_3_4(self, driver, shared_data):
+    def test_crop_3_4(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.page_main.h_swipe_element(L.edit.crop.btn_4_3, L.edit.crop.btn_free, 3)
@@ -754,7 +769,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -774,12 +789,12 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("21:9")
-    def test_crop_21_9(self, driver, shared_data):
+    def test_crop_21_9(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.page_main.h_swipe_element(L.edit.crop.btn_4_3, L.edit.crop.btn_free, 3)
@@ -789,7 +804,7 @@ class Test_Shortcut_AI_Sketch:
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
@@ -809,19 +824,19 @@ class Test_Shortcut_AI_Sketch:
             pytest.fail(f"{str(e)}")
 
         finally:
-            shared_data['pic_before_crop'] = preview
+            data['pic_before_crop'] = preview
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Reset")
-    def test_crop_reset(self, driver, shared_data):
+    def test_crop_reset(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.click(L.edit.crop.reset)
             self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
             preview = self.page_edit.get_preview_pic()
 
-            assert not HCompareImg(preview, shared_data['pic_before_crop']).ssim_compare()
+            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
         except Exception as e:
             traceback.print_exc()
