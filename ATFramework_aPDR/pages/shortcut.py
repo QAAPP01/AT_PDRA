@@ -1,3 +1,4 @@
+import time
 import traceback
 
 from .locator import locator as L
@@ -46,7 +47,8 @@ class Shortcut(BasePage):
     def enter_media_picker(self, shortcut_name=None):
         try:
             if shortcut_name:
-                self.enter_shortcut(shortcut_name)
+                if not self.enter_shortcut(shortcut_name):
+                    self.page_main.enter_ai_feature(shortcut_name)
             self.click(L.main.shortcut.try_it_now, 1)
 
             if self.is_exist(find_string('Add Media')):
@@ -59,7 +61,6 @@ class Shortcut(BasePage):
             logger(e)
             return False
 
-
     def back_from_media_picker(self):
         self.click(L.import_media.media_library.back)
 
@@ -69,9 +70,19 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_media_picker fail', log_level='error')
             return False
 
-    def enter_editor(self, shortcut_name=None, folder=test_material_folder, file=video_9_16):
+    def enter_editor(self, shortcut_name=None, folder=test_material_folder, file=video_9_16, audio_tool=None):
         if shortcut_name:
             self.enter_media_picker(shortcut_name)
+
+        if audio_tool:
+            audio_tool = audio_tool.lower()
+            if audio_tool == 'speech enhance':
+                self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
+            elif audio_tool == 'ai denoise':
+                self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
+            else:
+                logger(f'[Warning] {audio_tool} is not found', log_level='warn')
+
         self.page_media.select_local_video(folder, file)
         self.page_edit.waiting()
 
@@ -126,6 +137,27 @@ class Shortcut(BasePage):
         else:
             logger(f'[Error] trim_video fail', log_level='error')
             return False
+
+    def play_preview(self):
+        timecode = self.element(L.main.shortcut.timecode).text
+        self.click(L.main.shortcut.play)
+        time.sleep(2)
+        self.click(L.main.shortcut.play)
+        if self.element(L.main.shortcut.timecode).text != timecode:
+            return True
+        else:
+            logger(f'[Error] play_preview fail', log_level='error')
+            return False
+
+
+
+
+    def add_background_photo(self, folder=test_material_folder, file=photo_9_16):
+        pass
+
+    def remove_background(self):
+        self.click(find_string("Image"))
+        self.click(L.main.shortcut.item(2))
 
     def export(self):
         self.click(L.main.shortcut.export)

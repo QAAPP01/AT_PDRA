@@ -175,6 +175,21 @@ class Test_Shortcut_AI_Color:
             raise
 
     @allure.story("Editor")
+    @allure.title("Play preview")
+    def test_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Color')
+
+            assert self.page_shortcut.play_preview()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("Editor")
     @allure.title("Export")
     def test_export(self, data):
         try:
