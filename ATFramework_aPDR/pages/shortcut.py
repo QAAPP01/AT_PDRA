@@ -149,8 +149,25 @@ class Shortcut(BasePage):
             logger(f'[Error] play_preview fail', log_level='error')
             return False
 
+    def play_position_start(self):
+        self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+        timecode = self.element(L.main.shortcut.timecode).text
 
+        if timecode == '00:00':
+            return True
+        else:
+            logger(f'[Error] play_position_start fail', log_level='error')
+            return False
 
+    def play_position_end(self):
+        self.driver.drag_slider_to_max(L.main.shortcut.playback_slider)
+        timecode = self.element(L.main.shortcut.timecode).text
+
+        if timecode == self.element(L.main.shortcut.total_time).text:
+            return True
+        else:
+            logger(f'[Error] play_position_end fail', log_level='error')
+            return False
 
     def add_background_photo(self, folder=test_material_folder, file=photo_9_16):
         pass

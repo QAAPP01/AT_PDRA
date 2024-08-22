@@ -903,7 +903,7 @@ class MainPage(BasePage):
     def check_sample_projects_thumbnails(self):
         try:
             frame = self.el(L.sample_projects.list)
-            if frame.find_element_by_xpath('(//*[contains(@resource-id,"thumbnail")])'):
+            if frame.find_element('xpath', '(//*[contains(@resource-id,"thumbnail")])'):
                 logger('Video preview is exist.')
                 return True
             else:
@@ -921,7 +921,7 @@ class MainPage(BasePage):
             locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
             for retry in range(15):
                 if self.is_exist(locator):
-                    frame.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+                    frame.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]').click()
                     logger(f"Found {name} project, click it.")
                     break
                 else:
@@ -1161,8 +1161,8 @@ class MainPage(BasePage):
         try:
             self.swipe_element(L.subscribe.feature_list, 'right', 100)
             elm = self.el(L.subscribe.feature_list)
-            parent = elm.find_element_by_xpath('//android.widget.ImageView[contains(@resource-id,"highlight")]/..')
-            item = parent.find_element_by_xpath('//android.widget.TextView[contains(@resource-id,"text_view")]')
+            parent = elm.find_element('xpath', '//android.widget.ImageView[contains(@resource-id,"highlight")]/..')
+            item = parent.find_element('xpath', '//android.widget.TextView[contains(@resource-id,"text_view")]')
             string = item.text
             string = string.replace('\r', ' ').replace('\n', ' ')  # Replace linebreak with space
             logger(f'item text = {string}')

@@ -2,7 +2,7 @@ import inspect
 import time
 import traceback
 
-from selenium.webdriver import ActionChains
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, InvalidSelectorException, TimeoutException
@@ -1011,30 +1011,40 @@ class AppiumU2Driver(Borg, BaseDriver):
 
     def drag_slider_to_max(self, locator=L.edit.sub_tool.slider):
         try:
-            if type(locator) == tuple:
-                slider = self.driver.find_element(locator[0],locator[1])
+            if isinstance(locator, tuple):
+                slider = self.driver.find_element(locator[0], locator[1])
             else:
                 slider = locator
+
             slider_rect = slider.rect
-            y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
-            start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
-            end_x = slider_rect['x'] + int(slider_rect['width'])
-            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(500).move_to(x=end_x, y=y_center).release().perform()
+
+            actions = ActionChains(self.driver)
+            actions.move_to_element(slider)
+            actions.click_and_hold()
+            actions.move_by_offset(slider_rect['width'] // 2, 0)
+            actions.release()
+            actions.perform()
+
             return True
         except Exception as err:
             raise Exception(err)
 
     def drag_slider_to_min(self, locator=L.edit.sub_tool.slider):
         try:
-            if type(locator) == tuple:
-                slider = self.driver.find_element(locator[0],locator[1])
+            if isinstance(locator, tuple):
+                slider = self.driver.find_element(locator[0], locator[1])
             else:
                 slider = locator
+
             slider_rect = slider.rect
-            y_center = slider_rect['y'] + int(slider_rect['height'] / 2)
-            start_x = slider_rect['x'] + int(slider_rect['width'] / 2)
-            end_x = slider_rect['x']
-            TouchAction(self.driver).press(x=start_x, y=y_center, pressure=1).wait(500).move_to(x=end_x, y=y_center).release().perform()
+
+            actions = ActionChains(self.driver)
+            actions.move_to_element(slider)
+            actions.click_and_hold()
+            actions.move_by_offset(-slider_rect['width'] // 2, 0)
+            actions.release()
+            actions.perform()
+
             return True
         except Exception as err:
             raise Exception(err)

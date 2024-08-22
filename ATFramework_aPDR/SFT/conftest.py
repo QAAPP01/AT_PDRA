@@ -76,10 +76,9 @@ def driver():
     desired_caps.update(app_config.cap)
     desired_caps.update(DRIVER_DESIRED_CAPS)
 
+    desired_caps['udid'] = 'R5CT32Q3WQN'
     if debug_mode:
         logger('**** Debug Mode ****')
-
-        desired_caps['udid'] = 'R5CT32Q3WQN'
 
         connected_devices = subprocess.run(['adb', 'devices'], stdout=subprocess.PIPE)
         connected_devices_output = connected_devices.stdout.decode().splitlines()
@@ -220,9 +219,13 @@ def pytest_runtest_makereport(item, call):
 def exception_screenshot(request, driver):
     yield
     if request.node.rep_call.failed:
-        failure_dir = os.path.join(os.path.dirname(__file__), "failures_screenshot")
+        class_name = request.node.cls.__name__ if request.node.cls else ""
+        test_name = request.node.name
+        screenshot_name = f"{class_name}_{test_name}.jpg"
+
+        failure_dir = os.path.join(os.path.dirname(__file__), "exception_screenshot")
         os.makedirs(failure_dir, exist_ok=True)
-        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.jpg")
+        screenshot_path = os.path.join(failure_dir, screenshot_name)
 
         driver.driver.get_screenshot_as_file(screenshot_path)
 

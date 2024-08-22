@@ -374,7 +374,7 @@ class MediaPage(BasePage):
         try:
             self.is_exist(L.library_listview.frame, timeout)
             frame = self.el(L.library_listview.frame)
-            element = frame.find_element_by_xpath(f'//*[contains(@resource-id,"library_unit_caption")][{index}]')
+            element = frame.find_element('xpath', f'//*[contains(@resource-id,"library_unit_caption")][{index}]')
         except Exception:
             logger(f"Fail to locate element")
             raise Exception
@@ -391,11 +391,11 @@ class MediaPage(BasePage):
         try:
             if self.is_exist(L.library_gridview.frame, timeout):
                 frame = self.el(L.library_gridview.frame)
-                element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"library_unit_thumbnail")])[{order}]')
+                element = frame.find_element('xpath', f'(//*[contains(@resource-id,"library_unit_thumbnail")])[{order}]')
                 element.click()
             elif self.is_exist(L.library_gridview.library_recycler_gridview, timeout):
                 frame = self.el(L.library_gridview.library_recycler_gridview)
-                element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"library_unit_thumbnail")])[{order}]')
+                element = frame.find_element('xpath', f'(//*[contains(@resource-id,"library_unit_thumbnail")])[{order}]')
                 element.click()
             else:
                 logger(f"Fail to locate library")
@@ -411,7 +411,7 @@ class MediaPage(BasePage):
         try:
             self.is_exist(L.library_gridview.library_recycler_gridview, timeout)
             frame = self.el(L.library_gridview.library_recycler_gridview)
-            element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"fx_layer_library_item")])[{order}]')
+            element = frame.find_element('xpath', f'(//*[contains(@resource-id,"fx_layer_library_item")])[{order}]')
             element.click()
         except Exception:
             logger(f"Fail to locate element")
@@ -424,7 +424,7 @@ class MediaPage(BasePage):
         try:
             self.is_exist(L.import_media.media_library.recycler_view, timeout)
             frame = self.el(L.import_media.media_library.recycler_view)
-            element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"cms_sticker_library_item")])[{order}]')
+            element = frame.find_element('xpath', f'(//*[contains(@resource-id,"cms_sticker_library_item")])[{order}]')
             element.click()
         except Exception:
             logger(f"Fail to locate element")
@@ -438,7 +438,7 @@ class MediaPage(BasePage):
         try:
             self.is_exist(L.library_listview.frame, timeout)
             frame = self.el(L.library_listview.frame)
-            element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"library_unit_background")])[{order}]')
+            element = frame.find_element('xpath', f'(//*[contains(@resource-id,"library_unit_background")])[{order}]')
             element.click()
         except Exception:
             logger(f"Fail to locate element - {order}")
@@ -451,7 +451,7 @@ class MediaPage(BasePage):
         try:
             self.is_exist(L.library_gridview.frame, timeout)
             frame = self.el(L.library_gridview.frame)
-            element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"layout_title_item")])[{order}]')
+            element = frame.find_element('xpath', f'(//*[contains(@resource-id,"layout_title_item")])[{order}]')
             element.click()
         except Exception:
             logger(f"Fail to locate element - {order}")
@@ -463,7 +463,7 @@ class MediaPage(BasePage):
         logger(f"input - {name}")
         try:
             frame = self.el(L.library_gridview.frame)
-            element = frame.find_element_by_xpath(f'//*[contains(@text,"{name}")]')
+            element = frame.find_element('xpath', f'//*[contains(@text,"{name}")]')
         except Exception:
             logger("Fail to locate element")
             return False
@@ -494,7 +494,7 @@ class MediaPage(BasePage):
             else:
                 self.driver.swipe_element(L.library_listview.frame, 'up', 100)
                 break
-        element = frame.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]')
+        element = frame.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]')
         element.click()
 
     def check_song_exists_by_text(self, name):
@@ -502,7 +502,7 @@ class MediaPage(BasePage):
         logger(f"input - {name}")
         try:
             frame = self.el(L.library_listview.frame)
-            element = frame.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]')
+            element = frame.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]')
         except Exception:
             logger("Fail to locate element")
             return False
@@ -511,7 +511,7 @@ class MediaPage(BasePage):
     def add_selected_song_to_timeline(self):
         logger("start >> add_selected_song_to_timeline<<")
         frame = self.el(L.library_listview.frame)
-        # element = frame.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]')
+        # element = frame.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]')
         # element.click()
         elements = frame.find_elements_by_id(PACKAGE_NAME+":id/library_unit_add")
         is_found = 0
@@ -527,8 +527,8 @@ class MediaPage(BasePage):
     def add_song_to_timeline_by_name(self, name):
         logger(f"start >> add_selected_song_to_timeline = {name}<<")
         frame = self.el(L.library_listview.frame)
-        element = frame.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]/..')
-        btn_add = element.find_element_by_xpath("//android.widget.ImageView[contains(@resource-id,'library_unit_add')]")
+        element = frame.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]/..')
+        btn_add = element.find_element('xpath', "//android.widget.ImageView[contains(@resource-id,'library_unit_add')]")
         btn_add.click()
 
     def switch_to_video_library(self):
@@ -792,7 +792,7 @@ class MediaPage(BasePage):
             # media
             self.is_exist(L.library_gridview.frame, 30)
             frame = self.el(L.library_gridview.frame)
-            el_media = frame.find_element_by_xpath(f'//*[contains(@text,"{name}")]')
+            el_media = frame.find_element('xpath', f'//*[contains(@text,"{name}")]')
             logger("Get media ok")
             action = TouchAction(self.driver.driver).long_press(el_media, x=0, y=0, duration=2000).wait(5000).move_to(el_target).release()
             action.perform()
@@ -1068,7 +1068,7 @@ class MediaPage(BasePage):
         logger(f'try to find input: {name}')
         try:
             frame = self.el(L.library_listview.frame)
-            element = frame.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]')
+            element = frame.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]')
         except Exception:
             logger(f"Fail to locate element - {name}")
             raise Exception
@@ -1157,7 +1157,7 @@ class MediaPage(BasePage):
                 else:
                     self.driver.swipe_element(L.library_gridview.title_library_category_list, 'left', 100)
                     break
-            element = frame.find_element_by_xpath(f'//*[contains(@text,"{name}")]')
+            element = frame.find_element('xpath', f'//*[contains(@text,"{name}")]')
             if element.text != name:
                 logger(f"locate incorrect element - {name}")
                 raise Exception
@@ -1250,7 +1250,7 @@ class MediaPage(BasePage):
                 else:
                     self.driver.swipe_element(L.library_gridview.template_library_category_list, 'left', 100)
                     break
-            element = frame.find_element_by_xpath(f'//*[contains(@text,"{name}")]')
+            element = frame.find_element('xpath', f'//*[contains(@text,"{name}")]')
             if element.text != name:
                 logger(f"locate incorrect element - {name}")
                 raise Exception
@@ -1267,7 +1267,7 @@ class MediaPage(BasePage):
             locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
             for retry in range(10):
                 if self.is_exist(locator):
-                    result = elm.find_element_by_xpath(
+                    result = elm.find_element('xpath', 
                         f'//android.widget.TextView[contains(@text,"{name}")]').get_attribute('selected')
                     logger(f"Found {name} category = {result}")
                     return result
