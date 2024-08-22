@@ -198,7 +198,7 @@ class AppiumXCUITestDriver(Borg, BaseDriver):
             time.sleep(2)
 
             # press [Trust]
-            self.driver.find_element_by_xpath('//*[@name="Trust"]').click()
+            self.driver.find_element('xpath', '//*[@name="Trust"]').click()
 
             # set setting as background
             self.driver.background_app(-1)

@@ -188,6 +188,36 @@ class Test_Shortcut_Cutout:
             data['last_result'] = False
             raise
 
+    @allure.story("Editor")
+    @allure.title("Play start position")
+    def test_play_start_position(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Cutout')
+
+            self.page_shortcut.play_position_start()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("Editor")
+    @allure.title("Play end position")
+    def test_play_end_position(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Cutout')
+
+            self.page_shortcut.play_position_end()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
     # @allure.story("Editor")
     # @allure.title("Add background photo")
     # def test_add_background_photo(self,data):

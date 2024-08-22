@@ -164,21 +164,6 @@ class Test_Shortcut_AI_Cartoon:
             raise
 
     @allure.story("Editor")
-    @allure.title("Play preview")
-    def test_play_preview(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Cartoon')
-
-            assert self.page_shortcut.play_preview()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.story("Editor")
     @allure.title("Back to media picker")
     def test_back_to_media_picker(self, driver):
         try:

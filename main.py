@@ -49,7 +49,7 @@ manual_tr_number = 'TR240207-034'  # for manual
 
 # [Report Mail Setting]
 title_project = 'aPDR'
-receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com", "Jethro_Wang@cyberlink.com", "Amber_Mai@cyberlink.com"]
+receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com", "Amber_Mai@cyberlink.com"]
 # receiver = ['hausen_lin@cyberlink.com', "biaggi_li@cyberlink.com"]
 
 script_version = 'Testing'

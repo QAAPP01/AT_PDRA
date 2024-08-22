@@ -1833,7 +1833,7 @@ class EditPage(BasePage):
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(10):
             if self.is_exist(locator, 1):
-                elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+                elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]').click()
                 logger(f"Found {name} function, click it.")
                 return True
             else:
@@ -1849,7 +1849,7 @@ class EditPage(BasePage):
         locator = ("xpath", f'//*[contains(@resource-id,"tool_entry_layout")][{index}]')
         for retry in range(10):
             if self.is_exist(locator):
-                elm.find_element_by_xpath(f'//*[contains(@resource-id,"tool_entry_layout")][{index}]').click()
+                elm.find_element('xpath', f'//*[contains(@resource-id,"tool_entry_layout")][{index}]').click()
                 return True
             else:
                 # elm.driver.swipe_left()
@@ -1882,7 +1882,7 @@ class EditPage(BasePage):
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(10):
             if self.is_exist(locator):
-                elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+                elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]').click()
                 logger(f"Found {name}, click it.")
                 return True
             else:
@@ -1896,7 +1896,7 @@ class EditPage(BasePage):
         logger(f"start check_transition_exists_in_list - {name}")
         try:
             frame = self.el(L.import_media.transition_list.transition_list)
-            element = frame.find_element_by_xpath(f'//*[contains(@text,"{name}")]')
+            element = frame.find_element('xpath', f'//*[contains(@text,"{name}")]')
         except Exception:
             logger("Fail to locate element")
             return False
@@ -1943,7 +1943,7 @@ class EditPage(BasePage):
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(5):
             if self.is_exist(locator):
-                elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+                elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]').click()
                 return True
             else:
                 # elm.driver.swipe_left()
@@ -1966,7 +1966,7 @@ class EditPage(BasePage):
     def get_opacity_value(self):
         logger("start get_opacity_value")
         elem = self.el(L.edit.color_sub.adjust_sub.frames)
-        value = elem.find_element_by_xpath("//android.widget.TextView[contains(@resource-id,'adjustTextNow')]").text
+        value = elem.find_element('xpath', "//android.widget.TextView[contains(@resource-id,'adjustTextNow')]").text
         logger(f"value={value}")
         return value
 
@@ -2109,7 +2109,7 @@ class EditPage(BasePage):
             locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
             for retry in range(10):
                 if self.is_exist(locator):
-                    result = elm.find_element_by_xpath(
+                    result = elm.find_element('xpath', 
                         f'//android.widget.TextView[contains(@text,"{name}")]').get_attribute('selected')
                     logger(f"Found {name} function = {result}")
                     return result
@@ -2127,7 +2127,7 @@ class EditPage(BasePage):
         logger(f"start >> select_title_from_timeline <<, name = {name}")
         try:
             timeline = self.el(L.edit.timeline.overlaytrack_container)
-            element = timeline.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]')
+            element = timeline.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]')
             element.click()
             return True
         except Exception:
@@ -2836,7 +2836,7 @@ class Title_Designer(BasePage):
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(3):
             if self.is_exist(locator, 1):
-                elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+                elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]').click()
                 logger(f"Found {name}, click it.")
                 return True
             else:
@@ -2939,7 +2939,7 @@ class Title_Designer(BasePage):
             locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
             for retry in range(30):
                 if self.is_exist(locator, 1):
-                    elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+                    elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]').click()
                     logger(f"Found {name} font, click it.")
                     return True
                 else:
@@ -3084,7 +3084,7 @@ class Title_Designer(BasePage):
         try:
             canvas_old = self.driver.save_pic(self.el(L.edit.preview.movie_view))
             frame = self.el(slider)
-            elm = frame.find_element_by_xpath('(//*[contains(@resource-id,"seekbar")])')
+            elm = frame.find_element('xpath', '(//*[contains(@resource-id,"seekbar")])')
             start_x = elm.location["x"]
             start_y = elm.location["y"]
             end_x = start_x + (percentage * elm.size["width"])
@@ -3105,7 +3105,7 @@ class Title_Designer(BasePage):
     def get_slider_value(self, slider):
         try:
             frame = self.el(slider)
-            elm = frame.find_element_by_xpath('(//*[contains(@resource-id,"value")])')
+            elm = frame.find_element('xpath', '(//*[contains(@resource-id,"value")])')
             logger(f'value = {elm.text}')
             return elm.text
         except Exception:
@@ -3499,7 +3499,7 @@ class Fit_and_Fill(BasePage):
             self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'left', 400)
             time.sleep(1)
         frame = self.el(L.edit.edit_sub.bottom_edit_menu)
-        element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"card_color")])[{order}]')
+        element = frame.find_element('xpath', f'(//*[contains(@resource-id,"card_color")])[{order}]')
         element.click()
         time.sleep(5)
         canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
@@ -3534,7 +3534,7 @@ class Fit_and_Fill(BasePage):
             self.swipe_element(L.edit.edit_sub.bottom_edit_menu, 'left', 400)
             time.sleep(1)
         frame = self.el(L.edit.edit_sub.bottom_edit_menu)
-        element = frame.find_element_by_xpath(f'(//*[contains(@resource-id,"pattern_layout")])[{order}]')
+        element = frame.find_element('xpath', f'(//*[contains(@resource-id,"pattern_layout")])[{order}]')
         element.click()
         time.sleep(10)
         canvas_new = self.driver.save_pic(self.el(L.edit.preview.movie_view))
@@ -3687,7 +3687,7 @@ class Border_and_Shadow(BasePage):
                 logger('parameter wrong')
                 return False
             elem = self.el(locator)
-            slider = elem.find_element_by_xpath("//android.widget.SeekBar[contains(@resource-id,'seekbar')]")
+            slider = elem.find_element('xpath', "//android.widget.SeekBar[contains(@resource-id,'seekbar')]")
             start_x = slider.location["x"]
             start_y = slider.location["y"]
             end_x = start_x + (percentage * slider.size["width"])  # slider is vertical in new UI
@@ -3722,7 +3722,7 @@ class Border_and_Shadow(BasePage):
                 logger('parameter wrong')
                 return False
             elem = self.el(locator)
-            value = elem.find_element_by_xpath("//android.widget.TextView[contains(@resource-id,'value')]").text
+            value = elem.find_element('xpath', "//android.widget.TextView[contains(@resource-id,'value')]").text
             logger(f'get_value = {value}')
             return value
         except Exception:
@@ -4131,7 +4131,7 @@ class Intro_Video(BasePage):
                 return False
             if self.is_exist(L.edit.intro_video.list_template, timeout):
                 frame = self.el(L.edit.intro_video.list_template)
-                element = frame.find_element_by_xpath(
+                element = frame.find_element('xpath', 
                     f'(//*[contains(@resource-id,"video_template_thumbnail")])[{index}]')
                 element.click()
             else:
@@ -4148,7 +4148,7 @@ class Intro_Video(BasePage):
         locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
         for retry in range(10):
             if self.is_exist(locator, 1):
-                elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+                elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]').click()
                 logger(f"Found {name}, click it.")
                 return True
             else:
@@ -4197,7 +4197,7 @@ class Intro_Video(BasePage):
             logger('Menu not exist.')
             return False
         elm = self.el(L.edit.intro_video.libraryEntryList)
-        elm.find_element_by_xpath(f'//android.widget.TextView[contains(@text,"{name}")]').click()
+        elm.find_element('xpath', f'//android.widget.TextView[contains(@text,"{name}")]').click()
         logger(f"Found {name} function, click it.")
         return True
 

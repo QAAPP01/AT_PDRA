@@ -30,6 +30,7 @@ class Shortcut:
     editor_back = id('iv_close')
     play = id('btn_play')
     timecode = id('playing_time')
+    total_time = id('total_time')
     playback_slider = id('seekbar')
     export = id('tv_ok')
     produce = id('btn_produce')
