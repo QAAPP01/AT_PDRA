@@ -26,7 +26,7 @@ class Shortcut(BasePage):
 
     def enter_shortcut(self, shortcut_name):
         if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
-            self.click(xpath('//*[@text="More"]'))
+            self.click(xpath('//*[@text="Expand"]'))
 
         if self.click(L.main.shortcut.shortcut_name(shortcut_name)):
             return True

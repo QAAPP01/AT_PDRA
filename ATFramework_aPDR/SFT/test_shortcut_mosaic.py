@@ -44,7 +44,7 @@ class Test_Shortcut_Mosaic:
     @allure.title("From shortcut")
     def test_entry_demo_page(self, driver):
         try:
-            self.page_main.enter_shortcut('Mosaic')
+            self.page_shortcut.enter_shortcut('Mosaic')
 
             assert self.element(L.main.shortcut.demo_title).text == 'Mosaic'
 
@@ -54,7 +54,7 @@ class Test_Shortcut_Mosaic:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Mosaic')
+            self.page_shortcut.enter_shortcut('Mosaic')
 
             pytest.fail(f"{str(e)}")
 

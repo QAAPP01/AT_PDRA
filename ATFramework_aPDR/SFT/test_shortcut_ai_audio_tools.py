@@ -45,7 +45,7 @@ class Test_Shortcut_AI_Audio_Tools:
     @allure.title("Enter demo page")
     def test_entry_demo_page(self, driver):
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Audio Tools'
 
@@ -55,7 +55,7 @@ class Test_Shortcut_AI_Audio_Tools:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
 
             pytest.fail(f"{str(e)}")
 
@@ -82,7 +82,7 @@ class Test_Shortcut_AI_Audio_Tools:
         
 
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             before = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
             self.click(L.main.shortcut.demo_mute)
             after = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
@@ -100,7 +100,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
 
             return "FAIL"
 
@@ -109,7 +109,7 @@ class Test_Shortcut_AI_Audio_Tools:
     @allure.step("Enter media picker")
     def test_speech_enhance_entry_media_picker(self, driver):
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
 
@@ -121,7 +121,7 @@ class Test_Shortcut_AI_Audio_Tools:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
 
@@ -150,7 +150,7 @@ class Test_Shortcut_AI_Audio_Tools:
     @allure.step("Enter Editor")
     def test_speech_enhance_entry_editor(self, data):
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -238,7 +238,7 @@ class Test_Shortcut_AI_Audio_Tools:
     def test_ai_denoise_entry_media_picker(self, driver):
         try:
             self.click(L.main.shortcut.produce_home)
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
             self.click(L.main.shortcut.try_it_now)
 
@@ -250,7 +250,7 @@ class Test_Shortcut_AI_Audio_Tools:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
             self.click(L.main.shortcut.try_it_now)
 
@@ -279,7 +279,7 @@ class Test_Shortcut_AI_Audio_Tools:
     @allure.step("Enter Editor")
     def test_ai_denoise_entry_editor(self, data):
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -364,7 +364,7 @@ class Test_Shortcut_AI_Audio_Tools:
 
 
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_16_9)
@@ -385,7 +385,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
 
@@ -414,7 +414,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
 
@@ -446,7 +446,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
@@ -477,7 +477,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
 
@@ -507,7 +507,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -539,7 +539,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -570,7 +570,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -601,7 +601,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -631,7 +631,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -660,7 +660,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -690,7 +690,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -720,7 +720,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -749,7 +749,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -779,7 +779,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -823,7 +823,7 @@ class Test_Shortcut_AI_Audio_Tools:
 
 
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
 
@@ -840,7 +840,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
 
@@ -870,7 +870,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -899,7 +899,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -929,7 +929,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -959,7 +959,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -988,7 +988,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -1018,7 +1018,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -1049,7 +1049,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -1080,7 +1080,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -1111,7 +1111,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)

@@ -238,8 +238,6 @@ def exception_screenshot(request, driver):
         if resized_image.mode == 'RGBA':
             resized_image = resized_image.convert('RGB')
 
-        # 將圖片轉換為 8 位元 (256 色) 模式並設定品質
-        resized_image = resized_image.convert('P', palette=Image.ADAPTIVE, colors=256)
         resized_image.save(screenshot_path, 'JPEG', quality=70)
 
         allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)

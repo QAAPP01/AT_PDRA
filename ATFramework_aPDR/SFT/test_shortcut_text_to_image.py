@@ -44,7 +44,7 @@ class Test_Shortcut_Text_to_Image:
     @allure.title("From shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             time.sleep(1)
 
             assert self.element(L.main.shortcut.tti.title).text == 'Text to Image'
@@ -102,7 +102,7 @@ class Test_Shortcut_Text_to_Image:
         
 
         try:
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             input_box = self.element(L.main.shortcut.tti.input_box)
@@ -122,7 +122,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             input_box = self.element(L.main.shortcut.tti.input_box)
@@ -151,7 +151,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             input_box = self.element(L.main.shortcut.tti.input_box)
@@ -180,7 +180,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             input_box = self.element(L.main.shortcut.tti.input_box)
@@ -218,7 +218,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             input_box = self.element(L.main.shortcut.tti.input_box)
@@ -247,7 +247,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             input_box = self.element(L.main.shortcut.tti.input_box)
@@ -280,7 +280,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
 
@@ -313,7 +313,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             self.click(L.main.shortcut.tti.prompt)
@@ -347,7 +347,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             self.click(L.main.shortcut.tti.prompt)
@@ -380,7 +380,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             self.click(L.main.shortcut.tti.prompt)
@@ -415,7 +415,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             self.click(L.main.shortcut.tti.prompt)
@@ -448,7 +448,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             self.click(L.main.shortcut.tti.prompt)
@@ -482,7 +482,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             self.click(L.main.shortcut.tti.prompt)
@@ -520,7 +520,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             self.click(L.main.shortcut.tti.prompt)
@@ -556,7 +556,7 @@ class Test_Shortcut_Text_to_Image:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Text to Image')
+            self.page_shortcut.enter_shortcut('Text to Image')
             self.click(L.main.shortcut.tti.entry)
             self.element(L.main.shortcut.tti.prompt).click()
             self.click(L.main.shortcut.tti.prompt)

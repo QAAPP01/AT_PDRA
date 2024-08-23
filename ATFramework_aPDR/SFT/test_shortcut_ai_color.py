@@ -44,7 +44,7 @@ class Test_Shortcut_AI_Color:
     @allure.title("From shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            self.page_main.enter_shortcut('AI Color')
+            self.page_shortcut.enter_shortcut('AI Color')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Color'
 

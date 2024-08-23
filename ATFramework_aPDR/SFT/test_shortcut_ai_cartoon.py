@@ -43,7 +43,7 @@ class Test_Shortcut_AI_Cartoon:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('AI Cartoon')
+            self.page_shortcut.enter_shortcut('AI Cartoon')
 
             assert self.is_exist(find_string('AI Cartoon'))
 

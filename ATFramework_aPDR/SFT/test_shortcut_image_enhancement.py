@@ -39,7 +39,7 @@ class Test_Shortcut_Image_Enhancer:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('Image Enhancer')
+            self.page_shortcut.enter_shortcut('Image Enhancer')
 
             assert self.is_exist(find_string('Add Media'))
 
@@ -50,7 +50,7 @@ class Test_Shortcut_Image_Enhancer:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Image Enhancer')
+            self.page_shortcut.enter_shortcut('Image Enhancer')
             
     @allure.story("Media")
     @allure.title("Back from media picker")

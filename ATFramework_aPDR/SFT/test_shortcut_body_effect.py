@@ -46,7 +46,7 @@ class Test_Shortcut_Body_Effect:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('Body Effect')
+            self.page_shortcut.enter_shortcut('Body Effect')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Body Effect'
 
