@@ -102,7 +102,7 @@ class Test_Shortcut_HSL:
 
         try:
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
 
             if self.is_exist(find_string('Add Media')):
                 
@@ -118,7 +118,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color Enhancer')
+            self.page_shortcut.enter_shortcut('Color Enhancer')
 
             return "FAIL"
 
@@ -171,7 +171,7 @@ class Test_Shortcut_HSL:
         
 
         try:
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.click(L.import_media.media_library.btn_preview())
             self.click(L.import_media.media_library.trim_back)
 
@@ -189,7 +189,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
 
             return "FAIL"
 
@@ -219,7 +219,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.click(L.import_media.media_library.btn_preview())
             self.click(L.import_media.media_library.trim_next)
 
@@ -248,7 +248,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
 
             return "FAIL"
 
@@ -275,7 +275,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder,video_9_16)
 
             return "FAIL"
@@ -306,7 +306,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder,video_9_16)
 
             return "FAIL"
@@ -336,7 +336,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder,video_9_16)
 
             return "FAIL"
@@ -365,7 +365,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder,video_9_16)
 
             return "FAIL"
@@ -395,7 +395,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder,video_9_16)
 
             return "FAIL"
@@ -423,7 +423,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder,video_9_16)
             self.click(L.main.shortcut.hsl.red)
 
@@ -454,7 +454,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
             self.original = self.page_edit.get_preview_pic()
@@ -485,7 +485,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
 
@@ -515,7 +515,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
             self.original = self.page_edit.get_preview_pic()
@@ -546,7 +546,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
 
@@ -575,7 +575,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
 
@@ -606,7 +606,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
             self.original = self.page_edit.get_preview_pic()
@@ -637,7 +637,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
 
@@ -667,7 +667,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
             self.original = self.page_edit.get_preview_pic()
@@ -698,7 +698,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
 
@@ -727,7 +727,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
 
@@ -758,7 +758,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
             self.original = self.page_edit.get_preview_pic()
@@ -789,7 +789,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
 
@@ -819,7 +819,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
             self.original = self.page_edit.get_preview_pic()
@@ -850,7 +850,7 @@ class Test_Shortcut_HSL:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Color\nEnhancer')
+            self.page_shortcut.enter_shortcut('Color\nEnhancer')
             self.page_media.select_local_video(test_material_folder, video_9_16)
             self.click(L.main.shortcut.hsl.red)
 

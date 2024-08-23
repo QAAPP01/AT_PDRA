@@ -44,7 +44,7 @@ class Test_Shortcut_AI_Art:
     @allure.title("From shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            self.page_main.enter_shortcut('AI Anime Video')
+            self.page_shortcut.enter_shortcut('AI Anime Video')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Anime Video'
 

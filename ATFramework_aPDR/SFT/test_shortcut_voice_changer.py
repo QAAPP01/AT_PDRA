@@ -46,7 +46,7 @@ class Test_Shortcut_AI_Color:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('AI Voice\nChanger')
+            self.page_shortcut.enter_shortcut('AI Voice\nChanger')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Voice\nChanger'
 

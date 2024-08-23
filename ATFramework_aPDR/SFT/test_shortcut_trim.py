@@ -39,7 +39,7 @@ class Test_Shortcut_Trim:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('Trim')
+            self.page_shortcut.enter_shortcut('Trim')
 
             assert self.is_exist(find_string('Add Media'))
 
@@ -49,7 +49,7 @@ class Test_Shortcut_Trim:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Trim')
+            self.page_shortcut.enter_shortcut('Trim')
 
     @allure.story("Media")
     @allure.title("Back from media picker")

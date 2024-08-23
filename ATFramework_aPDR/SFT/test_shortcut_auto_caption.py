@@ -46,7 +46,7 @@ class Test_Shortcut_AI_Color:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('Auto Captions')
+            self.page_shortcut.enter_shortcut('Auto Captions')
 
             assert self.element(L.main.shortcut.demo_title).text == 'Auto Captions'
 

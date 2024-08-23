@@ -44,7 +44,7 @@ class Test_Shortcut_Filter:
     @allure.title("Enter Media Picker")
     def test_entry_media_picker(self, data):
         try:
-            self.page_main.enter_shortcut('Filter')
+            self.page_shortcut.enter_shortcut('Filter')
 
             assert self.is_exist(find_string('Add Media'))
 

@@ -104,7 +104,7 @@ class Test_Shortcut_AI_Scene:
 
         try:
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Scene')
+            self.page_shortcut.enter_shortcut('AI Scene')
 
             if self.is_exist(find_string('Recommendation')):
                 
@@ -120,7 +120,7 @@ class Test_Shortcut_AI_Scene:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Scene')
+            self.page_shortcut.enter_shortcut('AI Scene')
 
             return "FAIL"
 
@@ -157,7 +157,7 @@ class Test_Shortcut_AI_Scene:
         
 
         try:
-            self.page_main.enter_shortcut('AI Scene')
+            self.page_shortcut.enter_shortcut('AI Scene')
             self.click(L.main.shortcut.btn_continue)
 
             if self.is_exist(find_string('Add Media')):
@@ -174,7 +174,7 @@ class Test_Shortcut_AI_Scene:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Scene')
+            self.page_shortcut.enter_shortcut('AI Scene')
             self.click(L.main.shortcut.btn_continue)
 
             return "FAIL"
@@ -212,7 +212,7 @@ class Test_Shortcut_AI_Scene:
         
 
         try:
-            self.page_main.enter_shortcut('AI Scene')
+            self.page_shortcut.enter_shortcut('AI Scene')
             self.click(L.main.shortcut.btn_continue)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
@@ -236,7 +236,7 @@ class Test_Shortcut_AI_Scene:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Scene')
+            self.page_shortcut.enter_shortcut('AI Scene')
             self.click(L.main.shortcut.btn_continue)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
@@ -265,7 +265,7 @@ class Test_Shortcut_AI_Scene:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Scene')
+            self.page_shortcut.enter_shortcut('AI Scene')
             self.click(L.main.shortcut.btn_continue)
 
             return "FAIL"

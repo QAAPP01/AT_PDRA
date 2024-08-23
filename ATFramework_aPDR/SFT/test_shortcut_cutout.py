@@ -286,7 +286,7 @@ class Test_Shortcut_Cutout:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Cutout')
+            self.page_shortcut.enter_shortcut('Cutout')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder,video_9_16)
             self.page_edit.waiting()
@@ -318,7 +318,7 @@ class Test_Shortcut_Cutout:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Cutout')
+            self.page_shortcut.enter_shortcut('Cutout')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder,video_9_16)
             self.page_edit.waiting()
@@ -350,7 +350,7 @@ class Test_Shortcut_Cutout:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Cutout')
+            self.page_shortcut.enter_shortcut('Cutout')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder,video_9_16)
             self.page_edit.waiting()

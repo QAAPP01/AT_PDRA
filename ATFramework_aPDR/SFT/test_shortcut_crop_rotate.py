@@ -46,7 +46,7 @@ class Test_Shortcut_Crop_Rotate:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('Crop & Rotate')
+            self.page_shortcut.enter_shortcut('Crop & Rotate')
 
             assert self.is_exist(find_string('Add Media'))
 
@@ -56,7 +56,7 @@ class Test_Shortcut_Crop_Rotate:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Crop & Rotate')
+            self.page_shortcut.enter_shortcut('Crop & Rotate')
 
     @allure.story("Media")
     @allure.title("Back from media picker")
