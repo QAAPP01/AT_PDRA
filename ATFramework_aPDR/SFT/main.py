@@ -31,6 +31,10 @@ from ATFramework_aPDR.SFT.test_timeline_master_volume import *
 from ATFramework_aPDR.SFT.test_timeline_master_speed import *
 from ATFramework_aPDR.SFT.test_timeline_master_adjustment_photo import *
 from ATFramework_aPDR.SFT.test_timeline_master_adjustment_video import *
+from .test_timeline_master_video_cutout import *
+from .test_timeline_master_photo_cutout import *
+from .test_timeline_master_video_filter import *
+from .test_timeline_master_photo_filter import *
 
 # PiP Track
 from ATFramework_aPDR.SFT.test_timeline_pip_track_limitation import *
@@ -40,5 +44,6 @@ from .test_timeline_pip_video_adjustment import *
 from .test_timeline_pip_photo_adjustment import *
 from .test_timeline_pip_video_cutout import *
 from .test_timeline_pip_photo_cutout import *
-
+from .test_timeline_pip_video_filter import *
+from .test_timeline_pip_photo_filter import *
 

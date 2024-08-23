@@ -199,6 +199,17 @@ class Sticker:
 
 
 class Filter:
+
+    item = id('itemName')
+    slider = id('adjustable_parameter_seek_bar')
+    category = id('library_category_item')
+    item_panel = id('view_pager')
+    favorite = id('itemFavorite')
+    apply = id('btn_ok')
+    none = id('btn_none')
+    cancel = id('btn_cancel')
+    favorite_empty_message = id('hint_text_view')
+
     @staticmethod
     def filter(index=1):
         if index:
@@ -473,10 +484,15 @@ class SubTool:
 
         custom = Custom
 
+    class AutoMosaic:
+        face_mode = id('face_mode')
+
+
     ai_effect = AIEffect
     cutout = Cutout
     effect = Effect
     pan_zoom = PanZoom
+    auto_mosaic = AutoMosaic
 
 
 class Menu:
