@@ -72,6 +72,7 @@ class EditPage(BasePage):
         self.color_picker = Color_Picker(self.driver)
         self.cutout = Cutout(self.driver)
         self.a_chroma_key = A_Chroma_Key(self.driver)
+        self.filter = Filter(self.driver)
 
     def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
         boundary_rect = self.element(L.edit.crop.boundary).rect
@@ -4493,5 +4494,76 @@ class A_Chroma_Key(BasePage):
         self.element(L.edit.sub_tool.cutout.chroma_key).click()
         self.click(L.edit.preview.movie_view)
         self.click(L.edit.sub_tool.cutout.color_picker.apply)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+class Filter(BasePage):
+
+    def start_with_filter(self, clip_type='master video'):
+        if clip_type == 'master video':
+            self.page_main.start_with_master_video()
+        elif clip_type == 'master photo':
+            self.page_main.start_with_master_photo()
+        elif clip_type == 'pip video':
+            self.page_main.start_with_pip_video()
+        elif clip_type == 'pip photo':
+            self.page_main.start_with_pip_photo()
+        else:
+            print('clip type is wrong')
+        self.page_edit.click_sub_tool('Filter')
+        return self.is_exist(L.edit.filter.item)
+
+    def filter_select_filter(self, order=0):
+        pic_base = self.get_boundary_preview()
+        self.elements(L.edit.filter.item)[order].click()
+        self.page_edit.waiting()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def filter_slider(self, order=0):
+        pic_base = self.get_boundary_preview()
+        self.elements(L.edit.filter.item)[order].click()
+        self.page_edit.swipe_element(L.edit.filter.slider, "left", 12)
+        self.elements(L.edit.filter.item)[order].click()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def filter_favorite_empty(self):
+        self.element(L.edit.filter.category).click()
+        text = self.element(L.edit.filter.favorite_empty_message).get_attribute('text')
+        return text == 'Press and hold any effect to add it to favorites.'
+
+    def filter_switch_category(self, order=2):
+        pic_base = self.get_preview_pic(L.edit.filter.item_panel)
+        self.elements(L.edit.filter.category)[order].click()
+        pic_after = self.get_preview_pic(L.edit.filter.item_panel)
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def filter_favorite(self, order=2, action='add'):
+        filter = self.elements(L.edit.filter.item)
+        self.h_long_press(filter[order], 3)
+        favorite = self.elements(L.edit.filter.favorite)
+        if action == 'add':
+            return favorite[order].get_attribute('selected') == 'true'
+        elif action == 'remove':
+            return favorite[order].get_attribute('selected') == 'false'
+
+    def filter_apply(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.filter.apply)
+        pic_after = self.get_boundary_preview()
+        return HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def filter_none(self):
+        pic_base = self.get_boundary_preview()
+        self.page_edit.click_sub_tool('Filter')
+        self.click(L.edit.filter.none)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def filter_cancel(self):
+        self.element(L.edit.filter.item).click()
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.filter.cancel)
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).histogram_compare(1)
