@@ -231,12 +231,16 @@ def exception_screenshot(request, driver):
 
         image = Image.open(screenshot_path)
         width, height = image.size
-        new_width = 360
+        new_width = 240
         new_height = int(height * (new_width / width))
         resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
         if resized_image.mode == 'RGBA':
             resized_image = resized_image.convert('RGB')
-        resized_image.save(screenshot_path, 'JPEG', quality=85)
+
+        # 將圖片轉換為 8 位元 (256 色) 模式並設定品質
+        resized_image = resized_image.convert('P', palette=Image.ADAPTIVE, colors=256)
+        resized_image.save(screenshot_path, 'JPEG', quality=70)
 
         allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)
         logger(f"Exception screenshot: {screenshot_path}", log_level='error')

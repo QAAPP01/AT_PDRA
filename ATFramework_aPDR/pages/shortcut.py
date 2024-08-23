@@ -139,14 +139,18 @@ class Shortcut(BasePage):
             return False
 
     def play_preview(self):
-        timecode = self.element(L.main.shortcut.timecode).text
-        self.click(L.main.shortcut.play)
-        time.sleep(2)
-        self.click(L.main.shortcut.play)
-        if self.element(L.main.shortcut.timecode).text != timecode:
-            return True
-        else:
-            logger(f'[Error] play_preview fail', log_level='error')
+        try:
+            timecode = self.element(L.main.shortcut.timecode).text
+            self.click(L.main.shortcut.play)
+            time.sleep(2)
+            self.click(L.main.shortcut.play)
+            if self.element(L.main.shortcut.timecode).text != timecode:
+                return True
+            else:
+                raise '[Error] play_preview fail'
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
             return False
 
     def play_position_start(self):

@@ -1,38 +1,22 @@
-# import smtplib
-# import os
-
-# from email.mime.text import MIMEText
-
-# gmail_user = 'clsignupstress@gmail.com'
-# with open(os.path.dirname(__file__)+"//p.txt", "r") as f:
-    # gmail_password = f.read()
-
- 
-# msg = MIMEText('content')
-# msg['Subject'] = 'Test'
-# msg['From'] = gmail_user
-# msg['To'] = gmail_user
-
-# server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-# server.ehlo()
-# server.login(gmail_user, gmail_password)
-# server.send_message(msg)
-# server.quit()
-
-# print('Email sent!')
-
-''''''
 import smtplib
 import os
-
+import zipfile
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from os.path import basename
 
+
+def compress_attachments(attachment_list, zip_filename="attachments.zip"):
+    with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for f in attachment_list:
+            zipf.write(f, basename(f))
+    return zip_filename
+
+
 def send_mail(opts):
-    # set info
-    fileRead = lambda fileName,mode="r": open(os.path.dirname(__file__)+"//"+fileName,mode)
+    # Set info
+    fileRead = lambda fileName, mode="r": open(os.path.dirname(__file__) + "//" + fileName, mode)
     me = opts['account']
     you = opts['to']
     password = opts['password']
@@ -41,7 +25,6 @@ def send_mail(opts):
     msg = MIMEMultipart('alternative')
     msg['Subject'] = opts['subject']
     msg['From'] = opts['from']
-    #msg['To'] = ",".join(you)
     msg['To'] = str(you)
 
     # Message data info
@@ -49,30 +32,28 @@ def send_mail(opts):
     html = opts['html']
     attachment = opts['attachment']
 
+    # Check the total size of attachments
+    total_size = sum(os.path.getsize(f) for f in attachment)
+    max_size = 25 * 1024 * 1024  # 25 MB
+
+    if total_size > max_size:
+        print(f"Attachments exceed {max_size / (1024 * 1024)} MB, compressing...")
+        zip_file = compress_attachments(attachment)
+        attachment = [zip_file]  # Replace with the zip file
+
     # Transfer data
     part1 = MIMEText(text, 'plain')
-    part2 = MIMEText(html, 'html','utf-8')
-    # att = MIMEText(attachment, 'base64', 'utf-8')
-    # att["Content-Type"] = 'application/octet-stream'
-    # att["Content-Disposition"] = 'attachment; filename="BFT_Report.html"'
+    part2 = MIMEText(html, 'html', 'utf-8')
 
-    # Attach data into message container.
-    # According to RFC 2046, the last part of a multipart message, in this case
-    # the HTML message, is best and preferred.
+    # Attach data into message container
     msg.attach(part1)
     msg.attach(part2)
-    #msg.attach(att)
+
     for f in attachment:
-        # with open("{}\\{}".format(os.path.dirname(os.path.abspath(__file__)), f), "rb") as fil:
         with open(f, "rb") as fil:
-            part = MIMEApplication(
-                fil.read(),
-                Name=basename(f)
-            )
-        # After the file is closed
+            part = MIMEApplication(fil.read(), Name=basename(f))
         part['Content-Disposition'] = 'attachment; filename="%s"' % basename(f)
         msg.attach(part)
-
 
     # Send the message via local SMTP server.
     mail = smtplib.SMTP('smtp.gmail.com', 587)
@@ -81,16 +62,3 @@ def send_mail(opts):
     mail.login(me, password)
     mail.sendmail(me, you, msg.as_string())
     mail.quit()
-    
-# if __name__ == '__main__':
-    # opts = {
-        # "account":"clsignupstress@gmail.com"
-        # ,"password":"6uWHKTZpUK6Fmgm"
-        # ,"from":"QA UWeb AT <clsignupstress@gmail.com>"
-        # ,"to": ["cl.mitil.test@gmail.com","clsignupstress+2@gmail.com"]
-        # ,"subject": "UWeb AT report"
-        # ,"text": "this is UWeb BFT report"
-        # ,"html": "html report"
-        # ,"attachment": "aaa"
-    # }
-    # send_mail(opts)
