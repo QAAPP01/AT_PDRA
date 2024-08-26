@@ -8,6 +8,7 @@ from ATFramework_aPDR.pages.main_page import MainPage
 from ATFramework_aPDR.pages.edit import EditPage
 from ATFramework_aPDR.pages.import_media import MediaPage
 from ATFramework_aPDR.ATFramework.utils.log import logger
+from ..ATFramework.utils.compare_Mac import HCompareImg
 
 test_material_folder = '00PDRa_Testing_Material'
 video_9_16 = 'video_9_16.mp4'
@@ -25,6 +26,7 @@ class Shortcut(BasePage):
         self.driver = driver
 
     def enter_shortcut(self, shortcut_name):
+        self.click(L.main.shortcut.produce_home, 0.5)
         if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
             self.click(xpath('//*[@text="Expand"]'))
 
@@ -44,11 +46,32 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_demo fail', log_level='error')
             return False
 
-    def enter_media_picker(self, shortcut_name=None):
+    def mute_demo(self):
+        before = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
+        self.click(L.main.shortcut.demo_mute)
+        after = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
+
+        if not HCompareImg(before, after).ssim_compare():
+            return "PASS"
+        else:
+            logger(f'[Error] mute_demo fail', log_level='error')
+            return False
+
+    def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:
                 if not self.enter_shortcut(shortcut_name):
                     self.page_main.enter_ai_feature(shortcut_name)
+
+            if audio_tool:
+                audio_tool = audio_tool.lower()
+                if audio_tool == 'speech enhance':
+                    self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
+                elif audio_tool == 'ai denoise':
+                    self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
+                else:
+                    logger(f'[Warning] {audio_tool} is not found', log_level='warn')
+
             self.click(L.main.shortcut.try_it_now, 1)
 
             if self.is_exist(find_string('Add Media')):
@@ -71,17 +94,8 @@ class Shortcut(BasePage):
             return False
 
     def enter_editor(self, shortcut_name=None, folder=test_material_folder, file=video_9_16, audio_tool=None):
-        if shortcut_name:
-            self.enter_media_picker(shortcut_name)
-
-        if audio_tool:
-            audio_tool = audio_tool.lower()
-            if audio_tool == 'speech enhance':
-                self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            elif audio_tool == 'ai denoise':
-                self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
-            else:
-                logger(f'[Warning] {audio_tool} is not found', log_level='warn')
+        if shortcut_name or audio_tool:
+            self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
 
         self.page_media.select_local_video(folder, file)
         self.page_edit.waiting()
@@ -101,10 +115,19 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_editor fail', log_level='error')
             return False
 
-    def enter_trim_before_edit(self, shortcut_name=None):
-        if shortcut_name:
-            self.enter_media_picker(shortcut_name)
-        self.click(L.import_media.media_library.btn_preview())
+    def enter_trim_before_edit(self, shortcut_name=None, audio_tool=None):
+        if shortcut_name or audio_tool:
+            self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
+
+        for retry in range(12):
+            self.click(L.import_media.media_library.btn_preview(retry + 1))
+            if self.is_exist(L.import_media.media_library.warning):
+                self.click(id('btn_ok'))
+            else:
+                break
+        else:
+            logger(f'[Error] enter_trim_before_edit fail', log_level='error')
+            return False
 
         if self.is_exist(L.import_media.media_library.trim_next):
             return True
@@ -121,8 +144,9 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_trim fail', log_level='error')
             return False
 
-    def trim_and_edit(self, start=100, end=100):
-        self.click(L.import_media.media_library.btn_preview())
+    def trim_and_edit(self, start=100, end=100, shortcut_name=None, audio_tool=None):
+        self.enter_trim_before_edit(shortcut_name, audio_tool=audio_tool)
+
         if start:
             self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', start)
         if end:
@@ -140,7 +164,11 @@ class Shortcut(BasePage):
 
     def play_preview(self):
         try:
+            time.sleep(1)
             timecode = self.element(L.main.shortcut.timecode).text
+            if timecode != '00:00':
+                self.click(L.main.shortcut.play)
+                timecode = self.element(L.main.shortcut.timecode).text
             self.click(L.main.shortcut.play)
             time.sleep(2)
             self.click(L.main.shortcut.play)
