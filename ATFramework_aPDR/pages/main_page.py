@@ -33,7 +33,7 @@ class MainPage(BasePage):
 
     def subscribe(self):
         self.click(L.main.subscribe.entry)
-        if self.is_exist(find_string("You've unlocked"), 2):
+        if self.is_exist(find_string("You've unlocked"), 1) or self.is_exist(find_string('You’ve unlocked'), 1):
             self.click(L.main.subscribe.back_btn)
             return True
         else:
@@ -61,8 +61,13 @@ class MainPage(BasePage):
             else:
                 if self.is_exist(L.main.permission.loading_bar, 1):
                     self.h_is_not_exist(L.main.permission.loading_bar, 120)
-                if self.is_exist(L.main.tutorials.close_open_tutorial, 1):
-                    self.h_click(L.main.tutorials.close_open_tutorial)
+
+                # opening
+                opening_activity = "com.cyberlink.powerdirector.tutorial.OpenIntroActivity"
+                current_activity = self.driver.driver.current_activity
+                if current_activity == opening_activity:
+                    time.sleep(1)
+                    self.click(L.main.tutorials.close_open_tutorial)
                     self.click(L.main.premium.iap_back, 1)
                 else:
                     # Churn Recovery
