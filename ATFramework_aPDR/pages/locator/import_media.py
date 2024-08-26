@@ -59,6 +59,7 @@ class MediaLibrary:
     getty_iap_monthly = id('iap_monthly_layout')
     getty_iap_continue = id('btn_continue')
     percentage = id('progress_text_view')
+    warning = id('iv_warning')
 
     @staticmethod
     def media(index=1):
