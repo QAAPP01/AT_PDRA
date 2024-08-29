@@ -21,18 +21,6 @@ class Test_Scan_Music:
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
 
-    @pytest.fixture(scope="module")
-    def data(self):
-        data = {'last_result': True}
-        yield data
-
-    def last_is_fail(self, data):
-        if not data['last_result']:
-            data['last_result'] = True
-            self.page_main.relaunch()
-            return True
-        return False
-
     @allure.story("Meta")
     @allure.title("Download")
     def test_meta_music_download(self, driver):
@@ -59,13 +47,6 @@ class Test_Scan_Music:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_audio_library('Music')
-            self.page_media.click_music_tab('meta')
 
             pytest.fail(f"{str(e)}")
 
@@ -92,15 +73,6 @@ class Test_Scan_Music:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_audio_library('Music')
-            self.page_media.click_music_tab('getty')
-            self.click(L.import_media.music_library.category(3))
-            self.click(L.import_media.music_library.music())
 
             pytest.fail(f"{str(e)}")
 
@@ -131,13 +103,6 @@ class Test_Scan_Music:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_audio_library('Music')
-            self.page_media.click_music_tab('mixtape')
 
             pytest.fail(f"{str(e)}")
 
@@ -164,6 +129,5 @@ class Test_Scan_Music:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
 
             pytest.fail(f"{str(e)}")

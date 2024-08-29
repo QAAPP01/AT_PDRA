@@ -44,14 +44,14 @@ class MainPage(BasePage):
             if self.is_exist(L.main.new_project, 10):
                 return True
             else:
-                raise
+                return False
 
-    def enter_launcher(self):
+    def enter_launcher(self, subscribe=True):
         try:
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, 1):
                 self.click(L.main.premium.iap_back, 15)
-                self.click(id('iv_close'))  # close the credit dialog
+                self.click(id('iv_close'), 1)  # close the credit dialog
                 if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
                 else:
@@ -76,8 +76,8 @@ class MainPage(BasePage):
                     else:
                         # IAP
                         self.click(L.main.premium.iap_back, 1)
-
-            self.subscribe()
+            if subscribe:
+                self.subscribe()
             logger('Enter Launcher Done')
             return True
 
