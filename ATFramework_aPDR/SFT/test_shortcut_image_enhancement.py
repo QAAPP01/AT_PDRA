@@ -37,8 +37,6 @@ class Test_Shortcut_Image_Enhancer:
     @allure.title("Enter Media Picker")
     def test_entry_media_picker(self, driver):
         try:
-            self.page_main.enter_launcher()
-
             self.page_shortcut.enter_shortcut('Image Enhancer')
 
             assert self.is_exist(find_string('Add Media'))
@@ -70,7 +68,7 @@ class Test_Shortcut_Image_Enhancer:
     @allure.title("Enter editor")
     def test_entry_editor(self, driver):
         try:
-            assert self.page_shortcut.enter_editor('Image Enhancer')
+            assert self.page_shortcut.enter_editor('Image Enhancer', file=photo_9_16)
 
         except Exception as e:
             traceback.print_exc()
@@ -95,6 +93,3 @@ class Test_Shortcut_Image_Enhancer:
 
             self.page_main.enter_launcher()
             self.page_shortcut.enter_media_picker('Image Enhancer')
-
-
-
