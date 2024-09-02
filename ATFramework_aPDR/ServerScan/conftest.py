@@ -6,13 +6,10 @@ import traceback
 import allure
 import os
 import pytest
-import sys
 from PIL import Image
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
-from main import package_name as PACKAGE_NAME
 
 
 
@@ -203,20 +200,26 @@ def pytest_runtest_makereport(item, call):
 def exception_screenshot(request, driver):
     yield
     if request.node.rep_call.failed:
-        failure_dir = os.path.join(os.path.dirname(__file__), "failures_screenshot")
+        class_name = request.node.cls.__name__ if request.node.cls else ""
+        test_name = request.node.name
+        screenshot_name = f"{class_name}_{test_name}.jpg"
+
+        failure_dir = os.path.join(os.path.dirname(__file__), "exception_screenshot")
         os.makedirs(failure_dir, exist_ok=True)
-        screenshot_path = os.path.join(failure_dir, f"{request.node.name}.jpg")
+        screenshot_path = os.path.join(failure_dir, screenshot_name)
 
         driver.driver.get_screenshot_as_file(screenshot_path)
 
         image = Image.open(screenshot_path)
         width, height = image.size
-        new_width = 360
+        new_width = 240
         new_height = int(height * (new_width / width))
         resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
         if resized_image.mode == 'RGBA':
             resized_image = resized_image.convert('RGB')
-        resized_image.save(screenshot_path, 'JPEG', quality=85)
+
+        resized_image.save(screenshot_path, 'JPEG', quality=70)
 
         allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)
         logger(f"Exception screenshot: {screenshot_path}", log_level='error')

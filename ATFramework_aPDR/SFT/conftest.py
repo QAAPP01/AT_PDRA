@@ -6,12 +6,10 @@ import traceback
 import allure
 import os
 import pytest
-import sys
 from PIL import Image
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from selenium.common import InvalidSessionIdException
-from main import package_name as PACKAGE_NAME
 
 
 
@@ -71,8 +69,15 @@ def driver():
     from ATFramework_aPDR.configs import driver_config
     from appium.webdriver.appium_service import AppiumService
 
-    driver = None
     desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': 'R5CT32Q3WQN'}
+    cap = {
+        "language": "en",
+        "locale": "US",
+        'autoGrantPermissions': True,
+        "noReset": False,
+        "autoLaunch": True,
+    }
+    desired_caps.update(cap)
 
     if debug_mode:
         logger('**** Debug Mode ****')
@@ -97,15 +102,6 @@ def driver():
 
     appium = AppiumService()
     appium.start(args=args)
-
-    cap = {
-        "language": "en",
-        "locale": "US",
-        'autoGrantPermissions': True,
-        "noReset": False,
-        "autoLaunch": True,
-    }
-    desired_caps.update(cap)
 
     def create_driver(retry=3):
         for i in range(retry):
