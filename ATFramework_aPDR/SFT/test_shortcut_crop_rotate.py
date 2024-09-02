@@ -199,4 +199,3 @@ class Test_Shortcut_Crop_Rotate:
         except Exception as e:
             traceback.print_exc()
             logger(e)
-
