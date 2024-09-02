@@ -100,7 +100,7 @@ class MediaPage(BasePage):
             raise Exception(err)
 
     def select_video_library(self, stock_name):
-        stock = [
+        stock_list = [
             "shutterstock",
             "getty",
             "getty_pro",
@@ -109,37 +109,51 @@ class MediaPage(BasePage):
             "pixabay",
             "google_drive",
         ]
+
+        def wait_for_cursor():
+            if self.is_exist(id('waiting_cursor'), 1):
+                if not self.is_not_exist(id("waiting_cursor")):
+                    raise Exception("Waiting cursor timeout")
+
+        def swipe_and_search(stock_name, swipe_direction="right"):
+            end_id = ""
+            while True:
+                if self.click(L.import_media.media_library.stock(stock_name), 1):
+                    wait_for_cursor()
+                    return True
+
+                tabs = self.elements(('xpath', '//android.widget.LinearLayout/android.view.ViewGroup'))
+                last_tab_id = tabs[-1].get_attribute("resource-id")
+                if last_tab_id == end_id:
+                    break
+                else:
+                    end_id = last_tab_id
+                    if swipe_direction == "right":
+                        self.h_swipe_element(tabs[0], tabs[-1], 3)
+                    else:
+                        self.h_swipe_element(tabs[-1], tabs[0], 3)
+
+            return False
+
         try:
-            if stock_name not in stock:
+            if stock_name not in stock_list:
                 logger(f'[Fail] Invalid stock name: {stock_name}')
                 return False
 
             self.click(L.import_media.video_library.video_entry, 2)
-            tab = ('xpath', '//android.widget.LinearLayout/android.view.ViewGroup')
-            if not self.click(L.import_media.media_library.stock(stock_name), 1):
-                for retry in range(60):
-                    if not self.is_exist(L.import_media.video_library.local_folder, 1):
-                        tabs = self.elements(tab)
-                        self.h_swipe_element(tabs[0], tabs[-1], 3)
-                        if self.click(L.import_media.media_library.stock(stock_name), 1):
-                            return True
-                    else:
-                        break
-            end = ""
-            for retry in range(60):
-                if not self.click(L.import_media.media_library.stock(stock_name), 1):
-                    tabs = self.elements(tab)
-                    last = tabs[-1].get_attribute("resource-id")
-                    if last == end:
-                        logger(f'[Fail] Stock {stock_name} is not found')
-                        return False
-                    else:
-                        end = last
-                        self.h_swipe_element(tabs[-1], tabs[0], 3)
-                else:
+
+            if self.is_exist(L.import_media.video_library.local_folder, 1):
+                if swipe_and_search(stock_name, "right"):
                     return True
             else:
-                raise Exception("out of retry")
+                if swipe_and_search(stock_name, "right"):
+                    return True
+                if swipe_and_search(stock_name, "left"):
+                    return True
+
+            logger(f'[Fail] Could not find stock: {stock_name}')
+            return False
+
         except Exception as err:
             logger(f'\n[Error] {err}')
             return False

@@ -30,8 +30,6 @@ class Test_Scan_Media:
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.subscribe()
             self.page_main.enter_timeline(skip_media=False)
             self.page_media.select_video_library("getty")
 
