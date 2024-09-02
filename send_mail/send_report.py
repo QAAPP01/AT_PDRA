@@ -229,7 +229,7 @@ def generate_allure_report(result_folder, report_folder):
     return True
 
 
-def send_allure_report(report_folder, test_result_title, device_id, receiver_list, tr_number, package_version, package_build_number, sr_number=None):
+def send_allure_report(report_folder, test_result_title, device_id, receiver_list, tr_number, package_version, package_build_number, sr_number=None, update_to_sheet=True):
 
     opts = {
         'account': 'cltest.qaapp1@gmail.com',
@@ -381,37 +381,38 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
         auto_create_qr(tr_dict, opts['attachment'])
         print('compelte')
 
-        # 更新 Google Sheet
-        try:
-            sheet_name = f"aPDR_SFT"
-            header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
-            obj_google_api = GoogleApi(sheet_name, header_custom)
-            new_record = {
-                'Date': datetime.date.today().isoformat(),
-                'Time': datetime.datetime.now().strftime("%I:%M %p"),
-                'Script_Name': test_result_title,
-                'Script_Ver': "Testing",
-                'SR_No': sr_number,
-                'TR_No': tr_number,
-                'Build_No': package_build_number,
-                'Prod_Ver': package_version,
-                'Prod_Ver_Type': 'Prod',
-                'OS': 'Android',
-                'OS_Ver': "12",
-                'Device_ID': 'Samsung A53'
-            }
-            obj_google_api.add_new_record(new_record)
+        if update_to_sheet:
+            # 更新 Google Sheet
+            try:
+                sheet_name = f"aPDR_SFT"
+                header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+                obj_google_api = GoogleApi(sheet_name, header_custom)
+                new_record = {
+                    'Date': datetime.date.today().isoformat(),
+                    'Time': datetime.datetime.now().strftime("%I:%M %p"),
+                    'Script_Name': test_result_title,
+                    'Script_Ver': "Testing",
+                    'SR_No': sr_number,
+                    'TR_No': tr_number,
+                    'Build_No': package_build_number,
+                    'Prod_Ver': package_version,
+                    'Prod_Ver_Type': 'Prod',
+                    'OS': 'Android',
+                    'OS_Ver': "12",
+                    'Device_ID': 'Samsung A53'
+                }
+                obj_google_api.add_new_record(new_record)
 
-            data = {
-                'Pass': summary_info["passed"],
-                'Fail': fail_count,
-                'Skip': summary_info["skipped"],
-                'N/A': na_count,
-                'Total time': summary_info["duration"]
-            }
-            obj_google_api.update_columns(data)
-            print(f'Done.')
-        except Exception:
-            traceback.print_exc()
+                data = {
+                    'Pass': summary_info["passed"],
+                    'Fail': fail_count,
+                    'Skip': summary_info["skipped"],
+                    'N/A': na_count,
+                    'Total time': summary_info["duration"]
+                }
+                obj_google_api.update_columns(data)
+                print(f'Done.')
+            except Exception:
+                traceback.print_exc()
 
     return True
