@@ -97,16 +97,6 @@ class MainPage(BasePage):
             logger(e)
             return False
 
-    def enter_shortcut(self, name):
-
-        if not self.is_exist(L.main.shortcut.shortcut_name(name), 1):
-            self.click(xpath('//*[@text="More"]'))
-        if self.click(L.main.shortcut.shortcut_name(name)):
-            return True
-        else:
-            logger(f'[Error] Cannot find the shortcut "{name}"', log_level='error')
-            return False
-
     def enter_ai_feature(self, name):
         self.click(L.main.ai_creation.entry)
         if self.click(find_string(name), 2):

@@ -25,16 +25,40 @@ class Shortcut(BasePage):
         self.page_media = MediaPage(driver)
         self.driver = driver
 
-    def enter_shortcut(self, shortcut_name):
-        self.click(L.main.shortcut.produce_home, 0.5)
-        if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
-            self.click(xpath('//*[@text="Expand"]'))
+    def enter_shortcut(self, shortcut_name, demo_title=None):
+        demo_title = demo_title or shortcut_name
 
-        if self.click(L.main.shortcut.shortcut_name(shortcut_name)):
-            return True
-        else:
-            logger(f'[Error] enter_shortcut fail', log_level='error')
-            return False
+        self.click(L.main.shortcut.produce_home, 0.5)
+
+        if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
+            self.click(L.main.shortcut.shortcut_name("Expand"))
+
+            if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
+                self.click(L.main.shortcut.shortcut_name("More"))
+
+                last_text = ""
+                while True:
+                    if self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
+                        break
+
+                    shortcuts = self.elements(L.main.shortcut.shortcut_name(0))
+                    if shortcuts[-1].text == last_text:
+                        logger(f'[Error] Cannot find {shortcut_name} in More page', log_level='error')
+                        return False
+
+                    last_text = shortcuts[-1].text
+                    self.h_swipe_element(shortcuts[-1], shortcuts[0], 3)
+
+        if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
+            if (self.element(L.main.shortcut.demo_title).text == demo_title or
+                    self.is_exist(L.import_media.media_library.title)):
+                return True
+            else:
+                logger(f'[Error] Cannot find demo title {demo_title} or Add Media', log_level='error')
+                return False
+
+        logger(f'[Error] Cannot find {shortcut_name}', log_level='error')
+        return False
 
     def back_from_demo(self):
         self.click(L.main.shortcut.demo_back)

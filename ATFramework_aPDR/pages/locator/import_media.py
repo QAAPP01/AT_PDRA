@@ -1,6 +1,7 @@
 from .locator_type import *
 
 class MediaLibrary:
+    title = xpath(f'//*[contains(@resource-id,"top_toolbar_title") and @text="Add Media"]')
     back = id("top_toolbar_back")
     trim_back = id('iv_close')
     trim_next = id('tv_ok')
