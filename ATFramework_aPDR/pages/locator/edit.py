@@ -79,6 +79,11 @@ class Master:
         apply = id('btn_apply_icon')
         reset = id('btn_reset')
         back = id('btn_back')
+        slider = id('adjustable_parameter_seek_bar')
+        category = id('library_category_item')
+        favorite = id('itemFavorite')
+        
+
 
         @staticmethod
         def category(index: int = 1):
@@ -460,6 +465,21 @@ class SubTool:
 
     class Effect:
         edit = id('itemEdit')
+        category = id('library_category_item')
+        item = id('itemMask')
+        favorite_empty_message = id('hint_text_view')
+        favorite = id('itemFavorite')
+        item_panel = id('view_pager')
+        apply = id('btn_ok')
+        none = id('btn_none')
+        cancel = id('btn_cancel')
+        color_preset = id('color_image_view')
+        front_color = find_string('Front Color')
+        background_color = find_string('Background Color')
+        slider = id('seekbar')
+        reset = id('btn_reset')
+        back = id('btn_back')
+
 
     class filter:
         edit = id('itemEdit')
@@ -529,6 +549,7 @@ class SubToolMenu:
     reset = id('btn_reset')
 
 
+
 class SubMenu_Timeline_Setting():
     menu = Menu()
     audio_mixing = aid("[AID]Setting_AudioMixing")
@@ -586,6 +607,7 @@ class Edit_sub():
     in_animation_entry = id('in_animation_entry')
     out_animation_entry = id('out_animation_entry')
     option_list = id('option_list')
+    parameter_panel = id('title_designer_container')
 
 
 class Blending_Sub():

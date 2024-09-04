@@ -73,6 +73,7 @@ class EditPage(BasePage):
         self.cutout = Cutout(self.driver)
         self.a_chroma_key = A_Chroma_Key(self.driver)
         self.filter = Filter(self.driver)
+        self.effect = Effect(self.driver)
 
     def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
         boundary_rect = self.element(L.edit.crop.boundary).rect
@@ -4567,3 +4568,94 @@ class Filter(BasePage):
         self.click(L.edit.filter.cancel)
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+class Effect(BasePage):
+
+    def start_with_effect(self, clip_type='master video'):
+        if clip_type == 'master video':
+            self.page_main.start_with_master_video()
+        elif clip_type == 'master photo':
+            self.page_main.start_with_master_photo()
+        elif clip_type == 'pip video':
+            self.page_main.start_with_pip_video()
+        elif clip_type == 'pip photo':
+            self.page_main.start_with_pip_photo()
+        else:
+            print('clip type is wrong')
+        self.page_edit.click_sub_tool('Effect')
+        return self.is_exist(L.edit.sub_tool.effect.item)
+
+    def effect_favorite_empty(self):
+        self.element(L.edit.sub_tool.effect.category).click()
+        text = self.element(L.edit.sub_tool.effect.favorite_empty_message).get_attribute('text')
+        return text == 'Press and hold any effect to add it to favorites.'
+
+    def effect_select_effect(self, order):
+        self.elements(L.edit.filter.item)[order].click()
+        return self.elements(L.edit.filter.item)[order].get_attribute('selected') == 'true'
+
+    def effect_parameter_front_color(self, order):
+        pic_base = self.get_boundary_preview()
+        self.elements(L.edit.filter.item)[order].click()
+        self.click(L.edit.sub_tool.effect.front_color)
+        self.elements(L.edit.sub_tool.effect.color_preset)[4].click()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def effect_parameter_background_color(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.sub_tool.effect.background_color)
+        self.elements(L.edit.sub_tool.effect.color_preset)[7].click()
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def effect_parameter_slider(self, order=0):
+        pic_base = self.get_boundary_preview()
+        if order == 0:
+            self.elements(L.edit.sub_tool.effect.slider)[0].send_keys(7)
+        elif order == 1:
+            self.elements(L.edit.sub_tool.effect.slider)[1].send_keys(100)
+        elif order == 2:
+            self.swipe_element(L.edit.edit_sub.parameter_panel, direction='up')
+            self.elements(L.edit.sub_tool.effect.slider)[2].send_keys(100)
+        elif order == 3:
+            self.elements(L.edit.sub_tool.effect.slider)[3].send_keys(13)
+        elif order == 4:
+            self.elements(L.edit.sub_tool.effect.slider)[3].send_keys(22)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def parameter_reset(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.sub_tool.effect.reset)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def effect_switch_category(self, order=2):
+        pic_base = self.get_preview_pic(L.edit.sub_tool.effect.item_panel)
+        self.elements(L.edit.sub_tool.effect.category)[order].click()
+        pic_after = self.get_preview_pic(L.edit.sub_tool.effect.item_panel)
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def effect_favorite(self, order=2, action='add'):
+        filter = self.elements(L.edit.filter.item)
+        self.h_long_press(filter[order], 3)
+        favorite = self.elements(L.edit.filter.favorite)
+        if action == 'add':
+            return favorite[order].get_attribute('selected') == 'true'
+        elif action == 'remove':
+            return favorite[order].get_attribute('selected') == 'false'
+
+    def effect_apply(self, order):
+        self.click(L.edit.filter.apply)
+        self.page_edit.click_sub_tool('Effect')
+        return self.elements(L.edit.sub_tool.effect.item)[order].get_attribute('selected') == 'true'
+
+    def effect_none(self, order):
+        self.click(L.edit.filter.none)
+        return self.elements(L.edit.sub_tool.effect.item)[order].get_attribute('selected') == 'false'
+
+    def effect_cancel(self, order):
+        self.click(L.edit.filter.cancel)
+        self.page_edit.click_sub_tool('Effect')
+        return self.elements(L.edit.sub_tool.effect.item)[order].get_attribute('selected') == 'true'
