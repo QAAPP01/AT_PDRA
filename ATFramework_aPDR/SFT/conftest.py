@@ -16,6 +16,7 @@ from selenium.common import InvalidSessionIdException
 DRIVER_DESIRED_CAPS = {}
 DEFAULT_BROWSER = 'com.android.chrome'
 platform_type = 'Android'
+PACKAGE_NAME = "com.cyberlink.powerdirector.DRA140225_01"
 TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
 TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 
@@ -61,85 +62,98 @@ def driver_get_desiredcap(udid, systemPort):
     return True
 
 
-@pytest.fixture(scope="session")
-def driver():
-    import os
-    from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
-    from ATFramework_aPDR.configs import app_config
-    from ATFramework_aPDR.configs import driver_config
-    from appium.webdriver.appium_service import AppiumService
+import os
+import subprocess
+import pytest
+from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
+from ATFramework_aPDR.configs import app_config, driver_config
+from appium.webdriver.appium_service import AppiumService
+from selenium.common.exceptions import InvalidSessionIdException
 
-    desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': 'R5CT32Q3WQN'}
-    cap = {
-        "language": "en",
-        "locale": "US",
-        'autoGrantPermissions': True,
-        "noReset": False,
-        "autoLaunch": True,
-    }
-    desired_caps.update(cap)
 
+def get_connected_devices():
+    """取得連接的裝置ID列表"""
+    connected_devices = subprocess.run(['adb', 'devices'], stdout=subprocess.PIPE)
+    connected_devices_output = connected_devices.stdout.decode().splitlines()
+    return [line.split()[0] for line in connected_devices_output if line and '\tdevice' in line]
+
+
+def update_desired_caps(desired_caps, debug_mode):
+    """更新desired capabilities根據模式"""
     if debug_mode:
         logger('**** Debug Mode ****')
-        mode = 'debug'
-        args = ["--address", "127.0.0.1", "--port", "4725", "--base-path", '/wd/hub']
-
-        connected_devices = subprocess.run(['adb', 'devices'], stdout=subprocess.PIPE)
-        connected_devices_output = connected_devices.stdout.decode().splitlines()
-
-        device_ids = [line.split()[0] for line in connected_devices_output if line and '\tdevice' in line]
-
-        if desired_caps['udid'] not in device_ids:
-            if device_ids:
-                desired_caps['udid'] = device_ids[0]
+        connected_devices = get_connected_devices()
+        if desired_caps['udid'] not in connected_devices:
+            if connected_devices:
+                desired_caps['udid'] = connected_devices[0]
             else:
                 raise RuntimeError("No devices connected.")
-
     else:
-        logger('**** Testing Mode ****')
-        mode = 'local'
-        args = ["--address", "127.0.0.1", "--port", "4723", "--base-path", '/wd/hub']
+        cap = {
+            "language": "en",
+            "locale": "US",
+            'autoGrantPermissions': True,
+            "noReset": False,
+            "autoLaunch": True,
+        }
+        desired_caps.update(cap)
+    return desired_caps
 
+
+def start_appium_service(debug_mode):
+    """根據debug模式啟動Appium服務"""
+    args = ["--address", "127.0.0.1", "--port", "4725" if debug_mode else "4723", "--base-path", '/wd/hub']
     appium = AppiumService()
     appium.start(args=args)
+    return appium
 
-    def create_driver(retry=3):
-        for i in range(retry):
-            try:
-                _driver = DriverFactory().get_mobile_driver_object(
-                    "appium u2", driver_config, app_config, mode, desired_caps
-                )
-                if _driver:
-                    logger("\n[Done] Driver created!")
-                    return _driver
-                else:
-                    raise Exception("\n[Fail] Create driver fail")
-            except Exception as e:
-                logger(e)
-                logger("Remove Appium")
-                os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.settings")
-                os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.uiautomator2.server")
-        else:
-            raise Exception("All retries to create driver failed")
 
-    driver = create_driver()
+def create_driver(retry, mode, driver_config, app_config, desired_caps):
+    """嘗試創建driver，重試最多retry次"""
+    for _ in range(retry):
+        try:
+            _driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, mode,
+                                                               desired_caps)
+            if _driver:
+                logger("\n[Done] Driver created!")
+                return _driver
+            else:
+                raise Exception("\n[Fail] Create driver fail")
+        except Exception as e:
+            logger(e)
+            logger("Remove Appium")
+            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.settings")
+            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.uiautomator2.server")
+    raise Exception("All retries to create driver failed")
 
-    driver.driver.close_app()
 
-    cap['noReset'] = True
-    cap['autoLaunch'] = False
-    desired_caps.update(cap)
+@pytest.fixture(scope="session")
+def driver():
+    """Pytest fixture 用來設置和關閉driver"""
+    desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': 'R5CT32Q3WQN'}
+    desired_caps = update_desired_caps(desired_caps, debug_mode)
 
-    driver = create_driver()
+    mode = 'debug' if debug_mode else 'local'
+    appium = start_appium_service(debug_mode)
 
+    driver = create_driver(3, mode, driver_config, app_config, desired_caps)
+
+    if debug_mode:
+        pass
+    else:
+        driver.driver.close_app()
+        desired_caps.update({"noReset": True, "autoLaunch": False})
+        driver = create_driver(3, mode, driver_config, app_config, desired_caps)
     yield driver
 
-    if not debug_mode:
-        try:
-            driver.driver.quit()
-            appium.stop()
-        except InvalidSessionIdException:
-            pass
+    # 關閉 driver 和 Appium
+    try:
+        driver.driver.quit()
+    except InvalidSessionIdException:
+        pass
+    finally:
+        appium.stop()
+
 
 @pytest.fixture(scope='class', autouse=True)
 def driver_init(driver):
