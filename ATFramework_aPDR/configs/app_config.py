@@ -1,6 +1,7 @@
 import os
+from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 root_path = os.path.dirname(os.path.dirname(__file__))
-PACKAGE_NAME = "com.cyberlink.powerdirector.DRA140225_01"
+
 
 cap = {
     "deviceName": "Android",
@@ -45,7 +46,7 @@ prod_cap = {
     "newCommandTimeout": "0",  # for installation
     'appPackage': PACKAGE_NAME,
     'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity',
-    'NoSign' : True
+    'NoSign': True
 }
 
 prod_install_cap = {
@@ -55,7 +56,7 @@ prod_install_cap = {
     "noReset": "true",
     "autoLaunch": "false",
     "newCommandTimeout": "600",  # for installation
-    "app": root_path +r"\app\PowerDirector.apk"
+    "app": root_path + r"\app\PowerDirector.apk"
 }
 
 prod_fullreset_cap = {
@@ -66,7 +67,7 @@ prod_fullreset_cap = {
     "fullReset": "true",
     "autoLaunch": "false",
     "newCommandTimeout": "600",  # for installation
-    "app": root_path +r"\app\PowerDirector.apk"
+    "app": root_path + r"\app\PowerDirector.apk"
 }
 
 prod_fastreset_cap = {
@@ -77,7 +78,7 @@ prod_fastreset_cap = {
     "fastReset": "true",
     "autoLaunch": "false",
     "newCommandTimeout": "600",  # for installation
-    "app": root_path +r"\app\PowerDirector.apk"
+    "app": root_path + r"\app\PowerDirector.apk"
 }
 
 OPPO_cap = {
@@ -87,7 +88,7 @@ OPPO_cap = {
     "noReset": "true",
     "autoLaunch": "false",
     "newCommandTimeout": "600",  # for installation
-    "app": root_path +r"\app\PowerDirector-DRA140225_01-6.0.0.68420.apk"
+    "app": root_path + r"\app\PowerDirector-DRA140225_01-6.0.0.68420.apk"
 }
 
 native_settings_cap = {
@@ -144,7 +145,6 @@ trustapp_cap = {
     "app": "Settings",
     "webDriverAgentUrl": "http://192.168.2.120:8100"
 }
-
 
 # cap for already installed
 launch_cap = {

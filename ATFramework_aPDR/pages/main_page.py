@@ -48,6 +48,7 @@ class MainPage(BasePage):
 
     def enter_launcher(self, subscribe=True):
         try:
+            logger('enter_launcher')
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, 1):
                 self.click(L.main.premium.iap_back, 15)
@@ -65,12 +66,14 @@ class MainPage(BasePage):
                 # opening
                 opening_activity = "com.cyberlink.powerdirector.tutorial.OpenIntroActivity"
                 current_activity = self.driver.driver.current_activity
+                logger(f"current_activity: {current_activity}")
                 if current_activity == opening_activity:
                     time.sleep(1)
                     self.click(L.main.tutorials.close_open_tutorial)
                     self.click(L.main.premium.iap_back, 1)
                 else:
                     # Churn Recovery
+                    time.sleep(1)
                     if self.h_is_exist(L.main.premium.pdr_premium, 1):
                         self.driver.driver.back()
                     else:
