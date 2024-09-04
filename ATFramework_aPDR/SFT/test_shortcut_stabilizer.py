@@ -44,7 +44,7 @@ class Test_Shortcut_Stabilizer:
     @allure.title("Enter Demo page")
     def test_entry_demo_page(self, driver):
         try:
-            self.page_main.enter_shortcut('Stabilizer')
+            self.page_shortcut.enter_shortcut('Stabilizer')
 
             assert self.element(L.main.shortcut.demo_title).text == 'Stabilizer'
 
@@ -54,7 +54,7 @@ class Test_Shortcut_Stabilizer:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('Stabilizer')
+            self.page_shortcut.enter_shortcut('Stabilizer')
     @allure.story("Entry")
     @allure.title("Back from demo")
     def test_back_from_demo(self, driver):

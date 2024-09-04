@@ -43,7 +43,7 @@ class Test_Shortcut_AI_Cartoon:
         try:
             self.page_main.enter_launcher()
 
-            self.page_main.enter_shortcut('AI Cartoon')
+            self.page_shortcut.enter_shortcut('AI Cartoon')
 
             assert self.is_exist(find_string('AI Cartoon'))
 
@@ -77,7 +77,6 @@ class Test_Shortcut_AI_Cartoon:
     @allure.title("From AI creation")
     def test_entry_from_ai_creation(self, driver):
         try:
-            self.click(L.main.ai_creation.entry)
             self.page_main.enter_ai_feature('AI Cartoon')
 
             assert self.is_exist(find_string('AI Cartoon'))

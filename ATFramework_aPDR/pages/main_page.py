@@ -33,7 +33,7 @@ class MainPage(BasePage):
 
     def subscribe(self):
         self.click(L.main.subscribe.entry)
-        if self.is_exist(find_string("You've unlocked"), 2):
+        if self.is_exist(find_string("You've unlocked"), 1) or self.is_exist(find_string('You’ve unlocked'), 1):
             self.click(L.main.subscribe.back_btn)
             return True
         else:
@@ -44,14 +44,14 @@ class MainPage(BasePage):
             if self.is_exist(L.main.new_project, 10):
                 return True
             else:
-                raise
+                return False
 
-    def enter_launcher(self):
+    def enter_launcher(self, subscribe=True):
         try:
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, 1):
                 self.click(L.main.premium.iap_back, 15)
-                self.click(id('iv_close'))  # close the credit dialog
+                self.click(id('iv_close'), 1)  # close the credit dialog
                 if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
                 else:
@@ -61,8 +61,13 @@ class MainPage(BasePage):
             else:
                 if self.is_exist(L.main.permission.loading_bar, 1):
                     self.h_is_not_exist(L.main.permission.loading_bar, 120)
-                if self.is_exist(L.main.tutorials.close_open_tutorial, 1):
-                    self.h_click(L.main.tutorials.close_open_tutorial)
+
+                # opening
+                opening_activity = "com.cyberlink.powerdirector.tutorial.OpenIntroActivity"
+                current_activity = self.driver.driver.current_activity
+                if current_activity == opening_activity:
+                    time.sleep(1)
+                    self.click(L.main.tutorials.close_open_tutorial)
                     self.click(L.main.premium.iap_back, 1)
                 else:
                     # Churn Recovery
@@ -71,8 +76,8 @@ class MainPage(BasePage):
                     else:
                         # IAP
                         self.click(L.main.premium.iap_back, 1)
-
-            self.subscribe()
+            if subscribe:
+                self.subscribe()
             logger('Enter Launcher Done')
             return True
 
@@ -90,16 +95,6 @@ class MainPage(BasePage):
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            return False
-
-    def enter_shortcut(self, name):
-
-        if not self.is_exist(L.main.shortcut.shortcut_name(name), 1):
-            self.click(xpath('//*[@text="More"]'))
-        if self.click(L.main.shortcut.shortcut_name(name)):
-            return True
-        else:
-            logger(f'[Error] Cannot find the shortcut "{name}"', log_level='error')
             return False
 
     def enter_ai_feature(self, name):

@@ -159,7 +159,7 @@ class BasePage(BasePage):
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
         
-    def is_not_exist(self,locator,timeout=5):
+    def is_not_exist(self,locator,timeout=60):
         logger("start is_not_exist")
         retry = 3
         while retry:

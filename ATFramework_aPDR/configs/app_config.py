@@ -1,6 +1,6 @@
-from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 import os
 root_path = os.path.dirname(os.path.dirname(__file__))
+PACKAGE_NAME = "com.cyberlink.powerdirector.DRA140225_01"
 
 cap = {
     "deviceName": "Android",
@@ -14,7 +14,7 @@ cap = {
     "appActivity": "com.cyberlink.powerdirector.splash.SplashActivity",
     "language": "en",
     "locale": "US",
-    # 'autoGrantPermissions': True,
+    'autoGrantPermissions': True,
     "noReset": True,
     "autoLaunch": False,
     'noSign': True

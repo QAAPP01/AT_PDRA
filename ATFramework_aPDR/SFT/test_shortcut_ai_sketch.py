@@ -38,15 +38,44 @@ class Test_Shortcut_AI_Sketch:
         return False
 
     @allure.story("Entry")
-    @allure.title("From AI creation")
-    def test_entry_from_ai_creation(self, driver):
+    @allure.title("From shortcut")
+    def test_entry_from_shortcut(self, data):
         try:
-            self.page_main.enter_launcher()
+            assert self.page_shortcut.enter_shortcut('AI Sketch')
 
-            self.click(L.main.ai_creation.entry)
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+
+    @allure.story("Entry")
+    @allure.title("Back from demo")
+    def test_back_from_demo(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Sketch')
+
+            assert self.page_shortcut.back_from_demo()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+
+    @allure.story("Entry")
+    @allure.title("From AI creation")
+    def test_entry_from_ai_creation(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
             self.page_main.enter_ai_feature('AI Sketch')
 
-            assert self.is_exist(find_string('AI Sketch'))
+            assert self.element(L.main.shortcut.demo_title).text == 'AI Sketch'
 
         except Exception as e:
             traceback.print_exc()

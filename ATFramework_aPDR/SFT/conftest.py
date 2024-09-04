@@ -6,13 +6,10 @@ import traceback
 import allure
 import os
 import pytest
-import sys
 from PIL import Image
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
-from appium.webdriver.appium_service import AppiumService
 from selenium.common import InvalidSessionIdException
-from main import package_name as PACKAGE_NAME
 
 
 
@@ -70,15 +67,22 @@ def driver():
     from ATFramework_aPDR.ATFramework.drivers.driver_factory import DriverFactory
     from ATFramework_aPDR.configs import app_config
     from ATFramework_aPDR.configs import driver_config
+    from appium.webdriver.appium_service import AppiumService
 
-    driver = None
-    desired_caps = {}
-    desired_caps.update(app_config.cap)
-    desired_caps.update(DRIVER_DESIRED_CAPS)
+    desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': 'R5CT32Q3WQN'}
+    cap = {
+        "language": "en",
+        "locale": "US",
+        'autoGrantPermissions': True,
+        "noReset": False,
+        "autoLaunch": True,
+    }
+    desired_caps.update(cap)
 
-    desired_caps['udid'] = 'R5CT32Q3WQN'
     if debug_mode:
         logger('**** Debug Mode ****')
+        mode = 'debug'
+        args = ["--address", "127.0.0.1", "--port", "4725", "--base-path", '/wd/hub']
 
         connected_devices = subprocess.run(['adb', 'devices'], stdout=subprocess.PIPE)
         connected_devices_output = connected_devices.stdout.decode().splitlines()
@@ -91,58 +95,51 @@ def driver():
             else:
                 raise RuntimeError("No devices connected.")
 
-        mode = 'debug'
-        args = [
-            "--address", "127.0.0.1",
-            "--port", "4725",
-            "--base-path", '/wd/hub'
-        ]
-
-        cap = {
-            # "udid": "",
-            # "language": "en",
-            # "locale": "US",
-            # 'autoGrantPermissions': True,
-            # "noReset": True,
-            # "autoLaunch": False,
-        }
-        desired_caps.update(cap)
     else:
         logger('**** Testing Mode ****')
         mode = 'local'
-        args = [
-            "--address", "127.0.0.1",
-            "--port", "4723",
-            "--base-path", '/wd/hub'
-        ]
+        args = ["--address", "127.0.0.1", "--port", "4723", "--base-path", '/wd/hub']
 
     appium = AppiumService()
     appium.start(args=args)
 
-    retry = 3
-    while retry:
-        try:
-            driver = DriverFactory().get_mobile_driver_object("appium u2", driver_config, app_config, mode,
-                                                              desired_caps)
-            if driver:
-                logger("\n[Done] Driver created!")
-                break
-            else:
-                raise Exception("\n[Fail] Create driver fail")
-        except Exception as e:
-            logger(e)
-            logger("Remove Appium")
-            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.settings")
-            os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.uiautomator2.server")
-            retry -= 1
+    def create_driver(retry=3):
+        for i in range(retry):
+            try:
+                _driver = DriverFactory().get_mobile_driver_object(
+                    "appium u2", driver_config, app_config, mode, desired_caps
+                )
+                if _driver:
+                    logger("\n[Done] Driver created!")
+                    return _driver
+                else:
+                    raise Exception("\n[Fail] Create driver fail")
+            except Exception as e:
+                logger(e)
+                logger("Remove Appium")
+                os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.settings")
+                os.system(f"adb -s {desired_caps['udid']} shell pm uninstall io.appium.uiautomator2.server")
+        else:
+            raise Exception("All retries to create driver failed")
+
+    driver = create_driver()
+
+    driver.driver.close_app()
+
+    cap['noReset'] = True
+    cap['autoLaunch'] = False
+    desired_caps.update(cap)
+
+    driver = create_driver()
 
     yield driver
+
     if not debug_mode:
         try:
             driver.driver.quit()
+            appium.stop()
         except InvalidSessionIdException:
             pass
-    appium.stop()
 
 @pytest.fixture(scope='class', autouse=True)
 def driver_init(driver):
@@ -238,12 +235,7 @@ def exception_screenshot(request, driver):
         if resized_image.mode == 'RGBA':
             resized_image = resized_image.convert('RGB')
 
-        # 將圖片轉換為 8 位元 (256 色) 模式並設定品質
-        resized_image = resized_image.convert('P', palette=Image.ADAPTIVE, colors=256)
         resized_image.save(screenshot_path, 'JPEG', quality=70)
 
         allure.attach.file(screenshot_path, name='screenshot', attachment_type=allure.attachment_type.JPG)
         logger(f"Exception screenshot: {screenshot_path}", log_level='error')
-
-        page_main = PageFactory().get_page_object("main_page", driver)
-        page_main.relaunch()

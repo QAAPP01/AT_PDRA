@@ -42,121 +42,42 @@ class Test_Shortcut_AI_Audio_Tools:
         return False
 
     @allure.story("Entry")
-    @allure.title("Enter demo page")
-    def test_entry_demo_page(self, driver):
+    @allure.title("From shortcut")
+    def test_entry_from_shortcut(self, data):
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Audio Tools'
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Entry")
-    @allure.title("Back to launcher")
-    def test_back_to_launcher(self, driver):
+    @allure.title("Mute demo")
+    def test_mute_demo(self, data):
         try:
-            self.click(L.main.shortcut.demo_back)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Audio Tools')
 
-            assert self.is_exist(L.main.shortcut.shortcut_name(0))
+            assert self.page_shortcut.mute_demo()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            pytest.fail(f"{str(e)}")
-
-    def sce_6_19_3(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.story("Entry")
+    @allure.title("Back from demo")
+    def test_back_from_demo(self, data):
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
-            before = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
-            self.click(L.main.shortcut.demo_mute)
-            after = self.page_main.get_picture(L.main.shortcut.voice_changer.mute)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Audio Tools')
 
-            if not HCompareImg(before, after).ssim_compare():
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Mute button no change')
-
-        except Exception as err:
-            traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-
-            return "FAIL"
-
-    @allure.story("Speech Enhance")
-    @allure.title("Media Picker")
-    @allure.step("Enter media picker")
-    def test_speech_enhance_entry_media_picker(self, driver):
-        try:
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-
-            assert self.is_exist(find_string('Add Media'))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Speech Enhance")
-    @allure.title("Media Picker")
-    @allure.step("Back from media picker")
-    def test_speech_enhance_back_from_media_picker(self, driver):
-        try:
-            self.click(L.import_media.media_library.back)
-
-            assert self.is_exist(L.main.shortcut.shortcut_name(0))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Speech Enhance")
-    @allure.title("Media Picker")
-    @allure.step("Enter Editor")
-    def test_speech_enhance_entry_editor(self, data):
-        try:
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_edit.waiting()
-
-            assert self.is_exist(L.main.shortcut.export)
+            assert self.page_shortcut.back_from_demo()
 
         except Exception as e:
             traceback.print_exc()
@@ -165,12 +86,117 @@ class Test_Shortcut_AI_Audio_Tools:
             raise
 
     @allure.story("Speech Enhance")
-    @allure.title("Editor")
-    @allure.step("Play preview")
-    def test_play_preview(self, data):
+    @allure.title("Enter media picker")
+    def test_speech_enhance_entry_media_picker(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.enter_media_picker('AI Audio Tools', audio_tool='Speech Enhance')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("Speech Enhance")
+    @allure.title("Back from media picker")
+    def test_speech_enhance_back_from_media_picker(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Audio Tools', audio_tool='Speech Enhance')
+
+            assert self.page_shortcut.back_from_media_picker()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("Speech Enhance")
+    @allure.title("Enter trim before edit")
+    def test_speech_enhance_entry_trim_before_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='Speech Enhance')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("Speech Enhance")
+    @allure.title("Back from trim before edit")
+    def test_speech_enhance_back_from_trim_before_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='Speech Enhance')
+
+            assert self.page_shortcut.back_from_trim()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("Speech Enhance")
+    @allure.title("Trim and edit")
+    def test_speech_enhance_trim_and_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='Speech Enhance')
+
+            assert self.page_shortcut.trim_and_edit()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("Speech Enhance")
+    @allure.title("Back from editor")
+    def test_speech_enhance_back_from_editor(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance')
+
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+
+    @allure.story("Speech Enhance")
+    @allure.title("Enter Editor")
+    def test_speech_enhance_entry_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Audio Tools', audio_tool='Speech Enhance')
+
+            assert self.page_shortcut.enter_editor(file=video_speech)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("Speech Enhance")
+    @allure.title("Play preview")
+    def test_speech_enhance_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance', file=video_speech)
 
             assert self.page_shortcut.play_preview()
 
@@ -181,14 +207,13 @@ class Test_Shortcut_AI_Audio_Tools:
             raise
 
     @allure.story("Speech Enhance")
-    @allure.title("Editor")
-    @allure.step("Play start position")
-    def test_play_start_position(self, data):
+    @allure.title("Play start position")
+    def test_speech_enhance_play_start_position(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance')
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance', file=video_speech)
 
-            self.page_shortcut.play_position_start()
+            assert self.page_shortcut.play_position_start()
 
         except Exception as e:
             traceback.print_exc()
@@ -197,14 +222,13 @@ class Test_Shortcut_AI_Audio_Tools:
             raise
 
     @allure.story("Speech Enhance")
-    @allure.title("Editor")
-    @allure.step("Play end position")
-    def test_play_end_position(self, data):
+    @allure.title("Play end position")
+    def test_speech_enhance_play_end_position(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance')
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance', file=video_speech)
 
-            self.page_shortcut.play_position_end()
+            assert self.page_shortcut.play_position_end()
 
         except Exception as e:
             traceback.print_exc()
@@ -214,78 +238,12 @@ class Test_Shortcut_AI_Audio_Tools:
 
     @allure.story("Speech Enhance")
     @allure.title("Export")
-    @allure.step("Produce video")
-    def test_speech_enhance_produce_video(self, driver):
+    def test_speech_enhance_export(self, data):
         try:
-            self.click(L.main.shortcut.export)
-            self.click(L.main.shortcut.produce)
-            self.page_edit.waiting_produce()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance', file=video_speech)
 
-            assert self.is_exist(L.main.shortcut.save_to_camera_roll)
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("AI Denoise")
-    @allure.title("Media Picker")
-    @allure.step("Enter media picker")
-    def test_ai_denoise_entry_media_picker(self, driver):
-        try:
-            self.click(L.main.shortcut.produce_home)
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
-            self.click(L.main.shortcut.try_it_now)
-
-            assert self.is_exist(find_string('Add Media'))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
-            self.click(L.main.shortcut.try_it_now)
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("AI Denoise")
-    @allure.title("Media Picker")
-    @allure.step("Back from media picker")
-    def test_ai_denoise_back_from_media_picker(self, driver):
-        try:
-            self.click(L.import_media.media_library.back)
-
-            assert self.is_exist(L.main.shortcut.shortcut_name(0))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("AI Denoise")
-    @allure.title("Media Picker")
-    @allure.step("Enter Editor")
-    def test_ai_denoise_entry_editor(self, data):
-        try:
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_edit.waiting()
-
-            assert self.is_exist(L.main.shortcut.export)
+            assert self.page_shortcut.export()
 
         except Exception as e:
             traceback.print_exc()
@@ -294,13 +252,116 @@ class Test_Shortcut_AI_Audio_Tools:
             raise
 
     @allure.story("AI Denoise")
-    @allure.title("Editor")
-    @allure.step("Play preview")
-    def test_play_preview(self, data):
+    @allure.title("Enter media picker")
+    def test_ai_denoise_entry_media_picker(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.enter_media_picker('AI Audio Tools', audio_tool='AI Denoise')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("AI Denoise")
+    @allure.title("Back from media picker")
+    def test_ai_denoise_back_from_media_picker(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Audio Tools', audio_tool='AI Denoise')
+
+            assert self.page_shortcut.back_from_media_picker()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("AI Denoise")
+    @allure.title("Enter trim before edit")
+    def test_ai_denoise_entry_trim_before_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='AI Denoise')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("AI Denoise")
+    @allure.title("Back from trim before edit")
+    def test_ai_denoise_back_from_trim_before_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='AI Denoise')
+
+            assert self.page_shortcut.back_from_trim()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("AI Denoise")
+    @allure.title("Trim and edit")
+    def test_ai_denoise_trim_and_edit(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='AI Denoise')
+
+            assert self.page_shortcut.trim_and_edit()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("AI Denoise")
+    @allure.title("Back from editor")
+    def test_ai_denoise_back_from_editor(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise')
 
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+
+    @allure.story("AI Denoise")
+    @allure.title("Enter Editor")
+    def test_ai_denoise_entry_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Audio Tools', audio_tool='AI Denoise')
+
+            assert self.page_shortcut.enter_editor(file=video_speech)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story("AI Denoise")
+    @allure.title("Play preview")
+    def test_ai_denoise_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_speech)
+
             assert self.page_shortcut.play_preview()
 
         except Exception as e:
@@ -310,14 +371,13 @@ class Test_Shortcut_AI_Audio_Tools:
             raise
 
     @allure.story("AI Denoise")
-    @allure.title("Editor")
-    @allure.step("Play start position")
-    def test_play_start_position(self, data):
+    @allure.title("Play start position")
+    def test_ai_denoise_play_start_position(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance')
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_speech)
 
-            self.page_shortcut.play_position_start()
+            assert self.page_shortcut.play_position_start()
 
         except Exception as e:
             traceback.print_exc()
@@ -325,15 +385,14 @@ class Test_Shortcut_AI_Audio_Tools:
             data['last_result'] = False
             raise
 
-    @allure.story("Speech Enhance")
-    @allure.title("Editor")
-    @allure.step("Play end position")
-    def test_play_end_position(self, data):
+    @allure.story("AI Denoise")
+    @allure.title("Play end position")
+    def test_ai_denoise_play_end_position(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance')
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_speech)
 
-            self.page_shortcut.play_position_end()
+            assert self.page_shortcut.play_position_end()
 
         except Exception as e:
             traceback.print_exc()
@@ -343,19 +402,18 @@ class Test_Shortcut_AI_Audio_Tools:
 
     @allure.story("AI Denoise")
     @allure.title("Export")
-    @allure.step("Produce video")
-    def test_ai_denoise_produce_video(self, driver):
+    def test_ai_denoise_export(self, data):
         try:
-            self.click(L.main.shortcut.export)
-            self.click(L.main.shortcut.produce)
-            self.page_edit.waiting_produce()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_speech)
 
-            assert self.is_exist(L.main.shortcut.save_to_camera_roll)
+            assert self.page_shortcut.export()
 
         except Exception as e:
             traceback.print_exc()
-
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     def sce_6_19_7(self):
         func_name = inspect.stack()[0][3]
@@ -364,7 +422,7 @@ class Test_Shortcut_AI_Audio_Tools:
 
 
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_16_9)
@@ -385,229 +443,13 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
 
             return "FAIL"
 
-    def sce_6_19_8(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
 
-
-        try:
-            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
-            self.click(L.import_media.media_library.trim_back)
-
-            if self.is_exist(find_string('Add Media')):
-
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Tap preview "{video_speech}" fail')
-
-        except Exception as err:
-            traceback.print_exc()
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-
-            return "FAIL"
-
-    def sce_6_19_9(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-
-
-        try:
-            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
-            self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
-            self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
-            self.click(L.import_media.media_library.trim_next)
-            self.page_media.waiting()
-
-            if self.is_exist(L.main.shortcut.export):
-
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter Voice Changer')
-
-        except Exception as err:
-            traceback.print_exc()
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-            self.click(xpath(f'//*[@text="{video_speech}"]/../*[contains(@resource-id,"btn_preview")]'))
-            self.click(L.import_media.media_library.trim_next)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_10(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-
-
-        try:
-            self.click(L.main.shortcut.editor_back)
-
-            if self.is_exist(find_string('Add Media')):
-
-                return "PASS"
-            else:
-                raise Exception('[Fail] Enter media picker fail')
-
-        except Exception as err:
-            traceback.print_exc()
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-
-            return "FAIL"
-
-    def sce_6_19_11(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-
-
-        try:
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-            self.click(L.main.shortcut.play)
-
-            if self.is_exist(L.main.shortcut.export):
-
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot find the export button')
-
-        except Exception as err:
-            traceback.print_exc()
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_12(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-
-
-        try:
-            self.click(L.main.shortcut.play)
-            time.sleep(3)
-            self.timecode_play = self.element(L.main.shortcut.timecode).text
-
-            if self.timecode_play != "00:00":
-
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
-
-        except Exception as err:
-            traceback.print_exc()
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_13(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-
-
-        try:
-            self.click(L.main.shortcut.play)
-            timecode_play = self.element(L.main.shortcut.timecode).text
-
-            if timecode_play != self.timecode_play:
-
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
-
-        except Exception as err:
-            traceback.print_exc()
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
-
-    def sce_6_19_14(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-
-
-        try:
-            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            timecode_play = self.element(L.main.shortcut.timecode).text
-
-            if timecode_play == '00:00':
-
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
-
-        except Exception as err:
-            traceback.print_exc()
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
-            self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_speech)
-            self.page_media.waiting()
-
-            return "FAIL"
 
     def sce_6_19_15(self):
         func_name = inspect.stack()[0][3]
@@ -631,7 +473,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -660,7 +502,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -690,7 +532,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -720,7 +562,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -749,7 +591,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -779,7 +621,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -823,7 +665,7 @@ class Test_Shortcut_AI_Audio_Tools:
 
 
         try:
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
 
@@ -840,7 +682,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
 
@@ -870,7 +712,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -899,7 +741,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -929,7 +771,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -959,7 +801,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -988,7 +830,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -1018,7 +860,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -1049,7 +891,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -1080,7 +922,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)
@@ -1111,7 +953,7 @@ class Test_Shortcut_AI_Audio_Tools:
             self.driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_shortcut('AI Audio Tools')
+            self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(find_string('AI Denoise'))
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_video(test_material_folder, video_speech)

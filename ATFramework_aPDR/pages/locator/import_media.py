@@ -1,6 +1,7 @@
 from .locator_type import *
 
 class MediaLibrary:
+    title = xpath(f'//*[contains(@resource-id,"top_toolbar_title") and @text="Add Media"]')
     back = id("top_toolbar_back")
     trim_back = id('iv_close')
     trim_next = id('tv_ok')
@@ -59,6 +60,7 @@ class MediaLibrary:
     getty_iap_monthly = id('iap_monthly_layout')
     getty_iap_continue = id('btn_continue')
     percentage = id('progress_text_view')
+    warning = id('iv_warning')
 
     @staticmethod
     def media(index=1):
