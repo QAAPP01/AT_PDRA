@@ -97,7 +97,9 @@ class MainPage(BasePage):
             logger(e)
             return False
 
-    def enter_ai_feature(self, name):
+    def enter_ai_feature(self, name, demo_title=None):
+        demo_title = demo_title or name
+
         self.click(L.main.ai_creation.entry)
         if self.click(find_string(name), 2):
             return True
@@ -112,7 +114,12 @@ class MainPage(BasePage):
                     last = features[-1].text
                     self.h_swipe_element(features[-1], features[0], 3)
                     if self.click(find_string(name), 2):
-                        return True
+                        if (self.element(L.main.shortcut.demo_title).text == demo_title or
+                                self.is_exist(L.import_media.media_library.title)):
+                            return True
+                        else:
+                            logger(f'[Error] Cannot find demo title {demo_title} or Add Media', log_level='error')
+                            return False
 
     def shortcut_produce(self):
         try:

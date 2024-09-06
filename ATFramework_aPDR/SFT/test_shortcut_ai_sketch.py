@@ -73,42 +73,38 @@ class Test_Shortcut_AI_Sketch:
             if self.last_is_fail(data):
                 pass
 
-            self.page_main.enter_ai_feature('AI Sketch')
-
-            assert self.element(L.main.shortcut.demo_title).text == 'AI Sketch'
+            assert self.page_main.enter_ai_feature('AI Sketch')
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Sketch')
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Entry")
     @allure.title("Back to AI creation")
-    def test_back_to_ai_creation(self, driver):
+    def test_back_to_ai_creation(self, data):
         try:
-            self.click(L.main.shortcut.demo_back)
+            if self.last_is_fail(data):
+                self.page_main.enter_ai_feature('AI Sketch')
 
-            assert self.is_exist(find_string('AI Creation'))
+            assert self.page_shortcut.back_from_demo()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Media Picker")
     @allure.title("Recommendation close")
-    def test_recommendation_close(self, driver):
+    def test_recommendation_close(self, data):
         try:
-            self.click(L.main.ai_creation.entry)
+            if self.last_is_fail(data):
+                pass
+
             self.page_main.enter_ai_feature('AI Sketch')
+
             self.click(L.main.shortcut.try_it_now)
             self.click(L.main.shortcut.ai_sketch.close)
 
@@ -116,19 +112,21 @@ class Test_Shortcut_AI_Sketch:
 
         except Exception as e:
             traceback.print_exc()
-
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Media Picker")
     @allure.title("Recommendation continue")
-    def test_recommendation_continue(self, driver):
+    def test_recommendation_continue(self, data):
         try:
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            if self.last_is_fail(data):
+                pass
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
+            self.page_main.relaunch()
+
             self.page_main.enter_ai_feature('AI Sketch')
+
             self.click(L.main.shortcut.try_it_now)
             self.click(L.main.shortcut.ai_sketch.continue_btn)
 
@@ -136,8 +134,9 @@ class Test_Shortcut_AI_Sketch:
 
         except Exception as e:
             traceback.print_exc()
-
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Media Picker")
     @allure.title("Recommendation dont show again")

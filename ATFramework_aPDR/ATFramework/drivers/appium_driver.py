@@ -818,10 +818,10 @@ class AppiumU2Driver(Borg, BaseDriver):
     def swipe_left(self):
         try:
             size = self.driver.get_window_size()
-            x1 = size['width'] * 0.75
+            x1 = size['width'] * 0.9
             y1 = size['height'] * 0.5
-            x2 = size['width'] * 0.25
-            self.driver.swipe(x1, y1, x2, y1)
+            x2 = size['width'] * 0.1
+            self.driver.swipe(x1, y1, x2, y1, 10)
             return True
         except Exception:
             return False
