@@ -124,7 +124,7 @@ class Test_PiP_Video_Effect:
             raise Exception
 
     @allure.title('Old Movie_Parameter_Slider_Artifact Quantity')
-    def test_effect_parameter_background_color(self, driver):
+    def test_effect_parameter_slider_artifact_quantity(self, driver):
 
         try:
             assert self.page_edit.effect.effect_parameter_slider(0)

@@ -698,10 +698,15 @@ class Crop:
     apply = id('apply_btn')
     cancel = id('cancel_btn')
     reset = id('resetBtn')
-    play_pause = id('playPauseBtn')
+    play_pause = id('btn_play')
     time_code = id('time_code_text')
     slider = id('movie_seekbar')
-
+    rotate_ruler = id('degree_ruler_view')
+    option = id('layout_options')
+    tab_rotate = id('tab_rotate')
+    rotate = id('btn_rotate')
+    flip = id('btn_flip')
+    seekbar = id('seekbar')
 
 class Reverse:
     dialog_ok = aid("[AID]Dialog_OK")

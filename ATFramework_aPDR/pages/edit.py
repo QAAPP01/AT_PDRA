@@ -74,6 +74,7 @@ class EditPage(BasePage):
         self.a_chroma_key = A_Chroma_Key(self.driver)
         self.filter = Filter(self.driver)
         self.effect = Effect(self.driver)
+        self.crop_rotate = Crop_Rotate(self.driver)
 
     def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
         boundary_rect = self.element(L.edit.crop.boundary).rect
@@ -4659,3 +4660,139 @@ class Effect(BasePage):
         self.click(L.edit.filter.cancel)
         self.page_edit.click_sub_tool('Effect')
         return self.elements(L.edit.sub_tool.effect.item)[order].get_attribute('selected') == 'true'
+
+class Crop_Rotate(BasePage):
+
+    def start_with_crop_rotate(self, clip_type='master video'):
+        if clip_type == 'master video':
+            self.page_main.start_with_master_video()
+        elif clip_type == 'master photo':
+            self.page_main.start_with_master_photo()
+        elif clip_type == 'pip video':
+            self.page_main.start_with_pip_video()
+        elif clip_type == 'pip photo':
+            self.page_main.start_with_pip_photo()
+        else:
+            print('clip type is wrong')
+        self.page_edit.click_sub_tool('Crop &\nRotate')
+        return self.is_exist(L.edit.crop.rotate_ruler)
+
+    def crop(self, ratio='9:16'):
+        pic_base = self.get_boundary_preview()
+        if ratio == '9:16':
+            self.click(L.edit.crop.btn_9_16)
+            if self.element(L.edit.crop.btn_9_16).get_attribute('selected') == 'false':
+                return False
+        elif ratio == '1:1':
+            self.click(L.edit.crop.btn_1_1)
+            if self.element(L.edit.crop.btn_1_1).get_attribute('selected') == 'false':
+                return False
+        elif ratio == '4:5':
+            self.click(L.edit.crop.btn_4_5)
+            if self.element(L.edit.crop.btn_4_5).get_attribute('selected') == 'false':
+                return False
+        elif ratio == '16:9':
+            self.click(L.edit.crop.btn_16_9)
+            if self.element(L.edit.crop.btn_16_9).get_attribute('selected') == 'false':
+                return False
+        elif ratio == '4:3':
+            self.click(L.edit.crop.btn_4_3)
+            if self.element(L.edit.crop.btn_4_3).get_attribute('selected') == 'false':
+                return False
+        elif ratio == '3:4':
+            self.click(L.edit.crop.btn_3_4)
+            if self.element(L.edit.crop.btn_3_4).get_attribute('selected') == 'false':
+                return False
+        elif ratio == '21:9':
+            self.click(L.edit.crop.btn_21_9)
+            if self.element(L.edit.crop.btn_21_9).get_attribute('selected') == 'false':
+                return False
+        elif ratio == 'Original':
+            self.swipe_element(L.edit.crop.option, direction='right')
+            self.swipe_element(L.edit.crop.option, direction='right')
+            self.click(L.edit.crop.btn_original)
+            if self.element(L.edit.crop.btn_original).get_attribute('selected') == 'false':
+                return False
+        elif ratio == 'Freeform':
+            self.click(L.edit.crop.btn_free)
+            pic_after = self.get_boundary_preview()
+            if self.element(L.edit.crop.btn_free).get_attribute('selected') == 'false':
+                return False
+            return HCompareImg(pic_base, pic_after).histogram_compare()
+        else:
+            logger('Error aspect ratio')
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def rotate_ruler(self):
+        pic_base = self.get_boundary_preview()
+        self.swipe_element(L.edit.crop.rotate_ruler, direction='left')
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def switch_to_rotate(self):
+        self.click(L.edit.crop.tab_rotate)
+        return self.is_exist(L.edit.crop.rotate)
+
+    def rotate(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.crop.rotate)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def flip(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.crop.flip)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def play_pause(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.crop.play_pause)
+        time.sleep(5)
+        self.click(L.edit.crop.play_pause)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+    def click_timeline(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.crop.seekbar)
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def apply(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.crop.apply)
+        self.page_edit.click_sub_tool('Crop &\nRotate')
+        pic_after = self.get_boundary_preview()
+        return HCompareImg(pic_base, pic_after).histogram_compare()
+
+    def reset(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.crop.reset)
+        pic_after = self.get_boundary_preview()
+        if self.element(L.edit.crop.btn_free).get_attribute('selected') == 'true':
+            return not HCompareImg(pic_base, pic_after).histogram_compare()
+        return False
+
+    def cancel(self):
+        pic_base = self.get_boundary_preview()
+        self.click(L.edit.crop.cancel)
+        self.page_edit.click_sub_tool('Crop &\nRotate')
+        pic_after = self.get_boundary_preview()
+        return not HCompareImg(pic_base, pic_after).histogram_compare()
+
+class Mask(BasePage):
+    def start_with_mask(self, clip_type='master video'):
+        if clip_type == 'master video':
+            self.page_main.start_with_master_video()
+        elif clip_type == 'master photo':
+            self.page_main.start_with_master_photo()
+        elif clip_type == 'pip video':
+            self.page_main.start_with_pip_video()
+        elif clip_type == 'pip photo':
+            self.page_main.start_with_pip_photo()
+        else:
+            print('clip type is wrong')
+        self.page_edit.click_sub_tool('Mask')
+        return self.is_exist(L.edit.mask.item)

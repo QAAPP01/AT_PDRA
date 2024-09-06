@@ -13,13 +13,11 @@ from ATFramework_aPDR.pages.locator import locator as L
 from .conftest import TEST_MATERIAL_FOLDER, driver
 
 test_material_folder = TEST_MATERIAL_FOLDER
-ori_preview = None
-order = 3
 
 @allure.epic('Timeline_PiP')
 @allure.feature('Photo')
-@allure.story('Effect')
-class Test_PiP_Photo_Effect:
+@allure.story('Crop & Rotate')
+class Test_PiP_Photo_Crop_Rotate:
 
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -34,13 +32,11 @@ class Test_PiP_Photo_Effect:
         self.is_not_exist = self.page_main.h_is_not_exist
         self.set_slider = self.page_edit.h_set_slider
 
-    @allure.title('Enter Effect')
-    def test_effect_enter_effect(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
+    @allure.title('Enter Crop & Rotate')
+    def test_enter_crop_rotate(self, driver):
 
         try:
-            assert self.page_edit.effect.start_with_effect('pip photo')
+            assert self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
 
         except Exception:
             traceback.print_exc()
@@ -50,229 +46,226 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip photo')
             raise Exception
 
-    @allure.title('Favorite Empty')
-    def test_effect_favorite_empty(self, driver):
+    @allure.title('Crop_9:16')
+    def test_crop_9_16(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_favorite_empty()
+            assert self.page_edit.crop_rotate.crop('9:16')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip photo')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Change Category')
-    def test_effect_change_category(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
+    @allure.title('Crop_1:1')
+    def test_crop_1_1(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_switch_category(order)
+            assert self.page_edit.crop_rotate.crop('1:1')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip photo')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Select Effect')
-    def test_effect_select_effect(self, driver):
+    @allure.title('Crop_4:5')
+    def test_crop_4_5(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_select_effect(order)
+            assert self.page_edit.crop_rotate.crop('4:5')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip photo')
-            self.page_edit.effect.effect_select_effect(2)
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Old Movie_Parameter_Front Color')
-    def test_effect_parameter_front_color(self, driver):
+    @allure.title('Crop_16:9')
+    def test_crop_16_9(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_parameter_front_color(order)
+            assert self.page_edit.crop_rotate.crop('16:9')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Old Movie_Parameter_Background Color')
-    def test_effect_parameter_background_color(self, driver):
+    @allure.title('Crop_4:3')
+    def test_crop_4_3(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_parameter_background_color()
+            assert self.page_edit.crop_rotate.crop('4:3')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Old Movie_Parameter_Slider_Artifact Quantity')
-    def test_effect_parameter_slider_artifact_quantity(self, driver):
+    @allure.title('Crop_3:4')
+    def test_crop_3_4(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_parameter_slider(0)
+            assert self.page_edit.crop_rotate.crop('3:4')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Old Movie_Parameter_Slider_Degree')
-    def test_effect_parameter_slider_degree(self, driver):
+    @allure.title('Crop_21:9')
+    def test_crop_21_9(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_parameter_slider(1)
+            assert self.page_edit.crop_rotate.crop('21:9')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Old Movie_Parameter_Slider_Noise')
-    def test_effect_parameter_slider_noise(self, driver):
+    @allure.title('Crop_Original')
+    def test_crop_original(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_parameter_slider(2)
+            assert self.page_edit.crop_rotate.crop('Original')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Old Movie_Parameter_Slider_Jitter')
-    def test_effect_parameter_slider_jitter(self, driver):
+    @allure.title('Crop_Freeform')
+    def test_crop_freeform(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_parameter_slider(3)
+            assert self.page_edit.crop_rotate.crop('Freeform')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Old Movie_Parameter_Slider_Flicker')
-    def test_effect_parameter_slider_flicker(self, driver):
+    @allure.title('Rotate Ruler')
+    def test_crop_rotate_ruler(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_parameter_slider(4)
+            assert self.page_edit.crop_rotate.rotate_ruler()
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Parameter_Reset')
-    def test_effect_parameter_reset(self, driver):
+    @allure.title('Switch to Rotate')
+    def test_crop__rotate_switch_to_rotate(self, driver):
 
         try:
-            assert self.page_edit.effect.parameter_reset()
+            assert self.page_edit.crop_rotate.switch_to_rotate()
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Add Favorite')
-    def test_effect_add_favorite(self, driver):
+    @allure.title('Rotate')
+    def test_crop_rotate_rotate(self, driver):
 
         try:
-            self.click(L.edit.sub_tool.effect.back)
-            assert self.page_edit.effect.effect_favorite(order=order)
+            assert self.page_edit.crop_rotate.rotate()
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip photo')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('Remove Favorite')
-    def test_effect_remove_favorite(self, driver):
+    @allure.title('Flip')
+    def test_crop_rotate_flip(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_favorite(order=order, action='remove')
+            assert self.page_edit.crop_rotate.flip()
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip photo')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
     @allure.title('Apply')
-    def test_effect_apply(self, driver):
+    def test_crop_rotate_apply(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_apply(order)
+            assert self.page_edit.crop_rotate.apply()
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
-    @allure.title('None')
-    def test_effect_none(self, driver):
+    @allure.title('Reset')
+    def test_crop_rotate_reset(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_none(order)
+            assert self.page_edit.crop_rotate.reset()
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip photo')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
 
     @allure.title('Cancel')
-    def test_effect_cancel(self, driver):
+    def test_crop_rotate_cancel(self, driver):
 
         try:
-            assert self.page_edit.effect.effect_cancel(order)
+            assert self.page_edit.crop_rotate.cancel()
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('pip photo')
+            self.page_edit.crop_rotate.start_with_crop_rotate('pip photo')
             raise Exception
