@@ -81,6 +81,20 @@ class Shortcut(BasePage):
             logger(f'[Error] mute_demo fail', log_level='error')
             return False
 
+    def close_recommendation(self, shortcut_name):
+        if not self.enter_shortcut(shortcut_name):
+            return False
+
+        self.click(L.main.shortcut.try_it_now, 1)
+        self.click(L.main.shortcut.ai_sketch.close)
+
+        if self.is_exist(L.main.shortcut.shortcut_name(0)) or self.element(L.main.ai_creation.title).text == 'AI Creation':
+            return True
+        else:
+            logger(f'[Error] close_recommendation fail', log_level='error')
+            return False
+
+
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:

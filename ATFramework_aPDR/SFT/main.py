@@ -20,7 +20,7 @@ from .test_shortcut_ai_anime_video import *
 from .test_shortcut_ai_art import *
 from .test_shortcut_ai_cartoon import *
 from .test_shortcut_ai_sketch import *
-from .test_shortcut_ai_scene_06_12 import *
+from .test_shortcut_ai_scene import *
 from .test_shortcut_ai_audio_tools import *
 
 
