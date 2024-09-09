@@ -158,6 +158,8 @@ def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_
                           }
                }
     auto_report = True
+    if result == '[SKIP]':
+        auto_report = False
     if auto_report:
         auto_create_qr(tr_dict, opts['attachment'])
     # remove attachment files

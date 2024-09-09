@@ -130,7 +130,17 @@ def create_driver(retry, mode, driver_config, app_config, desired_caps):
 def driver():
     """Pytest fixture 用來設置和關閉driver"""
     desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': 'R5CT32Q3WQN'}
+
     appium = start_appium_service(debug_mode)
+
+    connected_devices = get_connected_devices()
+    if desired_caps['udid'] not in connected_devices:
+        if connected_devices:
+            desired_caps['udid'] = connected_devices[0]
+            logger(f"Connected device: {desired_caps['udid']}")
+        else:
+            raise RuntimeError("No devices connected.")
+
     if debug_mode:
         mode = 'debug'
     else:
@@ -161,7 +171,8 @@ def driver_init(driver):
     driver.driver.launch_app()
     page_main.enter_launcher()
     yield
-    driver.driver.close_app()
+    if not debug_mode:
+        driver.driver.close_app()
 
 
 @pytest.fixture(scope="session")

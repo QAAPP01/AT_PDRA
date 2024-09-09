@@ -440,8 +440,7 @@ class Test_Shortcut_AI_Cartoon:
             pytest.fail(f"{str(e)}")
 
     @allure.story("Editor")
-    @allure.title("Crop")
-    @allure.step("Enter")
+    @allure.title("Enter crop")
     def test_enter_crop(self, driver):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
@@ -465,8 +464,7 @@ class Test_Shortcut_AI_Cartoon:
             pytest.fail(f"{str(e)}")
 
     @allure.story("Editor")
-    @allure.title("Crop")
-    @allure.step("Leave")
+    @allure.title("Leave crop")
     def test_leave_crop(self, driver):
         try:
             self.click(L.edit.crop.cancel)

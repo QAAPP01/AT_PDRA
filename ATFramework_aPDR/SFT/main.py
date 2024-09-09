@@ -18,8 +18,9 @@ from .test_shortcut_voice_changer import *
 from .test_shortcut_text_to_image import *
 from .test_shortcut_ai_anime_video import *
 from .test_shortcut_ai_art import *
-from .test_shortcut_ai_sketch import *
 from .test_shortcut_ai_cartoon import *
+from .test_shortcut_ai_sketch import *
+from .test_shortcut_ai_scene_06_12 import *
 from .test_shortcut_ai_audio_tools import *
 
 
@@ -37,6 +38,8 @@ from .test_timeline_master_video_filter import *
 from .test_timeline_master_photo_filter import *
 from .test_timeline_master_video_effect import *
 from .test_timeline_master_photo_effect import *
+from .test_timeline_master_video_crop_rotate import *
+from .test_timeline_master_photo_crop_rotate import *
 
 # PiP Track
 from ATFramework_aPDR.SFT.test_timeline_pip_track_limitation import *
@@ -50,4 +53,6 @@ from .test_timeline_pip_video_filter import *
 from .test_timeline_pip_photo_filter import *
 from .test_timeline_pip_video_effect import *
 from .test_timeline_pip_photo_effect import *
+from .test_timeline_pip_video_crop_rotate import *
+from .test_timeline_pip_photo_crop_rotate import *
 
