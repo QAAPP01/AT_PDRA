@@ -132,6 +132,14 @@ def driver():
     """Pytest fixture 用來設置和關閉driver"""
     desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': 'R5CT32Q3WQN'}
     desired_caps = update_desired_caps(desired_caps, debug_mode)
+    connected_devices = get_connected_devices()
+
+    if desired_caps['udid'] not in connected_devices:
+        if connected_devices:
+            desired_caps['udid'] = connected_devices[0]
+            logger(f"Connected device: {desired_caps['udid']}")
+        else:
+            raise RuntimeError("No devices connected.")
 
     mode = 'debug' if debug_mode else 'local'
     appium = start_appium_service(debug_mode)
