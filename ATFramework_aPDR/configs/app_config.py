@@ -1,5 +1,5 @@
 import os
-from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
+from main import package_name
 root_path = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -44,7 +44,7 @@ prod_cap = {
     "noReset": "true",
     "autoLaunch": "false",
     "newCommandTimeout": "0",  # for installation
-    'appPackage': PACKAGE_NAME,
+    'appPackage': package_name,
     'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity',
     'NoSign': True
 }

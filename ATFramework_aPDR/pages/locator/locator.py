@@ -1,4 +1,4 @@
-from .main import Interface as main
+from .main_page import Interface as main
 # from .import_media import locator as media
 # from .edit import locator as edit
 from .effect import Interface as effect

@@ -10,13 +10,12 @@ from PIL import Image
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from selenium.common import InvalidSessionIdException
+from main import package_name
 
-
-
+PACKAGE_NAME = package_name
 DRIVER_DESIRED_CAPS = {}
 DEFAULT_BROWSER = 'com.android.chrome'
 platform_type = 'Android'
-PACKAGE_NAME = "com.cyberlink.powerdirector.DRA140225_01"
 TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
 TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 
@@ -131,19 +130,19 @@ def create_driver(retry, mode, driver_config, app_config, desired_caps):
 def driver():
     """Pytest fixture 用來設置和關閉driver"""
     desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': 'R5CT32Q3WQN'}
-    desired_caps = update_desired_caps(desired_caps, debug_mode)
-
-    mode = 'debug' if debug_mode else 'local'
     appium = start_appium_service(debug_mode)
-
-    driver = create_driver(3, mode, driver_config, app_config, desired_caps)
-
     if debug_mode:
-        pass
+        mode = 'debug'
     else:
+        mode = 'local'
+
+        desired_caps = update_desired_caps(desired_caps, debug_mode)
+        driver = create_driver(3, mode, driver_config, app_config, desired_caps)
+
         driver.driver.close_app()
         desired_caps.update({"noReset": True, "autoLaunch": False})
-        driver = create_driver(3, mode, driver_config, app_config, desired_caps)
+
+    driver = create_driver(3, mode, driver_config, app_config, desired_caps)
     yield driver
 
     # 關閉 driver 和 Appium
