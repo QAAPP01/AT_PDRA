@@ -71,6 +71,7 @@ class MainPage(BasePage):
                     self.click(L.main.premium.iap_back, 1)
                 else:
                     # Churn Recovery
+                    time.sleep(1)
                     if self.h_is_exist(L.main.premium.pdr_premium, 1):
                         self.driver.driver.back()
                     else:

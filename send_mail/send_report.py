@@ -362,7 +362,6 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
     opts['to'] = receiver_list
     opts['html'] = mail_body
 
-    # 發送郵件
     send_mail(opts)
 
     # 自動創建 QA 報告並更新 Google Sheet

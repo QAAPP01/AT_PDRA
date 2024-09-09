@@ -11,8 +11,7 @@ from ATFramework_aPDR.pages.locator.locator_type import *
 photo_9_16 = 'photo_9_16.jpg'
 
 
-@allure.epic("Shortcut")
-@allure.feature("AI Art")
+@allure.epic("Shortcut - AI Art")
 class Test_Shortcut_AI_Art:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -37,13 +36,12 @@ class Test_Shortcut_AI_Art:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("From shortcut")
+    @allure.feature("Entry")
+    @allure.story("Enter")
+    @allure.title("From Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            self.page_shortcut.enter_shortcut('AI Art')
-
-            assert self.element(L.main.shortcut.demo_title).text == 'AI Art'
+            assert self.page_shortcut.enter_shortcut('AI Art')
 
         except Exception as e:
             traceback.print_exc()
@@ -51,9 +49,10 @@ class Test_Shortcut_AI_Art:
             data['last_result'] = False
             raise
 
-    @allure.story("Entry")
-    @allure.title("Back from demo")
-    def test_back_from_demo(self, data):
+    @allure.feature("Entry")
+    @allure.story("Back")
+    @allure.title("To Shortcut")
+    def test_back_to_shortcut(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_shortcut('AI Art')

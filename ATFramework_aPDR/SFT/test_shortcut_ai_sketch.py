@@ -11,8 +11,7 @@ from ATFramework_aPDR.pages.locator.locator_type import *
 photo_9_16 = 'photo_9_16.jpg'
 
 
-@allure.epic("Shortcut")
-@allure.feature("AI Sketch")
+@allure.epic("Shortcut - AI Sketch")
 class Test_Shortcut_AI_Sketch:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -37,8 +36,9 @@ class Test_Shortcut_AI_Sketch:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("From shortcut")
+    @allure.feature("Entry")
+    @allure.story("Enter")
+    @allure.title("From Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
             assert self.page_shortcut.enter_shortcut('AI Sketch')
@@ -49,10 +49,10 @@ class Test_Shortcut_AI_Sketch:
             data['last_result'] = False
             raise
 
-
-    @allure.story("Entry")
-    @allure.title("Back from demo")
-    def test_back_from_demo(self, data):
+    @allure.feature("Entry")
+    @allure.story("Back")
+    @allure.title("To Shortcut")
+    def test_back_to_shortcut(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_shortcut('AI Sketch')
@@ -66,7 +66,8 @@ class Test_Shortcut_AI_Sketch:
             raise
 
 
-    @allure.story("Entry")
+    @allure.feature("Entry")
+    @allure.story("Enter")
     @allure.title("From AI creation")
     def test_entry_from_ai_creation(self, data):
         try:
@@ -81,8 +82,9 @@ class Test_Shortcut_AI_Sketch:
             data['last_result'] = False
             raise
 
-    @allure.story("Entry")
-    @allure.title("Back to AI creation")
+    @allure.feature("Entry")
+    @allure.story("Back")
+    @allure.title("To AI creation")
     def test_back_to_ai_creation(self, data):
         try:
             if self.last_is_fail(data):
@@ -96,19 +98,15 @@ class Test_Shortcut_AI_Sketch:
             data['last_result'] = False
             raise
 
-    @allure.story("Media Picker")
-    @allure.title("Recommendation close")
-    def test_recommendation_close(self, data):
+    @allure.feature("Media Picker")
+    @allure.story("Recommendation")
+    @allure.title("Close")
+    def test_close_recommendation(self, data):
         try:
             if self.last_is_fail(data):
                 pass
 
-            self.page_main.enter_ai_feature('AI Sketch')
-
-            self.click(L.main.shortcut.try_it_now)
-            self.click(L.main.shortcut.ai_sketch.close)
-
-            assert self.is_exist(find_string('AI Creation'))
+            assert self.page_shortcut.close_recommendation("AI Sketch")
 
         except Exception as e:
             traceback.print_exc()
