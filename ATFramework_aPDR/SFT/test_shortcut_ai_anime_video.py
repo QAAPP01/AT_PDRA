@@ -73,7 +73,7 @@ class Test_Shortcut_AI_Art:
     @allure.title("From AI creation")
     def test_entry_from_ai_creation(self, data):
         try:
-            self.page_main.enter_ai_feature('AI Anime Video')
+            self.page_shortcut.enter_ai_feature('AI Anime Video')
 
             assert self.element(L.main.shortcut.demo_title).text == 'AI Anime Video'
 
@@ -88,7 +88,7 @@ class Test_Shortcut_AI_Art:
     def test_back_to_ai_creation(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_main.enter_ai_feature('AI Anime Video')
+                self.page_shortcut.enter_ai_feature('AI Anime Video')
 
             assert self.page_shortcut.back_from_demo()
 

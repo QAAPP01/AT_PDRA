@@ -1,10 +1,10 @@
-import time
 import traceback
 import pytest
 import allure
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
+from ATFramework_aPDR.pages.page_factory import PageFactory
 from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
 
@@ -13,10 +13,8 @@ video_16_9 = 'video_16_9.mp4'
 photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
-
-@allure.epic("Shortcut")
-@allure.feature("Video Effect")
-class Test_Shortcut_Video_Effect:
+@allure.epic("Shortcut - AI Scene")
+class Test_Shortcut_AI_Scene:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
@@ -40,15 +38,12 @@ class Test_Shortcut_Video_Effect:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("Enter Media Picker")
-    def test_entry_media_picker(self, data):
+    @allure.feature("Entry")
+    @allure.story("Enter")
+    @allure.title("From Shortcut")
+    def test_entry_from_shortcut(self, data):
         try:
-            self.page_main.enter_launcher()
-
-            self.page_shortcut.enter_shortcut('Video Effect')
-
-            assert self.is_exist(find_string('Add Media'))
+            assert self.page_shortcut.enter_shortcut('AI Scene')
 
         except Exception as e:
             traceback.print_exc()
@@ -56,12 +51,44 @@ class Test_Shortcut_Video_Effect:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Back from media picker")
+    @allure.feature("Media Picker")
+    @allure.story("Recommendation")
+    @allure.title("Close")
+    def test_recommendation_close(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Scene')
+
+            assert self.page_shortcut.recommendation_close()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Recommendation")
+    @allure.title("Continue")
+    def test_recommendation_continue(self, data):
+        try:
+            self.page_shortcut.enter_shortcut('AI Scene')
+
+            assert self.page_shortcut.recommendation_continue()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Back")
+    @allure.title("From media picker")
     def test_back_from_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Video Effect')
+                self.page_shortcut.enter_media_picker('AI Scene')
 
             assert self.page_shortcut.back_from_media_picker()
 
@@ -71,14 +98,12 @@ class Test_Shortcut_Video_Effect:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Enter trim before edit")
-    def test_entry_trim_before_edit(self, data):
+    @allure.feature("Media Picker")
+    @allure.story("Recommendation")
+    @allure.title("Don't show again")
+    def test_recommendation_dont_show_again(self, data):
         try:
-            if self.last_is_fail(data):
-                pass
-
-            assert self.page_shortcut.enter_trim_before_edit('Video Effect')
+            assert self.page_shortcut.recommendation_dont_show_again("AI Scene")
 
         except Exception as e:
             traceback.print_exc()
@@ -86,74 +111,12 @@ class Test_Shortcut_Video_Effect:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Back from trim before edit")
-    def test_back_from_trim_before_edit(self, data):
+    @allure.feature("Media Picker")
+    @allure.story("Import")
+    @allure.title("Photo")
+    def test_import_photo(self, data):
         try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_trim_before_edit('Video Effect')
-
-            assert self.page_shortcut.back_from_trim()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.story("Media")
-    @allure.title("Trim and edit")
-    def test_trim_and_edit(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Video Effect')
-
-            assert self.page_shortcut.trim_and_edit()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.story("Media")
-    @allure.title("Back from editor")
-    def test_back_from_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
-
-            assert self.page_shortcut.back_from_editor()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.story("Media")
-    @allure.title("Enter editor")
-    def test_entry_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Video Effect')
-
-            assert self.page_shortcut.enter_editor()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.story("Editor")
-    @allure.title("Export")
-    def test_export(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
-
-            assert self.page_shortcut.export()
+            assert self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
 
         except Exception as e:
             traceback.print_exc()

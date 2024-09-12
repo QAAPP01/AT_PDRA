@@ -52,7 +52,7 @@ class Test_Shortcut_AI_Cartoon:
             driver.driver.launch_app()
 
             self.page_main.enter_launcher()
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
 
             pytest.fail(f"{str(e)}")
 
@@ -77,7 +77,7 @@ class Test_Shortcut_AI_Cartoon:
     @allure.title("From AI creation")
     def test_entry_from_ai_creation(self, driver):
         try:
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
 
             assert self.is_exist(find_string('AI Cartoon'))
 
@@ -88,7 +88,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             pytest.fail(f"{str(e)}")
 
     @allure.story("Entry")
@@ -112,7 +112,7 @@ class Test_Shortcut_AI_Cartoon:
     def test_enter_media_picker(self, driver):
         try:
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
 
             assert self.is_exist(find_string('Add Media'))
@@ -124,7 +124,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             pytest.fail(f"{str(e)}")
 
@@ -149,7 +149,7 @@ class Test_Shortcut_AI_Cartoon:
     @allure.title("Import photo")
     def test_import_photo(self, data):
         try:
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -177,7 +177,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             pytest.fail(f"{str(e)}")
 
@@ -200,7 +200,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -225,7 +225,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -251,7 +251,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -278,7 +278,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -309,7 +309,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -335,7 +335,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -360,7 +360,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -384,7 +384,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -409,7 +409,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -432,7 +432,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -454,7 +454,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -478,7 +478,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -510,7 +510,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -543,7 +543,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -576,7 +576,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -609,7 +609,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -642,7 +642,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -675,7 +675,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -708,7 +708,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -743,7 +743,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -778,7 +778,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -810,7 +810,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -835,7 +835,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()
@@ -862,7 +862,7 @@ class Test_Shortcut_AI_Cartoon:
 
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
-            self.page_main.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon')
             self.click(L.main.shortcut.try_it_now)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
             self.page_media.waiting_loading()

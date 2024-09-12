@@ -25,10 +25,12 @@ class Shortcut(BasePage):
         self.page_media = MediaPage(driver)
         self.driver = driver
 
-    def enter_shortcut(self, shortcut_name, demo_title=None):
+    def enter_shortcut(self, shortcut_name, demo_title=None, check=True):
         demo_title = demo_title or shortcut_name
 
-        self.click(L.main.shortcut.produce_home, 0.5)
+        if not self.is_exist(L.main.shortcut.shortcut_name(), 1):
+            if not self.click(L.main.launcher.home, 1):
+                self.click(L.main.shortcut.produce_home, 1)
 
         if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
             self.click(L.main.shortcut.shortcut_name("Expand"))
@@ -50,16 +52,43 @@ class Shortcut(BasePage):
                     self.h_swipe_element(shortcuts[-1], shortcuts[0], 3)
 
         if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
-            if (self.element(L.main.shortcut.demo_title).text == demo_title or
-                    self.is_exist(L.import_media.media_library.title)):
-                return True
-            else:
-                logger(f'[Error] Cannot find demo title {demo_title} or Add Media', log_level='error')
-                return False
+            if check:
+                if (self.element(L.main.shortcut.demo_title).text == demo_title or
+                        self.is_exist(L.import_media.media_library.title) or
+                        self.is_exist(id("tv_recommendation"))):
+                    return True
+                else:
+                    logger(f'[Error] enter_shortcut fail', log_level='error')
+                    return False
+            return True
 
         logger(f'[Error] Cannot find {shortcut_name}', log_level='error')
         return False
 
+    def enter_ai_feature(self, name, demo_title=None):
+        demo_title = demo_title or name
+
+        self.click(L.main.ai_creation.entry)
+        if self.click(find_string(name), 2):
+            return True
+        else:
+            last = ""
+            while 1:
+                features = self.elements(L.main.ai_creation.feature_name(0))
+                if features[-1].text == last:
+                    logger(f'No feature "{name}"', log_level='error')
+                    return False
+                else:
+                    last = features[-1].text
+                    self.h_swipe_element(features[-1], features[0], 3)
+                    if self.click(find_string(name), 2):
+                        if (self.element(L.main.shortcut.demo_title).text == demo_title or
+                                self.is_exist(L.import_media.media_library.title)):
+                            return True
+                        else:
+                            logger(f'[Error] Cannot find demo title {demo_title} or Add Media', log_level='error')
+                            return False
+    
     def back_from_demo(self):
         self.click(L.main.shortcut.demo_back)
 
@@ -81,25 +110,52 @@ class Shortcut(BasePage):
             logger(f'[Error] mute_demo fail', log_level='error')
             return False
 
-    def close_recommendation(self, shortcut_name):
-        if not self.enter_shortcut(shortcut_name):
-            return False
-
-        self.click(L.main.shortcut.try_it_now, 1)
-        self.click(L.main.shortcut.ai_sketch.close)
+    def recommendation_close(self, shortcut_name=None):
+        if not self.click(L.main.shortcut.ai_sketch.close, 1):
+            self.enter_shortcut(shortcut_name)
+            self.click(L.main.shortcut.try_it_now, 1)
+            self.click(L.main.shortcut.ai_sketch.close)
 
         if self.is_exist(L.main.shortcut.shortcut_name(0)) or self.element(L.main.ai_creation.title).text == 'AI Creation':
             return True
         else:
-            logger(f'[Error] close_recommendation fail', log_level='error')
+            logger(f'[Error] recommendation_close fail', log_level='error')
             return False
 
+    def recommendation_continue(self):
+        self.click(L.main.shortcut.btn_continue)
+
+        if self.is_exist(L.import_media.media_library.title):
+            return True
+        else:
+            logger(f'[Error] recommendation_continue fail', log_level='error')
+            return False
+        
+    def recommendation_dont_show_again(self, shortcut_name):
+        self.enter_shortcut(shortcut_name)
+
+        if not self.is_exist(L.main.shortcut.ai_sketch.close, 1):
+            self.click(L.main.shortcut.try_it_now, 1)
+
+        if self.click(L.main.shortcut.ai_sketch.dont_show_again):
+            self.click(L.main.shortcut.btn_continue)
+            self.page_main.relaunch(subscribe=False)
+            self.enter_shortcut(shortcut_name, check=False)
+            self.click(L.main.shortcut.try_it_now, 1)
+            if self.is_exist(L.import_media.media_library.title):
+                return True
+            else:
+                logger(f'[Error] recommendation_continue fail', log_level='error')
+                return False
+        else:
+            logger(f'[Error] Cannot find dont show again', log_level='error')
+            return False
 
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:
                 if not self.enter_shortcut(shortcut_name):
-                    self.page_main.enter_ai_feature(shortcut_name)
+                    self.enter_ai_feature(shortcut_name)
 
             if audio_tool:
                 audio_tool = audio_tool.lower()
@@ -131,11 +187,20 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_media_picker fail', log_level='error')
             return False
 
-    def enter_editor(self, shortcut_name=None, folder=test_material_folder, file=video_9_16, audio_tool=None):
+    def enter_editor(self, shortcut_name=None, media_type='video', folder=test_material_folder, file=video_9_16, audio_tool=None):
         if shortcut_name or audio_tool:
             self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
 
-        self.page_media.select_local_video(folder, file)
+        media_type = media_type.lower()
+        if media_type not in ['video', 'photo']:
+            logger(f'[Error] media_type {media_type} is not found', log_level='error')
+            media_type = 'video'
+
+        if media_type == 'video':
+            self.page_media.select_local_video(folder, file)
+        else:
+            self.page_media.select_local_photo(folder, file)
+
         self.page_edit.waiting()
 
         if self.is_exist(L.main.shortcut.export):
@@ -239,6 +304,189 @@ class Shortcut(BasePage):
             logger(f'[Error] play_position_end fail', log_level='error')
             return False
 
+    def custom_enter_prompt(self, prompt='Apple'):
+        self.click(find_string('Custom'))
+        self.element(L.main.shortcut.ai_art.prompt).send_keys(prompt)
+        text = self.element(L.main.shortcut.ai_art.prompt).text
+
+        if text == prompt:
+            return True
+        else:
+            logger(f'[Error] custom_enter_prompt fail', log_level='error')
+            return False
+
+    def custom_clear_prompt(self):
+        self.click(L.main.shortcut.ai_art.clear)
+        text = self.element(L.main.shortcut.ai_art.prompt).text
+
+        if 'Please provide a description' in text:
+            return True
+        else:
+            logger(f'[Error] custom_clear_prompt fail', log_level='error')
+            return False
+
+    def custom_generate(self):
+        self.custom_enter_prompt()
+
+        retry = 30
+        for _ in range(retry):
+            self.click(L.main.shortcut.ai_art.apply)
+            self.click(aid('[AID]ConfirmDialog_No'), 1)
+            self.page_main.shortcut.waiting_generated()
+            if not self.click(id('ok_button'), 1):
+                break
+        else:
+            raise Exception(f"Exceeded retry limit: {retry}")
+
+        preview = self.page_edit.get_preview_pic()
+        if HCompareImg(preview).is_not_black():
+            return True
+        else:
+            logger(f'[Error] custom_generate fail', log_level='error')
+            return False
+
+    def custom_enter_prompt_history(self):
+        self.click(find_string('Custom'), 1)
+        time.sleep(0.5)
+        self.click(L.main.shortcut.ai_art.custom_history)
+
+        if self.element(L.main.shortcut.ai_art.page_title).text == 'History':
+            return True
+        else:
+            logger(f'[Error] custom_enter_prompt_history fail', log_level='error')
+            return False
+
+    def custom_import_history_prompt(self):
+        prompt = self.element(L.main.shortcut.ai_art.history_prompt(0)).text
+        self.click(L.main.shortcut.ai_art.history_prompt(0))
+
+        if self.element(L.main.shortcut.ai_art.prompt).text == prompt:
+            return True
+        else:
+            logger(f'[Error] custom_import_prompt_history fail', log_level='error')
+            return False
+
+    def custom_regenerate_history_prompt(self):
+        retry = 30
+        for _ in range(retry):
+            self.click(L.main.shortcut.ai_art.apply)
+            self.click(aid('[AID]ConfirmDialog_No'), 1)
+            self.page_main.shortcut.waiting_generated()
+            if not self.click(id('ok_button'), 1):
+                break
+        else:
+            raise Exception(f"Exceeded retry limit: {retry}")
+
+        preview = self.page_edit.get_preview_pic()
+        if HCompareImg(preview).is_not_black():
+            return True
+        else:
+            logger(f'[Error] custom_generate fail', log_level='error')
+            return False
+
+    def custom_delete_prompt_history(self):
+        self.custom_enter_prompt_history()
+        self.click(id("tv_select_cancel"))
+        self.click(id("tv_select_clear_all"))
+        self.click(id('tv_delete'))
+        self.click(id("delete_button"))
+
+        if self.is_exist(id("btn_generate_now")):
+            self.custom_leave_prompt_history()
+            return True
+        else:
+            self.custom_leave_prompt_history()
+            logger(f'[Error] custom_delete_prompt_history fail', log_level='error')
+            return False
+
+    def custom_leave_prompt_history(self):
+        self.click(L.main.shortcut.ai_art.close)
+
+        if self.is_exist(L.main.shortcut.ai_art.prompt):
+            return True
+        else:
+            logger(f'[Error] custom_leave_prompt_history fail', log_level='error')
+            return False
+
+    def style_generate(self):
+        self.click(id("empty_area"))
+        retry = 30
+        for _ in range(retry):
+            self.click(L.main.shortcut.ai_art.style_name(2))
+            self.click(aid('[AID]ConfirmDialog_No'), 1)
+
+            if self.is_exist(L.main.shortcut.ai_art.generating, 1):
+                self.is_not_exist(L.main.shortcut.ai_art.generating, 120)
+
+            if not self.click(id('ok_button'), 1):
+                break
+        else:
+            logger(f'[Error] Exceeded retry limit', log_level='error')
+            return False
+        return True
+
+    def style_regenerate(self):
+        retry = 30
+        for _ in range(retry):
+            self.click(L.main.shortcut.ai_art.regenerate)
+            self.click(aid('[AID]ConfirmDialog_No'), 1)
+
+            if self.is_exist(L.main.shortcut.ai_art.generating, 1):
+                self.is_not_exist(L.main.shortcut.ai_art.generating, 120)
+
+            if not self.click(id('ok_button'), 1):
+                break
+        else:
+            logger(f'[Error] Exceeded retry limit', log_level='error')
+            return False
+        return True
+
+    def compare_enabled(self):
+        self.click(L.main.shortcut.ai_art.compare)
+
+        if (self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'true' and
+                self.element(L.main.shortcut.ai_art.compare).text == "Compare On"):
+            return True
+        else:
+            logger(f'[Error] compare_enabled fail', log_level='error')
+            return False
+
+    def compare_move_line(self):
+        thumb = self.element(L.main.shortcut.photo_enhance.compare_thumb)
+        rect = thumb.rect
+        y = rect['y']
+
+        window_width = self.driver.driver.get_window_size()['width']
+        x_end = window_width * 0.7
+        self.page_main.h_drag_element(thumb, x_end, y)
+
+    def compare_disable(self):
+        self.click(L.main.shortcut.ai_art.compare)
+
+        if (self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'false'
+                and self.element(L.main.shortcut.ai_art.compare).text == "Compare Off"):
+            return True
+        else:
+            logger(f'[Error] compare_disable fail', log_level='error')
+            return False
+
+    def enter_history(self):
+        self.click(L.main.shortcut.ai_art.history)
+
+        return True if self.element(id("title")).text == "History" else False
+
+    def close_history(self):
+        self.click(L.main.shortcut.ai_art.close_history)
+
+        return True if not self.is_exist(find_string('History'), 1) else False
+
+    def reopen_history_image(self, history_image):
+        self.click(L.main.shortcut.ai_art.history_image(2))
+        preview = self.page_edit.get_preview_pic()
+
+        return HCompareImg(preview, history_image).ssim_compare()
+
+
     def add_background_photo(self, folder=test_material_folder, file=photo_9_16):
         pass
 
@@ -255,6 +503,44 @@ class Shortcut(BasePage):
             return True
         else:
             logger(f'[Error] export fail', log_level='error')
+            return False
+
+    def export_cancel(self):
+        self.click(L.main.shortcut.export)
+        self.click(L.main.shortcut.export_close)
+
+        if not self.is_exist(L.main.shortcut.save_image, 1):
+            return True
+        else:
+            logger(f'[Error] export_cancel fail', log_level='error')
+            return False
+
+    def export_save_image(self):
+        self.click(L.main.shortcut.export)
+        self.click(L.main.shortcut.save_image)
+
+        if self.is_exist(L.main.shortcut.save_to_camera_roll):
+            return True
+        else:
+            logger(f'[Error] export_save_image fail', log_level='error')
+            return False
+
+    def export_back_to_editor(self):
+        self.click(L.main.shortcut.produce_back)
+
+        if self.is_exist(L.main.shortcut.export):
+            return True
+        else:
+            logger(f'[Error] export_back_to_editor fail', log_level='error')
+            return False
+
+    def export_back_to_launcher(self):
+        self.click(L.main.shortcut.produce_home)
+
+        if self.is_exist(L.main.shortcut.shortcut_name(0)) or self.element(L.main.ai_creation.title).text == 'AI Creation':
+            return True
+        else:
+            logger(f'[Error] export_back_to_launcher fail', log_level='error')
             return False
 
     def tti_back(self):

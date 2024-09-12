@@ -10,7 +10,7 @@ from PIL import Image
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from selenium.common import InvalidSessionIdException
-from main import package_name
+from main import package_name, deviceName
 
 PACKAGE_NAME = package_name
 DRIVER_DESIRED_CAPS = {}
@@ -101,7 +101,7 @@ def update_desired_caps(desired_caps, debug_mode):
 
 def start_appium_service(debug_mode):
     """根據debug模式啟動Appium服務"""
-    args = ["--address", "127.0.0.1", "--port", "4725" if debug_mode else "4723", "--base-path", '/wd/hub']
+    args = ["--address", "127.0.0.1", "--port", "4725" if debug_mode else "4724", "--base-path", '/wd/hub']
     appium = AppiumService()
     appium.start(args=args)
     return appium
@@ -129,22 +129,22 @@ def create_driver(retry, mode, driver_config, app_config, desired_caps):
 @pytest.fixture(scope="session")
 def driver():
     """Pytest fixture 用來設置和關閉driver"""
-    desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': 'R5CT32Q3WQN'}
+    desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': deviceName}
+    debug_device = 'R5CW31G76ST'
 
     appium = start_appium_service(debug_mode)
 
-    connected_devices = get_connected_devices()
-    if desired_caps['udid'] not in connected_devices:
-        if connected_devices:
-            desired_caps['udid'] = connected_devices[0]
-            logger(f"Connected device: {desired_caps['udid']}")
-        else:
-            raise RuntimeError("No devices connected.")
-
     if debug_mode:
         mode = 'debug'
+        desired_caps['udid'] = debug_device
     else:
         mode = 'local'
+
+        connected_devices = get_connected_devices()
+        if desired_caps['udid'] not in connected_devices:
+            if connected_devices:
+                desired_caps['udid'] = connected_devices[0]
+                logger(f"Connected device: {desired_caps['udid']}")
 
         desired_caps = update_desired_caps(desired_caps, debug_mode)
         driver = create_driver(3, mode, driver_config, app_config, desired_caps)

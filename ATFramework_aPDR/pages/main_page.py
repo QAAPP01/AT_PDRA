@@ -87,11 +87,11 @@ class MainPage(BasePage):
             logger(e)
             return False
 
-    def relaunch(self):
+    def relaunch(self, subscribe=True):
         try:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()
-            self.enter_launcher()
+            self.enter_launcher(subscribe)
             return True
         except Exception as e:
             traceback.print_exc()
