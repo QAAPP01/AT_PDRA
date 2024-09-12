@@ -53,7 +53,7 @@ class Shortcut(BasePage):
 
         if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
             if check:
-                if (self.element(L.main.shortcut.demo_title).text == demo_title or
+                if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and @text="{demo_title}"]')) or
                         self.is_exist(L.import_media.media_library.title) or
                         self.is_exist(id("tv_recommendation"))):
                     return True
@@ -110,6 +110,22 @@ class Shortcut(BasePage):
             logger(f'[Error] mute_demo fail', log_level='error')
             return False
 
+    def demo_dont_show_again(self, shortcut_name):
+        if not self.is_exist(L.main.shortcut.dont_show_again):
+            if not self.enter_shortcut(shortcut_name):
+                self.enter_ai_feature(shortcut_name)
+
+        self.click(L.main.shortcut.dont_show_again)
+        self.click(L.main.shortcut.try_it_now)
+
+        self.page_main.relaunch(subscribe=False)
+        self.enter_shortcut(shortcut_name)
+
+        if self.is_exist(L.main.shortcut.dont_show_again):
+            logger(f'[Error] demo_dont_show_again fail', log_level='error')
+            return False
+        return True
+
     def recommendation_close(self, shortcut_name=None):
         if not self.click(L.main.shortcut.ai_sketch.close, 1):
             self.enter_shortcut(shortcut_name)
@@ -122,7 +138,11 @@ class Shortcut(BasePage):
             logger(f'[Error] recommendation_close fail', log_level='error')
             return False
 
-    def recommendation_continue(self):
+    def recommendation_continue(self, shortcut_name=None):
+        if shortcut_name:
+            self.enter_shortcut(shortcut_name)
+            self.click(L.main.shortcut.try_it_now, 1)
+
         self.click(L.main.shortcut.btn_continue)
 
         if self.is_exist(L.import_media.media_library.title):

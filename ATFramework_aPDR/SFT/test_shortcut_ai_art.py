@@ -37,8 +37,8 @@ class Test_Shortcut_AI_Art:
         return False
 
     @allure.feature("Entry")
-    @allure.story("Enter")
-    @allure.title("From AI creation")
+    @allure.story("Demo")
+    @allure.title("Enter from AI creation")
     def test_entry_from_ai_creation(self, data):
         try:
             assert self.page_shortcut.enter_ai_feature('AI Art')
@@ -50,7 +50,7 @@ class Test_Shortcut_AI_Art:
             raise
 
     @allure.feature("Entry")
-    @allure.story("Back")
+    @allure.story("Demo")
     @allure.title("Back to AI creation")
     def test_back_to_ai_creation(self, data):
         try:
@@ -66,8 +66,8 @@ class Test_Shortcut_AI_Art:
             raise
 
     @allure.feature("Entry")
-    @allure.story("Enter")
-    @allure.title("From Shortcut")
+    @allure.story("Demo")
+    @allure.title("Enter from Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
             assert self.page_shortcut.enter_shortcut('AI Art')
@@ -79,8 +79,8 @@ class Test_Shortcut_AI_Art:
             raise
 
     @allure.feature("Entry")
-    @allure.story("Back")
-    @allure.title("To Shortcut")
+    @allure.story("Demo")
+    @allure.title("Back to Shortcut")
     def test_back_to_shortcut(self, data):
         try:
             if self.last_is_fail(data):
@@ -94,15 +94,31 @@ class Test_Shortcut_AI_Art:
             data['last_result'] = False
             raise
 
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Don't show again")
+    def test_demo_dont_show_again(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.demo_dont_show_again('AI Art')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
     @allure.feature("Media Picker")
     @allure.story("Enter")
     @allure.title("Enter media picker")
     def test_enter_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                pass
+                self.page_shortcut.enter_shortcut('AI Art')
                 
-            assert self.page_shortcut.enter_media_picker('AI Art')
+            assert self.page_shortcut.enter_media_picker()
 
         except Exception as e:
             traceback.print_exc()

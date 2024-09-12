@@ -75,9 +75,7 @@ class Test_Shortcut_AI_Scene:
             if self.last_is_fail(data):
                 pass
 
-            self.page_shortcut.enter_shortcut('AI Scene')
-
-            assert self.page_shortcut.recommendation_continue()
+            assert self.page_shortcut.recommendation_continue('AI Scene')
 
         except Exception as e:
             traceback.print_exc()

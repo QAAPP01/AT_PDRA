@@ -45,6 +45,7 @@ class Shortcut:
     produce_home = id('home_button')
     export_close = id("back_btn")
     save_image = id("save_image_btn")
+    dont_show_again = id("dont_show_again_checkbox")
 
     @staticmethod
     def shortcut_name(param=1):
