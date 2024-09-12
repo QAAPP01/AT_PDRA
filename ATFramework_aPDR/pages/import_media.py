@@ -90,11 +90,14 @@ class MediaPage(BasePage):
     def select_local_photo(self, folder, file_name):
         try:
             if not self.switch_to_photo_library():
-                raise Exception('Click photo library fail')
+                logger('Click photo library fail', log_level='error')
+                return False
             if not self.select_local_folder(folder):
-                raise Exception('Open folder fail')
+                logger('Open folder fail', log_level='error')
+                return False
             if not self.select_media_by_text(file_name):
-                raise Exception('Select file fail')
+                logger('Select file fail', log_level='error')
+                return False
             return True
         except Exception as err:
             raise Exception(err)

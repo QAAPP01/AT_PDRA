@@ -32,7 +32,7 @@ class Shortcut:
     timecode = id('playing_time')
     total_time = id('total_time')
     playback_slider = id('seekbar')
-    export = id('tv_ok')
+    export = xpath(f'//*[contains(@resource-id,"tv_ok") and @text="Export"]')
     produce = id('btn_produce')
     full_editor = id('tv_full_editor')
     produce_progress_bar = id('progress_bar')
@@ -43,6 +43,8 @@ class Shortcut:
     save = id('btn_save')
     upgrade = id('btn_upgrade')
     produce_home = id('home_button')
+    export_close = id("back_btn")
+    save_image = id("save_image_btn")
 
     @staticmethod
     def shortcut_name(param=1):
