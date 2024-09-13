@@ -9,15 +9,6 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 
 @allure.epic("App initial")
 class TestInit:
-    @pytest.fixture(scope='module', autouse=True)
-    def driver_init(self, driver):
-        logger("==== Start driver session ====")
-        driver.driver.reset()
-        time.sleep(1)
-        driver.driver.launch_app()
-        yield
-        driver.driver.close_app()
-
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
