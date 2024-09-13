@@ -104,6 +104,7 @@ def start_appium_service(debug_mode):
     args = ["--address", "127.0.0.1", "--port", "4725" if debug_mode else "4723", "--base-path", '/wd/hub']
     appium = AppiumService()
     appium.start(args=args)
+    logger(f'=== Appium service started (*{"Debug" if debug_mode else "Testing"} mode)=== ')
     return appium
 
 
