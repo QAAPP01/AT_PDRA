@@ -16,13 +16,6 @@ test_material_folder = TEST_MATERIAL_FOLDER
 ori_preview = None
 
 
-@pytest.fixture(scope='module', autouse=True)
-def driver_init(driver):
-    logger("==== Start driver session ====")
-    driver.driver.launch_app()
-    yield
-    driver.driver.close_app()
-
 @allure.epic('Timeline_PiP')
 @allure.feature('Video')
 @allure.story('Filter')
