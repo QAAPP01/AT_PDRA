@@ -429,7 +429,6 @@ class Test_Shortcut_AI_Sketch:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
-
             self.page_main.enter_launcher()
             self.click(L.main.ai_creation.entry)
             self.page_shortcut.enter_ai_feature('AI Sketch')

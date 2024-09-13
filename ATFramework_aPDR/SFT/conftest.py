@@ -101,7 +101,7 @@ def update_desired_caps(desired_caps, debug_mode):
 
 def start_appium_service(debug_mode):
     """根據debug模式啟動Appium服務"""
-    args = ["--address", "127.0.0.1", "--port", "4725" if debug_mode else "4724", "--base-path", '/wd/hub']
+    args = ["--address", "127.0.0.1", "--port", "4725" if debug_mode else "4723", "--base-path", '/wd/hub']
     appium = AppiumService()
     appium.start(args=args)
     return appium

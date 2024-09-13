@@ -32,19 +32,21 @@ class MainPage(BasePage):
         element_exist_click(self.driver, L.main.permission.photo_allow, 2)
 
     def subscribe(self):
-        self.click(L.main.subscribe.entry)
-        if self.is_exist(find_string("You've unlocked"), 1) or self.is_exist(find_string('You’ve unlocked'), 1):
-            self.click(L.main.subscribe.back_btn)
-            return True
-        else:
-            self.click(L.main.subscribe.continue_btn)
-            self.click(('class name', 'android.widget.Button'))
-            self.click(find_string('Not now'), 5)
-            self.click(id('iv_close'))  # close the credit dialog
-            if self.is_exist(L.main.new_project, 10):
+        if self.click(L.main.subscribe.entry):
+            if self.is_exist(find_string("You've unlocked"), 1) or self.is_exist(find_string('You’ve unlocked'), 1):
+                self.click(L.main.subscribe.back_btn)
                 return True
             else:
-                return False
+                self.click(L.main.subscribe.continue_btn)
+                self.click(('class name', 'android.widget.Button'))
+                self.click(find_string('Not now'), 5)
+                self.click(id('iv_close'))  # close the credit dialog
+                if self.is_exist(L.main.new_project, 10):
+                    return True
+                else:
+                    return False
+        else:
+            return False
 
     def enter_launcher(self, subscribe=True):
         try:
