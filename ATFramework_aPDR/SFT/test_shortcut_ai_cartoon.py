@@ -11,8 +11,7 @@ from ATFramework_aPDR.pages.locator.locator_type import *
 photo_9_16 = 'photo_9_16.jpg'
 
 
-@allure.epic("Shortcut")
-@allure.feature("AI Cartoon")
+@allure.epic("Shortcut - AI Cartoon")
 class Test_Shortcut_AI_Cartoon:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -37,124 +36,18 @@ class Test_Shortcut_AI_Cartoon:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("From shortcut")
-    def test_entry_from_shortcut(self, driver):
+    def compare_crop(self, data):
+        preview = self.page_edit.get_preview_pic()
+        result = not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+        data['pic_before_crop'] = preview
+        return result
+
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Enter from AI creation")
+    def test_entry_from_ai_creation(self, data):
         try:
-            self.page_main.enter_launcher()
-
-            self.page_shortcut.enter_shortcut('AI Cartoon')
-
-            assert self.is_exist(find_string('AI Cartoon'))
-
-        except Exception as e:
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-
-            pytest.fail(f"{str(e)}")
-
-
-    @allure.story("Entry")
-    @allure.title("Back to launcher")
-    def test_back_to_launcher(self, driver):
-        try:
-            self.click(L.main.shortcut.demo_back)
-
-            assert self.is_exist(L.main.shortcut.shortcut_name(0))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Entry")
-    @allure.title("From AI creation")
-    def test_entry_from_ai_creation(self, driver):
-        try:
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-
-            assert self.is_exist(find_string('AI Cartoon'))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Entry")
-    @allure.title("Back to AI creation")
-    def test_back_to_ai_creation(self, driver):
-        try:
-            self.click(L.main.shortcut.demo_back)
-
-            assert self.is_exist(find_string('AI Creation'))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Media Picker")
-    @allure.title("Enter media picker")
-    def test_enter_media_picker(self, driver):
-        try:
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-            self.click(L.main.shortcut.try_it_now)
-
-            assert self.is_exist(find_string('Add Media'))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-            self.click(L.main.shortcut.try_it_now)
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Media Picker")
-    @allure.title("Back from media picker")
-    def test_back_from_media(self, driver):
-        try:
-            self.click(L.import_media.media_library.back)
-
-            assert self.is_exist(find_string('AI Creation'))
-
-        except Exception as e:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Media Picker")
-    @allure.title("Import photo")
-    def test_import_photo(self, data):
-        try:
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            assert self.is_exist(find_string('Export'))
+            assert self.page_shortcut.enter_ai_feature('AI Cartoon')
 
         except Exception as e:
             traceback.print_exc()
@@ -162,27 +55,135 @@ class Test_Shortcut_AI_Cartoon:
             data['last_result'] = False
             raise
 
-    @allure.story("Editor")
-    @allure.title("Back to media picker")
-    def test_back_to_media_picker(self, driver):
-        try:
-            self.click(L.main.shortcut.editor_back)
 
-            assert self.is_exist(find_string('Add Media'))
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Back to AI creation")
+    def test_back_to_ai_creation(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_ai_feature('AI Cartoon')
+
+            assert self.page_shortcut.back_from_demo()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-            self.click(L.main.shortcut.try_it_now)
-            pytest.fail(f"{str(e)}")
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Enter from Shortcut")
+    def test_entry_from_shortcut(self, data):
+        try:
+            assert self.page_shortcut.enter_shortcut('AI Cartoon')
 
-    @allure.story("Editor")
-    @allure.title("Generate style")
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Back to Shortcut")
+    def test_back_to_shortcut(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Cartoon')
+
+            assert self.page_shortcut.back_from_demo()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Don't show again")
+    def test_demo_dont_show_again(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.demo_dont_show_again('AI Cartoon')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Enter")
+    @allure.title("Enter media picker")
+    def test_enter_media_picker(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Cartoon')
+
+            assert self.page_shortcut.enter_media_picker()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Back")
+    @allure.title("From media picker")
+    def test_back_from_media_picker(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Cartoon')
+
+            assert self.page_shortcut.back_from_media_picker()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Import")
+    @allure.title("Photo")
+    def test_import_photo(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('AI Cartoon')
+
+            assert self.page_shortcut.enter_editor(shortcut_name='AI Cartoon', media_type='photo', file=photo_9_16)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Back")
+    @allure.title("From editor")
+    def test_back_from_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Cartoon', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Style")
+    @allure.title("Generate")
     def test_gen_style(self, driver, data):
         try:
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
@@ -210,8 +211,9 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
-    @allure.title("Regenerate style")
+    @allure.feature("Editor")
+    @allure.story("Style")
+    @allure.title("Regenerate")
     def test_regenerate_style(self, driver):
         try:
             self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.regenerate)
@@ -234,8 +236,9 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
-    @allure.title("Compare button enabled")
+    @allure.feature("Editor")
+    @allure.story("Compare")
+    @allure.title("Enabled")
     def test_compare_button_enabled(self, driver, data):
         try:
             data["pic_before_compare"] = self.page_edit.get_preview_pic()
@@ -263,8 +266,9 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
-    @allure.title("Compare preview display")
+    @allure.feature("Editor")
+    @allure.story("Compare")
+    @allure.title("Preview change")
     def test_compare_preview(self, driver, data):
         try:
             data["pic_after_compare"] = self.page_edit.get_preview_pic()
@@ -289,7 +293,8 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
+    @allure.feature("Editor")
+    @allure.story("Compare")
     @allure.title("Move compare line")
     def test_move_compare_line(self, driver, data):
         try:
@@ -319,8 +324,9 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
-    @allure.title("Compare button disabled")
+    @allure.feature("Editor")
+    @allure.story("Compare")
+    @allure.title("Disable")
     def test_compare_button_disabled(self, driver, data):
         try:
             self.click(L.main.shortcut.ai_art.compare)
@@ -345,8 +351,9 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
-    @allure.title("Compare preview resume")
+    @allure.feature("Editor")
+    @allure.story("Compare")
+    @allure.title("Preview resume")
     def test_compare_preview_resume(self, driver, data):
         try:
             pic_preview = self.page_edit.get_preview_pic()
@@ -369,8 +376,9 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
-    @allure.title("Enter history")
+    @allure.feature("Editor")
+    @allure.story("History")
+    @allure.title("Enter generate history")
     def test_enter_history(self, driver):
         try:
             self.click(L.main.shortcut.ai_art.history)
@@ -392,7 +400,8 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
+    @allure.feature("Editor")
+    @allure.story("History")
     @allure.title("Reopen history image")
     def test_reopen_history_image(self, driver, data):
         try:
@@ -417,8 +426,9 @@ class Test_Shortcut_AI_Cartoon:
 
             pytest.fail(f"{str(e)}")
 
-    @allure.story("Editor")
-    @allure.title("Leave history")
+    @allure.feature("Editor")
+    @allure.story("History")
+    @allure.title("Close history")
     def test_leave_history(self, driver):
         try:
             self.click(L.main.shortcut.ai_art.close_history)
@@ -440,7 +450,8 @@ class Test_Shortcut_AI_Cartoon:
             pytest.fail(f"{str(e)}")
 
     @allure.story("Editor")
-    @allure.title("Enter crop")
+    @allure.title("Crop")
+    @allure.step("Enter")
     def test_enter_crop(self, driver):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
@@ -464,7 +475,8 @@ class Test_Shortcut_AI_Cartoon:
             pytest.fail(f"{str(e)}")
 
     @allure.story("Editor")
-    @allure.title("Leave crop")
+    @allure.title("Crop")
+    @allure.step("Leave")
     def test_leave_crop(self, driver):
         try:
             self.click(L.edit.crop.cancel)
@@ -794,7 +806,7 @@ class Test_Shortcut_AI_Cartoon:
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Reset")
-    def test_crop_reset(self, driver, data):
+    def test_crop_reset(self, data):
         try:
             self.click(L.main.shortcut.ai_sketch.crop)
             self.click(L.edit.crop.reset)
@@ -805,68 +817,75 @@ class Test_Shortcut_AI_Cartoon:
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
 
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Export")
-    @allure.title("Save Image")
-    def test_save_image(self, driver):
+    @allure.feature("Export")
+    @allure.story("Cancel")
+    @allure.title("Close panel")
+    def test_export_cancel(self, data):
         try:
-            self.click(L.main.shortcut.export)
-            self.click(find_string('Save Image'))
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Cartoon', media_type='photo', file=photo_9_16)
+                self.page_shortcut.style_generate()
 
-            assert self.is_exist(L.main.shortcut.save_to_camera_roll)
+            assert self.page_shortcut.export_cancel()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-
-            self.click(L.main.shortcut.export)
-            self.click(find_string('Save Image'))
-
-            pytest.fail(f"{str(e)}")
-
-    @allure.story("Export")
-    @allure.title("Back to editor")
-    def test_back_to_editor(self, driver):
+    @allure.feature("Export")
+    @allure.story("Save")
+    @allure.title("Save image")
+    def test_export_save_image(self, data):
         try:
-            self.click(L.main.shortcut.produce_back)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Cartoon', media_type='photo', file=photo_9_16)
 
-            assert self.is_exist(L.main.shortcut.editor_back)
+            assert self.page_shortcut.export_save_image()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
+    @allure.feature("Export")
+    @allure.story("Back")
+    @allure.title("To editor")
+    def test_export_back_to_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Cartoon', media_type='photo', file=photo_9_16)
+                self.page_shortcut.export_save_image()
 
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
+            assert self.page_shortcut.export_back_to_editor()
 
-            pytest.fail(f"{str(e)}")
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Back")
+    @allure.title("To launcher")
+    def test_export_back_to_launcher(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Cartoon', media_type='photo', file=photo_9_16)
+
+            self.page_shortcut.export_save_image()
+
+            assert self.page_shortcut.export_back_to_launcher()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
