@@ -50,17 +50,15 @@ class Test_Scan_AI_Art:
 
         self.page_main.enter_launcher()
         self.click(L.main.ai_creation.entry)
-        self.page_shortcut.enter_ai_feature('AI Art')
+        self.page_shortcut.enter_ai_feature('AI Art', check=False)
         self.click(L.main.shortcut.try_it_now, 2)
         self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
     @allure.title("Maid")
     def test_ai_art_maid(self, driver):
         try:
-            self.page_main.enter_launcher()
-            self.page_main.subscribe()
             self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Art')
+            self.page_shortcut.enter_ai_feature('AI Art', check=False)
             self.click(L.main.shortcut.try_it_now, 2)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
@@ -407,7 +405,7 @@ class Test_Scan_AI_Cartoon:
 
         self.page_main.enter_launcher()
         self.click(L.main.ai_creation.entry)
-        self.page_shortcut.enter_ai_feature('AI Cartoon')
+        self.page_shortcut.enter_ai_feature('AI Cartoon', check=False)
         self.click(L.main.shortcut.try_it_now, 2)
         self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
@@ -418,7 +416,7 @@ class Test_Scan_AI_Cartoon:
             self.page_main.enter_launcher()
             self.page_main.subscribe()
             self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Cartoon')
+            self.page_shortcut.enter_ai_feature('AI Cartoon', check=False)
             self.click(L.main.shortcut.try_it_now, 2)
             self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
@@ -561,7 +559,7 @@ class Test_Scan_AI_Sketch:
 
         self.page_main.enter_launcher()
         self.click(L.main.ai_creation.entry)
-        self.page_shortcut.enter_ai_feature('AI Sketch')
+        self.page_shortcut.enter_ai_feature('AI Sketch', check=False)
         self.click(L.main.shortcut.try_it_now, 2)
         self.page_media.select_local_photo(test_material_folder, photo_9_16)
 
@@ -572,7 +570,7 @@ class Test_Scan_AI_Sketch:
             self.page_main.enter_launcher()
             self.page_main.subscribe()
             self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
+            self.page_shortcut.enter_ai_feature('AI Sketch', check=False)
             self.click(L.main.shortcut.try_it_now, 2)
             if self.click(id("checkBox"), 0.5):
                 self.click(id('tv_continue'))
