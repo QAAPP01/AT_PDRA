@@ -36,6 +36,12 @@ class Test_Shortcut_AI_Sketch:
             return True
         return False
 
+    def compare_crop(self, data):
+        preview = self.page_edit.get_preview_pic()
+        result = not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+        data['pic_before_crop'] = preview
+        return result
+
     @allure.feature("Entry")
     @allure.story("Demo")
     @allure.title("Enter from AI creation")
@@ -394,383 +400,208 @@ class Test_Shortcut_AI_Sketch:
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Enter")
-    def test_enter_crop(self, driver):
+    def test_enter_crop(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert self.is_exist(find_string('Crop Photo'))
+            assert self.page_shortcut.enter_crop()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.click(L.main.shortcut.ai_sketch.crop)
-
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Leave")
-    def test_leave_crop(self, driver):
+    def test_leave_crop(self, data):
         try:
-            self.click(L.edit.crop.cancel)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
+                self.page_shortcut.enter_crop()
 
-            assert self.is_exist(L.main.shortcut.ai_art.style_name())
+            assert self.page_shortcut.leave_crop()
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Original")
-    def test_crop_original(self, driver, data):
+    def test_crop_original(self, data):
         try:
-            data['pic_crop_original'] = self.page_edit.get_preview_pic()
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.page_main.h_swipe_element(L.edit.crop.btn_free, L.edit.crop.btn_9_16, 3)
-            time.sleep(1)
-            self.click(L.edit.crop.btn_original)
-            self.page_edit.drag_crop_boundary()
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_crop_original']).ssim_compare()
+            data['pic_before_crop'] = self.page_edit.get_preview_pic()
+
+            self.page_shortcut.crop_ratio('original')
+
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Free")
-    def test_crop_free(self, driver, data):
+    def test_crop_free(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.click(L.edit.crop.btn_free)
-            self.page_edit.drag_crop_boundary(0.6, 0.9)
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_ratio('free')
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("9:16")
-    def test_crop_9_16(self, driver, data):
+    def test_crop_9_16(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.click(L.edit.crop.btn_9_16)
-            self.page_edit.drag_crop_boundary()
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_ratio('9:16')
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("1:1")
-    def test_crop_1_1(self, driver, data):
+    def test_crop_1_1(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.click(L.edit.crop.btn_1_1)
-            self.page_edit.drag_crop_boundary()
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_ratio('1:1')
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("4:5")
-    def test_crop_4_5(self, driver, data):
+    def test_crop_4_5(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.click(L.edit.crop.btn_4_5)
-            self.page_edit.drag_crop_boundary()
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_ratio('4:5')
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("16:9")
-    def test_crop_16_9(self, driver, data):
+    def test_crop_16_9(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.click(L.edit.crop.btn_16_9)
-            self.page_edit.drag_crop_boundary()
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_ratio('16:9')
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("4:3")
-    def test_crop_4_3(self, driver, data):
+    def test_crop_4_3(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.click(L.edit.crop.btn_4_3)
-            self.page_edit.drag_crop_boundary()
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_ratio('4:3')
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("3:4")
-    def test_crop_3_4(self, driver, data):
+    def test_crop_3_4(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.page_main.h_swipe_element(L.edit.crop.btn_4_3, L.edit.crop.btn_free, 3)
-            time.sleep(1)
-            self.click(L.edit.crop.btn_3_4)
-            self.page_edit.drag_crop_boundary()
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_ratio('3:4')
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("21:9")
-    def test_crop_21_9(self, driver, data):
+    def test_crop_21_9(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.page_main.h_swipe_element(L.edit.crop.btn_4_3, L.edit.crop.btn_free, 3)
-            time.sleep(1)
-            self.click(L.edit.crop.btn_21_9)
-            self.page_edit.drag_crop_boundary()
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_ratio('21:9')
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-            preview = self.page_edit.get_preview_pic()
-
-            pytest.fail(f"{str(e)}")
-
-        finally:
-            data['pic_before_crop'] = preview
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.story("Editor")
     @allure.title("Crop")
     @allure.step("Reset")
-    def test_crop_reset(self, driver, data):
+    def test_crop_reset(self, data):
         try:
-            self.click(L.main.shortcut.ai_sketch.crop)
-            self.click(L.edit.crop.reset)
-            self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
-            preview = self.page_edit.get_preview_pic()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
+            self.page_shortcut.crop_reset()
+            assert self.compare_crop(data)
 
         except Exception as e:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.click(L.main.ai_creation.entry)
-            self.page_shortcut.enter_ai_feature('AI Sketch')
-            self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_photo(test_material_folder, photo_9_16)
-            self.page_media.waiting_loading()
-
-            self.page_main.shortcut.waiting_generated(L.main.shortcut.ai_art.style_name(2))
-
-            pytest.fail(f"{str(e)}")
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.feature("Export")
     @allure.story("Cancel")

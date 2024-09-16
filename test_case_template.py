@@ -43,8 +43,14 @@ class Test_Shortcut_AI_Scene:
     @allure.title("From Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
+            if self.last_is_fail(data): # 第一個test case 可放可不放
+                pass
+
+            data["傳遞資料"] = "可以跨function傳遞資料"
+
             assert self.page_shortcut.enter_shortcut('AI Scene')
 
+        # except 固定格式不用改
         except Exception as e:
             traceback.print_exc()
             logger(e)
@@ -56,25 +62,14 @@ class Test_Shortcut_AI_Scene:
     @allure.title("Close")
     def test_recommendation_close(self, data):
         try:
+            # 一定要放，檢查上一個Result是不是fail，為了判斷需不需要重開app
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Scene')
+                pass    # 如果下面步驟是從launcher開始，直接加pass略過
+
+            share = data["傳遞資料"]
+            print(share)
 
             assert self.page_shortcut.recommendation_close()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Recommendation")
-    @allure.title("Continue")
-    def test_recommendation_continue(self, data):
-        try:
-            self.page_shortcut.enter_shortcut('AI Scene')
-
-            assert self.page_shortcut.recommendation_continue()
 
         except Exception as e:
             traceback.print_exc()
@@ -88,35 +83,9 @@ class Test_Shortcut_AI_Scene:
     def test_back_from_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('AI Scene')
+                self.page_shortcut.enter_media_picker('AI Scene')   # 這裡放從launcher開始的步驟，直到銜接下面步驟
 
             assert self.page_shortcut.back_from_media_picker()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Recommendation")
-    @allure.title("Don't show again")
-    def test_recommendation_dont_show_again(self, data):
-        try:
-            assert self.page_shortcut.recommendation_dont_show_again("AI Scene")
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Import")
-    @allure.title("Photo")
-    def test_import_photo(self, data):
-        try:
-            assert self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
 
         except Exception as e:
             traceback.print_exc()

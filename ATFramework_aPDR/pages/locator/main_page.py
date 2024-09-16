@@ -46,6 +46,9 @@ class Shortcut:
     export_close = id("back_btn")
     save_image = id("save_image_btn")
     dont_show_again = id("dont_show_again_checkbox")
+    crop = id('crop_button')
+    crop_close = id('cancel_btn')
+    crop_title = id("tv_title")
 
     @staticmethod
     def shortcut_name(param=1):

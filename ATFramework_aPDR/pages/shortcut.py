@@ -65,13 +65,11 @@ class Shortcut(BasePage):
         logger(f'[Error] Cannot find {shortcut_name}', log_level='error')
         return False
 
-    def enter_ai_feature(self, name, demo_title=None):
+    def enter_ai_feature(self, name, demo_title=None, check=True):
         demo_title = demo_title or name
 
         self.click(L.main.ai_creation.entry)
-        if self.click(find_string(name), 2):
-            return True
-        else:
+        if not self.click(find_string(name), 2):
             last = ""
             while 1:
                 features = self.elements(L.main.ai_creation.feature_name(0))
@@ -82,12 +80,16 @@ class Shortcut(BasePage):
                     last = features[-1].text
                     self.h_swipe_element(features[-1], features[0], 3)
                     if self.click(find_string(name), 2):
-                        if (self.element(L.main.shortcut.demo_title).text == demo_title or
-                                self.is_exist(L.import_media.media_library.title)):
-                            return True
-                        else:
-                            logger(f'[Error] Cannot find demo title {demo_title} or Add Media', log_level='error')
-                            return False
+                        break
+        if check:
+            if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and @text="{demo_title}"]')) or
+                    self.is_exist(L.import_media.media_library.title) or
+                    self.is_exist(id("tv_recommendation"))):
+                return True
+            else:
+                logger(f'[Error] enter_ai_feature fail', log_level='error')
+                return False
+        return True
     
     def back_from_demo(self):
         self.click(L.main.shortcut.demo_back)
@@ -505,6 +507,100 @@ class Shortcut(BasePage):
         preview = self.page_edit.get_preview_pic()
 
         return HCompareImg(preview, history_image).ssim_compare()
+
+    def enter_crop(self):
+        self.click(L.main.shortcut.crop)
+
+        if self.element(L.main.shortcut.crop_title).text == 'Crop Photo':
+            return True
+        else:
+            logger(f'[Error] enter_crop fail', log_level='error')
+            return False
+
+    def leave_crop(self):
+        self.click(L.main.shortcut.crop_close)
+
+        if self.is_exist(L.main.shortcut.ai_art.style_name()):
+            return True
+        else:
+            logger(f'[Error] leave_crop fail', log_level='error')
+            return False
+
+    def crop_ratio(self, ratio):
+        ratio = ratio.lower()
+        ratio_dir = {
+            'original': L.edit.crop.btn_original,
+            'free': L.edit.crop.btn_free,
+            '9:16': L.edit.crop.btn_9_16,
+            '1:1': L.edit.crop.btn_1_1,
+            '4:5': L.edit.crop.btn_4_5,
+            '16:9': L.edit.crop.btn_16_9,
+            '4:3': L.edit.crop.btn_4_3,
+            '3:4': L.edit.crop.btn_3_4,
+            '21:9': L.edit.crop.btn_21_9,
+        }
+
+        if ratio_dir.get(ratio) is None:
+            logger(f'[Error] crop_ratio {ratio} is not found', log_level='error')
+            return False
+
+        # preview = self.element(L.edit.preview.preview)
+        #
+        # if ratio == 'original' or ratio == 'free':
+        #     width = preview.size.get('width')
+        #     height = preview.size.get('height')
+
+        self.click(L.main.shortcut.crop)
+        crop_buttons = self.elements(xpath('//*[contains(@resource-id, "btn_crop")]'))
+
+        if ratio == 'original':
+            self.h_swipe_element(crop_buttons[0], crop_buttons[-1], 3)
+        if not self.click(ratio_dir[ratio], 1):
+            self.h_swipe_element(crop_buttons[-1], crop_buttons[0], 3)
+            if not self.click(ratio_dir[ratio], 1):
+                logger(f'[Error] crop_ratio {ratio} fail', log_level='error')
+                return False
+
+        self.page_edit.drag_crop_boundary()
+        self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
+
+        return True
+
+        # preview = self.element(L.edit.preview.preview)
+        # new_width = preview.size.get('width')
+        # new_height = preview.size.get('height')
+
+        # if ratio == 'original':
+        #     if new_width == width and new_height == height:
+        #         return True
+        #     else:
+        #         logger(f'[Error] crop_ratio {ratio} fail', log_level='error')
+        #         return False
+        # elif ratio == 'free':
+        #     if new_width != width or new_height != height:
+        #         return True
+        #     else:
+        #         logger(f'[Error] crop_ratio {ratio} fail', log_level='error')
+        #         return False
+        # else:
+        #     preview_ratio = new_width / new_height
+        #     parts = ratio.split(':')
+        #     numerator = float(parts[0])
+        #     denominator = float(parts[1])
+        #     if denominator == 0:
+        #         logger('Denominator cannot be zero')
+        #         return False
+        #     new_ratio = numerator / denominator
+        #     if abs(preview_ratio - new_ratio) < 0.1:
+        #         return True
+        #     else:
+        #         logger(f'[Error] crop_ratio {ratio} fail', log_level='error')
+        #         return False
+
+    def crop_reset(self):
+        self.click(L.main.shortcut.crop)
+        self.click(L.edit.crop.reset)
+        self.page_main.shortcut.waiting_generated(L.edit.crop.apply)
 
 
     def add_background_photo(self, folder=test_material_folder, file=photo_9_16):
