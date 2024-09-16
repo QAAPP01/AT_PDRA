@@ -92,7 +92,8 @@ class Shortcut(BasePage):
         return True
     
     def back_from_demo(self):
-        self.click(L.main.shortcut.demo_back)
+        if not self.click(L.main.shortcut.demo_back, 1):
+            self.click(L.main.shortcut.close)
 
         if self.is_exist(L.main.shortcut.shortcut_name(0)) or self.element(L.main.ai_creation.title).text == 'AI Creation':
             return True
