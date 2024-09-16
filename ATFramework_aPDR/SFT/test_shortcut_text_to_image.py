@@ -17,7 +17,7 @@ photo_16_9 = 'photo_16_9.jpg'
 @allure.epic("Shortcut - Text to Image")
 class Test_Shortcut_Text_to_Image:
     @pytest.fixture(autouse=True)
-    def init_shortcut(self, shortcut):
+    def init_shortcut(self, shortcut, driver):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
@@ -26,6 +26,8 @@ class Test_Shortcut_Text_to_Image:
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
         self.is_not_exist = self.page_main.h_is_not_exist
+
+        self.driver = driver
 
     @pytest.fixture(scope="module")
     def data(self):
@@ -68,429 +70,201 @@ class Test_Shortcut_Text_to_Image:
             data['last_result'] = False
             raise
 
-
-    def sce_6_13_2(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Prompt")
+    @allure.title("Done")
+    def test_prompt_done(self, data):
         try:
-            self.click(L.main.shortcut.close)
+            if self.last_is_fail(data):
+                pass
 
-            if self.is_exist(L.main.shortcut.shortcut_name(0)):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot return launcher')
+            assert self.page_shortcut.tti_enter_prompt()
 
-        except Exception as err:
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-
-            return "FAIL"
-
-    def sce_6_13_3(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Prompt")
+    @allure.title("Over limit")
+    def test_prompt_over_limit(self, data):
         try:
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            input_box = self.element(L.main.shortcut.tti.input_box)
-            input_box.send_keys("x"*401)
-            self.click(L.main.shortcut.tti.done)
+            if self.last_is_fail(data):
+                self.page_shortcut.tti_enter_prompt()
 
-            if self.element(L.main.shortcut.tti.prompt).text == "x"*401:
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Enter prompt fail')
+            assert self.is_exist(L.main.shortcut.tti.exceed_hint)
 
-        except Exception as err:
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            input_box = self.element(L.main.shortcut.tti.input_box)
-            input_box.send_keys("x"*401)
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-
-    def sce_6_13_4(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Prompt")
+    @allure.title("Block generate over limit")
+    def test_block_generate_over_limit(self, data):
         try:
-            if self.is_exist(L.main.shortcut.tti.exceed_hint):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] No found warning message')
+            if self.last_is_fail(data):
+                self.page_shortcut.tti_enter_prompt()
 
-        except Exception as err:
+            assert self.element(L.main.shortcut.tti.generate).get_attribute("enabled") == "false"
+
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            input_box = self.element(L.main.shortcut.tti.input_box)
-            input_box.send_keys("x"*401)
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-
-    def sce_6_13_5(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Prompt")
+    @allure.title("Sensitive prompt")
+    def test_sensitive_prompt(self, data):
         try:
-            if self.element(L.main.shortcut.tti.generate).get_attribute("enabled") == "false":
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Generate button is not disabled')
+            if self.last_is_fail(data):
+                pass
 
-        except Exception as err:
-            traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            input_box = self.element(L.main.shortcut.tti.input_box)
-            input_box.send_keys("x"*401)
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-
-    def sce_6_13_6(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        try:
-            self.element(L.main.shortcut.tti.prompt).click()
-            input_box = self.element(L.main.shortcut.tti.input_box)
-            input_box.send_keys('sexy')
-            self.click(L.main.shortcut.tti.done)
+            self.page_shortcut.tti_enter_prompt('sexy')
 
             if not self.is_exist(L.main.shortcut.tti.sensitive):
                 self.click(L.main.shortcut.tti.generate)
-                time.sleep(1)
 
-            if self.is_exist(L.main.shortcut.tti.sensitive):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] No found warning message')
+            assert self.is_exist(L.main.shortcut.tti.sensitive)
 
-        except Exception as err:
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            input_box = self.element(L.main.shortcut.tti.input_box)
-            input_box.send_keys('sexy')
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-    
-    def sce_6_13_7(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Prompt")
+    @allure.title("Block generate sensitive prompt")
+    def test_block_generate_sensitive_prompt(self, data):
         try:
-            if self.element(L.main.shortcut.tti.generate).get_attribute("enabled") == "false":
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Generate button is not disabled')
+            if self.last_is_fail(data):
+                self.page_shortcut.tti_enter_prompt('sexy')
 
-        except Exception as err:
+            assert self.element(L.main.shortcut.tti.generate).get_attribute("enabled") == "false"
+
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            input_box = self.element(L.main.shortcut.tti.input_box)
-            input_box.send_keys('sexy')
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-        
-    def sce_6_13_8(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Prompt")
+    @allure.title("Clear")
+    def test_clear_prompt(self, data):
         try:
-            self.click(L.main.shortcut.tti.prompt)
-            self.click(L.main.shortcut.tti.clear)
-            self.click(L.main.shortcut.tti.done)
+            if self.last_is_fail(data):
+                self.page_shortcut.tti_enter_prompt()
 
-            if self.element(L.main.shortcut.tti.prompt).text == "Type more than 10 words, describing the object, colors, composition, lighting, painting styles, etc.":
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Prompt is not cleared')
+            assert self.page_shortcut.tti_clear_prompt()
 
-        except Exception as err:
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-
-            return "FAIL"
-        
-    def sce_6_13_9(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Prompt")
+    @allure.title("Recommend prompt")
+    def test_recommend_prompt(self, data):
         try:
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.input = self.element(L.main.shortcut.tti.input_box).text
-            self.click(L.main.shortcut.tti.done)
-
-            if self.element(L.main.shortcut.tti.prompt).text == self.input:
+            if self.last_is_fail(data):
+                self.page_shortcut.tti_enter_prompt()
                 
-                return "PASS"
-            else:
-                raise Exception('[Fail] Prompt is incorrect')
+            data['prompt'] = self.page_shortcut.tti_recommend_prompt()
 
-        except Exception as err:
+            assert data['prompt']
+
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.input = self.element(L.main.shortcut.tti.input_box).text
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-        
-    def sce_6_13_10(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Style")
+    @allure.title("Default")
+    def test_default_style(self, data):
         try:
-            select = self.element(xpath('//*[contains(@resource-id,"view_is_selected")]/../*[contains(@resource-id,"tv_name")]')).text
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
 
-            if select == "None":
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Default incorrect: {select}')
+            select = self.element(L.main.shortcut.tti.selected_style).text
 
-        except Exception as err:
+            assert select == "None"
+
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-        
-    def sce_6_13_11(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Style")
+    @allure.title("Change style")
+    def test_change_style(self, data):
         try:
-            self.click(xpath('//*[contains(@resource-id,"card_view")]//*[contains(@resource-id,"iv_premium")]'))
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
 
-            if self.click(L.main.subscribe.back_btn):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Click IAP Back fail')
-
-        except Exception as err:
-            traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-        
-    def sce_6_13_12(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        try:
-            self.click(xpath('(//*[contains(@resource-id,"card_view") and not(.//*[contains(@resource-id,"iv_premium")])])[2]'))
+            self.click(L.main.shortcut.tti.style(2))
             time.sleep(0.5)
-            select = self.element(xpath('//*[contains(@resource-id,"view_is_selected")]/../*[contains(@resource-id,"tv_name")]')).text
+            select = self.element(L.main.shortcut.tti.selected_style).text
 
-            if select != "None":
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Select stlye fail: {select}')
+            assert select != "None"
 
-        except Exception as err:
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-        
-    def sce_6_13_13(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Style")
+    @allure.title("Change category")
+    def test_change_category(self, data):
         try:
-            self.click(xpath('//*[contains(@resource-id,"cv_sticker")]/*[contains(@resource-id,"iv_premium")]'))
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
 
-            if self.click(L.main.subscribe.back_btn):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Click IAP Back fail')
+            select = self.element(L.main.shortcut.tti.selected_style)
+            self.click(L.main.shortcut.tti.style_scenery)
+            time.sleep(0.5)
 
-        except Exception as err:
+            assert self.element(L.main.shortcut.tti.selected_style) != select
+
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
-        
-    def sce_6_13_14(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Describe")
+    @allure.story("Editor Choice")
+    @allure.title("Overwrite cancel")
+    def test_overwrite_cancel(self, data):
         try:
-            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            if self.last_is_fail(data):
+                self.page_shortcut.tti_enter_prompt()
+
+            self.driver.click_element_top_center(L.main.shortcut.tti.preset())
             self.click(L.main.shortcut.tti.overwrite_cancel)
 
-            if self.element(L.main.shortcut.tti.prompt).text == self.input:
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Prompt is incorrect')
+            assert self.element(L.main.shortcut.tti.prompt).text == data['prompt']
 
-        except Exception as err:
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.main.shortcut.tti.done)
-
-            return "FAIL"
+            logger(e)
+            data['last_result'] = False
+            raise
         
     def sce_6_13_15(self):
         func_name = inspect.stack()[0][3]
@@ -503,10 +277,10 @@ class Test_Shortcut_Text_to_Image:
             self.click(L.main.shortcut.tti.overwrite_ok)
             prompt = self.element(L.main.shortcut.tti.prompt).text
 
-            if prompt != self.input:
+            if prompt != data['prompt']:
                 
 
-                self.input = prompt
+                data['prompt'] = prompt
 
                 return "PASS"
             else:
@@ -529,7 +303,7 @@ class Test_Shortcut_Text_to_Image:
             self.click(L.main.shortcut.tti.done)
             self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
             self.click(L.main.shortcut.tti.overwrite_ok)
-            self.input = self.element(L.main.shortcut.tti.prompt).text
+            data['prompt'] = self.element(L.main.shortcut.tti.prompt).text
 
             return "FAIL"
 

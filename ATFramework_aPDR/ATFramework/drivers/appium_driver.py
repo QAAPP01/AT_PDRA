@@ -3,6 +3,9 @@ import time
 import traceback
 
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, InvalidSelectorException, TimeoutException
@@ -1103,3 +1106,59 @@ class AppiumU2Driver(Borg, BaseDriver):
             traceback.print_exc()
             logger(e)
             return False
+
+    def swipe_element_up(self, locator, x_offset=0, y_offset=0, speed=3):
+        try:
+            if speed < 1:
+                speed = 1
+
+            window = self.driver.get_window_size()
+            window_width = window['width']
+            widow_height = window['height']
+            window_center = [window_width // 2, widow_height // 2]
+
+            element = self.get_element(locator)
+            element_rect = element.rect
+            element_right_top = [element_rect['x'] + x_offset, element_rect['y'] + y_offset]
+
+            delta_x = element_right_top[0] - window_center[0] / speed
+            delta_y = element_right_top[1] - window_center[1] / speed
+
+            actions = ActionChains(self.driver)
+            actions.w3c_actions = ActionBuilder(self.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions.pointer_action.move_to_location(element_right_top[0], element_right_top[1])
+            actions.w3c_actions.pointer_action.pointer_down()
+
+            for i in range(speed):
+                element_right_top[0] = int(element_right_top[0] - delta_x)
+                element_right_top[1] = int(element_right_top[1] - delta_y)
+                actions.w3c_actions.pointer_action.move_to_location(element_right_top[0], element_right_top[1])
+
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+            raise Exception(err)
+
+    def click_element_top_center(self, locator):
+        try:
+            element = self.get_element(locator)
+            element_rect = element.rect
+            x = element_rect['x'] + element_rect['width'] // 2
+            y = element_rect['y']
+
+            actions = ActionChains(self.driver)
+            touch_input = PointerInput(interaction.POINTER_TOUCH, "touch")
+
+            actions.w3c_actions = ActionBuilder(self.driver, mouse=touch_input)
+            actions.w3c_actions.pointer_action.move_to_location(x, y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pointer_up()
+
+            # 執行動作
+            actions.perform()
+        except Exception as err:
+            raise Exception(err)
+        return True

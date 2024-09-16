@@ -53,6 +53,7 @@ class Shortcut(BasePage):
 
         if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
             if check:
+                time.sleep(0.5)
                 if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and @text="{demo_title}"]')) or
                         self.is_exist(L.import_media.media_library.title) or
                         self.is_exist(id("tv_recommendation"))):
@@ -660,5 +661,48 @@ class Shortcut(BasePage):
             logger(f'[Error] export_back_to_launcher fail', log_level='error')
             return False
 
-    def tti_back(self):
-        self.click(L.main.shortcut.close)
+    def tti_enter_prompt(self, prompt="x" * 401):
+        if not self.click(L.main.shortcut.tti.input_box, 1):
+            if not self.click(L.main.shortcut.tti.prompt):
+                self.enter_shortcut('Text to Image')
+                self.click(L.main.shortcut.tti.prompt)
+                if not self.click(L.main.shortcut.tti.input_box):
+                    logger(f'[Error] Cannot find input box', log_level='error')
+                    return False
+
+        input_box = self.element(L.main.shortcut.tti.input_box, 1)
+        input_box.send_keys(prompt)
+        self.click(L.main.shortcut.tti.done)
+
+        if self.element(L.main.shortcut.tti.prompt).text == prompt:
+            return True
+        else:
+            logger(f'[Error] tti_enter_prompt fail', log_level='error')
+            return False
+
+    def tti_clear_prompt(self):
+        self.click(L.main.shortcut.tti.prompt)
+        self.click(L.main.shortcut.tti.clear)
+        self.click(L.main.shortcut.tti.done)
+
+        if "Type more than 10 words" in self.element(L.main.shortcut.tti.prompt).text:
+            return True
+        else:
+            logger(f'[Error] tti_clear_prompt fail', log_level='error')
+            return False
+
+    def tti_recommend_prompt(self):
+        self.click(L.main.shortcut.tti.prompt)
+
+        tags = self.elements(L.main.shortcut.tti.recommend)
+        for tag in tags:
+            tag.click()
+
+        prompt = self.element(L.main.shortcut.tti.input_box).text
+        self.click(L.main.shortcut.tti.done)
+
+        if self.element(L.main.shortcut.tti.prompt).text == prompt:
+            return prompt
+        else:
+            logger(f'[Error] tti_recommend_prompt fail', log_level='error')
+            return False

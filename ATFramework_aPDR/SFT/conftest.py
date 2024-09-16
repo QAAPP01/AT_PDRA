@@ -133,19 +133,20 @@ def driver():
     desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': deviceName}
     debug_device = 'R5CW31G76ST'
 
-    appium = start_appium_service(debug_mode)
-
     if debug_mode:
         mode = 'debug'
         desired_caps['udid'] = debug_device
-    else:
-        mode = 'local'
 
-        connected_devices = get_connected_devices()
-        if desired_caps['udid'] not in connected_devices:
-            if connected_devices:
-                desired_caps['udid'] = connected_devices[0]
-                logger(f"Connected device: {desired_caps['udid']}")
+    connected_devices = get_connected_devices()
+    if desired_caps['udid'] not in connected_devices:
+        if connected_devices:
+            desired_caps['udid'] = connected_devices[0]
+            logger(f"Connected device: {desired_caps['udid']}")
+
+    appium = start_appium_service(debug_mode)
+
+    if not debug_mode:
+        mode = 'local'
 
         desired_caps = update_desired_caps(desired_caps, debug_mode)
         driver = create_driver(3, mode, driver_config, app_config, desired_caps)

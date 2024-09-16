@@ -283,9 +283,25 @@ class Shortcut:
         sensitive = id('tv_blocked_hint_violation')
         generate = id('btn_generate')
         remove_watermark = id('remove_watermark')
-        overwrite_cancel = aid('[AID]ConfirmDialog_Cancel')
-        overwrite_ok = aid('[AID]ConfirmDialog_OK')
+        overwrite_cancel = id('cancel_button')
+        overwrite_ok = id("ok_button")
         editor_choice = id('cl_container')
+        selected_style = xpath('//*[contains(@resource-id,"view_is_selected")]/../*[contains(@resource-id,"tv_name")]')
+        style_scenery = id('tv_style_scenery')
+
+        @staticmethod
+        def style(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"tv_name")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"tv_name")]')
+
+        @staticmethod
+        def preset(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"cv_sticker")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"cv_sticker")]')
 
     class photo_enhance:
         compare_thumb = id('iv_thumb')
