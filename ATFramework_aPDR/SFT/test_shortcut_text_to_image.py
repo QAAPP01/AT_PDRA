@@ -14,8 +14,7 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
-@allure.epic("Shortcut")
-@allure.feature("Text to Image")
+@allure.epic("Shortcut - Text to Image")
 class Test_Shortcut_Text_to_Image:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -40,14 +39,12 @@ class Test_Shortcut_Text_to_Image:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("From shortcut")
+    @allure.feature("Entry")
+    @allure.story("Enter")
+    @allure.title("Enter from Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            self.page_shortcut.enter_shortcut('Text to Image')
-            time.sleep(1)
-
-            assert self.element(L.main.shortcut.tti.title).text == 'Text to Image'
+            assert self.page_shortcut.enter_shortcut('Text to Image')
 
         except Exception as e:
             traceback.print_exc()
@@ -55,13 +52,15 @@ class Test_Shortcut_Text_to_Image:
             data['last_result'] = False
             raise
 
-    @allure.story("Entry")
-    @allure.title("Back to launcher")
-    def test_back_to_launcher(self, data):
+    @allure.feature("Entry")
+    @allure.story("Back")
+    @allure.title("Back to Shortcut")
+    def test_back_to_shortcut(self, data):
         try:
-            self.page_shortcut.tti_back()
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
 
-            assert self.is_exist(L.main.shortcut.shortcut_name(0))
+            assert self.page_shortcut.back_from_demo()
 
         except Exception as e:
             traceback.print_exc()
