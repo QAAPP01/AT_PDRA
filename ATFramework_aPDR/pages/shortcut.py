@@ -115,7 +115,7 @@ class Shortcut(BasePage):
             return False
 
     def demo_dont_show_again(self, shortcut_name):
-        if not self.is_exist(L.main.shortcut.dont_show_again):
+        if not self.is_exist(L.main.shortcut.dont_show_again, 1):
             if not self.enter_shortcut(shortcut_name):
                 self.enter_ai_feature(shortcut_name)
 
@@ -125,7 +125,7 @@ class Shortcut(BasePage):
         self.page_main.relaunch(subscribe=False)
         self.enter_shortcut(shortcut_name)
 
-        if self.is_exist(L.main.shortcut.dont_show_again):
+        if self.is_exist(L.main.shortcut.dont_show_again, 1):
             logger(f'[Error] demo_dont_show_again fail', log_level='error')
             return False
         return True
@@ -705,4 +705,27 @@ class Shortcut(BasePage):
             return prompt
         else:
             logger(f'[Error] tti_recommend_prompt fail', log_level='error')
+            return False
+
+    def tti_generate(self, prompt=None):
+        if prompt:
+            self.tti_enter_prompt(prompt)
+
+        self.click(L.main.shortcut.tti.generate)
+        self.click(L.main.shortcut.tti.generate_ok)
+
+        if self.is_exist(L.main.shortcut.tti.select):
+            return True
+        else:
+            logger(f'[Error] tti_generate fail', log_level='error')
+            return False
+
+    def tti_wait_generated(self):
+        if self.is_exist(L.main.shortcut.tti.generating, 1):
+            self.is_not_exist(L.main.shortcut.tti.generating, 120)
+
+        if self.is_exist(L.main.shortcut.tti.generated_image(), 1):
+            return True
+        else:
+            logger(f'[Error] tti_wait_generated fail', log_level='error')
             return False

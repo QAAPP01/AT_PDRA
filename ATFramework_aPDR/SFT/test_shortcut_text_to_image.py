@@ -265,77 +265,146 @@ class Test_Shortcut_Text_to_Image:
             logger(e)
             data['last_result'] = False
             raise
-        
-    def sce_6_13_15(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
 
+    @allure.feature("Describe")
+    @allure.story("Editor Choice")
+    @allure.title("Overwrite continue")
+    def test_overwrite_continue(self, data):
         try:
-            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
+            if self.last_is_fail(data):
+                self.page_shortcut.tti_enter_prompt()
+
+            self.driver.click_element_top_center(L.main.shortcut.tti.preset())
             self.click(L.main.shortcut.tti.overwrite_ok)
-            prompt = self.element(L.main.shortcut.tti.prompt).text
 
-            if prompt != data['prompt']:
-                
-
-                data['prompt'] = prompt
-
-                return "PASS"
-            else:
-                raise Exception('[Fail] Prompt is incorrect')
-
-        except Exception as err:
-            traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.main.shortcut.tti.done)
-            self.click(xpath('//*[contains(@resource-id,"cv_sticker") and not(.//*[contains(@resource-id,"iv_premium")])]'))
-            self.click(L.main.shortcut.tti.overwrite_ok)
+            assert self.element(L.main.shortcut.tti.prompt).text != data['prompt']
             data['prompt'] = self.element(L.main.shortcut.tti.prompt).text
 
-            return "FAIL"
-
-    def sce_6_13_16(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        try:
-            self.click(L.main.shortcut.tti.generate)
-
-            if self.is_exist(L.main.shortcut.tti.remove_watermark):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] No found remove watermark')
-
-        except Exception as err:
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Text to Image')
-            self.click(L.main.shortcut.tti.entry)
-            self.element(L.main.shortcut.tti.prompt).click()
-            self.click(L.main.shortcut.tti.prompt)
-            tags = self.elements(L.main.shortcut.tti.recommend)
-            for tag in tags:
-                tag.click()
-            self.click(L.main.shortcut.tti.done)
+    @allure.feature("Generate")
+    @allure.story("Credits")
+    @allure.title("Cancel")
+    def test_generate_cancel(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
+                self.driver.click_element_top_center(L.main.shortcut.tti.preset())
+                data['prompt'] = self.element(L.main.shortcut.tti.prompt).text
 
-            return "FAIL"
+            self.click(L.main.shortcut.tti.generate)
+            self.click(L.main.shortcut.tti.generate_cancel)
+
+            assert not self.is_exist(L.main.shortcut.tti.select)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Generate")
+    @allure.story("Credits")
+    @allure.title("Ok")
+    def test_generate_ok(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
+                self.driver.click_element_top_center(L.main.shortcut.tti.preset())
+
+            data['credit_before'] = self.element(L.main.shortcut.tti.credit).text
+
+            assert self.page_shortcut.tti_generate()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Generate")
+    @allure.story("Credits")
+    @allure.title("Credit cost")
+    def test_credit_cost(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
+                self.driver.click_element_top_center(L.main.shortcut.tti.preset())
+
+            self.page_shortcut.tti_generate()
+            self.page_shortcut.tti_wait_generated()
+
+            assert int(self.element(L.main.shortcut.tti.credit).text) == int(data['credit_before']) - 2
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Generate")
+    @allure.story("Leave")
+    @allure.title("Generated leave")
+    def test_generated_leave(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
+                self.driver.click_element_top_center(L.main.shortcut.tti.preset())
+                self.page_shortcut.tti_generate()
+                self.page_shortcut.tti_wait_generated()
+
+            self.click(L.main.shortcut.tti.close)
+
+            assert not self.is_exist(L.main.shortcut.tti.generated_image(), 1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Generate")
+    @allure.story("Leave")
+    @allure.title("Generating cancel")
+    def test_generating_cancel(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
+                self.driver.click_element_top_center(L.main.shortcut.tti.preset())
+
+            self.page_shortcut.tti_generate()
+            self.click(L.main.shortcut.tti.close)
+            self.click(L.main.shortcut.tti.generating_cancel)
+
+            assert self.is_exist(L.main.shortcut.tti.generating)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Generate")
+    @allure.story("Leave")
+    @allure.title("Generating leave")
+    def test_generating_leave(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Text to Image')
+                self.driver.click_element_top_center(L.main.shortcut.tti.preset())
+                self.page_shortcut.tti_generate()
+
+            self.click(L.main.shortcut.tti.close)
+            self.click(L.main.shortcut.tti.generating_leave)
+
+            assert not self.is_exist(L.main.shortcut.tti.generated_image(), 1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise

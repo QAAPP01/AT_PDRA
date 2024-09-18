@@ -285,9 +285,16 @@ class Shortcut:
         remove_watermark = id('remove_watermark')
         overwrite_cancel = id('cancel_button')
         overwrite_ok = id("ok_button")
+        generate_ok = id('confirm_button')
+        generate_cancel = id('cancel_button')
         editor_choice = id('cl_container')
         selected_style = xpath('//*[contains(@resource-id,"view_is_selected")]/../*[contains(@resource-id,"tv_name")]')
         style_scenery = id('tv_style_scenery')
+        select = id('tv_select')
+        generating = id('iv_progress')
+        credit = id('tv_credit')
+        generating_leave = id('btn_leave')
+        generating_cancel = id('btn_cancel')
 
         @staticmethod
         def style(index: int = 1):
@@ -302,6 +309,13 @@ class Shortcut:
                 return xpath(f'(//*[contains(@resource-id,"cv_sticker")])[{index}]')
             else:
                 return xpath(f'//*[contains(@resource-id,"cv_sticker")]')
+
+        @staticmethod
+        def generated_image(index: int = 1):
+            if index:
+                return xpath(f'(//*[contains(@resource-id,"layout_normal")])[{index}]')
+            else:
+                return xpath(f'//*[contains(@resource-id,"layout_normal")]')
 
     class photo_enhance:
         compare_thumb = id('iv_thumb')
