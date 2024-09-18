@@ -159,31 +159,32 @@ class BasePage(BasePage):
             logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
             return False
         
-    def is_not_exist(self,locator,timeout=60):
-        logger("start is_not_exist")
-        retry = 3
-        while retry:
-            try:
-                implicitly = self.driver.driver.implicitly_wait()
-                self.driver.driver.implicitly_wait(0.1)
-                wait = WebDriverWait(self.driver.driver, timeout)
-                break
-            except Exception as e:
-                logger(f"exception={e}")
-                time.sleep(1)
-        timer_start = time.time()
-        result = False
-        while time.time() - timer_start < timeout:
-            try:
-                elem = wait.until_not(EC.presence_of_element_located(locator), "Locator still exist: " + str(locator))
-                result = True
-                logger("[is_not_exist] Vanished:" + str(time.time() - timer_start))
-                break
-            except Exception as e:
-                logger("is_not_exist] not Vanished:" + str(time.time() - timer_start))
-                logger(f"exception: {e}")
-        self.driver.driver.implicitly_wait(implicitly)
-        return result
+    def is_not_exist(self,locator,timeout=120):
+        return self.h_is_not_exist(locator,timeout)
+        # logger("start is_not_exist")
+        # retry = 3
+        # while retry:
+        #     try:
+        #         implicitly = self.driver.driver.implicitly_wait()
+        #         self.driver.driver.implicitly_wait(0.1)
+        #         wait = WebDriverWait(self.driver.driver, timeout)
+        #         break
+        #     except Exception as e:
+        #         logger(f"exception={e}")
+        #         time.sleep(1)
+        # timer_start = time.time()
+        # result = False
+        # while time.time() - timer_start < timeout:
+        #     try:
+        #         elem = wait.until_not(EC.presence_of_element_located(locator), "Locator still exist: " + str(locator))
+        #         result = True
+        #         logger("[is_not_exist] Vanished:" + str(time.time() - timer_start))
+        #         break
+        #     except Exception as e:
+        #         logger("is_not_exist] not Vanished:" + str(time.time() - timer_start))
+        #         logger(f"exception: {e}")
+        # self.driver.driver.implicitly_wait(implicitly)
+        # return result
     def is_vanish(self,element,timeout=5):
         implicitly = self.driver.driver.implicitly_wait()
         self.driver.driver.implicitly_wait(0.1)
@@ -633,10 +634,10 @@ class BasePage(BasePage):
         start = time.time()
         try:
             WebDriverWait(self.driver.driver, timeout).until_not(EC.presence_of_element_located(locator))
-            logger(f"[Disappear ({round(time.time() - start, 2)})] {locator}")
+            logger(f"[Disappear ({time.time() - start:.2f})] {locator}")
             return True
         except TimeoutException:
-            logger(f"[Still Exist ({round(time.time() - start, 2)})] {locator}")
+            logger(f"[Still Exist ({time.time() - start:.2f})] {locator}")
             return False
 
     def h_is_child_id_exist(self, parent, child, timeout=3):
