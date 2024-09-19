@@ -99,7 +99,7 @@ class Test_Shortcut_Trim:
     @allure.title("Trim")
     def test_enter_editor(self, driver):
         try:
-            assert self.page_shortcut.trim_and_edit()
+            assert self.page_shortcut.trim_and_import()
 
         except Exception as e:
             traceback.print_exc()

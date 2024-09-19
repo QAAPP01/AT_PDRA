@@ -1,18 +1,13 @@
+import time
 import traceback
-
-import pytest, os, inspect, base64, sys, time
-from os import path
-from selenium.webdriver import ActionChains
-
+import pytest
+import allure
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.SFT.test_aPDR_SFT_Scenario_06_01 import file_photo
 from ATFramework_aPDR.pages.locator import locator as L
-from ATFramework_aPDR.pages.page_factory import PageFactory
-
-from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
+from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
-
-sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
 video_9_16 = 'video_9_16.mp4'
 video_16_9 = 'video_16_9.mp4'
@@ -20,386 +15,403 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
+@allure.epic("Shortcut - Color Enhancer")
 class Test_Shortcut_HSL:
     @pytest.fixture(autouse=True)
-    def initial(self, driver):
-        logger("[Start] Init driver session")
-
-        self.driver = driver
-        self.uuid = [
-            '4fee0ef7-fc78-4b5a-98c6-7fdda1e630d3',
-            '521825f5-3ea1-4749-98ff-a3c911836823',
-            '0c5539d3-0d78-402f-8bc3-fcf5af74fc9e',
-            'd6d36056-7a06-4f64-b5ab-0f1bb734e208',
-            'fc0db595-9bce-4cb0-9a74-ddbc58010698',
-            '882eaae1-df07-40b3-a4d8-726c89ef4646',
-            'd2bc5847-2a54-48fa-b1e2-373d3d44d0bd',
-            '3c7c09d2-c7da-4151-8870-05e8f8421d3c',
-            '87b13181-338e-4430-82b0-36d02bbe0373',
-            'bf32f49c-fce7-49f9-8fcf-9f07417ce7ad',
-            'ae603cf7-62f8-4e80-8b95-97e22966089e',
-            'bd1a2cdf-d534-4fd9-8cc0-eff63afc5b98',
-            '767ddcf0-af92-4fdf-9027-ba4c07e17251',
-            '0915e550-da9a-4a72-bd5f-5f696c501fe2',
-            'a81bac13-7d33-4e63-b6e6-e718164a3768',
-            '9e65386a-5a63-444f-b7a7-44f4e4265067',
-            '0a0d97ba-ab43-4356-bb06-21686e54345d',
-            '35e5b4a4-8409-4577-9458-3662527b1d4a',
-            '9466ff04-9d8c-4e36-9ceb-15df1841d89a',
-            '97784a57-0eb0-4156-959d-b8721fc64816',
-            '8489da3b-2e45-42e1-8803-a33ddbe51f2f',
-            'f131bc46-b881-4d3f-a714-54c461337138',
-            '38deaa44-85c3-461e-b0b5-3a10833c4c72',
-            '2fb7926f-0cd6-4a63-b395-4f8026dacd62',
-            '619edce2-f1b3-45b0-9c7f-80a864a6c46a',
-            '87ce49a5-004b-4a6e-b317-abbda5270f43',
-            '72ae969f-d7a1-4cfb-a247-6960a90f3e76',
-            '8ef8a360-4569-43cb-8ad6-3a311b2b43ec',
-            '33ed4f34-c2c7-4a85-a5b3-d91a6c12b319',
-            'fe5ac190-2f78-4b0a-b8c4-68b3aadbbaa3',
-            'd932f0ba-5ec0-4f7f-9311-07687031a8b1',
-            'a0248dff-b5b8-44e5-8b3e-7698cad05db3',
-            'b1785692-7f69-4c8b-89df-e6eced38a316',
-            '790000ec-e49f-4326-8717-b2eb1638a434',
-            'd3a13504-11b6-4361-83e3-46ad64192b4a',
-            'ea2fe0b6-dd36-403b-b52e-cc01e37060da',
-            '965f4648-c935-40eb-bfd7-ca8d17a6da43',
-            'a38b13ce-ba64-4a58-85e2-e4d8d78c1fb0'
-        ]
-
-        # shortcut
-        self.page_main = PageFactory().get_page_object("main_page", self.driver)
-        self.page_edit = PageFactory().get_page_object("edit", self.driver)
-        self.page_media = PageFactory().get_page_object("import_media", self.driver)
-        self.page_preference = PageFactory().get_page_object("timeline_settings", self.driver)
+    def init_shortcut(self, shortcut):
+        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
         self.click = self.page_main.h_click
         self.long_press = self.page_main.h_long_press
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
         self.is_exist = self.page_main.h_is_exist
+        self.is_not_exist = self.page_main.h_is_not_exist
 
-        
-        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='low', video_fps=30)
-        driver.driver.launch_app()
-        yield
-        self.driver.driver.stop_recording_screen()
-        driver.driver.close_app()
+    @pytest.fixture(scope="module")
+    def data(self):
+        data = {'last_result': True}
+        yield data
 
-    def stop_recording(self, test_case_name):
-        self.video_file_path = os.path.join(os.path.dirname(__file__), "recording", f"{test_case_name}.mp4")
-        recording_data = self.driver.driver.stop_recording_screen()
-        with open(self.video_file_path, 'wb') as video_file:
-            video_file.write(base64.b64decode(recording_data))
-        logger(f'Screen recording saved: {self.video_file_path}')
-        self.driver.driver.start_recording_screen(video_type='mp4', video_quality='medium', video_fps=30)
+    def last_is_fail(self, data):
+        if not data['last_result']:
+            data['last_result'] = True
+            self.page_main.relaunch()
+            return True
+        return False
 
-    def sce_6_1_1(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Media Picker")
+    @allure.story("Enter")
+    @allure.title("Enter media picker")
+    def test_entry_media_picker(self, data):
         try:
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
+            assert self.page_shortcut.enter_media_picker('Color\nEnhancer')
 
-            if self.is_exist(find_string('Add Media')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter media picker')
-
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color Enhancer')
-
-            return "FAIL"
-
-    def sce_6_1_2(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        report.new_result(uuid, None, "Demo is removed")
-
-    def sce_6_1_3(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        report.new_result(uuid, None, "Demo is removed")
-
-    def sce_6_1_4(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Media Picker")
+    @allure.story("Back")
+    @allure.title("From media picker")
+    def test_back_from_media_picker(self, data):
         try:
-            self.click(L.import_media.media_library.back)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Color\nEnhancer')
 
-            if self.is_exist(L.main.shortcut.shortcut_name(0)):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot return launcher')
+            assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_main.enter_launcher()
-
-            return "FAIL"
-
-    def sce_6_1_5(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Enter Trim")
+    def test_video_entry_trim(self, data):
         try:
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-            self.click(L.import_media.media_library.btn_preview())
-            self.click(L.import_media.media_library.trim_back)
+            if self.last_is_fail(data):
+                pass
 
-            if self.is_exist(find_string('Add Media')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter media picker')
+            assert self.page_shortcut.enter_trim_before_edit('Color\nEnhancer')
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-
-            return "FAIL"
-
-    def sce_6_1_6(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Back from trim")
+    def test_video_back_from_trim(self, data):
         try:
-            self.click(L.import_media.media_library.btn_preview())
-            self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', 50)
-            self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', 50)
-            self.click(L.import_media.media_library.trim_next)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('Color\nEnhancer')
 
-            if self.is_exist(find_string('Color Enhancer')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter Color Enhancer')
+            assert self.page_shortcut.back_from_trim()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-            self.click(L.import_media.media_library.btn_preview())
-            self.click(L.import_media.media_library.trim_next)
-
-            return "FAIL"
-
-    def sce_6_1_7(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Trim and import")
+    def test_video_trim_and_import(self, data):
         try:
-            self.click(L.main.shortcut.editor_back)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Color\nEnhancer')
 
-            if self.is_exist(find_string('Add Media')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter media picker')
+            assert self.page_shortcut.trim_and_import()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-
-            return "FAIL"
-
-    def sce_6_1_8(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Back from editor")
+    def test_video_back_from_editor(self, data):
         try:
-            self.page_media.select_local_video(test_material_folder, video_9_16)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
 
-            if self.is_exist(find_string('Color Enhancer')):
-                
-                return "PASS"
-            else:
-                raise Exception('[Fail] Cannot enter Color Enhancer')
+            assert self.page_shortcut.back_from_editor()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-            self.page_media.select_local_video(test_material_folder,video_9_16)
-
-            return "FAIL"
-
-    def sce_6_1_9(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Import video")
+    def test_video_import(self, data):
         try:
-            self.click(L.main.shortcut.play)
-            time.sleep(3)
-            self.timecode_play = self.element(L.main.shortcut.timecode).text
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Color\nEnhancer')
 
-            if self.timecode_play != "00:00":
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
+            assert self.page_shortcut.enter_editor()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-            self.page_media.select_local_video(test_material_folder,video_9_16)
-
-            return "FAIL"
-
-    def sce_6_1_10(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview play")
+    def test_video_play_preview(self, data):
         try:
-            self.click(L.main.shortcut.play)
-            timecode_play = self.element(L.main.shortcut.timecode).text
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
 
-            if timecode_play != self.timecode_play:
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+            assert self.page_shortcut.preview_play()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-            self.page_media.select_local_video(test_material_folder,video_9_16)
-
-            return "FAIL"
-
-    def sce_6_1_11(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview pause")
+    def test_video_pause_preview(self, data):
         try:
-            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            timecode_play = self.element(L.main.shortcut.timecode).text
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
 
-            if timecode_play == '00:00':
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+            assert self.page_shortcut.preview_pause()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-            self.page_media.select_local_video(test_material_folder,video_9_16)
-
-            return "FAIL"
-
-    def sce_6_1_12(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview beginning")
+    def test_video_preview_beginning(self, data):
         try:
-            if self.element(L.main.shortcut.hsl.red).get_attribute('selected') == 'true':
-                raise Exception('Red is already selected, please change the color')
-            self.click(L.main.shortcut.hsl.red)
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
 
-            if self.element(L.main.shortcut.hsl.red).get_attribute('selected') == 'true':
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Color is not changed')
+            assert self.page_shortcut.preview_beginning()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Color\nEnhancer')
-            self.page_media.select_local_video(test_material_folder,video_9_16)
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview ending")
+    def test_video_preview_ending(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
 
-            return "FAIL"
+            assert self.page_shortcut.preview_ending()
 
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Video")
+    @allure.title("Back from export")
+    def test_video_back_from_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
+
+            assert self.page_shortcut.export_back()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Video")
+    @allure.title("Produce Save")
+    def test_video_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
+
+            assert self.page_shortcut.export()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Produced")
+    @allure.title("Back to editor")
+    def test_export_back_to_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
+                self.page_shortcut.export()
+
+            assert self.page_shortcut.export_back_to_editor()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Import photo")
+    def test_photo_import(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Color\nEnhancer')
+
+            self.page_shortcut.back_from_editor()
+
+            assert self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Back from editor")
+    def test_photo_back_from_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer')
+
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Preview play")
+    def test_photo_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Color\nEnhancer')
+
+            self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.preview_play()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Preview pause")
+    def test_photo_pause_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.preview_pause()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Preview beginning")
+    def test_photo_preview_beginning(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.preview_beginning()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Preview ending")
+    def test_photo_preview_ending(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.preview_ending()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Photo")
+    @allure.title("Back from export")
+    def test_photo_back_from_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.export_back()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Photo")
+    @allure.title("Produce save")
+    def test_photo_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.export()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Produced")
+    @allure.title("Back to launcher")
+    def test_export_back_to_launcher(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
+
+            self.page_shortcut.export()
+
+            assert self.page_shortcut.export_back_to_launcher()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+        
     def sce_6_1_13(self):
         func_name = inspect.stack()[0][3]
         uuid = self.uuid[int(func_name.split('_')[3]) - 1]
@@ -2954,37 +2966,3 @@ class Test_Shortcut_HSL:
             logger(err)
 
             return "FAIL"
-
-    
-    def test_case(self):
-        result = {"sce_6_1_1": self.sce_6_1_1(),
-                  "sce_6_1_2": self.sce_6_1_2(),
-                  "sce_6_1_3": self.sce_6_1_3(),
-                  "sce_6_1_4": self.sce_6_1_4(),
-                  "sce_6_1_5": self.sce_6_1_5(),
-                  "sce_6_1_6": self.sce_6_1_6(),
-                  "sce_6_1_7": self.sce_6_1_7(),
-                  "sce_6_1_8": self.sce_6_1_8(),
-                  "sce_6_1_9": self.sce_6_1_9(),
-                  "sce_6_1_10": self.sce_6_1_10(),
-                  "sce_6_1_11": self.sce_6_1_11(),
-                  "sce_6_1_12": self.sce_6_1_12(),
-                  "sce_6_1_13": self.sce_6_1_13(),
-                  "sce_6_1_14": self.sce_6_1_14(),
-                  "sce_6_1_15": self.sce_6_1_15(),
-                  "sce_6_1_16": self.sce_6_1_16(),
-                  "sce_6_1_17": self.sce_6_1_17(),
-                  "sce_6_1_18": self.sce_6_1_18(),
-                  "sce_6_1_19": self.sce_6_1_19(),
-                  "sce_6_1_20": self.sce_6_1_20(),
-                  "sce_6_1_21": self.sce_6_1_21(),
-                  "sce_6_1_22": self.sce_6_1_22(),
-                  "sce_6_1_23": self.sce_6_1_23(),
-                  "sce_6_1_24": self.sce_6_1_24(),
-                  "sce_6_1_25": self.sce_6_1_25(),
-                  "sce_6_1_26": self.sce_6_1_26(),
-                  "sce_6_1_27": self.sce_6_1_27(),
-                  }
-        for key, value in result.items():
-            if value != "PASS":
-                print(f"[{value}] {key}")

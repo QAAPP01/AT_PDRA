@@ -16,7 +16,7 @@ photo_16_9 = 'photo_16_9.jpg'
 
 @allure.epic("Shortcut")
 @allure.feature("Auto Captions")
-class Test_Shortcut_AI_Color:
+class Test_Shortcut_Auto_Captions:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
@@ -133,12 +133,12 @@ class Test_Shortcut_AI_Color:
 
     @allure.story("Media")
     @allure.title("Trim and edit")
-    def test_trim_and_edit(self, data):
+    def test_trim_and_import(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_media_picker('Auto Captions')
 
-            assert self.page_shortcut.trim_and_edit()
+            assert self.page_shortcut.trim_and_import()
 
         except Exception as e:
             traceback.print_exc()
@@ -183,7 +183,7 @@ class Test_Shortcut_AI_Color:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Auto Captions')
 
-            assert self.page_shortcut.play_preview()
+            assert self.page_shortcut.preview_play()
 
         except Exception as e:
             traceback.print_exc()

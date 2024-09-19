@@ -33,6 +33,7 @@ class Shortcut:
     total_time = id('total_time')
     playback_slider = id('seekbar')
     export = xpath(f'//*[contains(@resource-id,"tv_ok") and @text="Export"]')
+    export_back = id('iv_close')
     produce = id('btn_produce')
     full_editor = id('tv_full_editor')
     produce_progress_bar = id('progress_bar')

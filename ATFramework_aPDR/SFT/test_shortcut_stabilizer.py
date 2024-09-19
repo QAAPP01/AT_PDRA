@@ -130,9 +130,9 @@ class Test_Shortcut_Stabilizer:
 
     @allure.story("Media")
     @allure.title("Trim video and edit")
-    def test_trim_and_edit(self, driver):
+    def test_trim_and_import(self, driver):
         try:
-            assert self.page_shortcut.trim_and_edit()
+            assert self.page_shortcut.trim_and_import()
 
         except Exception as e:
             traceback.print_exc()
@@ -177,7 +177,7 @@ class Test_Shortcut_Stabilizer:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Stabilizer')
 
-            assert self.page_shortcut.play_preview()
+            assert self.page_shortcut.preview_play()
 
         except Exception as e:
             traceback.print_exc()
