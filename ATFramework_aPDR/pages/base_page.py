@@ -885,4 +885,39 @@ class BasePage(BasePage):
             logger(f'\n[Error]{err}')
             return False
 
+    def swipe_to(self, direction, duration=0):
+        """
+        # Function: swipe
+        # Description: Swipe screen
+        # Parameters:
+            :param direction: up, down, left, right
+            :param duration: swipe duration
+        # Returns: None
+        """
+        try:
+            size = self.driver.driver.get_window_size()
+            width = size['width']
+            height = size['height']
+            x = width // 2
+            y = height // 2
+            if direction == 'up':
+                end = [x, y * 0.5]
+                self.h_swipe_location(x, y, end[0], end[1], duration=duration)
+            elif direction == 'down':
+                end = [x, y * 1.5]
+                self.h_swipe_location(x, y, end[0], end[1], duration=duration)
+            elif direction == 'left':
+                end = [x * 0.5, y]
+                self.h_swipe_location(x, y, end[0], end[1], duration=duration)
+            elif direction == 'right':
+                end = [x * 1.5, y]
+                self.h_swipe_location(x, y, end[0], end[1], duration=duration)
+            else:
+                logger(f"[Error] Invalid direction: {direction}")
+                return False
+            logger(f"[Swipe] {direction}, [{x}, {y}] to {end}")
+            return True
+        except Exception as err:
+            logger(f"[Error] {err}")
+
 

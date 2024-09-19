@@ -2267,7 +2267,7 @@ class EditPage(BasePage):
                 return False
 
     def waiting_produce(self, timeout=60):
-        if self.h_is_exist(L.main.shortcut.produce_percentage, 5):
+        if self.h_is_exist(L.main.shortcut.produce_percentage):
             previous_percentage = self.element(L.main.shortcut.produce_percentage).text
             while True:
                 if self.h_is_not_exist(L.main.shortcut.produce_percentage, timeout):

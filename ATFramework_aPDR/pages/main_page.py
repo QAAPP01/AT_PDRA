@@ -90,6 +90,7 @@ class MainPage(BasePage):
             return False
 
     def relaunch(self, subscribe=True):
+        logger('[Relaunch app]')
         try:
             self.driver.driver.close_app()
             self.driver.driver.launch_app()

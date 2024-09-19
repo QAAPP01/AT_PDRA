@@ -147,12 +147,12 @@ class Test_Shortcut_AI_Audio_Tools:
 
     @allure.story("Speech Enhance")
     @allure.title("Trim and edit")
-    def test_speech_enhance_trim_and_edit(self, data):
+    def test_speech_enhance_trim_and_import(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='Speech Enhance')
 
-            assert self.page_shortcut.trim_and_edit()
+            assert self.page_shortcut.trim_and_import()
 
         except Exception as e:
             traceback.print_exc()
@@ -198,7 +198,7 @@ class Test_Shortcut_AI_Audio_Tools:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance', file=video_speech)
 
-            assert self.page_shortcut.play_preview()
+            assert self.page_shortcut.preview_play()
 
         except Exception as e:
             traceback.print_exc()
@@ -213,7 +213,7 @@ class Test_Shortcut_AI_Audio_Tools:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance', file=video_speech)
 
-            assert self.page_shortcut.play_position_start()
+            assert self.page_shortcut.preview_beginning()
 
         except Exception as e:
             traceback.print_exc()
@@ -228,7 +228,7 @@ class Test_Shortcut_AI_Audio_Tools:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='Speech Enhance', file=video_speech)
 
-            assert self.page_shortcut.play_position_end()
+            assert self.page_shortcut.preview_ending()
 
         except Exception as e:
             traceback.print_exc()
@@ -313,12 +313,12 @@ class Test_Shortcut_AI_Audio_Tools:
 
     @allure.story("AI Denoise")
     @allure.title("Trim and edit")
-    def test_ai_denoise_trim_and_edit(self, data):
+    def test_ai_denoise_trim_and_import(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='AI Denoise')
 
-            assert self.page_shortcut.trim_and_edit()
+            assert self.page_shortcut.trim_and_import()
 
         except Exception as e:
             traceback.print_exc()
@@ -362,7 +362,7 @@ class Test_Shortcut_AI_Audio_Tools:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_speech)
 
-            assert self.page_shortcut.play_preview()
+            assert self.page_shortcut.preview_play()
 
         except Exception as e:
             traceback.print_exc()
@@ -377,7 +377,7 @@ class Test_Shortcut_AI_Audio_Tools:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_speech)
 
-            assert self.page_shortcut.play_position_start()
+            assert self.page_shortcut.preview_beginning()
 
         except Exception as e:
             traceback.print_exc()
@@ -392,7 +392,7 @@ class Test_Shortcut_AI_Audio_Tools:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_speech)
 
-            assert self.page_shortcut.play_position_end()
+            assert self.page_shortcut.preview_ending()
 
         except Exception as e:
             traceback.print_exc()

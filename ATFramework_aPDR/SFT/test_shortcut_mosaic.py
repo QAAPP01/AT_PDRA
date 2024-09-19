@@ -133,9 +133,9 @@ class Test_Shortcut_Mosaic:
 
     @allure.story("Media")
     @allure.title("Trim and edit")
-    def test_trim_and_edit(self, driver):
+    def test_trim_and_import(self, driver):
         try:
-            assert self.page_shortcut.trim_and_edit()
+            assert self.page_shortcut.trim_and_import()
 
         except Exception as e:
             traceback.print_exc()
@@ -180,7 +180,7 @@ class Test_Shortcut_Mosaic:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Mosaic')
 
-            assert self.page_shortcut.play_preview()
+            assert self.page_shortcut.preview_play()
 
         except Exception as e:
             traceback.print_exc()

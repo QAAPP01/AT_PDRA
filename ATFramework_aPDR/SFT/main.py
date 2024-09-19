@@ -12,6 +12,7 @@ from .test_shortcut_video_effect import *
 from .test_shortcut_tempo_effect import *
 from .test_shortcut_body_effect import *
 from .test_shortcut_ai_color import *
+from .test_shortcut_color_enhancer import *
 from .test_shortcut_filter import *
 from .test_shortcut_auto_caption import *
 from .test_shortcut_voice_changer import *

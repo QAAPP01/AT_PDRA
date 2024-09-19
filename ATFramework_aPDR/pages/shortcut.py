@@ -54,7 +54,7 @@ class Shortcut(BasePage):
         if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
             if check:
                 time.sleep(0.5)
-                if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and @text="{demo_title}"]')) or
+                if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"{demo_title}")]')) or
                         self.is_exist(L.import_media.media_library.title) or
                         self.is_exist(id("tv_recommendation"))):
                     return True
@@ -114,10 +114,9 @@ class Shortcut(BasePage):
             logger(f'[Error] mute_demo fail', log_level='error')
             return False
 
-    def demo_dont_show_again(self, shortcut_name):
+    def demo_dont_show_again(self, shortcut_name, demo_title=None):
         if not self.is_exist(L.main.shortcut.dont_show_again, 1):
-            if not self.enter_shortcut(shortcut_name):
-                self.enter_ai_feature(shortcut_name)
+            self.enter_shortcut(shortcut_name, check=False)
 
         self.click(L.main.shortcut.dont_show_again)
         self.click(L.main.shortcut.try_it_now)
@@ -129,6 +128,20 @@ class Shortcut(BasePage):
             logger(f'[Error] demo_dont_show_again fail', log_level='error')
             return False
         return True
+
+    def demo_sample_video(self, shortcut_name=None):
+        if shortcut_name:
+            self.enter_shortcut(shortcut_name, check=False)
+
+        self.click(L.main.shortcut.try_it_now)
+        self.click(id('confirm_btn'))
+        self.page_edit.waiting_produce()
+        if self.is_exist(L.main.shortcut.export):
+            return True
+        else:
+            logger(f'[Error] enter_editor fail', log_level='error')
+            return False
+
 
     def recommendation_close(self, shortcut_name=None):
         if not self.click(L.main.shortcut.ai_sketch.close, 1):
@@ -221,7 +234,8 @@ class Shortcut(BasePage):
             media_type = 'video'
 
         if media_type == 'video':
-            self.page_media.select_local_video(folder, file)
+            if not self.page_media.select_local_video(folder, file):
+                self.page_media.select_local_photo(folder, photo_9_16)
         else:
             self.page_media.select_local_photo(folder, file)
 
@@ -271,7 +285,7 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_trim fail', log_level='error')
             return False
 
-    def trim_and_edit(self, start=100, end=100, shortcut_name=None, audio_tool=None):
+    def trim_and_import(self, start=100, end=100, shortcut_name=None, audio_tool=None):
         self.enter_trim_before_edit(shortcut_name, audio_tool=audio_tool)
 
         if start:
@@ -289,17 +303,22 @@ class Shortcut(BasePage):
             logger(f'[Error] trim_video fail', log_level='error')
             return False
 
-    def play_preview(self):
+    def preview_play(self):
         try:
-            time.sleep(1)
+            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+            time.sleep(2)
             timecode = self.element(L.main.shortcut.timecode).text
             if timecode != '00:00':
                 self.click(L.main.shortcut.play)
                 timecode = self.element(L.main.shortcut.timecode).text
+
+            logger(f'Start play preview: timecode {timecode}')
             self.click(L.main.shortcut.play)
             time.sleep(2)
             self.click(L.main.shortcut.play)
-            if self.element(L.main.shortcut.timecode).text != timecode:
+            new_timecode = self.element(L.main.shortcut.timecode).text
+            logger(f"Timecode: {new_timecode}")
+            if new_timecode != timecode:
                 return True
             else:
                 raise '[Error] play_preview fail'
@@ -308,24 +327,38 @@ class Shortcut(BasePage):
             logger(e)
             return False
 
-    def play_position_start(self):
+    def preview_pause(self):
+        self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+        self.click(L.main.shortcut.play)
+        time.sleep(0.5)
+        self.click(L.main.shortcut.play)
+        timecode = self.element(L.main.shortcut.timecode).text
+        time.sleep(1)
+
+        if self.element(L.main.shortcut.timecode).text == timecode:
+            return True
+        else:
+            logger(f'[Error] preview_pause fail', log_level='error')
+            return False
+
+    def preview_beginning(self):
         self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
         timecode = self.element(L.main.shortcut.timecode).text
 
         if timecode == '00:00':
             return True
         else:
-            logger(f'[Error] play_position_start fail', log_level='error')
+            logger(f'[Error] preview_beginning fail', log_level='error')
             return False
 
-    def play_position_end(self):
+    def preview_ending(self):
         self.driver.drag_slider_to_max(L.main.shortcut.playback_slider)
         timecode = self.element(L.main.shortcut.timecode).text
 
         if timecode == self.element(L.main.shortcut.total_time).text:
             return True
         else:
-            logger(f'[Error] play_position_end fail', log_level='error')
+            logger(f'[Error] preview_ending fail', log_level='error')
             return False
 
     def custom_enter_prompt(self, prompt='Apple'):
@@ -632,6 +665,16 @@ class Shortcut(BasePage):
         else:
             logger(f'[Error] export_cancel fail', log_level='error')
             return False
+
+    def export_back(self):
+        self.click(L.main.shortcut.export)
+        self.click(L.main.shortcut.export_back)
+
+        if not self.is_exist(L.main.shortcut.produce, 1):
+            return True
+        else:
+            logger(f'[Error] export_back fail', log_level='error')
+            return
 
     def export_save_image(self):
         self.click(L.main.shortcut.export)
