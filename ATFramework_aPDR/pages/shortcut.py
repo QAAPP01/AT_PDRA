@@ -135,7 +135,7 @@ class Shortcut(BasePage):
 
         self.click(L.main.shortcut.try_it_now)
         self.click(id('confirm_btn'))
-        self.page_edit.waiting_produce()
+        self.page_edit.waiting_import()
         if self.is_exist(L.main.shortcut.export):
             return True
         else:
