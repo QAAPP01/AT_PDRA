@@ -10,6 +10,7 @@ from .test_shortcut_ai_color import *
 from .test_shortcut_color_enhancer import *
 from .test_shortcut_body_effect import *
 from .test_shortcut_video_effect import *
+from .test_shortcut_tempo_effect import *
 
 
 from .test_shortcut_cutout import *
@@ -20,7 +21,7 @@ from .test_shortcut_stabilizer import *
 from .test_shortcut_mosaic import *
 from .test_shortcut_image_enhancement import *
 
-from .test_shortcut_tempo_effect import *
+
 
 
 

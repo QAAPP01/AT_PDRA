@@ -15,7 +15,7 @@ photo_16_9 = 'photo_16_9.jpg'
 
 
 @allure.epic("Shortcut - Video Effect")
-class TestShortcutVideoEffect:
+class Test_Shortcut_Video_Effect:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
