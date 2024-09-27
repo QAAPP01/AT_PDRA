@@ -256,7 +256,7 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_editor fail', log_level='error')
             return False
 
-    def enter_trim_before_edit(self, shortcut_name=None, audio_tool=None):
+    def enter_trim_before_edit(self, shortcut_name=None, audio_tool=None, shortcut_trim=False):
         if shortcut_name or audio_tool:
             self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
 
@@ -269,6 +269,13 @@ class Shortcut(BasePage):
         else:
             logger(f'[Error] enter_trim_before_edit fail', log_level='error')
             return False
+
+        if shortcut_trim:
+            if self.is_exist(L.main.shortcut.export):
+                return True
+            else:
+                logger(f'[Error] enter_trim fail', log_level='error')
+                return False
 
         if self.is_exist(L.import_media.media_library.trim_next):
             return True
@@ -285,14 +292,22 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_trim fail', log_level='error')
             return False
 
-    def trim_and_import(self, start=100, end=100, shortcut_name=None, audio_tool=None):
-        self.enter_trim_before_edit(shortcut_name, audio_tool=audio_tool)
+    def trim_and_import(self, start=100, end=100, shortcut_name=None, audio_tool=None, shortcut_trim=False):
+        self.enter_trim_before_edit(shortcut_name, audio_tool=audio_tool, shortcut_trim=shortcut_trim)
 
         if start:
             self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', start)
         if end:
             self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', end)
         self.click(L.import_media.media_library.trim_next)
+
+        if shortcut_trim:
+            if self.is_exist(L.main.shortcut.produce):
+                return True
+            else:
+                logger(f'[Error] trim and export fail', log_level='error')
+                return False
+
         self.page_edit.waiting()
 
         self.click(id('btn_upgrade'), 1)  # for auto cations
@@ -303,62 +318,146 @@ class Shortcut(BasePage):
             logger(f'[Error] trim_video fail', log_level='error')
             return False
 
+    def get_timecode(self):
+        timecode_element = self.element(L.main.shortcut.timecode)
+        if timecode_element:
+            timecode = timecode_element.text.strip()
+            if '/' in timecode:
+                timecode = timecode.split('/')[0].strip()
+            return timecode
+        else:
+            timecode_element = self.element(id('time_code_text'))
+            if timecode_element:
+                timecode = timecode_element.text.strip()
+                if '/' in timecode:
+                    timecode = timecode.split('/')[0].strip()
+                return timecode
+            else:
+                logger('[Error] timecode element not found')
+                return None
+
+    def get_total_time(self):
+        total_time_element = self.element(L.main.shortcut.total_time)
+        if total_time_element:
+            total_time = total_time_element.text.strip()
+            return total_time
+        else:
+            timecode_element = self.element(id('time_code_text'))
+            if timecode_element:
+                timecode_text = timecode_element.text.strip()
+                if '/' in timecode_text:
+                    total_time = timecode_text.split('/')[1].strip()
+                    return total_time
+                else:
+                    logger('[Error] "/" not found in timecode text')
+                    return None
+            else:
+                logger('[Error] total_time element not found')
+                return None
+
     def preview_play(self):
         try:
             self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
             time.sleep(2)
-            timecode = self.element(L.main.shortcut.timecode).text
+
+            timecode = self.get_timecode()
+            if timecode is None:
+                return False
+
             if timecode != '00:00':
                 self.click(L.main.shortcut.play)
-                timecode = self.element(L.main.shortcut.timecode).text
+                updated_timecode = self.get_timecode()
+                if updated_timecode is None:
+                    return False
+                if updated_timecode != timecode:
+                    logger(f'Start play preview: timecode changed from {timecode} to {updated_timecode}')
+                else:
+                    logger('[Error] Timecode did not change after play click')
+                    return False
 
-            logger(f'Start play preview: timecode {timecode}')
             self.click(L.main.shortcut.play)
+            # 等待播放一段時間
             time.sleep(2)
-            self.click(L.main.shortcut.play)
-            new_timecode = self.element(L.main.shortcut.timecode).text
-            logger(f"Timecode: {new_timecode}")
+            self.click(L.main.shortcut.play)  # 暫停
+
+            new_timecode = self.get_timecode()
+            if new_timecode is None:
+                return False
+
+            logger(f"Timecode after playing: {new_timecode}")
             if new_timecode != timecode:
                 return True
             else:
-                raise '[Error] play_preview fail'
+                raise Exception('[Error] preview_play failed: Timecode did not update')
         except Exception as e:
             traceback.print_exc()
             logger(e)
             return False
 
     def preview_pause(self):
-        self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-        self.click(L.main.shortcut.play)
-        time.sleep(0.5)
-        self.click(L.main.shortcut.play)
-        timecode = self.element(L.main.shortcut.timecode).text
-        time.sleep(1)
+        try:
+            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+            self.click(L.main.shortcut.play)
+            # 等待一小段時間，確保播放開始
+            time.sleep(0.5)
+            self.click(L.main.shortcut.play)  # 暫停
 
-        if self.element(L.main.shortcut.timecode).text == timecode:
-            return True
-        else:
-            logger(f'[Error] preview_pause fail', log_level='error')
+            timecode_before = self.get_timecode()
+            if timecode_before is None:
+                return False
+            time.sleep(1)
+            timecode_after = self.get_timecode()
+            if timecode_after is None:
+                return False
+
+            if timecode_after == timecode_before:
+                return True
+            else:
+                logger('[Error] preview_pause failed: Timecode changed after pause')
+                return False
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
             return False
 
     def preview_beginning(self):
-        self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-        timecode = self.element(L.main.shortcut.timecode).text
+        try:
+            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+            timecode = self.get_timecode()
+            if timecode is None:
+                return False
 
-        if timecode == '00:00':
-            return True
-        else:
-            logger(f'[Error] preview_beginning fail', log_level='error')
+            if timecode == '00:00':
+                return True
+            else:
+                logger('[Error] preview_beginning failed: Timecode is not 00:00')
+                return False
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
             return False
 
     def preview_ending(self):
-        self.driver.drag_slider_to_max(L.main.shortcut.playback_slider)
-        timecode = self.element(L.main.shortcut.timecode).text
+        try:
+            self.driver.drag_slider_to_max(L.main.shortcut.playback_slider)
+            timecode = self.get_timecode()
+            if timecode is None:
+                return False
 
-        if timecode == self.element(L.main.shortcut.total_time).text:
-            return True
-        else:
-            logger(f'[Error] preview_ending fail', log_level='error')
+            total_time = self.get_total_time()
+            if total_time is None:
+                return False
+
+            if timecode == total_time:
+                return True
+            else:
+                logger('[Error] preview_ending failed: Timecode does not match total time')
+                return False
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
             return False
 
     def custom_enter_prompt(self, prompt='Apple'):
