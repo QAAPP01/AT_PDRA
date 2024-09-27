@@ -50,6 +50,7 @@ class Shortcut:
     crop = id('crop_button')
     crop_close = id('cancel_btn')
     crop_title = id("tv_title")
+    mosaic_percentage = id('progress_text_view')
 
     @staticmethod
     def shortcut_name(param=1):

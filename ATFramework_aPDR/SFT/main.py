@@ -12,6 +12,8 @@ from .test_shortcut_body_effect import *
 from .test_shortcut_video_effect import *
 from .test_shortcut_tempo_effect import *
 from .test_shortcut_stabilizer import *
+from .test_shortcut_mosaic import *
+from .test_shortcut_filter import *
 
 
 from .test_shortcut_cutout import *
@@ -26,7 +28,7 @@ from .test_shortcut_image_enhancement import *
 
 
 
-from .test_shortcut_filter import *
+
 from .test_shortcut_auto_caption import *
 from .test_shortcut_voice_changer import *
 

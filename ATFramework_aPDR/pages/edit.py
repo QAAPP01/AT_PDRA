@@ -2280,6 +2280,20 @@ class EditPage(BasePage):
                     logger("[Warning] produce timeout", log_level="warn")
                     return False
 
+    def waiting_import(self, timeout=60):
+        if self.is_exist(L.main.shortcut.mosaic_percentage, 3):
+            previous_percentage = self.element(L.main.shortcut.mosaic_percentage).text
+            while True:
+                if self.is_not_exist(L.main.shortcut.mosaic_percentage, timeout):
+                    return True
+                current_percentage = self.element(L.main.shortcut.mosaic_percentage).text
+                if current_percentage != previous_percentage:
+                    previous_percentage = current_percentage
+                    continue
+                else:
+                    logger("[Warning] import timeout", log_level="warn")
+                    return False
+
     class Sticker:
         def __init__(self, edit):
             self.edit = edit
