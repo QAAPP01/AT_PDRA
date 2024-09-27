@@ -14,8 +14,7 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
-@allure.epic("Shortcut")
-@allure.feature("Filter")
+@allure.epic("Shortcut - Filter")
 class Test_Shortcut_Filter:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -40,13 +39,12 @@ class Test_Shortcut_Filter:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("Enter Media Picker")
+    @allure.feature("Media Picker")
+    @allure.story("Enter")
+    @allure.title("Enter media picker")
     def test_entry_media_picker(self, data):
         try:
-            self.page_shortcut.enter_shortcut('Filter')
-
-            assert self.is_exist(find_string('Add Media'))
+            assert self.page_shortcut.enter_media_picker('Filter')
 
         except Exception as e:
             traceback.print_exc()
@@ -54,13 +52,14 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Back from media picker")
+    @allure.feature("Media Picker")
+    @allure.story("Back")
+    @allure.title("From media picker")
     def test_back_from_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Filter')
-                
+                self.page_shortcut.enter_media_picker('Filter')
+
             assert self.page_shortcut.back_from_media_picker()
 
         except Exception as e:
@@ -69,9 +68,10 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Enter trim before edit")
-    def test_entry_trim_before_edit(self, data):
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Enter Trim")
+    def test_video_entry_trim(self, data):
         try:
             if self.last_is_fail(data):
                 pass
@@ -84,9 +84,10 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Back from trim before edit")
-    def test_back_from_trim_before_edit(self, data):
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Back from trim")
+    def test_video_back_from_trim(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_trim_before_edit('Filter')
@@ -99,12 +100,13 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Trim and edit")
-    def test_trim_and_import(self, data):
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Trim and import")
+    def test_video_trim_and_import(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Filter')
+                self.page_shortcut.enter_media_picker('Filter')
 
             assert self.page_shortcut.trim_and_import()
 
@@ -114,9 +116,10 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
+    @allure.feature("Editor")
+    @allure.story("Video")
     @allure.title("Back from editor")
-    def test_back_from_editor(self, data):
+    def test_video_back_from_editor(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Filter')
@@ -129,12 +132,13 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Enter editor")
-    def test_entry_editor(self, data):
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Import video")
+    def test_video_import(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Filter')
+                self.page_shortcut.enter_media_picker('Filter')
 
             assert self.page_shortcut.enter_editor()
 
@@ -144,9 +148,10 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
-    @allure.story("Editor")
-    @allure.title("Play preview")
-    def test_play_preview(self, data):
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview play")
+    def test_video_play_preview(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Filter')
@@ -159,9 +164,74 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
-    @allure.story("Editor")
-    @allure.title("Export")
-    def test_export(self, data):
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview pause")
+    def test_video_pause_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter')
+
+            assert self.page_shortcut.preview_pause()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview beginning")
+    def test_video_preview_beginning(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter')
+
+            assert self.page_shortcut.preview_beginning()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview ending")
+    def test_video_preview_ending(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter')
+
+            assert self.page_shortcut.preview_ending()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Video")
+    @allure.title("Back from export")
+    def test_video_back_from_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter')
+
+            assert self.page_shortcut.export_back()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Video")
+    @allure.title("Produce Save")
+    def test_video_export(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Filter')
@@ -174,3 +244,168 @@ class Test_Shortcut_Filter:
             data['last_result'] = False
             raise
 
+    @allure.feature("Export")
+    @allure.story("Produced")
+    @allure.title("Back to editor")
+    def test_export_back_to_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter')
+                self.page_shortcut.export()
+
+            assert self.page_shortcut.export_back_to_editor()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Import photo")
+    def test_photo_import(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Filter')
+
+            self.page_shortcut.back_from_editor()
+
+            assert self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Back from editor")
+    def test_photo_back_from_editor(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter')
+
+            assert self.page_shortcut.back_from_editor()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Preview play")
+    def test_photo_play_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Filter')
+
+            self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.preview_play()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Preview pause")
+    def test_photo_pause_preview(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.preview_pause()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Preview beginning")
+    def test_photo_preview_beginning(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.preview_beginning()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Editor")
+    @allure.story("Photo")
+    @allure.title("Preview ending")
+    def test_photo_preview_ending(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.preview_ending()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Photo")
+    @allure.title("Back from export")
+    def test_photo_back_from_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.export_back()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Photo")
+    @allure.title("Produce save")
+    def test_photo_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter', media_type='photo', file=photo_9_16)
+
+            assert self.page_shortcut.export()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Produced")
+    @allure.title("Back to launcher")
+    def test_export_back_to_launcher(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Filter', media_type='photo', file=photo_9_16)
+                self.page_shortcut.export()
+
+            assert self.page_shortcut.export_back_to_launcher()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
