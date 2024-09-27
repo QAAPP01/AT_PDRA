@@ -2267,18 +2267,22 @@ class EditPage(BasePage):
                 return False
 
     def waiting_produce(self, timeout=60):
-        if self.h_is_exist(L.main.shortcut.produce_percentage):
-            previous_percentage = self.element(L.main.shortcut.produce_percentage).text
-            while True:
-                if self.h_is_not_exist(L.main.shortcut.produce_percentage, timeout):
-                    return True
-                current_percentage = self.element(L.main.shortcut.produce_percentage).text
-                if current_percentage != previous_percentage:
-                    previous_percentage = current_percentage
-                    continue
-                else:
-                    logger("[Warning] produce timeout", log_level="warn")
-                    return False
+        try:
+            if self.h_is_exist(L.main.shortcut.produce_percentage):
+                previous_percentage = self.element(L.main.shortcut.produce_percentage).text
+                while True:
+                    if self.h_is_not_exist(L.main.shortcut.produce_percentage, timeout):
+                        return True
+                    current_percentage = self.element(L.main.shortcut.produce_percentage).text
+                    if current_percentage != previous_percentage:
+                        previous_percentage = current_percentage
+                        continue
+                    else:
+                        logger("[Warning] produce timeout", log_level="warn")
+                        return False
+        except Exception as e:
+            logger(f'[Error] {e}')
+            return False
 
     def waiting_import(self, timeout=60):
         if self.is_exist(L.main.shortcut.mosaic_percentage, 3):
