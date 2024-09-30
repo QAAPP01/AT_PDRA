@@ -33,23 +33,21 @@ class Shortcut(BasePage):
                 self.click(L.main.shortcut.produce_home, 1)
 
         if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
-            self.click(L.main.shortcut.shortcut_name("Expand"))
+            self.click(L.main.shortcut.shortcut_name("More"))
 
-            if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
-                self.click(L.main.shortcut.shortcut_name("More"))
+            last_text = ""
+            while True:
+                if self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
+                    break
 
-                last_text = ""
-                while True:
-                    if self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
-                        break
-
-                    shortcuts = self.elements(L.main.shortcut.shortcut_name(0))
-                    if shortcuts[-1].text == last_text:
+                else:
+                    shortcuts_name = self.elements(L.main.shortcut.all_shortcut_name(0))
+                    if shortcuts_name[-1].text == last_text:
                         logger(f'[Error] Cannot find {shortcut_name} in More page', log_level='error')
                         return False
-
-                    last_text = shortcuts[-1].text
-                    self.h_swipe_element(shortcuts[-1], shortcuts[0], 3)
+                    else:
+                        last_text = shortcuts_name[-1].text
+                        self.h_swipe_element(shortcuts_name[-1], shortcuts_name[0], 3)
 
         if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
             if check:
