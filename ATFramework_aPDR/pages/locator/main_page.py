@@ -62,6 +62,15 @@ class Shortcut:
             return xpath(f'//*[contains(@resource-id,"tv_name")]')
 
     @staticmethod
+    def all_shortcut_name(param=1):
+        if isinstance(param, str):
+            return xpath(f'//*[contains(@resource-id, "all_shortcuts_view")]//*[contains(@resource-id, "tv_name") and @text="{param}"]')
+        elif param:
+            return xpath(f'(//*[contains(@resource-id, "all_shortcuts_view")]//*[contains(@resource-id, "tv_name")])[{param}]')
+        else:
+            return xpath(f'//*[contains(@resource-id,"tv_name")]')
+
+    @staticmethod
     def item(index: int = 1):
         if index:
             return xpath(f'(//*[contains(@resource-id,"top_area")])[{index}]')
