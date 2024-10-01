@@ -15,7 +15,7 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
-@allure.epic("Shortcut")
+@allure.epic("Shortcut - Cutout")
 @allure.feature("Cutout")
 class Test_Shortcut_Cutout:
     @pytest.fixture(autouse=True)
@@ -41,95 +41,114 @@ class Test_Shortcut_Cutout:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("From shortcut")
-    def test_entry_from_shortcut(self, driver):
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Enter from Shortcut")
+    def test_entry_from_shortcut(self, data):
         try:
-            self.page_shortcut.enter_shortcut('Cutout')
-
-            assert self.element(L.main.shortcut.demo_title).text == 'AI Smart Cutout'
+            assert self.page_shortcut.enter_shortcut('Cutout')
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Cutout')
-
-    @allure.story("Entry")
-    @allure.title("Back from demo")
-    def test_back_from_demo(self, driver):
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Back to Shortcut")
+    def test_back_to_shortcut(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Cutout', check=False)
+
             assert self.page_shortcut.back_from_demo()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-
-    @allure.story("Media")
-    @allure.title("Enter Media Picker")
-    def test_entry_media_picker(self, driver):
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Don't show again")
+    def test_demo_dont_show_again(self, data):
         try:
-            assert self.page_shortcut.enter_media_picker('Cutout')
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.demo_dont_show_again('Cutout')
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_media_picker('Cutout')
-
-    @allure.story("Media")
-    @allure.title("Back from media picker")
-    def test_back_from_media_picker(self, driver):
+    @allure.feature("Media Picker")
+    @allure.story("Enter")
+    @allure.title("Enter media picker")
+    def test_enter_media_picker(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Cutout', check=False)
+
+            assert self.page_shortcut.enter_media_picker()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Back")
+    @allure.title("From media picker")
+    def test_back_from_media_picker(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Cutout')
+
             assert self.page_shortcut.back_from_media_picker()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-
-    @allure.story("Media")
-    @allure.title("Enter trim before edit")
-    def test_entry_trim_before_edit(self, driver):
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Enter Trim")
+    def test_video_entry_trim(self, data):
         try:
+            if self.last_is_fail(data):
+                pass
+
             assert self.page_shortcut.enter_trim_before_edit('Cutout')
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_trim_before_edit('Cutout')
-
-    @allure.story("Media")
-    @allure.title("Back from trim before edit")
-    def test_back_from_trim_before_edit(self, driver):
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Back from trim")
+    def test_video_back_from_trim(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('Cutout')
+
             assert self.page_shortcut.back_from_trim()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_media_picker('Cutout')
+            data['last_result'] = False
+            raise
 
     @allure.story("Media")
     @allure.title("Trim video and edit")
