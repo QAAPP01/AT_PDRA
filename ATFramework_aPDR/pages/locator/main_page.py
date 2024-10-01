@@ -68,7 +68,7 @@ class Shortcut:
         elif param:
             return xpath(f'(//*[contains(@resource-id, "all_shortcuts_view")]//*[contains(@resource-id, "tv_name")])[{param}]')
         else:
-            return xpath(f'//*[contains(@resource-id,"tv_name")]')
+            return xpath(f'//*[contains(@resource-id, "all_shortcuts_view")]//*[contains(@resource-id, "tv_name")]')
 
     @staticmethod
     def item(index: int = 1):
