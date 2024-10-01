@@ -37,14 +37,18 @@ class Shortcut(BasePage):
 
             last_text = ""
             while True:
-                if self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
+                if self.is_exist(L.main.shortcut.all_shortcut_name(shortcut_name), 1):
                     break
 
                 else:
                     shortcuts_name = self.elements(L.main.shortcut.all_shortcut_name(0))
                     if shortcuts_name[-1].text == last_text:
-                        logger(f'[Error] Cannot find {shortcut_name} in More page', log_level='error')
-                        return False
+                        self.driver.swipe_element(shortcuts_name[-1], 'up', 10)
+                        shortcuts_name = self.elements(L.main.shortcut.all_shortcut_name(0))
+                        if shortcuts_name[-1].text == last_text:
+                            logger(f'Last item: {last_text}')
+                            logger(f'[Error] Cannot find {shortcut_name} in More page', log_level='error')
+                            return False
                     else:
                         last_text = shortcuts_name[-1].text
                         self.h_swipe_element(shortcuts_name[-1], shortcuts_name[0], 3)

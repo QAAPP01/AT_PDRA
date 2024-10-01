@@ -394,15 +394,17 @@ class AppiumU2Driver(Borg, BaseDriver):
     # Author: Bill, Jim
     # ==================================================================================================================
     def get_element(self, locator, timeout=DEFAULT_TIMEOUT, poll_frequency=DEFAULT_POLL_TIME):
-        wait = WebDriverWait(self.driver, timeout, poll_frequency)
+        start = time.time()
         try:
-            return wait.until(EC.presence_of_element_located(locator))
-        except AttributeError:
-            print("ERROR: Driver not initiated")
+            if type(locator) == tuple:
+                element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+                # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
+                return element
+            else:
+                return locator
         except TimeoutException:
-            print("ERROR: %s page cannot find %s element" % (self, locator))
-
-        raise Exception
+            logger(f"[No found ({round(time.time()-start, 2)})] {locator}")
+            return False
 
     # ==================================================================================================================
     # Function: get_elements
@@ -495,7 +497,7 @@ class AppiumU2Driver(Borg, BaseDriver):
     # Note: N/A
     # Author: Bill
     # ==================================================================================================================
-    def swipe_element(self, locator, direction, offset=0.55):       
+    def swipe_element(self, locator, direction, offset=0.55):
         window_rect = self.driver.get_window_size()
         element_rect = self.get_element(locator).rect
         start_x = element_rect['x'] + element_rect['width'] / 2
