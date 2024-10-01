@@ -397,7 +397,7 @@ class AppiumU2Driver(Borg, BaseDriver):
         start = time.time()
         try:
             if type(locator) == tuple:
-                element = WebDriverWait(self.driver.driver, timeout).until(EC.presence_of_element_located(locator))
+                element = WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
                 # logger(f"[Found ({round(time.time() - start, 2)})] {locator}")
                 return element
             else:
