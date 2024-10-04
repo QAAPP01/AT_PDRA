@@ -17,18 +17,8 @@ from .test_shortcut_filter import *
 from .test_shortcut_crop_rotate import *
 from .test_shortcut_trim import *
 from .test_shortcut_cutout import *
-
-from .test_shortcut_cutout import *
 from .test_shortcut_speed import *
-
-
-from .test_shortcut_mosaic import *
-from .test_shortcut_image_enhancement import *
-
-
-
-
-
+from .test_shortcut_image_enhancer import *
 
 from .test_shortcut_auto_caption import *
 from .test_shortcut_voice_changer import *
