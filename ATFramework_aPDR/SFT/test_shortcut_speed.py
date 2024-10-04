@@ -14,8 +14,7 @@ photo_9_16 = 'photo_9_16.jpg'
 photo_16_9 = 'photo_16_9.jpg'
 
 
-@allure.epic("Shortcut")
-@allure.feature("Speed")
+@allure.epic("Shortcut - Speed")
 class Test_Shortcut_Speed:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -40,13 +39,12 @@ class Test_Shortcut_Speed:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("Enter Media Picker")
+    @allure.feature("Media Picker")
+    @allure.story("Enter")
+    @allure.title("Enter media picker")
     def test_entry_media_picker(self, data):
         try:
-            self.page_shortcut.enter_shortcut('Speed')
-
-            assert self.is_exist(find_string('Add Media'))
+            assert self.page_shortcut.enter_media_picker('Speed')
 
         except Exception as e:
             traceback.print_exc()
@@ -54,85 +52,94 @@ class Test_Shortcut_Speed:
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Back from media picker")
+    @allure.feature("Media Picker")
+    @allure.story("Back")
+    @allure.title("From media picker")
     def test_back_from_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Speed')
+                self.page_shortcut.enter_media_picker('Speed')
 
             assert self.page_shortcut.back_from_media_picker()
-            
+
         except Exception as e:
             traceback.print_exc()
             logger(e)
             data['last_result'] = False
             raise
 
-    @allure.story("Media")
-    @allure.title("Enter trim before edit")
-    def test_entry_trim_before_edit(self, driver):
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Enter Trim")
+    def test_video_entry_trim(self, data):
         try:
+            if self.last_is_fail(data):
+                pass
+
             assert self.page_shortcut.enter_trim_before_edit('Speed')
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_trim_before_edit('Speed')
-            
-    @allure.story("Media")
-    @allure.title("Back from trim before edit")
-    def test_back_from_trim_before_edit(self, driver):
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Back from trim")
+    def test_video_back_from_trim(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_trim_before_edit('Speed')
+
             assert self.page_shortcut.back_from_trim()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_media_picker('Speed')
-
-    @allure.story("Media")
-    @allure.title("Trim video and edit")
-    def test_trim_and_import(self, driver):
+    @allure.feature("Media Picker")
+    @allure.story("Video")
+    @allure.title("Trim and import")
+    def test_video_trim_and_import(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Speed')
+
             assert self.page_shortcut.trim_and_import()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_editor('Speed')
-
-    @allure.story("Media")
+    @allure.feature("Editor")
+    @allure.story("Video")
     @allure.title("Back from editor")
-    def test_back_from_editor(self, driver):
+    def test_video_back_from_editor(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Speed')
+
             assert self.page_shortcut.back_from_editor()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
+            data['last_result'] = False
+            raise
 
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_media_picker('Speed')
-
-    @allure.story("Media")
-    @allure.title("Enter editor")
-    def test_enter_editor(self, data):
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Import video")
+    def test_video_import(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_media_picker('Speed')
+
             assert self.page_shortcut.enter_editor()
 
         except Exception as e:
@@ -141,9 +148,10 @@ class Test_Shortcut_Speed:
             data['last_result'] = False
             raise
 
-    @allure.story("Editor")
-    @allure.title("Play preview")
-    def test_play_preview(self, data):
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview play")
+    def test_video_play_preview(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Speed')
@@ -156,14 +164,15 @@ class Test_Shortcut_Speed:
             data['last_result'] = False
             raise
 
-    @allure.story("Editor")
-    @allure.title("Play start position")
-    def test_play_start_position(self, data):
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview pause")
+    def test_video_pause_preview(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Speed')
 
-            self.page_shortcut.preview_beginning()
+            assert self.page_shortcut.preview_pause()
 
         except Exception as e:
             traceback.print_exc()
@@ -171,14 +180,15 @@ class Test_Shortcut_Speed:
             data['last_result'] = False
             raise
 
-    @allure.story("Editor")
-    @allure.title("Play end position")
-    def test_play_end_position(self, data):
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview beginning")
+    def test_video_preview_beginning(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Speed')
 
-            self.page_shortcut.preview_ending()
+            assert self.page_shortcut.preview_beginning()
 
         except Exception as e:
             traceback.print_exc()
@@ -186,107 +196,85 @@ class Test_Shortcut_Speed:
             data['last_result'] = False
             raise
 
-    @allure.story("Editor")
-    @allure.title("Export")
-    def test_export(self):
+    @allure.feature("Editor")
+    @allure.story("Video")
+    @allure.title("Preview ending")
+    def test_video_preview_ending(self, data):
         try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Speed')
+
+            assert self.page_shortcut.preview_ending()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Video")
+    @allure.title("Back from export")
+    def test_video_back_from_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Speed')
+
+            assert self.page_shortcut.export_back()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Export")
+    @allure.story("Video")
+    @allure.title("Produce Save")
+    def test_video_export(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Speed')
+
             assert self.page_shortcut.export()
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
+            data['last_result'] = False
+            raise
 
-
-    def sce_6_8_7(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Export")
+    @allure.story("Produced")
+    @allure.title("Back to editor")
+    def test_export_back_to_editor(self, data):
         try:
-            self.click(L.main.shortcut.play)
-            time.sleep(3)
-            self.timecode_play = self.element(L.main.shortcut.timecode).text
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Speed')
+                self.page_shortcut.export()
 
-            if self.timecode_play != "00:00":
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {self.timecode_play}')
+            assert self.page_shortcut.export_back_to_editor()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+        except Exception as e:
             traceback.print_exc()
-            
+            logger(e)
+            data['last_result'] = False
+            raise
 
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Speed')
-            self.page_media.select_local_video(test_material_folder,video_9_16)
-            self.page_edit.waiting()
-
-            return "FAIL"
-
-    def sce_6_8_8(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
+    @allure.feature("Export")
+    @allure.story("Produced")
+    @allure.title("Back to launcher")
+    def test_export_back_to_launcher(self, data):
         try:
-            self.click(L.main.shortcut.play)
-            timecode_play = self.element(L.main.shortcut.timecode).text
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_editor('Speed')
 
-            if timecode_play != self.timecode_play:
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
+            self.page_shortcut.export()
 
-        except Exception as err:
-            self.stop_recording(func_name)
+            assert self.page_shortcut.export_back_to_launcher()
+
+        except Exception as e:
             traceback.print_exc()
-            
-
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Speed')
-            self.page_media.select_local_video(test_material_folder,video_9_16)
-            self.page_edit.waiting()
-
-            return "FAIL"
-
-    def sce_6_8_9(self):
-        func_name = inspect.stack()[0][3]
-        uuid = self.uuid[int(func_name.split('_')[3]) - 1]
-        logger(f"\n[Start] {func_name}")
-        
-
-        try:
-            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            timecode_play = self.element(L.main.shortcut.timecode).text
-
-            if timecode_play == '00:00':
-                
-                return "PASS"
-            else:
-                raise Exception(f'[Fail] Timecode no change: {timecode_play}')
-
-        except Exception as err:
-            self.stop_recording(func_name)
-            traceback.print_exc()
-            
-            self.driver.driver.close_app()
-            self.driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_shortcut.enter_shortcut('Speed')
-            self.page_media.select_local_video(test_material_folder,video_9_16)
-            self.page_edit.waiting()
-
-            return "FAIL"
-
+            logger(e)
+            data['last_result'] = False
+            raise

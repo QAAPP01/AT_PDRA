@@ -16,7 +16,6 @@ photo_16_9 = 'photo_16_9.jpg'
 
 
 @allure.epic("Shortcut - Cutout")
-@allure.feature("Cutout")
 class Test_Shortcut_Cutout:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):

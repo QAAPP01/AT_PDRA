@@ -243,7 +243,7 @@ class Shortcut(BasePage):
 
         self.page_edit.waiting()
 
-        if self.is_exist(L.main.shortcut.export):
+        if self.is_exist(L.main.shortcut.export) or self.is_exist(L.main.shortcut.save):
             return True
         else:
             logger(f'[Error] enter_editor fail', log_level='error')
@@ -790,7 +790,7 @@ class Shortcut(BasePage):
     def export_back_to_editor(self):
         self.click(L.main.shortcut.produce_back)
 
-        if self.is_exist(L.main.shortcut.export):
+        if self.is_exist(L.main.shortcut.export) or self.is_exist(L.main.shortcut.save):
             return True
         else:
             logger(f'[Error] export_back_to_editor fail', log_level='error')
@@ -803,6 +803,15 @@ class Shortcut(BasePage):
             return True
         else:
             logger(f'[Error] export_back_to_launcher fail', log_level='error')
+            return False
+
+    def save_image(self):
+        self.click(L.main.shortcut.save)
+
+        if self.is_exist(L.main.shortcut.save_to_camera_roll):
+            return True
+        else:
+            logger(f'[Error] save_image fail', log_level='error')
             return False
 
     def tti_enter_prompt(self, prompt="x" * 401):
