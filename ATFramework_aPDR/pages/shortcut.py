@@ -226,6 +226,13 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_media_picker fail', log_level='error')
             return False
 
+    def check_editor(self):
+        if self.is_exist(L.main.shortcut.export) or self.is_exist(L.main.shortcut.save) or self.is_exist(id('btn_save_menu')):
+            return True
+        else:
+            logger(f'[Error] check_editor fail', log_level='error')
+            return False
+
     def enter_editor(self, shortcut_name=None, media_type='video', folder=test_material_folder, file=video_9_16, audio_tool=None):
         if shortcut_name or audio_tool:
             self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
@@ -243,7 +250,7 @@ class Shortcut(BasePage):
 
         self.page_edit.waiting()
 
-        if self.is_exist(L.main.shortcut.export) or self.is_exist(L.main.shortcut.save):
+        if self.check_editor():
             return True
         else:
             logger(f'[Error] enter_editor fail', log_level='error')
@@ -257,6 +264,20 @@ class Shortcut(BasePage):
         else:
             logger(f'[Error] back_from_editor fail', log_level='error')
             return False
+
+    def leave_project(self):
+        self.click(L.main.shortcut.editor_home)
+
+        if self.is_exist(L.main.shortcut.shortcut_name(0)):
+            return True
+        else:
+            title = self.element(L.main.ai_creation.title)
+            if title:
+                if title.text == 'AI Creation':
+                    return True
+            else:
+                logger(f'[Error] leave_project fail', log_level='error')
+                return False
 
     def enter_trim_before_edit(self, shortcut_name=None, audio_tool=None, shortcut_trim=False):
         if shortcut_name or audio_tool:
@@ -747,7 +768,8 @@ class Shortcut(BasePage):
         self.click(L.main.shortcut.item(2))
 
     def export(self):
-        self.click(L.main.shortcut.export)
+        if not self.click(L.main.shortcut.export):
+            self.click(id('btn_save_menu'))
         self.click(L.main.shortcut.produce)
         self.page_edit.waiting_produce()
 
@@ -790,7 +812,7 @@ class Shortcut(BasePage):
     def export_back_to_editor(self):
         self.click(L.main.shortcut.produce_back)
 
-        if self.is_exist(L.main.shortcut.export) or self.is_exist(L.main.shortcut.save):
+        if self.check_editor():
             return True
         else:
             logger(f'[Error] export_back_to_editor fail', log_level='error')
