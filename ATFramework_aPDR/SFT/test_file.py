@@ -1,0 +1,5 @@
+video_9_16 = 'video_9_16.mp4'
+video_16_9 = 'video_16_9.mp4'
+video_speech = 'stt_eng.mp4'
+photo_9_16 = 'photo_9_16.jpg'
+photo_16_9 = 'photo_16_9.jpg'
