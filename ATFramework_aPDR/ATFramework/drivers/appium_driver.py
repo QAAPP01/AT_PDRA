@@ -826,7 +826,7 @@ class AppiumU2Driver(Borg, BaseDriver):
             x1 = size['width'] * 0.9
             y1 = size['height'] * 0.5
             x2 = size['width'] * 0.1
-            self.driver.swipe(x1, y1, x2, y1, 10)
+            self.driver.swipe(x1, y1, x2, y1)
             return True
         except Exception:
             return False

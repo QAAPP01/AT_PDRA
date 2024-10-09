@@ -28,6 +28,7 @@ class Shortcut:
     btn_continue = id('tv_continue')
     close = id('iv_close')
     editor_back = id('iv_close')
+    editor_home = id('btn_home')
     play = id('btn_play')
     timecode = id('playing_time')
     total_time = id('total_time')
