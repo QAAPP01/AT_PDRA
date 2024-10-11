@@ -4805,9 +4805,6 @@ class Crop_Rotate(BasePage):
         return not HCompareImg(pic_base, pic_after).histogram_compare()
 
 class Mask(BasePage):
-
-
-class Mask(BasePage):
     def start_with_mask(self, clip_type='master video'):
         if clip_type == 'master video':
             self.page_main.start_with_master_video()

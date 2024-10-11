@@ -15,7 +15,7 @@ from .conftest import TEST_MATERIAL_FOLDER, driver
 test_material_folder = TEST_MATERIAL_FOLDER
 
 @allure.epic('Timeline_Master')
-@allure.feature('Video')
+@allure.feature('Photo')
 @allure.story('Mask')
 class Test_Master_Video_Mask:
 
@@ -36,14 +36,14 @@ class Test_Master_Video_Mask:
     def test_mask_enter_mask(self, driver):
 
         try:
-            assert self.page_edit.mask.start_with_mask('master video')
+            assert self.page_edit.mask.start_with_mask('master photo')
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.effect.start_with_effect('master video')
+            self.page_edit.effect.start_with_effect('master photo')
             raise Exception
 
     @allure.title('Default is None')
@@ -57,7 +57,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Linear')
@@ -72,7 +72,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Linear_Slider')
@@ -86,7 +86,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Parallel')
@@ -101,7 +101,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Parallel_Slider')
@@ -115,7 +115,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Eclipse')
@@ -130,7 +130,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Eclipse_Slider')
@@ -144,7 +144,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Rectangle')
@@ -159,7 +159,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Rectangle_Slider')
@@ -173,7 +173,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Invert')
@@ -188,7 +188,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Invert_Slider')
@@ -202,7 +202,7 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
 
     @allure.title('Slider Reset')
@@ -216,5 +216,5 @@ class Test_Master_Video_Mask:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.mask.start_with_mask('master video')
+            self.page_edit.mask.start_with_mask('master photo')
             raise Exception
