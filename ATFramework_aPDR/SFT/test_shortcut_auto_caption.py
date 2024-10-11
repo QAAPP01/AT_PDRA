@@ -72,8 +72,6 @@ class Test_Shortcut_Auto_Captions:
             if self.last_is_fail(data):
                 pass
 
-            self.click(L.main.shortcut.editor_back)
-
             assert self.page_shortcut.demo_dont_show_again('Auto Captions')
 
         except Exception as e:
