@@ -1221,7 +1221,7 @@ class MainPage(BasePage):
 
     def start_with_master_video(self, folder='00PDRa_Testing_Material', video='mkv.mkv', selected=True):
         try:
-            self.enter_launcher()
+            # self.enter_launcher()
             self.enter_timeline(skip_media=False)
             self.page_media.select_local_video(folder, video)
             self.click(L.import_media.media_library.apply)
@@ -1249,7 +1249,7 @@ class MainPage(BasePage):
 
     def start_with_pip_photo(self, folder='00PDRa_Testing_Material', photo='jpg.jpg'):
         try:
-            self.page_main.enter_launcher()
+            # self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_photo)
@@ -1262,7 +1262,7 @@ class MainPage(BasePage):
 
     def start_with_pip_video(self, folder='00PDRa_Testing_Material', video='mkv.mkv'):
         try:
-            self.page_main.enter_launcher()
+            # self.page_main.enter_launcher()
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)

@@ -75,6 +75,8 @@ class EditPage(BasePage):
         self.filter = Filter(self.driver)
         self.effect = Effect(self.driver)
         self.crop_rotate = Crop_Rotate(self.driver)
+        self.mask = Mask(self.driver)
+        self.auto_caption = Auto_Caption(self.driver)
 
     def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
         boundary_rect = self.element(L.edit.crop.boundary).rect
@@ -2112,7 +2114,7 @@ class EditPage(BasePage):
             locator = ("xpath", f'//android.widget.TextView[contains(@text,"{name}")]')
             for retry in range(10):
                 if self.is_exist(locator):
-                    result = elm.find_element('xpath', 
+                    result = elm.find_element('xpath',
                         f'//android.widget.TextView[contains(@text,"{name}")]').get_attribute('selected')
                     logger(f"Found {name} function = {result}")
                     return result
@@ -2703,8 +2705,6 @@ class Chroma_Key():
     def __init__(self, driver):
         self.color_range = ChromaKey_Sub_item(driver, "Color Range", 200)
         self.denoise = ChromaKey_Sub_item(driver, "Denoise", 200)
-
-
 
 
 class Opacity_effect():
@@ -4152,7 +4152,7 @@ class Intro_Video(BasePage):
                 return False
             if self.is_exist(L.edit.intro_video.list_template, timeout):
                 frame = self.el(L.edit.intro_video.list_template)
-                element = frame.find_element('xpath', 
+                element = frame.find_element('xpath',
                     f'(//*[contains(@resource-id,"video_template_thumbnail")])[{index}]')
                 element.click()
             else:
@@ -4464,6 +4464,7 @@ class Cutout(BasePage):
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
+
 class A_Chroma_Key(BasePage):
 
     def enter_chroma_key(self):
@@ -4516,6 +4517,7 @@ class A_Chroma_Key(BasePage):
         self.click(L.edit.sub_tool.cutout.color_picker.apply)
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
 
 class Filter(BasePage):
 
@@ -4587,6 +4589,7 @@ class Filter(BasePage):
         self.click(L.edit.filter.cancel)
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
 
 class Effect(BasePage):
 
@@ -4678,6 +4681,7 @@ class Effect(BasePage):
         self.click(L.edit.filter.cancel)
         self.page_edit.click_sub_tool('Effect')
         return self.elements(L.edit.sub_tool.effect.item)[order].get_attribute('selected') == 'true'
+
 
 class Crop_Rotate(BasePage):
 
@@ -4801,6 +4805,9 @@ class Crop_Rotate(BasePage):
         return not HCompareImg(pic_base, pic_after).histogram_compare()
 
 class Mask(BasePage):
+
+
+class Mask(BasePage):
     def start_with_mask(self, clip_type='master video'):
         if clip_type == 'master video':
             self.page_main.start_with_master_video()
@@ -4813,4 +4820,51 @@ class Mask(BasePage):
         else:
             print('clip type is wrong')
         self.page_edit.click_sub_tool('Mask')
-        return self.is_exist(L.edit.mask.item)
+        return self.is_exist(L.edit.mask_sub.mask_none)
+
+    def click_mask_type(self, mask_type='Linear'):
+        pic_base = self.get_preview_pic(L.edit.mask_sub.clip_preview)
+        if mask_type == "Linear":
+            self.click(L.edit.mask_sub.mask_linear)
+        elif mask_type == "Parallel":
+            self.click(L.edit.mask_sub.mask_parallel)
+        elif mask_type == "Eclipse":
+            self.click(L.edit.mask_sub.mask_eclipse)
+        elif mask_type == "Rectangle":
+            self.swipe_element(L.edit.mask_sub.style_menu, direction="left")
+            self.click(L.edit.mask_sub.mask_rectangle)
+        elif mask_type == "Invert":
+            self.swipe_element(L.edit.mask_sub.style_menu, direction="left")
+            self.click(L.edit.mask_sub.switch_invert)
+        pic_after = self.get_preview_pic(L.edit.mask_sub.clip_preview)
+        return not HCompareImg(pic_base, pic_after).full_compare_result()
+
+    def set_slider(self):
+        pic_base = self.get_preview_pic(L.edit.mask_sub.clip_preview)
+        self.element(L.edit.mask_sub.slider).send_keys(randint(10, 100))
+        pic_after = self.get_preview_pic(L.edit.mask_sub.clip_preview)
+        return not HCompareImg(pic_base, pic_after).full_compare_result()
+
+    def slider_reset(self):
+        pic_base = self.get_preview_pic(L.edit.mask_sub.clip_preview)
+        self.click(L.edit.mask_sub.slider_reset)
+        pic_after = self.get_preview_pic(L.edit.mask_sub.clip_preview)
+        if not HCompareImg(pic_base, pic_after).full_compare_result():
+            return self.element(L.edit.mask_sub.slider_value).get_attribute('text') == '0'
+        else:
+            return False
+
+class Auto_Caption(BasePage):
+
+    def start_with_auto_caption(self, clip_type='master video', video='stt_eng.mp4'):
+        if clip_type == 'master video':
+            self.page_main.start_with_master_video(video=video)
+        elif clip_type == 'pip video':
+            self.page_main.start_with_pip_video(video=video)
+        else:
+            print('clip type is wrong')
+        self.page_edit.click_sub_tool('Auto\n Captions')
+        if self.is_exist(L.edit.auto_caption.demo_video):
+            self.click(L.edit.auto_caption.try_now)
+        print(self.element(L.edit.auto_caption.title).get_attribute('text'))
+        return self.element(L.edit.auto_caption.title).get_attribute('text') == 'Auto Captions'
