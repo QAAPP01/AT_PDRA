@@ -16,8 +16,8 @@ test_material_folder = TEST_MATERIAL_FOLDER
 
 @allure.epic('Timeline_PiP')
 @allure.feature('Video')
-@allure.story('Crop & Rotate')
-class Test_PiP_Video_Crop_Rotate:
+@allure.story('Mask')
+class Test_PiP_Video_Mask:
 
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
