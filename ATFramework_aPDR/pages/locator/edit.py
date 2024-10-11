@@ -635,6 +635,7 @@ class Mask_Sub():
     # mask_rectangle = xpath("//android.widget.ImageView[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/btn_mask_rectangle']")
     # seekbar_feather = xpath("/android.widget.SeekBar[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/seekbar_feather']")
     # switch_invert = xpath("//android.widget.Switch[@resource-id='com.cyberlink.powerdirector.DRA140225_01:id/switch_invert']")
+    style_menu = id("buttons_container")
     mask_none = id("btn_mask_none")
     mask_linear = id("btn_mask_linear")
     mask_parallel = id("btn_mask_parallel")
@@ -645,6 +646,11 @@ class Mask_Sub():
     rotate_right_point = id("rotate_right_point")
     rotate_left_point = id("rotate_left_point")
     move_point = id("move_point")
+    clip_preview = id("view_selected_pip_container")
+    mask_preview = id("view_border")
+    slider = id("adjustable_parameter_seek_bar")
+    slider_reset = id("btn_reset")
+    slider_value = id("adjustTextNow")
 
 
 class Effect_Sub():
@@ -1420,7 +1426,10 @@ class Volume:
     fade_in = xpath('//android.widget.TextView[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/option_label" and @text="Fade in"]')
     fade_out = xpath('//android.widget.TextView[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/option_label" and @text="Fade out"]')
 
-
+class Auto_Caption:
+    demo_video = id('iv_background')
+    try_now = id('btn_upgrade')
+    title = id('title')
 
 class Interface:
     converting = Converting
@@ -1454,7 +1463,7 @@ class Interface:
     hide_timeline_pannel = id('btnHideTimeLine')
     intro_video = Intro_Video()
     keyframe = Keyframe()
-    Mask_Sub = Mask_Sub()
+    mask_sub = Mask_Sub()
     menu = Menu()
     motion_graphic_title = Motion_Graphic_Title()
     music = Music()
@@ -1486,3 +1495,4 @@ class Interface:
     ai_audio_tool = ai_audio_tool
     toolbar = Toolbar
     adjustment = adjustment
+    auto_caption = Auto_Caption
