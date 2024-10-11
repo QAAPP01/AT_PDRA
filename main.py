@@ -1,3 +1,4 @@
+import json
 import platform
 import os
 import shutil
@@ -253,7 +254,13 @@ def auto_run():
         move_allure_history(result_folder, report_folder)
         generate_allure_report(result_folder, report_folder)
 
+        with open('summary.json', 'r') as f:
+            summary_info = json.load(f)
+
         if send:
+            if summary_info["passed"] == 0:
+                break
+
             send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number)
             print('send report complete.')
 
