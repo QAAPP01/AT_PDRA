@@ -48,6 +48,8 @@ from .test_timeline_master_video_effect import *
 from .test_timeline_master_photo_effect import *
 from .test_timeline_master_video_crop_rotate import *
 from .test_timeline_master_photo_crop_rotate import *
+from .test_timeline_master_photo_mask import *
+from .test_timeline_master_video_mask import *
 
 # PiP Track
 from ATFramework_aPDR.SFT.test_timeline_pip_track_limitation import *
@@ -63,4 +65,6 @@ from .test_timeline_pip_video_effect import *
 from .test_timeline_pip_photo_effect import *
 from .test_timeline_pip_video_crop_rotate import *
 from .test_timeline_pip_photo_crop_rotate import *
+from .test_timeline_pip_photo_mask import *
+from .test_timeline_pip_video_mask import *
 
