@@ -25,7 +25,7 @@ class Shortcut(BasePage):
         self.page_media = MediaPage(driver)
         self.driver = driver
 
-    def enter_shortcut(self, shortcut_name, demo_title=None, check=True):
+    def enter_shortcut(self, shortcut_name, demo_title=None, audio_tool=None, check=True):
         demo_title = demo_title or shortcut_name
 
         if not self.is_exist(L.main.shortcut.shortcut_name(), 1):
@@ -54,6 +54,15 @@ class Shortcut(BasePage):
                         self.h_swipe_element(shortcuts_name[-1], shortcuts_name[0], 3)
 
         if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
+            if audio_tool:
+                audio_tool = audio_tool.lower()
+                if audio_tool == 'speech enhance':
+                    self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
+                elif audio_tool == 'ai denoise':
+                    self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
+                else:
+                    logger(f'[Warning] {audio_tool} is not found', log_level='warn')
+
             if check:
                 time.sleep(0.5)
                 if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"{demo_title}")]')) or
@@ -193,17 +202,7 @@ class Shortcut(BasePage):
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:
-                if not self.enter_shortcut(shortcut_name):
-                    self.enter_ai_feature(shortcut_name)
-
-            if audio_tool:
-                audio_tool = audio_tool.lower()
-                if audio_tool == 'speech enhance':
-                    self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-                elif audio_tool == 'ai denoise':
-                    self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
-                else:
-                    logger(f'[Warning] {audio_tool} is not found', log_level='warn')
+                self.enter_shortcut(shortcut_name, audio_tool=audio_tool)
 
             self.click(L.main.shortcut.try_it_now, 1)
 
