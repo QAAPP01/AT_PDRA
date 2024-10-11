@@ -21,9 +21,9 @@ from .test_shortcut_speed import *
 from .test_shortcut_image_enhancer import *
 from .test_shortcut_auto_caption import *
 from .test_shortcut_speech_enhance import *
-from test_shortcut_ai_denoise import *
+from .test_shortcut_ai_denoise import *
 from .test_shortcut_voice_changer import *
-from test_shortcut_speed_curve import *
+from .test_shortcut_speed_curve import *
 
 
 from .test_shortcut_ai_anime_video import *
