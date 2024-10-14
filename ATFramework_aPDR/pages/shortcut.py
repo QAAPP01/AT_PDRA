@@ -25,6 +25,16 @@ class Shortcut(BasePage):
         self.page_media = MediaPage(driver)
         self.driver = driver
 
+    def back_from_all_shortcut_page(self):
+        self.click(id('back_button'))
+        self.click(id('layout_home'))
+
+        if self.is_exist(id('iv_menu')):
+            return True
+        else:
+            logger(f'[Error] all_shortcut_page_back fail', log_level='error')
+            return False
+
     def enter_shortcut(self, shortcut_name, demo_title=None, audio_tool=None, check=True):
         demo_title = demo_title or shortcut_name
 
@@ -125,7 +135,7 @@ class Shortcut(BasePage):
             logger(f'[Error] mute_demo fail', log_level='error')
             return False
 
-    def demo_dont_show_again(self, shortcut_name, demo_title=None):
+    def demo_dont_show_again(self, shortcut_name):
         if not self.is_exist(L.main.shortcut.dont_show_again, 1):
             self.enter_shortcut(shortcut_name, check=False)
 
@@ -139,6 +149,23 @@ class Shortcut(BasePage):
             logger(f'[Error] demo_dont_show_again fail', log_level='error')
             return False
         return True
+
+    def reset_dont_show_again(self, shortcut_name):
+        self.back_from_media_picker()
+        self.back_from_all_shortcut_page()
+
+        self.page_main.enter_setting_in_preferences('Enable All Default Tips')
+
+        self.click(id('iv_back'))
+        self.click(id('iv_back'))
+
+        self.enter_shortcut(shortcut_name, check=False)
+
+        if self.is_exist(L.main.shortcut.dont_show_again, 1):
+            return True
+        else:
+            logger(f'[Error] reset_dont_show_again fail', log_level='error')
+            return False
 
     def demo_sample_video(self, shortcut_name=None):
         if shortcut_name:
@@ -205,6 +232,7 @@ class Shortcut(BasePage):
                 self.enter_shortcut(shortcut_name, audio_tool=audio_tool)
 
             self.click(L.main.shortcut.try_it_now, 1)
+            self.click(aid('[AID]Upgrade_No'), 0.5)
 
             if self.is_exist(find_string('Add Media')):
                 return True
