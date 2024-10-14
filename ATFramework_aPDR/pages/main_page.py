@@ -428,6 +428,29 @@ class MainPage(BasePage):
                 import_media.select_media_by_order(1)
             import_media.click(L_media.library_gridview.add)
 
+    def enter_menu(self):
+        self.click(L.main.launcher.home)
+        self.click(L.main.menu.menu)
+
+        if self.element(id('tv_title')).text == 'Menu':
+            return True
+        else:
+            logger('[Error] enter_menu fail', log_level='error')
+
+    def enter_menu_setting(self, setting):
+        last = ''
+        while 1:
+            if self.click(find_string(setting)):
+                return True
+            else:
+                settings = self.elements(xpath('//android.widget.TextView'))
+                if settings[-1].text == last:
+                    logger(f'No setting "{setting}"', log_level='error')
+                    return False
+                else:
+                    self.h_swipe_element(settings[-1], settings[0], 4)
+
+
     # Menu
     def enable_file_name(self):
         self.h_click(L.main.menu.menu)

@@ -85,6 +85,21 @@ class Test_Shortcut_AI_Color:
             data['last_result'] = False
             raise
 
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Reset don't show again")
+    def test_reset_dont_show_again(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Color', check=False)
+
+            assert self.page_shortcut.reset_dont_show_again('AI Color')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
 
     @allure.feature("Media Picker")
     @allure.story("Enter")
@@ -92,7 +107,7 @@ class Test_Shortcut_AI_Color:
     def test_entry_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Color')
+                self.page_shortcut.enter_shortcut('AI Color', check=False)
 
             assert self.page_shortcut.enter_media_picker()
 
@@ -213,7 +228,7 @@ class Test_Shortcut_AI_Color:
             logger(e)
             data['last_result'] = False
             raise
-    
+
     @allure.feature("Editor")
     @allure.story("Video")
     @allure.title("Preview pause")

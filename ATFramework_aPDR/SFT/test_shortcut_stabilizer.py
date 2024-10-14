@@ -101,6 +101,22 @@ class Test_Shortcut_Stabilizer:
             logger(e)
             data['last_result'] = False
             raise
+
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Reset don't show again")
+    def test_reset_dont_show_again(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Stabilizer', check=False)
+
+            assert self.page_shortcut.reset_dont_show_again('Stabilizer')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
         
     @allure.feature("Media Picker")
     @allure.story("Enter")

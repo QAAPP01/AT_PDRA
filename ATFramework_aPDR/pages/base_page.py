@@ -40,16 +40,17 @@ class BasePage(BasePage):
         # logger("PackageName = %s" % PACKAGE_NAME)
 
     def click(self, locator, timeout=5):
-        try:
-            element = self.element(locator, timeout)
-            if element:
-                element.click()
-                logger(f"[Click] {locator}")
-                return True
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-        return False
+        return self.h_click(locator, timeout)
+        # try:
+        #     element = self.element(locator, timeout)
+        #     if element:
+        #         element.click()
+        #         logger(f"[Click] {locator}")
+        #         return True
+        # except Exception as e:
+        #     traceback.print_exc()
+        #     logger(e)
+        # return False
 
     def h_screenshot(self, locator=L.edit.preview.preview, crop=None):
         try:
@@ -885,12 +886,13 @@ class BasePage(BasePage):
             logger(f'\n[Error]{err}')
             return False
 
-    def swipe_to(self, direction, duration=0):
+    def swipe_to(self, direction, distance=None, duration=0):
         """
         # Function: swipe
         # Description: Swipe screen
         # Parameters:
             :param direction: up, down, left, right
+            :param distance: swipe distance
             :param duration: swipe duration
         # Returns: None
         """
@@ -901,16 +903,28 @@ class BasePage(BasePage):
             x = width // 2
             y = height // 2
             if direction == 'up':
-                end = [x, y * 0.5]
+                if distance:
+                    end = [x, y - distance]
+                else:
+                    end = [x, y * 0.5]
                 self.h_swipe_location(x, y, end[0], end[1], duration=duration)
             elif direction == 'down':
-                end = [x, y * 1.5]
+                if distance:
+                    end = [x, y + distance]
+                else:
+                    end = [x, y * 1.5]
                 self.h_swipe_location(x, y, end[0], end[1], duration=duration)
             elif direction == 'left':
-                end = [x * 0.5, y]
+                if distance:
+                    end = [x - distance, y]
+                else:
+                    end = [x * 0.5, y]
                 self.h_swipe_location(x, y, end[0], end[1], duration=duration)
             elif direction == 'right':
-                end = [x * 1.5, y]
+                if distance:
+                    end = [x + distance, y]
+                else:
+                    end = [x * 1.5, y]
                 self.h_swipe_location(x, y, end[0], end[1], duration=duration)
             else:
                 logger(f"[Error] Invalid direction: {direction}")
@@ -920,4 +934,46 @@ class BasePage(BasePage):
         except Exception as err:
             logger(f"[Error] {err}")
 
+    def enter_settings(self, setting):
+        try:
+            settings_dict = {
+                'tutorials_tips': id('btn_tutorial'),
+                'my_artwork': id('btn_my_artwork'),
+                'produced_videos': id('btn_produced_video'),
+                'demo_videos': id('btn_demo_videos'),
+                'notification': id('btn_notification'),
+                'preferences': id('btn_preference'),
+            }
 
+            setting = setting.lower().replace(' ', '_')
+            if self.h_click(settings_dict[setting]):
+                return True
+            else:
+                logger(f"[Error] Cannot enter {setting}")
+                return False
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
+
+    def enter_setting_in_preferences(self, setting, last='Enable All Default Tips'):
+        try:
+            self.click(id('iv_menu'))
+            self.enter_settings('preferences')
+
+
+            if self.click(find_string(setting), 1):
+                return True
+            else:
+                height = self.element(find_string('Default Video Quality')).rect['height']
+                while 1:
+                    self.swipe_to('up', distance=height*5)
+                    time.sleep(0.5)
+                    if self.click(find_string(setting), 1):
+                        return True
+                    else:
+                        if self.element(find_string(last)):
+                            logger(f"[Error] No found {setting}")
+                            return False
+        except Exception as err:
+            logger(f"[Error] {err}")
+            return False
