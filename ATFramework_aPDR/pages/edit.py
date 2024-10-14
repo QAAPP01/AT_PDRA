@@ -4608,6 +4608,7 @@ class Effect(BasePage):
         return self.is_exist(L.edit.sub_tool.effect.item)
 
     def effect_favorite_empty(self):
+        self.swipe_element(L.edit.sub_tool.effect.category_list, direction='right')
         self.element(L.edit.sub_tool.effect.category).click()
         text = self.element(L.edit.sub_tool.effect.favorite_empty_message).get_attribute('text')
         return text == 'Press and hold any effect to add it to favorites.'
@@ -4653,11 +4654,27 @@ class Effect(BasePage):
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).histogram_compare()
 
-    def effect_switch_category(self, order=2):
-        pic_base = self.get_preview_pic(L.edit.sub_tool.effect.item_panel)
-        self.elements(L.edit.sub_tool.effect.category)[order].click()
-        pic_after = self.get_preview_pic(L.edit.sub_tool.effect.item_panel)
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+    def effect_switch_category(self, category, timeout=0.2):
+        if not self.is_exist(L.edit.sub_tool.effect.category_list, 3):
+            logger("[Warning] No category list")
+            logger("[Info] Enter Effect Room")
+            self.page_edit.click_sub_tool('Effect')
+
+        locator = xpath(f'//*[@resource-id="{id_package + "library_category_tab_text"}" and @text="{category}"]')
+        if not self.is_exist(locator, timeout):
+            tools = self.elements(L.edit.sub_tool.effect.category)
+            while 1:
+                last = tools[-1].text
+                self.h_swipe_element(tools[-1], tools[0], speed=5)
+                if self.is_exist(locator, timeout):
+                    break
+                else:
+                    tools = self.elements(L.edit.sub_tool.effect.category_list)
+                    if tools[-1].text == last:
+                        logger(f'[Warning] Tool "{category}" is not exist')
+                        return False
+
+        return self.click(locator)
 
     def effect_favorite(self, order=2, action='add'):
         filter = self.elements(L.edit.filter.item)
