@@ -465,6 +465,7 @@ class SubTool:
 
     class Effect:
         edit = id('itemEdit')
+        category_list = id('category_recycler_view')
         category = id('library_category_item')
         item = id('itemMask')
         favorite_empty_message = id('hint_text_view')
@@ -1430,6 +1431,7 @@ class Auto_Caption:
     demo_video = id('iv_background')
     try_now = id('btn_upgrade')
     title = id('title')
+    selected_language = id('select_language_text')
 
 class Interface:
     converting = Converting

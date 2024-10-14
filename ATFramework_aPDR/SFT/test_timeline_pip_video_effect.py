@@ -70,7 +70,7 @@ class Test_PiP_Video_Effect:
         logger(f"\n[Start] {func_name}")
 
         try:
-            assert self.page_edit.effect.effect_switch_category(order)
+            assert self.page_edit.effect.effect_switch_category('Retro')
 
         except Exception:
             traceback.print_exc()
