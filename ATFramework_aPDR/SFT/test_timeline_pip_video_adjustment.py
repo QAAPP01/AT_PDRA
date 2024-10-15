@@ -38,6 +38,11 @@ class Test_PiP_Video_Adjustment_AI_Color:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
             self.page_edit.click_sub_tool('Adjustment')
             assert self.is_exist(L.edit.edit_sub.option_list)
 
@@ -200,6 +205,12 @@ class Test_PiP_Video_Adjustment_Brightness:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
@@ -339,6 +350,12 @@ class Test_PiP_Video_Adjustment_Contrast:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
@@ -478,6 +495,12 @@ class Test_PiP_Video_Adjustment_Saturation:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -617,6 +640,12 @@ class Test_PiP_Video_Adjustment_HSL:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             self.click(L.edit.adjustment.view_green)
             assert self.element(L.edit.adjustment.view_green).get_attribute('selected') == 'true'
@@ -890,6 +919,12 @@ class Test_PiP_Video_Adjustment_Hue:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjustment')
             self.click(L.edit.master.effect.back)
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
@@ -1030,6 +1065,12 @@ class Test_PiP_Video_Adjustment_Temp:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
@@ -1168,6 +1209,12 @@ class Test_PiP_Video_Adjustment_Tint:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
@@ -1307,6 +1354,12 @@ class Test_PiP_Video_Adjustment_Sharpness:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
