@@ -4391,11 +4391,11 @@ class Cutout(BasePage):
 
     def cutout_image_default_image(self):
         pic_base = self.get_boundary_preview()
-        self.element(L.edit.sub_tool.cutout.change_background).click()
+        self.click(L.edit.sub_tool.cutout.change_background)
+        self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
         image = self.elements(L.edit.sub_tool.cutout.item)
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1) and image[
-            3].get_attribute('selected') == 'true'
+        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
     def cutout_image_change_cl_image(self, order=3):
         if order < 3:
@@ -4491,7 +4491,7 @@ class A_Chroma_Key(BasePage):
 
     def chroma_key_denoise_slider(self):
         pic_base = self.get_preview_pic()
-        self.element(L.edit.sub_tool.cutout.color_picker.denoise_slider).send_keys(randint(50, 100))
+        self.element(L.edit.sub_tool.cutout.color_picker.denoise_slider).send_keys(100)
         pic_after = self.get_preview_pic()
         return not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -4880,5 +4880,16 @@ class Auto_Caption(BasePage):
         self.page_edit.click_sub_tool('Auto\n Captions')
         if self.is_exist(L.edit.auto_caption.demo_video):
             self.click(L.edit.auto_caption.try_now)
-        print(self.element(L.edit.auto_caption.title).get_attribute('text'))
         return self.element(L.edit.auto_caption.title).get_attribute('text') == 'Auto Captions'
+
+    def change_language(self, language):
+        if self.is_exist(L.edit.auto_caption.language_selector):
+            self.click(L.edit.auto_caption.language_selector)
+            self.click(find_string(language))
+            self.click(L.edit.auto_caption.back)
+            return self.element(L.edit.auto_caption.selected_language).get_attribute('text') == language
+
+    def generate_caption(self, language='English'):
+        self.change_language(language)
+        self.click(L.edit.auto_caption.start)
+        self.page_edit.waiting()

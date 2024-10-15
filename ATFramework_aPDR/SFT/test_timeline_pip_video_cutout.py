@@ -117,6 +117,7 @@ class Test_PiP_Video_Cutout_chroma_key:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_edit.cutout.start_with_cutout('pip video')
             assert self.page_edit.a_chroma_key.enter_chroma_key()
 
         except Exception as e:

@@ -1431,7 +1431,10 @@ class Auto_Caption:
     demo_video = id('iv_background')
     try_now = id('btn_upgrade')
     title = id('title')
+    language_selector = id('settings_select_language')
     selected_language = id('select_language_text')
+    back = id('btn_cancel')
+    start = id('btn_start')
 
 class Interface:
     converting = Converting

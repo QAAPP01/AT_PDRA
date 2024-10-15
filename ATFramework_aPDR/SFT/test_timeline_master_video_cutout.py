@@ -37,7 +37,7 @@ class Test_Master_Video_Cutout_Change_Background:
         logger(f"\n[Start] {func_name}")
 
         try:
-            assert self.page_edit.cutout.start_with_cutout(clip_type='video')
+            assert self.page_edit.cutout.start_with_cutout('master video')
 
         except Exception as e:
             traceback.print_exc()
@@ -45,7 +45,7 @@ class Test_Master_Video_Cutout_Change_Background:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.cutout.start_with_cutout(clip_type='video')
+            self.page_edit.cutout.start_with_cutout('master video')
             raise Exception
 
     @allure.title('Remove Background')
@@ -55,7 +55,7 @@ class Test_Master_Video_Cutout_Change_Background:
             assert self.page_edit.cutout.cutout_remove_background()
 
         except Exception:
-            self.page_edit.cutout.start_with_cutout(clip_type='video')
+            self.page_edit.cutout.start_with_cutout('master video')
             raise Exception
 
     @allure.title('No Effect')
@@ -64,7 +64,7 @@ class Test_Master_Video_Cutout_Change_Background:
             assert self.page_edit.cutout.cutout_no_effect()
 
         except Exception:
-            self.page_edit.cutout.start_with_cutout(clip_type='video')
+            self.page_edit.cutout.start_with_cutout('master video')
             raise Exception
 
 @allure.epic('Timeline_PiP')
@@ -90,6 +90,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_edit.cutout.start_with_cutout('master video')
             assert self.page_edit.cutout.cutout_image_default_image()
 
         except Exception as e:

@@ -118,6 +118,7 @@ class Test_PiP_Photo_Cutout_chroma_key:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_edit.cutout.start_with_cutout('pip photo')
             assert self.page_edit.a_chroma_key.enter_chroma_key()
 
         except Exception as e:
