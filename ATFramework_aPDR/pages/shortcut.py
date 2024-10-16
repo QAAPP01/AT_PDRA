@@ -9,12 +9,8 @@ from ATFramework_aPDR.pages.edit import EditPage
 from ATFramework_aPDR.pages.import_media import MediaPage
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ..ATFramework.utils.compare_Mac import HCompareImg
-
-test_material_folder = '00PDRa_Testing_Material'
-video_9_16 = 'video_9_16.mp4'
-video_16_9 = 'video_16_9.mp4'
-photo_9_16 = 'photo_9_16.jpg'
-photo_16_9 = 'photo_16_9.jpg'
+from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
+from ATFramework_aPDR.SFT.test_file import *
 
 
 class Shortcut(BasePage):
@@ -183,9 +179,10 @@ class Shortcut(BasePage):
 
     def recommendation_close(self, shortcut_name=None):
         if not self.click(L.main.shortcut.ai_sketch.close, 1):
-            self.enter_shortcut(shortcut_name)
-            self.click(L.main.shortcut.try_it_now, 1)
-            self.click(L.main.shortcut.ai_sketch.close)
+            if not self.click(L.main.shortcut.try_it_now, 1):
+                self.enter_shortcut(shortcut_name, check=False)
+                self.click(L.main.shortcut.try_it_now, 1)
+                self.click(L.main.shortcut.ai_sketch.close)
 
         if self.is_exist(L.main.shortcut.shortcut_name(0)) or self.element(L.main.ai_creation.title).text == 'AI Creation':
             return True
@@ -245,7 +242,8 @@ class Shortcut(BasePage):
             return False
 
     def back_from_media_picker(self):
-        self.click(L.import_media.media_library.back)
+        if not self.click(L.import_media.media_library.back, 2):
+            self.click(L.main.shortcut.ai_sketch.close, 2)
 
         if self.is_exist(L.main.shortcut.shortcut_name(0)):
             return True

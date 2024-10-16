@@ -25,9 +25,10 @@ from .test_shortcut_ai_denoise import *
 from .test_shortcut_voice_changer import *
 from .test_shortcut_speed_curve import *
 
-
 from .test_shortcut_ai_anime_video import *
+from .test_shortcut_ai_video_enhancer import *
 
+from .test_timeline_close_hint import *
 
 # Master
 from ATFramework_aPDR.SFT.test_timeline_master_replace import *
