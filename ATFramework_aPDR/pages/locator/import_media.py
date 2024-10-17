@@ -106,13 +106,15 @@ class MediaLibrary:
 
     @staticmethod
     def stock(stock_name):
-        stock = {"shutterstock": id('pickerShutter'),
-                 "getty": id('pickerGetty'),
-                 "getty_pro": id('pickerGettyPro'),
-                 "giphy": id('pickerGIPHY'),
-                 "pexels": id('pickerPexels'),
-                 "pixabay": id('pickerPixabay'),
-                 "google_drive": id('pickerGoogleDrive'),
+        stock = {
+            "shutterstock": id('pickerShutter'),
+            "getty": id('pickerGetty'),
+            "getty_pro": id('pickerGettyPro'),
+            "giphy": id('pickerGIPHY'),
+            "pexels": id('pickerPexels'),
+            "pixabay": id('pickerPixabay'),
+            "google_drive": id('pickerGoogleDrive'),
+            "google_photos": id('pickerGooglePhotos'),
                  }
         return stock[stock_name]
 
