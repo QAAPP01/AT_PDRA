@@ -28,12 +28,15 @@ from .test_shortcut_speed_curve import *
 from .test_shortcut_ai_anime_video import *
 from .test_shortcut_ai_video_enhancer import *
 
+
 from .test_timeline_close_hint import *
 
 # Master
+from .test_timeline_master_video_media_picker import *
+
+from ATFramework_aPDR.SFT.test_timeline_master_split import *
 from ATFramework_aPDR.SFT.test_timeline_master_replace import *
 from ATFramework_aPDR.SFT.test_timeline_master_replace_after_apply import *
-from ATFramework_aPDR.SFT.test_timeline_master_split import *
 from ATFramework_aPDR.SFT.test_timeline_master_volume import *
 from ATFramework_aPDR.SFT.test_timeline_master_speed import *
 from ATFramework_aPDR.SFT.test_timeline_master_adjustment_photo import *

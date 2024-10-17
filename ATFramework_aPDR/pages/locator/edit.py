@@ -281,9 +281,9 @@ class Timeline:
     @staticmethod
     def master_video(file_name=None):
         if file_name:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")]')
+            return xpath(f'//*[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")]')
         else:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]')
+            return xpath(f'//*[contains(@content-desc,"[AID]TimeLineVideo_")]')
 
     @staticmethod
     def master_video_thumbnail(file_name=None, clip_index=1, thumbnail_index=1):
