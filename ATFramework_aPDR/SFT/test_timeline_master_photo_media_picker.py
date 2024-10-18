@@ -37,160 +37,150 @@ class Test_Master_Photo_Media_Picker:
         return False
 
     @allure.story('Local')
-    @allure.title('Add mp4')
-    def test_add_mp4(self, data):
+    @allure.title('Add png')
+    def test_add_png(self, data):
         try:
             self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_local_video(video_mp4)
-            self.page_media.delete_master_video()
+            assert self.page_media.add_local_photo(photo_png)
+            self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise
 
     @allure.story('Local')
-    @allure.title('Add 3gp')
-    def test_add_3gp(self, data):
+    @allure.title('Add jpg')
+    def test_add_jpg(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_local_video(video_3gp)
-            self.page_media.delete_master_video()
+            assert self.page_media.add_local_photo(photo_jpg)
+            self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise
 
     @allure.story('Local')
-    @allure.title('Add mkv')
-    def test_add_mkv(self, data):
+    @allure.title('Add gif')
+    def test_add_gif(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_local_video(video_mkv)
-            self.page_media.delete_master_video()
+            assert self.page_media.add_local_photo(photo_gif)
+            self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
+            data['last_result'] = False
+            raise
+
+    @allure.story('Local')
+    @allure.title('Add bmp')
+    def test_add_bmp(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_main.enter_timeline(skip_media=False)
+
+            assert self.page_media.add_local_photo(photo_bmp)
+            self.page_media.delete_master_photo()
+
+        except Exception as e:
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise
 
     @allure.story('Getty Images')
-    @allure.title('Add Getty Images video')
-    def test_add_getty_images_video(self, data):
+    @allure.title('Add Getty Images photo')
+    def test_add_getty_images_photo(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_getty_images_video()
-            self.page_media.delete_master_video()
+            assert self.page_media.add_getty_images_photo()
+            self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise
 
     @allure.story('Getty Images Pro')
-    @allure.title('Add Getty Images Pro video')
-    def test_add_getty_images_pro_video(self, data):
+    @allure.title('Add Getty Images Pro photo')
+    def test_add_getty_images_pro_photo(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_getty_images_pro_video()
-            self.page_media.delete_master_video()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.story('Giphy')
-    @allure.title('Add Giphy')
-    def test_add_giphy(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_main.enter_timeline(skip_media=False)
-
-            assert self.page_media.add_giphy()
+            assert self.page_media.add_getty_images_pro_photo()
             self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise
 
     @allure.story('Pexels')
-    @allure.title('Add Pexels Video')
-    def test_add_pexels_video(self, data):
+    @allure.title('Add Pexels photo')
+    def test_add_pexels_photo(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_pexels_video()
-            self.page_media.delete_master_video()
+            assert self.page_media.add_pexels_photo()
+            self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise
 
     @allure.story('Pixabay')
-    @allure.title('Add Pixabay Video')
-    def test_add_pixabay_video(self, data):
+    @allure.title('Add Pixabay photo')
+    def test_add_pixabay_photo(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_pixabay_video()
-            self.page_media.delete_master_video()
+            assert self.page_media.add_pixabay_photo()
+            self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise
 
     @allure.story('Google Drive')
-    @allure.title('Add Google Drive Video')
+    @allure.title('Add Google Drive photo')
     def test_add_google_drive_video(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_google_drive_video()
-            self.page_media.delete_master_video()
+            assert self.page_media.add_google_drive_photo()
+            self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise
 
     @allure.story('Google Photos')
-    @allure.title('Add Google Photos Video')
-    def test_add_google_photos_video(self, data):
+    @allure.title('Add Google Photos photo')
+    def test_add_google_photos_photo(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
 
-            assert self.page_media.add_google_photos_video()
-            self.page_media.delete_master_video()
+            assert self.page_media.add_google_photos_photo()
+            self.page_media.delete_master_photo()
 
         except Exception as e:
-            traceback.print_exc()
-            logger(e)
+            logger(f'\n[Error] {e}\n{traceback.format_exc()}')
             data['last_result'] = False
             raise

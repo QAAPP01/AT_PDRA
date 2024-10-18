@@ -94,66 +94,81 @@ class MediaPage(BasePage):
             logger(err)
             return False
 
-    def add_local_video(self, file_name=video_9_16, folder=test_folder, check=True):
+    def add_local_media(self, file_name, folder, media_type='video', check=True):
         try:
             if not self.is_exist(L.import_media.media_library.media(), 1):
                 self.enter_media_picker_from_timeline()
-            if not self.select_local_video(file_name=file_name, folder=folder):
-                logger('Select local video fail')
+
+            if media_type == 'video':
+                if not self.select_local_video(file_name=file_name, folder=folder):
+                    logger('Select local video fail')
+                    return False
+                aid_prefix = '[AID]TimeLineVideo_'
+
+            elif media_type == 'photo':
+                if not self.select_local_photo(file_name=file_name, folder=folder):
+                    logger('Select local photo fail')
+                    return False
+                aid_prefix = '[AID]TimeLinePhoto_'
+
+            else:
+                logger(f'Invalid media type: {media_type}')
                 return False
+
             self.click(L.import_media.media_library.apply)
 
             if check:
-                if not self.is_exist(xpath(f"//*[starts-with(@content-desc, '[AID]TimeLineVideo_{file_name}')]")):
-                    raise Exception('Add video to timeline fail')
+                if not self.is_exist(xpath(f"//*[starts-with(@content-desc, '{aid_prefix}{file_name}')]")):
+                    raise Exception(f'Add {media_type} to timeline fail')
             return True
         except Exception as err:
             logger(err)
             return False
 
-    def delete_master_video(self, file_name=None):
+    def add_local_video(self, file_name=video_9_16, folder=test_folder, check=True):
+        return self.add_local_media(file_name, folder, media_type='video', check=check)
+
+    def add_local_photo(self, file_name=photo_9_16, folder=test_folder, check=True):
+        return self.add_local_media(file_name, folder, media_type='photo', check=check)
+
+    def delete_master_media(self, media_type, file_name=None):
         try:
-            locator = "[AID]TimeLineVideo_" if self.is_exist(xpath('//*[starts-with(@content-desc, "[AID]TimeLineVideo_")]')) else "[AID]TimeLinePhoto_"
+            if media_type == 'video':
+                aid_prefix = "[AID]TimeLineVideo_"
+            elif media_type == 'photo':
+                aid_prefix = "[AID]TimeLinePhoto_"
+            else:
+                logger(f'Invalid media type: {media_type}')
+                return False
 
             if file_name:
-                file = f'//*[starts-with(@content-desc, "{locator}{file_name}")]'
+                xpath_expression = f'//*[starts-with(@content-desc, "{aid_prefix}{file_name}")]'
             else:
-                file = f'//*[starts-with(@content-desc, "{locator}")]'
+                xpath_expression = f'//*[starts-with(@content-desc, "{aid_prefix}")]'
 
-            self.click(xpath(file))
+            if not self.is_exist(xpath(xpath_expression)):
+                logger(f'No {media_type} found to delete')
+                return False
+
+            self.click(xpath(xpath_expression))
             self.click(L.edit.menu.delete)
 
-            if not self.is_exist(xpath(file), 2):
-                return True
+            if self.is_exist(xpath(xpath_expression), 2):
+                logger(f'Delete {media_type} failed')
+                return False
             else:
-                raise Exception('Delete video fail')
+                logger(f'Delete {media_type} succeeded')
+                return True
 
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
+        except Exception as err:
+            logger(f'\n[Error] {err}\n{traceback.format_exc()}')
             return False
+
+    def delete_master_video(self, file_name=None):
+        return self.delete_master_media('video', file_name)
 
     def delete_master_photo(self, file_name=None):
-        try:
-            locator = "[AID]TimeLinePhoto_" if self.is_exist(xpath('//*[starts-with(@content-desc, "[AID]TimeLinePhoto_")]')) else "[AID]TimeLineVideo_"
-
-            if file_name:
-                file = f'//*[starts-with(@content-desc, "{locator}{file_name}")]'
-            else:
-                file = f'//*[starts-with(@content-desc, "{locator}")]'
-
-            self.click(xpath(file))
-            self.click(L.edit.menu.delete)
-
-            if not self.is_exist(xpath(file), 2):
-                return True
-            else:
-                raise Exception('Delete photo fail')
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            return False
+        return self.delete_master_media('photo', file_name)
 
     def enter_media_picker_from_timeline(self):
         if not self.click(L.edit.preview.import_tips_icon, timeout=1):
@@ -163,34 +178,61 @@ class MediaPage(BasePage):
                     return False
         return True
 
-    def add_video_from_library(self, library_name):
+    def add_media_from_library(self, library_name, media_type='video'):
         if not self.is_exist(L.import_media.media_library.media(), 1):
             self.enter_media_picker_from_timeline()
 
-        if not self.select_video_library(library_name):
-            logger(f'Select {library_name} video fail')
+        if media_type == 'video':
+            if not self.select_video_library(library_name):
+                logger(f'Select {library_name} video fail')
+                return False
+            aid_prefix = '[AID]TimeLineVideo_'
+
+        elif media_type == 'photo':
+            if not self.select_photo_library(library_name):
+                logger(f'Select {library_name} photo fail')
+                return False
+            aid_prefix = '[AID]TimeLinePhoto_'
+
+        else:
+            logger(f'Invalid media type: {media_type}')
             return False
 
         self.click(L.import_media.media_library.media())
         self.waiting_download(180)
         self.click(L.import_media.media_library.apply)
 
-        if not self.is_exist(xpath("//*[starts-with(@content-desc, '[AID]TimeLineVideo_')]")):
-            raise Exception('Add video to timeline fail')
+        if not self.is_exist(xpath(f"//*[starts-with(@content-desc, '{aid_prefix}')]")):
+            raise Exception(f'Add {media_type} to timeline fail')
         return True
 
     def add_getty_images_video(self):
-        return self.add_video_from_library('getty')
+        return self.add_media_from_library('getty', 'video')
 
-    def add_getty_images_pro_video(self):
+    def add_getty_images_photo(self):
+        return self.add_media_from_library('getty', 'photo')
+
+    def add_getty_images_pro_media(self, media_type='video'):
         try:
             if not self.is_exist(L.import_media.media_library.media(), 1):
                 self.enter_media_picker_from_timeline()
-            if not self.select_video_library('getty_pro'):
-                logger('Select getty video fail')
+
+            # 根據媒體類型選擇媒體庫
+            if media_type == 'video':
+                if not self.select_video_library('getty_pro'):
+                    logger('Select getty pro video fail')
+                    return False
+                aid_prefix = '[AID]TimeLineVideo_'
+            elif media_type == 'photo':
+                if not self.select_photo_library('getty_pro'):
+                    logger('Select getty pro photo fail')
+                    return False
+                aid_prefix = '[AID]TimeLinePhoto_'
+            else:
+                logger(f'Invalid media type: {media_type}')
                 return False
 
-            # subscribe getty pro
+            # 訂閱 Getty Pro
             self.click(L.import_media.media_library.media())
             if self.page_media.subscribe_getty_pro():
                 self.click(L.import_media.media_library.media())
@@ -198,13 +240,19 @@ class MediaPage(BasePage):
             self.waiting_download(180)
             self.click(L.import_media.media_library.apply)
 
-            if not self.is_exist(xpath("//*[starts-with(@content-desc, '[AID]TimeLineVideo_')]")):
-                raise Exception('Add video to timeline fail')
+            if not self.is_exist(xpath(f"//*[starts-with(@content-desc, '{aid_prefix}')]")):
+                raise Exception(f'Add {media_type} to timeline fail')
             return True
         except Exception as e:
             traceback.print_exc()
             logger(e)
             return False
+
+    def add_getty_images_pro_video(self):
+        return self.add_getty_images_pro_media(media_type='video')
+
+    def add_getty_images_pro_photo(self):
+        return self.add_getty_images_pro_media(media_type='photo')
 
     def add_giphy(self):
         if not self.is_exist(L.import_media.media_library.media(), 1):
@@ -223,50 +271,114 @@ class MediaPage(BasePage):
         return True
 
     def add_pexels_video(self):
-        return self.add_video_from_library('pexels')
+        return self.add_media_from_library('pexels', 'video')
+
+    def add_pexels_photo(self):
+        return self.add_media_from_library('pexels', 'photo')
 
     def add_pixabay_video(self):
-        return self.add_video_from_library('pixabay')
+        return self.add_media_from_library('pixabay', 'video')
+
+    def add_pixabay_photo(self):
+        return self.add_media_from_library('pixabay', 'photo')
+
+    def add_google_drive_media(self, media_type='video'):
+        try:
+            if not self.is_exist(L.import_media.media_library.media(), 1):
+                self.enter_media_picker_from_timeline()
+
+            # 根據媒體類型選擇媒體庫
+            if media_type == 'video':
+                if not self.select_video_library('google_drive'):
+                    logger('Select Google Drive video fail')
+                    return False
+                aid_prefix = '[AID]TimeLineVideo_'
+
+            elif media_type == 'photo':
+                if not self.select_photo_library('google_drive'):
+                    logger('Select Google Drive photo fail')
+                    return False
+                aid_prefix = '[AID]TimeLinePhoto_'
+
+            else:
+                logger(f'Invalid media type: {media_type}')
+                return False
+
+            # 點擊 Google 帳號名稱，可能需要適當的等待時間
+            self.click(('id', 'com.google.android.gms:id/account_name'), 3)
+
+            # 等待載入指標消失
+            if self.is_exist(id('waiting_cursor'), 3):
+                if not self.is_not_exist(id("waiting_cursor"), timeout=30):
+                    raise Exception("Waiting cursor timeout")
+
+            self.click(id('library_unit_caption'))
+
+            # 點擊媒體（影片或照片）進行下載
+            self.click(L.import_media.media_library.media())
+            self.waiting_download(180)
+
+            self.click(L.import_media.media_library.apply)
+
+            if not self.is_exist(xpath(f"//*[starts-with(@content-desc, '{aid_prefix}')]")):
+                raise Exception(f'Add {media_type} to timeline fail')
+            return True
+
+        except Exception as err:
+            logger(f'[Error] {err} {traceback.print_exc()}')
+            return False
 
     def add_google_drive_video(self):
-        if not self.is_exist(L.import_media.media_library.media(), 1):
-            self.enter_media_picker_from_timeline()
+        return self.add_google_drive_media(media_type='video')
 
-        if not self.select_video_library('google_drive'):
-            logger('Select google drive video fail')
+    def add_google_drive_photo(self):
+        return self.add_google_drive_media(media_type='photo')
+
+    def add_google_photos_media(self, media_type='video'):
+        try:
+            if not self.is_exist(L.import_media.media_library.media(), 1):
+                self.enter_media_picker_from_timeline()
+
+            # 根據媒體類型選擇媒體庫
+            if media_type == 'video':
+                if not self.select_video_library('google_photos'):
+                    logger('Select Google Photos video fail')
+                    return False
+                aid_prefix = '[AID]TimeLineVideo_'
+
+                self.click(('id', 'com.google.android.apps.photos:id/title'))
+                self.click(xpath('//*[starts-with(@content-desc, "Video taken on")]'))
+
+            elif media_type == 'photo':
+                if not self.select_photo_library('google_photos'):
+                    logger('Select Google Photos photo fail')
+                    return False
+                aid_prefix = '[AID]TimeLinePhoto_'
+
+                self.click(('id', 'com.google.android.apps.photos:id/title'))
+                self.click(xpath('//*[starts-with(@content-desc, "Photo taken on")]'))
+
+            else:
+                logger(f'Invalid media type: {media_type}')
+                return False
+
+            self.waiting_download(180)
+            self.click(L.import_media.media_library.apply)
+
+            if not self.is_exist(xpath(f"//*[starts-with(@content-desc, '{aid_prefix}')]")):
+                raise Exception(f'Add {media_type} to timeline fail')
+            return True
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
             return False
-
-        self.click(('id', 'com.google.android.gms:id/account_name'), 3)
-        if self.is_exist(id('waiting_cursor'), 3):
-            if not self.is_not_exist(id("waiting_cursor")):
-                raise Exception("Waiting cursor timeout")
-
-        self.click(id('library_unit_caption'))
-
-        self.click(L.import_media.media_library.media())
-        self.waiting_download(180)
-        self.click(L.import_media.media_library.apply)
-
-        if not self.is_exist(xpath("//*[starts-with(@content-desc, '[AID]TimeLineVideo_')]")):
-            raise Exception('Add video to timeline fail')
-        return True
 
     def add_google_photos_video(self):
-        if not self.is_exist(L.import_media.media_library.media(), 1):
-            self.enter_media_picker_from_timeline()
+        return self.add_google_photos_media(media_type='video')
 
-        if not self.select_video_library('google_photos'):
-            logger('Select google photos video fail')
-            return False
-
-        self.click(('id', 'com.google.android.apps.photos:id/title'))
-        self.click(xpath('//*[starts-with(@content-desc, "Video taken on")]'))
-        self.waiting_download(180)
-        self.click(L.import_media.media_library.apply)
-
-        if not self.is_exist(xpath("//*[starts-with(@content-desc, '[AID]TimeLineVideo_')]")):
-            raise Exception('Add video to timeline fail')
-        return True
+    def add_google_photos_photo(self):
+        return self.add_google_photos_media(media_type='photo')
 
     def capture_video(self):
         if not self.is_exist(L.import_media.media_library.media(), 1):
@@ -307,26 +419,27 @@ class MediaPage(BasePage):
         except Exception as err:
             raise Exception(err)
 
-    def select_video_library(self, stock_name):
+    def select_media_library(self, media_type, stock_name):
         stock_list = [
-            "shutterstock",
-            "getty",
-            "getty_pro",
-            "giphy",
-            "pexels",
-            "pixabay",
-            "google_drive",
-            "google_photos",
+                "shutterstock",
+                "getty",
+                "getty_pro",
+                "giphy",
+                "pexels",
+                "pixabay",
+                "google_drive",
+                "google_photos",
         ]
 
         def wait_for_cursor():
             if self.is_exist(id('waiting_cursor'), 1):
-                if not self.is_not_exist(id("waiting_cursor")):
+                if not self.is_not_exist(id("waiting_cursor"), timeout=30):
                     raise Exception("Waiting cursor timeout")
 
-        def swipe_and_search(stock_name, swipe_direction="left"):
+        def swipe_and_search(stock_name, swipe_direction="left", max_attempts=10):
             end_id = ""
-            while True:
+            attempts = 0
+            while attempts < max_attempts:
                 if self.click(L.import_media.media_library.stock(stock_name), 1):
                     wait_for_cursor()
                     return True
@@ -347,79 +460,45 @@ class MediaPage(BasePage):
 
                 current_id = tabs[index].get_attribute("resource-id")
                 if current_id == end_id:
+                    logger(f'[Info] Reached the end of tabs after {attempts} attempts')
                     break
                 else:
                     end_id = current_id
                     self.h_swipe_element(swipe_from, swipe_to, 3)
+                    attempts += 1
             return False
 
         try:
-            if stock_name not in stock_list:
-                logger(f'[Fail] Invalid stock name: {stock_name}')
+            if media_type not in ['video', 'photo']:
+                logger(f'[Fail] Invalid media type: {media_type}')
                 return False
 
-            self.click(L.import_media.video_library.video_entry, 2)
+            if stock_name not in stock_list:
+                logger(f'[Fail] Invalid stock name for {media_type}: {stock_name}')
+                return False
 
-            if self.is_exist(L.import_media.video_library.local_folder, 1):
-                if swipe_and_search(stock_name, "left"):
-                    return True
+            if media_type == 'video':
+                self.click(L.import_media.video_library.video_entry, 2)
             else:
-                if swipe_and_search(stock_name, "left"):
-                    return True
-                if swipe_and_search(stock_name, "right"):
+                self.click(L.import_media.media_library.photo_entry, 2)
+
+            directions = ["left", "right"]
+            for direction in directions:
+                if swipe_and_search(stock_name, direction):
                     return True
 
             logger(f'[Fail] Could not find stock: {stock_name}')
             return False
 
         except Exception as err:
-            logger(f'\n[Error] {err}')
+            logger(f'\n[Error] {err}\n{traceback.format_exc()}')
             return False
+
+    def select_video_library(self, stock_name):
+        return self.select_media_library('video', stock_name)
 
     def select_photo_library(self, stock_name):
-        stock = [
-            "shutterstock",
-            "getty",
-            "getty_pro",
-            "giphy",
-            "pexels",
-            "pixabay",
-            "google_drive",
-        ]
-        try:
-            if stock_name not in stock:
-                logger(f'[Fail] Invalid stock name: {stock_name}')
-                return False
-
-            self.click(L.import_media.media_library.photo_entry, 2)
-            tab = ('xpath', '//android.widget.LinearLayout/android.view.ViewGroup')
-            if not self.click(L.import_media.media_library.stock(stock_name), 1):
-                for retry in range(60):
-                    if not self.is_exist(L.import_media.video_library.local_folder, 1):
-                        tabs = self.elements(tab)
-                        self.h_swipe_element(tabs[0], tabs[-1], 3)
-                        if self.click(L.import_media.media_library.stock(stock_name), 1):
-                            return True
-                    else:
-                        break
-            end = ""
-            for retry in range(60):
-                if not self.click(L.import_media.media_library.stock(stock_name), 1):
-                    tabs = self.elements(tab)
-                    last = tabs[-1].get_attribute("resource-id")
-                    if last == end:
-                        logger(f'[Fail] Stock {stock_name} is not found')
-                        return False
-                    else:
-                        end = last
-                        self.h_swipe_element(tabs[-1], tabs[0], 3)
-                else:
-                    return True
-            else:
-                raise Exception("out of retry")
-        except Exception as err:
-            logger(f'\n[Error] {err}')
-            return False
+        return self.select_media_library('photo', stock_name)
 
     def select_media_by_text(self, file_name, retry=10, speed=7):
         for i in range(retry):
