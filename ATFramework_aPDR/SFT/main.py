@@ -33,10 +33,11 @@ from .test_timeline_close_hint import *
 
 # Master
 from .test_timeline_master_video_media_picker import *
+from .test_timeline_master_video_split import *
 
 from .test_timeline_master_photo_media_picker import *
+from .test_timeline_master_photo_split import *
 
-from ATFramework_aPDR.SFT.test_timeline_master_split import *
 from ATFramework_aPDR.SFT.test_timeline_master_replace import *
 from ATFramework_aPDR.SFT.test_timeline_master_replace_after_apply import *
 from ATFramework_aPDR.SFT.test_timeline_master_volume import *

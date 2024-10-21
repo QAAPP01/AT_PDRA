@@ -793,16 +793,7 @@ class Shortcut(BasePage):
         self.click(L.main.shortcut.item(2))
 
     def export(self):
-        if not self.click(L.main.shortcut.export):
-            self.click(id('btn_save_menu'))
-        self.click(L.main.shortcut.produce)
-        self.page_edit.waiting_produce()
-
-        if self.is_exist(L.main.shortcut.save_to_camera_roll):
-            return True
-        else:
-            logger(f'[Error] export fail', log_level='error')
-            return False
+        return self.page_edit.export()
 
     def export_cancel(self):
         self.click(L.main.shortcut.export)

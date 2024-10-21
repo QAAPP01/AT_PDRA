@@ -274,7 +274,7 @@ class Timeline:
     @staticmethod
     def clip(index=1):
         if index:
-            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_host")])[{index}]')
+            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_view")])[{index}]')
         else:
             return xpath(f'//*[contains(@resource-id,"item_view_thumbnail_host")]')
 

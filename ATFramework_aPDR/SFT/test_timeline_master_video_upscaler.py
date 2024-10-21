@@ -10,9 +10,9 @@ from ATFramework_aPDR.pages.locator.locator_type import *
 from ATFramework_aPDR.SFT.test_file import *
 
 
-@allure.epic('Timeline Master Photo')
-@allure.feature('Split')
-class Test_Master_Photo_Split:
+@allure.epic('Timeline Master Video')
+@allure.feature('Video Upscaler')
+class Test_Master_Video_Upscaler:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
@@ -36,30 +36,17 @@ class Test_Master_Photo_Split:
             return True
         return False
 
-    @allure.story('Split')
-    @allure.title('Split photo')
-    def test_split_photo(self, data):
+    @allure.story('Dialog')
+    @allure.title('Cancel')
+    def test_cancel(self, data):
         try:
             self.page_main.enter_timeline(skip_media=False)
-            self.page_media.add_local_photo(photo_9_16)
+            self.page_media.add_local_video(video_9_16)
+            self.click(L.edit.timeline.clip())
+            self.page_edit.click_sub_tool('Video\nUpscaler')
+            self.click(id('cancel_button'))
 
-            assert self.page_edit.split()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.story('Split')
-    @allure.title('Split position')
-    def test_split_position(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_main.enter_timeline(skip_media=False)
-                self.page_media.add_local_photo(photo_9_16)
-
-            assert self.page_edit.check_split_position()
+            assert not self.is_exist(id('cancel_button'))
 
         except Exception as e:
             traceback.print_exc()
@@ -67,16 +54,19 @@ class Test_Master_Photo_Split:
             data['last_result'] = False
             raise
 
-    @allure.story("Export")
-    @allure.title("Produce Save")
-    def test_produce_save(self, data):
+    @allure.story('Dialog')
+    @allure.title('Continue')
+    def test_continue(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_main.enter_timeline(skip_media=False)
                 self.page_media.add_local_video(video_9_16)
-                self.page_edit.split()
 
-            assert self.page_edit.export()
+            self.click(L.edit.timeline.clip())
+            self.page_edit.click_sub_tool('Video\nUpscaler')
+            self.click(id('confirm_button'))
+
+            assert self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"AI Video Upscaler")]'))
 
         except Exception as e:
             traceback.print_exc()

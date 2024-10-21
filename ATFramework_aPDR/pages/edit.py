@@ -103,6 +103,18 @@ class EditPage(BasePage):
             logger('[Fail] Split position fail')
             return False
 
+    def export(self):
+        if not self.click(L.main.shortcut.export):
+            self.click(id('btn_save_menu'))
+        self.click(L.main.shortcut.produce)
+        self.page_edit.waiting_produce()
+
+        if self.is_exist(L.main.shortcut.save_to_camera_roll):
+            return True
+        else:
+            logger(f'[Error] export fail', log_level='error')
+            return False
+
     def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
         boundary_rect = self.element(L.edit.crop.boundary).rect
         if x > 1:

@@ -66,3 +66,20 @@ class Test_Master_Video_Split:
             logger(e)
             data['last_result'] = False
             raise
+
+    @allure.story("Export")
+    @allure.title("Produce Save")
+    def test_produce_save(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_main.enter_timeline(skip_media=False)
+                self.page_media.add_local_video(video_9_16)
+                self.page_edit.split()
+
+            assert self.page_edit.export()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise

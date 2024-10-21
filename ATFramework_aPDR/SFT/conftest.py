@@ -11,6 +11,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from selenium.common import InvalidSessionIdException
 from main import package_name, deviceName
+from ATFramework_aPDR.pages.locator import locator as L
 
 PACKAGE_NAME = package_name
 DRIVER_DESIRED_CAPS = {}
@@ -170,11 +171,13 @@ def driver():
 def driver_init(driver):
     page_main = PageFactory().get_page_object("main_page", driver)
     logger("==== Start driver session ====")
-    driver.driver.launch_app()
-    page_main.enter_launcher()
-    yield
-    if not debug_mode:
+    if not page_main.is_exist(L.main.launcher.home, 1):
         driver.driver.close_app()
+        driver.driver.launch_app()
+        page_main.enter_launcher()
+    else:
+        page_main.click(L.main.launcher.home)
+    yield
 
 
 @pytest.fixture(scope="session")
