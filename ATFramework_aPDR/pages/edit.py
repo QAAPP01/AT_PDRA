@@ -78,6 +78,31 @@ class EditPage(BasePage):
         self.mask = Mask(self.driver)
         self.auto_caption = Auto_Caption(self.driver)
 
+    def split(self):
+        self.driver.swipe_element(L.edit.timeline.playhead, 'left', offset=0.1)
+        self.click(id('item_view_bg'))
+        self.click_sub_tool('Split')
+
+        if len(self.elements(id('item_view_bg'))) > 1:
+            return True
+        else:
+            logger('[Fail] Split fail')
+            return False
+
+    def check_split_position(self):
+        start, end = self.elements(id('item_view_bg'))
+        first_clip_end_x = start.rect['x'] + start.rect['width']
+        second_clip_start_x = end.rect['x']
+        timeline_indicator = self.element(L.edit.timeline.playhead)
+        timeline_indicator_x = timeline_indicator.rect['x'] + timeline_indicator.rect['width'] / 2
+        logger(f'first_clip_end_x: {first_clip_end_x}, second_clip_start_x: {second_clip_start_x}, ')
+
+        if first_clip_end_x == second_clip_start_x == timeline_indicator_x:
+            return True
+        else:
+            logger('[Fail] Split position fail')
+            return False
+
     def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
         boundary_rect = self.element(L.edit.crop.boundary).rect
         if x > 1:
