@@ -186,7 +186,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline(skip_media=False)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.click(L.import_media.media_library.apply)
             self.click(L.edit.timeline.master_clip)
             self.page_edit.click_sub_tool('Cutout')
@@ -209,7 +209,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -229,7 +229,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -249,7 +249,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -269,7 +269,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -297,7 +297,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -318,7 +318,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -338,7 +338,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -358,7 +358,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -378,7 +378,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -398,7 +398,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -418,7 +418,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -438,7 +438,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -458,7 +458,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -478,7 +478,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -498,7 +498,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -518,7 +518,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -539,7 +539,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -559,7 +559,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
@@ -579,7 +579,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
             self.page_main.enter_timeline()
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_media.select_local_video(test_folder, 'mkv.mkv')
             self.page_edit.click_sub_tool('Cutout')
             self.element(L.edit.sub_tool.cutout.chroma_key).click()
             raise Exception
