@@ -22,11 +22,13 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage, HCompareImg
 
 from ATFramework_aPDR.pages.locator import locator as L
+from test_case_template import video_16_9
 from .locator.locator_type import *
 from .locator.locator import edit as E
 
 from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 from ATFramework_aPDR.pages.page_factory import PageFactory
+from ATFramework_aPDR.SFT.test_file import *
 
 
 class EditPage(BasePage):
@@ -487,6 +489,24 @@ class EditPage(BasePage):
                     raise Exception(f'"{name}" not found')
                 else:
                     last = new_last
+            return True
+
+        except Exception as err:
+            logger(f'[Error] {err}')
+            return False
+
+    def create_project_and_enter_function(self, func, media_type='video', file_name=video_9_16):
+        try:
+            self.page_main.enter_timeline(skip_media=False)
+
+            if media_type == 'video':
+                self.page_media.add_local_video(file_name)
+            else:
+                self.page_media.add_local_photo(file_name)
+
+            self.click(L.edit.timeline.clip())
+            self.click_sub_tool(func)
+
             return True
 
         except Exception as err:
@@ -4418,13 +4438,13 @@ class Cutout(BasePage):
         self.element(L.edit.sub_tool.cutout.remove_background).click()
         self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
     def cutout_no_effect(self):
         pic_base = self.page_edit.get_preview_pic()
         self.element(L.edit.sub_tool.cutout.no_effect).click()
         pic_after = self.page_edit.get_preview_pic()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
     def cutout_image_default_image(self):
         pic_base = self.get_boundary_preview()
@@ -4432,7 +4452,7 @@ class Cutout(BasePage):
         self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
         image = self.elements(L.edit.sub_tool.cutout.item)
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
     def cutout_image_change_cl_image(self, order=3):
         if order < 3:
