@@ -71,6 +71,7 @@ class MainPage(BasePage):
                     time.sleep(1)
                     self.click(L.main.tutorials.close_open_tutorial)
                     self.click(L.main.premium.iap_back, 1)
+                    self.click(id('iv_close'), 1)
                 else:
                     # Churn Recovery
                     time.sleep(1)
@@ -79,7 +80,7 @@ class MainPage(BasePage):
                     else:
                         # IAP
                         self.click(L.main.premium.iap_back, 1)
-                        self.click(id('iv_close'), 2)
+
             if subscribe:
                 self.subscribe()
             logger('Enter Launcher Done')
