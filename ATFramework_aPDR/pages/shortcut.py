@@ -214,6 +214,7 @@ class Shortcut(BasePage):
             self.page_main.relaunch(subscribe=False)
             self.enter_shortcut(shortcut_name, check=False)
             self.click(L.main.shortcut.try_it_now, 1)
+            self.click(id('tv_continue'), 1)
             if self.is_exist(L.import_media.media_library.title):
                 return True
             else:
