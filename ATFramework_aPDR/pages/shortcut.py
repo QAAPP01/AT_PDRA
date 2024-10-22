@@ -69,6 +69,9 @@ class Shortcut(BasePage):
                 else:
                     logger(f'[Warning] {audio_tool} is not found', log_level='warn')
 
+            else:
+                self.click(id('ok_button'), 1)
+
             if check:
                 time.sleep(0.5)
                 if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"{demo_title}")]')) or
