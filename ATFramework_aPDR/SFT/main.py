@@ -34,6 +34,8 @@ from .test_timeline_close_hint import *
 # Master
 from .test_timeline_master_video_media_picker import *
 from .test_timeline_master_video_split import *
+from .test_timeline_master_video_upscaler import *
+from .test_timeline_master_video_cutout import *
 
 from .test_timeline_master_photo_media_picker import *
 from .test_timeline_master_photo_split import *
@@ -44,7 +46,7 @@ from ATFramework_aPDR.SFT.test_timeline_master_volume import *
 from ATFramework_aPDR.SFT.test_timeline_master_speed import *
 from ATFramework_aPDR.SFT.test_timeline_master_adjustment_photo import *
 from ATFramework_aPDR.SFT.test_timeline_master_adjustment_video import *
-from .test_timeline_master_video_cutout import *
+
 from .test_timeline_master_photo_cutout import *
 from .test_timeline_master_video_filter import *
 from .test_timeline_master_photo_filter import *

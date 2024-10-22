@@ -4,6 +4,8 @@ toast = xpath('/hierarchy/android.widget.Toast[1]')
 
 class Toolbar:
     back = id('iv_back')
+    main_tool_back = id('iv_back')
+    sub_tool_back = id('btn_session_back')
 
 class Master:
 
