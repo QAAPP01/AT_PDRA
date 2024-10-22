@@ -336,7 +336,7 @@ class Test_Shortcut_AI_Denoise:
             self.page_shortcut.enter_shortcut('AI Audio Tools')
             self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
             self.click(L.main.shortcut.try_it_now)
-            self.page_media.select_local_video(test_material_folder, video_16_9)
+            self.page_media.select_local_video(folder=test_material_folder, file_name=video_16_9)
 
             if self.is_exist(find_string('No sound detected')):
 

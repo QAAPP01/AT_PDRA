@@ -11,6 +11,7 @@ from ATFramework_aPDR.pages.page_factory import PageFactory
 from .conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from .conftest import TEST_MATERIAL_FOLDER_01 as test_material_folder_01
 from ATFramework_aPDR.pages.locator.locator_type import *
+from .test_file import test_folder
 
 sys.path.insert(0, (path.dirname(path.dirname(__file__))))
 
@@ -751,7 +752,7 @@ class Test_SFT_Scenario_01_02:
 
         self.page_edit.add_master_media()
         file_name = "mp4.mp4"
-        self.page_media.select_local_video(test_material_folder, file_name)
+        self.page_media.select_local_video(folder=test_folder, file_name=file_name)
 
         if self.is_exist(L.edit.timeline.master_video(file_name)):
             result = True

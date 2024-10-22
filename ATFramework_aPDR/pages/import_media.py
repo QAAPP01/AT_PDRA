@@ -80,7 +80,7 @@ class MediaPage(BasePage):
             raise Exception(err)
             return False
 
-    def select_local_video(self, file_name=video_9_16, folder=test_folder):
+    def select_local_video(self, folder=test_folder, file_name=video_9_16):
         try:
             self.swipe_to('down')
             if not self.switch_to_video_library():
@@ -100,13 +100,13 @@ class MediaPage(BasePage):
                 self.enter_media_picker_from_timeline()
 
             if media_type == 'video':
-                if not self.select_local_video(file_name=file_name, folder=folder):
+                if not self.select_local_video(folder=folder, file_name=file_name):
                     logger('Select local video fail')
                     return False
                 aid_prefix = '[AID]TimeLineVideo_'
 
             elif media_type == 'photo':
-                if not self.select_local_photo(file_name=file_name, folder=folder):
+                if not self.select_local_photo(folder=folder, file_name=file_name):
                     logger('Select local photo fail')
                     return False
                 aid_prefix = '[AID]TimeLinePhoto_'
