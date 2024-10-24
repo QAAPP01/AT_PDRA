@@ -39,6 +39,7 @@ from .test_timeline_master_video_cutout import *
 
 from .test_timeline_master_photo_media_picker import *
 from .test_timeline_master_photo_split import *
+from .test_timeline_master_photo_cutout import *
 
 from ATFramework_aPDR.SFT.test_timeline_master_replace import *
 from ATFramework_aPDR.SFT.test_timeline_master_replace_after_apply import *
