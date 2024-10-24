@@ -8,8 +8,6 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.locator.locator_type import *
 from ATFramework_aPDR.SFT.test_file import *
-ori_preview = None
-
 
 
 @allure.epic('Timeline Master Video')
@@ -92,7 +90,6 @@ class Test_Master_Video_Cutout:
         try:
             if self.last_is_fail(data):
                 self.page_edit.create_project_and_enter_function("Cutout")
-                self.page_edit.cutout.cutout_remove_background()
 
             assert self.page_edit.cutout.cutout_image_default_image()
 
@@ -102,6 +99,65 @@ class Test_Master_Video_Cutout:
             data['last_result'] = False
             raise
 
+    @allure.story('Change Background')
+    @allure.title('CL Image')
+    def test_cutout_image_change_cl_image(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_edit.create_project_and_enter_function("Cutout")
+
+            assert self.page_edit.cutout.cutout_image_change_cl_image(7)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story('Change Background')
+    @allure.title('None')
+    def test_cutout_image_none(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_edit.create_project_and_enter_function("Cutout")
+
+            assert self.page_edit.cutout.cutout_image_none()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story('Change Background')
+    @allure.title('Custom Image')
+    def test_cutout_custom_image(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_edit.create_project_and_enter_function("Cutout")
+
+            assert self.page_edit.cutout.cutout_custom_image()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story('Change Background')
+    @allure.title('Enter Text to Image')
+    def test_cutout_text_to_image(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_edit.create_project_and_enter_function("Cutout")
+
+            assert self.page_edit.cutout.cutout_enter_TTI()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
 
 
 @allure.story('Cutout_Remove_Background')
