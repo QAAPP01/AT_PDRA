@@ -82,7 +82,8 @@ class MediaPage(BasePage):
 
     def select_local_video(self, folder=test_folder, file_name=video_9_16):
         try:
-            self.swipe_to('down')
+            if not self.is_exist(L.import_media.video_library.video_entry):
+                self.swipe_to('down')
             if not self.switch_to_video_library():
                 logger('Click video library fail')
             if not self.select_local_folder(folder):
@@ -405,7 +406,8 @@ class MediaPage(BasePage):
 
     def select_local_photo(self, folder, file_name):
         try:
-            self.swipe_to('down')
+            if not self.is_exist(L.import_media.photo_library.photo_entry):
+                self.swipe_to('down')
             if not self.switch_to_photo_library():
                 logger('Click photo library fail', log_level='error')
                 return False
