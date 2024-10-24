@@ -60,7 +60,7 @@ class Test_Master_Video_Cutout:
             if self.last_is_fail(data):
                 self.page_edit.create_project_and_enter_function("Cutout")
 
-            assert self.page_edit.cutout.cutout_remove_background()
+            assert self.page_edit.cutout.remove_background()
 
         except Exception as e:
             traceback.print_exc()
@@ -74,9 +74,9 @@ class Test_Master_Video_Cutout:
         try:
             if self.last_is_fail(data):
                 self.page_edit.create_project_and_enter_function("Cutout")
-                self.page_edit.cutout.cutout_remove_background()
+                self.page_edit.cutout.remove_background()
 
-            assert self.page_edit.cutout.cutout_no_effect()
+            assert self.page_edit.cutout.no_effect()
 
         except Exception as e:
             traceback.print_exc()
@@ -91,7 +91,7 @@ class Test_Master_Video_Cutout:
             if self.last_is_fail(data):
                 self.page_edit.create_project_and_enter_function("Cutout")
 
-            assert self.page_edit.cutout.cutout_image_default_image()
+            assert self.page_edit.cutout.image_default_image()
 
         except Exception as e:
             traceback.print_exc()
@@ -106,7 +106,7 @@ class Test_Master_Video_Cutout:
             if self.last_is_fail(data):
                 self.page_edit.create_project_and_enter_function("Cutout")
 
-            assert self.page_edit.cutout.cutout_image_change_cl_image(7)
+            assert self.page_edit.cutout.image_change_cl_image(7)
 
         except Exception as e:
             traceback.print_exc()
@@ -121,7 +121,7 @@ class Test_Master_Video_Cutout:
             if self.last_is_fail(data):
                 self.page_edit.create_project_and_enter_function("Cutout")
 
-            assert self.page_edit.cutout.cutout_image_none()
+            assert self.page_edit.cutout.image_none()
 
         except Exception as e:
             traceback.print_exc()
@@ -136,7 +136,7 @@ class Test_Master_Video_Cutout:
             if self.last_is_fail(data):
                 self.page_edit.create_project_and_enter_function("Cutout")
 
-            assert self.page_edit.cutout.cutout_custom_image()
+            assert self.page_edit.cutout.custom_image()
 
         except Exception as e:
             traceback.print_exc()
@@ -151,7 +151,22 @@ class Test_Master_Video_Cutout:
             if self.last_is_fail(data):
                 self.page_edit.create_project_and_enter_function("Cutout")
 
-            assert self.page_edit.cutout.cutout_enter_TTI()
+            assert self.page_edit.cutout.enter_TTI()
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.story('Change Background')
+    @allure.title('Animated Background')
+    def test_cutout_text_to_image(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_edit.create_project_and_enter_function("Cutout")
+
+            assert self.page_edit.cutout.animated_background()
 
         except Exception as e:
             traceback.print_exc()
@@ -193,7 +208,7 @@ class Test_Master_Video_Cutout_Change_Background:
     def test_cutout_remove_background(self, driver):
 
         try:
-            assert self.page_edit.cutout.cutout_remove_background()
+            assert self.page_edit.cutout.remove_background()
 
         except Exception:
             self.page_edit.cutout.start_with_cutout('master video')
@@ -202,7 +217,7 @@ class Test_Master_Video_Cutout_Change_Background:
     @allure.title('No Effect')
     def test_cutout_no_effect(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_no_effect()
+            assert self.page_edit.cutout.no_effect()
 
         except Exception:
             self.page_edit.cutout.start_with_cutout('master video')
@@ -232,7 +247,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
 
         try:
             self.page_edit.cutout.start_with_cutout('master video')
-            assert self.page_edit.cutout.cutout_image_default_image()
+            assert self.page_edit.cutout.image_default_image()
 
         except Exception as e:
             traceback.print_exc()
@@ -273,7 +288,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Image_Change to another CL image')
     def test_change_cl_image(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_image_change_cl_image(7)
+            assert self.page_edit.cutout.image_change_cl_image(7)
 
         except Exception as e:
             traceback.print_exc()
@@ -293,7 +308,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Image_None Background')
     def test_none_background(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_image_none()
+            assert self.page_edit.cutout.image_none()
 
         except Exception as e:
             traceback.print_exc()
@@ -313,7 +328,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Image_Custom Image')
     def test_custom_image(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_custom_image()
+            assert self.page_edit.cutout.custom_image()
 
         except Exception as e:
             traceback.print_exc()
@@ -362,7 +377,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Animated_Background')
     def test_animated_background(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_animated_background()
+            assert self.page_edit.cutout.animated_background()
 
         except Exception as e:
             traceback.print_exc()
@@ -382,7 +397,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Animated_None')
     def test_animated_none(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_animated_none()
+            assert self.page_edit.cutout.animated_none()
 
         except Exception as e:
             traceback.print_exc()
@@ -402,7 +417,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Color_Background')
     def test_color_background(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_color_background()
+            assert self.page_edit.cutout.color_background()
 
         except Exception as e:
             traceback.print_exc()
@@ -422,7 +437,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Color_None')
     def test_color_background_none(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_color_none()
+            assert self.page_edit.cutout.color_none()
 
         except Exception as e:
             traceback.print_exc()
@@ -603,7 +618,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Change Background_Apply')
     def test_change_background_apply(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_change_background_apply()
+            assert self.page_edit.cutout.change_background_apply()
 
         except Exception as e:
             traceback.print_exc()
@@ -623,7 +638,7 @@ class Test_PiP_Video_Cutout_Change_Background_:
     @allure.title('Change Background_Cancel')
     def test_change_background_cancel(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_change_background_cancel()
+            assert self.page_edit.cutout.change_background_cancel()
 
         except Exception as e:
             traceback.print_exc()

@@ -4433,27 +4433,27 @@ class Cutout(BasePage):
         self.page_edit.click_sub_tool('Cutout')
         return self.element(L.edit.sub_tool.cutout.no_effect).get_attribute('selected') == 'true'
 
-    def cutout_remove_background(self):
+    def remove_background(self):
         pic_base = self.get_boundary_preview()
         self.element(L.edit.sub_tool.cutout.remove_background).click()
         self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_no_effect(self):
+    def no_effect(self):
         pic_base = self.page_edit.get_preview_pic()
         self.element(L.edit.sub_tool.cutout.no_effect).click()
         pic_after = self.page_edit.get_preview_pic()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_image_default_image(self):
+    def image_default_image(self):
         pic_base = self.get_boundary_preview()
         self.click(L.edit.sub_tool.cutout.change_background)
         self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_image_change_cl_image(self, order=4):
+    def image_change_cl_image(self, order=4):
         if order < 4:
             order = 4
         pic_base = self.get_boundary_preview()
@@ -4464,7 +4464,7 @@ class Cutout(BasePage):
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_image_none(self):
+    def image_none(self):
         pic_base = self.get_boundary_preview()
         if not self.is_exist(L.edit.sub_tool.cutout.item):
             self.click(L.edit.sub_tool.cutout.change_background, 1)
@@ -4472,7 +4472,7 @@ class Cutout(BasePage):
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_custom_image(self):
+    def custom_image(self):
         pic_base = self.get_boundary_preview()
         if not self.is_exist(L.edit.sub_tool.cutout.item):
             self.click(L.edit.sub_tool.cutout.change_background, 1)
@@ -4481,7 +4481,7 @@ class Cutout(BasePage):
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_enter_TTI(self):
+    def enter_TTI(self):
         if not self.is_exist(L.edit.sub_tool.cutout.item):
             self.click(L.edit.sub_tool.cutout.change_background, 1)
         self.elements(L.edit.sub_tool.cutout.item)[2].click()
@@ -4493,7 +4493,7 @@ class Cutout(BasePage):
         else:
             return False
 
-    def cutout_animated_background(self, order=3):
+    def animated_background(self, order=3):
         if order < 3:
             order = 3
         pic_base = self.get_boundary_preview()
@@ -4503,32 +4503,32 @@ class Cutout(BasePage):
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_animated_none(self):
+    def animated_none(self):
         pic_base = self.get_boundary_preview()
         self.element(L.edit.sub_tool.cutout.item).click()
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_color_background(self):
+    def color_background(self):
         pic_base = self.get_boundary_preview()
         self.element(L.edit.sub_tool.cutout.color).click()
         self.elements(L.edit.sub_tool.cutout.card_color)[6].click()
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_color_none(self):
+    def color_none(self):
         pic_base = self.get_boundary_preview()
         self.element(L.edit.sub_tool.cutout.card_color).click()
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_change_background_apply(self):
+    def change_background_apply(self):
         pic_base = self.get_boundary_preview()
         self.click(L.edit.sub_tool.cutout.apply)
         pic_after = self.get_boundary_preview()
         return HCompareImg(pic_base, pic_after).ssim_compare()
 
-    def cutout_change_background_cancel(self):
+    def change_background_cancel(self):
         self.page_edit.click_sub_tool('Cutout')
         self.element(L.edit.sub_tool.cutout.change_background).click()
         self.element(L.edit.sub_tool.cutout.color).click()
