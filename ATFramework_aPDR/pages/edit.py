@@ -4526,7 +4526,7 @@ class Cutout(BasePage):
         pic_base = self.get_boundary_preview()
         self.click(L.edit.sub_tool.cutout.apply)
         pic_after = self.get_boundary_preview()
-        return HCompareImg(pic_base, pic_after).ssim_compare()
+        return HCompareImg(pic_base, pic_after).ssim_compare(0.95)
 
     def change_background_cancel(self):
         self.page_edit.click_sub_tool('Cutout')
