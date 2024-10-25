@@ -4888,8 +4888,75 @@ class Auto_Caption(BasePage):
             self.click(find_string(language))
             self.click(L.edit.auto_caption.back)
             return self.element(L.edit.auto_caption.selected_language).get_attribute('text') == language
+        else:
+            logger('[ERROR]No language selector')
+            return False
 
-    def generate_caption(self, language='English'):
+    def select_template(self, order=2):
+        if self.is_exist(L.edit.auto_caption.template_list):
+            self.elements(L.edit.auto_caption.template)[order].click()
+            self.page_edit.waiting()
+            return self.elements(L.edit.auto_caption.template)[order].get_attribute('selected') == 'true'
+        else:
+            logger('[ERROR]No language selector')
+            return False
+
+    def generate_caption(self, language='English', replace='off'):
+        if replace == 'on':
+            if self.is_exist(L.edit.auto_caption.replace):
+                self.click(L.edit.auto_caption.replace)
+            else:
+                logger('[Error]No replace switch')
+                return False
         self.change_language(language)
         self.click(L.edit.auto_caption.start)
         self.page_edit.waiting()
+        return len(self.elements(L.edit.timeline.item_view_bg)) > 1
+
+    def enter_caption_list(self):
+        self.swipe_element(L.edit.edit_sub.bottom_edit_menu, direction='right')
+        self.page_edit.click_sub_tool('Captions List')
+        return 'captions' in self.element(L.edit.auto_caption.title).get_attribute('text')
+
+    def caption_list_select(self):
+        if self.is_exist(L.edit.auto_caption.btn_select):
+            self.click(L.edit.auto_caption.btn_select)
+            return self.is_exist(L.edit.auto_caption.btn_select_all)
+        else:
+            return False
+
+    def caption_list_edit_caption(self, text='PDR-A AT'):
+        if self.is_exist(L.edit.auto_caption.more, 2):
+            self.click(L.edit.auto_caption.more)
+        self.click(L.edit.auto_caption.edit_caption)
+        self.element(L.edit.auto_caption.editText).send_keys(text)
+        self.click(L.edit.auto_caption.ok)
+        return self.element(L.edit.timeline.clip_title).get_attribute('text') == text
+
+    def caption_list_add_caption(self, text='add caption'):
+        self.click(L.edit.auto_caption.add_caption)
+        self.element(L.edit.auto_caption.editText).send_keys(text)
+        self.click(L.edit.auto_caption.ok)
+        return len(self.elements(L.edit.timeline.item_view_bg)) > 2
+
+    def caption_list_delete_caption(self):
+        self.page_edit.click_sub_tool('Captions List')
+        count = len(self.elements(L.edit.auto_caption.caption_select_view))
+        self.click(L.edit.auto_caption.caption_delete)
+        return len(self.elements(L.edit.auto_caption.caption_select_view)) < count
+
+    def edit_text(self, text='Edit text test'):
+        self.page_edit.click_sub_tool('Edit Text')
+        self.element(L.edit.auto_caption.editText).send_keys(text)
+        self.click(L.edit.auto_caption.ok)
+        return self.element(L.edit.timeline.clip_title).get_attribute('text') == text
+
+    def text_select_template_category(self, category):
+        self.page_edit.click_sub_tool('Template')
+        if not self.is_exist(L.edit.auto_caption.category, 3):
+            logger("[Warning] No category list")
+            logger("[Info] Enter Effect Room")
+            return False
+
+
+

@@ -65,10 +65,10 @@ class Test_Master_Photo_Cutout_Change_Background:
             self.page_edit.cutout.start_with_cutout('master photo')
             raise Exception
 
-@allure.epic('Timeline_PiP')
+@allure.epic('Timeline_Master')
 @allure.feature('Photo')
 @allure.story('Cutout_Change Background')
-class Test_PiP_Photo_Cutout_Change_Background_:
+class Test_Master_Photo_Cutout_Change_Background_:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut

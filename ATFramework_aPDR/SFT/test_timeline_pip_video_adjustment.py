@@ -3,7 +3,6 @@ import inspect
 
 import pytest
 import allure
-from random import randint
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg, CompareImage
 from ATFramework_aPDR.ATFramework.utils.log import logger
@@ -285,7 +284,7 @@ class Test_PiP_Video_Adjustment_Brightness:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
+            self.element(L.edit.sub_tool.slider).send_keys(30)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -430,7 +429,7 @@ class Test_PiP_Video_Adjustment_Contrast:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(50, 199))
+            self.element(L.edit.sub_tool.slider).send_keys(120)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -575,7 +574,7 @@ class Test_PiP_Video_Adjustment_Saturation:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
+            self.element(L.edit.sub_tool.slider).send_keys(80)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -1000,7 +999,7 @@ class Test_PiP_Video_Adjustment_Hue:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
+            self.element(L.edit.sub_tool.slider).send_keys(135)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -1145,7 +1144,7 @@ class Test_PiP_Video_Adjustment_Temp:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
+            self.element(L.edit.sub_tool.slider).send_keys(65)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -1289,7 +1288,7 @@ class Test_PiP_Video_Adjustment_Tint:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
+            self.element(L.edit.sub_tool.slider).send_keys(74)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -1434,7 +1433,7 @@ class Test_PiP_Video_Adjustment_Sharpness:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
+            self.element(L.edit.sub_tool.slider).send_keys(45)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 

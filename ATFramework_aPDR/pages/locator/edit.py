@@ -270,6 +270,7 @@ class Timeline:
     slider_value = id('adjustTextNow')
     reset = id('btn_reset')
     apply_all = id('btn_apply_all')
+    item_view_bg = id('item_view_bg')
 
     @staticmethod
     def clip(index=1):
@@ -1434,7 +1435,22 @@ class Auto_Caption:
     language_selector = id('settings_select_language')
     selected_language = id('select_language_text')
     back = id('btn_cancel')
+    ok = id('btn_ok')
     start = id('btn_start')
+    template = id('view_selected_border')
+    template_list = id('templates')
+    sound_source = id('select_source_text')
+    replace = id('replace_original_captions_switch')
+    more = id('btn_more')
+    caption_delete = id('caption_delete')
+    caption_list_doen = id('btn_done')
+    edit_caption = id('edit_caption')
+    editText = id('editText')
+    add_caption = id('add_caption')
+    caption_select_view = id('caption_select_view')
+    btn_select = id('btn_select')
+    btn_select_all = id('btn_select_all')
+    category = id('category_tab_layout')
 
 class Interface:
     converting = Converting

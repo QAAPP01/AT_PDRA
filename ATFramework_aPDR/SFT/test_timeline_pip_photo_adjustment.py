@@ -3,7 +3,6 @@ import inspect
 
 import pytest
 import allure
-from random import randint
 
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg, CompareImage
 from ATFramework_aPDR.ATFramework.utils.log import logger
@@ -140,7 +139,7 @@ class Test_PiP_Photo_Adjustment_AI_Color:
 
         try:
             pic_base = self.page_edit.get_preview_pic()
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
+            self.element(L.edit.sub_tool.slider).send_keys(43)
             pic_after = self.page_edit.get_preview_pic()
             assert not CompareImage(pic_base, pic_after, 7).compare_image()
 
@@ -969,7 +968,7 @@ class Test_PiP_Photo_Adjustment_Hue:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 200))
+            self.element(L.edit.sub_tool.slider).send_keys(145)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -1108,7 +1107,7 @@ class Test_PiP_Photo_Adjustment_Temp:
 
         try:
             pic_base = self.page_edit.get_preview_pic()
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
+            self.element(L.edit.sub_tool.slider).send_keys(76)
             pic_after = self.page_edit.get_preview_pic()
             assert not CompareImage(pic_base, pic_after, 7).compare_image()
 
@@ -1247,7 +1246,7 @@ class Test_PiP_Photo_Adjustment_Tint:
 
         try:
             pic_base = self.page_edit.get_preview_pic()
-            self.element(L.edit.sub_tool.slider).send_keys(randint(20, 100))
+            self.element(L.edit.sub_tool.slider).send_keys(55)
             pic_after = self.page_edit.get_preview_pic()
             assert not CompareImage(pic_base, pic_after, 7).compare_image()
 

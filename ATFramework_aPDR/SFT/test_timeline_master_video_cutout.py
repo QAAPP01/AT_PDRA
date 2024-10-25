@@ -67,10 +67,10 @@ class Test_Master_Video_Cutout_Change_Background:
             self.page_edit.cutout.start_with_cutout('master video')
             raise Exception
 
-@allure.epic('Timeline_PiP')
+@allure.epic('Timeline_Master')
 @allure.feature('Video')
 @allure.story('Cutout_Change Background')
-class Test_PiP_Video_Cutout_Change_Background_:
+class Test_Master_Video_Cutout_Change_Background_:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
