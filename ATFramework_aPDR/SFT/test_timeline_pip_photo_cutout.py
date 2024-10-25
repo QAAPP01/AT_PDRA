@@ -60,7 +60,7 @@ class Test_PiP_Photo_Cutout_Change_Background:
     def test_cutout_remove_background(self, driver):
 
         try:
-            assert self.page_edit.cutout.cutout_remove_background()
+            assert self.page_edit.cutout.remove_background()
 
         except Exception as e:
             traceback.print_exc()
@@ -79,7 +79,7 @@ class Test_PiP_Photo_Cutout_Change_Background:
     @allure.title('No Effect')
     def test_cutout_no_effect(self, driver):
         try:
-            assert self.page_edit.cutout.cutout_no_effect()
+            assert self.page_edit.cutout.no_effect()
 
         except Exception as e:
             traceback.print_exc()

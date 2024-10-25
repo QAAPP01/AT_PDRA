@@ -4,6 +4,8 @@ toast = xpath('/hierarchy/android.widget.Toast[1]')
 
 class Toolbar:
     back = id('iv_back')
+    main_tool_back = id('iv_back')
+    sub_tool_back = id('btn_session_back')
 
 class Master:
 
@@ -275,16 +277,16 @@ class Timeline:
     @staticmethod
     def clip(index=1):
         if index:
-            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_host")])[{index}]')
+            return xpath(f'(//*[contains(@resource-id,"item_view_thumbnail_view")])[{index}]')
         else:
             return xpath(f'//*[contains(@resource-id,"item_view_thumbnail_host")]')
 
     @staticmethod
     def master_video(file_name=None):
         if file_name:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")]')
+            return xpath(f'//*[contains(@content-desc,"[AID]TimeLineVideo_{file_name}")]')
         else:
-            return xpath(f'//android.widget.LinearLayout[contains(@content-desc,"[AID]TimeLineVideo_")]')
+            return xpath(f'//*[contains(@content-desc,"[AID]TimeLineVideo_")]')
 
     @staticmethod
     def master_video_thumbnail(file_name=None, clip_index=1, thumbnail_index=1):

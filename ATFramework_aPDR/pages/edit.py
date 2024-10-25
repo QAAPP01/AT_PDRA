@@ -22,11 +22,13 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage, HCompareImg
 
 from ATFramework_aPDR.pages.locator import locator as L
+from test_case_template import video_16_9
 from .locator.locator_type import *
 from .locator.locator import edit as E
 
 from ATFramework_aPDR.SFT.conftest import PACKAGE_NAME
 from ATFramework_aPDR.pages.page_factory import PageFactory
+from ATFramework_aPDR.SFT.test_file import *
 
 
 class EditPage(BasePage):
@@ -77,6 +79,43 @@ class EditPage(BasePage):
         self.crop_rotate = Crop_Rotate(self.driver)
         self.mask = Mask(self.driver)
         self.auto_caption = Auto_Caption(self.driver)
+
+    def split(self):
+        self.driver.swipe_element(L.edit.timeline.playhead, 'left', offset=0.1)
+        self.click(id('item_view_bg'))
+        self.click_sub_tool('Split')
+
+        if len(self.elements(id('item_view_bg'))) > 1:
+            return True
+        else:
+            logger('[Fail] Split fail')
+            return False
+
+    def check_split_position(self):
+        start, end = self.elements(id('item_view_bg'))
+        first_clip_end_x = start.rect['x'] + start.rect['width']
+        second_clip_start_x = end.rect['x']
+        timeline_indicator = self.element(L.edit.timeline.playhead)
+        timeline_indicator_x = timeline_indicator.rect['x'] + timeline_indicator.rect['width'] / 2
+        logger(f'first_clip_end_x: {first_clip_end_x}, second_clip_start_x: {second_clip_start_x}, ')
+
+        if first_clip_end_x == second_clip_start_x == timeline_indicator_x:
+            return True
+        else:
+            logger('[Fail] Split position fail')
+            return False
+
+    def export(self):
+        if not self.click(L.main.shortcut.export):
+            self.click(id('btn_save_menu'))
+        self.click(L.main.shortcut.produce)
+        self.page_edit.waiting_produce()
+
+        if self.is_exist(L.main.shortcut.save_to_camera_roll):
+            return True
+        else:
+            logger(f'[Error] export fail', log_level='error')
+            return False
 
     def drag_crop_boundary(self, x=0.8, y=0.9, corner=L.edit.crop.right_bottom):
         boundary_rect = self.element(L.edit.crop.boundary).rect
@@ -450,6 +489,24 @@ class EditPage(BasePage):
                     raise Exception(f'"{name}" not found')
                 else:
                     last = new_last
+            return True
+
+        except Exception as err:
+            logger(f'[Error] {err}')
+            return False
+
+    def create_project_and_enter_function(self, func, media_type='video', file_name=video_9_16):
+        try:
+            self.page_main.enter_timeline(skip_media=False)
+
+            if media_type == 'video':
+                self.page_media.add_local_video(file_name)
+            else:
+                self.page_media.add_local_photo(file_name)
+
+            self.click(L.edit.timeline.clip())
+            self.click_sub_tool(func)
+
             return True
 
         except Exception as err:
@@ -4376,50 +4433,67 @@ class Cutout(BasePage):
         self.page_edit.click_sub_tool('Cutout')
         return self.element(L.edit.sub_tool.cutout.no_effect).get_attribute('selected') == 'true'
 
-    def cutout_remove_background(self):
+    def remove_background(self):
         pic_base = self.get_boundary_preview()
         self.element(L.edit.sub_tool.cutout.remove_background).click()
         self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_no_effect(self):
+    def no_effect(self):
         pic_base = self.page_edit.get_preview_pic()
         self.element(L.edit.sub_tool.cutout.no_effect).click()
         pic_after = self.page_edit.get_preview_pic()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_image_default_image(self):
+    def image_default_image(self):
         pic_base = self.get_boundary_preview()
         self.click(L.edit.sub_tool.cutout.change_background)
         self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
-        image = self.elements(L.edit.sub_tool.cutout.item)
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_image_change_cl_image(self, order=3):
-        if order < 3:
-            order = 3
+    def image_change_cl_image(self, order=4):
+        if order < 4:
+            order = 4
         pic_base = self.get_boundary_preview()
+        if not self.is_exist(L.edit.sub_tool.cutout.item):
+            self.click(L.edit.sub_tool.cutout.change_background, 1)
         self.elements(L.edit.sub_tool.cutout.item)[order].click()
         self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_image_none(self):
+    def image_none(self):
         pic_base = self.get_boundary_preview()
+        if not self.is_exist(L.edit.sub_tool.cutout.item):
+            self.click(L.edit.sub_tool.cutout.change_background, 1)
         self.elements(L.edit.sub_tool.cutout.item)[1].click()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_custom_image(self):
+    def custom_image(self):
         pic_base = self.get_boundary_preview()
+        if not self.is_exist(L.edit.sub_tool.cutout.item):
+            self.click(L.edit.sub_tool.cutout.change_background, 1)
         self.element(L.edit.sub_tool.cutout.item).click()
         self.element(L.import_media.media_library.first).click()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_animated_background(self, order=3):
+    def enter_TTI(self):
+        if not self.is_exist(L.edit.sub_tool.cutout.item):
+            self.click(L.edit.sub_tool.cutout.change_background, 1)
+        self.elements(L.edit.sub_tool.cutout.item)[2].click()
+        self.click(id('ok_button'), 1)
+
+        if self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"Text to Image")]')):
+            self.click(id('iv_close'))
+            return True
+        else:
+            return False
+
+    def animated_background(self, order=3):
         if order < 3:
             order = 3
         pic_base = self.get_boundary_preview()
@@ -4427,34 +4501,34 @@ class Cutout(BasePage):
         self.elements(L.edit.sub_tool.cutout.item)[order].click()
         self.page_edit.waiting()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_animated_none(self):
+    def animated_none(self):
         pic_base = self.get_boundary_preview()
         self.element(L.edit.sub_tool.cutout.item).click()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_color_background(self):
+    def color_background(self):
         pic_base = self.get_boundary_preview()
         self.element(L.edit.sub_tool.cutout.color).click()
         self.elements(L.edit.sub_tool.cutout.card_color)[6].click()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_color_none(self):
+    def color_none(self):
         pic_base = self.get_boundary_preview()
         self.element(L.edit.sub_tool.cutout.card_color).click()
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
-    def cutout_change_background_apply(self):
+    def change_background_apply(self):
         pic_base = self.get_boundary_preview()
         self.click(L.edit.sub_tool.cutout.apply)
         pic_after = self.get_boundary_preview()
-        return HCompareImg(pic_base, pic_after).histogram_compare()
+        return HCompareImg(pic_base, pic_after).ssim_compare(0.95)
 
-    def cutout_change_background_cancel(self):
+    def change_background_cancel(self):
         self.page_edit.click_sub_tool('Cutout')
         self.element(L.edit.sub_tool.cutout.change_background).click()
         self.element(L.edit.sub_tool.cutout.color).click()
@@ -4462,7 +4536,7 @@ class Cutout(BasePage):
         pic_base = self.get_boundary_preview()
         self.click(L.edit.sub_tool.cutout.cancel)
         pic_after = self.get_boundary_preview()
-        return not HCompareImg(pic_base, pic_after).histogram_compare(1)
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
 
 class A_Chroma_Key(BasePage):

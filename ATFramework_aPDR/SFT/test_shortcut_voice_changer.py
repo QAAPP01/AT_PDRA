@@ -44,7 +44,7 @@ class Test_Shortcut_AI_Voice_Changer:
     @allure.title("Enter from Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            assert self.page_shortcut.enter_shortcut('AI Voice\nChanger', demo_title="Voice Changer")
+            assert self.page_shortcut.enter_shortcut('AI Voice\nChanger')
 
         except Exception as e:
             traceback.print_exc()
