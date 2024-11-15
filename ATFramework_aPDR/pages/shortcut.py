@@ -254,7 +254,7 @@ class Shortcut(BasePage):
     def back_from_media_picker(self):
         if not self.click(L.import_media.media_library.back, 2):
             self.click(L.main.shortcut.ai_sketch.close, 2)
-
+        self.click(L.edit.menu.home, 1)
         if self.is_exist(L.main.shortcut.shortcut_name(0)):
             return True
         else:
@@ -363,7 +363,7 @@ class Shortcut(BasePage):
             return False
 
     def get_timecode(self):
-        timecode_element = self.element(L.main.shortcut.timecode)
+        timecode_element = self.element(L.edit.menu.timecode)
         if timecode_element:
             timecode = timecode_element.text.strip()
             if '/' in timecode:
@@ -401,15 +401,15 @@ class Shortcut(BasePage):
 
     def preview_play(self):
         try:
-            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            time.sleep(2)
+            # self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+            # time.sleep(2)
 
             timecode = self.get_timecode()
             if timecode is None:
                 return False
 
             if timecode != '00:00':
-                self.click(L.main.shortcut.play)
+                self.click(L.edit.menu.play)
                 updated_timecode = self.get_timecode()
                 if updated_timecode is None:
                     return False
@@ -419,10 +419,9 @@ class Shortcut(BasePage):
                     logger('[Error] Timecode did not change after play click')
                     return False
 
-            self.click(L.main.shortcut.play)
-            # 等待播放一段時間
+            self.click(L.edit.menu.play)
             time.sleep(2)
-            self.click(L.main.shortcut.play)  # 暫停
+            self.click(L.edit.menu.play)  # 暫停
 
             new_timecode = self.get_timecode()
             if new_timecode is None:
@@ -440,11 +439,9 @@ class Shortcut(BasePage):
 
     def preview_pause(self):
         try:
-            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            self.click(L.main.shortcut.play)
-            # 等待一小段時間，確保播放開始
+            self.click(L.edit.menu.play)
             time.sleep(0.5)
-            self.click(L.main.shortcut.play)  # 暫停
+            self.click(L.edit.menu.play)  # 暫停
 
             timecode_before = self.get_timecode()
             if timecode_before is None:

@@ -106,8 +106,7 @@ class EditPage(BasePage):
             return False
 
     def export(self):
-        if not self.click(L.edit.menu.export):
-            self.click(id('btn_save_menu'))
+        self.click(L.edit.menu.export)
         self.click(L.main.shortcut.produce)
         self.page_edit.waiting_produce()
 

@@ -539,6 +539,7 @@ class Menu:
     timeline_setting = aid("[AID]TimeLine_Setting")
     undo = id("btn_undo")
     play = aid("[AID]TimeLine_Play")
+    timecode = id('playingTime')
     # edit = id("btn_edit_img") # after select video
     edit = id("btn_session_edit")
     # split = id("btn_split")
