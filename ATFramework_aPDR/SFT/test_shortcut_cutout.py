@@ -514,8 +514,8 @@ class Test_Shortcut_Cutout:
         
 
         try:
-            self.click(L.main.shortcut.play)
-            timecode_play = self.element(L.main.shortcut.timecode).text
+            self.click(L.edit.menu.play)
+            timecode_play = self.element(L.edit.menu.timecode).text
 
             if timecode_play != self.timecode_play:
                 
@@ -547,7 +547,7 @@ class Test_Shortcut_Cutout:
 
         try:
             self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            timecode_play = self.element(L.main.shortcut.timecode).text
+            timecode_play = self.element(L.edit.menu.timecode).text
 
             if timecode_play == '00:00':
                 
