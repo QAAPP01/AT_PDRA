@@ -1,6 +1,7 @@
 from .test_app_initial import *
 
 # Shortcut
+from .test_shortcut_trim import *
 from .test_shortcut_ai_art import *
 from .test_shortcut_ai_scene import *
 from .test_shortcut_ai_sketch import *
@@ -15,7 +16,7 @@ from .test_shortcut_stabilizer import *
 from .test_shortcut_mosaic import *
 from .test_shortcut_filter import *
 from .test_shortcut_crop_rotate import *
-from .test_shortcut_trim import *
+
 from .test_shortcut_cutout import *
 from .test_shortcut_speed import *
 from .test_shortcut_image_enhancer import *

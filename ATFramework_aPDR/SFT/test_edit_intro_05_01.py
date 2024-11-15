@@ -814,7 +814,7 @@ class Test_Edit_Intro:
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.audio_denoise)
             self.page_edit.waiting()
             self.click(L.edit.ai_audio_tool.ok)
-            self.click(L.edit.menu.produce)
+            self.click(L.edit.menu.export)
 
             if self.click(L.main.subscribe.back_btn):
                 

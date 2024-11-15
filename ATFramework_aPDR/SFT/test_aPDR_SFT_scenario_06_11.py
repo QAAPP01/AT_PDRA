@@ -155,7 +155,7 @@ class Test_SFT_Scenario_06_11:
         self.report.start_uuid('0b1cceda-9e88-4935-9922-21484c44a430')
         page_edit.back()
         time.sleep(3)
-        page_media.click(L.edit.menu.produce)
+        page_media.click(L.edit.menu.export)
         time.sleep(3)
         result = True if page_edit.is_exist(L.import_media.gettyimages_premium.buy_dialog.premium_list) else False
         self.report.new_result('0b1cceda-9e88-4935-9922-21484c44a430', result)
@@ -1481,7 +1481,7 @@ class Test_SFT_Scenario_06_11:
         self.report.start_uuid('0240ac6c-970e-47aa-abc3-683705939e77')
         page_edit.back()
         time.sleep(3)
-        page_media.click(L.edit.menu.produce)
+        page_media.click(L.edit.menu.export)
         time.sleep(3)
         result = True if page_edit.is_exist(L.import_media.gettyimages_premium.buy_dialog.premium_list) else False
         self.report.new_result('0240ac6c-970e-47aa-abc3-683705939e77', result)
