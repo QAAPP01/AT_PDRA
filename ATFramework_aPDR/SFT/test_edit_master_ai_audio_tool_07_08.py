@@ -911,7 +911,7 @@ class Test_Edit_Master_Audio_Tool:
             self.click(L.edit.ai_audio_tool.ok)
             self.page_edit.click_audio_tool(L.edit.ai_audio_tool.speech_enhance)
             time.sleep(15)
-            self.click(L.edit.menu.produce)
+            self.click(L.edit.menu.export)
 
             if self.is_exist(L.main.subscribe.premium_list):
                 

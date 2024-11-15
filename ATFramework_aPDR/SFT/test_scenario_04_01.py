@@ -97,7 +97,7 @@ class Test_sce_04_01_01:
         
         # block 1080p
         _start('c74358ce-293f-4181-8722-bc4dcf131c01')
-        produce.click(L.edit.menu.produce)
+        produce.click(L.edit.menu.export)
         produce.click(L.edit.menu.produce_sub_page.produce)
         produce.click(L.produce.tab.facebook)
         result_lock_1080p = produce.is_exist(L.produce.facebook.fhd_lock)
@@ -132,7 +132,7 @@ class Test_sce_04_01_01:
         # default is HD
         _start('ef331790-9e21-4ad4-b81f-a11b9dc86c5f')
         produce.back()
-        produce.click(L.edit.menu.produce)
+        produce.click(L.edit.menu.export)
         produce.click(L.edit.menu.produce_sub_page.produce)
         produce.click(L.produce.tab.facebook)
         result_default_is_hd = produce.el(L.produce.facebook.hd).get_attribute('checked').lower() == 'true'
@@ -169,7 +169,7 @@ class Test_sce_04_01_01:
         
         # default is HD
         _start('0c3df89e-316c-4042-931b-e5c97cb9e590')
-        produce.click(L.edit.menu.produce)
+        produce.click(L.edit.menu.export)
         produce.click(L.edit.menu.produce_sub_page.produce)
         produce.click(L.produce.tab.facebook)
         result_default_is_hd = produce.el(L.produce.facebook.hd).get_attribute('checked').lower() == 'true'
@@ -191,7 +191,7 @@ class Test_sce_04_01_01:
         # default is HD
         _start('c0321f5b-d1e0-413d-b7c1-5b7a0bec5b24')
         produce.back()
-        produce.click(L.edit.menu.produce)
+        produce.click(L.edit.menu.export)
         produce.click(L.edit.menu.produce_sub_page.produce)
         produce.click(L.produce.tab.facebook)
         result_default_is_hd = produce.el(L.produce.facebook.hd).get_attribute('checked').lower() == 'true'
@@ -216,7 +216,7 @@ class Test_sce_04_01_01:
         _start('7938f9d3-73f9-467f-b6cc-794a595b0620')
         time.sleep(1)
         produce.back()
-        produce.click(L.edit.menu.produce)
+        produce.click(L.edit.menu.export)
         produce.click(L.edit.menu.produce_sub_page.produce)
         produce.click(L.produce.tab.facebook)
         result_default_is_hd = produce.el(L.produce.facebook.hd).get_attribute('checked').lower() == 'true'
@@ -272,7 +272,7 @@ class Test_sce_04_01_01:
         
         _start('b83f975b-d3e6-4d83-b6d1-13b3cb9582a7')
         time.sleep(2)
-        produce.click(L.edit.menu.produce)
+        produce.click(L.edit.menu.export)
         produce.click(L.edit.menu.produce_sub_page.produce)
         produce.select_cloud()
         produce.exist_click(L.produce.cloud.signout,3)

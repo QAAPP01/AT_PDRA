@@ -848,7 +848,7 @@ class Test_Shortcut_AI_Denoise:
 
 
         try:
-            self.click(L.main.shortcut.export)
+            self.click(L.edit.menu.export)
 
             if self.click(L.main.subscribe.back_btn):
 
@@ -881,7 +881,7 @@ class Test_Shortcut_AI_Denoise:
         try:
             self.click(L.main.shortcut.full_editor)
 
-            if self.is_exist(L.edit.menu.produce):
+            if self.is_exist(L.edit.menu.export):
                 
 
                 return "PASS"

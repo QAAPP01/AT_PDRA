@@ -7,12 +7,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
-
-video_9_16 = 'video_9_16.mp4'
-video_16_9 = 'video_16_9.mp4'
-photo_9_16 = 'photo_9_16.jpg'
-photo_16_9 = 'photo_16_9.jpg'
-
+from ATFramework_aPDR.SFT.test_file import *
 
 @allure.epic("Shortcut - Trim")
 class Test_Shortcut_Trim:
@@ -71,12 +66,12 @@ class Test_Shortcut_Trim:
     @allure.feature("Editor")
     @allure.story("Video")
     @allure.title("Enter editor")
-    def test_video_entry_trim(self, data):
+    def test_video_entry_trim_editor(self, data):
         try:
             if self.last_is_fail(data):
                 pass
 
-            assert self.page_shortcut.enter_trim_before_edit('Trim', shortcut_trim=True)
+            assert self.page_shortcut.enter_trim_before_edit('Trim')
 
         except Exception as e:
             traceback.print_exc()
@@ -87,10 +82,10 @@ class Test_Shortcut_Trim:
     @allure.feature("Editor")
     @allure.story("Video")
     @allure.title("Back from editor")
-    def test_video_back_from_trim(self, data):
+    def test_video_back_from_trim_editor(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_trim_before_edit('Trim', shortcut_trim=True)
+                self.page_shortcut.enter_trim_before_edit('Trim')
 
             assert self.page_shortcut.back_from_trim()
 
@@ -102,13 +97,13 @@ class Test_Shortcut_Trim:
 
     @allure.feature("Editor")
     @allure.story("Video")
-    @allure.title("Trim")
-    def test_video_trim(self, data):
+    @allure.title("Trim and Import")
+    def test_video_trim_import(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_media_picker('Trim')
 
-            assert self.page_shortcut.trim_and_import(shortcut_trim=True)
+            assert self.page_shortcut.trim_and_import()
 
         except Exception as e:
             traceback.print_exc()
@@ -147,7 +142,7 @@ class Test_Shortcut_Trim:
             logger(e)
             data['last_result'] = False
             raise
-        
+
     @allure.feature("Export")
     @allure.story("Produced")
     @allure.title("Back to editor")
@@ -172,7 +167,7 @@ class Test_Shortcut_Trim:
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Trim')
-            
+
             self.page_shortcut.export()
 
             assert self.page_shortcut.export_back_to_launcher()

@@ -166,7 +166,7 @@ class Test_SFT_Scenario_06_07:
         page_media.el(L.import_media.library_gridview.add).click()
         page_media.el(L.import_media.video_entry.back).click()
         page_media.el(L.import_media.video_entry.back).click()
-        page_produce.click(L.edit.menu.produce)
+        page_produce.click(L.edit.menu.export)
         page_produce.select_produce_type('gallery')
         page_produce.start_produce()
 

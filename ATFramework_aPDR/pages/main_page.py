@@ -129,7 +129,7 @@ class MainPage(BasePage):
 
     def shortcut_produce(self):
         try:
-            self.click(L.main.shortcut.export)
+            self.click(L.edit.menu.export)
             self.click(L.main.shortcut.produce)
             for i in range(120):
                 if self.is_exist(L.main.shortcut.produce_progress_bar, 1):

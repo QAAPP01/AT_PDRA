@@ -105,7 +105,7 @@ class Test_SFT_Scenario_06_04:
         self.report.new_result('53b13bbb-c915-49da-95b6-4e9657519891', result)
 
         self.report.start_uuid('e1b556c0-1d64-437b-b9bf-c932f1aab766')
-        page_edit.click(L.edit.menu.produce)
+        page_edit.click(L.edit.menu.export)
         page_produce.select_produce_type('gallery')
         page_produce.set_resolution(1)
         time.sleep(5)

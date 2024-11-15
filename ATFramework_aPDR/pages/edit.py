@@ -106,7 +106,7 @@ class EditPage(BasePage):
             return False
 
     def export(self):
-        if not self.click(L.main.shortcut.export):
+        if not self.click(L.edit.menu.export):
             self.click(id('btn_save_menu'))
         self.click(L.main.shortcut.produce)
         self.page_edit.waiting_produce()
@@ -495,7 +495,7 @@ class EditPage(BasePage):
             logger(f'[Error] {err}')
             return False
 
-    def create_project_and_enter_function(self, func, media_type='video', file_name=video_9_16):
+    def create_project_and_enter_function(self, func, media_type='video', file_name=video_9_16, check=False):
         try:
             self.page_main.enter_timeline(skip_media=False)
 
@@ -506,6 +506,9 @@ class EditPage(BasePage):
 
             self.click(L.edit.timeline.clip())
             self.click_sub_tool(func)
+
+            if check:
+                return self.is_exist(L.edit.timeline.clip_title)
 
             return True
 

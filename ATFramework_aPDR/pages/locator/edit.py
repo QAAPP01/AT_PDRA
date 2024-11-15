@@ -273,6 +273,8 @@ class Timeline:
     reset = id('btn_reset')
     apply_all = id('btn_apply_all')
 
+    function_room_title = id('fragment_title')
+
     @staticmethod
     def clip(index=1):
         if index:
@@ -521,7 +523,8 @@ class SubTool:
 class Menu:
     class Produce_sub_page:
         save = id('text_setting_save_project')
-        produce = id('text_setting_save_and_produce_project')
+        produce = id('btn_produce')
+        back = aid("[AID]Produce_Back")
 
     produce_sub_page = Produce_sub_page()
     back = aid("[AID]TimeLine_Back")
@@ -532,7 +535,7 @@ class Menu:
     effect = aid("[AID]TimeLine_Layer")
     fx = aid("[AID]TimeLine_Fx")
     settings = id('btn_setting')
-    produce = id('btn_save_menu')
+    export = id('btn_save_menu')
     timeline_setting = aid("[AID]TimeLine_Setting")
     undo = id("btn_undo")
     play = aid("[AID]TimeLine_Play")

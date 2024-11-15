@@ -108,7 +108,7 @@ class Test_SFT_Scenario_06_05:
         self.report.new_result('24c00042-5796-4c0d-9d75-05d69f653954', result)
 
         self.report.start_uuid('10bb663b-71ef-4b51-9dc2-01b5be71acce')
-        page_edit.click(L.edit.menu.produce)
+        page_edit.click(L.edit.menu.export)
         time.sleep(5)
         result = True if page_edit.is_exist(L.launcher.subscribe.back_btn) else False
         self.report.new_result('10bb663b-71ef-4b51-9dc2-01b5be71acce', result)
