@@ -956,10 +956,10 @@ class Ecl_Operation():
                 logger(f'{self.err_msg}')
                 return False
         except Exception as e:
-            logger(f'Exception occurs. ErrorLog={e}')
+            logger(f'[Error] {e}')
             if self.err_msg == '':
                 self.err_msg = f'[download_tr_build] Exception occurs. ErrorLog={e}'
-            return False
+            exit(1)
         return True
 
     def download_build_by_tr(self, tr_no=''):
@@ -1244,6 +1244,7 @@ def get_untested_build(para_dict):
                 break
             retry += 1
         if not result_download:
+            logger('[Error] TR download Fail', log_level='error')
             raise Exception
     except Exception as e:
         logger(f'Exception occurs. ErrorLog={e}')
