@@ -300,6 +300,15 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_editor fail', log_level='error')
             return False
 
+    def back_from_shortcut_editor(self):
+        self.click(L.main.shortcut.editor_back)
+
+        if self.is_exist(find_string('Add Media')):
+            return True
+        else:
+            logger(f'[Error] back_from_editor fail', log_level='error')
+            return False
+
     def leave_project(self):
         self.click(L.main.shortcut.editor_home)
 
