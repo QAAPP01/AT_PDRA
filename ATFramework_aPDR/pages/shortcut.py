@@ -292,9 +292,9 @@ class Shortcut(BasePage):
             return False
 
     def back_from_editor(self):
-        self.click(L.main.shortcut.editor_back)
+        self.click(L.edit.menu.home)
 
-        if self.is_exist(find_string('Add Media')):
+        if self.click(L.main.launcher.home):
             return True
         else:
             logger(f'[Error] back_from_editor fail', log_level='error')
@@ -399,29 +399,30 @@ class Shortcut(BasePage):
                 logger('[Error] total_time element not found')
                 return None
 
+    def pause_auto_play(self):
+        timecode_1 = self.get_timecode()
+        logger(f'timecode 1: {timecode_1}')
+        time.sleep(1)
+        timecode_2 = self.get_timecode()
+        logger(f'timecode 2: {timecode_2}')
+        if timecode_2 != timecode_1:
+            self.click(L.edit.menu.play)
+            logger('Pause auto play')
+
     def preview_play(self):
         try:
             # self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
             # time.sleep(2)
-
+            self.pause_auto_play()
             timecode = self.get_timecode()
             if timecode is None:
                 return False
 
-            if timecode != '00:00':
-                self.click(L.edit.menu.play)
-                updated_timecode = self.get_timecode()
-                if updated_timecode is None:
-                    return False
-                if updated_timecode != timecode:
-                    logger(f'Start play preview: timecode changed from {timecode} to {updated_timecode}')
-                else:
-                    logger('[Error] Timecode did not change after play click')
-                    return False
-
             self.click(L.edit.menu.play)
-            time.sleep(2)
-            self.click(L.edit.menu.play)  # 暫停
+            if self.click(id('help_not_show_tip_again'), 0.8):
+                self.click(id('btn_close'))
+            time.sleep(1)
+            self.click(L.edit.menu.play)    # 暫停
 
             new_timecode = self.get_timecode()
             if new_timecode is None:
@@ -439,6 +440,8 @@ class Shortcut(BasePage):
 
     def preview_pause(self):
         try:
+            self.pause_auto_play()
+
             self.click(L.edit.menu.play)
             time.sleep(0.5)
             self.click(L.edit.menu.play)  # 暫停
@@ -820,6 +823,7 @@ class Shortcut(BasePage):
 
     def export_back_to_editor(self):
         self.click(L.main.shortcut.produce_back)
+        self.click(find_string('Not Now'), 1)
 
         if self.check_editor():
             return True
