@@ -1,11 +1,13 @@
-import json
+import os
 import sys
+import json
+import shutil
+import zipfile
+import datetime
 import traceback
+from os.path import basename
 
 from .sendemail import send_mail
-import os
-import shutil
-import datetime
 from ATFramework_aPDR.ATFramework.utils._google_api.google_api import GoogleApi
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import qr_operation
 
@@ -231,6 +233,13 @@ def generate_allure_report(result_folder, report_folder):
     return True
 
 
+def compress_attachments(attachment_list, zip_filename="attachments.zip"):
+    with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for f in attachment_list:
+            zipf.write(f, basename(f))
+    return zip_filename
+
+
 def send_allure_report(report_folder, test_result_title, device_id, receiver_list, tr_number, package_version, package_build_number, sr_number=None, update_to_sheet=True):
 
     opts = {
@@ -361,6 +370,17 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
     opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number} {result}'
     opts['to'] = receiver_list
     opts['html'] = mail_body
+
+    attachment = opts['attachment']
+
+    # Check the total size of attachments
+    total_size = sum(os.path.getsize(f) for f in attachment)
+    max_size = 25 * 1024 * 1024  # 25 MB
+
+    if total_size > max_size:
+        print(f"Attachments exceed {max_size / (1024 * 1024)} MB, compressing...")
+        zip_file = compress_attachments(attachment)
+        attachment = [zip_file]  # Replace with the zip file
 
     send_mail(opts)
 
