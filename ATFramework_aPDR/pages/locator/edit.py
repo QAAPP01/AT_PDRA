@@ -152,7 +152,7 @@ class ai_audio_tool:
     unlock = id('unlock_btn')
     apply = id('apply_btn')
     remove = id('btn_remove')
-    voice_changer_is_applied = id('icon_ai_voice_changer_has_apply')
+    voice_changer_is_applied = id('tv_applying')
     speech_enhance_is_applied = id('icon_speech_enhance_has_apply')
     audio_denoise_is_applied = id('icon_audio_denoise_has_apply')
     effect = aid('Effect')

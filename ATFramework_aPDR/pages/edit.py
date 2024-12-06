@@ -79,6 +79,7 @@ class EditPage(BasePage):
         self.crop_rotate = Crop_Rotate(self.driver)
         self.mask = Mask(self.driver)
         self.auto_caption = Auto_Caption(self.driver)
+        self.music = Music(self.driver)
 
     def split(self):
         self.driver.swipe_element(L.edit.timeline.playhead, 'left', offset=0.1)
@@ -5034,5 +5035,13 @@ class Auto_Caption(BasePage):
             logger("[Info] Enter Effect Room")
             return False
 
+class Music(BasePage):
 
-
+    def start_with_music(self):
+        self.page_main.enter_timeline()
+        self.page_edit.enter_main_tool("Audio")
+        self.click(L.import_media.menu.music)
+        self.page_main.h_click(L.edit.music.local)
+        self.page_main.h_click(find_string(test_folder))
+        self.element(L.import_media.music_library.add).click()
+        return self.is_exist(L.edit.timeline.item_view_thumbnail_view)
