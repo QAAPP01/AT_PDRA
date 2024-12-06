@@ -133,7 +133,7 @@ class Test_SFT_Scenario_06_06:
         time.sleep(5)
         # page_main.click(L.main.project_info.btn_edit_project)
         time.sleep(5)
-        page_edit.click(L.edit.menu.produce)
+        page_edit.click(L.edit.menu.export)
         time.sleep(5)
         page_produce.select_produce_type('gallery')
         result = True if page_produce.get_video_quality_radio_is_checked() == 'sd' else False

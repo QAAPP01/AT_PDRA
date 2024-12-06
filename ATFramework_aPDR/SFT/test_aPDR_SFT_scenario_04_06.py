@@ -83,7 +83,7 @@ class Test_SFT_Scenario_04_06:
         page_main.select_existed_project_by_title(project_title)
         # page_main.el(L.main.project_info.btn_edit_project).click()
         time.sleep(2)
-        page_main.el(L.edit.menu.produce).click()
+        page_main.el(L.edit.menu.export).click()
         page_main.exist_click(L.produce.iap_back)
         self.report.new_result('35c7eac7-f4ce-4295-940e-b0c193e8a1a8', page_edit.is_exist(L.produce.tab.gallery))
           
@@ -143,7 +143,7 @@ class Test_SFT_Scenario_04_06:
         page_main.select_existed_project_by_title(project_title)
         # page_main.el(L.main.project_info.btn_edit_project).click()
         time.sleep(2)
-        page_main.el(L.edit.menu.produce).click()       
+        page_main.el(L.edit.menu.export).click()       
         time.sleep(5)
         # IG
         result = page_produce.select_produce_type('ig')

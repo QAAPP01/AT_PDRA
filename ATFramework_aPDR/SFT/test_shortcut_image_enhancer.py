@@ -2,6 +2,7 @@ import time
 import traceback
 import pytest
 import allure
+
 from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg
 from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
@@ -90,9 +91,9 @@ class Test_Shortcut_Image_Enhancer:
     def test_photo_back_from_editor(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Image Enhancer')
+                self.page_shortcut.enter_editor('Image Enhancer', media_type='photo', file=photo_9_16)
 
-            assert self.page_shortcut.back_from_editor()
+            assert self.page_shortcut.back_from_shortcut_editor()
 
         except Exception as e:
             traceback.print_exc()

@@ -32,59 +32,65 @@ class Shortcut(BasePage):
             return False
 
     def enter_shortcut(self, shortcut_name, demo_title=None, audio_tool=None, check=True):
-        demo_title = demo_title or shortcut_name
+        try:
+            demo_title = demo_title or shortcut_name
 
-        if not self.is_exist(L.main.shortcut.shortcut_name(), 1):
-            if not self.click(L.main.launcher.home, 1):
-                self.click(L.main.shortcut.produce_home, 1)
+            if not self.is_exist(L.main.shortcut.shortcut_name(), 1):
+                if not self.click(L.main.launcher.home, 1):
+                    self.click(L.main.shortcut.produce_home, 1)
 
-        if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
-            self.click(L.main.shortcut.shortcut_name("More"))
+            if not self.is_exist(L.main.shortcut.shortcut_name(shortcut_name), 1):
+                self.click(L.main.shortcut.shortcut_name("More"))
 
-            last_text = ""
-            while True:
-                if self.is_exist(L.main.shortcut.all_shortcut_name(shortcut_name), 1):
-                    break
+                last_text = ""
+                while True:
+                    if self.is_exist(L.main.shortcut.all_shortcut_name(shortcut_name), 1):
+                        break
 
-                else:
-                    shortcuts_name = self.elements(L.main.shortcut.all_shortcut_name(0))
-                    if shortcuts_name[-1].text == last_text:
-                        self.driver.swipe_element(shortcuts_name[-1], 'up', 10)
+                    else:
                         shortcuts_name = self.elements(L.main.shortcut.all_shortcut_name(0))
                         if shortcuts_name[-1].text == last_text:
-                            logger(f'Last item: {last_text}')
-                            logger(f'[Error] Cannot find {shortcut_name} in More page', log_level='error')
-                            return False
+                            self.driver.swipe_element(shortcuts_name[-1], 'up', 10)
+                            shortcuts_name = self.elements(L.main.shortcut.all_shortcut_name(0))
+                            if shortcuts_name[-1].text == last_text:
+                                logger(f'Last item: {last_text}')
+                                logger(f'[Error] Cannot find {shortcut_name} in More page', log_level='error')
+                                return False
+                        else:
+                            last_text = shortcuts_name[-1].text
+                            self.h_swipe_element(shortcuts_name[-1], shortcuts_name[0], 3)
+
+            if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
+                if audio_tool:
+                    audio_tool = audio_tool.lower()
+                    if audio_tool == 'speech enhance':
+                        self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
+                    elif audio_tool == 'ai denoise':
+                        self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
                     else:
-                        last_text = shortcuts_name[-1].text
-                        self.h_swipe_element(shortcuts_name[-1], shortcuts_name[0], 3)
+                        logger(f'[Warning] {audio_tool} is not found', log_level='warn')
 
-        if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
-            if audio_tool:
-                audio_tool = audio_tool.lower()
-                if audio_tool == 'speech enhance':
-                    self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-                elif audio_tool == 'ai denoise':
-                    self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
                 else:
-                    logger(f'[Warning] {audio_tool} is not found', log_level='warn')
+                    self.click(id('ok_button'), 1)
 
-            else:
-                self.click(id('ok_button'), 1)
+                if check:
+                    time.sleep(0.5)
+                    if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"{demo_title}")]')) or
+                            self.is_exist(L.import_media.media_library.title) or
+                            self.is_exist(id("tv_recommendation"))):
+                        return True
+                    else:
+                        logger(f'[Error] enter_shortcut fail', log_level='error')
+                        return False
+                return True
 
-            if check:
-                time.sleep(0.5)
-                if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"{demo_title}")]')) or
-                        self.is_exist(L.import_media.media_library.title) or
-                        self.is_exist(id("tv_recommendation"))):
-                    return True
-                else:
-                    logger(f'[Error] enter_shortcut fail', log_level='error')
-                    return False
-            return True
+            logger(f'[Error] Cannot find {shortcut_name}', log_level='error')
+            return False
 
-        logger(f'[Error] Cannot find {shortcut_name}', log_level='error')
-        return False
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            return False
 
     def enter_ai_feature(self, name, demo_title=None, check=True):
         demo_title = demo_title or name
@@ -173,7 +179,7 @@ class Shortcut(BasePage):
         self.click(L.main.shortcut.try_it_now)
         self.click(id('confirm_btn'))
         self.page_edit.waiting_import()
-        if self.is_exist(L.main.shortcut.export):
+        if self.is_exist(L.edit.menu.export):
             return True
         else:
             logger(f'[Error] enter_editor fail', log_level='error')
@@ -230,7 +236,7 @@ class Shortcut(BasePage):
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:
-                self.enter_shortcut(shortcut_name, audio_tool=audio_tool)
+                self.enter_shortcut(shortcut_name, audio_tool=audio_tool, check=False)
 
             self.click(L.main.shortcut.try_it_now, 1)
             self.click(aid('[AID]Upgrade_No'), 0.5)
@@ -248,7 +254,7 @@ class Shortcut(BasePage):
     def back_from_media_picker(self):
         if not self.click(L.import_media.media_library.back, 2):
             self.click(L.main.shortcut.ai_sketch.close, 2)
-
+        self.click(L.edit.menu.home, 1)
         if self.is_exist(L.main.shortcut.shortcut_name(0)):
             return True
         else:
@@ -256,7 +262,7 @@ class Shortcut(BasePage):
             return False
 
     def check_editor(self):
-        if self.is_exist(L.main.shortcut.export) or self.is_exist(L.main.shortcut.save) or self.is_exist(id('btn_save_menu')):
+        if self.is_exist(L.edit.menu.export) or self.is_exist(L.main.shortcut.save) or self.is_exist(id('btn_save_menu')):
             return True
         else:
             logger(f'[Error] check_editor fail', log_level='error')
@@ -286,6 +292,15 @@ class Shortcut(BasePage):
             return False
 
     def back_from_editor(self):
+        self.click(L.edit.menu.home)
+
+        if self.click(L.main.launcher.home):
+            return True
+        else:
+            logger(f'[Error] back_from_editor fail', log_level='error')
+            return False
+
+    def back_from_shortcut_editor(self):
         self.click(L.main.shortcut.editor_back)
 
         if self.is_exist(find_string('Add Media')):
@@ -308,7 +323,7 @@ class Shortcut(BasePage):
                 logger(f'[Error] leave_project fail', log_level='error')
                 return False
 
-    def enter_trim_before_edit(self, shortcut_name=None, audio_tool=None, shortcut_trim=False):
+    def enter_trim_before_edit(self, shortcut_name=None, audio_tool=None):
         if shortcut_name or audio_tool:
             self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
 
@@ -321,13 +336,6 @@ class Shortcut(BasePage):
         else:
             logger(f'[Error] enter_trim_before_edit fail', log_level='error')
             return False
-
-        if shortcut_trim:
-            if self.is_exist(L.main.shortcut.export):
-                return True
-            else:
-                logger(f'[Error] enter_trim fail', log_level='error')
-                return False
 
         if self.is_exist(L.import_media.media_library.trim_next):
             return True
@@ -344,8 +352,8 @@ class Shortcut(BasePage):
             logger(f'[Error] back_from_trim fail', log_level='error')
             return False
 
-    def trim_and_import(self, start=100, end=100, shortcut_name=None, audio_tool=None, shortcut_trim=False):
-        self.enter_trim_before_edit(shortcut_name, audio_tool=audio_tool, shortcut_trim=shortcut_trim)
+    def trim_and_import(self, start=100, end=100, shortcut_name=None, audio_tool=None):
+        self.enter_trim_before_edit(shortcut_name, audio_tool=audio_tool)
 
         if start:
             self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', start)
@@ -353,25 +361,18 @@ class Shortcut(BasePage):
             self.driver.swipe_element(L.import_media.trim_before_edit.right, 'left', end)
         self.click(L.import_media.media_library.trim_next)
 
-        if shortcut_trim:
-            if self.is_exist(L.main.shortcut.produce):
-                return True
-            else:
-                logger(f'[Error] trim and export fail', log_level='error')
-                return False
-
         self.page_edit.waiting()
 
         self.click(id('btn_upgrade'), 1)  # for auto cations
 
-        if self.is_exist(L.main.shortcut.export) and self.element(L.main.shortcut.export).text == 'Export':
+        if self.is_exist(L.edit.menu.export) and self.element(L.edit.menu.export).text == 'Export':
             return True
         else:
             logger(f'[Error] trim_video fail', log_level='error')
             return False
 
     def get_timecode(self):
-        timecode_element = self.element(L.main.shortcut.timecode)
+        timecode_element = self.element(L.edit.menu.timecode)
         if timecode_element:
             timecode = timecode_element.text.strip()
             if '/' in timecode:
@@ -407,30 +408,30 @@ class Shortcut(BasePage):
                 logger('[Error] total_time element not found')
                 return None
 
+    def pause_auto_play(self):
+        timecode_1 = self.get_timecode()
+        logger(f'timecode 1: {timecode_1}')
+        time.sleep(1)
+        timecode_2 = self.get_timecode()
+        logger(f'timecode 2: {timecode_2}')
+        if timecode_2 != timecode_1:
+            self.click(L.edit.menu.play)
+            logger('Pause auto play')
+
     def preview_play(self):
         try:
-            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            time.sleep(2)
-
+            # self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
+            # time.sleep(2)
+            self.pause_auto_play()
             timecode = self.get_timecode()
             if timecode is None:
                 return False
 
-            if timecode != '00:00':
-                self.click(L.main.shortcut.play)
-                updated_timecode = self.get_timecode()
-                if updated_timecode is None:
-                    return False
-                if updated_timecode != timecode:
-                    logger(f'Start play preview: timecode changed from {timecode} to {updated_timecode}')
-                else:
-                    logger('[Error] Timecode did not change after play click')
-                    return False
-
-            self.click(L.main.shortcut.play)
-            # 等待播放一段時間
-            time.sleep(2)
-            self.click(L.main.shortcut.play)  # 暫停
+            self.click(L.edit.menu.play)
+            if self.click(id('help_not_show_tip_again'), 0.8):
+                self.click(id('btn_close'))
+            time.sleep(1)
+            self.click(L.edit.menu.play)    # 暫停
 
             new_timecode = self.get_timecode()
             if new_timecode is None:
@@ -448,11 +449,11 @@ class Shortcut(BasePage):
 
     def preview_pause(self):
         try:
-            self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            self.click(L.main.shortcut.play)
-            # 等待一小段時間，確保播放開始
+            self.pause_auto_play()
+
+            self.click(L.edit.menu.play)
             time.sleep(0.5)
-            self.click(L.main.shortcut.play)  # 暫停
+            self.click(L.edit.menu.play)  # 暫停
 
             timecode_before = self.get_timecode()
             if timecode_before is None:
@@ -800,7 +801,7 @@ class Shortcut(BasePage):
         return self.page_edit.export()
 
     def export_cancel(self):
-        self.click(L.main.shortcut.export)
+        self.click(L.edit.menu.export)
         self.click(L.main.shortcut.export_close)
 
         if not self.is_exist(L.main.shortcut.save_image, 1):
@@ -810,17 +811,17 @@ class Shortcut(BasePage):
             return False
 
     def export_back(self):
-        self.click(L.main.shortcut.export)
-        self.click(L.main.shortcut.export_back)
+        self.click(L.edit.menu.export)
+        self.click(L.edit.menu.produce_sub_page.back)
 
-        if not self.is_exist(L.main.shortcut.produce, 1):
+        if not self.is_exist(L.edit.menu.produce_sub_page.produce, 1):
             return True
         else:
             logger(f'[Error] export_back fail', log_level='error')
             return
 
     def export_save_image(self):
-        self.click(L.main.shortcut.export)
+        self.click(L.edit.menu.export)
         self.click(L.main.shortcut.save_image)
 
         if self.is_exist(L.main.shortcut.save_to_camera_roll):
@@ -831,6 +832,7 @@ class Shortcut(BasePage):
 
     def export_back_to_editor(self):
         self.click(L.main.shortcut.produce_back)
+        self.click(find_string('Not Now'), 1)
 
         if self.check_editor():
             return True
