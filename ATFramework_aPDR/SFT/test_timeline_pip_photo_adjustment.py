@@ -16,7 +16,7 @@ test_material_folder = TEST_MATERIAL_FOLDER
 
 
 @allure.epic('Timeline_PiP_Photo')
-@allure.feature('Adjustment')
+@allure.feature('Adjust')
 class Test_PiP_Photo_Adjustment:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -1223,7 +1223,7 @@ class Test_PiP_Photo_Adjustment:
 
         try:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
-            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
         except Exception as e:
             traceback.print_exc()

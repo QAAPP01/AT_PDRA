@@ -14,10 +14,9 @@ from .conftest import TEST_MATERIAL_FOLDER, driver
 test_material_folder = TEST_MATERIAL_FOLDER
 
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_AI Color')
-class Test_PiP_Video_Adjustment_AI_Color:
+@allure.epic('Timeline_PiP_Video')
+@allure.feature('Adjustment')
+class Test_PiP_Video_Adjustment:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
@@ -31,7 +30,8 @@ class Test_PiP_Video_Adjustment_AI_Color:
         self.is_not_exist = self.page_main.h_is_not_exist
         self.set_slider = self.page_edit.h_set_slider
 
-    @allure.title('Open adjustment options')
+    @allure.story('AI Color')
+    @allure.title('Open adjust options')
     def test_open_Adjustment_panel(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -42,7 +42,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             assert self.is_exist(L.edit.edit_sub.option_list)
 
         except Exception as e:
@@ -56,9 +56,10 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
+    @allure.story('AI Color')
     @allure.title('Default Value')
     def test_AI_Color_default_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -82,6 +83,7 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             raise Exception
 
+    @allure.story('AI Color')
     @allure.title('Maximum')
     def test_AI_Color_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -103,10 +105,11 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             raise Exception
 
+    @allure.story('AI Color')
     @allure.title('Minimum')
     def test_AI_Color_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -128,10 +131,11 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             raise Exception
 
+    @allure.story('AI Color')
     @allure.title('Preview_Change')
     def test_AI_Color_preview_change(self, driver):
         func_name = inspect.stack()[0][3]
@@ -154,10 +158,11 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             raise Exception
 
+    @allure.story('AI Color')
     @allure.title('Reset')
     def test_AI_Color_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -178,38 +183,16 @@ class Test_PiP_Video_Adjustment_AI_Color:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_Brightness')
-class Test_PiP_Video_Adjustment_Brightness:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
+    @allure.story('Brightness')
     @allure.title('Default Value')
     def test_brightness_default_value(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
@@ -227,6 +210,7 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             raise Exception
 
+    @allure.story('Brightness')
     @allure.title('Maximum')
     def test_brightness_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -248,10 +232,11 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             raise Exception
 
+    @allure.story('Brightness')
     @allure.title('Minimum')
     def test_brightness_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -273,10 +258,11 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             raise Exception
 
+    @allure.story('Brightness')
     @allure.title('Preview_Change')
     def test_brightness_preview_change(self, driver):
         func_name = inspect.stack()[0][3]
@@ -299,10 +285,11 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             raise Exception
 
+    @allure.story('Brightness')
     @allure.title('Reset')
     def test_brightness_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -323,38 +310,16 @@ class Test_PiP_Video_Adjustment_Brightness:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_Contrast')
-class Test_PiP_Video_Adjustment_Contrast:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
+    @allure.story('Contrast')
     @allure.title('Default Value')
     def test_contrast_default_value(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
@@ -372,6 +337,7 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             raise Exception
 
+    @allure.story('Contrast')
     @allure.title('Maximum')
     def test_contrast_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -393,10 +359,11 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             raise Exception
 
+    @allure.story('Contrast')
     @allure.title('Minimum')
     def test_contrast_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -418,10 +385,11 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             raise Exception
 
+    @allure.story('Contrast')
     @allure.title('Preview_Change')
     def test_contrast_preview_change(self, driver):
         func_name = inspect.stack()[0][3]
@@ -429,7 +397,7 @@ class Test_PiP_Video_Adjustment_Contrast:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(120)
+            self.element(L.edit.sub_tool.slider).send_keys(66)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -444,10 +412,11 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             raise Exception
 
+    @allure.story('Contrast')
     @allure.title('Reset')
     def test_contrast_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -468,38 +437,16 @@ class Test_PiP_Video_Adjustment_Contrast:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_Saturation')
-class Test_PiP_Video_Adjustment_Saturation:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
+    @allure.story('Saturation')
     @allure.title('Default Value')
     def test_saturation_default_value(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -517,6 +464,7 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             raise Exception
 
+    @allure.story('Saturation')
     @allure.title('Maximum')
     def test_saturation_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -538,10 +486,11 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             raise Exception
 
+    @allure.story('Saturation')
     @allure.title('Minimum')
     def test_saturation_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -563,10 +512,11 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             raise Exception
 
+    @allure.story('Saturation')
     @allure.title('Preview_Change')
     def test_saturation_preview_change(self, driver):
         func_name = inspect.stack()[0][3]
@@ -589,10 +539,11 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             raise Exception
 
+    @allure.story('Saturation')
     @allure.title('Reset')
     def test_saturation_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -613,38 +564,16 @@ class Test_PiP_Video_Adjustment_Saturation:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_HSL')
-class Test_PiP_Video_Adjustment_HSL:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
+    @allure.story('HSL')
     @allure.title('Green_can_be_tap/selected')
     def test_green_can_be_tap(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             self.click(L.edit.adjustment.view_green)
             assert self.element(L.edit.adjustment.view_green).get_attribute('selected') == 'true'
@@ -661,10 +590,11 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Hue_Default_Value')
     def test_hsl_green_hue_default_value(self):
         try:
@@ -685,6 +615,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Hue_Maximum')
     def test_hsl_green_hue_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -705,10 +636,11 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Hue_Minimum')
     def test_hsl_green_hue_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -730,10 +662,11 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Saturation_Default_Value')
     def test_hsl_green_saturation_default_value(self):
         try:
@@ -753,6 +686,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Saturation_Maximum')
     def test_hsl_green_saturation_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -773,10 +707,11 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Saturation_Minimum')
     def test_hsl_green_saturation_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -798,10 +733,11 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Lightness_Default_Value')
     def test_hsl_green_luminance_default_value(self):
         try:
@@ -821,6 +757,7 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Luminance_Maximum')
     def test_hsl_green_luminance_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -841,10 +778,11 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Green_Luminance_Minimum')
     def test_hsl_green_luminance_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -866,10 +804,11 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             raise Exception
 
+    @allure.story('HSL')
     @allure.title('Reset')
     def test_hsl_green_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -892,39 +831,16 @@ class Test_PiP_Video_Adjustment_HSL:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_Hue')
-class Test_PiP_Video_Adjustment_Hue:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
+    @allure.story('Hue')
     @allure.title('Default Value')
     def test_hue_default_value(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
-            self.click(L.edit.master.effect.back)
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -942,6 +858,7 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             raise Exception
 
+    @allure.story('Hue')
     @allure.title('Maximum')
     def test_hue_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -963,10 +880,11 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             raise Exception
 
+    @allure.story('Hue')
     @allure.title('Minimum')
     def test_hue_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -988,10 +906,11 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             raise Exception
 
+    @allure.story('Hue')
     @allure.title('Preview_Change')
     def test_hue_preview_change(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1014,10 +933,11 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             raise Exception
 
+    @allure.story('Hue')
     @allure.title('Reset')
     def test_hue_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1038,38 +958,16 @@ class Test_PiP_Video_Adjustment_Hue:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_Temp')
-class Test_PiP_Video_Adjustment_Temp:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
+    @allure.story('Temp')
     @allure.title('Default Value')
     def test_temp_default_value(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
@@ -1087,6 +985,7 @@ class Test_PiP_Video_Adjustment_Temp:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             raise Exception
 
+    @allure.story('Temp')
     @allure.title('Maximum')
     def test_temp_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1108,10 +1007,11 @@ class Test_PiP_Video_Adjustment_Temp:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             raise Exception
 
+    @allure.story('Temp')
     @allure.title('Minimum')
     def test_temp_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1133,10 +1033,11 @@ class Test_PiP_Video_Adjustment_Temp:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             raise Exception
 
+    @allure.story('Temp')
     @allure.title('Preview_Change')
     def test_temp_preview_change(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1158,10 +1059,11 @@ class Test_PiP_Video_Adjustment_Temp:
                 self.page_edit.enter_main_tool('Overlay')
                 self.click(L.import_media.menu.overlay_video)
                 self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-                self.page_edit.click_sub_tool('Adjustment')
+                self.page_edit.click_sub_tool('Adjust')
                 self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
                 raise Exception
 
+    @allure.story('Temp')
     @allure.title('Reset')
     def test_hue_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1182,38 +1084,16 @@ class Test_PiP_Video_Adjustment_Temp:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_Tint')
-class Test_PiP_Video_Adjustment_Tint:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
+    @allure.story('Tint')
     @allure.title('Default Value')
     def test_tint_default_value(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
@@ -1231,6 +1111,7 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             raise Exception
 
+    @allure.story('Tint')
     @allure.title('Maximum')
     def test_tint_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1252,10 +1133,11 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             raise Exception
 
+    @allure.story('Tint')
     @allure.title('Minimum')
     def test_tint_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1277,10 +1159,11 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             raise Exception
 
+    @allure.story('Tint')
     @allure.title('Preview_Change')
     def test_tint_preview_change(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1303,10 +1186,11 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             raise Exception
 
+    @allure.story('Tint')
     @allure.title('Reset')
     def test_tint_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1327,38 +1211,16 @@ class Test_PiP_Video_Adjustment_Tint:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Adjustment_Sharpness')
-class Test_PiP_Video_Adjustment_Sharpness:
-    @pytest.fixture(autouse=True)
-    def initial(self, shortcut):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.click = self.page_main.h_click
-        self.long_press = self.page_main.h_long_press
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-        self.is_exist = self.page_main.h_is_exist
-        self.is_not_exist = self.page_main.h_is_not_exist
-        self.set_slider = self.page_edit.h_set_slider
-
+    @allure.story('Sharpness')
     @allure.title('Default Value')
     def test_sharpness_default_value(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
@@ -1376,6 +1238,7 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             raise Exception
 
+    @allure.story('Sharpness')
     @allure.title('Maximum')
     def test_sharpness_maximum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1397,10 +1260,11 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             raise Exception
 
+    @allure.story('Sharpness')
     @allure.title('Minimum')
     def test_sharpness_minimum_value(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1422,10 +1286,11 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             raise Exception
 
+    @allure.story('Sharpness')
     @allure.title('Preview_Change')
     def test_sharpness_preview_change(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1448,10 +1313,11 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             raise Exception
 
+    @allure.story('Sharpness')
     @allure.title('Reset')
     def test_sharpness_reset(self, driver):
         func_name = inspect.stack()[0][3]
@@ -1472,5 +1338,5 @@ class Test_PiP_Video_Adjustment_Sharpness:
             self.page_edit.enter_main_tool('Overlay')
             self.click(L.import_media.menu.overlay_video)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Adjustment')
+            self.page_edit.click_sub_tool('Adjust')
             raise Exception
