@@ -138,6 +138,7 @@ class Master:
 
 class adjustment:
     view_green = id('view_green')
+    back = id('btn_back')
 
 class ai_audio_tool:
     tool_back = id('btn_session_back')

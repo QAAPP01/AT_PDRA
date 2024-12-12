@@ -15,7 +15,7 @@ test_material_folder = TEST_MATERIAL_FOLDER
 
 
 @allure.epic('Timeline_PiP_Video')
-@allure.feature('Adjustment')
+@allure.feature('Adjust')
 class Test_PiP_Video_Adjustment:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -841,6 +841,7 @@ class Test_PiP_Video_Adjustment:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.click(L.edit.adjustment.back)
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
@@ -1065,7 +1066,7 @@ class Test_PiP_Video_Adjustment:
 
     @allure.story('Temp')
     @allure.title('Reset')
-    def test_hue_reset(self, driver):
+    def test_temp_reset(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
