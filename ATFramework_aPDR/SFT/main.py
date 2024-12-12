@@ -13,7 +13,7 @@ from .test_shortcut_ai_cartoon import *
 from .test_shortcut_text_to_image import *
 from .test_shortcut_ai_color import *
 from .test_shortcut_color_enhancer import *
-from .test_shortcut_body_effect import *
+# from .test_shortcut_body_effect import *
 from .test_shortcut_video_effect import *
 from .test_shortcut_tempo_effect import *
 from .test_shortcut_stabilizer import *

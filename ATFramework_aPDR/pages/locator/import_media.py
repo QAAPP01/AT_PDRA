@@ -230,7 +230,8 @@ class Menu():
     effect_layer_library = id('library_menu_fx_layer')
     sound_clips_library = id('library_menu_sound_clips')
     title_library = id('library_menu_title')
-    music = id('layout_music')
+    # music = id('layout_music')
+    music = xpath(f'//*[contains(@resource-id,"label") and @text="Music"]')
     overlay_video = find_string('Video')
     overlay_photo = find_string('Photo')
 

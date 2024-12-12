@@ -138,6 +138,7 @@ class Master:
 
 class adjustment:
     view_green = id('view_green')
+    back = id('btn_back')
 
 class ai_audio_tool:
     tool_back = id('btn_session_back')
@@ -152,7 +153,7 @@ class ai_audio_tool:
     unlock = id('unlock_btn')
     apply = id('apply_btn')
     remove = id('btn_remove')
-    voice_changer_is_applied = id('icon_ai_voice_changer_has_apply')
+    voice_changer_is_applied = id('tv_applying')
     speech_enhance_is_applied = id('icon_speech_enhance_has_apply')
     audio_denoise_is_applied = id('icon_audio_denoise_has_apply')
     effect = aid('Effect')
@@ -272,6 +273,7 @@ class Timeline:
     slider_value = id('adjustTextNow')
     reset = id('btn_reset')
     apply_all = id('btn_apply_all')
+    item_view_bg = id('item_view_bg')
 
     function_room_title = id('fragment_title')
 
@@ -1440,7 +1442,22 @@ class Auto_Caption:
     language_selector = id('settings_select_language')
     selected_language = id('select_language_text')
     back = id('btn_cancel')
+    ok = id('btn_ok')
     start = id('btn_start')
+    template = id('view_selected_border')
+    template_list = id('templates')
+    sound_source = id('select_source_text')
+    replace = id('replace_original_captions_switch')
+    more = id('btn_more')
+    caption_delete = id('caption_delete')
+    caption_list_doen = id('btn_done')
+    edit_caption = id('edit_caption')
+    editText = id('editText')
+    add_caption = id('add_caption')
+    caption_select_view = id('caption_select_view')
+    btn_select = id('btn_select')
+    btn_select_all = id('btn_select_all')
+    category = id('category_tab_layout')
 
 class Interface:
     converting = Converting

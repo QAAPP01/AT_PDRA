@@ -1,618 +1,1239 @@
+import traceback
+import inspect
+
 import pytest
 import allure
-from random import randint
 
-import ATFramework_aPDR.pages.locator.locator as L
-import ATFramework_aPDR.pages.locator.locator_type as T
-from ATFramework_aPDR.ATFramework.utils.compare_Mac import CompareImage
-
-original_preview = None
+from ATFramework_aPDR.ATFramework.utils.compare_Mac import HCompareImg, CompareImage
+from ATFramework_aPDR.ATFramework.utils.log import logger
+from ATFramework_aPDR.pages.locator import locator as L
 
 
-@pytest.fixture(scope='class')
-def module_setup(shortcut, driver, driver_init):
-    global original_preview
-    page_main, page_edit, page_media, *_ = shortcut
+from .conftest import TEST_MATERIAL_FOLDER, driver
 
-    page_main.enter_launcher()
-    page_main.subscribe()
-
-    click = page_main.h_click
-    click(L.main.new_project)
-    page_media.switch_to_photo_library()
-    click(L.import_media.media_library.media(index=1))
-    click(L.import_media.media_library.apply)
-
-    original_preview = page_edit.get_preview_pic()
-    click(T.id('item_view_bg'))
-    page_edit.click_sub_tool('Adjustment')
-    yield
-    page_edit.back_to_launcher()
+test_material_folder = TEST_MATERIAL_FOLDER
 
 
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_AI Color')
-class TestMasterPhotoAdjustment_AIColor:
-
-    MIN = '0'
-    DEFAULT = '50'
-    MAX = '100'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-        page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
-
+@allure.epic('Timeline_Master_Photo')
+@allure.feature('Adjust')
+class Test_timeline_Video_Adjustment:
     @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
+    def initial(self, shortcut):
         # shortcut
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
 
+        self.click = self.page_main.h_click
+        self.long_press = self.page_main.h_long_press
         self.element = self.page_main.h_get_element
         self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Slider default value')
-    def test_default_slider(self):
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Slider max value')
-    def test_max_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
-
-    @allure.title('Slider min value')
-    def test_min_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(-9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Can set value')
-    def test_random_slider(self):
-        assert self.element(L.edit.sub_tool.slider).send_keys(randint(0, 100))
-
-    @allure.title('Tapping reset button can reset all option')
-    def test_reset_button(self):
-        self.click(L.edit.speed.reset)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Will change preview when set')
-    def test_change_preview(self):
-        global original_preview
-        self.element(L.edit.sub_tool.slider).send_keys(100)
-        assert not CompareImage(self.original_preview,
-                                self.page_edit.get_preview_pic(),
-                                7).compare_image()
-
-
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_Brightness')
-class TestMasterPhotoAdjustment_Brightness:
-
-    MIN = '-100'
-    DEFAULT = '0'
-    MAX = '100'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-        page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
-
-    @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Slider default value')
-    def test_default_slider(self):
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Slider max value')
-    def test_max_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
-
-    @allure.title('Slider min value')
-    def test_min_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(-9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Can set value')
-    def test_random_slider(self):
-        assert self.element(L.edit.sub_tool.slider).send_keys(randint(0, 100))
-
-    @allure.title('Tapping reset button can reset all option')
-    def test_reset_button(self):
-        self.click(L.edit.speed.reset)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Will change preview when set')
-    def test_change_preview(self):
-        global original_preview
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert not CompareImage(self.original_preview,
-                                self.page_edit.get_preview_pic(),
-                                7).compare_image()
-
-
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_Contrast')
-class TestMasterPhotoAdjustment_Contrast:
-
-    MIN = '-100'
-    DEFAULT = '0'
-    MAX = '100'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-        page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
-
-    @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Slider default value')
-    def test_default_slider(self):
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Slider max value')
-    def test_max_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(1)
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
-
-    @allure.title('Slider min value')
-    def test_min_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(-9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Can set value')
-    def test_random_slider(self):
-        assert self.element(L.edit.sub_tool.slider).send_keys(randint(0, 100))
-
-    @allure.title('Tapping reset button can reset all option')
-    def test_reset_button(self):
-        self.click(L.edit.speed.reset)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Will change preview when set')
-    def test_change_preview(self):
-        global original_preview
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert not CompareImage(self.original_preview,
-                                self.page_edit.get_preview_pic(),
-                                7).compare_image()
-
-
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_Saturation')
-class TestMasterPhotoAdjustment_Saturation:
-
-    MIN = '0'
-    DEFAULT = '100'
-    MAX = '200'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-        page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
-
-    @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Slider default value')
-    def test_default_slider(self):
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Slider max value')
-    def test_max_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(1)
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
-
-    @allure.title('Slider min value')
-    def test_min_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(-9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Can set value')
-    def test_random_slider(self):
-        assert self.element(L.edit.sub_tool.slider).send_keys(randint(0, 100))
-
-    @allure.title('Tapping reset button can reset all option')
-    def test_reset_button(self):
-        self.click(L.edit.speed.reset)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Will change preview when set')
-    def test_change_preview(self):
-        global original_preview
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert not CompareImage(self.original_preview,
-                                self.page_edit.get_preview_pic(),
-                                7).compare_image()
-
-
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_HSL')
-class TestMasterPhotoAdjustment_HSL:
-
-    MIN = '-50'
-    DEFAULT = '0'
-    MAX = '50'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-
-        page_edit.select_adjustment_from_bottom_edit_menu('HSL')
-        yield
-        page_main.h_click(L.edit.master.ai_effect.back)
-
-    @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Test color can be tap/selected')
-    def test_color(self):
-        self.click(T.id('view_pink'))
-        assert self.element(T.id('view_pink')).get_attribute('selected') == 'true'
-        self.click(T.id('view_red'))
-        assert self.element(T.id('view_red')).get_attribute('selected') == 'true'
-        self.click(T.id('view_orange'))
-        assert self.element(T.id('view_orange')).get_attribute('selected') == 'true'
-        self.click(T.id('view_yellow'))
-        assert self.element(T.id('view_yellow')).get_attribute('selected') == 'true'
-        self.click(T.id('view_green'))
-        assert self.element(T.id('view_green')).get_attribute('selected') == 'true'
-        self.click(T.id('view_blue_light'))
-        assert self.element(T.id('view_blue_light')).get_attribute('selected') == 'true'
-        self.click(T.id('view_blue'))
-        assert self.element(T.id('view_blue')).get_attribute('selected') == 'true'
-        self.click(T.id('view_purple'))
-        assert self.element(T.id('view_purple')).get_attribute('selected') == 'true'
-
-    @allure.title('Hue bar default value')
-    def test_hue_default_value(self):
-        assert self.element(L.main.shortcut.hsl.hue_value).text == self.DEFAULT
-
-    @allure.title('Hue bar max value')
-    def test_hue_max_value(self):
-        self.element(L.main.shortcut.hsl.hue_slider).send_keys(999)
-        assert self.element(L.main.shortcut.hsl.hue_value).text == self.MAX
-
-    @allure.title('Hue bar min value')
-    def test_hue_min_value(self):
-        self.element(L.main.shortcut.hsl.hue_slider).send_keys(-999)
-        assert self.element(L.main.shortcut.hsl.hue_value).text == self.MIN
-
-    @allure.title('Saturation bar default value')
-    def test_saturation_default_value(self):
-        assert self.element(L.main.shortcut.hsl.saturation_value).text == self.DEFAULT
-
-    @allure.title('Saturation max value')
-    def test_saturation_max_value(self):
-        self.element(L.main.shortcut.hsl.saturation_slider).send_keys(999)
-        assert self.element(L.main.shortcut.hsl.saturation_value).text == self.MAX
-
-    @allure.title('Saturation min value')
-    def test_saturation_min_value(self):
-        self.element(L.main.shortcut.hsl.saturation_slider).send_keys(-999)
-        assert self.element(L.main.shortcut.hsl.saturation_value).text == self.MIN
-
-    @allure.title('Lightness bar default value')
-    def test_lightness_default_value(self):
-        assert self.element(L.main.shortcut.hsl.luminance_value).text == self.DEFAULT
-
-    @allure.title('Lightness max value')
-    def test_lightness_max_value(self):
-        self.element(L.main.shortcut.hsl.luminance_slider).send_keys(999)
-        assert self.element(L.main.shortcut.hsl.luminance_value).text == self.MAX
-
-    @allure.title('Lightness min value')
-    def test_lightness_min_value(self):
-        self.element(L.main.shortcut.hsl.luminance_slider).send_keys(-999)
-        assert self.element(L.main.shortcut.hsl.luminance_value).text == self.MIN
-
-    @allure.title('Reset button')
-    def test_reset(self):
-        self.click(L.edit.sub_tool.reset)
-        assert self.element(L.main.shortcut.hsl.hue_value).text == self.DEFAULT
-        assert self.element(L.main.shortcut.hsl.saturation_value).text == self.DEFAULT
-        assert self.element(L.main.shortcut.hsl.luminance_value).text == self.DEFAULT
-
-
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_Hue')
-class TestMasterPhotoAdjustment_Hue:
-
-    MIN = '0'
-    DEFAULT = '100'
-    MAX = '200'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-        page_edit.select_adjustment_from_bottom_edit_menu('Hue')
-
-    @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Slider default value')
-    def test_default_slider(self):
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Slider max value')
-    def test_max_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(1)
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
-
-    @allure.title('Slider min value')
-    def test_min_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(-9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Can set value')
-    def test_random_slider(self):
-        assert self.element(L.edit.sub_tool.slider).send_keys(randint(0, 100))
-
-    @allure.title('Tapping reset button can reset all option')
-    def test_reset_button(self):
-        self.click(L.edit.speed.reset)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Will change preview when set')
-    def test_change_preview(self):
-        global original_preview
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert not CompareImage(self.original_preview,
-                                self.page_edit.get_preview_pic(),
-                                7).compare_image()
-
-
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_Temp')
-class TestMasterPhotoAdjustment_Temp:
-
-    MIN = '0'
-    DEFAULT = '50'
-    MAX = '100'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-        page_edit.select_adjustment_from_bottom_edit_menu('Temp')
-
-    @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Slider default value')
-    def test_default_slider(self):
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Slider max value')
-    def test_max_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(1)
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
-
-    @allure.title('Slider min value')
-    def test_min_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(-9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Can set value')
-    def test_random_slider(self):
-        assert self.element(L.edit.sub_tool.slider).send_keys(randint(0, 100))
-
-    @allure.title('Tapping reset button can reset all option')
-    def test_reset_button(self):
-        self.click(L.edit.speed.reset)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-
-    @allure.title('Will change preview when set')
-    def test_change_preview(self):
-        global original_preview
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert not CompareImage(self.original_preview,
-                                self.page_edit.get_preview_pic(),
-                                7).compare_image()
-
-
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_Tint')
-class TestMasterPhotoAdjustment_Tint:
-
-    MIN = '0'
-    DEFAULT = '50'
-    MAX = '100'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-        page_edit.select_adjustment_from_bottom_edit_menu('Tint')
-
-    @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Slider default value')
-    def test_default_slider(self):
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Slider max value')
-    def test_max_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(1)
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
-
-    @allure.title('Slider min value')
-    def test_min_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(-9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Can set value')
-    def test_random_slider(self):
-        assert self.element(L.edit.sub_tool.slider).send_keys(randint(0, 100))
-
-    @allure.title('Tapping reset button can reset all option')
-    def test_reset_button(self):
-        self.click(L.edit.speed.reset)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Will change preview when set')
-    def test_change_preview(self):
-        global original_preview
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert not CompareImage(self.original_preview,
-                                self.page_edit.get_preview_pic(),
-                                7).compare_image()
-
-
-@allure.epic('Timeline_Master')
-@allure.feature('Photo')
-@allure.story('Adjustment_Sharpness')
-class TestMasterPhotoAdjustment_Sharpness:
-
-    MIN = '0'
-    DEFAULT = '0'
-    MAX = '200'
-
-    @pytest.fixture(scope='class', autouse=True)
-    def class_setup(self, shortcut, driver, module_setup):
-        page_main, page_edit, *_ = shortcut
-        page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
-
-    @pytest.fixture(autouse=True)
-    def function_setup_teardown(self, shortcut, driver):
-        # shortcut
-        self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
-
-        self.element = self.page_main.h_get_element
-        self.elements = self.page_main.h_get_elements
-
-        self.click = self.page_main.h_click
-        self.drag = self.page_main.h_drag_element
-
-        self.original_preview = original_preview
-        yield
-
-    @allure.title('Slider default value')
-    def test_default_slider(self):
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Slider max value')
-    def test_max_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(1)
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MAX
-
-    @allure.title('Slider min value')
-    def test_min_slider(self):
-        self.element(L.edit.sub_tool.slider).send_keys(-9999)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.MIN
-
-    @allure.title('Can set value')
-    def test_random_slider(self):
-        assert self.element(L.edit.sub_tool.slider).send_keys(randint(0, 100))
-
-    @allure.title('Tapping reset button can reset all option')
-    def test_reset_button(self):
-        self.click(L.edit.speed.reset)
-        assert self.element(L.edit.sub_tool.slider_value).text == self.DEFAULT
-
-    @allure.title('Will change preview when set')
-    def test_change_preview(self):
-        global original_preview
-        self.element(L.edit.sub_tool.slider).send_keys(1)
-        self.element(L.edit.sub_tool.slider).send_keys(9999)
-        assert not CompareImage(self.original_preview,
-                                self.page_edit.get_preview_pic(),
-                                7).compare_image()
+        self.is_exist = self.page_main.h_is_exist
+        self.is_not_exist = self.page_main.h_is_not_exist
+        self.set_slider = self.page_edit.h_set_slider
+
+    @allure.story('AI Color')
+    @allure.title('Open adjust options')
+    def test_open_Adjustment_panel(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_photo(TEST_MATERIAL_FOLDER, 'jpg.jpg')
+            self.page_edit.click_sub_tool('Adjust')
+            assert self.is_exist(L.edit.edit_sub.option_list)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('AI Color')
+    @allure.title('Default Value')
+    def test_AI_Color_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
+            assert self.element(L.edit.sub_tool.slider_value).text == '50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
+            raise Exception
+
+    @allure.story('AI Color')
+    @allure.title('Maximum')
+    def test_AI_Color_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
+            self.element(L.edit.sub_tool.slider).send_keys(100)
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
+            raise Exception
+
+    @allure.story('AI Color')
+    @allure.title('Minimum')
+    def test_AI_Color_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
+            raise Exception
+
+    @allure.story('AI Color')
+    @allure.title('Preview_Change')
+    def test_AI_Color_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(20, 100)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
+            raise Exception
+
+    @allure.story('AI Color')
+    @allure.title('Reset')
+    def test_AI_Color_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('Brightness')
+    @allure.title('Default Value')
+    def test_brightness_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
+            raise Exception
+
+    @allure.story('Brightness')
+    @allure.title('Maximum')
+    def test_brightness_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
+            self.element(L.edit.sub_tool.slider).send_keys(200)
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
+            raise Exception
+
+    @allure.story('Brightness')
+    @allure.title('Minimum')
+    def test_brightness_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '-100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
+            raise Exception
+
+    @allure.story('Brightness')
+    @allure.title('Preview_Change')
+    def test_brightness_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(30)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
+            raise Exception
+
+    @allure.story('Brightness')
+    @allure.title('Reset')
+    def test_brightness_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('Contrast')
+    @allure.title('Default Value')
+    def test_contrast_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
+            raise Exception
+
+    @allure.story('Contrast')
+    @allure.title('Maximum')
+    def test_contrast_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
+            self.element(L.edit.sub_tool.slider).send_keys(200)
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
+            raise Exception
+
+    @allure.story('Contrast')
+    @allure.title('Minimum')
+    def test_contrast_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '-100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
+            raise Exception
+
+    @allure.story('Contrast')
+    @allure.title('Preview_Change')
+    def test_contrast_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(66)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
+            raise Exception
+
+    @allure.story('Contrast')
+    @allure.title('Reset')
+    def test_contrast_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('Saturation')
+    @allure.title('Default Value')
+    def test_saturation_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
+            raise Exception
+
+    @allure.story('Saturation')
+    @allure.title('Maximum')
+    def test_saturation_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
+            self.element(L.edit.sub_tool.slider).send_keys(200)
+            assert self.element(L.edit.sub_tool.slider_value).text == '200'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
+            raise Exception
+
+    @allure.story('Saturation')
+    @allure.title('Minimum')
+    def test_saturation_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
+            raise Exception
+
+    @allure.story('Saturation')
+    @allure.title('Preview_Change')
+    def test_saturation_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(80)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
+            raise Exception
+
+    @allure.story('Saturation')
+    @allure.title('Reset')
+    def test_saturation_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_can_be_tap/selected')
+    def test_green_can_be_tap(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            self.click(L.edit.adjustment.view_green)
+            assert self.element(L.edit.adjustment.view_green).get_attribute('selected') == 'true'
+
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Hue_Default_Value')
+    def test_hsl_green_hue_default_value(self):
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            assert self.element(L.main.shortcut.hsl.hue_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Hue_Maximum')
+    def test_hsl_green_hue_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.main.shortcut.hsl.hue_slider).send_keys(100)
+            assert self.element(L.main.shortcut.hsl.hue_value).text == '50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Hue_Minimum')
+    def test_hsl_green_hue_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.main.shortcut.hsl.hue_slider).send_keys(1)
+            self.element(L.main.shortcut.hsl.hue_slider).send_keys(0)
+            assert self.element(L.main.shortcut.hsl.hue_value).text == '-50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Saturation_Default_Value')
+    def test_hsl_green_saturation_default_value(self):
+        try:
+            assert self.element(L.main.shortcut.hsl.saturation_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Saturation_Maximum')
+    def test_hsl_green_saturation_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.main.shortcut.hsl.saturation_slider).send_keys(100)
+            assert self.element(L.main.shortcut.hsl.saturation_value).text == '50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Saturation_Minimum')
+    def test_hsl_green_saturation_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.main.shortcut.hsl.saturation_slider).send_keys(1)
+            self.element(L.main.shortcut.hsl.saturation_slider).send_keys(0)
+            assert self.element(L.main.shortcut.hsl.saturation_value).text == '-50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Lightness_Default_Value')
+    def test_hsl_green_luminance_default_value(self):
+        try:
+            assert self.element(L.main.shortcut.hsl.luminance_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Luminance_Maximum')
+    def test_hsl_green_luminance_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.main.shortcut.hsl.luminance_slider).send_keys(100)
+            assert self.element(L.main.shortcut.hsl.luminance_value).text == '50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Green_Luminance_Minimum')
+    def test_hsl_green_luminance_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.main.shortcut.hsl.luminance_slider).send_keys(1)
+            self.element(L.main.shortcut.hsl.luminance_slider).send_keys(0)
+            assert self.element(L.main.shortcut.hsl.luminance_value).text == '-50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
+            raise Exception
+
+    @allure.story('HSL')
+    @allure.title('Reset')
+    def test_hsl_green_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.main.shortcut.hsl.hue_value).text == '0'
+            assert self.element(L.main.shortcut.hsl.saturation_value).text == '0'
+            assert self.element(L.main.shortcut.hsl.luminance_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('Hue')
+    @allure.title('Default Value')
+    def test_hue_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.adjustment.back)
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
+            raise Exception
+
+    @allure.story('Hue')
+    @allure.title('Maximum')
+    def test_hue_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
+            self.element(L.edit.sub_tool.slider).send_keys(200)
+            assert self.element(L.edit.sub_tool.slider_value).text == '200'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
+            raise Exception
+
+    @allure.story('Hue')
+    @allure.title('Minimum')
+    def test_hue_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
+            raise Exception
+
+    @allure.story('Hue')
+    @allure.title('Preview_Change')
+    def test_hue_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(135)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
+            raise Exception
+
+    @allure.story('Hue')
+    @allure.title('Reset')
+    def test_hue_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('Temp')
+    @allure.title('Default Value')
+    def test_temp_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
+            assert self.element(L.edit.sub_tool.slider_value).text == '50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
+            raise Exception
+
+    @allure.story('Temp')
+    @allure.title('Maximum')
+    def test_temp_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
+            self.element(L.edit.sub_tool.slider).send_keys(100)
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
+            raise Exception
+
+    @allure.story('Temp')
+    @allure.title('Minimum')
+    def test_temp_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
+            raise Exception
+
+    @allure.story('Temp')
+    @allure.title('Preview_Change')
+    def test_temp_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(65)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+        except Exception:
+                traceback.print_exc()
+                driver.driver.close_app()
+                driver.driver.launch_app()
+
+                self.page_main.enter_launcher()
+                self.page_main.enter_timeline()
+                self.page_edit.enter_main_tool('Overlay')
+                self.click(L.import_media.menu.overlay_video)
+                self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+                self.page_edit.click_sub_tool('Adjust')
+                self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
+                raise Exception
+
+    @allure.story('Temp')
+    @allure.title('Reset')
+    def test_temp_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('Tint')
+    @allure.title('Default Value')
+    def test_tint_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
+            assert self.element(L.edit.sub_tool.slider_value).text == '50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
+            raise Exception
+
+    @allure.story('Tint')
+    @allure.title('Maximum')
+    def test_tint_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(99)
+            self.element(L.edit.sub_tool.slider).send_keys(100)
+            assert self.element(L.edit.sub_tool.slider_value).text == '100'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
+            raise Exception
+
+    @allure.story('Tint')
+    @allure.title('Minimum')
+    def test_tint_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
+            raise Exception
+
+    @allure.story('Tint')
+    @allure.title('Preview_Change')
+    def test_tint_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(74)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
+            raise Exception
+
+    @allure.story('Tint')
+    @allure.title('Reset')
+    def test_tint_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '50'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
+
+    @allure.story('Sharpness')
+    @allure.title('Default Value')
+    def test_sharpness_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            raise Exception
+
+    @allure.story('Sharpness')
+    @allure.title('Maximum')
+    def test_sharpness_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
+            self.element(L.edit.sub_tool.slider).send_keys(200)
+            assert self.element(L.edit.sub_tool.slider_value).text == '200'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            raise Exception
+
+    @allure.story('Sharpness')
+    @allure.title('Minimum')
+    def test_sharpness_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            raise Exception
+
+    @allure.story('Sharpness')
+    @allure.title('Preview_Change')
+    def test_sharpness_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(45)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            raise Exception
+
+    @allure.story('Sharpness')
+    @allure.title('Reset')
+    def test_sharpness_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            driver.driver.close_app()
+            driver.driver.launch_app()
+
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
