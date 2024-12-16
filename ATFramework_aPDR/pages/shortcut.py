@@ -813,7 +813,7 @@ class Shortcut(BasePage):
             return True
         else:
             logger(f'[Error] export_back fail', log_level='error')
-            return
+            return False
 
     def export_save_image(self):
         self.click(L.edit.menu.export)
