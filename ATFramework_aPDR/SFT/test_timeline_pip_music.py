@@ -1,3 +1,4 @@
+import time
 import traceback
 import inspect
 
@@ -10,13 +11,12 @@ from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.locator.locator_type import *
 
 from .conftest import TEST_MATERIAL_FOLDER
+
 test_material_folder = TEST_MATERIAL_FOLDER
 
-
-
-@allure.epic("Timeline_PiP")
-@allure.feature("Music")
-@allure.story("Import Music")
+@allure.epic("Timeline_PiP_Music")
+@allure.feature("Import")
+@allure.story("Music Library")
 class Test_PiP_Import_Music:
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
@@ -31,40 +31,13 @@ class Test_PiP_Import_Music:
         self.is_not_exist = self.page_main.h_is_not_exist
         self.set_slider = self.page_edit.h_set_slider
 
-    @allure.title("Enter Music Library")
-    def test_enter_music_library(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-
-        try:
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool("Audio")
-            self.click(L.import_media.menu.music)
-            assert self.is_exist(L.import_media.media_library.recycler_view)
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool("Audio")
-            self.click(L.import_media.menu.music)
-            raise Exception
-
     @allure.title("Add music to PiP track")
     def test_add_local_music_to_timeline(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
-            self.page_main.h_click(L.edit.music.local)
-            self.page_main.h_click(find_string(test_material_folder))
-            self.element(L.import_media.music_library.add).click()
-            assert self.is_exist(L.edit.timeline.item_view_thumbnail_view)
+            assert self.page_edit.music.start_with_music()
 
         except Exception as e:
             traceback.print_exc()
@@ -81,8 +54,8 @@ class Test_PiP_Import_Music:
             self.element(L.import_media.music_library.add).click()
             raise Exception
 
-@allure.epic("Timeline_PiP")
-@allure.feature("Music")
+@allure.epic("Timeline_PiP_Music")
+@allure.feature("Volume")
 @allure.story("Volume")
 class Test_PiP_Music_Volume:
 
@@ -99,12 +72,13 @@ class Test_PiP_Music_Volume:
         self.is_not_exist = self.page_main.h_is_not_exist
         self.set_slider = self.page_edit.h_set_slider
 
-    @allure.title("Default Value")
-    def test_sticker_opacity_default_value(self, driver):
+    @allure.title("Default")
+    def test_music_volume_default_value(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_edit.music.start_with_music()
             self.page_edit.click_sub_tool('Volume')
             value = self.element(L.edit.adjust_sub.number).text
             assert value == '100'
@@ -323,7 +297,6 @@ class Test_PiP_Music_Volume:
             self.element(L.import_media.music_library.add).click()
             raise Exception
 
-
 @allure.epic("Timeline_PiP")
 @allure.feature("Music")
 @allure.story("Split")
@@ -345,11 +318,11 @@ class Test_PiP_Music_Split:
     def test_split_music(self, driver):
 
         try:
+            self.page_edit.music.start_with_music()
             self.page_edit.scroll_playhead()
             self.click(L.edit.menu.split)
             clip = self.elements(L.edit.timeline.item_view_thumbnail_view)
             assert len(clip) == 2
-            self.element(L.edit.timeline.item_view_thumbnail_view).click()
 
         except Exception as e:
             traceback.print_exc()
@@ -367,8 +340,8 @@ class Test_PiP_Music_Split:
             raise Exception
 
 
-@allure.epic("Timeline_PiP")
-@allure.feature("Music")
+@allure.epic("Timeline_PiP_Music")
+@allure.feature("AI Audio Tool")
 @allure.story("AI Audio Tool_AI Voice Changer")
 class Test_PiP_Music_AI_Voice_Chagner:
     @pytest.fixture(autouse=True)
@@ -387,7 +360,11 @@ class Test_PiP_Music_AI_Voice_Chagner:
     @allure.title("Apply AI Voice Changer's filter")
     def test_apply_AI_voice_changer_filter(self, driver):
         try:
-            self.page_edit.click_sub_tool('AI Audio \nTool')
+            self.page_edit.music.start_with_music()
+            self.page_edit.scroll_playhead()
+            self.click(L.edit.menu.split)
+            self.element(L.edit.timeline.item_view_thumbnail_view).click()
+            self.page_edit.click_sub_tool('AI Audio\nTool')
             self.click(L.edit.ai_audio_tool.ai_voice_changer)
             pic_base = self.page_edit.get_preview_pic(L.edit.ai_audio_tool.ai_voice_changer_panel)
             self.click(L.edit.ai_audio_tool.filter)
@@ -446,8 +423,10 @@ class Test_PiP_Music_AI_Voice_Chagner:
             self.click(L.edit.ai_audio_tool.cat_Professional)
             self.click(L.edit.ai_audio_tool.voice(1))
             self.click(L.edit.ai_audio_tool.apply)
+            self.page_edit.waiting()
             if self.is_exist(L.edit.ai_audio_tool.ok, 30):
                 self.click(L.edit.ai_audio_tool.ok)
+            self.click(L.edit.ai_audio_tool.ai_voice_changer)
             assert self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
 
 
@@ -470,7 +449,6 @@ class Test_PiP_Music_AI_Voice_Chagner:
     @allure.title("AI Voice Changer Switch Off")
     def test_AI_voice_changer_on(self, driver):
         try:
-            self.click(L.edit.ai_audio_tool.ai_voice_changer)
             self.click(L.edit.ai_audio_tool.voice_changer_on_off)
             assert self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false'
 

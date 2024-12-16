@@ -132,7 +132,7 @@ def create_driver(retry, mode, driver_config, app_config, desired_caps):
 def driver():
     """Pytest fixture 用來設置和關閉driver"""
     desired_caps = {**app_config.cap, **DRIVER_DESIRED_CAPS, 'udid': deviceName}
-    debug_device = 'R5CW31G76ST'
+    debug_device = 'R5CTB22S05Y'
 
     if debug_mode:
         mode = 'debug'
