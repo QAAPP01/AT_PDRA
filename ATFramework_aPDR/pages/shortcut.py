@@ -1,6 +1,8 @@
 import time
 import traceback
 
+import allure
+
 from .locator import locator as L
 from .locator.locator_type import *
 from ATFramework_aPDR.pages.base_page import BasePage
@@ -254,7 +256,8 @@ class Shortcut(BasePage):
     def back_from_media_picker(self):
         if not self.click(L.import_media.media_library.back, 2):
             self.click(L.main.shortcut.ai_sketch.close, 2)
-        self.click(L.edit.menu.home, 1)
+        if not self.click(L.edit.menu.home, 1):
+            self.click(id('iv_back'), 1)
         if self.is_exist(L.main.shortcut.shortcut_name(0)):
             return True
         else:
@@ -371,52 +374,40 @@ class Shortcut(BasePage):
             logger(f'[Error] trim_video fail', log_level='error')
             return False
 
-    def get_timecode(self):
-        timecode_element = self.element(L.edit.menu.timecode)
-        if timecode_element:
-            timecode = timecode_element.text.strip()
+    def timecode(self, is_total_time=False):
+        def extract_timecode(element_text):
+            """處理 timecode 的提取邏輯"""
+            timecode = element_text.strip()
             if '/' in timecode:
-                timecode = timecode.split('/')[0].strip()
+                return timecode.split('/')[1 if is_total_time else 0].strip()
             return timecode
-        else:
-            timecode_element = self.element(id('time_code_text'))
-            if timecode_element:
-                timecode = timecode_element.text.strip()
-                if '/' in timecode:
-                    timecode = timecode.split('/')[0].strip()
-                return timecode
-            else:
-                logger('[Error] timecode element not found')
-                return None
+
+        # 嘗試從第一個元素提取 timecode
+        timecode_element = self.element(L.edit.menu.timecode) or self.element(id('time_code_text'))
+        if timecode_element:
+            return extract_timecode(timecode_element.text)
+
+        # 如果找不到元素，記錄錯誤並返回 None
+        logger('[Error] timecode element not found')
+        return None
+
+    def get_timecode(self):
+        return self.timecode()
 
     def get_total_time(self):
-        total_time_element = self.element(L.main.shortcut.total_time)
-        if total_time_element:
-            total_time = total_time_element.text.strip()
-            return total_time
-        else:
-            timecode_element = self.element(id('time_code_text'))
-            if timecode_element:
-                timecode_text = timecode_element.text.strip()
-                if '/' in timecode_text:
-                    total_time = timecode_text.split('/')[1].strip()
-                    return total_time
-                else:
-                    logger('[Error] "/" not found in timecode text')
-                    return None
-            else:
-                logger('[Error] total_time element not found')
-                return None
+        return self.timecode(is_total_time=True)
 
     def pause_auto_play(self):
         timecode_1 = self.get_timecode()
         logger(f'timecode 1: {timecode_1}')
         time.sleep(1)
         timecode_2 = self.get_timecode()
+        total_time = self.get_total_time()
         logger(f'timecode 2: {timecode_2}')
         if timecode_2 != timecode_1:
-            self.click(L.edit.menu.play)
-            logger('Pause auto play')
+            if timecode_2 != total_time:
+                self.click(L.edit.menu.play)
+                logger('Pause auto play')
 
     def preview_play(self):
         try:
@@ -811,8 +802,10 @@ class Shortcut(BasePage):
             return False
 
     def export_back(self):
-        self.click(L.edit.menu.export)
-        self.click(L.edit.menu.produce_sub_page.back)
+        with allure.step('Click export button'):
+            self.click(L.edit.menu.export)
+        with allure.step('Click back button'):
+            self.click(L.edit.menu.produce_sub_page.back)
 
         if not self.is_exist(L.edit.menu.produce_sub_page.produce, 1):
             return True
