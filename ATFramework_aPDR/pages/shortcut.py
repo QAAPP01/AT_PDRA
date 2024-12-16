@@ -807,6 +807,8 @@ class Shortcut(BasePage):
         with allure.step('Click back button'):
             self.click(L.edit.menu.produce_sub_page.back)
 
+        time.sleep(1)
+
         if not self.is_exist(L.edit.menu.produce_sub_page.produce, 1):
             return True
         else:
