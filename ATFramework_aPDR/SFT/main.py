@@ -5,6 +5,9 @@ from .test_shortcut_trim import *
 from .test_shortcut_speed import *
 from .test_shortcut_cutout import *
 from .test_shortcut_image_enhancer import *
+from .test_shortcut_ai_video_enhancer import *
+# upscaler
+from .test_shortcut_stabilizer import *
 
 from .test_shortcut_ai_art import *
 from .test_shortcut_ai_scene import *
@@ -16,7 +19,7 @@ from .test_shortcut_color_enhancer import *
 # from .test_shortcut_body_effect import *
 from .test_shortcut_video_effect import *
 from .test_shortcut_tempo_effect import *
-from .test_shortcut_stabilizer import *
+
 from .test_shortcut_mosaic import *
 from .test_shortcut_filter import *
 from .test_shortcut_crop_rotate import *
@@ -29,7 +32,7 @@ from .test_shortcut_voice_changer import *
 from .test_shortcut_speed_curve import *
 
 from .test_shortcut_ai_anime_video import *
-from .test_shortcut_ai_video_enhancer import *
+
 
 
 from .test_timeline_close_hint import *

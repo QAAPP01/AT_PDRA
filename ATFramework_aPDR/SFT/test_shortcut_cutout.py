@@ -1,4 +1,3 @@
-import time
 import traceback
 import pytest
 import allure
