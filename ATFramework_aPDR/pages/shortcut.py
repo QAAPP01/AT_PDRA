@@ -263,9 +263,10 @@ class Shortcut(BasePage):
             back_button = xpath('//*[contains(@resource-id,"top_toolbar_back") or contains(@resource-id,"iv_close") or contains(@resource-id,"iv_back")]')
             assert self.click(back_button, 2), 'Click back button failed'
 
-        with allure.step("Click home button"):
-            home_button = xpath('//*[contains(@resource-id,"btn_home") or contains(@resource-id,"iv_back")]')
-            assert self.click(home_button, 1), 'Click home button failed'
+        home_button = xpath('//*[contains(@resource-id,"btn_home") or contains(@resource-id,"iv_back")]')
+        if self.is_exist(home_button, 1):
+            with allure.step("Click home button"):
+                assert self.click(home_button), 'Click home button failed'
 
         if self.is_exist(L.main.shortcut.shortcut_name(0)):
             return True
