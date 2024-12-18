@@ -23,6 +23,9 @@ class Shortcut(BasePage):
         self.page_media = MediaPage(driver)
         self.driver = driver
 
+    def __repr__(self):
+        return f"<Shortcut Page class >"
+
     def back_from_all_shortcut_page(self):
         self.click(id('back_button'))
         self.click(id('layout_home'))
@@ -35,7 +38,7 @@ class Shortcut(BasePage):
 
     def enter_shortcut(self, shortcut_name, demo_title=None, audio_tool=None, check=True):
         try:
-            demo_title = demo_title or shortcut_name
+            demo_title = demo_title or shortcut_name.replace('\n', ' ')
 
             if not self.is_exist(L.main.shortcut.shortcut_name(), 1):
                 if not self.click(L.main.launcher.home, 1):
@@ -94,6 +97,7 @@ class Shortcut(BasePage):
             logger(e)
             return False
 
+    @allure.step("Enter from AI Creation: {name}")
     def enter_ai_feature(self, name, demo_title=None, check=True):
         demo_title = demo_title or name
 
@@ -119,7 +123,8 @@ class Shortcut(BasePage):
                 logger(f'[Error] enter_ai_feature fail', log_level='error')
                 return False
         return True
-    
+
+    @allure.step("Back from demo page")
     def back_from_demo(self):
         if not self.click(L.main.shortcut.demo_back, 1):
             self.click(L.main.shortcut.close)
@@ -254,10 +259,14 @@ class Shortcut(BasePage):
             return False
 
     def back_from_media_picker(self):
-        if not self.click(L.import_media.media_library.back, 2):
-            self.click(L.main.shortcut.ai_sketch.close, 2)
-        if not self.click(L.edit.menu.home, 1):
-            self.click(id('iv_back'), 1)
+        with allure.step("Click back button"):
+            back_button = xpath('//*[contains(@resource-id,"top_toolbar_back") or contains(@resource-id,"iv_close") or contains(@resource-id,"iv_back")]')
+            assert self.click(back_button, 2), 'Click back button failed'
+
+        with allure.step("Click home button"):
+            home_button = xpath('//*[contains(@resource-id,"btn_home") or contains(@resource-id,"iv_back")]')
+            assert self.click(home_button, 1), 'Click home button failed'
+
         if self.is_exist(L.main.shortcut.shortcut_name(0)):
             return True
         else:
@@ -803,9 +812,9 @@ class Shortcut(BasePage):
 
     def export_back(self):
         with allure.step('Click export button'):
-            self.click(L.edit.menu.export)
+            assert self.click(L.edit.menu.export), 'Click export button failed'
         with allure.step('Click back button'):
-            self.click(L.edit.menu.produce_sub_page.back)
+            assert self.click(L.edit.menu.produce_sub_page.back), 'Click back button failed'
 
         time.sleep(1)
 

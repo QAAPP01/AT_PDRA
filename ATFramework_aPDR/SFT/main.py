@@ -4,6 +4,7 @@ from .test_app_initial import *
 from .test_shortcut_trim import *
 from .test_shortcut_speed import *
 from .test_shortcut_cutout import *
+from .test_shortcut_ai_music import *
 from .test_shortcut_image_enhancer import *
 from .test_shortcut_ai_video_enhancer import *
 # upscaler
