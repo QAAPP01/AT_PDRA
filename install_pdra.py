@@ -6,15 +6,10 @@ import sys
 
 LOCAL_DIR = os.path.join("ATFramework_aPDR", "app")
 
-
-# 取得build number
+# 提取 build number
 def extract_build_number(filename):
-    # 使用正則表達式提取檔案名稱中最後一組數字
     match = re.search(r"([0-9]+)\.apk$", filename)
-    if match:
-        return int(match.group(1))
-    return None
-
+    return int(match.group(1)) if match else None
 
 # Local APK
 def get_local_apk():
@@ -24,7 +19,6 @@ def get_local_apk():
 
     os.makedirs(LOCAL_DIR, exist_ok=True)
 
-    # 檢查Local端 APK 檔案
     for filename in os.listdir(LOCAL_DIR):
         if apk_pattern.match(filename):
             local_apk = os.path.join(LOCAL_DIR, filename)
@@ -33,42 +27,33 @@ def get_local_apk():
 
     return local_apk, local_build_number
 
-
-# Server最新的 APK 檔案
+# Server 上的最新 APK 檔案
 def find_latest_apk(root_dir):
     latest_apk = None
     latest_build_number = None
-
-    # 正則表達式來匹配 APK 檔案
     apk_pattern = re.compile(r".*\.apk$")
 
-    # Full search
     for dirpath, _, filenames in os.walk(root_dir):
         for filename in filenames:
             if apk_pattern.match(filename):
                 build_number = extract_build_number(filename)
                 if build_number is not None:
-                    # 找到 build number 最大的 APK 檔案
                     if latest_build_number is None or build_number > latest_build_number:
                         latest_build_number = build_number
                         latest_apk = os.path.join(dirpath, filename)
 
     return latest_apk, latest_build_number
 
-
-# 更新 Local APK
+# 更新 Local APK 檔案
 def update_local_apk_if_needed(latest_apk, latest_build_number, local_build_number):
     if local_build_number is None or latest_build_number > local_build_number:
-        if not os.path.exists(LOCAL_DIR):
-            os.makedirs(LOCAL_DIR)
+        os.makedirs(LOCAL_DIR, exist_ok=True)
 
-        # 刪除舊的 APK
         for file in os.listdir(LOCAL_DIR):
             file_path = os.path.join(LOCAL_DIR, file)
             if os.path.isfile(file_path):
                 os.remove(file_path)
 
-        # 複製新的 APK
         local_apk_path = os.path.join(LOCAL_DIR, os.path.basename(latest_apk))
         shutil.copy(latest_apk, local_apk_path)
         print(f"Updated local APK to: {local_apk_path}")
@@ -77,20 +62,14 @@ def update_local_apk_if_needed(latest_apk, latest_build_number, local_build_numb
     print("Local APK is already up to date.")
     return None
 
-
 # 取得所有已連接的裝置
 def get_connected_devices():
     cmd_devices = 'adb devices'
     result = subprocess.run(cmd_devices, shell=True, capture_output=True, text=True)
     devices = result.stdout.strip().splitlines()
+    return [line.split()[0] for line in devices if '\tdevice' in line]
 
-    # 過濾掉標題行並取得裝置 ID
-    connected_devices = [line.split()[0] for line in devices if '\tdevice' in line]
-
-    return connected_devices
-
-
-# 讓使用者選擇一個裝置
+# 手動多裝置選取
 def select_device(devices):
     print("Available devices:")
     for idx, device in enumerate(devices):
@@ -106,39 +85,20 @@ def select_device(devices):
         except ValueError:
             print("Please enter a valid number.")
 
-
-def get_package_name_from_apk(apk_path):
-    cmd_aapt = f'aapt dump badging "{apk_path}"'
-    result = subprocess.run(cmd_aapt, shell=True, capture_output=True, text=True, encoding='utf-8', errors='replace')
-
-    if result.returncode != 0:
-        print(f"Failed to get package name from APK: {result.stderr}")
-        return None
-
-    output = result.stdout
-    match = re.search(r"package: name='([^']+)'", output)
-    if match:
-        return match.group(1)
-    else:
-        print("Package name not found in APK.")
-        return None
-
-
-# 安裝 APK
+# 確認 APK 是否需要安裝，並安裝到裝置
 def install_apk(apk_path, device):
     cmd_install = f'adb -s {device} install -r "{apk_path}"'
     result = subprocess.run(cmd_install, shell=True, capture_output=True, text=True)
 
     if result.returncode != 0:
         print(f"Failed to install APK on device {device}: {result.stderr}")
-        print("Attempting to uninstall the existing app and reinstall.")
+        print("Attempting to uninstall existing app and reinstall.")
 
         package_name = get_package_name_from_apk(apk_path)
         if not package_name:
             print("Unable to extract package name from APK. Cannot uninstall existing app.")
             return False
 
-        # 解除安裝
         cmd_uninstall = f'adb -s {device} uninstall {package_name}'
         uninstall_result = subprocess.run(cmd_uninstall, shell=True, capture_output=True, text=True)
 
@@ -148,9 +108,7 @@ def install_apk(apk_path, device):
 
         print(f"Successfully uninstalled app {package_name} from device {device}.")
 
-        # 重新安裝
         reinstall_result = subprocess.run(cmd_install, shell=True, capture_output=True, text=True)
-
         if reinstall_result.returncode != 0:
             print(f"Failed to reinstall APK on device {device}: {reinstall_result.stderr}")
             return False
@@ -161,8 +119,20 @@ def install_apk(apk_path, device):
     print(f"APK installed on device {device}: {apk_path}")
     return True
 
+# 提取 APK 檔案的 package 名稱
+def get_package_name_from_apk(apk_path):
+    cmd_aapt = f'aapt dump badging "{apk_path}"'
+    result = subprocess.run(cmd_aapt, shell=True, capture_output=True, text=True, encoding='utf-8', errors='replace')
 
-# 複製 APK 檔案到手機
+    if result.returncode != 0:
+        print(f"Failed to get package name from APK: {result.stderr}")
+        return None
+
+    output = result.stdout
+    match = re.search(r"package: name='([^']+)'", output)
+    return match.group(1) if match else None
+
+# 複製 APK 到手機
 def copy_apk_to_phone(apk_path, phone_dir, device):
     cmd_push = f'adb -s {device} push "{apk_path}" "{phone_dir}"'
     result = subprocess.run(cmd_push, shell=True, capture_output=True, text=True)
@@ -174,8 +144,7 @@ def copy_apk_to_phone(apk_path, phone_dir, device):
     print(f"APK copied to device {device}: {phone_dir}")
     return True
 
-
-# 管理手機目錄中的 APK 檔案，保證不超過 max_files
+# 管理手機資料夾中的 APK 檔案
 def manage_phone_directory(phone_dir, device, max_files=36):
     cmd_ls = f'adb -s {device} shell ls -t "{phone_dir}"'
     result = subprocess.run(cmd_ls, shell=True, capture_output=True, text=True)
@@ -188,33 +157,24 @@ def manage_phone_directory(phone_dir, device, max_files=36):
             subprocess.run(cmd_rm, shell=True)
             print(f"Removed old APK from device {device}: {file_path}")
 
-
-# 確保手機上的目錄存在，如果不存在則建立它
+# 確保手機資料夾存在
 def ensure_phone_dir_exists(phone_dir, device):
-    # 使用 adb shell 的 test 指令檢查目錄是否存在
     cmd_check = f'adb -s {device} shell "test -d \\"{phone_dir}\\""'
     result = subprocess.run(cmd_check, shell=True)
 
     if result.returncode != 0:
         print(f"Directory {phone_dir} does not exist on device {device}. Creating it...")
-        # 使用 mkdir -p 建立目錄，包括任何必要的父目錄
         cmd_mkdir = f'adb -s {device} shell mkdir -p "{phone_dir}"'
         mkdir_result = subprocess.run(cmd_mkdir, shell=True, capture_output=True, text=True)
 
         if mkdir_result.returncode != 0:
             print(f"Failed to create directory {phone_dir} on device {device}: {mkdir_result.stderr}")
             return False
-        else:
-            print(f"Successfully created directory {phone_dir} on device {device}.")
-    else:
-        print(f"Directory {phone_dir} already exists on device {device}.")
 
+    print(f"Directory {phone_dir} is ready.")
     return True
 
 def find_apk_in_directory(directory):
-    """
-    確認資料夾中是否有唯一的 .apk 檔案並返回該檔案的完整路徑。
-    """
     if not os.path.isdir(directory):
         print(f"Provided buildPath is not a directory: {directory}")
         return None
@@ -230,7 +190,6 @@ def find_apk_in_directory(directory):
     return apk_files[0]
 
 def main():
-    # 檢查連接的裝置
     devices = get_connected_devices()
     if not devices:
         print("No devices connected.")
@@ -238,39 +197,27 @@ def main():
 
     if len(sys.argv) <= 1:
         # 手動執行
-        print("=> buildPath not provided.")
-
+        print("Running in manual mode. No buildPath provided.")
         root_dir = r"\\CLT-QASERVER\Testing\_SR_Build\PowerDirector Android\PowerDirector Android 14.0"
         phone_dir = r"/storage/emulated/0/Build/PDR"
 
-        # 如果有多個裝置，讓使用者選擇一個裝置
         device = devices[0]
         if len(devices) > 1:
             device = select_device(devices)
 
-        # 取得本地的 APK 檔案及其 build number
         local_apk, local_build_number = get_local_apk()
-
-        # 尋找網路上的最新 APK 檔案（根據 build number）
         latest_apk, latest_build_number = find_latest_apk(root_dir)
 
-        # 如果網路上有更高版本的 APK，則更新本地
         if latest_apk:
             updated_apk = update_local_apk_if_needed(latest_apk, latest_build_number, local_build_number)
             if updated_apk:
-                local_apk = updated_apk  # 更新 local_apk 為新的路徑
+                local_apk = updated_apk
 
-        # 使用本地最新的 APK 安裝到手機上
         if local_apk:
-            # 確認本地最新 APK
             install_apk(local_apk, device)
-
-            # 複製 APK
             if ensure_phone_dir_exists(phone_dir, device):
                 copy_apk_to_phone(local_apk, phone_dir, device)
                 manage_phone_directory(phone_dir, device)
-
-        sys.exit(0)
     else:
         # Jenkins Trigger
         build_path = sys.argv[1]
