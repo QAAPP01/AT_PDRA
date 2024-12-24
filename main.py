@@ -4,10 +4,8 @@ import os
 import shutil
 import subprocess
 import sys
-import datetime
 
 from multiprocessing import Process
-import time
 
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
 from send_mail.send_report import generate_allure_report, remove_allure_result, move_allure_history, send_allure_report
@@ -87,17 +85,6 @@ def auto_run():
             print("Please update Python to 3.7 +")
             sys.exit("Incorrect Python version.")
 
-        def rename_apk(name="PowerDirector.apk"):
-            fileExt = r".apk"
-            new_name = os.path.join(app_path, name)
-            for filename in os.listdir(app_path):
-                if filename.endswith(fileExt):
-                    file_path = os.path.join(app_path, filename)
-                    os.rename(file_path, new_name)
-                    print('rename apk success!')
-                    return new_name
-            return False
-
         # Install apk
         def install_apk(_apk_path, device_id=None):
             if not os.path.exists(_apk_path):
@@ -163,9 +150,8 @@ def auto_run():
                 except Exception as e:
                     print('Failed to delete %s. Reason: %s' % (file_path, e))
 
-
-        # [auto download lasted build]
-        if auto_download:
+        # 手動執行
+        if len(sys.argv) <= 1:
             sr_number = ''
             tr_number = ''
 
@@ -192,23 +178,20 @@ def auto_run():
                 package_build_number = version_numbers[3]
                 print(f'package_version = {package_version}, package_build_number = {package_build_number}')
 
-            apk = rename_apk()
+            fileExt = r".apk"
+            for filename in os.listdir(app_path):
+                if filename.endswith(fileExt):
+                    apk = os.path.join(app_path, filename)
+                else:
+                    apk = None
             uninstall_apk(package_name, deviceName)
             install_apk(apk, deviceName)
 
+        # Jenkins Trigger
         else:
-            tr_number = manual_tr_number
+            sr_number = sys.argv[1]
+            tr_number = sys.argv[2]
             # Manual
-
-            if test_apk_from_appPath:
-                apk = rename_apk()
-                if apk:
-                    uninstall_apk(package_name, deviceName)
-                    install_apk(apk, deviceName)
-                else:
-                    print("\nYou are in the non-auto-download mode")
-                    print(f'**** Please put the apk file into {app_path}, or disable "test_apk_from_appPath"')
-                    exit(1)
 
             def get_package_version(package_name, device_name):
                 try:
@@ -250,8 +233,9 @@ def auto_run():
             p.join()
         print('test complete.')
 
-        move_allure_history(result_folder, report_folder)
-        generate_allure_report(result_folder, report_folder)
+        if len(sys.argv) <= 1:
+            move_allure_history(result_folder, report_folder)
+            generate_allure_report(result_folder, report_folder)
 
         with open('summary.json', 'r') as f:
             summary_info = json.load(f)
@@ -264,7 +248,6 @@ def auto_run():
             print('send report complete.')
 
         ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
-        delete_apk(app_path)
 
         print("\n ======== SFT Test Finish ========")
 
