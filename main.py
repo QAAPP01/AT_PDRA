@@ -248,91 +248,91 @@ def auto_run():
         print("\n ======== SFT Test Finish ========")
 
 
-def auto_server_scan():
-    print("\n ======== Server Scan Test Start ========")
-    test_folder = 'ServerScan'
-    test_result_title = 'Server Scan Test Result'
-    result_folder = 'server-scan-allure-results'
-    report_folder = 'server-scan-allure-report'
-    test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
-
-    remove_allure_result(result_folder)
-
-    procs = []
-    with open('tr_info', 'r') as file:
-        for line in file:
-            key, value = line.strip().split('=')
-            if key == 'tr_number':
-                tr_number = value
-            elif key == 'sr_number':
-                sr_number = value
-            elif key == 'package_version':
-                package_version = value
-            elif key == 'package_build_number':
-                package_build_number = value
-
-    # run test
-    print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
-    cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % deviceName, "%s" % str(system_port_default)]
-    p = Process(target=__run_test, args=cmd)
-    p.start()
-    procs.append(p)
-
-    for p in procs:
-        p.join()
-    print('test complete.')
-
-    move_allure_history(result_folder, report_folder)
-    generate_allure_report(result_folder, report_folder)
-
-    if send:
-        send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number, update_to_sheet=False)
-        print('send report complete.')
-
-    print("\n ======== Server Scan Test Finish ========")
-    auto_ai_style_scan()
-
-
-def auto_ai_style_scan():
-    print("\n ======== AI Style Scan Test Start ========")
-    test_folder = 'ServerScan'
-    test_result_title = 'AI Style Scan Test Result'
-    result_folder = 'ai-style-scan-allure-results'
-    report_folder = 'ai-style-scan-allure-report'
-    test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
-
-    remove_allure_result(result_folder)
-
-    procs = []
-    with open('tr_info', 'r') as file:
-        for line in file:
-            key, value = line.strip().split('=')
-            if key == 'tr_number':
-                tr_number = value
-            elif key == 'package_version':
-                package_version = value
-            elif key == 'package_build_number':
-                package_build_number = value
-
-    # run test
-    print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
-    cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % deviceName, "%s" % str(system_port_default), "main_scan_ai_style.py"]
-    p = Process(target=__run_test, args=cmd)
-    p.start()
-    procs.append(p)
-
-    for p in procs:
-        p.join()
-    print('test complete.')
-
-    move_allure_history(result_folder, report_folder)
-    generate_allure_report(result_folder, report_folder)
-
-    if send:
-        send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number, update_to_sheet=False)
-        print('send report complete.')
-
-    print("\n ======== AI Style Scan Test Finish ========")
+# def auto_server_scan():
+#     print("\n ======== Server Scan Test Start ========")
+#     test_folder = 'ServerScan'
+#     test_result_title = 'Server Scan Test Result'
+#     result_folder = 'server-scan-allure-results'
+#     report_folder = 'server-scan-allure-report'
+#     test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
+#
+#     remove_allure_result(result_folder)
+#
+#     procs = []
+#     with open('tr_info', 'r') as file:
+#         for line in file:
+#             key, value = line.strip().split('=')
+#             if key == 'tr_number':
+#                 tr_number = value
+#             elif key == 'sr_number':
+#                 sr_number = value
+#             elif key == 'package_version':
+#                 package_version = value
+#             elif key == 'package_build_number':
+#                 package_build_number = value
+#
+#     # run test
+#     print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
+#     cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % deviceName, "%s" % str(system_port_default)]
+#     p = Process(target=__run_test, args=cmd)
+#     p.start()
+#     procs.append(p)
+#
+#     for p in procs:
+#         p.join()
+#     print('test complete.')
+#
+#     move_allure_history(result_folder, report_folder)
+#     generate_allure_report(result_folder, report_folder)
+#
+#     if send:
+#         send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number, update_to_sheet=False)
+#         print('send report complete.')
+#
+#     print("\n ======== Server Scan Test Finish ========")
+#     auto_ai_style_scan()
+#
+#
+# def auto_ai_style_scan():
+#     print("\n ======== AI Style Scan Test Start ========")
+#     test_folder = 'ServerScan'
+#     test_result_title = 'AI Style Scan Test Result'
+#     result_folder = 'ai-style-scan-allure-results'
+#     report_folder = 'ai-style-scan-allure-report'
+#     test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
+#
+#     remove_allure_result(result_folder)
+#
+#     procs = []
+#     with open('tr_info', 'r') as file:
+#         for line in file:
+#             key, value = line.strip().split('=')
+#             if key == 'tr_number':
+#                 tr_number = value
+#             elif key == 'package_version':
+#                 package_version = value
+#             elif key == 'package_build_number':
+#                 package_build_number = value
+#
+#     # run test
+#     print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
+#     cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % deviceName, "%s" % str(system_port_default), "main_scan_ai_style.py"]
+#     p = Process(target=__run_test, args=cmd)
+#     p.start()
+#     procs.append(p)
+#
+#     for p in procs:
+#         p.join()
+#     print('test complete.')
+#
+#     move_allure_history(result_folder, report_folder)
+#     generate_allure_report(result_folder, report_folder)
+#
+#     if send:
+#         send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number, update_to_sheet=False)
+#         print('send report complete.')
+#
+#     print("\n ======== AI Style Scan Test Finish ========")
 
 
 if __name__ == '__main__':
