@@ -1,7 +1,9 @@
 import os
 from main import package_name
 root_path = os.path.dirname(os.path.dirname(__file__))
-
+app_folder = os.path.join(root_path, "app")
+apk_files = [f for f in os.listdir(app_folder) if f.endswith('.apk')]
+app_path = os.path.join(app_folder, apk_files[0])
 
 cap = {
     "deviceName": "Android",
@@ -56,7 +58,7 @@ prod_install_cap = {
     "noReset": "true",
     "autoLaunch": "false",
     "newCommandTimeout": "600",  # for installation
-    "app": root_path + r"\app\PowerDirector.apk"
+    "app": app_path
 }
 
 prod_fullreset_cap = {
@@ -67,7 +69,7 @@ prod_fullreset_cap = {
     "fullReset": "true",
     "autoLaunch": "false",
     "newCommandTimeout": "600",  # for installation
-    "app": root_path + r"\app\PowerDirector.apk"
+    "app": app_path
 }
 
 prod_fastreset_cap = {
@@ -78,7 +80,7 @@ prod_fastreset_cap = {
     "fastReset": "true",
     "autoLaunch": "false",
     "newCommandTimeout": "600",  # for installation
-    "app": root_path + r"\app\PowerDirector.apk"
+    "app": app_path
 }
 
 OPPO_cap = {

@@ -45,20 +45,21 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
         name = os.path.basename(inspect.stack()[2].filename)
 
     def get_color(string):
-        reset = '\033[0m'
-        colors = {
-            'debug': '\033[37m',  # level = 10, gray
-            'info': '\033[97m',  # level = 20, white
-            'warn': '\033[33m',  # level = 30, yellow
-            'error': '\033[31;m',  # level = 40, red
-            'crit': '\033[30;41;1;1m',  # level = 50, black with red background
-
-            'time': '\033[92m',
-            'name': '\033[97;4;1m',
-            'function': '\033[96m',
-            'line': '\033[93;1m'
-        }
-        return reset + colors[string]
+        # reset = '\033[0m'
+        # colors = {
+        #     'debug': '\033[37m',  # level = 10, gray
+        #     'info': '\033[97m',  # level = 20, white
+        #     'warn': '\033[33m',  # level = 30, yellow
+        #     'error': '\033[31;m',  # level = 40, red
+        #     'crit': '\033[30;41;1;1m',  # level = 50, black with red background
+        #
+        #     'time': '\033[92m',
+        #     'name': '\033[97;4;1m',
+        #     'function': '\033[96m',
+        #     'line': '\033[93;1m'
+        # }
+        # return reset + colors[string]
+        return ''
 
     def get_log_level():
         info_strings = '[Info]', '[info]'

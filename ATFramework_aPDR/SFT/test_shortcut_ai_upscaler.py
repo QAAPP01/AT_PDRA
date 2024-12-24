@@ -10,8 +10,8 @@ from ATFramework_aPDR.pages.locator.locator_type import *
 from ATFramework_aPDR.SFT.test_file import *
 
 
-@allure.epic("Shortcut - AI Music")
-class Test_Shortcut_AI_Music:
+@allure.epic("Shortcut - AI Video Upscaler")
+class Test_Shortcut_AI_Upscaler:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
@@ -40,7 +40,7 @@ class Test_Shortcut_AI_Music:
     @allure.title("Enter from AI creation")
     def test_entry_from_ai_creation(self, data):
         try:
-            assert self.page_shortcut.enter_ai_feature('AI Music Generator')
+            assert self.page_shortcut.enter_ai_feature('AI Video Upscaler')
 
         except Exception as e:
             traceback.print_exc()
@@ -54,7 +54,7 @@ class Test_Shortcut_AI_Music:
     def test_back_to_ai_creation(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_ai_feature('AI Music Generator', check=False)
+                self.page_shortcut.enter_ai_feature('AI Video Upscaler', check=False)
 
             assert self.page_shortcut.back_from_demo()
 
@@ -69,7 +69,7 @@ class Test_Shortcut_AI_Music:
     @allure.title("Enter from Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            assert self.page_shortcut.enter_shortcut('AI Music Generator')
+            assert self.page_shortcut.enter_shortcut('AI Video Upscaler')
 
         except Exception as e:
             traceback.print_exc()
@@ -83,7 +83,7 @@ class Test_Shortcut_AI_Music:
     def test_back_to_shortcut(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Music Generator', check=False)
+                self.page_shortcut.enter_shortcut('AI Video Upscaler', check=False)
 
             assert self.page_shortcut.back_from_demo()
 
@@ -101,7 +101,7 @@ class Test_Shortcut_AI_Music:
             if self.last_is_fail(data):
                 pass
 
-            assert self.page_shortcut.demo_dont_show_again('AI Music Generator')
+            assert self.page_shortcut.demo_dont_show_again('AI Video Upscaler')
 
         except Exception as e:
             traceback.print_exc()
@@ -109,21 +109,21 @@ class Test_Shortcut_AI_Music:
             data['last_result'] = False
             raise
 
-    # @allure.feature("Entry")
-    # @allure.story("Demo")
-    # @allure.title("Reset don't show again")
-    # def test_reset_dont_show_again(self, data):
-    #     try:
-    #         if self.last_is_fail(data):
-    #             self.page_shortcut.enter_shortcut('AI Music Generator', check=False)
-    #
-    #         assert self.page_shortcut.reset_dont_show_again('AI Music Generator')
-    #
-    #     except Exception as e:
-    #         traceback.print_exc()
-    #         logger(e)
-    #         data['last_result'] = False
-    #         raise
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Reset don't show again")
+    def test_reset_dont_show_again(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('AI Music Generator', check=False)
+
+            assert self.page_shortcut.reset_dont_show_again('AI Video Upscaler')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
 
 
     #

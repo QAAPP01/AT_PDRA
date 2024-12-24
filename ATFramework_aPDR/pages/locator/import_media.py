@@ -231,7 +231,7 @@ class Menu():
     sound_clips_library = id('library_menu_sound_clips')
     title_library = id('library_menu_title')
     # music = id('layout_music')
-    music = title = title = xpath(f'//*[contains(@resource-id,"label") and @text="Music"]')
+    music = xpath(f'//*[contains(@resource-id,"label") and @text="Music"]')
     overlay_video = find_string('Video')
     overlay_photo = find_string('Photo')
 
