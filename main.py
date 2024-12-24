@@ -7,7 +7,6 @@ import sys
 import datetime
 
 from multiprocessing import Process
-import schedule
 import time
 
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
@@ -357,53 +356,5 @@ def auto_ai_style_scan():
     print("\n ======== AI Style Scan Test Finish ========")
 
 
-def print_next_run_time():
-    next_run = schedule.next_run()
-    print(f"\nNext execution time: {next_run}")
-
-
 if __name__ == '__main__':
     auto_run()
-
-    schedule.every().monday.at("07:00").do(auto_run)
-    schedule.every().monday.at("10:00").do(auto_run)
-    schedule.every().monday.at("13:00").do(auto_run)
-    schedule.every().monday.at("16:00").do(auto_run)
-    schedule.every().monday.at("19:00").do(auto_run)
-
-    schedule.every().tuesday.at("07:00").do(auto_run)
-    schedule.every().tuesday.at("10:00").do(auto_run)
-    schedule.every().tuesday.at("13:00").do(auto_run)
-    schedule.every().tuesday.at("16:00").do(auto_run)
-    schedule.every().tuesday.at("19:00").do(auto_run)
-
-    schedule.every().wednesday.at("07:00").do(auto_run)
-    schedule.every().wednesday.at("10:00").do(auto_run)
-    schedule.every().wednesday.at("13:00").do(auto_run)
-    schedule.every().wednesday.at("16:00").do(auto_run)
-    schedule.every().wednesday.at("19:00").do(auto_run)
-
-    schedule.every().thursday.at("07:00").do(auto_run)
-    schedule.every().thursday.at("10:00").do(auto_run)
-    schedule.every().thursday.at("13:00").do(auto_run)
-    schedule.every().thursday.at("16:00").do(auto_run)
-    schedule.every().thursday.at("19:00").do(auto_run)
-
-    schedule.every().friday.at("07:00").do(auto_run)
-    schedule.every().friday.at("10:00").do(auto_run)
-    schedule.every().friday.at("13:00").do(auto_run)
-    schedule.every().friday.at("16:00").do(auto_run)
-    schedule.every().friday.at("19:00").do(auto_run)
-
-    schedule.every().day.at("00:05").do(auto_server_scan)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-        sleep = int(schedule.idle_seconds())
-        time_delta = datetime.timedelta(seconds=sleep)
-        print(f"Sleeping for {time_delta} until the next scheduled run...")
-        print_next_run_time()
-        if sleep < 0:
-            sleep = 0
-        time.sleep(sleep)
