@@ -109,15 +109,13 @@ pipeline {
             }
             post {
                 always {
-                    echo "生成 Allure Report..."
-                    // 這裡將報告輸出到 sft-allure-report 資料夾中
-                    allure includeProperties: false, jdk: '', results: [[path: 'sft-allure-results']], reportDirectory: 'sft-allure-report'
-
-                    // 動態生成報告的路徑
-                    def allureReportPath = "file://${env.WORKSPACE}/sft-allure-report/index.html"
-                    env.reportUrl = allureReportPath
-                    env.reportFilename = "${env.build}_Test_Report.html"
-                    echo "Report 生成完畢，路徑：${env.reportUrl}"
+                    script {
+                        echo "生成 Allure Report..."
+                        def allureReportPath = "file://${env.WORKSPACE}/sft-allure-report/index.html"
+                        env.reportUrl = allureReportPath
+                        env.reportFilename = "${env.build}_Test_Report.html"
+                        echo "Report 生成完畢，路徑：${env.reportUrl}"
+                    }
                 }
             }
         }
