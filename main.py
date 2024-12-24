@@ -88,17 +88,6 @@ def auto_run():
             print("Please update Python to 3.7 +")
             sys.exit("Incorrect Python version.")
 
-        def rename_apk(name="PowerDirector.apk"):
-            fileExt = r".apk"
-            new_name = os.path.join(app_path, name)
-            for filename in os.listdir(app_path):
-                if filename.endswith(fileExt):
-                    file_path = os.path.join(app_path, filename)
-                    os.rename(file_path, new_name)
-                    print('rename apk success!')
-                    return new_name
-            return False
-
         # Install apk
         def install_apk(_apk_path, device_id=None):
             if not os.path.exists(_apk_path):
@@ -164,9 +153,8 @@ def auto_run():
                 except Exception as e:
                     print('Failed to delete %s. Reason: %s' % (file_path, e))
 
-
-        # [auto download lasted build]
-        if auto_download:
+        # 手動執行
+        if len(sys.argv) <= 1:
             sr_number = ''
             tr_number = ''
 
@@ -193,23 +181,20 @@ def auto_run():
                 package_build_number = version_numbers[3]
                 print(f'package_version = {package_version}, package_build_number = {package_build_number}')
 
-            apk = rename_apk()
+            fileExt = r".apk"
+            for filename in os.listdir(app_path):
+                if filename.endswith(fileExt):
+                    apk = os.path.join(app_path, filename)
+                else:
+                    apk = None
             uninstall_apk(package_name, deviceName)
             install_apk(apk, deviceName)
 
+        # Jenkins Trigger
         else:
-            tr_number = manual_tr_number
+            sr_number = sys.argv[1]
+            tr_number = sys.argv[2]
             # Manual
-
-            if test_apk_from_appPath:
-                apk = rename_apk()
-                if apk:
-                    uninstall_apk(package_name, deviceName)
-                    install_apk(apk, deviceName)
-                else:
-                    print("\nYou are in the non-auto-download mode")
-                    print(f'**** Please put the apk file into {app_path}, or disable "test_apk_from_appPath"')
-                    exit(1)
 
             def get_package_version(package_name, device_name):
                 try:
@@ -251,8 +236,9 @@ def auto_run():
             p.join()
         print('test complete.')
 
-        move_allure_history(result_folder, report_folder)
-        generate_allure_report(result_folder, report_folder)
+        if len(sys.argv) <= 1:
+            move_allure_history(result_folder, report_folder)
+            generate_allure_report(result_folder, report_folder)
 
         with open('summary.json', 'r') as f:
             summary_info = json.load(f)
@@ -265,7 +251,6 @@ def auto_run():
             print('send report complete.')
 
         ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
-        delete_apk(app_path)
 
         print("\n ======== SFT Test Finish ========")
 
@@ -357,53 +342,5 @@ def auto_ai_style_scan():
     print("\n ======== AI Style Scan Test Finish ========")
 
 
-def print_next_run_time():
-    next_run = schedule.next_run()
-    print(f"\nNext execution time: {next_run}")
-
-
 if __name__ == '__main__':
     auto_run()
-
-    schedule.every().monday.at("07:00").do(auto_run)
-    schedule.every().monday.at("10:00").do(auto_run)
-    schedule.every().monday.at("13:00").do(auto_run)
-    schedule.every().monday.at("16:00").do(auto_run)
-    schedule.every().monday.at("19:00").do(auto_run)
-
-    schedule.every().tuesday.at("07:00").do(auto_run)
-    schedule.every().tuesday.at("10:00").do(auto_run)
-    schedule.every().tuesday.at("13:00").do(auto_run)
-    schedule.every().tuesday.at("16:00").do(auto_run)
-    schedule.every().tuesday.at("19:00").do(auto_run)
-
-    schedule.every().wednesday.at("07:00").do(auto_run)
-    schedule.every().wednesday.at("10:00").do(auto_run)
-    schedule.every().wednesday.at("13:00").do(auto_run)
-    schedule.every().wednesday.at("16:00").do(auto_run)
-    schedule.every().wednesday.at("19:00").do(auto_run)
-
-    schedule.every().thursday.at("07:00").do(auto_run)
-    schedule.every().thursday.at("10:00").do(auto_run)
-    schedule.every().thursday.at("13:00").do(auto_run)
-    schedule.every().thursday.at("16:00").do(auto_run)
-    schedule.every().thursday.at("19:00").do(auto_run)
-
-    schedule.every().friday.at("07:00").do(auto_run)
-    schedule.every().friday.at("10:00").do(auto_run)
-    schedule.every().friday.at("13:00").do(auto_run)
-    schedule.every().friday.at("16:00").do(auto_run)
-    schedule.every().friday.at("19:00").do(auto_run)
-
-    schedule.every().day.at("00:05").do(auto_server_scan)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-        sleep = int(schedule.idle_seconds())
-        time_delta = datetime.timedelta(seconds=sleep)
-        print(f"Sleeping for {time_delta} until the next scheduled run...")
-        print_next_run_time()
-        if sleep < 0:
-            sleep = 0
-        time.sleep(sleep)
