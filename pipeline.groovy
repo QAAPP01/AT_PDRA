@@ -188,7 +188,7 @@ def sendCallback(atsBuildId, status, resultData) {
             contentType: 'APPLICATION_JSON',
             requestBody: groovy.json.JsonOutput.toJson(callbackPayload)
         )
-        echo "Successfully sent ${status} status callback, response: ${response.content}"
+        echo "Successfully sent ${status} status callback, response: ${response.content}, send data: ${groovy.json.JsonOutput.toJson(callbackPayload)}"
     } catch (Exception e) {
         echo "Failed to send ${status} status callback: ${e.message}"
         currentBuild.result = 'UNSTABLE'
