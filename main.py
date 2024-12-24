@@ -37,13 +37,8 @@ package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 # ======================================================================================================================
 # [Configuration]
-auto_download = True
 send = True
 test_apk_from_appPath = True
-
-sr_number = 'DRA240110-04'  # for manual
-manual_tr_number = 'TR240207-034'  # for manual
-
 
 # [Report Mail Setting]
 title_project = 'aPDR'
@@ -64,7 +59,7 @@ app_path = os.path.normpath(os.path.join(dir_path, project_name, 'app'))
 
 # execute
 def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port, _test_file_name="main.py"):
-    start = 'pytest -s --alluredir %s "%s" --color=yes --udid=%s --systemPort=%s --clean-alluredir' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, _test_file_name)), _udid, _system_port)
+    start = 'pytest -s --alluredir %s "%s" --udid=%s --systemPort=%s --clean-alluredir' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, _test_file_name)), _udid, _system_port)
     print('Start to run test >>>\n')
     try:
         os.system('color')
@@ -189,6 +184,7 @@ def auto_run():
 
         # Jenkins Trigger
         else:
+            print("Jenkins Trigger")
             sr_number = sys.argv[1]
             tr_number = sys.argv[2]
             # Manual

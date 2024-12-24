@@ -86,7 +86,7 @@ pipeline {
 
                     // Activate virtual environment and run the test script
                     def activateEnvCommand = "call venv\\Scripts\\activate" // Activate virtual environment
-                    def runCommand = "${activateEnvCommand} && python main.py" // Execute test script
+                    def runCommand = "${activateEnvCommand} && python main.py ${env.srNo} ${env.trNo}" // Execute test script
 
                     echo "Executing command: ${runCommand}"
                     def runResult = bat(script: runCommand, returnStatus: true)
