@@ -70,34 +70,54 @@ def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port, _
 
 
 def auto_run():
-    while True:
-        print("\n ======== SFT Test Start ========")
-        procs = []
-        deviceid_list = []
+    print("\n ======== SFT Test Start ========")
+    procs = []
+    deviceid_list = []
 
-        # check version
-        if sys.version_info < (3, 7):
-            print("Please update Python to 3.7 +")
-            sys.exit("Incorrect Python version.")
+    # check version
+    if sys.version_info < (3, 7):
+        print("Please update Python to 3.7 +")
+        sys.exit("Incorrect Python version.")
 
-        # Install apk
-        def install_apk(_apk_path, device_id=None):
-            if not os.path.exists(_apk_path):
-                print("APK is not downloaded")
-                return False
+    # Install apk
+    def install_apk(_apk_path, device_id=None):
+        if not os.path.exists(_apk_path):
+            print("APK is not downloaded")
+            return False
 
-            # 檢查目標資料夾是否存在，如果不存在，則創建它
-            target_folder = os.path.dirname(_apk_path)
-            if not os.path.exists(target_folder):
-                os.makedirs(target_folder)
+        # 檢查目標資料夾是否存在，如果不存在，則創建它
+        target_folder = os.path.dirname(_apk_path)
+        if not os.path.exists(target_folder):
+            os.makedirs(target_folder)
 
+        # 如果指定了設備ID，則添加“-s”選項
+        adb_command = ["adb"]
+        if device_id:
+            adb_command.extend(["-s", device_id])
+
+        # 添加安裝APK的命令
+        adb_command.extend(["install", "-r", _apk_path])
+
+        # 使用subprocess運行adb命令
+        process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+
+        # 檢查是否發生錯誤
+        if process.returncode == 0:
+            print(f"APK 安裝成功：{output.decode()}")
+        else:
+            print(f"APK 安裝失敗：{error.decode()}")
+            return False
+
+    def uninstall_apk(_package_name, device_id=None):
+        try:
             # 如果指定了設備ID，則添加“-s”選項
             adb_command = ["adb"]
             if device_id:
                 adb_command.extend(["-s", device_id])
 
-            # 添加安裝APK的命令
-            adb_command.extend(["install", "-r", _apk_path])
+            # 添加解除安裝APK的命令
+            adb_command.extend(["uninstall", _package_name])
 
             # 使用subprocess運行adb命令
             process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -105,147 +125,124 @@ def auto_run():
 
             # 檢查是否發生錯誤
             if process.returncode == 0:
-                print(f"APK 安裝成功：{output.decode()}")
+                print(f"APK 解除安裝成功：{output.decode()}")
             else:
-                print(f"APK 安裝失敗：{error.decode()}")
-                return False
+                raise Exception(error.decode())
+        except Exception as err:
+            print(f"APK 解除安裝失敗：{err}")
 
-        def uninstall_apk(_package_name, device_id=None):
+    def delete_apk(_app_path):
+        # delete exist files in app folder
+        for filename in os.listdir(_app_path):
+            file_path = os.path.join(_app_path, filename)
             try:
-                # 如果指定了設備ID，則添加“-s”選項
-                adb_command = ["adb"]
-                if device_id:
-                    adb_command.extend(["-s", device_id])
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+                print('delete exist files in app folder...')
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
 
-                # 添加解除安裝APK的命令
-                adb_command.extend(["uninstall", _package_name])
+    # 手動執行
+    if len(sys.argv) <= 1:
+        sr_number = ''
+        tr_number = ''
 
-                # 使用subprocess運行adb命令
-                process = subprocess.Popen(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                output, error = process.communicate()
+        para_dict = {'prod_name': 'PowerDirector Mobile for Android',
+                     'sr_no': sr_number,
+                     'tr_no': tr_number,
+                     'prog_path_sub': '',
+                     'dest_path': app_path,
+                     'mail_list': receiver,
+                     'is_md5_check': False}
+        dict_result = ecl_operation.get_untested_build(para_dict)
+        print(f'{dict_result}')
+        if not dict_result['build']:
+            print(dict_result['error_log'])
+            sys.exit("No build found.")
 
-                # 檢查是否發生錯誤
-                if process.returncode == 0:
-                    print(f"APK 解除安裝成功：{output.decode()}")
-                else:
-                    raise Exception(error.decode())
-            except Exception as err:
-                print(f"APK 解除安裝失敗：{err}")
-
-        def delete_apk(_app_path):
-            # delete exist files in app folder
-            for filename in os.listdir(_app_path):
-                file_path = os.path.join(_app_path, filename)
-                try:
-                    if os.path.isfile(file_path) or os.path.islink(file_path):
-                        os.unlink(file_path)
-                    elif os.path.isdir(file_path):
-                        shutil.rmtree(file_path)
-                    print('delete exist files in app folder...')
-                except Exception as e:
-                    print('Failed to delete %s. Reason: %s' % (file_path, e))
-
-        # 手動執行
-        if len(sys.argv) <= 1:
-            sr_number = ''
-            tr_number = ''
-
-            para_dict = {'prod_name': 'PowerDirector Mobile for Android',
-                         'sr_no': sr_number,
-                         'tr_no': tr_number,
-                         'prog_path_sub': '',
-                         'dest_path': app_path,
-                         'mail_list': receiver,
-                         'is_md5_check': False}
-            dict_result = ecl_operation.get_untested_build(para_dict)
-            print(f'{dict_result}')
-            if not dict_result['build']:
-                print(dict_result['error_log'])
-                break
-
-            else:
-                # [log tr info]
-                sr_number = dict_result['sr_no']
-                tr_number = dict_result['tr_no']
-
-                version_numbers = dict_result['build'].split('.')
-                package_version = version_numbers[0].split('PowerDirector Mobile for Android: ')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
-                package_build_number = version_numbers[3]
-                print(f'package_version = {package_version}, package_build_number = {package_build_number}')
-
-            fileExt = r".apk"
-            for filename in os.listdir(app_path):
-                if filename.endswith(fileExt):
-                    apk = os.path.join(app_path, filename)
-                else:
-                    apk = None
-            uninstall_apk(package_name, deviceName)
-            install_apk(apk, deviceName)
-
-        # Jenkins Trigger
         else:
-            print("Jenkins Trigger")
-            sr_number = sys.argv[1]
-            tr_number = sys.argv[2]
-            # Manual
+            # [log tr info]
+            sr_number = dict_result['sr_no']
+            tr_number = dict_result['tr_no']
 
-            def get_package_version(package_name, device_name):
-                try:
-                    version = os.popen(
-                        f'adb -s {device_name} shell dumpsys package {package_name} | findstr  versionName').read().strip().split(
-                        '=')[1]
-                    build = os.popen(
-                        f'adb -s {device_name} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split(
-                        '=')[1].split(' ')[0]
-                    return version, build
-                except Exception as e:
-                    print(f"Error: {e}")
-                    return "", ""
+            version_numbers = dict_result['build'].split('.')
+            package_version = version_numbers[0].split('PowerDirector Mobile for Android: ')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
+            package_build_number = version_numbers[3]
+            print(f'package_version = {package_version}, package_build_number = {package_build_number}')
 
-            package_version, package_build_number = get_package_version(package_name, deviceName)
+        fileExt = r".apk"
+        for filename in os.listdir(app_path):
+            if filename.endswith(fileExt):
+                apk = os.path.join(app_path, filename)
+            else:
+                apk = None
+        uninstall_apk(package_name, deviceName)
+        install_apk(apk, deviceName)
 
-        with open('tr_info', 'w+') as file:
-            file.write(f'sr_number={sr_number}\n')
-            file.write(f'tr_number={tr_number}\n')
-            file.write(f'package_version={package_version}\n')
-            file.write(f'package_build_number={package_build_number}\n')
+    # Jenkins Trigger
+    else:
+        print("Jenkins Trigger")
+        sr_number = sys.argv[1]
+        tr_number = sys.argv[2]
+        # Manual
 
-        test_folder = 'SFT'
-        test_result_title = 'SFT Test Result'
-        result_folder = 'sft-allure-results'
-        report_folder = 'sft-allure-report'
-        test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
+        def get_package_version(package_name, device_name):
+            try:
+                version = os.popen(
+                    f'adb -s {device_name} shell dumpsys package {package_name} | findstr  versionName').read().strip().split(
+                    '=')[1]
+                build = os.popen(
+                    f'adb -s {device_name} shell dumpsys package {package_name} | findstr  versionCode').read().strip().split(
+                    '=')[1].split(' ')[0]
+                return version, build
+            except Exception as e:
+                print(f"Error: {e}")
+                return "", ""
 
-        # run test
-        print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
-        for device_idx in range(parallel_device_count):
-            deviceid_list.append(device_udid[device_idx])
-            cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
-            p = Process(target=__run_test, args=cmd)
-            p.start()
-            procs.append(p)
+        package_version, package_build_number = get_package_version(package_name, deviceName)
 
-        for p in procs:
-            p.join()
-        print('test complete.')
+    with open('tr_info', 'w+') as file:
+        file.write(f'sr_number={sr_number}\n')
+        file.write(f'tr_number={tr_number}\n')
+        file.write(f'package_version={package_version}\n')
+        file.write(f'package_build_number={package_build_number}\n')
 
-        if len(sys.argv) <= 1:
-            move_allure_history(result_folder, report_folder)
-            generate_allure_report(result_folder, report_folder)
+    test_folder = 'SFT'
+    test_result_title = 'SFT Test Result'
+    result_folder = 'sft-allure-results'
+    report_folder = 'sft-allure-report'
+    test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
 
-        with open('summary.json', 'r') as f:
-            summary_info = json.load(f)
+    # run test
+    print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
+    for device_idx in range(parallel_device_count):
+        deviceid_list.append(device_udid[device_idx])
+        cmd = ["%s" % test_case_path, "%s" % result_folder, "%s" % device_udid[device_idx], "%s" % str(system_port_default + device_idx)]
+        p = Process(target=__run_test, args=cmd)
+        p.start()
+        procs.append(p)
 
-        if send:
-            if summary_info["passed"] == 0:
-                break
+    for p in procs:
+        p.join()
+    print('test complete.')
 
+    if len(sys.argv) <= 1:
+        move_allure_history(result_folder, report_folder)
+        generate_allure_report(result_folder, report_folder)
+
+    with open('summary.json', 'r') as f:
+        summary_info = json.load(f)
+
+    if send:
+        if summary_info["passed"] != 0:
             send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number)
             print('send report complete.')
 
-        ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
+    ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
 
-        print("\n ======== SFT Test Finish ========")
+    print("\n ======== SFT Test Finish ========")
 
 
 # def auto_server_scan():
