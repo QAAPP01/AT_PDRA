@@ -1,20 +1,22 @@
 pipeline {
     agent {
         node {
-            label 'PDRA-agent'
-            customWorkspace 'C:\\Users\\QAAPP_AT_PC2\\PycharmProjects\\AT_PDRA'
+            label 'PDRA-agent' // Specify the node label
+            customWorkspace 'C:\\Users\\QAAPP_AT_PC2\\PycharmProjects\\AT_PDRA' // Define custom workspace path
         }
     }
     stages {
-        stage('Receive ATS JSON') {
+        stage('Receive ATS JSON') { // Stage for receiving and parsing ATS JSON
             steps {
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                         try {
+                            // Check if the 'data' parameter is provided
                             if (!params.data?.trim()) {
-                                error("ATS JSON 資料未提供")
+                                error("ATS JSON data not provided")
                             }
 
+                            // Parse the provided JSON string into an object
                             def atsJson = readJSON text: params.data
                             env.atsBuildId = atsJson.atsInfo.atsBuildId
                             env.atsCallbackUrl = atsJson.atsInfo.atsCallbackUrl
@@ -23,33 +25,20 @@ pipeline {
                             env.srNo = atsJson.build.sr_no
                             env.trNo = atsJson.build.tr_no
 
+                            // Check if buildPath exists in the JSON
                             if (!env.buildPath?.trim()) {
-                                error("ATS JSON 缺少 buildPath")
+                                error("ATS JSON missing buildPath")
                             }
 
-                            echo "解析的 ATS JSON 資料："
+                            echo "Parsed ATS JSON data:"
                             echo groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(atsJson))
 
-                            def callbackPayload = [
-                                atsBuildId: env.atsBuildId,
-                                status: "RUNNING",
+                            sendCallback(env.atsBuildId, "RUNNING", [
                                 buildId: env.BUILD_NUMBER
-                            ]
-
-                            try {
-                                def response = httpRequest(
-                                    httpMode: 'POST',
-                                    url: env.atsCallbackUrl,
-                                    contentType: 'APPLICATION_JSON',
-                                    requestBody: groovy.json.JsonOutput.toJson(callbackPayload)
-                                )
-                                echo "初始化 RUNNING 狀態回傳結果：${response.content}"
-                            } catch (Exception ex) {
-                                echo "回傳 RUNNING 狀態失敗：${ex.message}"
-                            }
+                            ])
                         } catch (Exception e) {
-                            echo "接收或解析 ATS JSON 時出錯：${e.message}"
-                            sendCallback(env.atsBuildId, "ERROR", [
+                            echo "Error occurred while receiving or parsing ATS JSON: ${e.message}"
+                            sendCallback(env.atsBuildId, "TRIGGER_ERROR", [
                                 result: "RECEIVE_FAILED",
                                 reason: e.message
                             ])
@@ -59,92 +48,120 @@ pipeline {
                 }
             }
         }
-        stage('Install Build') {
+        stage('Install Build') { // Stage for installing the build
             steps {
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                         try {
+                            // Ensure buildPath is provided
                             if (!env.buildPath?.trim()) {
-                                error("缺少 buildPath，無法安裝 APK")
+                                error("Missing buildPath, unable to install APK")
                             }
-                            echo "從 buildPath 安裝 APK：${env.buildPath}"
+                            echo "Installing APK from buildPath: ${env.buildPath}"
 
+                            // Execute the installation command
                             def installCommand = "python install_pdra.py \"${env.buildPath}\""
-                            echo "執行安裝指令：${installCommand}"
+                            echo "Running installation command: ${installCommand}"
                             def installResult = bat(script: installCommand, returnStatus: true)
 
+                            // Check installation result
                             if (installResult != 0) {
-                                echo "安裝失敗，退出代碼：${installResult}"
+                                echo "Installation failed, exit code: ${installResult}"
                                 currentBuild.result = 'UNSTABLE'
                             } else {
-                                echo "安裝成功"
+                                echo "Installation successful"
                             }
                         } catch (Exception e) {
-                            echo "安裝過程中發生意外錯誤：${e.message}"
+                            echo "Unexpected error during installation: ${e.message}"
                             currentBuild.result = 'UNSTABLE'
                         }
                     }
                 }
             }
         }
-        stage('Test') {
+        stage('Test') { // Stage for running the tests
             steps {
                 script {
-                    echo "執行測試..."
+                    echo "Running tests..."
 
-                    // 執行測試腳本
-                    def runCommand = "python main.py"
-                    echo "執行指令：${runCommand}"
+                    // Activate virtual environment and run the test script
+                    def activateEnvCommand = "call venv\\Scripts\\activate" // Activate virtual environment
+                    def runCommand = "${activateEnvCommand} && python main.py" // Execute test script
+
+                    echo "Executing command: ${runCommand}"
                     def runResult = bat(script: runCommand, returnStatus: true)
 
+                    // Set test result based on execution status
                     if (runResult != 0) {
-                        echo "測試執行失敗，exit code：${runResult}"
-                        currentBuild.result = 'UNSTABLE'
+                        echo "Test execution failed, exit code: ${runResult}"
+                        currentBuild.result = 'FAILURE'
                     } else {
-                        echo "測試執行成功"
+                        echo "Test execution successful"
                     }
 
-                    echo "測試完成"
+                    echo "Test phase completed"
                 }
             }
             post {
                 always {
                     script {
-                        echo "生成 Allure Report..."
-                        def allureReportPath = "file://${env.WORKSPACE}/sft-allure-report/index.html"
-                        env.reportUrl = allureReportPath
-                        env.reportFilename = "${env.build}_Test_Report.html"
-                        echo "Report 生成完畢，路徑：${env.reportUrl}"
+                        echo "Generating Allure Report..."
+                        try {
+                            allure includeProperties: false, results: [[path: 'sft-allure-results']]
+                            env.reportUrl = "${env.BUILD_URL}allure"
+                        } catch (Exception e) {
+                            echo "Failed to generate Allure Report: ${e.message}"
+                            env.reportUrl = "Report generation failed"
+                        }
+
+                        if (fileExists("${env.WORKSPACE}/sft-allure-report/index.html")) {
+                            echo "Allure Report successfully generated and accessible at: ${env.reportUrl}"
+                        } else {
+                            env.reportUrl = "Report not generated"
+                            echo "Allure Report not found. Please check the generation process."
+                        }
                     }
                 }
             }
+
         }
     }
     post {
         always {
             script {
-                def status = currentBuild.result ?: 'SUCCESS' // 如果狀態未設置，預設為成功
+                def status = currentBuild.result ?: 'SUCCESS' // Default to SUCCESS if status is not set
                 switch (status) {
                     case 'SUCCESS':
                         sendCallback(env.atsBuildId, "FINISHED", [
                             result: "PASS",
-                            reportUrl: env.reportUrl ?: "未生成報告"
+                            reportUrl: env.reportUrl ?: "Report not generated"
                         ])
                         break
                     case 'FAILURE':
                         sendCallback(env.atsBuildId, "ERROR", [
                             result: "FAIL",
-                            reportUrl: env.reportUrl ?: "未生成報告"
+                            reportUrl: env.reportUrl ?: "Report not generated"
                         ])
                         break
                     case 'UNSTABLE':
-                        sendCallback(env.atsBuildId, "UNSTABLE", [
+                        sendCallback(env.atsBuildId, "ERROR", [
                             result: "UNSTABLE",
-                            reportUrl: env.reportUrl ?: "未生成報告"
+                            reportUrl: env.reportUrl ?: "Report not generated"
                         ])
                         break
+                    case 'ABORTED':
+                        sendCallback(env.atsBuildId, "CANCEL", [
+                            result: "ABORTED",
+                            reportUrl: "Pipeline aborted, report not generated"
+                        ])
+                        echo "Pipeline was aborted"
+                        break
                     default:
-                        echo "未知狀態：${status}"
+                        sendCallback(env.atsBuildId, "TRIGGER_ERROR", [
+                            result: status,
+                            reason: "Unknown pipeline status: ${status}"
+                        ])
+                        echo "Unknown pipeline status: ${status}"
                 }
             }
         }
@@ -153,7 +170,7 @@ pipeline {
 
 def sendCallback(atsBuildId, status, resultData) {
     if (!atsBuildId || !env.atsCallbackUrl) {
-        echo "缺少 ATS 回傳資訊。atsBuildId: ${atsBuildId}, atsCallbackUrl: ${env.atsCallbackUrl}"
+        echo "Missing ATS callback information. atsBuildId: ${atsBuildId}, atsCallbackUrl: ${env.atsCallbackUrl}"
         return
     }
 
@@ -161,7 +178,7 @@ def sendCallback(atsBuildId, status, resultData) {
         atsBuildId: atsBuildId,
         status: status,
         buildId: env.BUILD_NUMBER,
-        result: groovy.json.JsonOutput.toJson(resultData)
+        result: resultData
     ]
 
     try {
@@ -171,9 +188,9 @@ def sendCallback(atsBuildId, status, resultData) {
             contentType: 'APPLICATION_JSON',
             requestBody: groovy.json.JsonOutput.toJson(callbackPayload)
         )
-        echo "回傳 ${status} 狀態成功，回應內容：${response.content}"
+        echo "Successfully sent ${status} status callback, response: ${response.content}"
     } catch (Exception e) {
-        echo "回傳 ${status} 狀態失敗：${e.message}"
+        echo "Failed to send ${status} status callback: ${e.message}"
         currentBuild.result = 'UNSTABLE'
     }
 }
