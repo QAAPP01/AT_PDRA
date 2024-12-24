@@ -178,7 +178,7 @@ def sendCallback(atsBuildId, status, resultData) {
         atsBuildId: atsBuildId,
         status: status,
         buildId: env.BUILD_NUMBER,
-        result: resultData
+        result: groovy.json.JsonOutput.toJson(resultData)
     ]
 
     try {
