@@ -11,7 +11,6 @@ pipeline {
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                         try {
-                            // 檢查是否提供了 data 參數
                             if (!params.data?.trim()) {
                                 error("ATS JSON 資料未提供")
                             }
@@ -88,55 +87,70 @@ pipeline {
                 }
             }
         }
-        stage('Build and Test') {
+        stage('Test') {
             steps {
                 script {
-                    echo "執行建置與測試..."
-                    sleep 5
-                    echo "建置與測試成功完成"
+                    echo "執行測試..."
+
+                    // 執行測試腳本
+                    def runCommand = "python main.py"
+                    echo "執行指令：${runCommand}"
+                    def runResult = bat(script: runCommand, returnStatus: true)
+
+                    if (runResult != 0) {
+                        echo "測試執行失敗，exit code：${runResult}"
+                        currentBuild.result = 'UNSTABLE'
+                    } else {
+                        echo "測試執行成功"
+                    }
+
+                    echo "測試完成"
                 }
             }
-        }
-        stage('Generate Report') {
-            steps {
-                script {
-                    echo "生成報告..."
-                    env.reportUrl = "http://192.168.7.182:8000/Report/TutorialScanAT/64/report.html"
-                    env.reportFilename = "PHD_Tutorial_Report.html"
-                    echo "報告已生成：${env.reportUrl}"
+            post {
+                always {
+                    echo "生成 Allure Report..."
+                    // 這裡將報告輸出到 sft-allure-report 資料夾中
+                    allure includeProperties: false, jdk: '', results: [[path: 'sft-allure-results']], reportDirectory: 'sft-allure-report'
+
+                    // 動態生成報告的路徑
+                    def allureReportPath = "file://${env.WORKSPACE}/sft-allure-report/index.html"
+                    env.reportUrl = allureReportPath
+                    env.reportFilename = "${env.build}_Test_Report.html"
+                    echo "Report 生成完畢，路徑：${env.reportUrl}"
                 }
             }
         }
     }
-	post {
-		always {
-			script {
-				def status = currentBuild.result ?: 'SUCCESS' // 如果狀態未設置，預設為成功
-				switch (status) {
-					case 'SUCCESS':
-						sendCallback(env.atsBuildId, "FINISHED", [
-							result: "PASS",
-							reportUrl: env.reportUrl ?: "未生成報告"
-						])
-						break
-					case 'FAILURE':
-						sendCallback(env.atsBuildId, "ERROR", [
-							result: "FAIL",
-							reportUrl: env.reportUrl ?: "未生成報告"
-						])
-						break
-					case 'UNSTABLE':
-						sendCallback(env.atsBuildId, "UNSTABLE", [
-							result: "UNSTABLE",
-							reportUrl: env.reportUrl ?: "未生成報告"
-						])
-						break
-					default:
-						echo "未知狀態：${status}"
-				}
-			}
-		}
-	}
+    post {
+        always {
+            script {
+                def status = currentBuild.result ?: 'SUCCESS' // 如果狀態未設置，預設為成功
+                switch (status) {
+                    case 'SUCCESS':
+                        sendCallback(env.atsBuildId, "FINISHED", [
+                            result: "PASS",
+                            reportUrl: env.reportUrl ?: "未生成報告"
+                        ])
+                        break
+                    case 'FAILURE':
+                        sendCallback(env.atsBuildId, "ERROR", [
+                            result: "FAIL",
+                            reportUrl: env.reportUrl ?: "未生成報告"
+                        ])
+                        break
+                    case 'UNSTABLE':
+                        sendCallback(env.atsBuildId, "UNSTABLE", [
+                            result: "UNSTABLE",
+                            reportUrl: env.reportUrl ?: "未生成報告"
+                        ])
+                        break
+                    default:
+                        echo "未知狀態：${status}"
+                }
+            }
+        }
+    }
 }
 
 def sendCallback(atsBuildId, status, resultData) {
