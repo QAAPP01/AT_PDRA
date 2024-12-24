@@ -107,7 +107,7 @@ pipeline {
                     script {
                         echo "Generating Allure Report..."
                         try {
-                            allure includeProperties: false, results: [[path: 'sft-allure-results']]
+                            allure includeProperties: false, jdk: '', results: [[path: 'sft-allure-results']], reportDirectory: 'sft-allure-report'
                             env.reportUrl = "${env.BUILD_URL}allure"
                         } catch (Exception e) {
                             echo "Failed to generate Allure Report: ${e.message}"
