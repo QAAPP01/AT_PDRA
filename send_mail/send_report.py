@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 import json
@@ -243,7 +244,6 @@ def compress_attachments(attachment_list, zip_filename="attachments.zip"):
 
 
 def send_allure_report(report_url=None, update_to_sheet=True):
-
     opts = {
         'account': 'cltest.qaapp1@gmail.com',
         'password': 'izjysnzxhygofgns',
@@ -278,7 +278,62 @@ def send_allure_report(report_url=None, update_to_sheet=True):
     result_folder = report_info.get("result_folder")
     report_folder = report_info.get("report_folder")
 
-    # HTML 標頭和樣式
+    if report_url:
+        print(f"Report URL provided: {report_url}")
+    else:
+        print("No report URL provided, generating local report...")
+        generate_allure_report(result_folder, report_folder)
+        opts['attachment'].append(f'{report_folder}-html\\index.html')
+
+    # Generate the HTML mail body
+    mail_body = generate_mail_body(
+        test_result_title, result, device_id, tr_number, package_version,
+        package_build_number, summary_info, report_url
+    )
+
+    # mail
+    opts['to'] = receiver_list
+    opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number} {result}'
+    opts['html'] = mail_body
+
+    send_mail(opts)
+
+    if update_to_sheet:
+        try:
+            sheet_name = f"aPDR_SFT"
+            header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+            obj_google_api = GoogleApi(sheet_name, header_custom)
+            new_record = {
+                'Date': datetime.date.today().isoformat(),
+                'Time': datetime.datetime.now().strftime("%I:%M %p"),
+                'Script_Name': test_result_title,
+                'Script_Ver': "Testing",
+                'SR_No': sr_number,
+                'TR_No': tr_number,
+                'Build_No': package_build_number,
+                'Prod_Ver': package_version,
+                'Prod_Ver_Type': 'Prod',
+                'OS': 'Android',
+                'OS_Ver': "12",
+                'Device_ID': 'Samsung A53'
+            }
+            obj_google_api.add_new_record(new_record)
+
+            data = {
+                'Pass': summary_info["passed"],
+                'Fail': summary_info.get("failed", 0) + summary_info.get("errors", 0),
+                'Skip': summary_info["skipped"],
+                'N/A': summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"],
+                'Total time': summary_info["duration"]
+            }
+            obj_google_api.update_columns(data)
+            print(f'Done.')
+        except Exception:
+            traceback.print_exc()
+
+    return True
+
+def generate_mail_body(test_result_title, result, device_id, tr_number, package_version, package_build_number, summary_info, report_url=None):
     html_report_header = '''
     <html>
     <head>
@@ -291,13 +346,19 @@ def send_allure_report(report_url=None, update_to_sheet=True):
                 padding: 20px;
             }
             h1 {
-                color: #2c3e50;
-                border-bottom: 2px solid #2980b9;
-                padding-bottom: 10px;
+                text-align: center;
+                padding: 10px;
+                color: white;
+                border-radius: 5px;
             }
-            h2 {
-                color: #2980b9;
-                margin-top: 20px;
+            h1.pass {
+                background-color: #27ae60;
+            }
+            h1.fail {
+                background-color: #c0392b;
+            }
+            h1.skip {
+                background-color: #95a5a6;
             }
             p {
                 font-size: 14px;
@@ -305,18 +366,22 @@ def send_allure_report(report_url=None, update_to_sheet=True):
             }
             .summary-table {
                 width: 100%;
-                border-collapse: collapse;
+                border-collapse: separate;
+                border-spacing: 0;
                 margin-top: 10px;
                 box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                border-radius: 5px;
+                overflow: hidden;
             }
             .summary-table th, .summary-table td {
                 border: 1px solid #ddd;
                 padding: 8px;
-                text-align: left;
+                text-align: center;
             }
             .summary-table th {
                 background-color: #2980b9;
                 color: white;
+                font-weight: bold;
             }
             .summary-table tr:nth-child(even) {
                 background-color: #f9f9f9;
@@ -327,6 +392,16 @@ def send_allure_report(report_url=None, update_to_sheet=True):
             .failed-row {
                 background-color: #ffcccc;
             }
+            a {
+                display: inline-block;
+                padding: 10px 20px;
+                margin-top: 15px;
+                background-color: #3498db;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
@@ -334,12 +409,10 @@ def send_allure_report(report_url=None, update_to_sheet=True):
 
     html_report_tail = '</body></html>'
 
-    # fail background
     failed_row_class = 'failed-row' if summary_info["failed"] > 0 else ''
 
-    # HTML 內容
     mail_body = html_report_header
-    mail_body += f'<h1>{test_result_title}: {result}</h1>'
+    mail_body += f'<h1 class="{"pass" if result == "[PASS]" else "fail" if result == "[FAIL]" else "skip"}">Test Result: {result}</h1>'
     mail_body += f'<p><strong>Device:</strong> {device_id}</p>'
     mail_body += f'<p><strong>TR:</strong> {tr_number}</p>'
     mail_body += f'<p><strong>Build:</strong> {package_version}.{package_build_number}</p>'
@@ -377,83 +450,15 @@ def send_allure_report(report_url=None, update_to_sheet=True):
     </table>
     '''
     if report_url:
-        mail_body += f'<p><strong>Allure Report:</strong> <a href="{report_url}" target="_blank">Click here to view the report</a></p>'
-    else:
-        generate_allure_report(result_folder, report_folder)
-        opts['attachment'].append(f'{report_folder}-html\\index.html')
+        mail_body += f'<a href="{report_url}" target="_blank">View Allure Report</a>'
+
     mail_body += html_report_tail
+    return mail_body
 
-    # mail
-    opts['to'] = receiver_list
-    opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number} {result}'
-    opts['html'] = mail_body
-
-    # attachment = opts['attachment']
-    #
-    # # Check the total size of attachments
-    # total_size = sum(os.path.getsize(f) for f in attachment)
-    # max_size = 25 * 1024 * 1024  # 25 MB
-    #
-    # if total_size > max_size:
-    #     print(f"Attachments exceed {max_size / (1024 * 1024)} MB, compressing...")
-    #     zip_file = compress_attachments(attachment)
-    #     attachment = [zip_file]  # Replace with the zip file
-
-    send_mail(opts)
-
-    # 自動創建 QA 報告並更新 Google Sheet
-    # auto_report = True
-    # if auto_report:
-    #     fail_count = int(summary_info["failed"]) + int(summary_info["errors"])
-    #     na_count = summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"]
-    #     tr_dict = {
-    #         "browser": "Edge",
-    #         "tr_no": tr_number,
-    #         "qr_dict": {
-    #             'short_description': opts['subject'],
-    #             'build_day': datetime.date.today().strftime('%m%d'),
-    #             'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {fail_count}]',
-    #             'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {fail_count}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
-    #         }
-    #     }
-    #     auto_create_qr(tr_dict, opts['attachment'])
-    #     print('compelte')
-    #
-    if update_to_sheet:
-        # 更新 Google Sheet
-        try:
-            sheet_name = f"aPDR_SFT"
-            header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
-            obj_google_api = GoogleApi(sheet_name, header_custom)
-            new_record = {
-                'Date': datetime.date.today().isoformat(),
-                'Time': datetime.datetime.now().strftime("%I:%M %p"),
-                'Script_Name': test_result_title,
-                'Script_Ver': "Testing",
-                'SR_No': sr_number,
-                'TR_No': tr_number,
-                'Build_No': package_build_number,
-                'Prod_Ver': package_version,
-                'Prod_Ver_Type': 'Prod',
-                'OS': 'Android',
-                'OS_Ver': "12",
-                'Device_ID': 'Samsung A53'
-            }
-            obj_google_api.add_new_record(new_record)
-
-            data = {
-                'Pass': summary_info["passed"],
-                'Fail': summary_info.get("failed", 0) + summary_info.get("errors", 0),
-                'Skip': summary_info["skipped"],
-                'N/A': summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"],
-                'Total time': summary_info["duration"]
-            }
-            obj_google_api.update_columns(data)
-            print(f'Done.')
-        except Exception:
-            traceback.print_exc()
-
-    return True
 
 if __name__ == '__main__':
-    send_allure_report()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--report_url", nargs="?", default=None)
+    args = parser.parse_args()
+
+    send_allure_report(report_url=args.report_url)

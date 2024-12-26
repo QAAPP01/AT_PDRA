@@ -86,7 +86,7 @@ pipeline {
 
                     // Activate virtual environment and run the test script
                     def activateEnvCommand = "call venv\\Scripts\\activate" // Activate virtual environment
-                    def runCommand = "${activateEnvCommand} && python main.py ${env.srNo} ${env.trNo}" // Execute test script
+                    def runCommand = "${activateEnvCommand} && python main.py --sr_number ${env.srNo} --tr_number ${env.trNo}" // Execute test script
 
                     echo "Executing command: ${runCommand}"
                     def runResult = bat(script: runCommand, returnStatus: true)
@@ -121,8 +121,8 @@ pipeline {
                             echo "Allure Report not found. Please check the generation process."
                         }
 
-                        def sendReport = "python send_report.py ${env.reportUrl}"
-                        echo "Sending report mail and creating QR: ${sendReport}"
+                        def sendReport = "python send_mail/send_report.py --report_url ${env.reportUrl}"
+                        echo "Sending report mail: ${sendReport}"
                         def sendReportResult = bat(script: sendReport, returnStatus: true)
 
                         if (sendReportResult != 0) {
@@ -163,7 +163,8 @@ pipeline {
                     case 'ABORTED':
                         sendCallback(env.atsBuildId, "CANCEL", [
                             result: "ABORTED",
-                            reportUrl: "Pipeline aborted, report not generated"
+                            reason: "Aborted by Jenkins",
+                            reportUrl: env.reportUrl ?: "Pipeline aborted, report not generated"
                         ])
                         echo "Pipeline was aborted"
                         break

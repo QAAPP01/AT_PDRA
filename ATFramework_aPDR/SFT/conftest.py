@@ -23,20 +23,6 @@ TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 debug_mode = 0
 tr_number = ''
 previous_tr_number = ''
-try:
-    with open('tr_info', 'r') as file:
-        for line in file:
-            key, value = line.strip().split('=')
-            if key == 'tr_number':
-                tr_number = value
-            elif key == 'previous_tr_number':
-                previous_tr_number = value
-
-except FileNotFoundError:
-    debug_mode = 1
-
-except Exception:
-    traceback.print_exc()
 
 
 def pytest_addoption(parser):
@@ -201,23 +187,25 @@ def pytest_terminal_summary(terminalreporter):
     num_collected = terminalreporter._numcollected
     passed = len(results.get('passed', []))
     failed = len(results.get('failed', []))
-    errors = len(results.get('error', []))
+    error = len(results.get('error', []))
     skipped = len(results.get('skipped', []))
 
     duration_seconds = time.time() - terminalreporter._sessionstarttime
     formatted_duration = format_duration(duration_seconds)
 
     summary = {
-        "num_collected": num_collected,
-        "passed": passed,
-        "failed": failed,
-        "errors": errors,
-        "skipped": skipped,
+        "num_collected": int(num_collected),
+        "passed": int(passed),
+        "failed": int(failed),
+        "error": int(error),
+        "skipped": int(skipped),
         "duration": formatted_duration
     }
 
     with open('summary.json', 'w') as f:
-        json.dump(summary, f)
+        json.dump(summary, f, indent=4)
+
+    logger("Test summary saved to summary.json")
 
 # === Logging fixture ===
 
