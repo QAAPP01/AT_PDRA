@@ -168,7 +168,7 @@ def driver():
 
 
 @pytest.fixture(scope='class', autouse=True)
-def driver_init(driver):
+def class_init(driver):
     page_main = PageFactory().get_page_object("main_page", driver)
     logger("==== Start driver session ====")
     if not page_main.is_exist(L.main.launcher.home, 1):
@@ -224,12 +224,12 @@ def pytest_terminal_summary(terminalreporter):
 @pytest.fixture(scope='class', autouse=True)
 def log_class_start(request):
     if request.node.cls is not None:
-        logger(f"\n[Start] Class: {request.node.cls.__name__}", log_level='info')
+        logger(f"\n[Start Class]: {request.node.cls.__name__}", log_level='info')
 
 
 @pytest.fixture(autouse=True)
 def log_function_test(request):
-    logger(f"\n[Start] Function: {request.node.name}", log_level='info')
+    logger(f"\n[Test Case]: {request.node.name}", log_level='info')
 
 
 # === Exception Screenshot Fixture ===

@@ -2,6 +2,7 @@ import sys, time, os
 import traceback
 from telnetlib import EC
 
+import allure
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -53,6 +54,15 @@ class MainPage(BasePage):
             # 1st Launch
             if self.click(L.main.permission.gdpr_accept, 1):
                 self.click(L.main.premium.iap_back, 15)
+
+                if self.is_exist(find_string('Get your offer!'), 1):
+                    with allure.step('Event pop-up'):
+                        try:
+                            self.click(find_string('Get your offer!'))
+                            self.click(L.main.premium.iap_back)
+                        except:
+                            raise "Clop pop-up error"
+
                 self.click(id('iv_close'), 1)  # close the credit dialog
                 if self.is_exist(L.main.launcher.home):
                     logger('Enter Launcher Done')
