@@ -227,8 +227,10 @@ def move_allure_history(result_folder, report_folder):
         print(f"No history directory found at {history_path}")
 
 
-def generate_allure_report(result_folder, report_folder):
-    os.system(f'allure generate {result_folder} --clean -o {report_folder}')
+def generate_allure_report(result_folder, report_folder, add_history=False):
+    if add_history:
+        move_allure_history(result_folder, report_folder)
+    # os.system(f'allure generate {result_folder} --clean -o {report_folder}')
     os.system(f'allure generate --single-file {result_folder} --clean -o {report_folder}-html')
     return True
 
@@ -240,7 +242,7 @@ def compress_attachments(attachment_list, zip_filename="attachments.zip"):
     return zip_filename
 
 
-def send_allure_report(report_folder, test_result_title, device_id, receiver_list, tr_number, package_version, package_build_number, sr_number=None, update_to_sheet=True):
+def send_allure_report(report_url=None, update_to_sheet=True):
 
     opts = {
         'account': 'cltest.qaapp1@gmail.com',
@@ -253,17 +255,28 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
         'attachment': []
     }
 
-    # 讀取測試摘要信息
     with open('summary.json', 'r') as f:
         summary_info = json.load(f)
 
-    # 根據測試結果設置報告標題
     if summary_info["failed"] > 0:
         result = '[FAIL]'
     elif summary_info["passed"] == 0 and summary_info["failed"] == 0:
         result = '[SKIP]'
     else:
         result = '[PASS]'
+
+    with open('report_info.json', 'r') as file:
+        report_info = json.load(file)
+
+    sr_number = report_info.get("sr_number")
+    tr_number = report_info.get("tr_number")
+    package_version = report_info.get("package_version")
+    package_build_number = report_info.get("package_build_number")
+    device_id = report_info.get("device_id")
+    receiver_list = report_info.get("receiver_list")
+    test_result_title = report_info.get("test_result_title")
+    result_folder = report_info.get("result_folder")
+    report_folder = report_info.get("report_folder")
 
     # HTML 標頭和樣式
     html_report_header = '''
@@ -363,77 +376,84 @@ def send_allure_report(report_folder, test_result_title, device_id, receiver_lis
         </tr>
     </table>
     '''
+    if report_url:
+        mail_body += f'<p><strong>Allure Report:</strong> <a href="{report_url}" target="_blank">Click here to view the report</a></p>'
+    else:
+        generate_allure_report(result_folder, report_folder)
+        opts['attachment'].append(f'{report_folder}-html\\index.html')
     mail_body += html_report_tail
 
     # mail
-    opts['attachment'].append(f'{report_folder}-html\\index.html')
-    opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number} {result}'
     opts['to'] = receiver_list
+    opts['subject'] = f'[PDRA AT] {test_result_title} - {package_version}.{package_build_number} {result}'
     opts['html'] = mail_body
 
-    attachment = opts['attachment']
-
-    # Check the total size of attachments
-    total_size = sum(os.path.getsize(f) for f in attachment)
-    max_size = 25 * 1024 * 1024  # 25 MB
-
-    if total_size > max_size:
-        print(f"Attachments exceed {max_size / (1024 * 1024)} MB, compressing...")
-        zip_file = compress_attachments(attachment)
-        attachment = [zip_file]  # Replace with the zip file
+    # attachment = opts['attachment']
+    #
+    # # Check the total size of attachments
+    # total_size = sum(os.path.getsize(f) for f in attachment)
+    # max_size = 25 * 1024 * 1024  # 25 MB
+    #
+    # if total_size > max_size:
+    #     print(f"Attachments exceed {max_size / (1024 * 1024)} MB, compressing...")
+    #     zip_file = compress_attachments(attachment)
+    #     attachment = [zip_file]  # Replace with the zip file
 
     send_mail(opts)
 
     # 自動創建 QA 報告並更新 Google Sheet
-    auto_report = True
-    if auto_report:
-        fail_count = int(summary_info["failed"]) + int(summary_info["errors"])
-        na_count = summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"]
-        tr_dict = {
-            "browser": "Edge",
-            "tr_no": tr_number,
-            "qr_dict": {
-                'short_description': opts['subject'],
-                'build_day': datetime.date.today().strftime('%m%d'),
-                'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {fail_count}]',
-                'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {fail_count}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
+    # auto_report = True
+    # if auto_report:
+    #     fail_count = int(summary_info["failed"]) + int(summary_info["errors"])
+    #     na_count = summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"]
+    #     tr_dict = {
+    #         "browser": "Edge",
+    #         "tr_no": tr_number,
+    #         "qr_dict": {
+    #             'short_description': opts['subject'],
+    #             'build_day': datetime.date.today().strftime('%m%d'),
+    #             'test_result': f'{test_result_title} - {result} [PASS: {summary_info["passed"]}, FAIL: {fail_count}]',
+    #             'test_result_details': f'Pass: {summary_info["passed"]}\nFail: {fail_count}\nSkip: {summary_info["skipped"]}\nN/A: {na_count}\nTotal time: {summary_info["duration"]}',
+    #         }
+    #     }
+    #     auto_create_qr(tr_dict, opts['attachment'])
+    #     print('compelte')
+    #
+    if update_to_sheet:
+        # 更新 Google Sheet
+        try:
+            sheet_name = f"aPDR_SFT"
+            header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+            obj_google_api = GoogleApi(sheet_name, header_custom)
+            new_record = {
+                'Date': datetime.date.today().isoformat(),
+                'Time': datetime.datetime.now().strftime("%I:%M %p"),
+                'Script_Name': test_result_title,
+                'Script_Ver': "Testing",
+                'SR_No': sr_number,
+                'TR_No': tr_number,
+                'Build_No': package_build_number,
+                'Prod_Ver': package_version,
+                'Prod_Ver_Type': 'Prod',
+                'OS': 'Android',
+                'OS_Ver': "12",
+                'Device_ID': 'Samsung A53'
             }
-        }
-        auto_create_qr(tr_dict, opts['attachment'])
-        print('compelte')
+            obj_google_api.add_new_record(new_record)
 
-        if update_to_sheet:
-            # 更新 Google Sheet
-            try:
-                sheet_name = f"aPDR_SFT"
-                header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
-                obj_google_api = GoogleApi(sheet_name, header_custom)
-                new_record = {
-                    'Date': datetime.date.today().isoformat(),
-                    'Time': datetime.datetime.now().strftime("%I:%M %p"),
-                    'Script_Name': test_result_title,
-                    'Script_Ver': "Testing",
-                    'SR_No': sr_number,
-                    'TR_No': tr_number,
-                    'Build_No': package_build_number,
-                    'Prod_Ver': package_version,
-                    'Prod_Ver_Type': 'Prod',
-                    'OS': 'Android',
-                    'OS_Ver': "12",
-                    'Device_ID': 'Samsung A53'
-                }
-                obj_google_api.add_new_record(new_record)
-
-                data = {
-                    'Pass': summary_info["passed"],
-                    'Fail': fail_count,
-                    'Skip': summary_info["skipped"],
-                    'N/A': na_count,
-                    'Total time': summary_info["duration"]
-                }
-                obj_google_api.update_columns(data)
-                print(f'Done.')
-            except Exception:
-                traceback.print_exc()
+            data = {
+                'Pass': summary_info["passed"],
+                'Fail': summary_info.get("failed", 0) + summary_info.get("errors", 0),
+                'Skip': summary_info["skipped"],
+                'N/A': summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"],
+                'Total time': summary_info["duration"]
+            }
+            obj_google_api.update_columns(data)
+            print(f'Done.')
+        except Exception:
+            traceback.print_exc()
 
     return True
+
+if __name__ == '__main__':
+    send_allure_report()
