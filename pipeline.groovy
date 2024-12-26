@@ -120,6 +120,17 @@ pipeline {
                             env.reportUrl = "Report not generated"
                             echo "Allure Report not found. Please check the generation process."
                         }
+
+                        def sendReport = "python send_report.py ${env.reportUrl}"
+                        echo "Sending report mail and creating QR: ${sendReport}"
+                        def sendReportResult = bat(script: sendReport, returnStatus: true)
+
+                        if (sendReportResult != 0) {
+                            echo "Failed to send report mail and create QR, exit code: ${sendReportResult}"
+                            currentBuild.result = 'UNSTABLE'
+                        } else {
+                            echo "Report mail sent and QR created successfully"
+                        }
                     }
                 }
             }

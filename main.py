@@ -69,7 +69,7 @@ def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port, _
     print(stdout)
 
 
-def auto_run():
+def main():
     print("\n ======== SFT Test Start ========")
     procs = []
     deviceid_list = []
@@ -148,6 +148,7 @@ def auto_run():
     if len(sys.argv) <= 1:
         sr_number = ''
         tr_number = ''
+        report_url = 'Manual Trigger'
 
         para_dict = {'prod_name': 'PowerDirector Mobile for Android',
                      'sr_no': sr_number,
@@ -186,7 +187,7 @@ def auto_run():
         print("Jenkins Trigger")
         sr_number = sys.argv[1]
         tr_number = sys.argv[2]
-        # Manual
+        report_url = sys.argv[3]
 
         def get_package_version(package_name, device_name):
             try:
@@ -237,7 +238,7 @@ def auto_run():
 
     if send:
         if summary_info["passed"] != 0:
-            send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number)
+            send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number, report_url=report_url)
             print('send report complete.')
 
     ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
@@ -333,4 +334,4 @@ def auto_run():
 
 
 if __name__ == '__main__':
-    auto_run()
+    main()
