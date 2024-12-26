@@ -23,7 +23,7 @@ debug_mode = 0
 tr_number = ''
 previous_tr_number = ''
 try:
-    with open('tr_info', 'r') as file:
+    with open('report_info', 'r') as file:
         for line in file:
             key, value = line.strip().split('=')
             if key == 'tr_number':

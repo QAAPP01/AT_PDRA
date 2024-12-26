@@ -67,7 +67,7 @@ def auto_server_scan():
     deviceid_list = []
 
     sr_number = ''
-    with open('tr_info', 'r') as file:
+    with open('report_info', 'r') as file:
         for line in file:
             key, value = line.strip().split('=')
             if key == 'tr_number':

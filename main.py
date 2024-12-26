@@ -1,3 +1,4 @@
+import argparse
 import json
 import platform
 import os
@@ -69,7 +70,7 @@ def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port, _
     print(stdout)
 
 
-def main():
+def main(sr_number, tr_number):
     print("\n ======== SFT Test Start ========")
     procs = []
     deviceid_list = []
@@ -146,16 +147,13 @@ def main():
 
     # 手動執行
     if len(sys.argv) <= 1:
-        sr_number = ''
-        tr_number = ''
-        report_url = 'Manual Trigger'
+        report_url = None
 
         para_dict = {'prod_name': 'PowerDirector Mobile for Android',
                      'sr_no': sr_number,
                      'tr_no': tr_number,
                      'prog_path_sub': '',
                      'dest_path': app_path,
-                     'mail_list': receiver,
                      'is_md5_check': False}
         dict_result = ecl_operation.get_untested_build(para_dict)
         print(f'{dict_result}')
@@ -204,17 +202,28 @@ def main():
 
         package_version, package_build_number = get_package_version(package_name, deviceName)
 
-    with open('tr_info', 'w+') as file:
-        file.write(f'sr_number={sr_number}\n')
-        file.write(f'tr_number={tr_number}\n')
-        file.write(f'package_version={package_version}\n')
-        file.write(f'package_build_number={package_build_number}\n')
+
 
     test_folder = 'SFT'
     test_result_title = 'SFT Test Result'
     result_folder = 'sft-allure-results'
     report_folder = 'sft-allure-report'
     test_case_path = os.path.normpath(os.path.join(dir_path, project_name, test_folder))
+
+    report_info = {
+        "sr_number": sr_number,
+        "tr_number": tr_number,
+        "package_version": package_version,
+        "package_build_number": package_build_number,
+        "device_id": deviceName,
+        "receiver_list": receiver,
+        "test_result_title": test_result_title,
+        "result_folder": result_folder,
+        "report_folder": report_folder,
+    }
+
+    with open('report_info.json', 'w') as file:
+        json.dump(report_info, file, indent=4)
 
     # run test
     print(f'Test Info: TR = {tr_number}, Build = {package_version}.{package_build_number}')
@@ -229,16 +238,11 @@ def main():
         p.join()
     print('test complete.')
 
-    if len(sys.argv) <= 1:
-        move_allure_history(result_folder, report_folder)
-        generate_allure_report(result_folder, report_folder)
-
-    with open('summary.json', 'r') as f:
-        summary_info = json.load(f)
-
     if send:
+        with open('summary.json', 'r') as f:
+            summary_info = json.load(f)
         if summary_info["passed"] != 0:
-            send_allure_report(report_folder, test_result_title, deviceName, receiver, tr_number, package_version, package_build_number, sr_number, report_url=report_url)
+            send_allure_report(report_url=report_url)
             print('send report complete.')
 
     ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
@@ -257,7 +261,7 @@ def main():
 #     remove_allure_result(result_folder)
 #
 #     procs = []
-#     with open('tr_info', 'r') as file:
+#     with open('report_info', 'r') as file:
 #         for line in file:
 #             key, value = line.strip().split('=')
 #             if key == 'tr_number':
@@ -302,7 +306,7 @@ def main():
 #     remove_allure_result(result_folder)
 #
 #     procs = []
-#     with open('tr_info', 'r') as file:
+#     with open('report_info', 'r') as file:
 #         for line in file:
 #             key, value = line.strip().split('=')
 #             if key == 'tr_number':
@@ -333,5 +337,10 @@ def main():
 #     print("\n ======== AI Style Scan Test Finish ========")
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--sr_number", default="")
+    parser.add_argument("--tr_number", default="")
+    args = parser.parse_args()
+
+    main(args.sr_number, args.tr_number)
