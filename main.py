@@ -37,10 +37,6 @@ report_list = []
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 # ======================================================================================================================
-# [Configuration]
-send = True
-test_apk_from_appPath = False
-
 # [Report Mail Setting]
 title_project = 'aPDR'
 # receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com", "Amber_Mai@cyberlink.com"]
@@ -145,10 +141,9 @@ def main(sr_number, tr_number):
             except Exception as e:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
 
-    # 手動執行
+    # Non-Jenkins Trigger
     if len(sys.argv) <= 1:
-        report_url = None
-
+        send = True
         para_dict = {'prod_name': 'PowerDirector Mobile for Android',
                      'sr_no': sr_number,
                      'tr_no': tr_number,
@@ -183,9 +178,7 @@ def main(sr_number, tr_number):
     # Jenkins Trigger
     else:
         print("Jenkins Trigger")
-        sr_number = sys.argv[1]
-        tr_number = sys.argv[2]
-        report_url = sys.argv[3]
+        send = False
 
         def get_package_version(package_name, device_name):
             try:
@@ -242,8 +235,8 @@ def main(sr_number, tr_number):
         with open('summary.json', 'r') as f:
             summary_info = json.load(f)
         if summary_info["passed"] != 0:
-            send_allure_report(report_url=report_url)
-            print('send report complete.')
+            send_allure_report()
+            print('User trigger - Send report complete')
 
     ecl_operation.manual_add_tr_to_db(sr_number, tr_number)
 
