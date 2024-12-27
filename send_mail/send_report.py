@@ -321,9 +321,9 @@ def send_allure_report(report_url=None, update_to_sheet=True):
 
             data = {
                 'Pass': summary_info["passed"],
-                'Fail': summary_info.get("failed", 0) + summary_info.get("errors", 0),
+                'Fail': summary_info.get("failed", 0) + summary_info.get("error", 0),
                 'Skip': summary_info["skipped"],
-                'N/A': summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["errors"],
+                'N/A': summary_info["num_collected"] - summary_info["passed"] - summary_info["failed"] - summary_info["skipped"] - summary_info["error"],
                 'Total time': summary_info["duration"]
             }
             obj_google_api.update_columns(data)
@@ -436,8 +436,8 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
             <td>{summary_info["failed"]}</td>
         </tr>
         <tr>
-            <td>Errors</td>
-            <td>{summary_info["errors"]}</td>
+            <td>Error</td>
+            <td>{summary_info["error"]}</td>
         </tr>
         <tr>
             <td>Skipped</td>
