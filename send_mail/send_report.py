@@ -8,9 +8,13 @@ import datetime
 import traceback
 from os.path import basename
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from sendemail import send_mail
 from ATFramework_aPDR.ATFramework.utils._google_api.google_api import GoogleApi
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import qr_operation
+
+
 
 def summary_report_header():
     summary_report_header = '<div class=WordSection1>'
