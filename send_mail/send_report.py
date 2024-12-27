@@ -8,7 +8,7 @@ import datetime
 import traceback
 from os.path import basename
 
-from send_mail.sendemail import send_mail
+from sendemail import send_mail
 from ATFramework_aPDR.ATFramework.utils._google_api.google_api import GoogleApi
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import qr_operation
 
