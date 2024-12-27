@@ -1,0 +1,13 @@
+{
+    "sr_number": "DRA241209-01",
+    "tr_number": "TR241227-019",
+    "package_version": "14.8.0",
+    "package_build_number": "2412270",
+    "device_id": "R5CT32Q3WQN",
+    "receiver_list": [
+        "hausen_lin@cyberlink.com"
+    ],
+    "test_result_title": "SFT Test Result",
+    "result_folder": "sft-allure-results",
+    "report_folder": "sft-allure-report"
+}
