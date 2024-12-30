@@ -1,0 +1,8 @@
+{
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.testing.cwd": "${workspaceFolder}",
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}"
+    }
+}
