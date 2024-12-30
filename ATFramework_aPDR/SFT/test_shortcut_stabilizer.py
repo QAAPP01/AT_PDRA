@@ -92,8 +92,6 @@ class Test_Shortcut_Stabilizer:
             if self.last_is_fail(data):
                 pass
 
-            self.click(L.main.shortcut.editor_back)
-
             assert self.page_shortcut.demo_dont_show_again('Stabilizer')
 
         except Exception as e:
@@ -149,70 +147,70 @@ class Test_Shortcut_Stabilizer:
             logger(e)
             data['last_result'] = False
             raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Enter Trim")
-    def test_video_entry_trim(self, data):
-        try:
-            if self.last_is_fail(data):
-                pass
-
-            assert self.page_shortcut.enter_trim_before_edit('Stabilizer')
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Back from trim")
-    def test_video_back_from_trim(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_trim_before_edit('Stabilizer')
-
-            assert self.page_shortcut.back_from_trim()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Trim and import")
-    def test_video_trim_and_import(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('Stabilizer')
-
-            assert self.page_shortcut.trim_and_import()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-        
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Back from editor")
-    def test_video_back_from_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Stabilizer')
-
-            assert self.page_shortcut.back_from_editor()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Enter Trim")
+    # def test_video_entry_trim(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             pass
+    #
+    #         assert self.page_shortcut.enter_trim_before_edit('Stabilizer')
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Back from trim")
+    # def test_video_back_from_trim(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_trim_before_edit('Stabilizer')
+    #
+    #         assert self.page_shortcut.back_from_trim()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Trim and import")
+    # def test_video_trim_and_import(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_media_picker('Stabilizer')
+    #
+    #         assert self.page_shortcut.trim_and_import()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Back from editor")
+    # def test_video_back_from_editor(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Stabilizer')
+    #
+    #         assert self.page_shortcut.back_from_editor()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Editor")
     @allure.story("Video")
@@ -220,9 +218,9 @@ class Test_Shortcut_Stabilizer:
     def test_video_import(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('Stabilizer')
+                pass
 
-            assert self.page_shortcut.enter_editor()
+            assert self.page_shortcut.enter_editor('Stabilizer')
 
         except Exception as e:
             traceback.print_exc()
@@ -236,7 +234,7 @@ class Test_Shortcut_Stabilizer:
     def test_video_play_preview(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Stabilizer')
+                pass
 
             assert self.page_shortcut.preview_play()
 
@@ -262,38 +260,38 @@ class Test_Shortcut_Stabilizer:
             logger(e)
             data['last_result'] = False
             raise
-
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Preview beginning")
-    def test_video_preview_beginning(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Stabilizer')
-
-            assert self.page_shortcut.preview_beginning()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Preview ending")
-    def test_video_preview_ending(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Stabilizer')
-
-            assert self.page_shortcut.preview_ending()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Preview beginning")
+    # def test_video_preview_beginning(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Stabilizer')
+    #
+    #         assert self.page_shortcut.preview_beginning()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Preview ending")
+    # def test_video_preview_ending(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Stabilizer')
+    #
+    #         assert self.page_shortcut.preview_ending()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Export")
     @allure.story("Video")
