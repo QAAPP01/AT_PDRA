@@ -30,11 +30,11 @@ device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
+package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 
 test_case_main_file = 'main.py'
 report_list = []
-package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 # ======================================================================================================================
 # [Report Mail Setting]
@@ -42,8 +42,7 @@ title_project = 'aPDR'
 # receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com", "Amber_Mai@cyberlink.com"]
 receiver = ['hausen_lin@cyberlink.com']
 
-# script_version = 'Testing'
-script_version = 'Debug'
+script_version = 'Testing'
 
 # ======================================================================================================================
 
@@ -143,37 +142,39 @@ def main(sr_number, tr_number):
 
     # Non-Jenkins Trigger
     if len(sys.argv) <= 1:
-        send = True
-        para_dict = {'prod_name': 'PowerDirector Mobile for Android',
-                     'sr_no': sr_number,
-                     'tr_no': tr_number,
-                     'prog_path_sub': '',
-                     'dest_path': app_path,
-                     'is_md5_check': False}
-        dict_result = ecl_operation.get_untested_build(para_dict)
-        print(f'{dict_result}')
-        if not dict_result['build']:
-            print(dict_result['error_log'])
-            sys.exit("No build found.")
+        send = False
+        sr_number, tr_number = '', ''
+        package_version, package_build_number = '', ''
+        # para_dict = {'prod_name': 'PowerDirector Mobile for Android',
+        #              'sr_no': sr_number,
+        #              'tr_no': tr_number,
+        #              'prog_path_sub': '',
+        #              'dest_path': app_path,
+        #              'is_md5_check': False}
+        # dict_result = ecl_operation.get_untested_build(para_dict)
+        # print(f'{dict_result}')
+        # if not dict_result['build']:
+        #     print(dict_result['error_log'])
+        #     sys.exit("No build found.")
 
-        else:
-            # [log tr info]
-            sr_number = dict_result['sr_no']
-            tr_number = dict_result['tr_no']
+        # else:
+        #     # [log tr info]
+        #     sr_number = dict_result['sr_no']
+        #     tr_number = dict_result['tr_no']
 
-            version_numbers = dict_result['build'].split('.')
-            package_version = version_numbers[0].split('PowerDirector Mobile for Android: ')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
-            package_build_number = version_numbers[3]
-            print(f'package_version = {package_version}, package_build_number = {package_build_number}')
+        #     version_numbers = dict_result['build'].split('.')
+        #     package_version = version_numbers[0].split('PowerDirector Mobile for Android: ')[1] + '.' + version_numbers[1] + '.' + version_numbers[2]
+        #     package_build_number = version_numbers[3]
+        #     print(f'package_version = {package_version}, package_build_number = {package_build_number}')
 
-        fileExt = r".apk"
-        for filename in os.listdir(app_path):
-            if filename.endswith(fileExt):
-                apk = os.path.join(app_path, filename)
-            else:
-                apk = None
-        uninstall_apk(package_name, deviceName)
-        install_apk(apk, deviceName)
+        # fileExt = r".apk"
+        # for filename in os.listdir(app_path):
+        #     if filename.endswith(fileExt):
+        #         apk = os.path.join(app_path, filename)
+        #     else:
+        #         apk = None
+        # uninstall_apk(package_name, deviceName)
+        # install_apk(apk, deviceName)
 
     # Jenkins Trigger
     else:

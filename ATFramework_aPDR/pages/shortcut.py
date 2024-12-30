@@ -1,7 +1,7 @@
 import time
 import traceback
 
-import allure
+from allure import step
 
 from .locator import locator as L
 from .locator.locator_type import *
@@ -97,7 +97,7 @@ class Shortcut(BasePage):
             logger(e)
             return False
 
-    @allure.step("Enter from AI Creation: {name}")
+    @step("Enter from AI Creation: {name}")
     def enter_ai_feature(self, name, demo_title=None, check=True):
         demo_title = demo_title or name
 
@@ -124,7 +124,7 @@ class Shortcut(BasePage):
                 return False
         return True
 
-    @allure.step("Back from demo page")
+    @step("Back from demo page")
     def back_from_demo(self):
         if not self.click(L.main.shortcut.demo_back, 1):
             self.click(L.main.shortcut.close)
@@ -259,13 +259,13 @@ class Shortcut(BasePage):
             return False
 
     def back_from_media_picker(self):
-        with allure.step("Click back button"):
+        with step("Click back button"):
             back_button = xpath('//*[contains(@resource-id,"top_toolbar_back") or contains(@resource-id,"iv_close") or contains(@resource-id,"iv_back")]')
             assert self.click(back_button, 2), 'Click back button failed'
 
         home_button = xpath('//*[contains(@resource-id,"btn_home") or contains(@resource-id,"iv_back")]')
         if self.is_exist(home_button, 1):
-            with allure.step("Click home button"):
+            with step("Click home button"):
                 assert self.click(home_button), 'Click home button failed'
 
         if self.is_exist(L.main.shortcut.shortcut_name(0)):
@@ -407,39 +407,47 @@ class Shortcut(BasePage):
     def get_total_time(self):
         return self.timecode(is_total_time=True)
 
-    def pause_auto_play(self):
+    @step('Pause the video if it is currently playing')
+    def pause_if_play(self):
+        """Pause the video if it is currently playing."""
         timecode_1 = self.get_timecode()
-        logger(f'timecode 1: {timecode_1}')
-        time.sleep(1)
+        logger(f'Timecode 1: {timecode_1}')
+        time.sleep(0.5)
+
         timecode_2 = self.get_timecode()
         total_time = self.get_total_time()
-        logger(f'timecode 2: {timecode_2}')
+        logger(f'Timecode 2: {timecode_2}')
+
         if timecode_2 != timecode_1:
+            timecode_2 = self.get_timecode()
             if timecode_2 != total_time:
                 self.click(L.edit.menu.play)
-                logger('Pause auto play')
+                logger('Pause playing')
 
+    @step('Play the video and verify timecode updates')
     def preview_play(self):
+        """Play the video and verify timecode updates."""
         try:
-            # self.driver.drag_slider_to_min(L.main.shortcut.playback_slider)
-            # time.sleep(2)
-            self.pause_auto_play()
-            timecode = self.get_timecode()
-            if timecode is None:
+            self.pause_if_play()
+
+            initial_timecode = self.get_timecode()
+            if initial_timecode is None:
+                logger('[Error] preview_play failed: Initial timecode is None')
                 return False
 
             self.click(L.edit.menu.play)
             if self.click(id('help_not_show_tip_again'), 0.8):
                 self.click(id('btn_close'))
-            time.sleep(1)
-            self.click(L.edit.menu.play)    # 暫停
 
-            new_timecode = self.get_timecode()
-            if new_timecode is None:
+            self.pause_if_play()
+
+            updated_timecode = self.get_timecode()
+            if updated_timecode is None:
+                logger('[Error] preview_play failed: Updated timecode is None')
                 return False
 
-            logger(f"Timecode after playing: {new_timecode}")
-            if new_timecode != timecode:
+            logger(f'Timecode after playing: {updated_timecode}')
+            if updated_timecode != initial_timecode:
                 return True
             else:
                 raise Exception('[Error] preview_play failed: Timecode did not update')
@@ -448,32 +456,44 @@ class Shortcut(BasePage):
             logger(e)
             return False
 
+    @step('Pause the video and verify timecode does not update')
     def preview_pause(self):
+        """Pause the video and verify timecode does not update."""
         try:
-            self.pause_auto_play()
+            self.pause_if_play()
 
             self.click(L.edit.menu.play)
-            time.sleep(0.5)
-            self.click(L.edit.menu.play)  # 暫停
+            self.pause_if_play()
 
+            total_time = self.get_total_time()
             timecode_before = self.get_timecode()
+
             if timecode_before is None:
+                logger('[Error] preview_pause failed: Initial timecode is None')
                 return False
+
+            logger(f'Timecode before pause: {timecode_before}')
+            if timecode_before == total_time:
+                return True
+
             time.sleep(1)
             timecode_after = self.get_timecode()
+
             if timecode_after is None:
+                logger('[Error] preview_pause failed: Updated timecode is None')
                 return False
 
+            logger(f'Timecode after pause: {timecode_after}')
             if timecode_after == timecode_before:
                 return True
             else:
                 logger('[Error] preview_pause failed: Timecode changed after pause')
                 return False
-
         except Exception as e:
             traceback.print_exc()
             logger(e)
             return False
+
 
     def preview_beginning(self):
         try:
@@ -812,9 +832,9 @@ class Shortcut(BasePage):
             return False
 
     def export_back(self):
-        with allure.step('Click export button'):
+        with step('Click export button'):
             assert self.click(L.edit.menu.export), 'Click export button failed'
-        with allure.step('Click back button'):
+        with step('Click back button'):
             assert self.click(L.edit.menu.produce_sub_page.back), 'Click back button failed'
 
         time.sleep(1)

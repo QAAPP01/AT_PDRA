@@ -20,7 +20,7 @@ platform_type = 'Android'
 TEST_MATERIAL_FOLDER = '00PDRa_Testing_Material'
 TEST_MATERIAL_FOLDER_01 = '01PDRa_Testing_Material'
 
-debug_mode = 0
+debug_mode = True
 tr_number = ''
 previous_tr_number = ''
 
