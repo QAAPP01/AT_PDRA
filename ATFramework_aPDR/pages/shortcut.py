@@ -187,6 +187,7 @@ class Shortcut(BasePage):
         self.click(id('confirm_btn'))
         self.page_edit.waiting_import()
         if self.is_exist(L.edit.menu.export):
+            self.click(L.edit.menu.home)
             return True
         else:
             logger(f'[Error] enter_editor fail', log_level='error')
@@ -246,7 +247,7 @@ class Shortcut(BasePage):
                 self.enter_shortcut(shortcut_name, audio_tool=audio_tool, check=False)
 
             self.click(L.main.shortcut.try_it_now, 1)
-            self.click(aid('[AID]Upgrade_No'), 0.5)
+            self.click(aid('[AID]Upgrade_No'), 1)
 
             if self.is_exist(find_string('Add Media')):
                 return True
