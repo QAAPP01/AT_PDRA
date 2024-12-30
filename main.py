@@ -30,11 +30,11 @@ device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
+package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 
 test_case_main_file = 'main.py'
 report_list = []
-package_name = 'com.cyberlink.powerdirector.DRA140225_01'
 
 # ======================================================================================================================
 # [Report Mail Setting]
@@ -43,7 +43,6 @@ receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@c
 # receiver = ['hausen_lin@cyberlink.com']
 
 script_version = 'Testing'
-# script_version = 'Debug'
 
 # ======================================================================================================================
 
