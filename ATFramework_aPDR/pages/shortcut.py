@@ -155,12 +155,18 @@ class Shortcut(BasePage):
         self.click(L.main.shortcut.try_it_now)
 
         self.page_main.relaunch(subscribe=False)
-        self.enter_shortcut(shortcut_name)
+        if not self.enter_shortcut(shortcut_name, check=False):
+            self.enter_ai_feature(shortcut_name, check=False)
 
         if self.is_exist(L.main.shortcut.dont_show_again, 1):
             logger(f'[Error] demo_dont_show_again fail', log_level='error')
             return False
-        return True
+
+        if self.is_exist(find_string('Add Media')):
+            return True
+        else:
+            logger(f'[Error] demo_dont_show_again fail', log_level='error')
+            return False
 
     def reset_dont_show_again(self, shortcut_name):
         self.back_from_media_picker()
@@ -171,7 +177,8 @@ class Shortcut(BasePage):
         self.click(id('iv_back'))
         self.click(id('iv_back'))
 
-        self.enter_shortcut(shortcut_name, check=False)
+        if not self.enter_shortcut(shortcut_name, check=False):
+            self.enter_ai_feature(shortcut_name, check=False)
 
         if self.is_exist(L.main.shortcut.dont_show_again, 1):
             return True
@@ -244,7 +251,8 @@ class Shortcut(BasePage):
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:
-                self.enter_shortcut(shortcut_name, audio_tool=audio_tool, check=False)
+                if not self.enter_shortcut(shortcut_name, audio_tool=audio_tool, check=False):
+                    self.enter_ai_feature(shortcut_name, check=False)
 
             self.click(L.main.shortcut.try_it_now, 1)
             self.click(aid('[AID]Upgrade_No'), 1)
@@ -269,14 +277,14 @@ class Shortcut(BasePage):
             with step("Click home button"):
                 assert self.click(home_button), 'Click home button failed'
 
-        if self.is_exist(L.main.shortcut.shortcut_name(0)):
+        if self.click(L.main.launcher.home):
             return True
         else:
             logger(f'[Error] back_from_media_picker fail', log_level='error')
             return False
 
     def check_editor(self):
-        if self.is_exist(L.edit.menu.export) or self.is_exist(L.main.shortcut.save) or self.is_exist(id('btn_save_menu')):
+        if self.is_exist(L.edit.menu.export) or self.is_exist(L.main.shortcut.save) or self.is_exist(id('btn_save_menu')) or self.is_exist(find_string('Export')):
             return True
         else:
             logger(f'[Error] check_editor fail', log_level='error')
@@ -306,7 +314,9 @@ class Shortcut(BasePage):
             return False
 
     def back_from_editor(self):
-        self.click(L.edit.menu.home)
+        if not self.click(L.edit.menu.home, 1):
+            self.click(id('iv_close'))
+            self.click(id('top_toolbar_back'))
 
         if self.click(L.main.launcher.home):
             return True
@@ -847,7 +857,7 @@ class Shortcut(BasePage):
             return False
 
     def export_save_image(self):
-        self.click(L.edit.menu.export)
+        self.click(xpath('//*[contains(@resource-id,"btn_save_menu") or @text="Export"]'))
         self.click(L.main.shortcut.save_image)
 
         if self.is_exist(L.main.shortcut.save_to_camera_roll):
