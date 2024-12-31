@@ -108,6 +108,7 @@ class EditPage(BasePage):
 
     def export(self):
         self.click(L.edit.menu.export)
+        time.sleep(0.5)
         self.click(L.main.shortcut.produce)
         self.page_edit.waiting_produce()
 

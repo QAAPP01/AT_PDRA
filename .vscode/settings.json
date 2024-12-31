@@ -4,5 +4,11 @@
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
     "terminal.integrated.env.windows": {
         "PYTHONPATH": "${workspaceFolder}"
-    }
+    },
+    "python.testing.pytestArgs": [
+        ".",
+        "-s"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }
