@@ -7,8 +7,7 @@ from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
-
-photo_9_16 = 'photo_9_16.jpg'
+from ATFramework_aPDR.SFT.test_file import *
 
 
 @allure.epic("Shortcut - AI Art")
@@ -64,35 +63,35 @@ class Test_Shortcut_AI_Art:
             logger(e)
             data['last_result'] = False
             raise
-
-    @allure.feature("Entry")
-    @allure.story("Demo")
-    @allure.title("Enter from Shortcut")
-    def test_entry_from_shortcut(self, data):
-        try:
-            assert self.page_shortcut.enter_shortcut('AI Art')
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Entry")
-    @allure.story("Demo")
-    @allure.title("Back to Shortcut")
-    def test_back_to_shortcut(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Art')
-
-            assert self.page_shortcut.back_from_demo()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #
+    # @allure.feature("Entry")
+    # @allure.story("Demo")
+    # @allure.title("Enter from Shortcut")
+    # def test_entry_from_shortcut(self, data):
+    #     try:
+    #         assert self.page_shortcut.enter_shortcut('AI Art')
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Entry")
+    # @allure.story("Demo")
+    # @allure.title("Back to Shortcut")
+    # def test_back_to_shortcut(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_shortcut('AI Art')
+    #
+    #         assert self.page_shortcut.back_from_demo()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Entry")
     @allure.story("Demo")
@@ -102,6 +101,7 @@ class Test_Shortcut_AI_Art:
             if self.last_is_fail(data):
                 pass
 
+            self.page_shortcut.enter_ai_feature('AI Art', check=False)
             assert self.page_shortcut.demo_dont_show_again('AI Art')
 
         except Exception as e:
@@ -116,7 +116,7 @@ class Test_Shortcut_AI_Art:
     def test_reset_dont_show_again(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Art', check=False)
+                self.page_shortcut.enter_ai_feature('AI Art', check=False)
 
             assert self.page_shortcut.reset_dont_show_again('AI Art')
 
@@ -132,7 +132,7 @@ class Test_Shortcut_AI_Art:
     def test_enter_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Art')
+                self.page_shortcut.enter_ai_feature('AI Art')
                 
             assert self.page_shortcut.enter_media_picker()
 
@@ -196,9 +196,9 @@ class Test_Shortcut_AI_Art:
     def test_custom_enter_prompt(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('AI Art')
+                pass
 
-            self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
+            self.page_shortcut.enter_editor('AI Art', media_type='photo', file=photo_9_16)
 
             assert self.page_shortcut.custom_enter_prompt()
 

@@ -105,11 +105,13 @@ def logger(*msg, function=None, file_name=f'{log_path}/module.log', write_to_fil
 
     _console = logging.StreamHandler()
     _console.setLevel(level)
-    _console.setFormatter(logging.Formatter(fmt=f"{get_color('time')}%(asctime)s "
-                                                f"{get_color('name')}<{name}> "
-                                                f"{get_color('function')}[{function}] "
-                                                f"{get_color('line')}(line {line}) "
-                                                f"{color} %(message)s",
+    # _console.setFormatter(logging.Formatter(fmt=f"{get_color('time')}%(asctime)s "
+    #                                             f"{get_color('name')}<{name}> "
+    #                                             f"{get_color('function')}[{function}] "
+    #                                             f"{get_color('line')}(line {line}) "
+    #                                             f"{color} %(message)s",
+    #                                         datefmt="%m/%d/%Y %I:%M:%S %p"))
+    _console.setFormatter(logging.Formatter(fmt=f"%(asctime)s <{name}> [{function}](line {line}) - %(message)s",
                                             datefmt="%m/%d/%Y %I:%M:%S %p"))
 
     ft_rotating = logging.handlers.TimedRotatingFileHandler(file_name, when="D", interval=1, backupCount=0, delay=True)
