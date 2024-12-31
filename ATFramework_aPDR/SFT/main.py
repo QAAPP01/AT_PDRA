@@ -7,8 +7,9 @@ from .test_shortcut_cutout import *
 from .test_shortcut_ai_music import *
 from .test_shortcut_image_enhancer import *
 from .test_shortcut_ai_video_enhancer import *
-# upscaler
+from .test_shortcut_ai_video_upscaler import *
 from .test_shortcut_stabilizer import *
+from .test_shortcut_mosaic import *
 
 from .test_shortcut_ai_art import *
 from .test_shortcut_ai_scene import *
@@ -21,7 +22,7 @@ from .test_shortcut_body_effect import *
 from .test_shortcut_video_effect import *
 from .test_shortcut_tempo_effect import *
 
-from .test_shortcut_mosaic import *
+
 from .test_shortcut_filter import *
 from .test_shortcut_crop_rotate import *
 
