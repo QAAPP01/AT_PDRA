@@ -421,19 +421,21 @@ class Shortcut(BasePage):
     @step('Pause the video if it is currently playing')
     def pause_if_play(self):
         """Pause the video if it is currently playing."""
-        timecode_1 = self.get_timecode()
-        logger(f'Timecode 1: {timecode_1}')
-        time.sleep(0.5)
+        def pause_playing():
+            timecode_1 = self.get_timecode()
+            logger(f'Timecode 1: {timecode_1}')
+            time.sleep(0.5)
 
-        timecode_2 = self.get_timecode()
-        total_time = self.get_total_time()
-        logger(f'Timecode 2: {timecode_2}')
-
-        if timecode_2 != timecode_1:
             timecode_2 = self.get_timecode()
-            if timecode_2 != total_time:
+            logger(f'Timecode 2: {timecode_2}')
+
+            if timecode_2 != timecode_1:
                 self.click(L.edit.menu.play)
                 logger('Pause playing')
+            else:
+                logger('Preview is not playing')
+        pause_playing()
+        pause_playing()
 
     @step('Play the video and verify timecode updates')
     def preview_play(self):
@@ -447,7 +449,7 @@ class Shortcut(BasePage):
                 return False
 
             self.click(L.edit.menu.play)
-            if self.click(id('help_not_show_tip_again'), 0.8):
+            if self.click(id('help_not_show_tip_again'), 0.5):
                 self.click(id('btn_close'))
 
             self.pause_if_play()
@@ -471,30 +473,23 @@ class Shortcut(BasePage):
     def preview_pause(self):
         """Pause the video and verify timecode does not update."""
         try:
-            self.pause_if_play()
-
             self.click(L.edit.menu.play)
             self.pause_if_play()
 
-            total_time = self.get_total_time()
             timecode_before = self.get_timecode()
-
             if timecode_before is None:
                 logger('[Error] preview_pause failed: Initial timecode is None')
                 return False
-
             logger(f'Timecode before pause: {timecode_before}')
-            if timecode_before == total_time:
-                return True
 
             time.sleep(1)
-            timecode_after = self.get_timecode()
 
+            timecode_after = self.get_timecode()
             if timecode_after is None:
                 logger('[Error] preview_pause failed: Updated timecode is None')
                 return False
-
             logger(f'Timecode after pause: {timecode_after}')
+
             if timecode_after == timecode_before:
                 return True
             else:

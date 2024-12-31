@@ -230,7 +230,7 @@ class Test_Shortcut_Stabilizer:
     def test_video_play_preview(self, data):
         try:
             if self.last_is_fail(data):
-                pass
+                assert self.page_shortcut.enter_editor('Stabilizer')
 
             assert self.page_shortcut.preview_play()
 
