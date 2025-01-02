@@ -56,7 +56,7 @@ app_path = os.path.normpath(os.path.join(dir_path, project_name, 'app'))
 # execute
 def __run_test(_test_case_path, _test_result_folder_name, _udid, _system_port, _test_file_name="main.py"):
     start = 'pytest -s --alluredir %s "%s" --udid=%s --systemPort=%s --clean-alluredir' % (_test_result_folder_name, os.path.normpath(os.path.join(_test_case_path, _test_file_name)), _udid, _system_port)
-    print('Start to run test >>>\n')
+    print(f'Start to run test >>> {start}\n')
     try:
         os.system('color')
     except:
