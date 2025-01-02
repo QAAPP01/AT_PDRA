@@ -17,3 +17,10 @@
 /__pycache__/
 *.pyc
 *.pyo
+/server-scan-allure-report/
+/server-scan-allure-report-html/
+/server-scan-allure-results/
+/sft-allure-report/
+/sft-allure-report-html/
+/sft-allure-results/
+/allure-report/
