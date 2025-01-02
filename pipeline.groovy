@@ -114,10 +114,9 @@ pipeline {
                             env.reportUrl = "Report generation failed"
                         }
 
-                        if (fileExists("${env.WORKSPACE}/sft-allure-report/index.html")) {
+                        if (fileExists("${env.WORKSPACE}/allure-report/index.html")) {
                             echo "Allure Report successfully generated and accessible at: ${env.reportUrl}"
                         } else {
-                            env.reportUrl = "Report not generated"
                             echo "Allure Report not found. Please check the generation process."
                         }
 
