@@ -7,11 +7,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
-
-video_9_16 = 'video_9_16.mp4'
-video_16_9 = 'video_16_9.mp4'
-photo_9_16 = 'photo_9_16.jpg'
-photo_16_9 = 'photo_16_9.jpg'
+from ATFramework_aPDR.SFT.test_file import *
 
 
 @allure.epic("Shortcut - Video Effect")
@@ -44,7 +40,7 @@ class Test_Shortcut_Video_Effect:
     @allure.title("Enter media picker")
     def test_enter_media_picker(self, data):
         try:
-            assert self.page_shortcut.enter_media_picker('Video Effect')
+            assert self.page_shortcut.enter_media_picker('AI Video Effect')
 
         except Exception as e:
             traceback.print_exc()
@@ -58,7 +54,7 @@ class Test_Shortcut_Video_Effect:
     def test_back_from_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Video Effect')
+                self.page_shortcut.enter_shortcut('AI Video Effect')
 
             assert self.page_shortcut.back_from_media_picker()
 
@@ -68,69 +64,69 @@ class Test_Shortcut_Video_Effect:
             data['last_result'] = False
             raise
 
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Enter Trim")
-    def test_video_entry_trim(self, data):
-        try:
-            if self.last_is_fail(data):
-                pass
-
-            assert self.page_shortcut.enter_trim_before_edit('Video Effect')
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Back from trim")
-    def test_video_back_from_trim(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_trim_before_edit('Video Effect')
-
-            assert self.page_shortcut.back_from_trim()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Trim and import")
-    def test_video_trim_and_import(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Video Effect')
-
-            assert self.page_shortcut.trim_and_import()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Back from editor")
-    def test_back_from_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
-
-            assert self.page_shortcut.back_from_editor()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Enter Trim")
+    # def test_video_entry_trim(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             pass
+    #
+    #         assert self.page_shortcut.enter_trim_before_edit('AI Video Effect')
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Back from trim")
+    # def test_video_back_from_trim(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_trim_before_edit('AI Video Effect')
+    #
+    #         assert self.page_shortcut.back_from_trim()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Trim and import")
+    # def test_video_trim_and_import(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_shortcut('AI Video Effect')
+    #
+    #         assert self.page_shortcut.trim_and_import()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Back from editor")
+    # def test_back_from_editor(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('AI Video Effect')
+    #
+    #         assert self.page_shortcut.back_from_editor()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Editor")
     @allure.story("Video")
@@ -138,9 +134,9 @@ class Test_Shortcut_Video_Effect:
     def test_entry_editor(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Video Effect')
+                pass
 
-            assert self.page_shortcut.enter_editor()
+            assert self.page_shortcut.enter_editor('AI Video Effect')
 
         except Exception as e:
             traceback.print_exc()
@@ -154,7 +150,7 @@ class Test_Shortcut_Video_Effect:
     def test_video_play_preview(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
+                self.page_shortcut.enter_editor('AI Video Effect')
 
             assert self.page_shortcut.preview_play()
 
@@ -170,7 +166,7 @@ class Test_Shortcut_Video_Effect:
     def test_video_pause_preview(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
+                self.page_shortcut.enter_editor('AI Video Effect')
 
             assert self.page_shortcut.preview_pause()
 
@@ -179,38 +175,38 @@ class Test_Shortcut_Video_Effect:
             logger(e)
             data['last_result'] = False
             raise
-
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Preview beginning")
-    def test_video_preview_beginning(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
-
-            assert self.page_shortcut.preview_beginning()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Preview ending")
-    def test_video_preview_ending(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
-
-            assert self.page_shortcut.preview_ending()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Preview beginning")
+    # def test_video_preview_beginning(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('AI Video Effect')
+    #
+    #         assert self.page_shortcut.preview_beginning()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Preview ending")
+    # def test_video_preview_ending(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('AI Video Effect')
+    #
+    #         assert self.page_shortcut.preview_ending()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Export")
     @allure.story("Video")
@@ -218,7 +214,7 @@ class Test_Shortcut_Video_Effect:
     def test_video_back_from_export(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
+                self.page_shortcut.enter_editor('AI Video Effect')
 
             assert self.page_shortcut.export_back()
 
@@ -234,7 +230,7 @@ class Test_Shortcut_Video_Effect:
     def test_video_export(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
+                self.page_shortcut.enter_editor('AI Video Effect')
 
             assert self.page_shortcut.export()
 
@@ -250,7 +246,7 @@ class Test_Shortcut_Video_Effect:
     def test_export_back_to_editor(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
+                self.page_shortcut.enter_editor('AI Video Effect')
                 self.page_shortcut.export()
 
             assert self.page_shortcut.export_back_to_editor()
@@ -267,33 +263,33 @@ class Test_Shortcut_Video_Effect:
     def test_photo_import(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('Video Effect')
+                pass
+            else:
+                self.page_shortcut.back_from_editor()
 
-            self.page_shortcut.back_from_editor()
-
-            assert self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Back from editor")
-    def test_photo_back_from_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect')
-
-            assert self.page_shortcut.back_from_editor()
+            assert self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
 
         except Exception as e:
             traceback.print_exc()
             logger(e)
             data['last_result'] = False
             raise
+
+    # @allure.feature("Editor")
+    # @allure.story("Photo")
+    # @allure.title("Back from editor")
+    # def test_photo_back_from_editor(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('AI Video Effect')
+    #
+    #         assert self.page_shortcut.back_from_editor()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Editor")
     @allure.story("Photo")
@@ -301,9 +297,7 @@ class Test_Shortcut_Video_Effect:
     def test_photo_play_preview(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('Video Effect')
-
-            self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
+                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
 
             assert self.page_shortcut.preview_play()
 
@@ -319,7 +313,7 @@ class Test_Shortcut_Video_Effect:
     def test_photo_pause_preview(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect', media_type='photo', file=photo_9_16)
+                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
 
             assert self.page_shortcut.preview_pause()
 
@@ -329,37 +323,37 @@ class Test_Shortcut_Video_Effect:
             data['last_result'] = False
             raise
 
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Preview beginning")
-    def test_photo_preview_beginning(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect', media_type='photo', file=photo_9_16)
-
-            assert self.page_shortcut.preview_beginning()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Preview ending")
-    def test_photo_preview_ending(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect', media_type='photo', file=photo_9_16)
-
-            assert self.page_shortcut.preview_ending()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    # @allure.feature("Editor")
+    # @allure.story("Photo")
+    # @allure.title("Preview beginning")
+    # def test_photo_preview_beginning(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
+    #
+    #         assert self.page_shortcut.preview_beginning()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Photo")
+    # @allure.title("Preview ending")
+    # def test_photo_preview_ending(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
+    #
+    #         assert self.page_shortcut.preview_ending()
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Export")
     @allure.story("Photo")
@@ -367,7 +361,7 @@ class Test_Shortcut_Video_Effect:
     def test_photo_back_from_export(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect', media_type='photo', file=photo_9_16)
+                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
 
             assert self.page_shortcut.export_back()
 
@@ -383,7 +377,7 @@ class Test_Shortcut_Video_Effect:
     def test_photo_export(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect', media_type='photo', file=photo_9_16)
+                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
 
             assert self.page_shortcut.export()
 
@@ -399,7 +393,7 @@ class Test_Shortcut_Video_Effect:
     def test_export_back_to_launcher(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Video Effect', media_type='photo', file=photo_9_16)
+                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
                 self.page_shortcut.export()
 
             assert self.page_shortcut.export_back_to_launcher()

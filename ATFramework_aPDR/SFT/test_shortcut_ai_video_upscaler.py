@@ -37,35 +37,6 @@ class Test_Shortcut_AI_Video_Upscaler:
 
     @allure.feature("Entry")
     @allure.story("Demo")
-    @allure.title("Enter from AI creation")
-    def test_entry_from_ai_creation(self, data):
-        try:
-            assert self.page_shortcut.enter_ai_feature('AI Video Upscaler')
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Entry")
-    @allure.story("Demo")
-    @allure.title("Back to AI creation")
-    def test_back_to_ai_creation(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_ai_feature('AI Video Upscaler')
-
-            assert self.page_shortcut.back_from_demo()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Entry")
-    @allure.story("Demo")
     @allure.title("Enter from Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
@@ -87,6 +58,38 @@ class Test_Shortcut_AI_Video_Upscaler:
 
             assert self.page_shortcut.back_from_demo()
 
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Enter from AI creation")
+    def test_entry_from_ai_creation(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.enter_ai_feature('AI Video Upscaler')
+
+        except Exception as e:
+            traceback.print_exc()
+            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Back to AI creation")
+    def test_back_to_ai_creation(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_ai_feature('AI Video Upscaler')
+
+            assert self.page_shortcut.back_from_demo()
 
         except Exception as e:
             traceback.print_exc()

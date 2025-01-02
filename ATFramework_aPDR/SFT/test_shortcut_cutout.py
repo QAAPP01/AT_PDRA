@@ -215,7 +215,7 @@ class Test_Shortcut_Cutout:
     def test_video_play_preview(self, data):
         try:
             if self.last_is_fail(data):
-                pass
+                self.page_shortcut.enter_editor('AI Video Effect')
 
             assert self.page_shortcut.preview_play()
 
