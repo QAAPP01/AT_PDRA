@@ -121,7 +121,7 @@ pipeline {
                             echo "Allure Report not found. Please check the generation process."
                         }
 
-                        def sendReport = "python send_mail/send_report.py --report_url \"${env.reportUrl}\""
+                        def sendReport = "python send_mail/send_report.py --report_url ${env.reportUrl}"
                         echo "Sending report mail: ${sendReport}"
                         def sendReportResult = bat(script: sendReport, returnStatus: true)
 
