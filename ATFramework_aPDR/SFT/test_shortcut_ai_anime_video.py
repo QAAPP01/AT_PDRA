@@ -7,15 +7,10 @@ from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
-
-video_9_16 = 'video_9_16.mp4'
-video_16_9 = 'video_16_9.mp4'
-photo_9_16 = 'photo_9_16.jpg'
-photo_16_9 = 'photo_16_9.jpg'
+from ATFramework_aPDR.SFT.test_file import *
 
 
-@allure.epic("Shortcut")
-@allure.feature("AI Anime Video")
+@allure.epic("Shortcut - AI Anime Video")
 class Test_Shortcut_AI_Anime_Video:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
@@ -40,13 +35,12 @@ class Test_Shortcut_AI_Anime_Video:
             return True
         return False
 
-    @allure.story("Entry")
-    @allure.title("From shortcut")
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Enter from Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            self.page_shortcut.enter_shortcut('AI Anime Video')
-
-            assert self.element(L.main.shortcut.demo_title).text == 'AI Anime Video'
+            assert self.page_shortcut.enter_shortcut('AI Anime Video')
 
         except Exception as e:
             traceback.print_exc()
@@ -54,9 +48,10 @@ class Test_Shortcut_AI_Anime_Video:
             data['last_result'] = False
             raise
 
-    @allure.story("Entry")
-    @allure.title("Back from demo")
-    def test_back_from_demo(self, data):
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Back to Shortcut")
+    def test_back_to_shortcut(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_shortcut('AI Anime Video')
@@ -69,13 +64,15 @@ class Test_Shortcut_AI_Anime_Video:
             data['last_result'] = False
             raise
 
-    @allure.story("Entry")
-    @allure.title("From AI creation")
+    @allure.feature("Entry")
+    @allure.story("Demo")
+    @allure.title("Enter from AI creation")
     def test_entry_from_ai_creation(self, data):
         try:
-            self.page_shortcut.enter_ai_feature('AI Anime Video')
+            if self.last_is_fail(data):
+                pass
 
-            assert self.element(L.main.shortcut.demo_title).text == 'AI Anime Video'
+            assert self.page_shortcut.enter_ai_feature('AI Anime Video')
 
         except Exception as e:
             traceback.print_exc()
@@ -83,7 +80,8 @@ class Test_Shortcut_AI_Anime_Video:
             data['last_result'] = False
             raise
 
-    @allure.story("Entry")
+    @allure.feature("Entry")
+    @allure.story("Demo")
     @allure.title("Back to AI creation")
     def test_back_to_ai_creation(self, data):
         try:
