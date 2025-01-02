@@ -45,7 +45,7 @@ class Test_Scan_Music:
 
             assert self.is_exist(L.import_media.music_library.add)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
 
             pytest.fail(f"{str(e)}")
@@ -71,7 +71,7 @@ class Test_Scan_Music:
                     break
             assert self.is_exist(L.import_media.music_library.add)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
 
             pytest.fail(f"{str(e)}")
@@ -101,7 +101,7 @@ class Test_Scan_Music:
                     break
             assert self.is_exist(L.import_media.music_library.add)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
 
             pytest.fail(f"{str(e)}")
@@ -127,7 +127,7 @@ class Test_Scan_Music:
 
             assert self.is_exist(L.import_media.music_library.add)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
 
             pytest.fail(f"{str(e)}")

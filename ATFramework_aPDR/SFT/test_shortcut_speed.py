@@ -41,9 +41,8 @@ class Test_Shortcut_Speed:
         try:
             assert self.page_shortcut.enter_media_picker('Speed')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -57,9 +56,8 @@ class Test_Shortcut_Speed:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -137,9 +135,8 @@ class Test_Shortcut_Speed:
 
             assert self.page_shortcut.enter_editor('Speed')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -153,9 +150,8 @@ class Test_Shortcut_Speed:
 
             assert self.page_shortcut.preview_play()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -169,9 +165,8 @@ class Test_Shortcut_Speed:
 
             assert self.page_shortcut.preview_pause()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
     #
@@ -217,9 +212,8 @@ class Test_Shortcut_Speed:
 
             assert self.page_shortcut.export_back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -233,9 +227,8 @@ class Test_Shortcut_Speed:
 
             assert self.page_shortcut.export()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -250,9 +243,8 @@ class Test_Shortcut_Speed:
 
             assert self.page_shortcut.export_back_to_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -268,8 +260,7 @@ class Test_Shortcut_Speed:
 
             assert self.page_shortcut.export_back_to_launcher()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

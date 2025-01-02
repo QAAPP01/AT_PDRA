@@ -35,9 +35,8 @@ class Test_Scan_Sticker:
 
             assert self.is_exist(L.edit.preview.pip_preview)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
 
             raise Exception

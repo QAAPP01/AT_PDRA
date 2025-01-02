@@ -46,9 +46,8 @@ class Test_Scan_Filter:
 
             assert not HCompareImg(before, after).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
 
             assert Exception

@@ -42,9 +42,8 @@ class Test_Shortcut_Speed_Curve:
         try:
             assert self.page_shortcut.enter_shortcut('Speed Curve')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -58,9 +57,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
         
@@ -74,9 +72,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.demo_dont_show_again('Speed Curve')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -90,9 +87,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.reset_dont_show_again('Speed Curve')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -106,9 +102,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.enter_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -122,9 +117,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -138,9 +132,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.enter_trim_before_edit('Speed Curve')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -154,9 +147,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.back_from_trim()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -170,9 +162,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.trim_and_import()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -186,9 +177,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.back_from_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -202,9 +192,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.enter_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -218,9 +207,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.preview_play()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -234,9 +222,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.preview_pause()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -250,9 +237,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.preview_beginning()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -266,9 +252,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.preview_ending()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -282,9 +267,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.export_back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -298,9 +282,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.export()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -315,9 +298,8 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.export_back_to_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -333,8 +315,7 @@ class Test_Shortcut_Speed_Curve:
 
             assert self.page_shortcut.export_back_to_launcher()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

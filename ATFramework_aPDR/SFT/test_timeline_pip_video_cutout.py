@@ -41,9 +41,8 @@ class Test_PiP_Video_Cutout_Change_Background:
         try:
             assert self.page_edit.cutout.start_with_cutout('pip video')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -61,9 +60,8 @@ class Test_PiP_Video_Cutout_Change_Background:
         try:
             assert self.page_edit.cutout.remove_background()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -80,9 +78,8 @@ class Test_PiP_Video_Cutout_Change_Background:
         try:
             assert self.page_edit.cutout.no_effect()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -120,9 +117,8 @@ class Test_PiP_Video_Cutout_chroma_key:
             self.page_edit.cutout.start_with_cutout('pip video')
             assert self.page_edit.a_chroma_key.enter_chroma_key()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -140,9 +136,8 @@ class Test_PiP_Video_Cutout_chroma_key:
         try:
             assert self.page_edit.a_chroma_key.chroma_key_click_preview()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -160,9 +155,8 @@ class Test_PiP_Video_Cutout_chroma_key:
         try:
             assert self.page_edit.a_chroma_key.chroma_key_picker_slider()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -180,9 +174,8 @@ class Test_PiP_Video_Cutout_chroma_key:
         try:
             assert self.page_edit.a_chroma_key.chroma_key_range_slider()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -200,9 +193,8 @@ class Test_PiP_Video_Cutout_chroma_key:
         try:
             assert self.page_edit.a_chroma_key.chroma_key_denoise_slider()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -220,9 +212,8 @@ class Test_PiP_Video_Cutout_chroma_key:
         try:
             assert self.page_edit.a_chroma_key.chroma_key_reset()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -240,9 +231,8 @@ class Test_PiP_Video_Cutout_chroma_key:
         try:
             assert self.page_edit.a_chroma_key.chroma_key_cancel()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -260,9 +250,8 @@ class Test_PiP_Video_Cutout_chroma_key:
         try:
             assert self.page_edit.a_chroma_key.chroma_key_apply()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 

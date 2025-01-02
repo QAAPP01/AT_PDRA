@@ -49,9 +49,8 @@ class Test_Shortcut_AI_Sketch:
         try:
             assert self.page_shortcut.enter_ai_feature('AI Sketch')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -65,9 +64,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -78,9 +76,8 @@ class Test_Shortcut_AI_Sketch:
         try:
             assert self.page_shortcut.enter_shortcut('AI Sketch')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -94,9 +91,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -110,9 +106,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.demo_dont_show_again('AI Sketch')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -126,9 +121,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.reset_dont_show_again('AI Sketch')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -142,9 +136,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.recommendation_close()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -158,9 +151,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.recommendation_continue('AI Sketch')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -174,9 +166,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -185,11 +176,28 @@ class Test_Shortcut_AI_Sketch:
     @allure.title("Don't show again")
     def test_recommendation_dont_show_again(self, data):
         try:
+            if self.last_is_fail(data):
+                pass
+
             assert self.page_shortcut.recommendation_dont_show_again('AI Sketch')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Recommendation")
+    @allure.title("Reset don't show again")
+    def test_recommendation_reset_dont_show_again(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.recommendation_reset('AI Sketch')
+
+        except Exception:
+            traceback.print_exc()
             data['last_result'] = False
             raise
 
@@ -203,9 +211,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -219,9 +226,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.back_from_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -242,9 +248,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert HCompareImg(preview).is_not_black()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -262,9 +267,8 @@ class Test_Shortcut_AI_Sketch:
             preview = self.page_edit.get_preview_pic()
             assert HCompareImg(preview).is_not_black()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -280,9 +284,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.compare_enabled()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -299,9 +302,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert not HCompareImg(data["pic_before_compare"], data["pic_after_compare"]).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -319,9 +321,8 @@ class Test_Shortcut_AI_Sketch:
             pic_after_drag = self.page_main.get_preview_pic()
             assert not HCompareImg(pic_after_drag, data["pic_after_compare"]).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -336,9 +337,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.compare_disable()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -356,9 +356,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert HCompareImg(pic_preview, data["pic_before_compare"]).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -372,9 +371,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.enter_history()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
         
@@ -389,9 +387,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.reopen_history_image(data["pic_history"])
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -406,9 +403,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.close_history()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
             
@@ -422,9 +418,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.enter_crop()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -439,9 +434,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.leave_crop()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -459,9 +453,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -476,9 +469,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_ratio('free')
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -493,9 +485,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_ratio('9:16')
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -510,9 +501,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_ratio('1:1')
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -527,9 +517,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_ratio('4:5')
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -544,9 +533,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_ratio('16:9')
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -561,9 +549,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_ratio('4:3')
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -578,9 +565,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_ratio('3:4')
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -595,9 +581,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_ratio('21:9')
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -612,9 +597,8 @@ class Test_Shortcut_AI_Sketch:
             self.page_shortcut.crop_reset()
             assert self.compare_crop(data)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -629,9 +613,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.export_cancel()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -645,9 +628,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.export_save_image()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -662,9 +644,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.export_back_to_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -680,9 +661,8 @@ class Test_Shortcut_AI_Sketch:
 
             assert self.page_shortcut.export_back_to_launcher()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
         

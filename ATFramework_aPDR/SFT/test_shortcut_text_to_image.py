@@ -48,9 +48,8 @@ class Test_Shortcut_Text_to_Image:
         try:
             assert self.page_shortcut.enter_shortcut('Text to Image')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -64,9 +63,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -80,9 +78,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.page_shortcut.tti_enter_prompt()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -96,9 +93,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.is_exist(L.main.shortcut.tti.exceed_hint)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -112,9 +108,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.element(L.main.shortcut.tti.generate).get_attribute("enabled") == "false"
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -133,9 +128,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.is_exist(L.main.shortcut.tti.sensitive)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -149,9 +143,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.element(L.main.shortcut.tti.generate).get_attribute("enabled") == "false"
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -165,9 +158,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.page_shortcut.tti_clear_prompt()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -183,9 +175,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert data['prompt']
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -201,9 +192,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert select == "None"
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -221,9 +211,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert select != "None"
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -241,9 +230,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.element(L.main.shortcut.tti.selected_style) != select
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -260,9 +248,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.element(L.main.shortcut.tti.prompt).text == data['prompt']
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -280,9 +267,8 @@ class Test_Shortcut_Text_to_Image:
             assert self.element(L.main.shortcut.tti.prompt).text != data['prompt']
             data['prompt'] = self.element(L.main.shortcut.tti.prompt).text
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -301,9 +287,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert not self.is_exist(L.main.shortcut.tti.select)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -320,9 +305,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.page_shortcut.tti_generate()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -340,9 +324,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert int(self.element(L.main.shortcut.tti.credit).text) == int(data['credit_before']) - 2
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -361,9 +344,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert not self.is_exist(L.main.shortcut.tti.generated_image(), 1)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -382,9 +364,8 @@ class Test_Shortcut_Text_to_Image:
 
             assert self.is_exist(L.main.shortcut.tti.generating)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -403,8 +384,7 @@ class Test_Shortcut_Text_to_Image:
 
             assert not self.is_exist(L.main.shortcut.tti.generated_image(), 1)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

@@ -46,9 +46,8 @@ class Test_Master_Video_Auto_Mosaic:
             self.page_edit.click_sub_tool('Cutout')
 
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -61,9 +60,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.remove_background()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -77,9 +75,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.no_effect()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -92,9 +89,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.image_default_image()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -107,9 +103,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.image_change_cl_image(7)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -122,9 +117,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.image_none()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -137,9 +131,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.custom_image()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -152,9 +145,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.enter_TTI()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -167,9 +159,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.animated_background()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -182,9 +173,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.animated_none()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -197,9 +187,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.color_background()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -213,9 +202,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.color_none()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -229,9 +217,8 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.change_background_apply()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -244,8 +231,7 @@ class Test_Master_Video_Auto_Mosaic:
 
             assert self.page_edit.cutout.change_background_cancel()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

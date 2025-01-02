@@ -1104,9 +1104,8 @@ class AppiumU2Driver(Borg, BaseDriver):
             time.sleep(0.5)
             return True
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     def swipe_element_up(self, locator, x_offset=0, y_offset=0, speed=3):

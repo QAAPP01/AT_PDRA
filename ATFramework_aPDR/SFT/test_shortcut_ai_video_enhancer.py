@@ -45,9 +45,8 @@ class Test_Shortcut_AI_Video_Enhancer:
         try:
             assert self.page_shortcut.enter_ai_feature('AI Video Enhancer')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -61,9 +60,8 @@ class Test_Shortcut_AI_Video_Enhancer:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -74,9 +72,8 @@ class Test_Shortcut_AI_Video_Enhancer:
         try:
             assert self.page_shortcut.enter_shortcut('AI Video Enhancer')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -91,9 +88,8 @@ class Test_Shortcut_AI_Video_Enhancer:
             assert self.page_shortcut.back_from_demo()
 
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -107,9 +103,8 @@ class Test_Shortcut_AI_Video_Enhancer:
 
             assert self.page_shortcut.demo_dont_show_again('AI Video Enhancer')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -123,9 +118,8 @@ class Test_Shortcut_AI_Video_Enhancer:
 
             assert self.page_shortcut.reset_dont_show_again('AI Video Enhancer')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -139,9 +133,8 @@ class Test_Shortcut_AI_Video_Enhancer:
                 
             assert self.page_shortcut.enter_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -155,9 +148,8 @@ class Test_Shortcut_AI_Video_Enhancer:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
     #

@@ -51,9 +51,8 @@ class Test_Shortcut_AI_Scene:
             assert self.page_shortcut.enter_shortcut('AI Scene')
 
         # except 固定格式不用改
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -71,9 +70,8 @@ class Test_Shortcut_AI_Scene:
 
             assert self.page_shortcut.recommendation_close()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -87,8 +85,7 @@ class Test_Shortcut_AI_Scene:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

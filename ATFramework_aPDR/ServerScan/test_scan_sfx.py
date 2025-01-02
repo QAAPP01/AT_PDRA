@@ -43,7 +43,7 @@ class Test_Scan_SFX:
 
             assert self.is_exist(L.import_media.music_library.add)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -77,7 +77,7 @@ class Test_Scan_SFX:
                     break
             assert self.is_exist(L.import_media.music_library.add)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
 
             pytest.fail(f"{str(e)}")

@@ -46,9 +46,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.click_sub_tool('Adjust')
             assert self.is_exist(L.edit.edit_sub.option_list)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -70,9 +69,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('AI Color')
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -94,9 +92,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(100)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -120,9 +117,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(0)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -147,9 +143,8 @@ class Test_PiP_Photo_Adjustment:
             pic_after = self.page_edit.get_preview_pic()
             assert not CompareImage(pic_base, pic_after, 7).compare_image()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -172,9 +167,8 @@ class Test_PiP_Photo_Adjustment:
             self.click(L.edit.timeline.reset)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -196,9 +190,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Brightness')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -220,9 +213,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -246,9 +238,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(0)
             assert self.element(L.edit.sub_tool.slider_value).text == '-100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -273,9 +264,8 @@ class Test_PiP_Photo_Adjustment:
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -298,9 +288,8 @@ class Test_PiP_Photo_Adjustment:
             self.click(L.edit.timeline.reset)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -322,9 +311,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Contrast')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -347,9 +335,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -373,9 +360,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(0)
             assert self.element(L.edit.sub_tool.slider_value).text == '-100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -400,9 +386,8 @@ class Test_PiP_Photo_Adjustment:
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -425,9 +410,8 @@ class Test_PiP_Photo_Adjustment:
             self.click(L.edit.timeline.reset)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -449,9 +433,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Saturation')
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -474,9 +457,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -500,9 +482,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(0)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -527,9 +508,8 @@ class Test_PiP_Photo_Adjustment:
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -552,9 +532,8 @@ class Test_PiP_Photo_Adjustment:
             self.click(L.edit.timeline.reset)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -578,9 +557,8 @@ class Test_PiP_Photo_Adjustment:
             assert self.element(L.edit.adjustment.view_green).get_attribute('selected') == 'true'
 
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -600,9 +578,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('HSL')
             assert self.element(L.main.shortcut.hsl.hue_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -624,9 +601,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.main.shortcut.hsl.hue_slider).send_keys(100)
             assert self.element(L.main.shortcut.hsl.hue_value).text == '50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -650,9 +626,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.main.shortcut.hsl.hue_slider).send_keys(0)
             assert self.element(L.main.shortcut.hsl.hue_value).text == '-50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -671,9 +646,8 @@ class Test_PiP_Photo_Adjustment:
         try:
             assert self.element(L.main.shortcut.hsl.saturation_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -695,9 +669,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.main.shortcut.hsl.saturation_slider).send_keys(100)
             assert self.element(L.main.shortcut.hsl.saturation_value).text == '50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -721,9 +694,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.main.shortcut.hsl.saturation_slider).send_keys(0)
             assert self.element(L.main.shortcut.hsl.saturation_value).text == '-50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -742,9 +714,8 @@ class Test_PiP_Photo_Adjustment:
         try:
             assert self.element(L.main.shortcut.hsl.luminance_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -766,9 +737,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.main.shortcut.hsl.luminance_slider).send_keys(100)
             assert self.element(L.main.shortcut.hsl.luminance_value).text == '50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -792,9 +762,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.main.shortcut.hsl.luminance_slider).send_keys(0)
             assert self.element(L.main.shortcut.hsl.luminance_value).text == '-50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -819,9 +788,8 @@ class Test_PiP_Photo_Adjustment:
             assert self.element(L.main.shortcut.hsl.saturation_value).text == '0'
             assert self.element(L.main.shortcut.hsl.luminance_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -844,9 +812,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Hue')
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -869,9 +836,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -895,9 +861,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(0)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -922,9 +887,8 @@ class Test_PiP_Photo_Adjustment:
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -947,9 +911,8 @@ class Test_PiP_Photo_Adjustment:
             self.click(L.edit.timeline.reset)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -971,9 +934,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Temp')
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -996,9 +958,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(100)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1022,9 +983,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(0)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1049,9 +1009,8 @@ class Test_PiP_Photo_Adjustment:
             pic_after = self.page_edit.get_preview_pic()
             assert not CompareImage(pic_base, pic_after, 7).compare_image()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1074,9 +1033,8 @@ class Test_PiP_Photo_Adjustment:
             self.click(L.edit.timeline.reset)
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1098,9 +1056,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Tint')
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1123,9 +1080,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(100)
             assert self.element(L.edit.sub_tool.slider_value).text == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1149,9 +1105,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(0)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1176,9 +1131,8 @@ class Test_PiP_Photo_Adjustment:
             pic_after = self.page_edit.get_preview_pic()
             assert not CompareImage(pic_base, pic_after, 7).compare_image()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1201,9 +1155,8 @@ class Test_PiP_Photo_Adjustment:
             self.click(L.edit.timeline.reset)
             assert self.element(L.edit.sub_tool.slider_value).text == '50'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1225,9 +1178,8 @@ class Test_PiP_Photo_Adjustment:
             self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1250,9 +1202,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(200)
             assert self.element(L.edit.sub_tool.slider_value).text == '200'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1276,9 +1227,8 @@ class Test_PiP_Photo_Adjustment:
             self.element(L.edit.sub_tool.slider).send_keys(0)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1303,9 +1253,8 @@ class Test_PiP_Photo_Adjustment:
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -1328,9 +1277,8 @@ class Test_PiP_Photo_Adjustment:
             self.click(L.edit.timeline.reset)
             assert self.element(L.edit.sub_tool.slider_value).text == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 

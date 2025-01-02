@@ -45,9 +45,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_local_video(video_mp4)
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -61,9 +60,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_local_video(video_3gp)
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -77,9 +75,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_local_video(video_mkv)
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -93,9 +90,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_getty_images_video()
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -109,9 +105,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_getty_images_pro_video()
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -125,9 +120,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_giphy()
             self.page_media.delete_master_photo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -141,9 +135,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_pexels_video()
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -157,9 +150,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_pixabay_video()
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -173,9 +165,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_google_drive_video()
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -189,9 +180,8 @@ class Test_Master_Video_Media_Picker:
             assert self.page_media.add_google_photos_video()
             self.page_media.delete_master_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -204,8 +194,7 @@ class Test_Master_Video_Media_Picker:
 
             assert self.page_media.capture_video()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

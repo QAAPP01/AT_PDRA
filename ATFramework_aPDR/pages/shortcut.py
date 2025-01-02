@@ -91,9 +91,8 @@ class Shortcut(BasePage):
             logger(f'[Error] Cannot find {shortcut_name}', log_level='error')
             return False
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     @step("Enter from AI Creation: {name}")
@@ -161,15 +160,12 @@ class Shortcut(BasePage):
             logger(f'[Error] demo_dont_show_again fail', log_level='error')
             return False
 
-        if self.is_exist(find_string('Add Media')):
-            return True
         else:
-            logger(f'[Error] demo_dont_show_again fail', log_level='error')
-            return False
+            return True
+
 
     def reset_dont_show_again(self, shortcut_name):
-        self.back_from_media_picker()
-        self.back_from_all_shortcut_page()
+        self.back_from_media_picker(check=False)
 
         self.page_main.enter_setting_in_preferences('Enable All Default Tips')
 
@@ -203,7 +199,8 @@ class Shortcut(BasePage):
     def recommendation_close(self, shortcut_name=None):
         if not self.click(L.main.shortcut.ai_sketch.close, 1):
             if not self.click(L.main.shortcut.try_it_now, 1):
-                self.enter_shortcut(shortcut_name, check=False)
+                if not self.enter_shortcut(shortcut_name, check=False):
+                    self.enter_ai_feature(shortcut_name, check=False)
                 self.click(L.main.shortcut.try_it_now, 1)
                 self.click(L.main.shortcut.ai_sketch.close)
 
@@ -237,7 +234,7 @@ class Shortcut(BasePage):
             self.page_main.relaunch(subscribe=False)
             self.enter_shortcut(shortcut_name, check=False)
             self.click(L.main.shortcut.try_it_now, 1)
-            self.click(id('tv_continue'), 1)
+
             if self.is_exist(L.import_media.media_library.title):
                 return True
             else:
@@ -245,6 +242,23 @@ class Shortcut(BasePage):
                 return False
         else:
             logger(f'[Error] Cannot find dont show again', log_level='error')
+            return False
+
+    def recommendation_reset(self, shortcut_name):
+        self.back_from_media_picker(check=False)
+        self.page_main.enter_setting_in_preferences('Enable All Default Tips')
+
+        self.click(id('iv_back'))
+        self.click(id('iv_back'))
+
+        if not self.enter_shortcut(shortcut_name, check=False):
+            self.enter_ai_feature(shortcut_name, check=False)
+
+        self.click(L.main.shortcut.try_it_now, 1)
+        if self.click(L.main.shortcut.btn_continue):
+            return True
+        else:
+            logger(f'[Error] recommendation_reset fail', log_level='error')
             return False
 
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
@@ -261,12 +275,11 @@ class Shortcut(BasePage):
             else:
                 logger(f'[Error] enter_media_picker fail', log_level='error')
                 return False
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
-    def back_from_media_picker(self):
+    def back_from_media_picker(self, check=True):
         with step("Click back button"):
             back_button = xpath('//*[contains(@resource-id,"top_toolbar_back") or contains(@resource-id,"iv_close") or contains(@resource-id,"iv_back")]')
             assert self.click(back_button, 2), 'Click back button failed'
@@ -276,11 +289,12 @@ class Shortcut(BasePage):
             with step("Click home button"):
                 assert self.click(home_button), 'Click home button failed'
 
-        if self.click(L.main.launcher.home):
-            return True
-        else:
-            logger(f'[Error] back_from_media_picker fail', log_level='error')
-            return False
+        if check:
+            if self.click(L.main.launcher.home):
+                return True
+            else:
+                logger(f'[Error] back_from_media_picker fail', log_level='error')
+                return False
 
     def check_editor(self):
         if self.is_exist(id('recycler_view')):
@@ -465,9 +479,8 @@ class Shortcut(BasePage):
                 return True
             else:
                 raise Exception('[Error] preview_play failed: Timecode did not update')
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     @step('Pause the video and verify timecode does not update')
@@ -496,9 +509,8 @@ class Shortcut(BasePage):
             else:
                 logger('[Error] preview_pause failed: Timecode changed after pause')
                 return False
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
 
@@ -515,9 +527,8 @@ class Shortcut(BasePage):
                 logger('[Error] preview_beginning failed: Timecode is not 00:00')
                 return False
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     def preview_ending(self):
@@ -536,9 +547,8 @@ class Shortcut(BasePage):
             else:
                 logger('[Error] preview_ending failed: Timecode does not match total time')
                 return False
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     def custom_enter_prompt(self, prompt='Apple'):

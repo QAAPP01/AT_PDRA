@@ -957,6 +957,7 @@ class BasePage(BasePage):
 
     def enter_setting_in_preferences(self, setting, last='Enable All Default Tips'):
         try:
+            self.click(id('layout_home'))
             self.click(id('iv_menu'))
             self.enter_settings('preferences')
 

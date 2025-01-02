@@ -42,9 +42,8 @@ class Test_Shortcut_AI_Upscaler:
         try:
             assert self.page_shortcut.enter_ai_feature('AI Video Upscaler')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -58,9 +57,8 @@ class Test_Shortcut_AI_Upscaler:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -71,9 +69,8 @@ class Test_Shortcut_AI_Upscaler:
         try:
             assert self.page_shortcut.enter_shortcut('AI Video Upscaler')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -87,9 +84,8 @@ class Test_Shortcut_AI_Upscaler:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -103,9 +99,8 @@ class Test_Shortcut_AI_Upscaler:
 
             assert self.page_shortcut.demo_dont_show_again('AI Video Upscaler')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -119,9 +114,8 @@ class Test_Shortcut_AI_Upscaler:
 
             assert self.page_shortcut.reset_dont_show_again('AI Video Upscaler')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 

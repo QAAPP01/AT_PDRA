@@ -42,9 +42,8 @@ class Test_Shortcut_AI_Anime_Video:
         try:
             assert self.page_shortcut.enter_shortcut('AI Anime Video')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -58,9 +57,8 @@ class Test_Shortcut_AI_Anime_Video:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -74,9 +72,8 @@ class Test_Shortcut_AI_Anime_Video:
 
             assert self.page_shortcut.enter_ai_feature('AI Anime Video')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -90,9 +87,8 @@ class Test_Shortcut_AI_Anime_Video:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 

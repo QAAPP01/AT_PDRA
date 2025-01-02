@@ -244,9 +244,8 @@ class MediaPage(BasePage):
             if not self.is_exist(xpath(f"//*[starts-with(@content-desc, '{aid_prefix}')]")):
                 raise Exception(f'Add {media_type} to timeline fail')
             return True
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     def add_getty_images_pro_video(self):
@@ -370,9 +369,8 @@ class MediaPage(BasePage):
                 raise Exception(f'Add {media_type} to timeline fail')
             return True
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     def add_google_photos_video(self):

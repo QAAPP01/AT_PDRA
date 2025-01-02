@@ -52,9 +52,8 @@ class Test_PiP_Sticker_Opacity:
 
             assert self.is_exist(L.edit.timeline.item_view_thumbnail_view)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -78,9 +77,8 @@ class Test_PiP_Sticker_Opacity:
 
             assert value == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -105,9 +103,8 @@ class Test_PiP_Sticker_Opacity:
 
             assert HCompareImg(pic_base, pic_after).ssim_compare() < 1
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -132,9 +129,8 @@ class Test_PiP_Sticker_Opacity:
 
             assert value == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -158,9 +154,8 @@ class Test_PiP_Sticker_Opacity:
             self.click(L.edit.sub_tool.back)
             assert value == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -202,9 +197,8 @@ class Test_PiP_Sticker_Fade:
 
             assert self.is_exist(L.edit.fade.fade_in) and self.is_exist(L.edit.fade.fade_out)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -232,9 +226,8 @@ class Test_PiP_Sticker_Fade:
 
             assert HCompareImg(pic_base, pic_after).ssim_compare() < 1
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -265,9 +258,8 @@ class Test_PiP_Sticker_Fade:
 
             assert HCompareImg(pic_base, pic_after).ssim_compare() < 1
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -307,9 +299,8 @@ class Test_PiP_Sticker_Blending:
 
             assert self.is_exist(L.edit.fx_layer.filter.item(1))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -334,9 +325,8 @@ class Test_PiP_Sticker_Blending:
 
             assert HCompareImg(pic_base, pic_after).ssim_compare() < 1
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
