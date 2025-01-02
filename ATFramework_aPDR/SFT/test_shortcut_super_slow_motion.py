@@ -10,8 +10,8 @@ from ATFramework_aPDR.pages.locator.locator_type import *
 from ATFramework_aPDR.SFT.test_file import *
 
 
-@allure.epic("Shortcut - AI Video Upscaler")
-class Test_Shortcut_AI_Video_Upscaler:
+@allure.epic("Shortcut - Super Slow Motion")
+class Test_Shortcut_Super_Slow_Motion:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
@@ -40,7 +40,7 @@ class Test_Shortcut_AI_Video_Upscaler:
     @allure.title("Enter from Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            assert self.page_shortcut.enter_shortcut('AI Video Upscaler')
+            assert self.page_shortcut.enter_shortcut('Super Slow Motion')
 
         except Exception:
             traceback.print_exc()
@@ -53,7 +53,7 @@ class Test_Shortcut_AI_Video_Upscaler:
     def test_back_to_shortcut(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Video Upscaler')
+                self.page_shortcut.enter_shortcut('Super Slow Motion')
 
             assert self.page_shortcut.back_from_demo()
 
@@ -71,7 +71,7 @@ class Test_Shortcut_AI_Video_Upscaler:
             if self.last_is_fail(data):
                 pass
 
-            assert self.page_shortcut.enter_ai_feature('AI Video Upscaler')
+            assert self.page_shortcut.enter_ai_feature('Super Slow Motion')
 
         except Exception:
             traceback.print_exc()
@@ -84,7 +84,7 @@ class Test_Shortcut_AI_Video_Upscaler:
     def test_back_to_ai_creation(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_ai_feature('AI Video Upscaler')
+                self.page_shortcut.enter_ai_feature('Super Slow Motion')
 
             assert self.page_shortcut.back_from_demo()
 
@@ -101,7 +101,7 @@ class Test_Shortcut_AI_Video_Upscaler:
             if self.last_is_fail(data):
                 pass
 
-            assert self.page_shortcut.demo_dont_show_again('AI Video Upscaler')
+            assert self.page_shortcut.demo_dont_show_again('Super Slow Motion')
 
         except Exception:
             traceback.print_exc()
@@ -114,24 +114,39 @@ class Test_Shortcut_AI_Video_Upscaler:
     def test_reset_dont_show_again(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Video Upscaler', check=False)
+                self.page_shortcut.enter_shortcut('Super Slow Motion', check=False)
 
-            assert self.page_shortcut.reset_dont_show_again('AI Video Upscaler')
+            assert self.page_shortcut.reset_dont_show_again('Super Slow Motion')
 
         except Exception:
             traceback.print_exc()
             data['last_result'] = False
             raise
-
+        
     @allure.feature("Media Picker")
-    @allure.story("Enter")
-    @allure.title("Enter media picker")
-    def test_enter_media_picker(self, data):
+    @allure.story("Recommendation")
+    @allure.title("Close")
+    def test_recommendation_close(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Video Upscaler')
-                
-            assert self.page_shortcut.enter_media_picker()
+                self.page_shortcut.enter_shortcut('Super Slow Motion')
+
+            assert self.page_shortcut.recommendation_close()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+        
+    @allure.feature("Media Picker")
+    @allure.story("Recommendation")
+    @allure.title("Continue")
+    def test_recommendation_continue(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.recommendation_continue('Super Slow Motion')
 
         except Exception:
             traceback.print_exc()
@@ -144,7 +159,7 @@ class Test_Shortcut_AI_Video_Upscaler:
     def test_back_from_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('AI Video Upscaler')
+                self.page_shortcut.enter_media_picker('Super Slow Motion')
 
             assert self.page_shortcut.back_from_media_picker()
 
@@ -152,6 +167,53 @@ class Test_Shortcut_AI_Video_Upscaler:
             traceback.print_exc()
             data['last_result'] = False
             raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Recommendation")
+    @allure.title("Don't show again")
+    def test_recommendation_dont_show_again(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.recommendation_dont_show_again('Super Slow Motion')
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Recommendation")
+    @allure.title("Reset don't show again")
+    def test_recommendation_reset_dont_show_again(self, data):
+        try:
+            if self.last_is_fail(data):
+                pass
+
+            assert self.page_shortcut.recommendation_reset('Super Slow Motion')
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+    @allure.feature("Media Picker")
+    @allure.story("Enter")
+    @allure.title("Enter media picker")
+    def test_enter_media_picker(self, data):
+        try:
+            if self.last_is_fail(data):
+                self.page_shortcut.enter_shortcut('Super Slow Motion')
+                
+            assert self.page_shortcut.enter_media_picker()
+
+        except Exception:
+            traceback.print_exc()
+            data['last_result'] = False
+            raise
+
+
     #
     # @allure.feature("Media Picker")
     # @allure.story("Import")

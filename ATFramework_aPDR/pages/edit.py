@@ -695,9 +695,8 @@ class EditPage(BasePage):
             self.click_tool('Audio')
             self.click(find_string(audio_dict[audio_type]))
             return True
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     def select_music_tab(self, stock, audio_type=None):
@@ -732,9 +731,8 @@ class EditPage(BasePage):
                 if self.element(stock).get_attribute('selected') == 'false':
                     self.h_click(stock, 1)
                 return True
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
     def check_youtube_code(self):
@@ -747,9 +745,8 @@ class EditPage(BasePage):
             else:
                 return True
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
         finally:
@@ -775,9 +772,8 @@ class EditPage(BasePage):
             self.click_tool('Sticker')
             self.click(find_string(sticker_dict[sticker_type]))
             return True
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             return False
 
 
@@ -2228,9 +2224,8 @@ class EditPage(BasePage):
             else:
                 logger('Applied icon not found.')
                 return False
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             raise Exception
 
     def get_facilitate_usage_position(self):

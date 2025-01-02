@@ -47,9 +47,8 @@ class Test_Master_Video_Upscaler:
 
             assert not self.is_exist(id('cancel_button'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -67,8 +66,7 @@ class Test_Master_Video_Upscaler:
 
             assert self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"AI Video Upscaler")]'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

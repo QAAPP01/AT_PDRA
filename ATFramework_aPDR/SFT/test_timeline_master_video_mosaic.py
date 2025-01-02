@@ -9,9 +9,10 @@ from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.locator.locator_type import *
 from ATFramework_aPDR.SFT.test_file import *
 
-@allure.epic('Timeline Master Photo')
-@allure.feature('Cutout')
-class Test_Master_Photo_Cutout:
+
+@allure.epic('Timeline Master Video')
+@allure.feature('Auto Mosaic')
+class Test_Master_Video_Auto_Mosaic:
     @pytest.fixture(autouse=True)
     def init_shortcut(self, shortcut):
         self.page_main, self.page_edit, self.page_media, self.page_preference, self.page_shortcut = shortcut
@@ -35,14 +36,13 @@ class Test_Master_Photo_Cutout:
             return True
         return False
 
-    @allure.story('Back')
-    @allure.title('Toolbar back')
-    def test_toolbar_back(self, data):
+    @allure.story('Entry')
+    @allure.title('Enter Function')
+    def test_enter_function(self, data):
         try:
-            self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
-            self.click(L.edit.toolbar.sub_tool_back)
+            self.page_edit.create_project_and_enter_function("Auto Mosaic")
 
-            assert self.is_exist(L.edit.master.sub_tool('Cutout'))
+            assert self.is_exist(L.edit.master.sub_tool('Auto Mosaic'))
             self.page_edit.click_sub_tool('Cutout')
 
 
@@ -53,10 +53,10 @@ class Test_Master_Photo_Cutout:
 
     @allure.story('Remove Background')
     @allure.title('Apply')
-    def test_cutout_remove_background(self, data):
+    def test_remove_background(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.remove_background()
 
@@ -67,10 +67,10 @@ class Test_Master_Photo_Cutout:
 
     @allure.story('No Effect')
     @allure.title('Apply')
-    def test_cutout_no_effect(self, data):
+    def test_no_effect(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
                 self.page_edit.cutout.remove_background()
 
             assert self.page_edit.cutout.no_effect()
@@ -82,10 +82,10 @@ class Test_Master_Photo_Cutout:
 
     @allure.story('Change Background')
     @allure.title('Default Image')
-    def test_cutout_image_default_image(self, data):
+    def test_image_default_image(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.image_default_image()
 
@@ -96,10 +96,10 @@ class Test_Master_Photo_Cutout:
 
     @allure.story('Change Background')
     @allure.title('CL Image')
-    def test_cutout_image_change_cl_image(self, data):
+    def test_image_change_cl_image(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.image_change_cl_image(7)
 
@@ -110,10 +110,10 @@ class Test_Master_Photo_Cutout:
 
     @allure.story('Change Background')
     @allure.title('None')
-    def test_cutout_image_none(self, data):
+    def test_image_none(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.image_none()
 
@@ -124,10 +124,10 @@ class Test_Master_Photo_Cutout:
 
     @allure.story('Change Background')
     @allure.title('Custom Image')
-    def test_cutout_custom_image(self, data):
+    def test_custom_image(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.custom_image()
 
@@ -138,10 +138,10 @@ class Test_Master_Photo_Cutout:
 
     @allure.story('Change Background')
     @allure.title('Enter Text to Image')
-    def test_cutout_text_to_image(self, data):
+    def test_text_to_image(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.enter_TTI()
 
@@ -155,7 +155,7 @@ class Test_Master_Photo_Cutout:
     def test_text_to_image(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.animated_background()
 
@@ -169,7 +169,7 @@ class Test_Master_Photo_Cutout:
     def test_animated_none(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.animated_none()
 
@@ -183,7 +183,7 @@ class Test_Master_Photo_Cutout:
     def test_color_background(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.color_background()
 
@@ -197,7 +197,7 @@ class Test_Master_Photo_Cutout:
     def test_color_none(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
                 self.page_edit.cutout.color_background()
 
             assert self.page_edit.cutout.color_none()
@@ -212,7 +212,7 @@ class Test_Master_Photo_Cutout:
     def test_change_background_apply(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
                 self.page_edit.cutout.image_default_image()
 
             assert self.page_edit.cutout.change_background_apply()
@@ -227,7 +227,7 @@ class Test_Master_Photo_Cutout:
     def test_change_background_cancel(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_edit.create_project_and_enter_function("Cutout", media_type="photo", file_name=photo_9_16)
+                self.page_edit.create_project_and_enter_function("Cutout")
 
             assert self.page_edit.cutout.change_background_cancel()
 

@@ -44,9 +44,8 @@ class Test_Timeline_Close_Hint:
             self.click(id('tv_continue'))
             self.click(id('tv_hint'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -55,9 +54,8 @@ class Test_Timeline_Close_Hint:
         try:
             self.page_edit.add_pip_media('photo')
             self.click(id('iv_hint'))
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -74,9 +72,8 @@ class Test_Timeline_Close_Hint:
             self.click(xpath('(//*[@resource-id="com.cyberlink.powerdirector.DRA140225_01:id/source_image_view"])[2]'))
             self.click(L.import_media.media_library.apply)
             self.click(id('transition_hint'))
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -86,8 +83,7 @@ class Test_Timeline_Close_Hint:
             self.click(L.edit.menu.play)
             self.click(L.edit.preview.help_not_show_tip_again)
             self.driver.driver.back()
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

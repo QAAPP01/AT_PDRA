@@ -41,9 +41,8 @@ class Test_Shortcut_Trim:
         try:
             assert self.page_shortcut.enter_media_picker('Trim')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -57,9 +56,8 @@ class Test_Shortcut_Trim:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -73,9 +71,8 @@ class Test_Shortcut_Trim:
 
             assert self.page_shortcut.enter_trim_before_edit('Trim')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -89,9 +86,8 @@ class Test_Shortcut_Trim:
 
             assert self.page_shortcut.back_from_trim()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -105,9 +101,8 @@ class Test_Shortcut_Trim:
 
             assert self.page_shortcut.trim_and_import()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -121,9 +116,8 @@ class Test_Shortcut_Trim:
 
             assert self.page_shortcut.export_back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -137,9 +131,8 @@ class Test_Shortcut_Trim:
 
             assert self.page_shortcut.export()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -154,9 +147,8 @@ class Test_Shortcut_Trim:
 
             assert self.page_shortcut.export_back_to_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -172,8 +164,7 @@ class Test_Shortcut_Trim:
 
             assert self.page_shortcut.export_back_to_launcher()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

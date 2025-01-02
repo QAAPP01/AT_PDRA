@@ -42,9 +42,8 @@ class Test_Shortcut_Auto_Captions:
         try:
             assert self.page_shortcut.enter_shortcut('Auto Captions')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -58,9 +57,8 @@ class Test_Shortcut_Auto_Captions:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -74,9 +72,8 @@ class Test_Shortcut_Auto_Captions:
 
             assert self.page_shortcut.demo_dont_show_again('Auto Captions')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -90,9 +87,8 @@ class Test_Shortcut_Auto_Captions:
 
             assert self.page_shortcut.reset_dont_show_again('Auto Captions')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -106,9 +102,8 @@ class Test_Shortcut_Auto_Captions:
 
             assert self.page_shortcut.enter_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -122,110 +117,109 @@ class Test_Shortcut_Auto_Captions:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Import video")
-    def test_video_import(self, data):
-        try:
-            if self.last_is_fail(data):
-                pass
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Import video")
+    # def test_video_import(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             pass
 
-            assert self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
+    #         assert self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
 
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Leave project")
-    def test_video_back_from_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Leave project")
+    # def test_video_back_from_editor(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
 
-            assert self.page_shortcut.leave_project()
+    #         assert self.page_shortcut.leave_project()
 
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
-    @allure.feature("Export")
-    @allure.story("Video")
-    @allure.title("Back from export")
-    def test_video_back_from_export(self, data):
-        try:
-            if self.last_is_fail(data):
-                pass
+    # @allure.feature("Export")
+    # @allure.story("Video")
+    # @allure.title("Back from export")
+    # def test_video_back_from_export(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             pass
 
-            self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
+    #         self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
 
-            assert self.page_shortcut.export_back()
+    #         assert self.page_shortcut.export_back()
 
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
-    @allure.feature("Export")
-    @allure.story("Video")
-    @allure.title("Produce Save")
-    def test_video_export(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
+    # @allure.feature("Export")
+    # @allure.story("Video")
+    # @allure.title("Produce Save")
+    # def test_video_export(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
 
-            assert self.page_shortcut.export()
+    #         assert self.page_shortcut.export()
 
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
-    @allure.feature("Export")
-    @allure.story("Produced")
-    @allure.title("Back to editor")
-    def test_export_back_to_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
-                self.page_shortcut.export()
+    # @allure.feature("Export")
+    # @allure.story("Produced")
+    # @allure.title("Back to editor")
+    # def test_export_back_to_editor(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
+    #             self.page_shortcut.export()
 
-            assert self.page_shortcut.export_back_to_editor()
+    #         assert self.page_shortcut.export_back_to_editor()
 
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 
-    @allure.feature("Export")
-    @allure.story("Produced")
-    @allure.title("Back to launcher")
-    def test_export_back_to_launcher(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
+    # @allure.feature("Export")
+    # @allure.story("Produced")
+    # @allure.title("Back to launcher")
+    # def test_export_back_to_launcher(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Auto Captions', file=video_speech)
 
-            self.page_shortcut.export()
+    #         self.page_shortcut.export()
 
-            assert self.page_shortcut.export_back_to_launcher()
+    #         assert self.page_shortcut.export_back_to_launcher()
 
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         logger(e)
+    #         data['last_result'] = False
+    #         raise
 

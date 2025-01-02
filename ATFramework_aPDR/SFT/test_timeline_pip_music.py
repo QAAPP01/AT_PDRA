@@ -39,9 +39,8 @@ class Test_PiP_Import_Music:
         try:
             assert self.page_edit.music.start_with_music()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -83,9 +82,8 @@ class Test_PiP_Music_Volume:
             value = self.element(L.edit.adjust_sub.number).text
             assert value == '100'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -111,9 +109,8 @@ class Test_PiP_Music_Volume:
             value = self.element(L.edit.adjust_sub.number).text
             assert value == '0'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -137,9 +134,8 @@ class Test_PiP_Music_Volume:
             value = self.element(L.edit.adjust_sub.number).text
             assert value == '200'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -162,9 +158,8 @@ class Test_PiP_Music_Volume:
             self.click(L.edit.speed.mute_audio)
             assert self.element(L.edit.speed.mute_audio).get_attribute('selected') == 'true'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -187,9 +182,8 @@ class Test_PiP_Music_Volume:
             self.click(L.edit.speed.mute_audio)
             assert self.element(L.edit.speed.mute_audio).get_attribute('selected') == 'false'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -212,9 +206,8 @@ class Test_PiP_Music_Volume:
             self.click(L.edit.volume.fade_in)
             assert self.element(L.edit.volume.fade_in).get_attribute('selected') == 'true'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -237,9 +230,8 @@ class Test_PiP_Music_Volume:
             self.click(L.edit.volume.fade_in)
             assert self.element(L.edit.volume.fade_in).get_attribute('selected') == 'false'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -259,9 +251,8 @@ class Test_PiP_Music_Volume:
             self.click(L.edit.volume.fade_out)
             assert self.element(L.edit.volume.fade_out).get_attribute('selected') == 'true'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -282,9 +273,8 @@ class Test_PiP_Music_Volume:
             assert self.element(L.edit.volume.fade_out).get_attribute('selected') == 'false'
             self.click(L.edit.sub_tool.back)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -324,9 +314,8 @@ class Test_PiP_Music_Split:
             clip = self.elements(L.edit.timeline.item_view_thumbnail_view)
             assert len(clip) == 2
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -373,9 +362,8 @@ class Test_PiP_Music_AI_Voice_Chagner:
             pic_after = self.page_edit.get_preview_pic(L.edit.ai_audio_tool.ai_voice_changer_panel)
             assert not HCompareImg(pic_base, pic_after).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -400,9 +388,8 @@ class Test_PiP_Music_AI_Voice_Chagner:
             pic_after = self.page_edit.get_preview_pic(L.edit.ai_audio_tool.ai_voice_changer_panel)
             assert not HCompareImg(pic_base, pic_after).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -430,9 +417,8 @@ class Test_PiP_Music_AI_Voice_Chagner:
             assert self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
 
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -452,9 +438,8 @@ class Test_PiP_Music_AI_Voice_Chagner:
             self.click(L.edit.ai_audio_tool.voice_changer_on_off)
             assert self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -475,9 +460,8 @@ class Test_PiP_Music_AI_Voice_Chagner:
             self.click(L.edit.ai_audio_tool.voice_changer_on_off)
             assert self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true'
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -499,9 +483,8 @@ class Test_PiP_Music_AI_Voice_Chagner:
             self.click(L.edit.ai_audio_tool.cancel)
             assert self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -524,9 +507,8 @@ class Test_PiP_Music_AI_Voice_Chagner:
             self.click(L.edit.ai_audio_tool.ok)
             assert not self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 

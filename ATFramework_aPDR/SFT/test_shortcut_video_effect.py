@@ -42,9 +42,8 @@ class Test_Shortcut_Video_Effect:
         try:
             assert self.page_shortcut.enter_media_picker('AI Video Effect')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -58,9 +57,8 @@ class Test_Shortcut_Video_Effect:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -138,9 +136,8 @@ class Test_Shortcut_Video_Effect:
 
             assert self.page_shortcut.enter_editor('AI Video Effect')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -154,9 +151,8 @@ class Test_Shortcut_Video_Effect:
 
             assert self.page_shortcut.preview_play()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
         
@@ -170,9 +166,8 @@ class Test_Shortcut_Video_Effect:
 
             assert self.page_shortcut.preview_pause()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
     #
@@ -218,9 +213,8 @@ class Test_Shortcut_Video_Effect:
 
             assert self.page_shortcut.export_back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -234,9 +228,8 @@ class Test_Shortcut_Video_Effect:
 
             assert self.page_shortcut.export()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -251,9 +244,8 @@ class Test_Shortcut_Video_Effect:
 
             assert self.page_shortcut.export_back_to_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -269,8 +261,7 @@ class Test_Shortcut_Video_Effect:
 
             assert self.page_shortcut.export_back_to_launcher()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

@@ -13,6 +13,10 @@ from .test_shortcut_mosaic import *
 from .test_shortcut_ai_anime_video import *
 #AI Face Art
 from .test_shortcut_video_effect import *
+from .test_shortcut_crop_rotate import *
+from .test_shortcut_auto_caption import *
+from .test_shortcut_super_slow_motion import *
+
 
 from .test_shortcut_ai_art import *
 from .test_shortcut_ai_scene import *
@@ -27,10 +31,10 @@ from .test_shortcut_tempo_effect import *
 
 
 from .test_shortcut_filter import *
-from .test_shortcut_crop_rotate import *
 
 
-from .test_shortcut_auto_caption import *
+
+
 from .test_shortcut_speech_enhance import *
 from .test_shortcut_ai_denoise import *
 from .test_shortcut_voice_changer import *

@@ -40,9 +40,8 @@ class Test_Scan_Media:
             assert HCompareImg(img).is_not_black()
             driver.driver.back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -64,9 +63,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected, 60)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -94,9 +92,8 @@ class Test_Scan_Media:
 
             assert not HCompareImg(self.pic_search, pic_default).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -121,9 +118,8 @@ class Test_Scan_Media:
             assert HCompareImg(img).is_not_black()
             driver.driver.back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -147,9 +143,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -177,9 +172,8 @@ class Test_Scan_Media:
 
             assert not HCompareImg(self.pic_search, pic_default).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -201,9 +195,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -257,9 +250,8 @@ class Test_Scan_Media:
             assert HCompareImg(img).is_not_black()
             driver.driver.back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -281,9 +273,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -311,9 +302,8 @@ class Test_Scan_Media:
 
             assert not HCompareImg(self.pic_search, pic_default).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -338,9 +328,8 @@ class Test_Scan_Media:
             assert HCompareImg(img).is_not_black()
             driver.driver.back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -370,9 +359,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -400,9 +388,8 @@ class Test_Scan_Media:
 
             assert not HCompareImg(self.pic_search, pic_default).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -427,9 +414,8 @@ class Test_Scan_Media:
             assert HCompareImg(img).is_not_black()
             driver.driver.back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -451,9 +437,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -481,9 +466,8 @@ class Test_Scan_Media:
 
             assert not HCompareImg(self.pic_search, pic_default).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -508,9 +492,8 @@ class Test_Scan_Media:
             assert HCompareImg(img).is_not_black()
             driver.driver.back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -534,9 +517,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -564,9 +546,8 @@ class Test_Scan_Media:
 
             assert not HCompareImg(self.pic_search, pic_default).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -591,9 +572,8 @@ class Test_Scan_Media:
             assert HCompareImg(img).is_not_black()
             driver.driver.back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -615,9 +595,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -645,9 +624,8 @@ class Test_Scan_Media:
 
             assert not HCompareImg(self.pic_search, pic_default).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -672,9 +650,8 @@ class Test_Scan_Media:
             assert HCompareImg(img).is_not_black()
             driver.driver.back()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -696,9 +673,8 @@ class Test_Scan_Media:
 
             assert self.click(L.import_media.media_library.delete_selected)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
             driver.driver.launch_app()
 
@@ -726,9 +702,8 @@ class Test_Scan_Media:
 
             assert not HCompareImg(self.pic_search, pic_default).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             driver.driver.close_app()
 
             raise Exception

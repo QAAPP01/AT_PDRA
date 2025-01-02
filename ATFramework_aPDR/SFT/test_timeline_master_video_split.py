@@ -45,9 +45,8 @@ class Test_Master_Video_Split:
 
             assert self.page_edit.split()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -61,9 +60,8 @@ class Test_Master_Video_Split:
 
             assert self.page_edit.check_split_position()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -78,8 +76,7 @@ class Test_Master_Video_Split:
 
             assert self.page_edit.export()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise

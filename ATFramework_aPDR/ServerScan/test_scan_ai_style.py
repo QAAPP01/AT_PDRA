@@ -64,9 +64,8 @@ class Test_Scan_AI_Art:
 
             assert self.apply_style('Maid')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -76,9 +75,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Swimsuit')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -88,9 +86,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Sailor')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -100,9 +97,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Kitty')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -112,9 +108,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Bunny')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -124,9 +119,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Bikini')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -136,9 +130,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Sakura')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -148,9 +141,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Horror')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -160,9 +152,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('New Year')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -172,9 +163,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Student')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -184,9 +174,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Eastern')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -196,9 +185,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Princess')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -208,9 +196,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Celebration')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -220,9 +207,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('School')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -232,9 +218,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Cool')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -244,9 +229,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Santa')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -256,9 +240,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Reindeer')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -268,9 +251,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Cyberpunk')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -280,9 +262,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Military')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -292,9 +273,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Sparkle')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -304,9 +284,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Snow')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -316,9 +295,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Zombie')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -328,9 +306,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Winter')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -340,9 +317,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Soccer')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -352,9 +328,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Festival')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -364,9 +339,8 @@ class Test_Scan_AI_Art:
         try:
             assert self.apply_style('Armor')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
 
             raise
 
@@ -422,9 +396,8 @@ class Test_Scan_AI_Cartoon:
 
             assert self.apply_style('Elf')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -434,9 +407,8 @@ class Test_Scan_AI_Cartoon:
         try:
             assert self.apply_style('Police')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -446,9 +418,8 @@ class Test_Scan_AI_Cartoon:
         try:
             assert self.apply_style('Princess')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -458,9 +429,8 @@ class Test_Scan_AI_Cartoon:
         try:
             assert self.apply_style('Prince')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -470,9 +440,8 @@ class Test_Scan_AI_Cartoon:
         try:
             assert self.apply_style('Cowboy')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -482,9 +451,8 @@ class Test_Scan_AI_Cartoon:
         try:
             assert self.apply_style('School')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -494,9 +462,8 @@ class Test_Scan_AI_Cartoon:
         try:
             assert self.apply_style('Maid')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -506,9 +473,8 @@ class Test_Scan_AI_Cartoon:
         try:
             assert self.apply_style('Athlete')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -518,9 +484,8 @@ class Test_Scan_AI_Cartoon:
         try:
             assert self.apply_style('Warrior')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
 
             raise
 
@@ -578,9 +543,8 @@ class Test_Scan_AI_Sketch:
 
             assert self.apply_style('Oil Painting')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -590,9 +554,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Intricate')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -602,9 +565,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Minimalist')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -614,9 +576,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Lovely')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -626,9 +587,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Marker')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -638,9 +598,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Colorful')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -650,9 +609,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Pop')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -662,9 +620,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Crayon')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -674,9 +631,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Romantic')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -686,9 +642,8 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Sweet')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             self.relaunch(driver)
 
             raise
@@ -698,8 +653,7 @@ class Test_Scan_AI_Sketch:
         try:
             assert self.apply_style('Graffiti')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
 
             raise

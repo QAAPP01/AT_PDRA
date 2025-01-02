@@ -49,9 +49,8 @@ class Test_Shortcut_AI_Cartoon:
         try:
             assert self.page_shortcut.enter_ai_feature('AI Cartoon')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -66,9 +65,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -79,9 +77,8 @@ class Test_Shortcut_AI_Cartoon:
         try:
             assert self.page_shortcut.enter_shortcut('AI Cartoon')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -95,9 +92,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.back_from_demo()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -111,9 +107,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.demo_dont_show_again('AI Cartoon')
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -127,9 +122,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.enter_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -143,9 +137,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.back_from_media_picker()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -159,9 +152,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.enter_editor(shortcut_name='AI Cartoon', media_type='photo', file=photo_9_16)
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -175,9 +167,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.back_from_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -194,7 +185,7 @@ class Test_Shortcut_AI_Cartoon:
             data["pic_history"] = preview
             assert HCompareImg(preview).is_not_black()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -220,7 +211,7 @@ class Test_Shortcut_AI_Cartoon:
             preview = self.page_edit.get_preview_pic()
             assert HCompareImg(preview).is_not_black()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -247,7 +238,7 @@ class Test_Shortcut_AI_Cartoon:
             assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'true' and self.element(
                 L.main.shortcut.ai_art.compare).text == "Compare On"
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -275,7 +266,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(data["pic_before_compare"], data["pic_after_compare"]).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -307,7 +298,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(pic_after_drag, data["pic_after_compare"]).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -334,7 +325,7 @@ class Test_Shortcut_AI_Cartoon:
             assert self.element(L.main.shortcut.ai_art.compare).get_attribute('selected') == 'false' and self.element(
                 L.main.shortcut.ai_art.compare).text == "Compare Off"
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -360,7 +351,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert HCompareImg(pic_preview, data["pic_before_compare"]).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -385,7 +376,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.is_exist(find_string('History'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -411,7 +402,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert HCompareImg(preview, data["pic_history"]).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -435,7 +426,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not self.is_exist(find_string('History'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -458,7 +449,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.is_exist(find_string('Crop Photo'))
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -483,7 +474,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.is_exist(L.main.shortcut.ai_art.style_name())
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -515,7 +506,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_crop_original']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -548,7 +539,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -581,7 +572,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -614,7 +605,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -647,7 +638,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -680,7 +671,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -713,7 +704,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -748,7 +739,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -783,7 +774,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
@@ -815,9 +806,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert not HCompareImg(preview, data['pic_before_crop']).ssim_compare()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -833,9 +823,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.export_cancel()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -849,9 +838,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.export_save_image()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -866,9 +854,8 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.export_back_to_editor()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
 
@@ -884,8 +871,7 @@ class Test_Shortcut_AI_Cartoon:
 
             assert self.page_shortcut.export_back_to_launcher()
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc()
-            logger(e)
             data['last_result'] = False
             raise
