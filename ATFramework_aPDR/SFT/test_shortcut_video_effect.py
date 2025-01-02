@@ -131,7 +131,7 @@ class Test_Shortcut_Video_Effect:
     @allure.feature("Editor")
     @allure.story("Video")
     @allure.title("Import video")
-    def test_entry_editor(self, data):
+    def test_video_import(self, data):
         try:
             if self.last_is_fail(data):
                 pass
@@ -257,144 +257,15 @@ class Test_Shortcut_Video_Effect:
             data['last_result'] = False
             raise
 
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Import photo")
-    def test_photo_import(self, data):
-        try:
-            if self.last_is_fail(data):
-                pass
-            else:
-                self.page_shortcut.back_from_editor()
-
-            assert self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    # @allure.feature("Editor")
-    # @allure.story("Photo")
-    # @allure.title("Back from editor")
-    # def test_photo_back_from_editor(self, data):
-    #     try:
-    #         if self.last_is_fail(data):
-    #             self.page_shortcut.enter_editor('AI Video Effect')
-    #
-    #         assert self.page_shortcut.back_from_editor()
-    #
-    #     except Exception as e:
-    #         traceback.print_exc()
-    #         logger(e)
-    #         data['last_result'] = False
-    #         raise
-
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Preview play")
-    def test_photo_play_preview(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
-
-            assert self.page_shortcut.preview_play()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Preview pause")
-    def test_photo_pause_preview(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
-
-            assert self.page_shortcut.preview_pause()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    # @allure.feature("Editor")
-    # @allure.story("Photo")
-    # @allure.title("Preview beginning")
-    # def test_photo_preview_beginning(self, data):
-    #     try:
-    #         if self.last_is_fail(data):
-    #             self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
-    #
-    #         assert self.page_shortcut.preview_beginning()
-    #
-    #     except Exception as e:
-    #         traceback.print_exc()
-    #         logger(e)
-    #         data['last_result'] = False
-    #         raise
-    #
-    # @allure.feature("Editor")
-    # @allure.story("Photo")
-    # @allure.title("Preview ending")
-    # def test_photo_preview_ending(self, data):
-    #     try:
-    #         if self.last_is_fail(data):
-    #             self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
-    #
-    #         assert self.page_shortcut.preview_ending()
-    #
-    #     except Exception as e:
-    #         traceback.print_exc()
-    #         logger(e)
-    #         data['last_result'] = False
-    #         raise
-
-    @allure.feature("Export")
-    @allure.story("Photo")
-    @allure.title("Back from export")
-    def test_photo_back_from_export(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
-
-            assert self.page_shortcut.export_back()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Export")
-    @allure.story("Photo")
-    @allure.title("Produce save")
-    def test_photo_export(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
-
-            assert self.page_shortcut.export()
-
-        except Exception as e:
-            traceback.print_exc()
-            logger(e)
-            data['last_result'] = False
-            raise
-
     @allure.feature("Export")
     @allure.story("Produced")
     @allure.title("Back to launcher")
     def test_export_back_to_launcher(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Video Effect', media_type='photo', file=photo_9_16)
-                self.page_shortcut.export()
+                self.page_shortcut.enter_editor('AI Video Effect')
+
+            self.page_shortcut.export()
 
             assert self.page_shortcut.export_back_to_launcher()
 

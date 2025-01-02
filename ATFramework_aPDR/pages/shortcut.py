@@ -283,6 +283,8 @@ class Shortcut(BasePage):
             return False
 
     def check_editor(self):
+        if self.is_exist(id('recycler_view')):
+            self.driver.tap_screen_center()
         if self.is_exist(L.edit.menu.export) or self.is_exist(L.main.shortcut.save) or self.is_exist(id('btn_save_menu')) or self.is_exist(find_string('Export')):
             return True
         else:
@@ -448,7 +450,7 @@ class Shortcut(BasePage):
                 return False
 
             self.click(L.edit.menu.play)
-            if self.click(id('help_not_show_tip_again'), 0.5):
+            if self.click(id('help_not_show_tip_again'), 1):
                 self.click(id('btn_close'))
 
             self.pause_if_play()
