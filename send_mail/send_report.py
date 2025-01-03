@@ -416,10 +416,13 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
     failed_row_class = 'failed-row' if summary_info["failed"] > 0 else ''
 
     mail_body = html_report_header
-    mail_body += f'<h1 class="{"pass" if result == "[PASS]" else "fail" if result == "[FAIL]" else "skip"}">Test Result: {result}</h1>'
+    class_name = "pass" if result == "PASS" else "fail" if result == "FAIL" else "skip"
+    mail_body += f'<h1 class="{class_name}">Test Result: {result}</h1>'
     mail_body += f'<p><strong>Device:</strong> {device_id}</p>'
     mail_body += f'<p><strong>TR:</strong> {tr_number}</p>'
     mail_body += f'<p><strong>Build:</strong> {package_version}.{package_build_number}</p>'
+    if report_url:
+        mail_body += f'<p><a href="{report_url}" target="_blank">Access Full Report</a></p>'
     mail_body += '<h2>Test Summary:</h2>'
     mail_body += f'''
     <table class="summary-table">
@@ -453,8 +456,6 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
         </tr>
     </table>
     '''
-    if report_url:
-        mail_body += f'<a href="{report_url}" target="_blank">View Allure Report</a>'
 
     mail_body += html_report_tail
     return mail_body
