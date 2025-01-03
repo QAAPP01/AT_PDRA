@@ -398,14 +398,29 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
             }
             a {
                 display: inline-block;
-                padding: 10px 20px;
-                margin-top: 15px;
-                background-color: #3498db;
+                padding: 12px 24px;
+                margin-top: 20px;
+                background: linear-gradient(90deg, #4caf50, #81c784);
                 color: white;
                 text-decoration: none;
-                border-radius: 5px;
-                font-weight: bold;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 16px;
+                transition: all 0.3s ease-in-out;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
+            
+            a:hover {
+                background: linear-gradient(90deg, #388e3c, #66bb6a);
+                transform: translateY(-3px);
+                box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            }
+            
+            a:active {
+                transform: translateY(0);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
         </style>
     </head>
     <body>
