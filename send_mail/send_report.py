@@ -6,14 +6,14 @@ import shutil
 import zipfile
 import datetime
 import traceback
+from html import escape
 from os.path import basename
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from sendemail import send_mail
+from send_mail.sendemail import send_mail
 from ATFramework_aPDR.ATFramework.utils._google_api.google_api import GoogleApi
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import qr_operation
-
 
 
 def summary_report_header():
@@ -60,7 +60,7 @@ def summary_report_tail():
 def copy_rename(old_file_name, new_file_name, test_case_path, device_id):
     print(os.curdir)
     src_dir = os.path.join(test_case_path, "report/{}".format(device_id))
-    #dst_dir = os.path.join(os.curdir, "dest")
+    # dst_dir = os.path.join(os.curdir, "dest")
     dst_dir = os.path.dirname(__file__)
     src_file = os.path.join(src_dir, old_file_name)
     dst_file = os.path.join(dst_dir, old_file_name)
@@ -82,7 +82,7 @@ def auto_create_qr(param_dict, att_list):
     cwd = os.getcwd()
     file_dict = {}
     for i in range(len(att_list)):
-        file_dict[f"upload_files_{i+1}"] = os.path.join(cwd, att_list[i])
+        file_dict[f"upload_files_{i + 1}"] = os.path.join(cwd, att_list[i])
     param_dict["browser"] = "edge"
     param_dict["qr_dict"].update(file_dict)
     qr_operation.create_qr(param_dict)
@@ -116,8 +116,8 @@ def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_
     result = '[PASS]'
 
     opts = {'account': 'cltest.qaapp1@gmail.com', 'password': 'izjysnzxhygofgns',
-    # opts = {'account': 'cyberlinkqamc@gmail.com', 'password': 'qamc-1234',
-    # opts = {'account': 'cltqaappatreport@gmail.com', 'password': 'cyberlinkqa',
+            # opts = {'account': 'cyberlinkqamc@gmail.com', 'password': 'qamc-1234',
+            # opts = {'account': 'cltqaappatreport@gmail.com', 'password': 'cyberlinkqa',
             'to': '', 'subject': '',
             'from': 'ATServer', 'text': 'txt_content', 'html': 'html_content',
             'attachment': []}
@@ -127,9 +127,10 @@ def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_
     mail_body = html_report_header + summary_report_header()
     for device_id in udid_list:
         if os.path.isfile('{}/report/{}/SFT_Report.html'.format(test_case_path, device_id + '_' + tr_number)):
-            #backup and rename
-            copy_rename("SFT_Report.html", "SFT_Report_{}.html".format(device_id), test_case_path, device_id + '_' + tr_number)
-            #add to attachment list
+            # backup and rename
+            copy_rename("SFT_Report.html", "SFT_Report_{}.html".format(device_id), test_case_path,
+                        device_id + '_' + tr_number)
+            # add to attachment list
             opts['attachment'].append("SFT_Report_{}.html".format(device_id))
 
         if os.path.isfile('{}/report/{}_{}/SFT_Report_compare_{}_{}.html'.format(test_case_path, device_id, tr_number, previous_tr_number, tr_number)):
@@ -142,7 +143,10 @@ def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_
             pass_count += int(summary_dict['pass'])
             fail_count += int(summary_dict['fail'])
             na_count += int(summary_dict['na'])
-            mail_body += summary_report_add_row(summary_dict['title'], summary_dict['date'], summary_dict['time'], summary_dict['server'], summary_dict['os'], summary_dict['device'], summary_dict['version'], summary_dict['pass'], summary_dict['fail'], summary_dict['na'], summary_dict['skip'], summary_dict['duration'])
+            mail_body += summary_report_add_row(summary_dict['title'], summary_dict['date'], summary_dict['time'],
+                                                summary_dict['server'], summary_dict['os'], summary_dict['device'],
+                                                summary_dict['version'], summary_dict['pass'], summary_dict['fail'],
+                                                summary_dict['na'], summary_dict['skip'], summary_dict['duration'])
         else:
             return False
     mail_body += summary_report_tail() + html_report_tail
@@ -162,7 +166,7 @@ def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_
                            'build_day': datetime.date.today().strftime('%m%d'),
                            'test_result': f'{test_result_title} - {result} [PASS: {summary_dict["pass"]}, FAIL: {summary_dict["fail"]}]',
                            'test_result_details': f'Pass: {summary_dict["pass"]}\nFail: {summary_dict["fail"]}\nSkip: {summary_dict["skip"]}\nN/A: {summary_dict["na"]}\nTotal time: {summary_dict["duration"]}',
-                          }
+                           }
                }
     auto_report = True
     if result == '[SKIP]':
@@ -172,34 +176,34 @@ def send_report(test_result_title, udid_list, test_case_path, receiver_list, sr_
     # remove attachment files
     remove_attachment_file(opts['attachment'])
     print('compelte')
-    
+
     # initial google_api object
     sheet_name = f"{summary_dict['title']}"
-    #header = ['Date', 'Time', 'SR', 'Build_Ver', 'Build_No', 'Server', 'OS', 'Device', 'Version', 'Pass', 'Fail', 'Skip', 'N/A', 'Total time']
+    # header = ['Date', 'Time', 'SR', 'Build_Ver', 'Build_No', 'Server', 'OS', 'Device', 'Version', 'Pass', 'Fail', 'Skip', 'N/A', 'Total time']
     header_custom = ['Pass', 'Fail', 'Skip', 'N/A', 'Total time']
     obj_google_api = GoogleApi(sheet_name, header_custom)
     # add new record
-    new_record = {  'Date': summary_dict['date'], 
-                    'Time': summary_dict['time'], 
-                    'Script_Name': summary_dict['title'],
-                    'Script_Ver': script_version,
-                    'SR_No': sr_number, 
-                    'TR_No': tr_number,
-                    'Build_No': package_build_number,
-                    'Prod_Ver': package_version,      
-                    'Prod_Ver_Type': 'Prod',
-                    'OS': summary_dict['os'],  
-                    'OS_Ver': summary_dict['version'],
-                    'Device_ID': summary_dict['device'] }
+    new_record = {'Date': summary_dict['date'],
+                  'Time': summary_dict['time'],
+                  'Script_Name': summary_dict['title'],
+                  'Script_Ver': script_version,
+                  'SR_No': sr_number,
+                  'TR_No': tr_number,
+                  'Build_No': package_build_number,
+                  'Prod_Ver': package_version,
+                  'Prod_Ver_Type': 'Prod',
+                  'OS': summary_dict['os'],
+                  'OS_Ver': summary_dict['version'],
+                  'Device_ID': summary_dict['device']}
     obj_google_api.add_new_record(new_record)
-    #print(f'current row={obj_google_api.row_prev_record}')
+    # print(f'current row={obj_google_api.row_prev_record}')
 
     # update columns of previous record
     data = {'Pass': summary_dict['pass'], 'Fail': summary_dict['fail'], 'Skip':  summary_dict['skip'], 'N/A': summary_dict['na'], 'Total time': summary_dict['duration']}
     obj_google_api.update_columns(data)
     #
     print(f'Done.')
-    
+
     return True
 
 
@@ -263,11 +267,11 @@ def send_allure_report(report_url=None, update_to_sheet=True):
         summary_info = json.load(f)
 
     if summary_info["failed"] > 0:
-        result = '[FAIL]'
+        result = 'FAIL'
     elif summary_info["passed"] == 0 and summary_info["failed"] == 0:
-        result = '[SKIP]'
+        result = 'SKIP'
     else:
-        result = '[PASS]'
+        result = 'PASS'
 
     with open('report_info.json', 'r') as file:
         report_info = json.load(file)
@@ -337,14 +341,16 @@ def send_allure_report(report_url=None, update_to_sheet=True):
 
     return True
 
-def generate_mail_body(test_result_title, result, device_id, tr_number, package_version, package_build_number, summary_info, report_url=None):
+
+def generate_mail_body(test_result_title, result, device_id, tr_number, package_version, package_build_number,
+                       summary_info, report_url=None):
     html_report_header = '''
     <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ANSI">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
             body {
-                font-family: Calibri, sans-serif;
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
                 background-color: #f4f4f4;
                 color: #333;
                 padding: 20px;
@@ -397,30 +403,9 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
                 background-color: #ffcccc;
             }
             a {
-                display: inline-block;
-                padding: 12px 24px;
-                margin-top: 20px;
-                background: linear-gradient(90deg, #4caf50, #81c784);
-                color: white;
-                text-decoration: none;
-                border-radius: 8px;
-                font-weight: 600;
-                font-size: 16px;
-                transition: all 0.3s ease-in-out;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                color: orange;
+                font-weight: bold;
             }
-            
-            a:hover {
-                background: linear-gradient(90deg, #388e3c, #66bb6a);
-                transform: translateY(-3px);
-                box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-            }
-            
-            a:active {
-                transform: translateY(0);
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
         </style>
     </head>
     <body>
@@ -428,18 +413,29 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
 
     html_report_tail = '</body></html>'
 
+    # Determine the failed row CSS class
     failed_row_class = 'failed-row' if summary_info["failed"] > 0 else ''
 
+    # Escape HTML inputs to avoid injection issues
+    escaped_device_id = escape(device_id)
+    escaped_tr_number = escape(tr_number)
+    escaped_package_version = escape(package_version)
+    escaped_package_build_number = escape(str(package_build_number))
+
+    # Construct the mail body
     mail_body = html_report_header
-    class_name = "pass" if result == "PASS" else "fail" if result == "FAIL" else "skip"
-    mail_body += f'<h1 class="{class_name}">Test Result: {result}</h1>'
-    mail_body += f'<p><strong>Device:</strong> {device_id}</p>'
-    mail_body += f'<p><strong>TR:</strong> {tr_number}</p>'
-    mail_body += f'<p><strong>Build:</strong> {package_version}.{package_build_number}</p>'
+    mail_body += f'<h1 class="{"pass" if result == "PASS" else "fail" if result == "FAIL" else "skip"}">Test Result: {escape(result)}</h1>'
+    mail_body += f'<p><strong>Device:</strong> {escaped_device_id}</p>'
+    mail_body += f'<p><strong>TR:</strong> {escaped_tr_number}</p>'
+    mail_body += f'<p><strong>Build:</strong> {escaped_package_version}.{escaped_package_build_number}</p>'
+
+    # Add report URL if available
     if report_url:
-        mail_body += f'<p><a href="{report_url}" target="_blank">Access Full Report</a></p>'
-    mail_body += '<h2>Test Summary:</h2>'
-    mail_body += f'''
+        mail_body += f'<a href="{escape(report_url)}" target="_blank">View Full Report</a>'
+
+    # Add summary table
+    mail_body += '''
+    <h2>Test Summary:</h2>
     <table class="summary-table">
         <tr>
             <th>Test Metric</th>
@@ -447,30 +443,38 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
         </tr>
         <tr>
             <td>Total Tests</td>
-            <td>{summary_info["num_collected"]}</td>
+            <td>{num_collected}</td>
         </tr>
         <tr>
             <td>Passed</td>
-            <td>{summary_info["passed"]}</td>
+            <td>{passed}</td>
         </tr>
         <tr class="{failed_row_class}">
             <td>Failed</td>
-            <td>{summary_info["failed"]}</td>
+            <td>{failed}</td>
         </tr>
         <tr>
             <td>Error</td>
-            <td>{summary_info["error"]}</td>
+            <td>{error}</td>
         </tr>
         <tr>
             <td>Skipped</td>
-            <td>{summary_info["skipped"]}</td>
+            <td>{skipped}</td>
         </tr>
         <tr>
             <td>Duration</td>
-            <td>{summary_info["duration"]}</td>
+            <td>{duration}</td>
         </tr>
     </table>
-    '''
+    '''.format(
+        num_collected=escape(str(summary_info["num_collected"])),
+        passed=escape(str(summary_info["passed"])),
+        failed=escape(str(summary_info["failed"])),
+        error=escape(str(summary_info["error"])),
+        skipped=escape(str(summary_info["skipped"])),
+        duration=escape(str(summary_info["duration"])),
+        failed_row_class=failed_row_class
+    )
 
     mail_body += html_report_tail
     return mail_body
