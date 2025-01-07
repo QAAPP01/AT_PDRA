@@ -6,11 +6,12 @@ import shutil
 import zipfile
 import datetime
 import traceback
+from html import escape
 from os.path import basename
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from .sendemail import send_mail
+from send_mail.sendemail import send_mail
 from ATFramework_aPDR.ATFramework.utils._google_api.google_api import GoogleApi
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import qr_operation
 
@@ -266,11 +267,11 @@ def send_allure_report(report_url=None, update_to_sheet=True):
         summary_info = json.load(f)
 
     if summary_info["failed"] > 0:
-        result = '[FAIL]'
+        result = 'FAIL'
     elif summary_info["passed"] == 0 and summary_info["failed"] == 0:
-        result = '[SKIP]'
+        result = 'SKIP'
     else:
-        result = '[PASS]'
+        result = 'PASS'
 
     with open('report_info.json', 'r') as file:
         report_info = json.load(file)
@@ -340,14 +341,16 @@ def send_allure_report(report_url=None, update_to_sheet=True):
 
     return True
 
-def generate_mail_body(test_result_title, result, device_id, tr_number, package_version, package_build_number, summary_info, report_url=None):
+
+def generate_mail_body(test_result_title, result, device_id, tr_number, package_version, package_build_number,
+                       summary_info, report_url=None):
     html_report_header = '''
     <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ANSI">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
             body {
-                font-family: Calibri, sans-serif;
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
                 background-color: #f4f4f4;
                 color: #333;
                 padding: 20px;
@@ -400,13 +403,7 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
                 background-color: #ffcccc;
             }
             a {
-                display: inline-block;
-                padding: 10px 20px;
-                margin-top: 15px;
-                background-color: #3498db;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
+                color: orange;
                 font-weight: bold;
             }
         </style>
@@ -416,17 +413,29 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
 
     html_report_tail = '</body></html>'
 
+    # Determine the failed row CSS class
     failed_row_class = 'failed-row' if summary_info["failed"] > 0 else ''
 
+    # Escape HTML inputs to avoid injection issues
+    escaped_device_id = escape(device_id)
+    escaped_tr_number = escape(tr_number)
+    escaped_package_version = escape(package_version)
+    escaped_package_build_number = escape(str(package_build_number))
+
+    # Construct the mail body
     mail_body = html_report_header
-    mail_body += f'<h1 class="{"pass" if result == "[PASS]" else "fail" if result == "[FAIL]" else "skip"}">Test Result: {result}</h1>'
-    mail_body += f'<p><strong>Device:</strong> {device_id}</p>'
-    mail_body += f'<p><strong>TR:</strong> {tr_number}</p>'
-    mail_body += f'<p><strong>Build:</strong> {package_version}.{package_build_number}</p>'
+    mail_body += f'<h1 class="{"pass" if result == "PASS" else "fail" if result == "FAIL" else "skip"}">Test Result: {escape(result)}</h1>'
+    mail_body += f'<p><strong>Device:</strong> {escaped_device_id}</p>'
+    mail_body += f'<p><strong>TR:</strong> {escaped_tr_number}</p>'
+    mail_body += f'<p><strong>Build:</strong> {escaped_package_version}.{escaped_package_build_number}</p>'
+
+    # Add report URL if available
     if report_url:
-        mail_body += f'<a href="{report_url}" target="_blank">Access Full Report</a>'
-    mail_body += '<h2>Test Summary:</h2>'
-    mail_body += f'''
+        mail_body += f'<a href="{escape(report_url)}" target="_blank">View Full Report</a>'
+
+    # Add summary table
+    mail_body += '''
+    <h2>Test Summary:</h2>
     <table class="summary-table">
         <tr>
             <th>Test Metric</th>
@@ -434,30 +443,38 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
         </tr>
         <tr>
             <td>Total Tests</td>
-            <td>{summary_info["num_collected"]}</td>
+            <td>{num_collected}</td>
         </tr>
         <tr>
             <td>Passed</td>
-            <td>{summary_info["passed"]}</td>
+            <td>{passed}</td>
         </tr>
         <tr class="{failed_row_class}">
             <td>Failed</td>
-            <td>{summary_info["failed"]}</td>
+            <td>{failed}</td>
         </tr>
         <tr>
             <td>Error</td>
-            <td>{summary_info["error"]}</td>
+            <td>{error}</td>
         </tr>
         <tr>
             <td>Skipped</td>
-            <td>{summary_info["skipped"]}</td>
+            <td>{skipped}</td>
         </tr>
         <tr>
             <td>Duration</td>
-            <td>{summary_info["duration"]}</td>
+            <td>{duration}</td>
         </tr>
     </table>
-    '''
+    '''.format(
+        num_collected=escape(str(summary_info["num_collected"])),
+        passed=escape(str(summary_info["passed"])),
+        failed=escape(str(summary_info["failed"])),
+        error=escape(str(summary_info["error"])),
+        skipped=escape(str(summary_info["skipped"])),
+        duration=escape(str(summary_info["duration"])),
+        failed_row_class=failed_row_class
+    )
 
     mail_body += html_report_tail
     return mail_body
