@@ -6,7 +6,6 @@ import shutil
 import zipfile
 import datetime
 import traceback
-from html import escape
 from os.path import basename
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -240,7 +239,7 @@ def generate_allure_report(result_folder, report_folder, add_history=False):
     if add_history:
         move_allure_history(result_folder, report_folder)
     # os.system(f'allure generate {result_folder} --clean -o {report_folder}')
-    os.system(f'allure generate --single-file {result_folder} --clean -o {report_folder}-html')
+    os.system(f'allure generate --single-file {result_folder} --clean -o {report_folder}')
     return True
 
 
@@ -286,12 +285,12 @@ def send_allure_report(report_url=None, update_to_sheet=True):
     result_folder = report_info.get("result_folder")
     report_folder = report_info.get("report_folder")
 
+    generate_allure_report(result_folder, report_folder)
     if report_url:
         print(f"Report URL provided: {report_url}")
     else:
-        print("No report URL provided, generating local report...")
-        generate_allure_report(result_folder, report_folder)
-        opts['attachment'].append(f'{report_folder}-html\\index.html')
+        print("No report URL provided")
+        opts['attachment'].append(f'{report_folder}\\index.html')
 
     # Generate the HTML mail body
     mail_body = generate_mail_body(
@@ -340,7 +339,6 @@ def send_allure_report(report_url=None, update_to_sheet=True):
             traceback.print_exc()
 
     return True
-
 
 def generate_mail_body(test_result_title, result, device_id, tr_number, package_version, package_build_number,
                        summary_info, report_url=None):
@@ -413,28 +411,20 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
 
     html_report_tail = '</body></html>'
 
-    # Determine the failed row CSS class
     failed_row_class = 'failed-row' if summary_info["failed"] > 0 else ''
 
-    # Escape HTML inputs to avoid injection issues
-    escaped_device_id = escape(device_id)
-    escaped_tr_number = escape(tr_number)
-    escaped_package_version = escape(package_version)
-    escaped_package_build_number = escape(str(package_build_number))
-
-    # Construct the mail body
     mail_body = html_report_header
-    mail_body += f'<h1 class="{"pass" if result == "PASS" else "fail" if result == "FAIL" else "skip"}">Test Result: {escape(result)}</h1>'
-    mail_body += f'<p><strong>Device:</strong> {escaped_device_id}</p>'
-    mail_body += f'<p><strong>TR:</strong> {escaped_tr_number}</p>'
-    mail_body += f'<p><strong>Build:</strong> {escaped_package_version}.{escaped_package_build_number}</p>'
+    mail_body += f'<h1 class="{"pass" if result == "PASS" else "fail" if result == "FAIL" else "skip"}">Test Result: {result}</h1>'
+    mail_body += f'<p><strong>Device:</strong> {device_id}</p>'
+    mail_body += f'<p><strong>TR:</strong> {tr_number}</p>'
+    mail_body += f'<p><strong>Build:</strong> {package_version}.{package_build_number}</p>'
 
     # Add report URL if available
     if report_url:
-        mail_body += f'<a href="{escape(report_url)}" target="_blank">View Full Report</a>'
+        mail_body += f'<a href="{report_url}" target="_blank">View Full Report</a>'
 
     # Add summary table
-    mail_body += '''
+    mail_body += f'''
     <h2>Test Summary:</h2>
     <table class="summary-table">
         <tr>
@@ -442,39 +432,31 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
             <th>Count</th>
         </tr>
         <tr>
-            <td>Total Tests</td>
-            <td>{num_collected}</td>
+            <td>Total Cases</td>
+            <td>{summary_info["num_collected"]}</td>
         </tr>
         <tr>
             <td>Passed</td>
-            <td>{passed}</td>
+            <td>{summary_info["passed"]}</td>
         </tr>
         <tr class="{failed_row_class}">
             <td>Failed</td>
-            <td>{failed}</td>
+            <td>{summary_info["failed"]}</td>
         </tr>
         <tr>
             <td>Error</td>
-            <td>{error}</td>
+            <td>{summary_info["error"]}</td>
         </tr>
         <tr>
             <td>Skipped</td>
-            <td>{skipped}</td>
+            <td>{summary_info["skipped"]}</td>
         </tr>
         <tr>
             <td>Duration</td>
-            <td>{duration}</td>
+            <td>{summary_info["duration"]}</td>
         </tr>
     </table>
-    '''.format(
-        num_collected=escape(str(summary_info["num_collected"])),
-        passed=escape(str(summary_info["passed"])),
-        failed=escape(str(summary_info["failed"])),
-        error=escape(str(summary_info["error"])),
-        skipped=escape(str(summary_info["skipped"])),
-        duration=escape(str(summary_info["duration"])),
-        failed_row_class=failed_row_class
-    )
+    '''
 
     mail_body += html_report_tail
     return mail_body
