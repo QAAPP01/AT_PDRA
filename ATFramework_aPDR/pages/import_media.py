@@ -116,7 +116,7 @@ class MediaPage(BasePage):
                 logger(f'Invalid media type: {media_type}')
                 return False
 
-            self.click(L.import_media.media_library.apply)
+            self.click(L.import_media.media_library.apply, timeout=1)
 
             if check:
                 if not self.is_exist(xpath(f"//*[starts-with(@content-desc, '{aid_prefix}{file_name}')]")):
@@ -505,7 +505,6 @@ class MediaPage(BasePage):
             clips = self.elements(L.import_media.media_library.file_name(0))
             if any(clip.get_attribute('text') == file_name for clip in clips):
                 self.click(find_string(file_name))
-                self.h_click(L.import_media.media_library.apply, timeout=0.5)
                 return True
             self.h_swipe_element(clips[-1], clips[0], speed)
         logger(f'[Fail] Cannot find "{file_name}" within {retry} times')

@@ -176,7 +176,7 @@ def ensure_phone_dir_exists(phone_dir, device):
 
 def find_apk_in_directory(directory):
     if not os.path.isdir(directory):
-        print(f"Provided buildPath is not a directory: {directory}")
+        print(f"buildPath is not a directory or not authorized: {directory}")
         return None
 
     apk_files = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith(".apk")]
