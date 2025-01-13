@@ -562,7 +562,7 @@ class EditPage(BasePage):
             return False
 
     def enter_sub_tool(self, name, timeout=0.2, exclusive=None):
-        if not self.h_is_exist(L.edit.timeline.sub_tool, 3):
+        if not self.h_is_exist(L.edit.timeline.sub_tool, 2):
             logger("[Info] Cannot find sub tool menu")
             logger("[Info] Select the first clip")
             self.h_click(L.edit.timeline.clip())

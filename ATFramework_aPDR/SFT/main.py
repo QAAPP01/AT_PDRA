@@ -4,6 +4,7 @@ from .test_app_initial import *
 from .test_shortcut_trim import *
 from .test_shortcut_speed import *
 from .test_shortcut_cutout import *
+# Talking avatar
 from .test_shortcut_ai_music import *
 from .test_shortcut_image_enhancer import *
 from .test_shortcut_ai_video_enhancer import *
@@ -27,7 +28,6 @@ from .test_shortcut_ai_color import *
 from .test_shortcut_color_enhancer import *
 from .test_shortcut_body_effect import *
 
-from .test_shortcut_tempo_effect import *
 
 
 from .test_shortcut_filter import *
@@ -38,7 +38,6 @@ from .test_shortcut_filter import *
 from .test_shortcut_speech_enhance import *
 from .test_shortcut_ai_denoise import *
 from .test_shortcut_voice_changer import *
-from .test_shortcut_speed_curve import *
 
 
 
