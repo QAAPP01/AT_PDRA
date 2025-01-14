@@ -4677,7 +4677,8 @@ class Effect(BasePage):
             self.page_main.start_with_pip_photo()
         else:
             print('clip type is wrong')
-        self.page_edit.click_sub_tool('Effect')
+        self.page_edit.click_sub_tool('Effects')
+        self.page_edit.click_sub_tool('Effects')
         return self.is_exist(L.edit.sub_tool.effect.item)
 
     def effect_favorite_empty(self):
