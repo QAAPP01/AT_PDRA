@@ -14,12 +14,12 @@ from .conftest import TEST_MATERIAL_FOLDER, driver
 
 test_material_folder = TEST_MATERIAL_FOLDER
 ori_preview = None
-order = 3
+order = 6
 
-@allure.epic('Timeline_master')
-@allure.feature('Photo')
-@allure.story('Effect')
-class Test_master_Photo_Effect:
+@allure.epic('Timeline_Master_Photo')
+@allure.feature('Effects')
+@allure.story('Effects')
+class Test_Master_Photo_Effect:
 
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):

@@ -14,12 +14,12 @@ from .conftest import TEST_MATERIAL_FOLDER, driver
 
 test_material_folder = TEST_MATERIAL_FOLDER
 ori_preview = None
-order = 3
+order = 6
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Effect')
-class Test_PiP_Video_Effect:
+@allure.epic('Timeline_Master_Video')
+@allure.feature('Effects')
+@allure.story('Effects')
+class Test_Master_Video_Effect:
 
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
