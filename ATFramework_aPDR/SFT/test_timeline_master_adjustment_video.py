@@ -40,6 +40,7 @@ class Test_timeline_Video_Adjustment:
             self.page_main.enter_launcher()
             self.page_main.enter_timeline(skip_media=False)
             self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click(L.import_media.media_library.apply)
             self.page_edit.click_sub_tool('Adjust')
             assert self.is_exist(L.edit.edit_sub.option_list)
 
