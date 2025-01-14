@@ -52,30 +52,28 @@ pipeline {
         stage('Install Build') { // Stage for installing the build
             steps {
                 script {
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        try {
-                            // Ensure buildPath is provided
-                            if (!env.buildPath?.trim()) {
-                                error("Missing buildPath, unable to install APK")
-                            }
-                            echo "Installing APK from buildPath: ${env.buildPath}"
-
-                            // Execute the installation command
-                            def installCommand = "python install_pdra.py \"${env.buildPath}\""
-                            echo "Running installation command: ${installCommand}"
-                            def installResult = bat(script: installCommand, returnStatus: true)
-
-                            // Check installation result
-                            if (installResult != 0) {
-                                echo "Installation failed, exit code: ${installResult}"
-                                currentBuild.result = 'UNSTABLE'
-                            } else {
-                                echo "Installation successful"
-                            }
-                        } catch (Exception e) {
-                            echo "Unexpected error during installation: ${e.message}"
-                            currentBuild.result = 'UNSTABLE'
+                    try {
+                        // Ensure buildPath is provided
+                        if (!env.buildPath?.trim()) {
+                            error("Missing buildPath, unable to install APK")
                         }
+                        echo "Installing APK from buildPath: ${env.buildPath}"
+
+                        // Execute the installation command
+                        def installCommand = "python install_pdra.py \"${env.buildPath}\""
+                        echo "Running installation command: ${installCommand}"
+                        def installResult = bat(script: installCommand, returnStatus: true)
+
+                        // Check installation result
+                        if (installResult != 0) {
+                            echo "Installation failed, exit code: ${installResult}"
+                            currentBuild.result = 'UNSTABLE'
+                        } else {
+                            echo "Installation successful"
+                        }
+                    } catch (Exception e) {
+                        echo "Unexpected error during installation: ${e.message}"
+                        currentBuild.result = 'UNSTABLE'
                     }
                 }
             }
@@ -114,15 +112,17 @@ pipeline {
                             env.reportUrl = "Report generation failed"
                         }
 
-                        if (fileExists("${env.WORKSPACE}/allure-report/index.html")) {
+                        def sendReport = "${activateEnvCommand} && python send_mail/send_report.py --report_url \"${env.reportUrl}\""
+                        echo "Sending report mail: ${sendReport}"
+                        def sendReportResult = bat(script: sendReport, returnStatus: true)
+
+                        if (fileExists("${env.WORKSPACE}/sft-allure-report/index.html")) {
+                            archiveArtifacts artifacts: 'sft-allure-report/index.html', onlyIfSuccessful: true
+                            env.reportUrl = "${env.BUILD_URL}artifact/sft-allure-report/index.html"
                             echo "Allure Report successfully generated and accessible at: ${env.reportUrl}"
                         } else {
                             echo "Allure Report not found. Please check the generation process."
                         }
-
-                        def sendReport = "${activateEnvCommand} && python send_mail/send_report.py --report_url \"${env.reportUrl}\""
-                        echo "Sending report mail: ${sendReport}"
-                        def sendReportResult = bat(script: sendReport, returnStatus: true)
 
                         if (sendReportResult != 0) {
                             echo "Failed to send report mail and create QR, exit code: ${sendReportResult}"
@@ -148,13 +148,13 @@ pipeline {
                         ])
                         break
                     case 'FAILURE':
-                        sendCallback(env.atsBuildId, "ERROR", [
+                        sendCallback(env.atsBuildId, "FINISHED", [
                             result: "FAIL",
                             reportUrl: env.reportUrl ?: "Report not generated"
                         ])
                         break
                     case 'UNSTABLE':
-                        sendCallback(env.atsBuildId, "ERROR", [
+                        sendCallback(env.atsBuildId, "FINISHED", [
                             result: "UNSTABLE",
                             reportUrl: env.reportUrl ?: "Report not generated"
                         ])
