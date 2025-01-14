@@ -1,0 +1,21 @@
+01/03/2025 06:05:59 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 33) - 
+============<Init driver session>============
+01/03/2025 06:05:59 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 42) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'language': 'en', 'locale': 'US', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '600', 'appPackage': 'com.android.settings', 'udid': 'R5CTB22S05Y', 'systemPort': '8200'}
+01/03/2025 06:05:59 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 43) - connect to report instance
+01/03/2025 06:05:59 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 45) - set udid
+01/03/2025 06:05:59 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 48) - set testing material path
+01/03/2025 06:05:59 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 55) - creating driver.
+01/03/2025 06:06:22 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 58) - driver created!
+01/03/2025 06:06:22 PM <test_aPDR_ProfileScan_01.py> [setup_method](line 88) - 
+============<Setup Method>============
+01/03/2025 06:06:22 PM <test_aPDR_ProfileScan_01.py> [remove_pdr_projects](line 74) - 
+============<remove_pdr_projects>============
+01/03/2025 06:06:22 PM <test_aPDR_ProfileScan_01.py> [test_sce_00_01_01a](line 99) - [V] Install and reset app
+01/03/2025 06:06:23 PM <test_aPDR_ProfileScan_01.py> [test_sce_00_01_01a](line 101) - package path=C:\Users\AllenCW_Chen\PycharmProjects\AT_PDRA\ATFramework_aPDR\app\PowerDirector.apk
+01/03/2025 06:06:24 PM <test_aPDR_ProfileScan_01.py> [teardown_method](line 93) - 
+============<TearDown Method>============
+01/03/2025 06:06:24 PM <test_aPDR_ProfileScan_01.py> [teardown_class](line 84) - 
+============<Teardown>============
+01/03/2025 06:06:25 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 112) - 
+============<Init driver session>============
+01/03/2025 06:06:25 PM <test_aPDR_ProfileScan_01.py> [setup_class](line 121) - desired_caps={'platformName': 'Android', 'automationName': 'UiAutomator2', 'deviceName': 'Android', 'language': 'en', 'locale': 'US', 'noReset': 'true', 'autoLaunch': 'false', 'newCommandTimeout': '0', 'appPackage': 'com.cyberlink.powerdirector.DRA140225_01', 'appActivity': 'com.cyberlink.powerdirector.splash.SplashActivity', 'NoSign': True, 'udid': 'R5CTB22S05Y', 'systemPort': '8200'}
