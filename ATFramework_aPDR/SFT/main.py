@@ -32,7 +32,7 @@ from .test_shortcut_text_to_image import *
 
 from .test_timeline_close_hint import *
 
-# Master
+# Master Track
 from .test_timeline_master_video_media_picker import *
 from .test_timeline_master_video_split import *
 from .test_timeline_master_video_upscaler import *
