@@ -684,7 +684,7 @@ class EditPage(BasePage):
 
         audio_dict = {
             'Music': 'Music',
-            'SFX': 'Sound\nFX',
+            'SFX': 'Sound FX',
             'Voice Over': 'Voice-Over'
         }
         if audio_type not in audio_dict:
@@ -692,12 +692,15 @@ class EditPage(BasePage):
             return False
 
         try:
-            self.click_tool('Audio')
+            self.enter_main_tool('Audio')
             self.click(find_string(audio_dict[audio_type]))
             return True
         except Exception:
             traceback.print_exc()
             return False
+
+    def enter_sfx_library(self):
+        return self.enter_audio_library('SFX')
 
     def select_music_tab(self, stock, audio_type=None):
         if audio_type:
