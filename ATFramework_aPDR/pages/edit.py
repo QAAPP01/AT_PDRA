@@ -4678,7 +4678,7 @@ class Effect(BasePage):
         else:
             print('clip type is wrong')
         self.page_edit.click_sub_tool('Effects')
-        self.page_edit.click_sub_tool('Effects')
+        self.page_edit.enter_main_tool('Effects')
         return self.is_exist(L.edit.sub_tool.effect.item)
 
     def effect_favorite_empty(self):
@@ -4714,9 +4714,9 @@ class Effect(BasePage):
             self.elements(L.edit.sub_tool.effect.slider)[1].send_keys(100)
         elif order == 2:
             self.swipe_element(L.edit.edit_sub.parameter_panel, direction='up')
-            self.elements(L.edit.sub_tool.effect.slider)[2].send_keys(100)
+            self.elements(L.edit.sub_tool.effect.slider)[1].send_keys(100)
         elif order == 3:
-            self.elements(L.edit.sub_tool.effect.slider)[3].send_keys(13)
+            self.elements(L.edit.sub_tool.effect.slider)[2].send_keys(13)
         elif order == 4:
             self.elements(L.edit.sub_tool.effect.slider)[3].send_keys(22)
         pic_after = self.get_boundary_preview()
@@ -4761,7 +4761,8 @@ class Effect(BasePage):
 
     def effect_apply(self, order):
         self.click(L.edit.filter.apply)
-        self.page_edit.click_sub_tool('Effect')
+        self.page_edit.click_sub_tool('Effects')
+        self.page_edit.enter_main_tool('Effects')
         return self.elements(L.edit.sub_tool.effect.item)[order].get_attribute('selected') == 'true'
 
     def effect_none(self, order):
@@ -4770,7 +4771,8 @@ class Effect(BasePage):
 
     def effect_cancel(self, order):
         self.click(L.edit.filter.cancel)
-        self.page_edit.click_sub_tool('Effect')
+        self.page_edit.click_sub_tool('Effects')
+        self.page_edit.enter_main_tool('Effects')
         return self.elements(L.edit.sub_tool.effect.item)[order].get_attribute('selected') == 'true'
 
 

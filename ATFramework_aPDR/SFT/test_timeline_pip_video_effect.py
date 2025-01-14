@@ -14,11 +14,11 @@ from .conftest import TEST_MATERIAL_FOLDER, driver
 
 test_material_folder = TEST_MATERIAL_FOLDER
 ori_preview = None
-order = 3
+order = 6
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
-@allure.story('Effect')
+@allure.epic('Timeline_PiP_Video')
+@allure.feature('Effects')
+@allure.story('Effects')
 class Test_PiP_Video_Effect:
 
     @pytest.fixture(autouse=True)
@@ -108,6 +108,9 @@ class Test_PiP_Video_Effect:
             driver.driver.launch_app()
 
             self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.effect.effect_switch_category('Retro')
+            self.page_edit.effect.effect_select_effect(order)
+            self.page_edit.effect.effect_select_effect(order)
             raise Exception
 
     @allure.title('Old Movie_Parameter_Background Color')
@@ -122,6 +125,9 @@ class Test_PiP_Video_Effect:
             driver.driver.launch_app()
 
             self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.effect.effect_switch_category('Retro')
+            self.page_edit.effect.effect_select_effect(order)
+            self.page_edit.effect.effect_select_effect(order)
             raise Exception
 
     @allure.title('Old Movie_Parameter_Slider_Artifact Quantity')
@@ -136,6 +142,9 @@ class Test_PiP_Video_Effect:
             driver.driver.launch_app()
 
             self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.effect.effect_switch_category('Retro')
+            self.page_edit.effect.effect_select_effect(order)
+            self.page_edit.effect.effect_select_effect(order)
             raise Exception
 
     @allure.title('Old Movie_Parameter_Slider_Degree')
@@ -150,6 +159,9 @@ class Test_PiP_Video_Effect:
             driver.driver.launch_app()
 
             self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.effect.effect_switch_category('Retro')
+            self.page_edit.effect.effect_select_effect(order)
+            self.page_edit.effect.effect_select_effect(order)
             raise Exception
 
     @allure.title('Old Movie_Parameter_Slider_Noise')
@@ -178,6 +190,9 @@ class Test_PiP_Video_Effect:
             driver.driver.launch_app()
 
             self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.effect.effect_switch_category('Retro')
+            self.page_edit.effect.effect_select_effect(order)
+            self.page_edit.effect.effect_select_effect(order)
             raise Exception
 
     @allure.title('Old Movie_Parameter_Slider_Flicker')
@@ -206,6 +221,9 @@ class Test_PiP_Video_Effect:
             driver.driver.launch_app()
 
             self.page_edit.effect.start_with_effect('pip video')
+            self.page_edit.effect.effect_switch_category('Retro')
+            self.page_edit.effect.effect_select_effect(order)
+            self.page_edit.effect.effect_select_effect(order)
             raise Exception
 
     @allure.title('Add Favorite')

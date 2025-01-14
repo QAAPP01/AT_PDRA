@@ -14,11 +14,10 @@ from .conftest import TEST_MATERIAL_FOLDER, driver
 
 test_material_folder = TEST_MATERIAL_FOLDER
 ori_preview = None
-order = 3
+order = 6
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Photo')
-@allure.story('Effect')
+@allure.epic('Timeline_PiP_Photo')
+@allure.feature('Effects')
 class Test_PiP_Photo_Effect:
 
     @pytest.fixture(autouse=True)
@@ -34,7 +33,8 @@ class Test_PiP_Photo_Effect:
         self.is_not_exist = self.page_main.h_is_not_exist
         self.set_slider = self.page_edit.h_set_slider
 
-    @allure.title('Enter Effect')
+    @allure.story('Effects')
+    @allure.title('Enter Effects')
     def test_effect_enter_effect(self, driver):
         func_name = inspect.stack()[0][3]
         logger(f"\n[Start] {func_name}")
@@ -50,6 +50,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip photo')
             raise Exception
 
+    @allure.story('Favorite')
     @allure.title('Favorite Empty')
     def test_effect_favorite_empty(self, driver):
 
@@ -64,6 +65,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip photo')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Change Category')
     def test_effect_change_category(self, driver):
         func_name = inspect.stack()[0][3]
@@ -80,6 +82,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip photo')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Select Effect')
     def test_effect_select_effect(self, driver):
 
@@ -95,6 +98,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.effect_select_effect(2)
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Old Movie_Parameter_Front Color')
     def test_effect_parameter_front_color(self, driver):
 
@@ -109,6 +113,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip video')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Old Movie_Parameter_Background Color')
     def test_effect_parameter_background_color(self, driver):
 
@@ -123,6 +128,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip video')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Old Movie_Parameter_Slider_Artifact Quantity')
     def test_effect_parameter_slider_artifact_quantity(self, driver):
 
@@ -137,6 +143,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip video')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Old Movie_Parameter_Slider_Degree')
     def test_effect_parameter_slider_degree(self, driver):
 
@@ -151,6 +158,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip video')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Old Movie_Parameter_Slider_Noise')
     def test_effect_parameter_slider_noise(self, driver):
 
@@ -165,6 +173,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip video')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Old Movie_Parameter_Slider_Jitter')
     def test_effect_parameter_slider_jitter(self, driver):
 
@@ -179,6 +188,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip video')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Old Movie_Parameter_Slider_Flicker')
     def test_effect_parameter_slider_flicker(self, driver):
 
@@ -193,6 +203,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip video')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Parameter_Reset')
     def test_effect_parameter_reset(self, driver):
 
@@ -207,6 +218,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip video')
             raise Exception
 
+    @allure.story('Favorite')
     @allure.title('Add Favorite')
     def test_effect_add_favorite(self, driver):
 
@@ -222,6 +234,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip photo')
             raise Exception
 
+    @allure.story('Favorite')
     @allure.title('Remove Favorite')
     def test_effect_remove_favorite(self, driver):
 
@@ -236,6 +249,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip photo')
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('Apply')
     def test_effect_apply(self, driver):
 
@@ -249,6 +263,7 @@ class Test_PiP_Photo_Effect:
 
             raise Exception
 
+    @allure.story('Effects')
     @allure.title('None')
     def test_effect_none(self, driver):
 
@@ -263,6 +278,7 @@ class Test_PiP_Photo_Effect:
             self.page_edit.effect.start_with_effect('pip photo')
             raise Exception
 
+    @allure.story('Effect')
     @allure.title('Cancel')
     def test_effect_cancel(self, driver):
 
