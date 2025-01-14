@@ -31,7 +31,7 @@ class Test_Track_Limitation:
         data = {'last_result': True}
         yield data
 
-    def get_target_elements(self, xpath):
+    def get_root_element(self, xpath):
         try:
             page_source = self.driver.page_source
             root = etree.fromstring(page_source.encode('utf-8'))
@@ -45,19 +45,24 @@ class Test_Track_Limitation:
     PIP_LIMITATION = 20
 
     @allure.feature('Video')
-    @allure.story('Track Limitation')
+    @allure.story('Video')
+    @allure.title('Track Limitation')
     def test_timeline_limitation_video_track(self):
+        self.page_main.enter_timeline()
+
         for i in range(1, self.VIDEO_LIMITATION + 2):
-            with allure.step(f'[Step] Add 1 pip video, currently added {i} video tracks'):
-                self.page_edit.click_tool('Overlay')
+            with allure.step(f'[Step] Add {i} video tracks'):
+                self.page_edit.enter_main_tool('Overlay')
                 self.click(find_string('Video'))
                 self.click(L.import_media.media_library.media(index=1))
-                self.click(L.edit.sub_tool.back)
 
-        assert driver.get_text(L.import_media.device_limit.limit_title) == 'Video Overlay Maximum Exceeded'
+        assert self.element(L.import_media.device_limit.limit_title).text == 'Video Overlay Maximum Exceeded'
 
-        with allure.step('[Click] OK button'):
+        with allure.step('Close the limitation dialog'):
             self.click(L.import_media.device_limit.btn_remind_ok)
+
+        with allure.step('Back to launcher'):
+            self.page_edit.back_to_launcher()
 
     @allure.feature('Audio')
     @allure.story('Music')
@@ -75,9 +80,8 @@ class Test_Track_Limitation:
                     self.click(L.import_media.library_listview.download_song)
                 else:
                     self.click(L.import_media.library_listview.add)
-                self.click(id('btn_session_back_icon'))
 
-        target_elements = self.get_target_elements(TRACKS_XPATH)
+        target_elements = self.get_root_element(TRACKS_XPATH)
         assert target_elements[-1].attrib['index'] == str(self.AUDIO_LIMITATION), f"Got {target_elements[-1].attrib['index']}"
 
         with allure.step(f'[Step] Add 1 more audio'):
@@ -89,7 +93,7 @@ class Test_Track_Limitation:
                 self.click(L.import_media.library_listview.add)
             self.click(id('btn_session_back_icon'))
 
-        target_elements = self.get_target_elements(TRACKS_XPATH)
+        target_elements = self.get_root_element(TRACKS_XPATH)
         assert target_elements[0].attrib['index'] == '1', f"Got {target_elements[0].attrib['index']}"
 
     @allure.feature('PiP')
