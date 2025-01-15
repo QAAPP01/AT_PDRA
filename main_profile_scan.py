@@ -23,7 +23,7 @@ from send_mail.send_report import send_report
 #device_udid = ['ENU7N15B06006012'] # Samsung S6, S7:9886274c4131324644, Oppo:a886a7e6 P6: ENU7N15B09000259, 6P black: ENU7N15B06006012
 # device_udid = ['ENU7N15B09000259'] # Samsung S6, S7:9886274c4131324644, Oppo:a886a7e6 P6: ENU7N15B09000259, 6P black: ENU7N15B06006012
 # device_udid = ['8B5Y0TSU9'] # Pixel 3 XL
-device_udid = ['CB512E8ND9']  # Sony XZP
+device_udid = ['R5CTB22S05Y']  # SS A53
 system_port_default = 8200 #for Android
 parallel_device_count = 1
 project_name = 'ATFramework_aPDR'
@@ -33,21 +33,21 @@ platform_type_windows = 'Windows'
 platform_type = platform_type_windows
 report_list = []
 package_name = 'com.cyberlink.powerdirector.DRA140225_01'
-package_version = '10.3.0'              # Please update build version info manually if didn't use auto download
-package_build_number = '117116'         # Please update build version info manually if didn't use auto download
+package_version = '14.8.0'              # Please update build version info manually if didn't use auto download
+package_build_number = '2412270'         # Please update build version info manually if didn't use auto download
 
 # auto download paramenters
-sr_number = 'DRA220601-01'             # Please update build version info manually if didn't use auto download
+sr_number = 'DRA240814-01'             # Please update build version info manually if didn't use auto download
 auto_download = False
 #auto_download = True
-tr_number = 'TR220629-011'
-previous_tr_number = 'TR220629-011'              # Please update build version info manually
+tr_number = 'TR241227-019'
+previous_tr_number = 'TR240826-022'              # Please update build version info manually
 
 
 # mail report
 title_project = 'aPDR'
-# receiver_list = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "Nicklous_Chen@cyberlink.com"]
-receiver_list = ["angol_huang@cyberlink.com"]
+# receiver_list = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "allencw_chen@cyberlink.com", "hausen_lin@cyberlink.com", "amber_mai@@cyberlink.com"]
+receiver_list = ["allencw_chen@cyberlink.com"]
 
 # script_version = 'Testing'
 script_version = 'Debug'

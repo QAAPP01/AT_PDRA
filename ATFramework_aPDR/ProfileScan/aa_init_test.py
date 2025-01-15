@@ -6,10 +6,10 @@ class TestInit():
 
     def setup_class(cls):
         from .conftest import DRIVER_DESIRED_CAPS
-        
+        from .conftest import REPORT_INSTANCE
         print('Init. Test')
         print('REPORT_INSTANCE=', REPORT_INSTANCE)
-        cls.
+        cls.report = REPORT_INSTANCE
 
     def test_report_init(self):
         from configs import driver_config
@@ -17,9 +17,9 @@ class TestInit():
         print('Start to init. report')
         self.report.add_ovinfo("title", "aPDR_ProfileScan")
         self.report.add_ovinfo("os", "Android")
-        self.report.add_ovinfo("device", DRIVER_DESIRED_CAPS['udid'])
+        self.report.add_ovinfo("device", DRIVER_DESIRED_CAPS['udid']+"(Samsung S9+)")
         #self.report.add_ovinfo("version", driver_config.android_device_general['platformVersion'])
-        self.report.add_ovinfo("version", '9')
+        self.report.add_ovinfo("version", '11')
         self.report.add_ovinfo("duration", 'auto-fill')
 
     #@pytest.mark.skip
