@@ -93,23 +93,20 @@ class Test_Track_Limitation:
             for i in range(1, self.AUDIO_LIMITATION + 1):
                 with allure.step(f'[Step] Add {i} audio tracks'):
                     self.page_edit.enter_audio_library(audio_type='SFX')
-                    if not self.elements(L.import_media.library_listview.add):
-                        self.click(L.import_media.library_listview.frame_song)
+                    if not self.is_exist(id('library_unit_caption'), 10):
+                        raise Exception('Page loading timeout')
+                    if not self.is_exist(L.import_media.library_listview.add, 0.5):
                         self.click(L.import_media.library_listview.download_song)
-                    else:
-                        self.click(L.import_media.library_listview.add)
+                    self.click(L.import_media.library_listview.add, 10)
+                    self.click(id('btn_session_back_icon'))
 
             target_elements = self.get_root_element(self.TRACKS_XPATH)
             assert target_elements[-1].attrib['index'] == str(self.AUDIO_LIMITATION), f"Got {target_elements[-1].attrib['index']}"
 
             with allure.step(f'[Step] Add 1 more audio'):
                 self.page_edit.enter_audio_library(audio_type='SFX')
-                if not self.elements(L.import_media.library_listview.add):
-                    self.click(L.import_media.library_listview.frame_song)
-                    self.click(L.import_media.library_listview.download_song)
-                else:
-                    self.click(L.import_media.library_listview.add)
-                self.click(id('btn_session_back_icon'))
+                self.click(L.import_media.library_listview.add)
+            self.click(id('btn_session_back_icon'))
 
             target_elements = self.get_root_element(self.TRACKS_XPATH)
             assert target_elements[0].attrib['index'] == '1', f"Got {target_elements[0].attrib['index']}"
@@ -133,6 +130,7 @@ class Test_Track_Limitation:
                 self.page_main.enter_timeline()
 
             self.page_edit.enter_main_tool(name='Sticker')
+            time.sleep(0.5)
             for i in range(1, self.PIP_LIMITATION + 1):
                 with allure.step(f'[Step] Add {i} pip tracks'):
                     self.click(L.edit.main_tool.sticker.item())
