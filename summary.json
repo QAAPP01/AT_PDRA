@@ -1,8 +1,8 @@
 {
-    "num_collected": 833,
-    "passed": 395,
-    "failed": 421,
+    "num_collected": 850,
+    "passed": 478,
+    "failed": 355,
     "error": 17,
     "skipped": 0,
-    "duration": "9:38:40"
+    "duration": "8:24:18"
 }
