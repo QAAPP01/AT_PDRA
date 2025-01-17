@@ -18,8 +18,8 @@ ori_preview = None
 
 
 
-@allure.epic('Timeline_PiP')
-@allure.feature('Video')
+@allure.epic('Timeline__Master_Video')
+@allure.feature('Filter')
 @allure.story('Filter')
 class Test_PiP_Video_Filter:
     @pytest.fixture(autouse=True)
@@ -48,7 +48,7 @@ class Test_PiP_Video_Filter:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.filter.start_with_filter('pip video')
+            self.page_edit.filter.start_with_filter('master video')
             raise Exception
 
     @allure.title('Favorite Empty')
@@ -62,7 +62,7 @@ class Test_PiP_Video_Filter:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.filter.start_with_filter('pip video')
+            self.page_edit.filter.start_with_filter('master video')
             raise Exception
 
     @allure.title('Change Category')
@@ -71,14 +71,14 @@ class Test_PiP_Video_Filter:
         logger(f"\n[Start] {func_name}")
 
         try:
-            assert self.page_edit.filter.filter_switch_category(3)
+            assert self.page_edit.filter.filter_switch_category(2)
 
         except Exception:
             traceback.print_exc()
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.filter.start_with_filter('pip video')
+            self.page_edit.filter.start_with_filter('master video')
             raise Exception
 
     @allure.title('Select Filter')
@@ -92,7 +92,7 @@ class Test_PiP_Video_Filter:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.filter.start_with_filter('pip video')
+            self.page_edit.filter.start_with_filter('master video')
             self.page_edit.filter.filter_select_filter(2)
             raise Exception
 
@@ -107,7 +107,7 @@ class Test_PiP_Video_Filter:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.filter.start_with_filter('pip video')
+            self.page_edit.filter.start_with_filter('master video')
             raise Exception
 
     @allure.title('Add Favorite')
@@ -121,7 +121,7 @@ class Test_PiP_Video_Filter:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.filter.start_with_filter('pip video')
+            self.page_edit.filter.start_with_filter('master video')
             raise Exception
 
     @allure.title('Remove Favorite')
@@ -135,7 +135,7 @@ class Test_PiP_Video_Filter:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.filter.start_with_filter('pip video')
+            self.page_edit.filter.start_with_filter('master video')
             raise Exception
 
     @allure.title('Apply')
@@ -162,7 +162,7 @@ class Test_PiP_Video_Filter:
             driver.driver.close_app()
             driver.driver.launch_app()
 
-            self.page_edit.filter.start_with_filter('pip video')
+            self.page_edit.filter.start_with_filter('master video')
             raise Exception
 
     @allure.title('Cancel')
@@ -173,8 +173,4 @@ class Test_PiP_Video_Filter:
 
         except Exception:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.filter.start_with_filter('pip video')
             raise Exception

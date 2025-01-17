@@ -217,7 +217,8 @@ class Filter:
     none = id('btn_none')
     cancel = id('btn_cancel')
     favorite_empty_message = id('hint_text_view')
-
+    fliters = id('top_area')
+    pro_tag = id('itemPremium')
     @staticmethod
     def filter(index=1):
         if index:

@@ -1267,7 +1267,7 @@ class MainPage(BasePage):
 
     def start_with_master_photo(self, folder='00PDRa_Testing_Material', photo='jpg.jpg', selected=True):
         try:
-            self.enter_launcher()
+            # self.enter_launcher()
             self.enter_timeline(skip_media=False)
             self.page_media.select_local_photo(folder, photo)
             self.click(L.import_media.media_library.apply)

@@ -12,8 +12,8 @@ import time
 from ATFramework_aPDR.ATFramework.utils._ecl_operation import ecl_operation
 from send_mail.send_report import send_report
 
-# deviceName = "R5CT32Q3WQN"
-deviceName = "R5CW31G76ST"
+deviceName = "R5CT32Q3WQN"
+# deviceName = "R5CW31G76ST"
 device_udid = [deviceName]
 system_port_default = 8200  # for Android
 parallel_device_count = 1
