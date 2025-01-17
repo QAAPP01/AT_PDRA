@@ -130,8 +130,8 @@ class Test_Track_Limitation:
                 self.page_main.enter_timeline()
 
             self.page_edit.enter_main_tool(name='Sticker')
-            time.sleep(0.5)
-            for i in range(1, self.PIP_LIMITATION + 1):
+            time.sleep(1)
+            for i in range(1, self.PIP_LIMITATION + 2):
                 with allure.step(f'[Step] Add {i} pip tracks'):
                     self.click(L.edit.main_tool.sticker.item())
             self.click(L.edit.pip.Text.back)
