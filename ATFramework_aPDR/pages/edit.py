@@ -4608,7 +4608,8 @@ class Filter(BasePage):
             self.page_main.start_with_pip_photo()
         else:
             print('clip type is wrong')
-        self.page_edit.click_sub_tool('Filter')
+        self.page_edit.click_sub_tool('Effects')
+        self.page_edit.enter_main_tool('Filter')
         return self.is_exist(L.edit.filter.item)
 
     def filter_select_filter(self, order=0):
@@ -4654,7 +4655,8 @@ class Filter(BasePage):
 
     def filter_none(self):
         pic_base = self.get_boundary_preview()
-        self.page_edit.click_sub_tool('Filter')
+        self.page_edit.click_sub_tool('Effects')
+        self.page_edit.enter_main_tool('Filter')
         self.click(L.edit.filter.none)
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).histogram_compare(1)
