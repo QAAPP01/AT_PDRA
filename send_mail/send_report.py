@@ -8,6 +8,8 @@ import datetime
 import traceback
 from os.path import basename
 
+import requests
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from send_mail.sendemail import send_mail
@@ -304,6 +306,33 @@ def send_allure_report(report_url=None, update_to_sheet=True):
     opts['html'] = mail_body
 
     send_mail(opts)
+
+    # U group
+    url = "https://u-api.cyberlink.com/api/chat/send-message.action"
+
+    # 設定 API 請求參數
+    params = {
+        "token": "62c4f9c6-35a7-49e3-8773-cd21cafb0bbd",
+        "groupId": "1423020765258714979",
+        "text": f"""PDRA BFT Test Result: {result}
+                    TR: {tr_number}
+                    Build: {package_version}.{package_build_number}
+                    Passed: {summary_info['passed']}
+                    Failed: {summary_info.get('failed', 0) + summary_info.get('error', 0)}
+                    Skipped: {summary_info['skipped']}
+                    N/A: {summary_info['num_collected'] - summary_info['passed'] - summary_info.get('failed', 0) - summary_info.get('error', 0) - summary_info['skipped']}
+                    Total time: {summary_info['duration']}"""
+    }
+
+    # 發送請求並處理回應
+    response = requests.get(url, params=params)
+
+    # 檢查回應狀態碼
+    if response.status_code == 200:
+        print("U訊息傳送成功:")
+    else:
+        print(f"U傳送失敗，status code: {response.status_code}")
+
 
     if update_to_sheet:
         try:
