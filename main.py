@@ -37,7 +37,7 @@ report_list = []
 # ======================================================================================================================
 # [Report Mail Setting]
 title_project = 'aPDR'
-receiver = ["bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com", "Amber_Mai@cyberlink.com"]
+receiver = ["ChiaChang_Su@cyberlink.com", "amber_tseng@cyberlink.com", "Neo_Shen@cyberlink.com", "bally_hsu@cyberlink.com", "biaggi_li@cyberlink.com", "angol_huang@cyberlink.com", "hausen_lin@cyberlink.com", "AllenCW_Chen@cyberlink.com", "Amber_Mai@cyberlink.com"]
 # receiver = ['hausen_lin@cyberlink.com']
 
 script_version = 'Testing'
