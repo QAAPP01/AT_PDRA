@@ -53,12 +53,19 @@ pipeline {
             steps {
                 script {
                     echo "Pulling latest code from repository..."
-                    def pullCommand = "git pull origin Release"
-                    def pullResult = bat(script: pullCommand, returnStatus: true)
+
+                    // Checkout
+                    echo "Switching to branch: Release"
+                    def checkoutResult = bat(script: "git checkout Release", returnStatus: true)
+                    if (checkoutResult != 0) {
+                        error("Failed to switch to branch 'Release'. Please ensure the branch exists.")
+                    }
+
+                    // Pull latest
+                    echo "Pulling latest code from branch: Release"
+                    def pullResult = bat(script: "git pull origin Release", returnStatus: true)
                     if (pullResult != 0) {
                         error("Failed to pull latest code. Please check your Git repository and connection.")
-                    } else {
-                        echo "Successfully pulled the latest code."
                     }
                 }
             }
