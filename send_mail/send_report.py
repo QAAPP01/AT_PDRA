@@ -342,7 +342,8 @@ def send_allure_report(report_url=None, update_to_sheet=True):
                 f"Failed: {summary_info.get('failed', 0) + summary_info.get('error', 0)}\n"
                 f"Skipped: {summary_info['skipped']}\n"
                 f"N/A: {summary_info['num_collected'] - summary_info['passed'] - summary_info.get('failed', 0) - summary_info.get('error', 0) - summary_info['skipped']}\n"
-                f"Total time: {summary_info['duration']}"
+                f"Total time: {summary_info['duration']}\n"
+                f"Report URL: {report_url if report_url else 'No report URL provided'}\n"
     }
 
     # 發送請求並處理回應
