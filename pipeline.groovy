@@ -49,6 +49,20 @@ pipeline {
                 }
             }
         }
+        stage('Pull Latest Code') { // Pull from origin release
+            steps {
+                script {
+                    echo "Pulling latest code from repository..."
+                    def pullCommand = "git pull origin Release"
+                    def pullResult = bat(script: pullCommand, returnStatus: true)
+                    if (pullResult != 0) {
+                        error("Failed to pull latest code. Please check your Git repository and connection.")
+                    } else {
+                        echo "Successfully pulled the latest code."
+                    }
+                }
+            }
+        }
         stage('Install Build') { // Stage for installing the build
             steps {
                 script {

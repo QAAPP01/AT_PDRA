@@ -327,22 +327,22 @@ def send_allure_report(report_url=None, update_to_sheet=True):
 
     send_mail(opts)
 
-    # U group
+    # Send U message
     url = "https://u-api.cyberlink.com/api/chat/send-message.action"
 
     # 設定 API 請求參數
     params = {
         "token": "62c4f9c6-35a7-49e3-8773-cd21cafb0bbd",
         "groupId": "1423020765258714979",
-        "text": f"""PDRA BFT Test Result: {result}
-        
-                TR: {tr_number}
-                Build: {package_version}.{package_build_number}
-                Passed: {summary_info['passed']}
-                Failed: {summary_info.get('failed', 0) + summary_info.get('error', 0)}
-                Skipped: {summary_info['skipped']}
-                N/A: {summary_info['num_collected'] - summary_info['passed'] - summary_info.get('failed', 0) - summary_info.get('error', 0) - summary_info['skipped']}
-                Total time: {summary_info['duration']}"""
+        "text": f"PDRA BFT Test Result: {result}\n"
+                "\n"
+                f"TR: {tr_number}\n"
+                f"Build: {package_version}.{package_build_number}\n"
+                f"Passed: {summary_info['passed']}\n"
+                f"Failed: {summary_info.get('failed', 0) + summary_info.get('error', 0)}\n"
+                f"Skipped: {summary_info['skipped']}\n"
+                f"N/A: {summary_info['num_collected'] - summary_info['passed'] - summary_info.get('failed', 0) - summary_info.get('error', 0) - summary_info['skipped']}\n"
+                f"Total time: {summary_info['duration']}"
     }
 
     # 發送請求並處理回應
