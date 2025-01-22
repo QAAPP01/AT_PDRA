@@ -335,13 +335,14 @@ def send_allure_report(report_url=None, update_to_sheet=True):
         "token": "62c4f9c6-35a7-49e3-8773-cd21cafb0bbd",
         "groupId": "1423020765258714979",
         "text": f"""PDRA BFT Test Result: {result}
-                    TR: {tr_number}
-                    Build: {package_version}.{package_build_number}
-                    Passed: {summary_info['passed']}
-                    Failed: {summary_info.get('failed', 0) + summary_info.get('error', 0)}
-                    Skipped: {summary_info['skipped']}
-                    N/A: {summary_info['num_collected'] - summary_info['passed'] - summary_info.get('failed', 0) - summary_info.get('error', 0) - summary_info['skipped']}
-                    Total time: {summary_info['duration']}"""
+        
+                TR: {tr_number}
+                Build: {package_version}.{package_build_number}
+                Passed: {summary_info['passed']}
+                Failed: {summary_info.get('failed', 0) + summary_info.get('error', 0)}
+                Skipped: {summary_info['skipped']}
+                N/A: {summary_info['num_collected'] - summary_info['passed'] - summary_info.get('failed', 0) - summary_info.get('error', 0) - summary_info['skipped']}
+                Total time: {summary_info['duration']}"""
     }
 
     # 發送請求並處理回應
