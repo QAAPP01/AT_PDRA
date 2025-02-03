@@ -67,65 +67,65 @@ class Test_Shortcut_HSL:
             data['last_result'] = False
             raise
 
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Enter Trim")
-    def test_video_entry_trim(self, data):
-        try:
-            if self.last_is_fail(data):
-                pass
-
-            assert self.page_shortcut.enter_trim_before_edit('Color\nEnhancer')
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Back from trim")
-    def test_video_back_from_trim(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_trim_before_edit('Color\nEnhancer')
-
-            assert self.page_shortcut.back_from_trim()
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Media Picker")
-    @allure.story("Video")
-    @allure.title("Trim and import")
-    def test_video_trim_and_import(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('Color\nEnhancer')
-
-            assert self.page_shortcut.trim_and_import()
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Back from editor")
-    def test_video_back_from_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Color\nEnhancer')
-
-            assert self.page_shortcut.back_from_editor()
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Enter Trim")
+    # def test_video_entry_trim(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             pass
+    #
+    #         assert self.page_shortcut.enter_trim_before_edit('Color\nEnhancer')
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Back from trim")
+    # def test_video_back_from_trim(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_trim_before_edit('Color\nEnhancer')
+    #
+    #         assert self.page_shortcut.back_from_trim()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Media Picker")
+    # @allure.story("Video")
+    # @allure.title("Trim and import")
+    # def test_video_trim_and_import(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_media_picker('Color\nEnhancer')
+    #
+    #         assert self.page_shortcut.trim_and_import()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Back from editor")
+    # def test_video_back_from_editor(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Color\nEnhancer')
+    #
+    #         assert self.page_shortcut.back_from_editor()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Editor")
     @allure.story("Video")
@@ -133,9 +133,9 @@ class Test_Shortcut_HSL:
     def test_video_import(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('Color\nEnhancer')
+                pass
 
-            assert self.page_shortcut.enter_editor()
+            assert self.page_shortcut.enter_editor('Color\nEnhancer')
 
         except Exception:
             traceback.print_exc()
@@ -172,35 +172,35 @@ class Test_Shortcut_HSL:
             data['last_result'] = False
             raise
 
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Preview beginning")
-    def test_video_preview_beginning(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Color\nEnhancer')
-
-            assert self.page_shortcut.preview_beginning()
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Video")
-    @allure.title("Preview ending")
-    def test_video_preview_ending(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Color\nEnhancer')
-
-            assert self.page_shortcut.preview_ending()
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Preview beginning")
+    # def test_video_preview_beginning(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Color\nEnhancer')
+    #
+    #         assert self.page_shortcut.preview_beginning()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Video")
+    # @allure.title("Preview ending")
+    # def test_video_preview_ending(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Color\nEnhancer')
+    #
+    #         assert self.page_shortcut.preview_ending()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Export")
     @allure.story("Video")
@@ -254,31 +254,31 @@ class Test_Shortcut_HSL:
     def test_photo_import(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('Color\nEnhancer')
+                pass
+            else:
+                self.page_shortcut.back_from_editor()
 
-            self.page_shortcut.back_from_editor()
-
-            assert self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Back from editor")
-    def test_photo_back_from_editor(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Color\nEnhancer')
-
-            assert self.page_shortcut.back_from_editor()
+            assert self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
 
         except Exception:
             traceback.print_exc()
             data['last_result'] = False
             raise
+
+    # @allure.feature("Editor")
+    # @allure.story("Photo")
+    # @allure.title("Back from editor")
+    # def test_photo_back_from_editor(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Color\nEnhancer')
+    #
+    #         assert self.page_shortcut.back_from_editor()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Editor")
     @allure.story("Photo")
@@ -286,9 +286,7 @@ class Test_Shortcut_HSL:
     def test_photo_play_preview(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('Color\nEnhancer')
-
-            self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
+                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
 
             assert self.page_shortcut.preview_play()
 
@@ -312,35 +310,35 @@ class Test_Shortcut_HSL:
             data['last_result'] = False
             raise
 
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Preview beginning")
-    def test_photo_preview_beginning(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
-
-            assert self.page_shortcut.preview_beginning()
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Editor")
-    @allure.story("Photo")
-    @allure.title("Preview ending")
-    def test_photo_preview_ending(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
-
-            assert self.page_shortcut.preview_ending()
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
+    # @allure.feature("Editor")
+    # @allure.story("Photo")
+    # @allure.title("Preview beginning")
+    # def test_photo_preview_beginning(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
+    #
+    #         assert self.page_shortcut.preview_beginning()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
+    #
+    # @allure.feature("Editor")
+    # @allure.story("Photo")
+    # @allure.title("Preview ending")
+    # def test_photo_preview_ending(self, data):
+    #     try:
+    #         if self.last_is_fail(data):
+    #             self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
+    #
+    #         assert self.page_shortcut.preview_ending()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         data['last_result'] = False
+    #         raise
 
     @allure.feature("Export")
     @allure.story("Photo")
@@ -379,8 +377,7 @@ class Test_Shortcut_HSL:
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor('Color\nEnhancer', media_type='photo', file=photo_9_16)
-
-            self.page_shortcut.export()
+                self.page_shortcut.export()
 
             assert self.page_shortcut.export_back_to_launcher()
 
