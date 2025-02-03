@@ -65,17 +65,17 @@ class Shortcut(BasePage):
                 #             self.h_swipe_element(shortcuts_name[-1], shortcuts_name[0], 3)
 
             if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
-                if audio_tool:
-                    audio_tool = audio_tool.lower()
-                    if audio_tool == 'speech enhance':
-                        self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-                    elif audio_tool == 'ai denoise':
-                        self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
-                    else:
-                        logger(f'[Warning] {audio_tool} is not found', log_level='warn')
-
-                else:
-                    self.click(id('ok_button'), 1)
+                # if audio_tool:
+                #     audio_tool = audio_tool.lower()
+                #     if audio_tool == 'speech enhance':
+                #         self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
+                #     elif audio_tool == 'ai denoise':
+                #         self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
+                #     else:
+                #         logger(f'[Warning] {audio_tool} is not found', log_level='warn')
+                #
+                # else:
+                self.click(id('ok_button'), 1)
 
                 if check:
                     time.sleep(0.5)
@@ -264,7 +264,7 @@ class Shortcut(BasePage):
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:
-                if not self.enter_shortcut(shortcut_name, audio_tool=audio_tool, check=False):
+                if not self.enter_shortcut(shortcut_name, check=False):
                     self.enter_ai_feature(shortcut_name, check=False)
 
             self.click(L.main.shortcut.try_it_now, 1)
@@ -306,8 +306,9 @@ class Shortcut(BasePage):
             return False
 
     def enter_editor(self, shortcut_name=None, media_type='video', folder=test_material_folder, file=video_9_16, audio_tool=None):
-        if shortcut_name or audio_tool:
-            self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
+        if shortcut_name:
+            if not self.enter_media_picker(shortcut_name):
+                raise Exception(f"Enter media picker failed: {shortcut_name}")
 
         media_type = media_type.lower()
         if media_type not in ['video', 'photo']:
@@ -363,12 +364,13 @@ class Shortcut(BasePage):
                 return False
 
     def enter_trim_before_edit(self, shortcut_name=None, audio_tool=None):
-        if shortcut_name or audio_tool:
-            self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
+        if shortcut_name:
+            if not self.enter_media_picker(shortcut_name):
+                raise Exception(f"Enter media picker failed: {shortcut_name}")
 
         for retry in range(12):
             self.click(L.import_media.media_library.btn_preview(retry + 1))
-            if self.is_exist(L.import_media.media_library.warning):
+            if self.is_exist(L.import_media.media_library.warning, 1):
                 self.click(id('btn_ok'))
             else:
                 break
@@ -392,7 +394,7 @@ class Shortcut(BasePage):
             return False
 
     def trim_and_import(self, start=100, end=100, shortcut_name=None, audio_tool=None):
-        self.enter_trim_before_edit(shortcut_name, audio_tool=audio_tool)
+        self.enter_trim_before_edit(shortcut_name)
 
         if start:
             self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', start)
@@ -404,7 +406,7 @@ class Shortcut(BasePage):
 
         self.click(id('btn_upgrade'), 1)  # for auto cations
 
-        if self.is_exist(L.edit.menu.export) and self.element(L.edit.menu.export).text == 'Export':
+        if self.is_exist(find_string('Export')):
             return True
         else:
             logger(f'[Error] trim_video fail', log_level='error')
@@ -852,7 +854,7 @@ class Shortcut(BasePage):
         with step('Click export button'):
             assert self.click(L.edit.menu.export), 'Click export button failed'
         with step('Click back button'):
-            assert self.click(L.edit.menu.produce_sub_page.back), 'Click back button failed'
+            assert self.click(L.edit.menu.produce_sub_page.back) or self.click(L.edit.menu.produce_sub_page.back_2), 'Click back button failed'
 
         time.sleep(1)
 

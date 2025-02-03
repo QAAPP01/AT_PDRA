@@ -528,6 +528,7 @@ class Menu:
         save = id('text_setting_save_project')
         produce = id('btn_produce')
         back = aid("[AID]Produce_Back")
+        back_2 = id('iv_close')
 
     produce_sub_page = Produce_sub_page()
     back = aid("[AID]TimeLine_Back")
@@ -538,11 +539,11 @@ class Menu:
     effect = aid("[AID]TimeLine_Layer")
     fx = aid("[AID]TimeLine_Fx")
     settings = id('btn_setting')
-    export = id('btn_save_menu')
+    export = find_string('Export')
     timeline_setting = aid("[AID]TimeLine_Setting")
     undo = id("btn_undo")
     play = aid("[AID]TimeLine_Play")
-    timecode = id('playingTime')
+    timecode = xpath('//*[contains(@resource-id,"playingTime") or contains(@resource-id,"playing_time")]')
     # edit = id("btn_edit_img") # after select video
     edit = id("btn_session_edit")
     # split = id("btn_split")

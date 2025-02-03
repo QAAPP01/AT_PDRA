@@ -42,7 +42,7 @@ class Test_Shortcut_AI_Denoise:
     @allure.title("Enter from Shortcut")
     def test_entry_from_shortcut(self, data):
         try:
-            assert self.page_shortcut.enter_shortcut('AI Audio Tools', audio_tool='AI Denoise')
+            assert self.page_shortcut.enter_shortcut('HQ Audio Denoise')
 
         except Exception:
             traceback.print_exc()
@@ -55,7 +55,7 @@ class Test_Shortcut_AI_Denoise:
     def test_back_to_shortcut(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Audio Tools', audio_tool='AI Denoise', check=False)
+                self.page_shortcut.enter_shortcut('HQ Audio Denoise', check=False)
 
             assert self.page_shortcut.back_from_demo()
 
@@ -72,7 +72,7 @@ class Test_Shortcut_AI_Denoise:
             if self.last_is_fail(data):
                 pass
 
-            self.page_shortcut.enter_shortcut('AI Audio Tools', audio_tool='AI Denoise', check=False)
+            self.page_shortcut.enter_shortcut('HQ Audio Denoise', check=False)
 
             assert self.page_shortcut.mute_demo()
 
@@ -87,7 +87,7 @@ class Test_Shortcut_AI_Denoise:
     def test_enter_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Audio Tools', audio_tool='AI Denoise', check=False)
+                self.page_shortcut.enter_shortcut('HQ Audio Denoise', check=False)
 
             assert self.page_shortcut.enter_media_picker()
 
@@ -102,7 +102,7 @@ class Test_Shortcut_AI_Denoise:
     def test_back_from_media_picker(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('AI Audio Tools', audio_tool='AI Denoise', check=False)
+                self.page_shortcut.enter_shortcut('HQ Audio Denoise', check=False)
 
             assert self.page_shortcut.back_from_media_picker()
 
@@ -119,7 +119,7 @@ class Test_Shortcut_AI_Denoise:
             if self.last_is_fail(data):
                 pass
 
-            assert self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='Speech Enhance')
+            assert self.page_shortcut.enter_trim_before_edit('HQ Audio Denoise')
 
         except Exception:
             traceback.print_exc()
@@ -132,7 +132,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_back_from_trim(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='AI Denoise')
+                self.page_shortcut.enter_trim_before_edit('HQ Audio Denoise')
 
             assert self.page_shortcut.back_from_trim()
 
@@ -147,7 +147,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_trim_and_import(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_trim_before_edit('AI Audio Tools', audio_tool='AI Denoise')
+                self.page_shortcut.enter_trim_before_edit('HQ Audio Denoise')
 
             assert self.page_shortcut.trim_and_import()
 
@@ -162,7 +162,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_back_from_editor(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise')
+                self.page_shortcut.enter_editor('HQ Audio Denoise')
 
             assert self.page_shortcut.back_from_editor()
 
@@ -176,9 +176,9 @@ class Test_Shortcut_AI_Denoise:
     def test_video_import(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('AI Audio Tools', audio_tool='AI Denoise')
+                pass
 
-            assert self.page_shortcut.enter_editor(file=video_noise)
+            assert self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
 
         except Exception:
             traceback.print_exc()
@@ -191,7 +191,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_play_preview(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_noise)
+                self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
 
             assert self.page_shortcut.preview_play()
 
@@ -206,7 +206,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_pause_preview(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_noise)
+                self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
 
             assert self.page_shortcut.preview_beginning()
 
@@ -221,7 +221,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_preview_beginning(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_noise)
+                self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
 
             assert self.page_shortcut.preview_beginning()
 
@@ -236,7 +236,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_preview_ending(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_noise)
+                self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
 
             assert self.page_shortcut.preview_ending()
 
@@ -251,7 +251,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_back_from_export(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_noise)
+                self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
 
             assert self.page_shortcut.export_back()
 
@@ -266,7 +266,7 @@ class Test_Shortcut_AI_Denoise:
     def test_video_export(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_noise)
+                self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
 
             assert self.page_shortcut.export()
 
@@ -281,7 +281,7 @@ class Test_Shortcut_AI_Denoise:
     def test_export_back_to_editor(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_noise)
+                self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
                 self.page_shortcut.export()
 
             assert self.page_shortcut.export_back_to_editor()
@@ -297,7 +297,7 @@ class Test_Shortcut_AI_Denoise:
     def test_export_back_to_launcher(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_editor('AI Audio Tools', audio_tool='AI Denoise', file=video_noise)
+                self.page_shortcut.enter_editor('HQ Audio Denoise', file=video_noise)
 
             self.page_shortcut.export()
 
