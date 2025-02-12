@@ -147,7 +147,8 @@ class Shortcut(BasePage):
 
     def demo_dont_show_again(self, shortcut_name):
         if not self.is_exist(L.main.shortcut.dont_show_again, 1):
-            self.enter_shortcut(shortcut_name, check=False)
+            if not self.enter_shortcut(shortcut_name, check=False):
+                self.enter_ai_feature(shortcut_name, check=False)
 
         self.click(L.main.shortcut.dont_show_again)
         self.click(L.main.shortcut.try_it_now)

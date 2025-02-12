@@ -7,11 +7,8 @@ from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.pages.page_factory import PageFactory
 from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
+from ATFramework_aPDR.SFT.test_file import *
 
-video_9_16 = 'video_9_16.mp4'
-video_16_9 = 'video_16_9.mp4'
-photo_9_16 = 'photo_9_16.jpg'
-photo_16_9 = 'photo_16_9.jpg'
 
 @allure.epic("Shortcut - AI Scene")
 class Test_Shortcut_AI_Scene:
@@ -39,11 +36,11 @@ class Test_Shortcut_AI_Scene:
         return False
 
     @allure.feature("Entry")
-    @allure.story("Enter")
-    @allure.title("From Shortcut")
+    @allure.story("Demo")
+    @allure.title("Enter from AI creation")
     def test_entry_from_shortcut(self, data):
         try:
-            assert self.page_shortcut.enter_shortcut('AI Scene')
+            assert self.page_shortcut.enter_ai_feature('AI Scene')
 
         except Exception:
             traceback.print_exc()
@@ -56,7 +53,7 @@ class Test_Shortcut_AI_Scene:
     def test_recommendation_close(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('AI Scene')
+                self.page_shortcut.enter_ai_feature('AI Scene')
 
             assert self.page_shortcut.recommendation_close()
 
