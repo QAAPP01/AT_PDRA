@@ -158,7 +158,7 @@ class Test_Shortcut_AI_Art:
     def test_import_photo(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('AI Art')
+                pass
 
             assert self.page_shortcut.enter_editor(shortcut_name='AI Art', media_type='photo', file=photo_9_16)
 
