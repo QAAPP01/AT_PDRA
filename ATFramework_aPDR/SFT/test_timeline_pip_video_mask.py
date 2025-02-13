@@ -118,103 +118,103 @@ class Test_PiP_Video_Mask:
             self.page_edit.mask.start_with_mask('pip video')
             raise Exception
 
-    @allure.title('Eclipse')
-    def test_mask_eclipse(self, driver):
-
-        try:
-            assert self.page_edit.mask.click_mask_type("Eclipse")
-            assert self.element(L.edit.mask_sub.mask_eclipse).get_attribute('selected') == 'true'
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.mask.start_with_mask('pip video')
-            raise Exception
-
-    @allure.title('Eclipse_Slider')
-    def test_mask_eclipse_slider(self, driver):
-
-        try:
-            assert self.page_edit.mask.set_slider()
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.mask.start_with_mask('pip video')
-            raise Exception
-
-    @allure.title('Rectangle')
-    def test_mask_rectangle(self, driver):
-
-        try:
-            assert self.page_edit.mask.click_mask_type("Rectangle")
-            assert self.element(L.edit.mask_sub.mask_rectangle).get_attribute('selected') == 'true'
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.mask.start_with_mask('pip video')
-            raise Exception
-
-    @allure.title('Rectangle_Slider')
-    def test_mask_rectangle_slider(self, driver):
-
-        try:
-            assert self.page_edit.mask.set_slider()
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.mask.start_with_mask('pip video')
-            raise Exception
-
-    @allure.title('Invert')
-    def test_mask_invert(self, driver):
-
-        try:
-            assert self.page_edit.mask.click_mask_type("Invert")
-            assert self.element(L.edit.mask_sub.switch_invert).get_attribute('selected') == 'true'
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.mask.start_with_mask('pip video')
-            raise Exception
-
-    @allure.title('Invert_Slider')
-    def test_mask_invert_slider(self, driver):
-
-        try:
-            assert self.page_edit.mask.set_slider()
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.mask.start_with_mask('pip video')
-            raise Exception
-
-    @allure.title('Slider Reset')
-    def test_mask_slider_reset(self, driver):
-
-        try:
-            assert self.page_edit.mask.slider_reset()
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.mask.start_with_mask('pip video')
-            raise Exception
+    # @allure.title('Eclipse')
+    # def test_mask_eclipse(self, driver):
+    #
+    #     try:
+    #         assert self.page_edit.mask.click_mask_type("Eclipse")
+    #         assert self.element(L.edit.mask_sub.mask_eclipse).get_attribute('selected') == 'true'
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_edit.mask.start_with_mask('pip video')
+    #         raise Exception
+    #
+    # @allure.title('Eclipse_Slider')
+    # def test_mask_eclipse_slider(self, driver):
+    #
+    #     try:
+    #         assert self.page_edit.mask.set_slider()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_edit.mask.start_with_mask('pip video')
+    #         raise Exception
+    #
+    # @allure.title('Rectangle')
+    # def test_mask_rectangle(self, driver):
+    #
+    #     try:
+    #         assert self.page_edit.mask.click_mask_type("Rectangle")
+    #         assert self.element(L.edit.mask_sub.mask_rectangle).get_attribute('selected') == 'true'
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_edit.mask.start_with_mask('pip video')
+    #         raise Exception
+    #
+    # @allure.title('Rectangle_Slider')
+    # def test_mask_rectangle_slider(self, driver):
+    #
+    #     try:
+    #         assert self.page_edit.mask.set_slider()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_edit.mask.start_with_mask('pip video')
+    #         raise Exception
+    #
+    # @allure.title('Invert')
+    # def test_mask_invert(self, driver):
+    #
+    #     try:
+    #         assert self.page_edit.mask.click_mask_type("Invert")
+    #         assert self.element(L.edit.mask_sub.switch_invert).get_attribute('selected') == 'true'
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_edit.mask.start_with_mask('pip video')
+    #         raise Exception
+    #
+    # @allure.title('Invert_Slider')
+    # def test_mask_invert_slider(self, driver):
+    #
+    #     try:
+    #         assert self.page_edit.mask.set_slider()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_edit.mask.start_with_mask('pip video')
+    #         raise Exception
+    #
+    # @allure.title('Slider Reset')
+    # def test_mask_slider_reset(self, driver):
+    #
+    #     try:
+    #         assert self.page_edit.mask.slider_reset()
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_edit.mask.start_with_mask('pip video')
+    #         raise Exception

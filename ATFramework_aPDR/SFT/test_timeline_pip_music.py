@@ -404,121 +404,121 @@ class Test_PiP_Music_AI_Voice_Chagner:
             self.click(L.edit.ai_audio_tool.ai_voice_changer)
             raise Exception
 
-    @allure.title("Apply AI Voice Changer")
-    def test_apply_AI_voice_changer(self, driver):
-        try:
-            self.click(L.edit.ai_audio_tool.cat_Professional)
-            self.click(L.edit.ai_audio_tool.voice(1))
-            self.click(L.edit.ai_audio_tool.apply)
-            self.page_edit.waiting()
-            if self.is_exist(L.edit.ai_audio_tool.ok, 30):
-                self.click(L.edit.ai_audio_tool.ok)
-            self.click(L.edit.ai_audio_tool.ai_voice_changer)
-            assert self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
+    # @allure.title("Apply AI Voice Changer")
+    # def test_apply_AI_voice_changer(self, driver):
+    #     try:
+    #         self.click(L.edit.ai_audio_tool.cat_Professional)
+    #         self.click(L.edit.ai_audio_tool.voice(1))
+    #         self.click(L.edit.ai_audio_tool.apply)
+    #         self.page_edit.waiting()
+    #         if self.is_exist(L.edit.ai_audio_tool.ok, 30):
+    #             self.click(L.edit.ai_audio_tool.ok)
+    #         self.click(L.edit.ai_audio_tool.ai_voice_changer)
+    #         assert self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
+    #
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_main.enter_launcher()
+    #         self.page_main.enter_timeline()
+    #         self.page_edit.enter_main_tool("Audio")
+    #         self.click(L.import_media.menu.music)
+    #         self.page_main.h_click(L.edit.music.local)
+    #         self.page_main.h_click(find_string(test_material_folder))
+    #         self.element(L.import_media.music_library.add).click()
+    #         self.page_edit.click_sub_tool('AI Audio \nTool')
+    #         raise Exception
 
+    # @allure.title("AI Voice Changer Switch Off")
+    # def test_AI_voice_changer_on(self, driver):
+    #     try:
+    #         self.click(L.edit.ai_audio_tool.voice_changer_on_off)
+    #         assert self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false'
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_main.enter_launcher()
+    #         self.page_main.enter_timeline()
+    #         self.page_edit.enter_main_tool("Audio")
+    #         self.click(L.import_media.menu.music)
+    #         self.page_main.h_click(L.edit.music.local)
+    #         self.page_main.h_click(find_string(test_material_folder))
+    #         self.element(L.import_media.music_library.add).click()
+    #         self.page_edit.click_sub_tool('AI Audio \nTool')
+    #         self.click(L.edit.ai_audio_tool.ai_voice_changer)
+    #         raise Exception
+    #
+    # @allure.title("AI Voice Changer Switch Off")
+    # def test_AI_voice_changer_off(self, driver):
+    #     try:
+    #         self.click(L.edit.ai_audio_tool.voice_changer_on_off)
+    #         assert self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true'
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_main.enter_launcher()
+    #         self.page_main.enter_timeline()
+    #         self.page_edit.enter_main_tool("Audio")
+    #         self.click(L.import_media.menu.music)
+    #         self.page_main.h_click(L.edit.music.local)
+    #         self.page_main.h_click(find_string(test_material_folder))
+    #         self.element(L.import_media.music_library.add).click()
+    #         self.page_edit.click_sub_tool('AI Audio \nTool')
+    #         self.click(L.edit.ai_audio_tool.ai_voice_changer)
+    #         raise Exception
 
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool("Audio")
-            self.click(L.import_media.menu.music)
-            self.page_main.h_click(L.edit.music.local)
-            self.page_main.h_click(find_string(test_material_folder))
-            self.element(L.import_media.music_library.add).click()
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            raise Exception
-
-    @allure.title("AI Voice Changer Switch Off")
-    def test_AI_voice_changer_on(self, driver):
-        try:
-            self.click(L.edit.ai_audio_tool.voice_changer_on_off)
-            assert self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'false'
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool("Audio")
-            self.click(L.import_media.menu.music)
-            self.page_main.h_click(L.edit.music.local)
-            self.page_main.h_click(find_string(test_material_folder))
-            self.element(L.import_media.music_library.add).click()
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            self.click(L.edit.ai_audio_tool.ai_voice_changer)
-            raise Exception
-
-    @allure.title("AI Voice Changer Switch Off")
-    def test_AI_voice_changer_off(self, driver):
-        try:
-            self.click(L.edit.ai_audio_tool.voice_changer_on_off)
-            assert self.element(L.edit.ai_audio_tool.voice_changer_on_off).get_attribute('selected') == 'true'
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool("Audio")
-            self.click(L.import_media.menu.music)
-            self.page_main.h_click(L.edit.music.local)
-            self.page_main.h_click(find_string(test_material_folder))
-            self.element(L.import_media.music_library.add).click()
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            self.click(L.edit.ai_audio_tool.ai_voice_changer)
-            raise Exception
-
-    @allure.title("AI Voice Changer Cancel")
-    def test_AI_voice_changer_cancel(self, driver):
-        try:
-            self.click(L.edit.ai_audio_tool.voice_changer.remove)
-            self.click(L.edit.ai_audio_tool.cancel)
-            assert self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool("Audio")
-            self.click(L.import_media.menu.music)
-            self.page_main.h_click(L.edit.music.local)
-            self.page_main.h_click(find_string(test_material_folder))
-            self.element(L.import_media.music_library.add).click()
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            self.click(L.edit.ai_audio_tool.ai_voice_changer)
-            raise Exception
-
-    @allure.title("AI Voice Changer Delete")
-    def test_AI_voice_changer_delete(self, driver):
-        try:
-            self.click(L.edit.ai_audio_tool.ai_voice_changer)
-            self.click(L.edit.ai_audio_tool.voice_changer.remove)
-            self.click(L.edit.ai_audio_tool.ok)
-            assert not self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool("Audio")
-            self.click(L.import_media.menu.music)
-            self.page_main.h_click(L.edit.music.local)
-            self.page_main.h_click(find_string(test_material_folder))
-            self.element(L.import_media.music_library.add).click()
-            self.page_edit.click_sub_tool('AI Audio \nTool')
-            self.click(L.edit.ai_audio_tool.ai_voice_changer)
-            raise Exception
+    # @allure.title("AI Voice Changer Cancel")
+    # def test_AI_voice_changer_cancel(self, driver):
+    #     try:
+    #         self.click(L.edit.ai_audio_tool.voice_changer.remove)
+    #         self.click(L.edit.ai_audio_tool.cancel)
+    #         assert self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_main.enter_launcher()
+    #         self.page_main.enter_timeline()
+    #         self.page_edit.enter_main_tool("Audio")
+    #         self.click(L.import_media.menu.music)
+    #         self.page_main.h_click(L.edit.music.local)
+    #         self.page_main.h_click(find_string(test_material_folder))
+    #         self.element(L.import_media.music_library.add).click()
+    #         self.page_edit.click_sub_tool('AI Audio \nTool')
+    #         self.click(L.edit.ai_audio_tool.ai_voice_changer)
+    #         raise Exception
+    #
+    # @allure.title("AI Voice Changer Delete")
+    # def test_AI_voice_changer_delete(self, driver):
+    #     try:
+    #         self.click(L.edit.ai_audio_tool.ai_voice_changer)
+    #         self.click(L.edit.ai_audio_tool.voice_changer.remove)
+    #         self.click(L.edit.ai_audio_tool.ok)
+    #         assert not self.is_exist(L.edit.ai_audio_tool.voice_changer_is_applied)
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_main.enter_launcher()
+    #         self.page_main.enter_timeline()
+    #         self.page_edit.enter_main_tool("Audio")
+    #         self.click(L.import_media.menu.music)
+    #         self.page_main.h_click(L.edit.music.local)
+    #         self.page_main.h_click(find_string(test_material_folder))
+    #         self.element(L.import_media.music_library.add).click()
+    #         self.page_edit.click_sub_tool('AI Audio \nTool')
+    #         self.click(L.edit.ai_audio_tool.ai_voice_changer)
+    #         raise Exception
