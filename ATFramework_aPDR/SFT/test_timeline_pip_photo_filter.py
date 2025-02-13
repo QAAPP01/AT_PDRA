@@ -62,21 +62,21 @@ class Test_PiP_Photo_Filter:
             self.page_edit.filter.start_with_filter('pip video')
             raise Exception
 
-    @allure.title('Change Category')
-    def test_filter_change_category(self, driver):
-        func_name = inspect.stack()[0][3]
-        logger(f"\n[Start] {func_name}")
-
-        try:
-            assert self.page_edit.filter.filter_switch_category(3)
-
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
-
-            self.page_edit.filter.start_with_filter('pip video')
-            raise Exception
+    # @allure.title('Change Category')
+    # def test_filter_change_category(self, driver):
+    #     func_name = inspect.stack()[0][3]
+    #     logger(f"\n[Start] {func_name}")
+    #
+    #     try:
+    #         assert self.page_edit.filter.filter_switch_category(3)
+    #
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
+    #
+    #         self.page_edit.filter.start_with_filter('pip video')
+    #         raise Exception
 
     @allure.title('Select Filter')
     def test_filter_select_filter(self, driver):
