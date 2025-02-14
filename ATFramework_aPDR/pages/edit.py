@@ -2326,7 +2326,7 @@ class EditPage(BasePage):
             raise Exception
 
     def waiting(self, timeout=120):
-        if self.is_exist(find_string("Cancel"), 2):
+        if self.is_exist(find_string("Cancel"), 3):
             if self.h_is_not_exist(find_string("Cancel"), timeout):
                 return True
             else:
