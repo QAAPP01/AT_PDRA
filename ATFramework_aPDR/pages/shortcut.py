@@ -457,7 +457,6 @@ class Shortcut(BasePage):
             else:
                 logger('Preview is not playing')
         pause_playing()
-        pause_playing()
 
     @step('Play the video and verify timecode updates')
     def preview_play(self):
@@ -496,6 +495,8 @@ class Shortcut(BasePage):
         try:
             self.click(L.edit.menu.play)
             self.pause_if_play()
+            if self.get_timecode() == self.get_total_time():
+                return True
 
             timecode_before = self.get_timecode()
             if timecode_before is None:
