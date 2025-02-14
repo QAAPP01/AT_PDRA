@@ -379,6 +379,10 @@ class Shortcut(BasePage):
             logger(f'[Error] enter_trim_before_edit fail', log_level='error')
             return False
 
+        # close hint
+        if self.is_exist(find_string('Drag here to trim video'), 1):
+            self.click(find_string('Drag here to trim video'), 3)
+
         if self.is_exist(L.import_media.media_library.trim_next):
             return True
         else:
