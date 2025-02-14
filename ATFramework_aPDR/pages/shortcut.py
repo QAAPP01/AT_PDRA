@@ -444,6 +444,7 @@ class Shortcut(BasePage):
     def pause_if_play(self):
         """Pause the video if it is currently playing."""
         def pause_playing():
+            total_time = self.get_total_time()
             timecode_1 = self.get_timecode()
             logger(f'Timecode 1: {timecode_1}')
             time.sleep(0.5)
@@ -451,12 +452,20 @@ class Shortcut(BasePage):
             timecode_2 = self.get_timecode()
             logger(f'Timecode 2: {timecode_2}')
 
+            if timecode_2 == total_time:
+                logger('Preview is at the end')
+                return True
+
             if timecode_2 != timecode_1:
                 self.click(L.edit.menu.play)
                 logger('Pause playing')
+                return False
             else:
                 logger('Preview is not playing')
-        pause_playing()
+                return True
+
+        if not pause_playing():
+            pause_playing()
 
     @step('Play the video and verify timecode updates')
     def preview_play(self):
@@ -495,8 +504,6 @@ class Shortcut(BasePage):
         try:
             self.click(L.edit.menu.play)
             self.pause_if_play()
-            if self.get_timecode() == self.get_total_time():
-                return True
 
             timecode_before = self.get_timecode()
             if timecode_before is None:
