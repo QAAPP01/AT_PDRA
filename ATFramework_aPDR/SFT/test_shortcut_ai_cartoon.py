@@ -7,8 +7,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
-
-photo_9_16 = 'photo_9_16.jpg'
+from ATFramework_aPDR.SFT.test_file import *
 
 
 @allure.epic("Shortcut - AI Cartoon")

@@ -755,6 +755,12 @@ class EditPage(BasePage):
         finally:
             self.click(aid('[AID]ok_button'))
 
+    # Text
+    def add_default_text(self):
+        self.enter_main_tool("Text")
+        self.click(find_string("Add Text"))
+        self.click(id('btn_ok'))
+
 
     def enter_sticker_library(self, sticker_type):
         """
@@ -2320,7 +2326,7 @@ class EditPage(BasePage):
             raise Exception
 
     def waiting(self, timeout=120):
-        if self.is_exist(find_string("Cancel"), 2):
+        if self.is_exist(find_string("Cancel"), 3):
             if self.h_is_not_exist(find_string("Cancel"), timeout):
                 return True
             else:

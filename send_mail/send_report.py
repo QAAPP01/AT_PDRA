@@ -1,5 +1,6 @@
 import argparse
 import os
+import subprocess
 import sys
 import json
 import shutil
@@ -252,6 +253,27 @@ def compress_attachments(attachment_list, zip_filename="attachments.zip"):
     return zip_filename
 
 
+def get_device_info(device_id):
+    try:
+        # Brand
+        brand = subprocess.check_output(
+            ["adb", "-s", device_id, "shell", "getprop", "ro.product.brand"],
+            encoding="utf-8"
+        ).strip()
+
+        # Model
+        model = subprocess.check_output(
+            ["adb", "-s", device_id, "shell", "getprop", "ro.product.model"],
+            encoding="utf-8"
+        ).strip()
+
+        return f"{brand} {model}"
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while fetching device info: {e}")
+        return {"brand": "Unknown", "model": "Unknown"}
+
+
 def send_allure_report(report_url=None, update_to_sheet=True):
     opts = {
         'account': 'cltest.qaapp1@gmail.com',
@@ -282,6 +304,7 @@ def send_allure_report(report_url=None, update_to_sheet=True):
     package_version = report_info.get("package_version")
     package_build_number = report_info.get("package_build_number")
     device_id = report_info.get("device_id")
+    device_id = get_device_info(device_id)
     receiver_list = report_info.get("receiver_list")
     test_result_title = report_info.get("test_result_title")
     result_folder = report_info.get("result_folder")
@@ -295,10 +318,7 @@ def send_allure_report(report_url=None, update_to_sheet=True):
         opts['attachment'].append(f'{report_folder}\\index.html')
 
     # Generate the HTML mail body
-    mail_body = generate_mail_body(
-        test_result_title, result, device_id, tr_number, package_version,
-        package_build_number, summary_info, report_url
-    )
+    mail_body = generate_mail_body(test_result_title, result, device_id, tr_number, package_version,package_build_number, summary_info, report_url)
 
     # mail
     opts['to'] = receiver_list
@@ -307,22 +327,23 @@ def send_allure_report(report_url=None, update_to_sheet=True):
 
     send_mail(opts)
 
-    # U group
+    # Send U message
     url = "https://u-api.cyberlink.com/api/chat/send-message.action"
 
     # 設定 API 請求參數
     params = {
         "token": "62c4f9c6-35a7-49e3-8773-cd21cafb0bbd",
         "groupId": "1423020765258714979",
-        "text": f"""PDRA BFT Test Result: {result}
-        
-                TR: {tr_number}
-                Build: {package_version}.{package_build_number}
-                Passed: {summary_info['passed']}
-                Failed: {summary_info.get('failed', 0) + summary_info.get('error', 0)}
-                Skipped: {summary_info['skipped']}
-                N/A: {summary_info['num_collected'] - summary_info['passed'] - summary_info.get('failed', 0) - summary_info.get('error', 0) - summary_info['skipped']}
-                Total time: {summary_info['duration']}"""
+        "text": f"PDRA BFT Test Result: {result}\n"
+                "\n"
+                f"TR: {tr_number}\n"
+                f"Build: {package_version}.{package_build_number}\n"
+                f"Passed: {summary_info['passed']}\n"
+                f"Failed: {summary_info.get('failed', 0) + summary_info.get('error', 0)}\n"
+                f"Skipped: {summary_info['skipped']}\n"
+                f"N/A: {summary_info['num_collected'] - summary_info['passed'] - summary_info.get('failed', 0) - summary_info.get('error', 0) - summary_info['skipped']}\n"
+                f"Total time: {summary_info['duration']}\n"
+                f"Report URL: {report_url if report_url else 'No report URL provided'}\n"
     }
 
     # 發送請求並處理回應
@@ -370,8 +391,8 @@ def send_allure_report(report_url=None, update_to_sheet=True):
 
     return True
 
-def generate_mail_body(test_result_title, result, device_id, tr_number, package_version, package_build_number,
-                       summary_info, report_url=None):
+
+def generate_mail_body(test_result_title, result, device_name, tr_number, package_version, package_build_number,summary_info, report_url=None):
     html_report_header = '''
     <html>
     <head>
@@ -445,7 +466,7 @@ def generate_mail_body(test_result_title, result, device_id, tr_number, package_
 
     mail_body = html_report_header
     mail_body += f'<h1 class="{"pass" if result == "PASS" else "fail" if result == "FAIL" else "skip"}">Test Result: {result}</h1>'
-    mail_body += f'<p><strong>Device:</strong> {device_id}</p>'
+    mail_body += f'<p><strong>Device:</strong> {device_name}</p>'
     mail_body += f'<p><strong>TR:</strong> {tr_number}</p>'
     mail_body += f'<p><strong>Build:</strong> {package_version}.{package_build_number}</p>'
 

@@ -65,17 +65,17 @@ class Shortcut(BasePage):
                 #             self.h_swipe_element(shortcuts_name[-1], shortcuts_name[0], 3)
 
             if self.click(L.main.shortcut.shortcut_name(shortcut_name), 1):
-                if audio_tool:
-                    audio_tool = audio_tool.lower()
-                    if audio_tool == 'speech enhance':
-                        self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
-                    elif audio_tool == 'ai denoise':
-                        self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
-                    else:
-                        logger(f'[Warning] {audio_tool} is not found', log_level='warn')
-
-                else:
-                    self.click(id('ok_button'), 1)
+                # if audio_tool:
+                #     audio_tool = audio_tool.lower()
+                #     if audio_tool == 'speech enhance':
+                #         self.click(L.main.shortcut.audio_tool.demo_speech_enhance)
+                #     elif audio_tool == 'ai denoise':
+                #         self.click(L.main.shortcut.audio_tool.demo_ai_denoise)
+                #     else:
+                #         logger(f'[Warning] {audio_tool} is not found', log_level='warn')
+                #
+                # else:
+                self.click(id('ok_button'), 1)
 
                 if check:
                     time.sleep(0.5)
@@ -147,7 +147,8 @@ class Shortcut(BasePage):
 
     def demo_dont_show_again(self, shortcut_name):
         if not self.is_exist(L.main.shortcut.dont_show_again, 1):
-            self.enter_shortcut(shortcut_name, check=False)
+            if not self.enter_shortcut(shortcut_name, check=False):
+                self.enter_ai_feature(shortcut_name, check=False)
 
         self.click(L.main.shortcut.dont_show_again)
         self.click(L.main.shortcut.try_it_now)
@@ -212,7 +213,7 @@ class Shortcut(BasePage):
 
     def recommendation_continue(self, shortcut_name=None):
         if shortcut_name:
-            self.enter_shortcut(shortcut_name)
+            self.enter_shortcut(shortcut_name, check=False)
             self.click(L.main.shortcut.try_it_now, 1)
 
         self.click(L.main.shortcut.btn_continue)
@@ -264,7 +265,7 @@ class Shortcut(BasePage):
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:
-                if not self.enter_shortcut(shortcut_name, audio_tool=audio_tool, check=False):
+                if not self.enter_shortcut(shortcut_name, check=False):
                     self.enter_ai_feature(shortcut_name, check=False)
 
             self.click(L.main.shortcut.try_it_now, 1)
@@ -306,8 +307,9 @@ class Shortcut(BasePage):
             return False
 
     def enter_editor(self, shortcut_name=None, media_type='video', folder=test_material_folder, file=video_9_16, audio_tool=None):
-        if shortcut_name or audio_tool:
-            self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
+        if shortcut_name:
+            if not self.enter_media_picker(shortcut_name):
+                raise Exception(f"Enter media picker failed: {shortcut_name}")
 
         media_type = media_type.lower()
         if media_type not in ['video', 'photo']:
@@ -363,18 +365,23 @@ class Shortcut(BasePage):
                 return False
 
     def enter_trim_before_edit(self, shortcut_name=None, audio_tool=None):
-        if shortcut_name or audio_tool:
-            self.enter_media_picker(shortcut_name, audio_tool=audio_tool)
+        if shortcut_name:
+            if not self.enter_media_picker(shortcut_name):
+                raise Exception(f"Enter media picker failed: {shortcut_name}")
 
         for retry in range(12):
             self.click(L.import_media.media_library.btn_preview(retry + 1))
-            if self.is_exist(L.import_media.media_library.warning):
+            if self.is_exist(L.import_media.media_library.warning, 1):
                 self.click(id('btn_ok'))
             else:
                 break
         else:
             logger(f'[Error] enter_trim_before_edit fail', log_level='error')
             return False
+
+        # close hint
+        if self.is_exist(find_string('Drag here to trim video'), 1):
+            self.click(find_string('Drag here to trim video'), 3)
 
         if self.is_exist(L.import_media.media_library.trim_next):
             return True
@@ -392,7 +399,7 @@ class Shortcut(BasePage):
             return False
 
     def trim_and_import(self, start=100, end=100, shortcut_name=None, audio_tool=None):
-        self.enter_trim_before_edit(shortcut_name, audio_tool=audio_tool)
+        self.enter_trim_before_edit(shortcut_name)
 
         if start:
             self.driver.swipe_element(L.import_media.trim_before_edit.left, 'right', start)
@@ -404,7 +411,7 @@ class Shortcut(BasePage):
 
         self.click(id('btn_upgrade'), 1)  # for auto cations
 
-        if self.is_exist(L.edit.menu.export) and self.element(L.edit.menu.export).text == 'Export':
+        if self.is_exist(find_string('Export')):
             return True
         else:
             logger(f'[Error] trim_video fail', log_level='error')
@@ -437,6 +444,7 @@ class Shortcut(BasePage):
     def pause_if_play(self):
         """Pause the video if it is currently playing."""
         def pause_playing():
+            total_time = self.get_total_time()
             timecode_1 = self.get_timecode()
             logger(f'Timecode 1: {timecode_1}')
             time.sleep(0.5)
@@ -444,13 +452,20 @@ class Shortcut(BasePage):
             timecode_2 = self.get_timecode()
             logger(f'Timecode 2: {timecode_2}')
 
+            if timecode_2 == total_time:
+                logger('Preview is at the end')
+                return True
+
             if timecode_2 != timecode_1:
                 self.click(L.edit.menu.play)
                 logger('Pause playing')
+                return False
             else:
                 logger('Preview is not playing')
-        pause_playing()
-        pause_playing()
+                return True
+
+        if not pause_playing():
+            pause_playing()
 
     @step('Play the video and verify timecode updates')
     def preview_play(self):
@@ -852,7 +867,7 @@ class Shortcut(BasePage):
         with step('Click export button'):
             assert self.click(L.edit.menu.export), 'Click export button failed'
         with step('Click back button'):
-            assert self.click(L.edit.menu.produce_sub_page.back), 'Click back button failed'
+            assert self.click(L.edit.menu.produce_sub_page.back) or self.click(L.edit.menu.produce_sub_page.back_2), 'Click back button failed'
 
         time.sleep(1)
 

@@ -49,6 +49,27 @@ pipeline {
                 }
             }
         }
+        stage('Pull Latest Code') { // Pull from origin release
+            steps {
+                script {
+                    echo "Pulling latest code from repository..."
+
+                    // Checkout
+                    echo "Switching to branch: Release"
+                    def checkoutResult = bat(script: "git checkout Release", returnStatus: true)
+                    if (checkoutResult != 0) {
+                        error("Failed to switch to branch 'Release'. Please ensure the branch exists.")
+                    }
+
+                    // Pull latest
+                    echo "Pulling latest code from branch: Release"
+                    def pullResult = bat(script: "git pull origin Release", returnStatus: true)
+                    if (pullResult != 0) {
+                        error("Failed to pull latest code. Please check your Git repository and connection.")
+                    }
+                }
+            }
+        }
         stage('Install Build') { // Stage for installing the build
             steps {
                 script {
