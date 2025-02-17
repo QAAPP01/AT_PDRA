@@ -213,7 +213,7 @@ class Shortcut(BasePage):
 
     def recommendation_continue(self, shortcut_name=None):
         if shortcut_name:
-            self.enter_shortcut(shortcut_name)
+            self.enter_shortcut(shortcut_name, check=False)
             self.click(L.main.shortcut.try_it_now, 1)
 
         self.click(L.main.shortcut.btn_continue)
