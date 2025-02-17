@@ -1,10 +1,11 @@
 {
-    "sr_number": "DRA241209-01",
-    "tr_number": "TR250210-013",
-    "package_version": "14.8.2",
-    "package_build_number": "2502100",
+    "sr_number": "DRA250110-01",
+    "tr_number": "TR250217-026",
+    "package_version": "14.9.0",
+    "package_build_number": "2502140",
     "device_id": "R5CT32Q3WQN",
     "receiver_list": [
+        "Shirley_Fang@cyberlink.com",
         "ChiaChang_Su@cyberlink.com",
         "amber_tseng@cyberlink.com",
         "Neo_Shen@cyberlink.com",
