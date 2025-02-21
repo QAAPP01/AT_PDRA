@@ -1,1 +1,8 @@
-{"num_collected": 81, "passed": 0, "failed": 0, "errors": 4, "skipped": 0, "duration": "0:00:03"}
+{
+    "num_collected": 23,
+    "passed": 21,
+    "failed": 2,
+    "error": 0,
+    "skipped": 0,
+    "duration": "0:06:25"
+}

@@ -213,7 +213,7 @@ class Shortcut(BasePage):
 
     def recommendation_continue(self, shortcut_name=None):
         if shortcut_name:
-            self.enter_shortcut(shortcut_name)
+            self.enter_shortcut(shortcut_name, check=False)
             self.click(L.main.shortcut.try_it_now, 1)
 
         self.click(L.main.shortcut.btn_continue)
@@ -379,6 +379,10 @@ class Shortcut(BasePage):
             logger(f'[Error] enter_trim_before_edit fail', log_level='error')
             return False
 
+        # close hint
+        if self.is_exist(find_string('Drag here to trim video'), 1):
+            self.click(find_string('Drag here to trim video'), 3)
+
         if self.is_exist(L.import_media.media_library.trim_next):
             return True
         else:
@@ -440,6 +444,7 @@ class Shortcut(BasePage):
     def pause_if_play(self):
         """Pause the video if it is currently playing."""
         def pause_playing():
+            total_time = self.get_total_time()
             timecode_1 = self.get_timecode()
             logger(f'Timecode 1: {timecode_1}')
             time.sleep(0.5)
@@ -447,13 +452,20 @@ class Shortcut(BasePage):
             timecode_2 = self.get_timecode()
             logger(f'Timecode 2: {timecode_2}')
 
+            if timecode_2 == total_time:
+                logger('Preview is at the end')
+                return True
+
             if timecode_2 != timecode_1:
                 self.click(L.edit.menu.play)
                 logger('Pause playing')
+                return False
             else:
                 logger('Preview is not playing')
-        pause_playing()
-        pause_playing()
+                return True
+
+        if not pause_playing():
+            pause_playing()
 
     @step('Play the video and verify timecode updates')
     def preview_play(self):

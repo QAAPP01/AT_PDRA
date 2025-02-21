@@ -4,7 +4,6 @@ from .test_app_initial import *
 from .test_shortcut_trim import *
 from .test_shortcut_speed import *
 from .test_shortcut_cutout import *
-# Talking avatar
 from .test_shortcut_ai_music import *
 from .test_shortcut_image_enhancer import *
 from .test_shortcut_ai_video_enhancer import *
@@ -18,12 +17,13 @@ from .test_shortcut_crop_rotate import *
 from .test_shortcut_auto_caption import *
 from .test_shortcut_super_slow_motion import *
 from .test_shortcut_voice_changer import *
-from .test_shortcut_ai_denoise import *
-from .test_shortcut_color_enhancer import *
-from .test_shortcut_ai_art import *
 
-# from .test_shortcut_ai_sketch import *
+# AI Creation
+from .test_shortcut_ai_art import *
 # from .test_shortcut_ai_cartoon import *
+#
+# from .test_shortcut_ai_sketch import *
+#
 # from .test_shortcut_text_to_image import *
 
 
