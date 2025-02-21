@@ -20,7 +20,7 @@ from .test_shortcut_voice_changer import *
 
 # AI Creation
 from .test_shortcut_ai_art import *
-# from .test_shortcut_ai_cartoon import *
+from .test_shortcut_ai_cartoon import *
 #
 # from .test_shortcut_ai_sketch import *
 #

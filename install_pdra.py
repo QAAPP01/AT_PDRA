@@ -198,7 +198,7 @@ def main():
     if len(sys.argv) <= 1:
         # 手動執行
         print("Running in manual mode. No buildPath provided.")
-        root_dir = r"\\CLT-QASERVER\Testing\_SR_Build\PowerDirector Android\PowerDirector Android 14.0"
+        root_dir = r"\\clt-build-nas\Testing\PowerDirector Android\PowerDirector Android 14.0"
         phone_dir = r"/storage/emulated/0/Build/PDR"
 
         device = devices[0]

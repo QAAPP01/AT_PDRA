@@ -14,13 +14,6 @@ from ATFramework_aPDR.pages.locator import locator as L
 @allure.feature("Sticker")
 @allure.story("Opacity")
 class Test_PiP_Sticker_Opacity:
-    @pytest.fixture(scope='session', autouse=True)
-    def driver_init(self, driver):
-        logger("[Start] Init driver session")
-        driver.driver.launch_app()
-        yield
-        driver.driver.close_app()
-
     @pytest.fixture(autouse=True)
     def initial(self, shortcut):
         # shortcut
@@ -193,6 +186,15 @@ class Test_PiP_Sticker_Fade:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.color_board)
+            self.click(L.import_media.media_library.media(5))
+            self.click(L.import_media.media_library.next)
+            self.page_edit.enter_sticker_library("Sticker")
+            self.page_media.select_sticker_by_order(order=3)
+            self.page_media.waiting_download()
+            self.click(L.edit.sticker.close)
             self.page_edit.click_sub_tool('Fade')
 
             assert self.is_exist(L.edit.fade.fade_in) and self.is_exist(L.edit.fade.fade_out)
@@ -295,6 +297,15 @@ class Test_PiP_Sticker_Blending:
         logger(f"\n[Start] {func_name}")
 
         try:
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline(skip_media=False)
+            self.click(L.import_media.media_library.color_board)
+            self.click(L.import_media.media_library.media(5))
+            self.click(L.import_media.media_library.next)
+            self.page_edit.enter_sticker_library("Sticker")
+            self.page_media.select_sticker_by_order(order=3)
+            self.page_media.waiting_download()
+            self.click(L.edit.sticker.close)
             self.page_edit.click_sub_tool('Blending')
 
             assert self.is_exist(L.edit.fx_layer.filter.item(1))
