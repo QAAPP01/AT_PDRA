@@ -113,6 +113,8 @@ class Shortcut(BasePage):
                     self.h_swipe_element(features[-1], features[0], 3)
                     if self.click(find_string(name), 2):
                         break
+        self.click(aid('[AID]Subscribe_Unlock_All'), 0.5) # for TTI
+
         if check:
             if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and @text="{demo_title}"]')) or
                     self.is_exist(L.import_media.media_library.title) or
@@ -187,7 +189,7 @@ class Shortcut(BasePage):
 
         self.click(L.main.shortcut.try_it_now)
         self.click(id('confirm_btn'))
-        self.page_edit.waiting_import()
+        self.page_edit.waiting()
         if self.is_exist(L.edit.menu.export):
             self.click(L.edit.menu.home)
             return True
@@ -919,8 +921,8 @@ class Shortcut(BasePage):
 
     def tti_enter_prompt(self, prompt="x" * 401):
         if not self.click(L.main.shortcut.tti.input_box, 1):
-            if not self.click(L.main.shortcut.tti.prompt):
-                self.enter_shortcut('Text to Image')
+            if not self.click(L.main.shortcut.tti.prompt, 1):
+                self.enter_ai_feature('Text to Image')
                 self.click(L.main.shortcut.tti.prompt)
                 if not self.click(L.main.shortcut.tti.input_box):
                     logger(f'[Error] Cannot find input box', log_level='error')

@@ -22,8 +22,7 @@ from .test_shortcut_voice_changer import *
 from .test_shortcut_ai_art import *
 from .test_shortcut_ai_cartoon import *
 from .test_shortcut_ai_sketch import *
-#
-# from .test_shortcut_text_to_image import *
+from .test_shortcut_text_to_image import *
 
 
 
