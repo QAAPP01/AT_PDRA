@@ -36,6 +36,7 @@ class Shortcut(BasePage):
             logger(f'[Error] all_shortcut_page_back fail', log_level='error')
             return False
 
+    @step("Enter Shortcut: {shortcut_name}")
     def enter_shortcut(self, shortcut_name, demo_title=None, audio_tool=None, check=True):
         try:
             demo_title = demo_title or shortcut_name.replace('\n', ' ')
@@ -77,19 +78,19 @@ class Shortcut(BasePage):
                 # else:
                 self.click(id('ok_button'), 1)
 
-                if check:
-                    time.sleep(0.5)
-                    if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"{demo_title}")]')) or
-                            self.is_exist(L.import_media.media_library.title) or
-                            self.is_exist(id("tv_recommendation"))):
-                        return True
-                    else:
-                        logger(f'[Error] enter_shortcut fail', log_level='error')
-                        return False
-                return True
+            else:
+                self.enter_ai_feature(shortcut_name, check=False)
 
-            logger(f'[Error] Cannot find {shortcut_name}', log_level='error')
-            return False
+            if check:
+                time.sleep(0.5)
+                if (self.is_exist(xpath(f'//*[contains(@resource-id,"tv_title") and contains(@text,"{demo_title}")]')) or
+                        self.is_exist(L.import_media.media_library.title) or
+                        self.is_exist(id("tv_recommendation"))):
+                    return True
+                else:
+                    logger(f'[Error] enter_shortcut fail', log_level='error')
+                    return False
+            return True
 
         except Exception:
             traceback.print_exc()
@@ -154,8 +155,7 @@ class Shortcut(BasePage):
         self.click(L.main.shortcut.try_it_now)
 
         self.page_main.relaunch(subscribe=False)
-        if not self.enter_shortcut(shortcut_name, check=False):
-            self.enter_ai_feature(shortcut_name, check=False)
+        self.enter_shortcut(shortcut_name, check=False)
 
         if self.is_exist(L.main.shortcut.dont_show_again, 1):
             logger(f'[Error] demo_dont_show_again fail', log_level='error')
@@ -173,8 +173,7 @@ class Shortcut(BasePage):
         self.click(id('iv_back'))
         self.click(id('iv_back'))
 
-        if not self.enter_shortcut(shortcut_name, check=False):
-            self.enter_ai_feature(shortcut_name, check=False)
+        self.enter_shortcut(shortcut_name, check=False)
 
         if self.is_exist(L.main.shortcut.dont_show_again, 1):
             return True
@@ -196,19 +195,21 @@ class Shortcut(BasePage):
             logger(f'[Error] enter_editor fail', log_level='error')
             return False
 
-
     def recommendation_close(self, shortcut_name=None):
-        if not self.click(L.main.shortcut.ai_sketch.close, 1):
-            if not self.click(L.main.shortcut.try_it_now, 1):
-                if not self.enter_shortcut(shortcut_name, check=False):
-                    self.enter_ai_feature(shortcut_name, check=False)
+        if self.click(L.main.shortcut.ai_sketch.close, 1):
+            pass
+        else:
+            if self.click(L.main.shortcut.try_it_now, 1):
+                self.click(L.main.shortcut.ai_sketch.close)
+            else:
+                self.enter_shortcut(shortcut_name, check=False)
                 self.click(L.main.shortcut.try_it_now, 1)
                 self.click(L.main.shortcut.ai_sketch.close)
 
         if self.is_exist(L.main.shortcut.shortcut_name(0)) or self.element(L.main.ai_creation.title).text == 'AI Creation':
             return True
         else:
-            logger(f'[Error] recommendation_close fail', log_level='error')
+            logger('[Error] recommendation_close fail', log_level='error')
             return False
 
     def recommendation_continue(self, shortcut_name=None):
@@ -252,8 +253,7 @@ class Shortcut(BasePage):
         self.click(id('iv_back'))
         self.click(id('iv_back'))
 
-        if not self.enter_shortcut(shortcut_name, check=False):
-            self.enter_ai_feature(shortcut_name, check=False)
+        self.enter_shortcut(shortcut_name, check=False)
 
         self.click(L.main.shortcut.try_it_now, 1)
         if self.click(L.main.shortcut.btn_continue):
@@ -265,11 +265,11 @@ class Shortcut(BasePage):
     def enter_media_picker(self, shortcut_name=None, audio_tool=None):
         try:
             if shortcut_name:
-                if not self.enter_shortcut(shortcut_name, check=False):
-                    self.enter_ai_feature(shortcut_name, check=False)
+                self.enter_shortcut(shortcut_name, check=False)
 
             self.click(L.main.shortcut.try_it_now, 1)
             self.click(aid('[AID]Upgrade_No'), 1)
+            self.click(L.main.shortcut.btn_continue, 1)
 
             if self.is_exist(find_string('Add Media')):
                 return True
@@ -310,6 +310,8 @@ class Shortcut(BasePage):
         if shortcut_name:
             if not self.enter_media_picker(shortcut_name):
                 raise Exception(f"Enter media picker failed: {shortcut_name}")
+        else:
+            self.click(L.main.shortcut.btn_continue, 1)
 
         media_type = media_type.lower()
         if media_type not in ['video', 'photo']:

@@ -208,7 +208,7 @@ class Test_Shortcut_AI_Sketch:
             if self.last_is_fail(data):
                 pass
 
-            assert self.page_shortcut.enter_editor(shortcut_name='AI Sketch', media_type='photo', file=photo_9_16)
+            assert self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
 
         except Exception:
             traceback.print_exc()
@@ -223,7 +223,7 @@ class Test_Shortcut_AI_Sketch:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_editor(shortcut_name='AI Sketch', media_type='photo', file=photo_9_16)
 
-            assert self.page_shortcut.back_from_editor()
+            assert self.page_shortcut.back_from_shortcut_editor()
 
         except Exception:
             traceback.print_exc()
@@ -236,9 +236,10 @@ class Test_Shortcut_AI_Sketch:
     def test_style_generate(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_media_picker('AI Sketch')
+                self.page_shortcut.enter_editor('AI Sketch', media_type='photo', file=photo_9_16)
+            else:
+                self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
 
-            self.page_shortcut.enter_editor(media_type='photo', file=photo_9_16)
             
             self.page_shortcut.style_generate()
 

@@ -77,7 +77,6 @@ class Test_Shortcut_AI_Cartoon:
             if self.last_is_fail(data):
                 pass
 
-            self.page_shortcut.enter_ai_feature('AI Cartoon', check=False)
             assert self.page_shortcut.demo_dont_show_again('AI Cartoon')
 
         except Exception:
