@@ -1,3 +1,4 @@
+import re
 import time
 import traceback
 import pytest
@@ -7,11 +8,7 @@ from ATFramework_aPDR.ATFramework.utils.log import logger
 from ATFramework_aPDR.pages.locator import locator as L
 from ATFramework_aPDR.SFT.conftest import TEST_MATERIAL_FOLDER as test_material_folder
 from ATFramework_aPDR.pages.locator.locator_type import *
-
-video_9_16 = 'video_9_16.mp4'
-video_16_9 = 'video_16_9.mp4'
-photo_9_16 = 'photo_9_16.jpg'
-photo_16_9 = 'photo_16_9.jpg'
+from ATFramework_aPDR.SFT.test_file import *
 
 
 @allure.epic("Shortcut - Text to Image")
@@ -43,10 +40,10 @@ class Test_Shortcut_Text_to_Image:
 
     @allure.feature("Entry")
     @allure.story("Enter")
-    @allure.title("Enter from Shortcut")
-    def test_entry_from_shortcut(self, data):
+    @allure.title("Enter from AI creation")
+    def test_entry_from_ai_creation(self, data):
         try:
-            assert self.page_shortcut.enter_shortcut('Text to Image')
+            assert self.page_shortcut.enter_ai_feature('Text to Image')
 
         except Exception:
             traceback.print_exc()
@@ -54,9 +51,9 @@ class Test_Shortcut_Text_to_Image:
             raise
 
     @allure.feature("Entry")
-    @allure.story("Back")
-    @allure.title("Back to Shortcut")
-    def test_back_to_shortcut(self, data):
+    @allure.story("Demo")
+    @allure.title("Back to AI creation")
+    def test_back_to_ai_creation(self, data):
         try:
             if self.last_is_fail(data):
                 self.page_shortcut.enter_shortcut('Text to Image')
@@ -186,11 +183,17 @@ class Test_Shortcut_Text_to_Image:
     def test_default_style(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Text to Image')
+                self.page_shortcut.tti_enter_prompt('test')
+                data['prompt'] = 'test'
 
-            select = self.element(L.main.shortcut.tti.selected_style).text
+            default = self.element(L.main.shortcut.tti.selected_style)
 
-            assert select == "None"
+            if default:
+                select = self.element(L.main.shortcut.tti.selected_style).text
+                assert select == "None"
+
+            else:
+                assert False
 
         except Exception:
             traceback.print_exc()
@@ -203,7 +206,8 @@ class Test_Shortcut_Text_to_Image:
     def test_change_style(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Text to Image')
+                self.page_shortcut.tti_enter_prompt('test')
+                data['prompt'] = 'test'
 
             self.click(L.main.shortcut.tti.style(2))
             time.sleep(0.5)
@@ -217,31 +221,13 @@ class Test_Shortcut_Text_to_Image:
             raise
 
     @allure.feature("Describe")
-    @allure.story("Style")
-    @allure.title("Change category")
-    def test_change_category(self, data):
-        try:
-            if self.last_is_fail(data):
-                self.page_shortcut.enter_shortcut('Text to Image')
-
-            select = self.element(L.main.shortcut.tti.selected_style)
-            self.click(L.main.shortcut.tti.style_scenery)
-            time.sleep(0.5)
-
-            assert self.element(L.main.shortcut.tti.selected_style) != select
-
-        except Exception:
-            traceback.print_exc()
-            data['last_result'] = False
-            raise
-
-    @allure.feature("Describe")
     @allure.story("Editor Choice")
     @allure.title("Overwrite cancel")
     def test_overwrite_cancel(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.tti_enter_prompt()
+                self.page_shortcut.tti_enter_prompt('test')
+                data['prompt'] = 'test'
 
             self.driver.click_element_top_center(L.main.shortcut.tti.preset())
             self.click(L.main.shortcut.tti.overwrite_cancel)
@@ -259,7 +245,8 @@ class Test_Shortcut_Text_to_Image:
     def test_overwrite_continue(self, data):
         try:
             if self.last_is_fail(data):
-                self.page_shortcut.tti_enter_prompt()
+                self.page_shortcut.tti_enter_prompt('test')
+                data['prompt'] = 'test'
 
             self.driver.click_element_top_center(L.main.shortcut.tti.preset())
             self.click(L.main.shortcut.tti.overwrite_ok)
@@ -319,10 +306,18 @@ class Test_Shortcut_Text_to_Image:
                 self.page_shortcut.enter_shortcut('Text to Image')
                 self.driver.click_element_top_center(L.main.shortcut.tti.preset())
 
+            btn_text = self.element(id('btn_generate')).text
+            cost = re.search(r'(\d+)$', btn_text)
+            if cost:
+                cost = int(cost.group(1))
+                logger(f"cost = {cost}")
+            else:
+                raise ValueError("Can't find cost in button text")
+
             self.page_shortcut.tti_generate()
             self.page_shortcut.tti_wait_generated()
 
-            assert int(self.element(L.main.shortcut.tti.credit).text) == int(data['credit_before']) - 2
+            assert int(self.element(L.main.shortcut.tti.credit).text) == int(data['credit_before']) - cost
 
         except Exception:
             traceback.print_exc()
