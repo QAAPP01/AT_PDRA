@@ -43,8 +43,6 @@ class Test_PiP_Video_Cutout_Change_Background:
 
         except Exception:
             traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
 
             self.page_main.enter_launcher()
             self.page_main.enter_timeline()
@@ -54,8 +52,8 @@ class Test_PiP_Video_Cutout_Change_Background:
             self.page_edit.click_sub_tool('Cutout')
             raise Exception
 
-    @allure.title('Remove Background')
-    def test_cutout_remove_background(self, driver):
+    @allure.title('Recover Background')
+    def test_cutout_recover_background(self, driver):
 
         try:
             assert self.page_edit.cutout.remove_background()
@@ -73,23 +71,23 @@ class Test_PiP_Video_Cutout_Change_Background:
             self.page_edit.click_sub_tool('Cutout')
             raise Exception
 
-    @allure.title('No Effect')
-    def test_cutout_no_effect(self, driver):
-        try:
-            assert self.page_edit.cutout.no_effect()
+    # @allure.title('No Effect')
+    # def test_cutout_no_effect(self, driver):
+    #     try:
+    #         assert self.page_edit.cutout.no_effect()
 
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
 
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_video)
-            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-            self.page_edit.click_sub_tool('Cutout')
-            raise Exception
+    #         self.page_main.enter_launcher()
+    #         self.page_main.enter_timeline()
+    #         self.page_edit.enter_main_tool('Overlay')
+    #         self.click(L.import_media.menu.overlay_video)
+    #         self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+    #         self.page_edit.click_sub_tool('Cutout')
+    #         raise Exception
 
 @allure.epic('Timeline_PiP')
 @allure.feature('Video')

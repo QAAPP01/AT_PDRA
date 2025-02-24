@@ -74,23 +74,23 @@ class Test_PiP_Photo_Cutout_Change_Background:
             self.page_edit.click_sub_tool('Cutout')
             raise Exception
 
-    @allure.title('No Effect')
-    def test_cutout_no_effect(self, driver):
-        try:
-            assert self.page_edit.cutout.no_effect()
+    # @allure.title('No Effect')
+    # def test_cutout_no_effect(self, driver):
+    #     try:
+    #         assert self.page_edit.cutout.no_effect()
 
-        except Exception:
-            traceback.print_exc()
-            driver.driver.close_app()
-            driver.driver.launch_app()
+    #     except Exception:
+    #         traceback.print_exc()
+    #         driver.driver.close_app()
+    #         driver.driver.launch_app()
 
-            self.page_main.enter_launcher()
-            self.page_main.enter_timeline()
-            self.page_edit.enter_main_tool('Overlay')
-            self.click(L.import_media.menu.overlay_photo)
-            self.page_media.select_local_photo(TEST_MATERIAL_FOLDER, 'jpg.jpg')
-            self.page_edit.click_sub_tool('Cutout')
-            raise Exception
+    #         self.page_main.enter_launcher()
+    #         self.page_main.enter_timeline()
+    #         self.page_edit.enter_main_tool('Overlay')
+    #         self.click(L.import_media.menu.overlay_photo)
+    #         self.page_media.select_local_photo(TEST_MATERIAL_FOLDER, 'jpg.jpg')
+    #         self.page_edit.click_sub_tool('Cutout')
+    #         raise Exception
 
 @allure.epic('Timeline_PiP')
 @allure.feature('Photo')

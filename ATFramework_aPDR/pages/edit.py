@@ -4438,13 +4438,20 @@ class Cutout(BasePage):
             self.page_main.start_with_pip_photo()
         else:
             print('clip type is wrong')
-        self.page_edit.click_sub_tool('Cutout')
-        return self.element(L.edit.sub_tool.cutout.no_effect).get_attribute('selected') == 'true'
+        pic_base = self.page_edit.get_preview_pic()
+        self.page_edit.click_sub_tool('Background')
+        self.page_edit.enter_main_tool('Cutout')
+        self.tap_screen_center()
+        pic_after = self.page_edit.get_preview_pic()
+        return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
     def remove_background(self):
         pic_base = self.get_boundary_preview()
-        self.element(L.edit.sub_tool.cutout.remove_background).click()
-        self.page_edit.waiting()
+        # self.element(L.edit.sub_tool.cutout.remove_background).click()
+        # self.page_edit.waiting()
+        self.page_edit.click_sub_tool('Background')
+        self.page_edit.enter_main_tool('Cutout')
+        self.tap_screen_center()
         pic_after = self.get_boundary_preview()
         return not HCompareImg(pic_base, pic_after).ssim_compare(1)
 
@@ -4550,6 +4557,7 @@ class Cutout(BasePage):
 class A_Chroma_Key(BasePage):
 
     def enter_chroma_key(self):
+        self.page_edit.click_sub_tool('Background')
         self.element(L.edit.sub_tool.cutout.chroma_key).click()
         return self.is_exist(L.edit.sub_tool.cutout.color_picker.picker_btn)
 
@@ -4561,7 +4569,7 @@ class A_Chroma_Key(BasePage):
 
     def chroma_key_picker_slider(self):
         pic_base = self.get_preview_pic()
-        self.element(L.edit.sub_tool.cutout.color_picker.picker_slider).send_keys(randint(0, 360))
+        self.element(L.edit.sub_tool.cutout.color_picker.picker_slider).send_keys(200)
         pic_after = self.get_preview_pic()
         return not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -4586,6 +4594,7 @@ class A_Chroma_Key(BasePage):
 
     def chroma_key_cancel(self):
         pic_base = self.get_boundary_preview()
+        self.page_edit.click_sub_tool('Background')
         self.element(L.edit.sub_tool.cutout.chroma_key).click()
         self.click(L.edit.preview.movie_view)
         self.click(L.edit.sub_tool.cutout.color_picker.cancel)
@@ -4594,6 +4603,7 @@ class A_Chroma_Key(BasePage):
 
     def chroma_key_apply(self):
         pic_base = self.get_boundary_preview()
+        self.page_edit.click_sub_tool('Background')
         self.element(L.edit.sub_tool.cutout.chroma_key).click()
         self.click(L.edit.preview.movie_view)
         self.click(L.edit.sub_tool.cutout.color_picker.apply)

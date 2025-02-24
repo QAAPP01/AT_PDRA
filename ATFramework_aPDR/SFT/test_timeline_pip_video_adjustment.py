@@ -1128,7 +1128,7 @@ class Test_PiP_Video_Adjustment:
 
         try:
             pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-            self.element(L.edit.sub_tool.slider).send_keys(74)
+            self.element(L.edit.sub_tool.slider).send_keys(80)
             pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
             assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
 
@@ -1169,124 +1169,124 @@ class Test_PiP_Video_Adjustment:
             self.page_edit.click_sub_tool('Adjust')
             raise Exception
 
-    # @allure.story('Sharpness')
-    # @allure.title('Default Value')
-    # def test_sharpness_default_value(self, driver):
-    #     func_name = inspect.stack()[0][3]
-    #     logger(f"\n[Start] {func_name}")
-    #
-    #     try:
-    #         self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
-    #         assert self.element(L.edit.sub_tool.slider_value).text == '0'
-    #
-    #     except Exception:
-    #         traceback.print_exc()
-    #         driver.driver.close_app()
-    #         driver.driver.launch_app()
-    #
-    #         self.page_main.enter_launcher()
-    #         self.page_main.enter_timeline()
-    #         self.page_edit.enter_main_tool('Overlay')
-    #         self.click(L.import_media.menu.overlay_video)
-    #         self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-    #         self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
-    #         raise Exception
-    #
-    # @allure.story('Sharpness')
-    # @allure.title('Maximum')
-    # def test_sharpness_maximum_value(self, driver):
-    #     func_name = inspect.stack()[0][3]
-    #     logger(f"\n[Start] {func_name}")
-    #
-    #     try:
-    #         self.element(L.edit.sub_tool.slider).send_keys(199)
-    #         self.element(L.edit.sub_tool.slider).send_keys(200)
-    #         assert self.element(L.edit.sub_tool.slider_value).text == '200'
-    #
-    #     except Exception:
-    #         traceback.print_exc()
-    #         driver.driver.close_app()
-    #         driver.driver.launch_app()
-    #
-    #         self.page_main.enter_launcher()
-    #         self.page_main.enter_timeline()
-    #         self.page_edit.enter_main_tool('Overlay')
-    #         self.click(L.import_media.menu.overlay_video)
-    #         self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-    #         self.page_edit.click_sub_tool('Adjust')
-    #         self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
-    #         raise Exception
-    #
-    # @allure.story('Sharpness')
-    # @allure.title('Minimum')
-    # def test_sharpness_minimum_value(self, driver):
-    #     func_name = inspect.stack()[0][3]
-    #     logger(f"\n[Start] {func_name}")
-    #
-    #     try:
-    #         self.element(L.edit.sub_tool.slider).send_keys(1)
-    #         self.element(L.edit.sub_tool.slider).send_keys(0)
-    #         assert self.element(L.edit.sub_tool.slider_value).text == '0'
-    #
-    #     except Exception:
-    #         traceback.print_exc()
-    #         driver.driver.close_app()
-    #         driver.driver.launch_app()
-    #
-    #         self.page_main.enter_launcher()
-    #         self.page_main.enter_timeline()
-    #         self.page_edit.enter_main_tool('Overlay')
-    #         self.click(L.import_media.menu.overlay_video)
-    #         self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-    #         self.page_edit.click_sub_tool('Adjust')
-    #         self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
-    #         raise Exception
-    #
-    # @allure.story('Sharpness')
-    # @allure.title('Preview_Change')
-    # def test_sharpness_preview_change(self, driver):
-    #     func_name = inspect.stack()[0][3]
-    #     logger(f"\n[Start] {func_name}")
-    #
-    #     try:
-    #         pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-    #         self.element(L.edit.sub_tool.slider).send_keys(45)
-    #         pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
-    #         assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
-    #
-    #     except Exception:
-    #         traceback.print_exc()
-    #         driver.driver.close_app()
-    #         driver.driver.launch_app()
-    #
-    #         self.page_main.enter_launcher()
-    #         self.page_main.enter_timeline()
-    #         self.page_edit.enter_main_tool('Overlay')
-    #         self.click(L.import_media.menu.overlay_video)
-    #         self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-    #         self.page_edit.click_sub_tool('Adjust')
-    #         self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
-    #         raise Exception
-    #
-    # @allure.story('Sharpness')
-    # @allure.title('Reset')
-    # def test_sharpness_reset(self, driver):
-    #     func_name = inspect.stack()[0][3]
-    #     logger(f"\n[Start] {func_name}")
-    #
-    #     try:
-    #         self.click(L.edit.timeline.reset)
-    #         assert self.element(L.edit.sub_tool.slider_value).text == '0'
-    #
-    #     except Exception:
-    #         traceback.print_exc()
-    #         driver.driver.close_app()
-    #         driver.driver.launch_app()
-    #
-    #         self.page_main.enter_launcher()
-    #         self.page_main.enter_timeline()
-    #         self.page_edit.enter_main_tool('Overlay')
-    #         self.click(L.import_media.menu.overlay_video)
-    #         self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
-    #         self.page_edit.click_sub_tool('Adjust')
-    #         raise Exception
+    @allure.story('Sharpness')
+    @allure.title('Default Value')
+    def test_sharpness_default_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+    
+        try:
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+    
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+    
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            raise Exception
+    
+    @allure.story('Sharpness')
+    @allure.title('Maximum')
+    def test_sharpness_maximum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+    
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(199)
+            self.element(L.edit.sub_tool.slider).send_keys(200)
+            assert self.element(L.edit.sub_tool.slider_value).text == '200'
+    
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+    
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            raise Exception
+    
+    @allure.story('Sharpness')
+    @allure.title('Minimum')
+    def test_sharpness_minimum_value(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+    
+        try:
+            self.element(L.edit.sub_tool.slider).send_keys(1)
+            self.element(L.edit.sub_tool.slider).send_keys(0)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+    
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+    
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            raise Exception
+    
+    @allure.story('Sharpness')
+    @allure.title('Preview_Change')
+    def test_sharpness_preview_change(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+    
+        try:
+            pic_base = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            self.element(L.edit.sub_tool.slider).send_keys(80)
+            pic_after = self.page_edit.get_preview_pic(L.edit.pip_library.pip_object)
+            assert not HCompareImg(pic_base, pic_after).histogram_compare(1)
+    
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+    
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            self.page_edit.select_adjustment_from_bottom_edit_menu('Sharpness')
+            raise Exception
+    
+    @allure.story('Sharpness')
+    @allure.title('Reset')
+    def test_sharpness_reset(self, driver):
+        func_name = inspect.stack()[0][3]
+        logger(f"\n[Start] {func_name}")
+    
+        try:
+            self.click(L.edit.timeline.reset)
+            assert self.element(L.edit.sub_tool.slider_value).text == '0'
+    
+        except Exception:
+            traceback.print_exc()
+            driver.driver.close_app()
+            driver.driver.launch_app()
+    
+            self.page_main.enter_launcher()
+            self.page_main.enter_timeline()
+            self.page_edit.enter_main_tool('Overlay')
+            self.click(L.import_media.menu.overlay_video)
+            self.page_media.select_local_video(TEST_MATERIAL_FOLDER, 'mkv.mkv')
+            self.page_edit.click_sub_tool('Adjust')
+            raise Exception
